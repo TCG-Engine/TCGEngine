@@ -1,0 +1,29 @@
+{
+  "status": "REVOKED_QUALIFICATION_SOURCE_CONFIRMED_FAB039_COST_ORDER",
+  "card_id": "bandana_of_the_blue_beyond",
+  "scenario_id": "card-bandana-of-the-blue-beyond-four-live-sparse1240-real-discard-destroy-cost-then-bottom-blue-below-existing-deck",
+  "group_id": "identity:bandana_of_the_blue_beyond",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "coverage_credit": false,
+  "runnable": false,
+  "native_final_effect_recording_passed": true,
+  "native_replay_passed": true,
+  "native_cost_order_reproduced": false,
+  "reason": "PrepareCard physically discards before FinishPreparedCard reaches AP debit. Earlier semantic approval missed this known039 ordering. Saved assertions pin final discard/destroy/blue-bottom effects but do not witness AP at actual discard, so passing replay cannot qualify correct cost semantics. No oracle weakened and no engine repair.",
+  "archive_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\q1240",
+  "archive_manifest_sha256": "b8b74dfaa27c2ed33d07a3cdd6644726e98296401088902d5b87cec923d309b4",
+  "revocation_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1240-local-20261122\\cost-order-review-revocation.json",
+  "revocation_sha256": "9b01d2639598798f6cc1f1167bebf531d254f8daa80880e1dafa10c7e4e627a7",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "2c815bc77efa9a5ffa8b65c92001ad0703e4967840adb035be8ff03b53b708bf",
+    "actions.json": "e3daf97233a9cf8d03a775f241833121e787aa686e1c0b5bdeb48131b040ddbe",
+    "assertions.json": "10b3a2781751ece28d8c18996df3549db12c5a2f31a8a3c20440a4b0e288f8e2",
+    "expected_final_gamestate.txt": "51e520420e7f95c2ec48ae37887280f34f1f81eb9cec43773c3114a1b353378a",
+    "meta.json": "54241ada29e14a866643a0677afd539f3e3960e2b3d23a2b90da64d046d3421b"
+  },
+  "source_spec_sha256": "eb3a44dd91e629253030217927f60c4e99ab4a04abf0fb3c5b5f9ea6479aaaeb",
+  "qualified_corpus_removed": true,
+  "related_issue": "FAB-REG-039",
+  "no_new_distinct_native_bug": true,
+  "utc": "2026-11-23T22:20:45.663607+00:00"
+}

@@ -1,0 +1,350 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B694_COGWERX_R2",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T04:09:32.506285+00:00",
+  "source_spec": "card-regression-batch694-cogwerx-r2.json",
+  "input_sha256": "a7d97580990597bf041f403b73278c8f05b0fb41f16d0b2c8668c3dcd07e2439",
+  "manifest_sha256": "a6181d7dba4d5c58742e63ede9b9e06604c74b0cd19bdb3ad1af4d89c0984c67",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch694-cogwerx-r2-independent-source-review.json",
+    "sha256": "b1d9458c6cd67e5add76cb2c3767e033398f2be21a4d5ac00a1ed207d086d07f",
+    "unchanged_semantics_reused": true
+  },
+  "original_failed_lineage": {
+    "original_input": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch694-cogwerx-real-boost-steam-resource-author\\batch694-cogwerx-one-real-boost-steam-resource-and-damage-consumer-group.json",
+      "sha256": "88688990df72137f4488659aae0766b8d409386c0945bdbebd4aa83f785ded60"
+    },
+    "original_full_source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch694-cogwerx-independent-source-review.json",
+      "sha256": "bdebb869a4e0e9b426418cad3bc621af43845cca5b4e0d5414deff6c5b92efc4"
+    },
+    "first_native_oracle_classification": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch694-cogwerx-first-native-zero-counter-oracle-classification.json",
+      "sha256": "58cd0a4c29cb8adf6fb90b2fdd51c155f328ff31604e4da632a8c3c7687135f4"
+    },
+    "historical_original_approval_preserved": true,
+    "original_native_failure_not_relabelled_pass": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch694-cogwerx-r2-20261107T040708Z-6aeea3ecea019.json",
+    "sha256": "e2cc6996c4e5020b1e8770e7948dbef8c779251167707b2e67836b2bdd444277"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch694-cogwerx-r2.recording-results.json",
+    "sha256": "4d3cbb425b1bc45f4dcc803fef6478b4485098b7a30b6edba05a9bb599f3e7d7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b694-cogwerx-r2-native-recording\\receipt.json",
+    "sha256": "b7c2cc15c2077d73c140c85421a275fe959950597cbda30e01b318209afa64c9"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "cogwerx_base_chest",
+      "group_id": "identity:cogwerx_base_chest",
+      "slug": "card-cogwerx-base-chest-four-live-real-boost-paid-steam-resource-gain-and-seven-damage-consumer",
+      "source_spec": "card-regression-batch694-cogwerx-r2.json",
+      "input_sha256": "a7d97580990597bf041f403b73278c8f05b0fb41f16d0b2c8668c3dcd07e2439",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_BOOST_PAID_STEAM_GAIN_TWO_AND_SEVEN_DAMAGE_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-cogwerx-base-chest-four-live-real-boost-paid-steam-resource-gain-and-seven-damage-consumer",
+      "fixture_sha256": "259faa186a843429e4dfe52e45c2e07393b4e01bb9cefb30b0800bdc18660a3e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "ddebd6d4753388a3865ecee5fe6817ed2515ee614554c9cb1e051ba20de93f83",
+        "actions.json": "b5130a0af53a8726eae0157c44559b783f8ffc05cdc85b1d11ebe257d97a1f5c",
+        "assertions.json": "f594288e51f125125b5ac901f98999de3c9d28e942209260c124d99e0766c1b9",
+        "expected_final_gamestate.txt": "99bc0f908dc7d2d7de2df85d0b18ecea829f13a1d67c566a267f218e950a77bd"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ddebd6d4753388a3865ecee5fe6817ed2515ee614554c9cb1e051ba20de93f83",
+        "actions.json": "b5130a0af53a8726eae0157c44559b783f8ffc05cdc85b1d11ebe257d97a1f5c",
+        "assertions.json": "f594288e51f125125b5ac901f98999de3c9d28e942209260c124d99e0766c1b9",
+        "expected_final_gamestate.txt": "99bc0f908dc7d2d7de2df85d0b18ecea829f13a1d67c566a267f218e950a77bd",
+        "meta.json": "57d6a68b15a7e66939d9f74875f182aaa2aaf281c27d88bbacf8932834a6db97"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ddebd6d4753388a3865ecee5fe6817ed2515ee614554c9cb1e051ba20de93f83",
+        "actions.json": "b5130a0af53a8726eae0157c44559b783f8ffc05cdc85b1d11ebe257d97a1f5c",
+        "assertions.json": "f594288e51f125125b5ac901f98999de3c9d28e942209260c124d99e0766c1b9",
+        "expected_final_gamestate.txt": "99bc0f908dc7d2d7de2df85d0b18ecea829f13a1d67c566a267f218e950a77bd",
+        "meta.json": "57d6a68b15a7e66939d9f74875f182aaa2aaf281c27d88bbacf8932834a6db97"
+      },
+      "actions": 57,
+      "native_assertions": 5202,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "schema_property_assertions": 1991,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "cogwerx_base_chest",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "cogwerx_base_chest",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "virtual_ability_uid_ceased": 11,
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "7479d3826896bab23b9c5ec95f5a5b52c487dd1d15fa9af9b65c1b751d7ec482",
+      "native_assertion_mapping_sha256": "9ba4f95c25d9422d832367affe4c86559b12fc12e28d0b0d56a223751c5b6807"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 57,
+  "total_native_assertions": 5202,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 1991,
+  "material_findings": [
+    "Raw five/behavior/all57 controls5202 ordered queries50 manual12,12,12,14/48 preferences at each endpoint/current70c53ab33 exactly match R2 Source. Full initial/final physical card/UID ownership and terminal queries independently parsed.",
+    "Actual Zero6 target4 and real optional Boost/AP payment banishes Mech7, granting GA; actual Driving8DEF3 blocks2 fully/nohit/HP20. Damage responses refund AP1 without a seeded Boost/effect history.",
+    "Actual Chest source5/ABI11 Instant cost1 uses real Blue9pitch3; before cost Steam1/R0/AP1, after cost R2/AP1/once2 and standard absent-zero steam. Same capturedABI11 retains RESOLUTION across four manual responses; only fourth gains2 toR4/ABI gone/source5ready.",
+    "Actual Raging10cost3 spends earned resources toR1/AP0, real seven damage/HP13. FullClose6,10GY1/8GY4/7publicBanish1/no permission/9Pitch1/sameChest5ready once2, fullphysicalUID1..10/counter11/RNG0/quiet. R1 remains failed and unsaved; no source repair or original-prefix passing credit."
+  ],
+  "limits": [
+    "One real positive Boost/paid steam/resource-gain/actual damage consumer branch. No missingBoost/Steam/already-used rejection, equip-WHEN capture, re-equip, equipment-defense, Hero activation/startingItem, DriverArena WHEN, other pitches/Boost count/siblings/fullcard coverage.",
+    "Starting Steam1 is legal persistent setup from a prior resolved starting-equipment trigger, not native producer evidence. DrivingBlade is a legal Warrior Hand defender, so its played pump/GA is unearned; actual consumer Raging is blank.",
+    "Exact pending Instant RESOLUTION label is captured native protocol, not a generic PRIORITY assumption. No current private history or effect seed; full endpoints/material source/payment/priority assertions remain strict.",
+    "Source approval grants no fixture/coverage. Root native/exactSaved/two focused replays/registration remain separate. No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/denied retry.",
+    "Original R1 remains failed/unsaved. Its gain2/consumer/damage/Close suffix was unrun; no passing or coverage credit is transferred. This Source approval authorizes only the separately gated correct R2, not a repair or altered gameplay expectation.",
+    "Starting equipped-WHEN/Steam1 provenance is lawful but unexecuted; no Hero/startingItem/DriverArena WHEN/equipment-defense/fullcard/support/sibling coverage.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote or denied retry. Root only focused replays/registration/promotion are separate; raw Versions hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch694_r2_saved_readonly.py",
+    "sha256": "448b1f848b8f7d9166caef00680bea4d24823998da8694370dc1d90194b404f1"
+  }
+}

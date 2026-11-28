@@ -1,0 +1,253 @@
+{
+  "status": "FOUR_CONFIRMED_FAILED_BEHAVIORS_NOT_PASSING_COVERAGE",
+  "utc": "2026-11-03T03:24:12.482788+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "cases": [
+    {
+      "id": "FAB-REG-066",
+      "card_id": "invigorating_light_red",
+      "classification": "missing earned on-play trigger response window",
+      "related_existing_family": "FAB-REG-043",
+      "expected": "After actual paid play, source5 plus trigger should remain on Stack; only trigger resolution should grant the end-of-chain Soul movement.",
+      "observed": "3 accepted inputs: only physical source5 on Stack, already tagged MON_CLOSE_SOUL; Soul empty.",
+      "diagnostic_receipt_sha256": "5fa0147767de3afaf75df5c326cf62049acdcfb087fc1492f615bf4ea86b0da6",
+      "diagnostic_receipt_workspace": "nov3-invigorating278-failed-prefix/receipt.json",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "native_inputs": 3,
+      "Stack": [
+        {
+          "CardID": "invigorating_light_red",
+          "Owner": "1",
+          "Controller": "1",
+          "Kind": "ATTACK",
+          "SourceZone": "Hand",
+          "SourceUniqueID": "5",
+          "Params": "eyJhdHRhY2tUYXJnZXQiOnsidHlwZSI6IkhFUk8iLCJwbGF5ZXIiOjQsInVpZCI6NCwiem9uZSI6Ikhlcm8ifX0=",
+          "UniqueID": "5",
+          "TurnEffects": "MON_CLOSE_SOUL",
+          "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0="
+        }
+      ],
+      "state_core": {
+        "window": "PRIORITY",
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      },
+      "P1": {
+        "Health": "20",
+        "Resources": "0",
+        "ActionPoints": "0",
+        "Hand": [],
+        "Deck": [],
+        "Temp": [],
+        "Graveyard": [],
+        "Banish": [],
+        "Pitch": [
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1"
+          }
+        ],
+        "Soul": [],
+        "Arsenal": [],
+        "Arena": [],
+        "DecisionQueue": []
+      },
+      "P4Health": "20",
+      "passing_fixture_saved": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "FaBSim/Custom/MONCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ]
+    },
+    {
+      "id": "FAB-REG-067",
+      "card_id": "smashing_good_time_red",
+      "classification": "Arsenal origin lost at resolution",
+      "related_existing_family": null,
+      "expected": "Smashing played from real Arsenal grants next attack +3: physical Wounding Blow4 becomes7.",
+      "observed": "11 accepted inputs: Smashing5 ownGY and actual attack6 power4 instead7.",
+      "diagnostic_receipt_sha256": "436b8fe3224ed48f2de543f9355fa1a6e0d807f590900efa0dd342e49bde7107",
+      "diagnostic_receipt_workspace": "nov3-smashing278-failed-prefix/receipt.json",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "native_inputs": 11,
+      "Stack": [],
+      "state_core": {
+        "window": "ATTACK",
+        "combatStep": "ATTACK",
+        "chainLink": 1,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      },
+      "P1": {
+        "Health": "20",
+        "Resources": "0",
+        "ActionPoints": "0",
+        "Hand": [],
+        "Deck": [],
+        "Temp": [],
+        "Graveyard": [
+          {
+            "CardID": "smashing_good_time_red",
+            "UniqueID": "5",
+            "Owner": "1",
+            "Controller": "1",
+            "FaceDown": "0"
+          }
+        ],
+        "Banish": [],
+        "Pitch": [],
+        "Soul": [],
+        "Arsenal": [],
+        "Arena": [],
+        "DecisionQueue": []
+      },
+      "P4Health": "20",
+      "passing_fixture_saved": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "DevTools/FaB/evr_abilities.json",
+        "DevTools/FaB/build_evr_abilities.py",
+        "FaBSim/Custom/CodeGeneration.php"
+      ]
+    },
+    {
+      "id": "FAB-REG-068",
+      "card_id": "smashing_good_time_red",
+      "classification": "missing earned delayed hit trigger response window",
+      "related_existing_family": "FAB-REG-043",
+      "expected": "Actual AA hero hit must queue the next-hit delayed trigger even with no Items; optional Item choice occurs on trigger resolution.",
+      "observed": "Diagnostic exact 11 accepted inputs plus13 originally approved passes: actual4damage/P4HP16, physical AA6 retained, Stack empty rather than earned trigger.",
+      "diagnostic_receipt_sha256": "ffc7764a1cfb9710ea01aabe5447ba7d990888585b3683e8ce38c710eede1e9f",
+      "diagnostic_receipt_workspace": "nov3-smashing278-hit-diagnostic/receipt.json",
+      "source_spec": "card-regression-batch278-trigger-probes.json",
+      "source_spec_sha256": "eea92c1fa5fd0e30b8f868c6dd1f54353f2992acaafde3c2072b59536e9dcc47",
+      "native_inputs": 24,
+      "Stack": [],
+      "state_core": null,
+      "P1": null,
+      "P4Health": "16",
+      "passing_fixture_saved": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "FaBSim/Custom/EVRCards.php",
+        "FaBSim/Custom/ROSCards.php"
+      ]
+    },
+    {
+      "id": "FAB-REG-069",
+      "card_id": "sift_red",
+      "classification": "async plain-spell lifetime and premature go again",
+      "related_existing_family": "FAB-REG-021",
+      "expected": "Physical Sift5 remains Stack and AP0 while bottom/draw chooser and await continuation remain pending; completion moves to GY and grants AP1.",
+      "observed": "5 accepted inputs: source5 already ownGY/Stack empty/AP1 while MZMULTICHOOSE and CUSTOM continuation pending; Hand6/7/8 Deck9/10/11 unchanged.",
+      "diagnostic_receipt_sha256": "2623ca1da776a1c003138440a8cf2bdc22538033598b9f9b09a3c2f51ea42228",
+      "diagnostic_receipt_workspace": "nov3-sift279-failed-prefix/receipt.json",
+      "source_spec": "card-regression-batch279.json",
+      "source_spec_sha256": "a64ee42f2fa13e3ea16365fd3874102144c1d6cd6e30855a43bc284362648c5e",
+      "native_inputs": 5,
+      "Stack": [],
+      "state_core": {
+        "window": "ACTION",
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "pendingPayment": null,
+        "resolvingReaction": null
+      },
+      "P1": {
+        "Health": "20",
+        "Resources": "0",
+        "ActionPoints": "1",
+        "Hand": [
+          {
+            "CardID": "wounding_blow_red",
+            "UniqueID": "6",
+            "Owner": "1",
+            "Controller": "1"
+          },
+          {
+            "CardID": "scar_for_a_scar_red",
+            "UniqueID": "7",
+            "Owner": "1",
+            "Controller": "1"
+          },
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "8",
+            "Owner": "1",
+            "Controller": "1"
+          }
+        ],
+        "Deck": [
+          {
+            "CardID": "raging_onslaught_red",
+            "UniqueID": "9",
+            "Owner": "1",
+            "Controller": "1"
+          },
+          {
+            "CardID": "wounding_blow_yellow",
+            "UniqueID": "10",
+            "Owner": "1",
+            "Controller": "1"
+          },
+          {
+            "CardID": "wounding_blow_blue",
+            "UniqueID": "11",
+            "Owner": "1",
+            "Controller": "1"
+          }
+        ],
+        "Temp": [],
+        "Graveyard": [
+          {
+            "CardID": "sift_red",
+            "UniqueID": "5",
+            "Owner": "1",
+            "Controller": "1",
+            "FaceDown": "0"
+          }
+        ],
+        "Banish": [],
+        "Pitch": [],
+        "Soul": [],
+        "Arsenal": [],
+        "Arena": [],
+        "DecisionQueue": [
+          {
+            "Type": "MZMULTICHOOSE",
+            "Param": "0|3|p1Hand-0&p1Hand-1&p1Hand-2",
+            "Block": "1",
+            "Tooltip": "Bottom_cards_then_draw",
+            "DontSkipOnPass": "0"
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "sift_red:0:ResolveCard-await|sift_red:0:ResolveCard#1|1|chosen",
+            "Block": "1",
+            "Tooltip": "",
+            "DontSkipOnPass": "0"
+          }
+        ]
+      },
+      "P4Health": "20",
+      "passing_fixture_saved": false,
+      "coverage_credit": false,
+      "source_paths": [
+        "FaBSim/Custom/GameLogic.php"
+      ]
+    }
+  ],
+  "limits": [
+    "Source contract tests are not native fault controls.",
+    "Smashing hit probe is a separate diagnostic continuation; the strict seven-damage expectation was not weakened or saved.",
+    "No sibling/branch coverage or fixed status from these failures."
+  ]
+}

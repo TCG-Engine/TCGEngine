@@ -1,0 +1,7 @@
+{
+    "name": "Reckless Charge / actual accepted die and independently derived AP/draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:50:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Kayo Specialization**\n\nRoll a 6 sided die. Gain action points equal to half the number rolled, rounded down.\n\nIf you've rolled a 6 on a die this turn, draw a card. Namedacceptedface3only. ActualAction0spendsAP1to0 beforefourmanualresponses. Withnoearlierrolls, onevalidaccepted3 independentlyrequiresfloor(3/2)=1AP and noDrawbecausefreshhistorycontainsno6; sameactualDeck6retained. Exactdiagnosticsetupandallnativeprefixstepspreserved. Physicalprimary5ownedGY1/allHP20/R0/Random1/Unique6. No otherface/reroll/distribution/previoussixhistory/APconsumer/hero/support/pitchsiblings/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reckless_charge_blue"
+}

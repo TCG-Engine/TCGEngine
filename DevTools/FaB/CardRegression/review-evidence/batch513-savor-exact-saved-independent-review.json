@@ -1,0 +1,336 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B513_DAGGER_POWER_AND_LIVE_ALLY_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:55:33.919166+00:00",
+  "source_spec": "card-regression-batch513.json",
+  "input_sha256": "1a82fd61b864562920cdf584b6472a7101ab8d5094311efce861a179ebab8ab9",
+  "manifest_sha256": "20f69ae2454cf675620cff339a2570bce36214ec4737ec4cbcd619eb4b6c291c",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch513-independent-source-review.json",
+    "sha256": "f91c694a3d41c09f228438c955bf3e051d2be89b45e171e506c656b588c7cbcc",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch513-20261105T195215Z-6aecde6ff15af.json",
+    "sha256": "8148115c52ca6bf93afe362f61cbe092b8d4a96776013fca40fd91a10f813185"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch513.recording-results.json",
+    "sha256": "b5cfd120477d9f466e38ff6b68f77e1c5a0179ae58ba0a459e94059c3c330399"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch513-native-r1-9e984\\receipt.json",
+    "sha256": "51b4641d68b1c4541e49fe184ebfdeb28561c6568ae7c586dfeb06a5238b94ba"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "savor_bloodshed_red",
+      "group_id": "identity:savor_bloodshed_red",
+      "slug": "card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "source_spec": "card-regression-batch513.json",
+      "input_sha256": "1a82fd61b864562920cdf584b6472a7101ab8d5094311efce861a179ebab8ab9",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_DAGGER_PLUS_FOUR_AND_SURVIVING_ALLY_DAMAGE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "fixture_sha256": "62f58a6a0bf887aea9f08b2aa8b10d188a5ea0a2543989e6252a0cb036902a42",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "97d42322d58c2621b34cd383241f7a85f57521672bed7941723c217001b9d74e",
+        "actions.json": "298446cd374d72c132becab07d0f820fd373bd14800f95920516d281e73e5adf",
+        "assertions.json": "5d8ba2d625ded20f6142da7e39fd66a1137ee59d87cbcf12f8e9d91bd6d5ee95",
+        "expected_final_gamestate.txt": "8406bfe4e942e972a0ebd955dbe4cb8c1b3606785156ddf9e13cc9db38ab5f8d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97d42322d58c2621b34cd383241f7a85f57521672bed7941723c217001b9d74e",
+        "actions.json": "298446cd374d72c132becab07d0f820fd373bd14800f95920516d281e73e5adf",
+        "assertions.json": "5d8ba2d625ded20f6142da7e39fd66a1137ee59d87cbcf12f8e9d91bd6d5ee95",
+        "expected_final_gamestate.txt": "8406bfe4e942e972a0ebd955dbe4cb8c1b3606785156ddf9e13cc9db38ab5f8d",
+        "meta.json": "2d6384f8d6578e21089bedb01170c963343c0c955262216ebee0b54904cc8523"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "97d42322d58c2621b34cd383241f7a85f57521672bed7941723c217001b9d74e",
+        "actions.json": "298446cd374d72c132becab07d0f820fd373bd14800f95920516d281e73e5adf",
+        "assertions.json": "5d8ba2d625ded20f6142da7e39fd66a1137ee59d87cbcf12f8e9d91bd6d5ee95",
+        "expected_final_gamestate.txt": "8406bfe4e942e972a0ebd955dbe4cb8c1b3606785156ddf9e13cc9db38ab5f8d",
+        "meta.json": "2d6384f8d6578e21089bedb01170c963343c0c955262216ebee0b54904cc8523"
+      },
+      "actions": 33,
+      "native_assertions": 3182,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1233,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "savor_bloodshed_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "vynnset",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "nasreth_the_soul_harrower",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "arakni",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "savor_bloodshed_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "vynnset",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "nasreth_the_soul_harrower",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "actual_Ally_Damage": 5,
+      "Ally_remaining_life_arithmetic": 1,
+      "Ally_printed_life": 6,
+      "Ally_survives": true,
+      "weapon_once_counters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "checkpoint_assertion_mapping_sha256": "d46a86e5f8a412eff5aa611d074113288908ec6f80c07aec7e2fd9458903a94c",
+      "native_action_mapping_sha256": "a4ecf6fad7cf1c11d7e708a7a4c89d9a26ee72980b2a87d3247c2cca94ae8ecd",
+      "native_assertion_mapping_sha256": "aa5fe758a474555742244d416d103f8e6ffe3a3a517d7576084dca57fb823eb8"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 3182,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 1233,
+  "material_findings": [
+    "All five saved files,33 native envelopes,3182 ordered persisted assertions,1233 schema properties and29manual inputs exactly match approved input1a82/sourcef91c at current9/all69guards. Raw48 manual preferences at each endpoint and every original physical UID/owner/zone independently checked, not snapshot-only approval.",
+    "Real Savor5 Action0 spendsAP1; fresh sourcefour then ownGA returnsAP1. Actual Spider6 click/targetchooser p4Arena0 declares Ally8 before printedcost2; proxy10 captures SourceWeapons6, actualBlue7 pays3 leavingR1/AP0 and physical6used. Fresh sourcefour moves same10 to attacking Chain, actual current power1+4=5/intrinsicGA.",
+    "Actual Ally8Damage5 occurs at DAMAGE boundary and same6-life Ally survives ready/OwnerController4. Remaininglife1 is arithmetic from reviewed printedlife6 minus actualrawDamage5, not a separate unrecorded getter. Every Hero remains20; quiet physicalDeck9 whole raw unchanged and allHands empty rule out an incorrectly earned marked-Hero draw. Neither Spider Hero-hit rider/Piercing nor Nasreth ownattack/Soul/heal/death effect earned.",
+    "Only beginningResolution refunds oneAP from Spider intrinsicGA; primary ownGA is an earlier separate resolution. Fullclose removes virtualproxy10, conserves original1..9: Savor5publicGY1/Spider6usedWeapons1/Blue7Pitch1/Nasreth8Arena4Damage5/Deck9untouched; actualweapon once counters TURN2/ATTACKS1. FinalR1AP1/noChi/noRNG/allphysicalchains/Stack/DQs/await/payment/combatquiet. Unspent HNT_SAVOR grant remains, consumed HNT_NEXT grant does not. Opaque undoVersions are hash-bound but excluded from current physical inventory."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3659/",
+      "finding": "Current cost0 Action, next dagger +4 and marked-Hero draw condition/ownGA."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2300/",
+      "finding": "Current official search result plus independently viewed DTD193: life6 ShadowTokenAlly; its Hero-hit ability is unearned while attacked."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.2.8d",
+        "8.2.8e",
+        "8.3.5a",
+        "8.3.5b",
+        "8.3.23"
+      ],
+      "finding": "Ally defense restrictions and no controller damage; separate nonattack/attack GA timing; Piercing requires Equipment defense."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HNT198.webp",
+      "finding": "Publisher primary face independently viewed locally."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DYN115.webp",
+      "finding": "Publisher weapon face independently viewed locally."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD193.webp",
+      "finding": "Publisher Ally face independently viewed locally."
+    }
+  ],
+  "limits": [
+    "ONEactualnextDAGGER+4/real5Allydamage/6to1remaininglife/primaryownGA; printedmarkedHeroDRAWunearnedonAlly, no draw/weaponHit/Piercing/Allycreation-Soul-heal/hero/supportprimary/fullcardcredit.",
+    "PriorNasreth ownership/control/provenance legal; NOcurrent sixplay/Runes/history/permission or markseed, no physicalAllykill/EndPhase/resetclaim.",
+    "ActualweaponCountersnotemptymapasserted; typedrawSaved review required. Onlyvirtualproxy10allocatedandceased, originalUID1..9preserved.",
+    "No authorPHP/native/R/source/gen/service/fullsuite/git/remote/deniedretry; OTHERpeer andRootnative/Saved/replays pending.",
+    "No marked-Hero draw/mark creation, weapon Hero-hit/Piercing, Nasreth attack/Soul/heal/creation/death/endphase reset, buff persistence/expiry/second consumer/foreign controller/suppression, support-primary/sibling/full-card/native-control credit.",
+    "Root native and exact Saved artifacts plus two focused replays remain separate gates. No reviewer PHP/native/replay/R/source/service/gen/fullsuite/git/remote/denied retry.",
+    "No marked-Hero draw success, mark creation, weapon HeroHit/Piercing, Nasreth creation/primary/attack/Soul/heal/death/EndPhase reset, secondary buff consumer/expiry/otherownership/suppression/support-primary/sibling/full-card/native-control credit.",
+    "Actual completed assertion ledger and independently parsed endpoints only; no per-input raw snapshot/callback instrumentation or branch-wide engine certification. Root replay/registration gates are separate and not claimed."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch513_saved_readonly.py",
+    "sha256": "a40a6a1cc15986b96ce554c9b68830d0fa0fa4ec3677c6064777e038f003df75"
+  }
+}

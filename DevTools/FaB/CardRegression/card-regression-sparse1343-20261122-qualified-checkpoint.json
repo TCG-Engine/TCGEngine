@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T08:49:31.006037+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1343-20261122.json",
+  "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 145,
+  "native_assertions": 2065,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 5309,
+    "duels": 3103,
+    "four_live": 2206,
+    "recorded_primary_ids": 2457,
+    "identity_denominator": 5196,
+    "recorded_groups": 2331,
+    "group_denominator": 3324,
+    "four_live_groups": 2195,
+    "phase_qualified_scenarios_at_actual_contexts": 1946,
+    "phase_qualified_unique_groups": 1936,
+    "creation_replay_passes": 2688,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1107,
+  "scenarios": [
+    {
+      "card_id": "disarm_yellow",
+      "group_id": "identity:disarm_yellow",
+      "scenario_id": "card-disarm-yellow-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "effect_branches": [
+        "no_prior_cheer_no_toughness_native_base_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disarm-yellow-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "review_evidence": "review-evidence/sparse1343-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8bfeac8cb6df5368b561e2b12497fa8b4273a298e8511d7faad70c40cbe89c83",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1343-20261122-replay.json",
+          "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "disembody_red",
+      "group_id": "identity:disembody_red",
+      "scenario_id": "card-disembody-red-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "effect_branches": [
+        "no_prior_cheer_no_toughness_native_base_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disembody-red-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "review_evidence": "review-evidence/sparse1343-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8bfeac8cb6df5368b561e2b12497fa8b4273a298e8511d7faad70c40cbe89c83",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1343-20261122-replay.json",
+          "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "disperse_blue",
+      "group_id": "identity:disperse_blue",
+      "scenario_id": "card-disperse-blue-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "effect_branches": [
+        "no_prior_cheer_no_toughness_native_base_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disperse-blue-four-live-sparse1343-no-prior-cheer-no-toughness-native-base-attack",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "review_evidence": "review-evidence/sparse1343-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8bfeac8cb6df5368b561e2b12497fa8b4273a298e8511d7faad70c40cbe89c83",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1343-20261122-replay.json",
+          "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fight_from_behind_red",
+      "group_id": "pitch-cycle:fight_from_behind",
+      "scenario_id": "card-fight-from-behind-red-four-live-sparse1343-equal-natural-health-not-less-than-each-other-hero-no-cheer",
+      "effect_branches": [
+        "equal_natural_health_not_less_than_each_other_hero_no_cheer"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fight-from-behind-red-four-live-sparse1343-equal-natural-health-not-less-than-each-other-hero-no-cheer",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "review_evidence": "review-evidence/sparse1343-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8bfeac8cb6df5368b561e2b12497fa8b4273a298e8511d7faad70c40cbe89c83",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1343-20261122-replay.json",
+          "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "full_of_bravado_red",
+      "group_id": "pitch-cycle:full_of_bravado",
+      "scenario_id": "card-full-of-bravado-red-four-live-sparse1343-no-aura-of-suspense-no-confidence-native-base-attack",
+      "effect_branches": [
+        "no_aura_of_suspense_no_confidence_native_base_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-full-of-bravado-red-four-live-sparse1343-no-aura-of-suspense-no-confidence-native-base-attack",
+      "source_spec": "card-regression-sparse1343-20261122.json",
+      "source_spec_sha256": "ceec48e28096dd529a694437323d3a60e4fa8c265db019a1ac6577fba4319452",
+      "review_evidence": "review-evidence/sparse1343-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8bfeac8cb6df5368b561e2b12497fa8b4273a298e8511d7faad70c40cbe89c83",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1343-20261122-replay.json",
+          "sha256": "5926d2086b14f89615f6927de4e36b4c88db8e987efc9481a9f64134219c8a9d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

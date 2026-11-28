@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch560.json",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T03:35:50.768651+00:00",
+  "fixtures": [
+    {
+      "slug": "card-apex-buster-yellow-four-live-real-paid-normal-six-power-attack-baseline",
+      "fixture_sha256": "b5b85db9a27ea76b0202d9dbfdf473f2d9c614b0b4cb6c2a452f3670df7b04f0",
+      "passed": true,
+      "result": "[PASS] apex_buster_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-apex-buster-yellow-four-live-real-paid-normal-six-power-attack-baseline",
+      "returncode": 0,
+      "stdout": "[PASS] apex_buster_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

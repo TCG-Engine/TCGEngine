@@ -22,7 +22,82 @@ function FaBROSReturn(string $refs,string $zone='Hand'): void {foreach(FaBUPRUID
 function FaBROSShuffle(int $p,string $refs): void {$seats=[];foreach(FaBUPRUIDs($refs) as $uid){$f=FaBFindUID($uid);if(!$f)continue;$v=intval($f['object']->Owner??$f['player'])?:$f['player'];FaBMoveUID($uid,'Deck',$v);$seats[$v]=true;}foreach(array_keys($seats) as $v)FaBShuffleDeck($v);}
 function FaBROSMark(int $uid,string $key): void {FaBARCSetCard($uid,'ros'.$key,true);}
 function FaBROSQueue(int $p,string $id,int $uid=0,array $extra=[]): void {if(!FaBSeatIsLive($p))return;AddStack(CardID:$id,Controller:$p,Kind:'ABILITY',SourceUniqueID:$uid,Params:['rosTrigger'=>true]+$extra);$s=FaBGetState();if($s['pendingPayment']===null)$s['window']='PRIORITY';FaBSetState($s);}
+/** Burn's Aura owns the ability, but its captured attacking Dragon deals damage. */
+function FaBROSAbilityMacroSourceUID(object $layer): int {
+ if(($layer->Kind??'')==='ABILITY'&&!empty($layer->Params['rosTrigger'])
+  &&(string)$layer->CardID==='burn_them_all_red'
+  &&in_array((string)($layer->Params['rosEvent']??''),['','ability'],true)
+  &&intval($layer->Params['rosDamageSourceUID']??0)>0)return intval($layer->Params['rosDamageSourceUID']);
+ return intval($layer->SourceUniqueID??0);
+}
 function FaBROSResolveTrigger(int $p,object $o): void {
+ if(($o->Params['rosEvent']??'')==='iarHellboundHit'&&FaBIARHellboundCard((string)$o->CardID)){FaBIARResolveHellboundHit($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='omnLeaveToken'){FaBOMNResolveLeaveToken($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='iarMaliceZombieDied'){FaBIARResolveMaliceDeath($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='mstBastionDefend'){FaBMSTResolveBastionDefense($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='outScalePeelerHit'){FaBOUTResolveScalePeelerHit($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='hvyAssaultAttack'){FaBHVYResolveAssaultAttack($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='eleEmboldenEntryDraw'){FaBELEResolveEmboldenEntry($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='monPulpingAttack'){FaBMONResolvePulpingAttack($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='wtrDisableCrush'){FaBWTRResolveDisableCrush($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='monPoundForPoundPlay'){FaBMONResolvePoundPlay($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='monRiftBindBanishPlay'){FaBMONResolveRiftBindPlay($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='cruFeatherfootPowerGain'){FaBCRUResolveFeatherfoot($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='iarWindHeroHit'){FaBIARResolveWindHit($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='cruDataDollItem'){FaBCRUResolveDataDollItem($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='evrShimmersAttackCounter'){FaBEVRResolveShimmersAttackCounter($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='seaOystenDeathGold'){FaBSEAResolveOystenDeathGold($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='evrEarthloreActionDraw'){FaBEVRResolveEarthloreActionDraw($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='iarChorusHitDraw'){FaBIARResolveChorusHitDraw($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='seaEscalateActionDraw'){FaBSEAResolveEscalateActionDraw($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='dtdRadiantEmptySoul'){FaBDTDResolveRadiantEmptySoul($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='mstSingleEntry'){FaBMSTResolveSingleEntry($p,$o);return;}
+ // The first-damage trigger earns its draw independently of later source departure.
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='rosValleyFirstOpponentDamage'){
+  if(FaBSeatIsLive($p)&&($o->Kind??'')==='ABILITY'&&intval($o->Controller??0)===$p
+   &&(string)($o->CardID??'')==='channel_lightning_valley_yellow'&&intval($o->SourceUniqueID??0)>0){
+   $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+   try{DoDrawCard($p,1);}finally{$GLOBALS['fabEffectController']=$previous;}
+  }
+  return;
+ }
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='rosHarvestBeginningAction'){FaBROSResolveHarvestBeginningAction($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='dynTomeBeginningAction'){FaBROSResolveBeginningActionScalar($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='dynReincarnateRandom'){FaBDYNResolveReincarnateRandom($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='dynKimonoDestroyed'){FaBDYNResolveKimonoDestroyed($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='rosFlutterDestroyed'){FaBROSResolveFlutterDestroyed($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='seaDiscardedToken'){FaBSEAResolveDiscardedToken($p,$o);return;}
+ if(is_array($o->Params??null)&&($o->Params['rosEvent']??'')==='evoPhantomDestroyed'){FaBEVOResolvePhantomDestroyed($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='omnEbbingFragmented'){
+  $uid=intval($o->SourceUniqueID??0);$source=FaBFindUID($uid);$s=FaBGetState();
+  $link=intval($o->Params['omnEbbingLink']??0);$turn=intval($o->Params['omnEbbingTurn']??0);$play=intval($o->Params['omnEbbingPlayOrder']??0);
+  if(!in_array($o->CardID,['ebbing_arcstride_red','ebbing_arcstride_yellow','ebbing_arcstride_blue'],true)
+     ||intval($o->Controller??0)!==$p||!FaBSeatIsLive($p)||$uid<1||$link<1||$play<1||$turn!==intval(GetTurnNumber())
+     ||!$source||$source['zone']!=='CombatChain'||($source['object']->Role??'')!=='ATTACK'
+     ||$source['object']->CardID!==$o->CardID||intval($source['object']->ChainLink??0)!==$link
+     ||intval($s['attackUID']??0)!==$uid||intval($s['chainLink']??0)!==$link
+     ||intval(FaBObjectCounters($source['object'])['FAB_PLAY_ORDER']??0)!==$play)return;
+  // The earned child is independent of later blanking or control changes.
+  FaBWTRTag($source['object'],'GO_AGAIN');return;
+ }
+ if(($o->Params['rosEvent']??'')==='hntSmokeDefendedMark'&&$o->CardID==='smoke_out_red'){FaBHNTResolveSmokeDefended($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='hntKissHeroHit'&&$o->CardID==='kiss_of_death_red'){FaBHNTResolveKissHeroHit($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleEmergingEntry'){FaBELEResolveEmergingEntry($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleEmergingBeginningAction'){FaBROSResolveBeginningActionScalar($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleSnapAttack'){FaBELEResolveSnapShotAttack($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleBrackenAttack'){FaBELEResolveBrackenAttack($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='eleNextAAHitDamage'){FaBELEResolveNextAAHitDamage($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='dynBIOSItem'&&$o->CardID==='bios_update_red'){FaBDYNResolveBIOSItem($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='rosMillenniumEntryAmp'&&$o->CardID==='channel_the_millennium_tree_red'){FaBMSTAdd($p,'AMP',3);return;}
+ if(($o->Params['rosEvent']??'')==='seaSurfaceEntrySeismics'&&$o->CardID==='surface_shaking_blue'){FaBHVYToken($p,'seismic_surge',3,$p,true);return;}
+ if(($o->Params['rosEvent']??'')==='dtdFigmentEruditionEntryPonder'&&$o->CardID==='figment_of_erudition_yellow'){FaBHVYToken($p,'ponder',1,$p,false);return;}
+ if(($o->Params['rosEvent']??'')==='supPleiadesCheered'&&in_array($o->CardID,['pleiades','pleiades_superstar'],true)){FaBSEAHeroCreate('FaBHVYToken',$p,'confidence',1,$p,false);return;}
+ if(($o->Params['rosEvent']??'')==='mstGrantedAttackDraw'){DoDrawCard($p,1);return;}
+ if(($o->Params['rosEvent']??'')==='dtdMirage'){FaBDTDResolveMirage($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='monHatchetAttack'){FaBMONResolveHatchetAttack($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='monIlluminateHit'&&in_array($o->CardID,['illuminate_red','illuminate_yellow','illuminate_blue'],true)){FaBMONResolveIlluminateHit($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='monInvigoratingLightPlay'){FaBMONResolveInvigoratingPlay($p,$o);return;}
+ if(($o->Params['rosEvent']??'')==='evrSmashingNextAAHit'&&in_array($o->CardID,['smashing_good_time_red','smashing_good_time_yellow','smashing_good_time_blue'],true)){FaBEVRResolveSmashingHit($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='rosPreventionToken'){FaBROSResolvePreventedToken($p,$o);return;}
  if($o->CardID==='cintari_saber'&&($o->Params['rosEvent']??'')==='cruCintariDefended'){FaBCRUResolveCintariDefended($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='eleBriarFirstAADamage'&&in_array($o->CardID,['briar','briar_warden_of_thorns'],true)){FaBWTRCreateArena($p,'embodiment_of_earth');return;}
@@ -32,26 +107,64 @@ function FaBROSResolveTrigger(int $p,object $o): void {
  if($o->CardID==='embodiment_of_lightning'&&($o->Params['rosEvent']??'')==='eleEmbodimentLightning'){FaBELEResolveEmbodiment($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='wtrAttackIntimidate'&&in_array(FaBWTRBase($o->CardID),['smash_instinct','pack_hunt','alpha_rampage'],true)){FaBWTRResolveAttackIntimidate($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='seaRegainComposure'){FaBSEAResolveRegainComposure($p);return;}
+ if(($o->Params['rosEvent']??'')==='arcOverLoopHit'&&in_array($o->CardID,['over_loop_red','over_loop_yellow','over_loop_blue'],true)){FaBARCResolveOverLoopHit($p,$o);return;}
  if(($o->Params['rosEvent']??'')==='arcHeadShot'&&FaBWTRBase($o->CardID)==='head_shot'){FaBARCResolveHeadShot($p,$o);return;}
  if($o->CardID==='talisman_of_warfare_yellow'&&($o->Params['rosEvent']??'')==='evrWarfare'){FaBEVRResolveWarfare($p,$o);return;}
- $source=FaBFindUID(intval($o->SourceUniqueID));FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$source['mzID']??'','rosEvent'=>$o->Params['rosEvent']??'','iarAttack'=>intval($o->Params['iarAttack']??0),'omnVictim'=>intval($o->Params['omnVictim']??0),'rosTarget'=>intval($o->Params['rosTarget']??0),'rosSource'=>intval($o->SourceUniqueID)]);
+ $source=FaBFindUID(FaBROSAbilityMacroSourceUID($o));FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>$source['mzID']??'','rosEvent'=>$o->Params['rosEvent']??'','iarAttack'=>intval($o->Params['iarAttack']??0),'omnVictim'=>intval($o->Params['omnVictim']??0),'rosTarget'=>intval($o->Params['rosTarget']??0),'rosSource'=>intval($o->SourceUniqueID)]);
 }
 function FaBROSLife(int $p,int $n): void {FaBROSAdd($p,'LIFE',$n);if(intval(GetTurnPlayer())===$p&&FaBROSActive($p,'verdance')){foreach(FaBChoiceRefs($p,'Hero') as $r){$o=FaBIdentityFromMZ($r)['object'];FaBROSQueue($p,$o->CardID,intval($o->UniqueID));}}}
 function FaBROSDamaged(int $p,int $v,int $n,string $type,bool $hero=true): void {if($n<=0)return;FaBROSAdd($p,'DAMAGE',$n);if($type==='ARCANE'){FaBROSAdd($p,'ARCANE',$n);if($hero)FaBROSAdd($v,'ARCANE_TAKEN',$n);if($hero&&$p!==$v)FaBROSAdd($p,'ARCANE_OPP',$n);}
  foreach(array_unique($hero?[$p,$v]:[$p]) as $s)foreach(FaBMONArena($s,'arcane_cussing') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
- if($hero&&$p!==$v&&!FaBROSCount($p,'VALLEY_HIT')){FaBROSAdd($p,'VALLEY_HIT');foreach(FaBMONArena($p,'channel_lightning_valley') as $r)DoDrawCard($p,1);}
+ if($hero&&$p!==$v&&!FaBROSCount($p,'VALLEY_HIT')){FaBROSAdd($p,'VALLEY_HIT');foreach(FaBMONArena($p,'channel_lightning_valley') as $r){$a=FaBIdentityFromMZ($r);if($a!==null)FaBROSQueue($p,(string)$a['object']->CardID,intval($a['object']->UniqueID),['rosEvent'=>'rosValleyFirstOpponentDamage']);}}
  if($type==='ARCANE'&&FaBROSCount($p,'STAFF_EARTH')){FaBROSClear($p,'STAFF_EARTH');FaBWTRCreateArena($p,'embodiment_of_earth');}
 }
 function FaBROSAfterMove(int $p,object $o,string $from,string $to): void {
+ FaBELEEmboldenAfterMove($p,$o,$from,$to);
+ FaBDYNReincarnateAfterMove($o,$from,$to);
+ FaBROSHarvestAfterMove($o,$from,$to);
  $uid=intval($o->UniqueID);$b=FaBWTRBase($o->CardID);if(in_array($to,['Hand','Deck','Pitch','Banish'],true)&&FaBROSMeld($o->CardID))FaBARCSetCard($uid,'rosMeld',-1);
  if($to==='Banish'&&FaBHasType($o,'Earth'))FaBROSAdd($p,'EARTH_BANISHED');
- if($to==='Arena'&&$from!=='Arena'){if(FaBHasType($o,'Aura'))FaBROSAdd($p,'AURA');if($b==='malefic_incantation')FaBSetObjectCounter($o,'VERSE',4-intval(CardPitch($o->CardID)));}
+ if($to==='Arena'&&$from!=='Arena'){
+  if($uid>0&&$o->CardID==='figment_of_erudition_yellow'&&!HasNoAbilities($o)){
+   $controller=intval($o->Controller??$p)?:$p;
+   FaBROSQueue($controller,$o->CardID,$uid,['rosEvent'=>'dtdFigmentEruditionEntryPonder']);
+  }
+  if($uid>0&&$o->CardID==='surface_shaking_blue'&&!HasNoAbilities($o)){
+   $controller=intval($o->Controller??$p)?:$p;
+   FaBROSQueue($controller,$o->CardID,$uid,['rosEvent'=>'seaSurfaceEntrySeismics']);
+  }
+  if($uid>0&&$o->CardID==='channel_the_millennium_tree_red'&&!HasNoAbilities($o)){
+   $controller=intval($o->Controller??$p)?:$p;
+   FaBROSQueue($controller,$o->CardID,$uid,['rosEvent'=>'rosMillenniumEntryAmp']);
+  }
+ if(FaBHasType($o,'Aura'))FaBROSAdd($p,'AURA');if($b==='malefic_incantation')FaBSetObjectCounter($o,'VERSE',4-intval(CardPitch($o->CardID)));}
  if($from==='Arena'&&$to!=='Arena'){$p=intval($o->Controller??$p)?:$p;
   if(str_starts_with($b,'sigil_')&&str_contains(CardName($o->CardID),'Sigil')){if(FaBROSCount($p,'BINDINGS'))FaBMSTAdd($p,'AMP',FaBROSCount($p,'BINDINGS'));if(in_array($b,['sigil_of_aether','sigil_of_brilliance','sigil_of_conductivity','sigil_of_cycles','sigil_of_deadwood','sigil_of_earth','sigil_of_forethought','sigil_of_fyendal','sigil_of_lightning','sigil_of_sanctuary','sigil_of_temporal_manipulation','sigil_of_the_arknight'],true))FaBROSQueue($p,$o->CardID,$uid);}
   if($b==='arcane_cussing'&&$p===intval(GetTurnPlayer()))FaBROSQueue($p,$o->CardID,$uid);
  }
- if($b==='fluttersteps'&&in_array($from,['Equipment','CombatChain'],true)&&$to==='Graveyard')FaBMSTAdd($p,'AURA_INSTANT');
 }
+/** True destruction only: MONDestroy supplies pre-move LKI and authoritative origin. */
+function FaBROSDestroyed(int $p,object $o,string $originZone): void {
+ if(($o->CardID??'')!=='fluttersteps'||HasNoAbilities($o))return;
+ $origin=$originZone;
+ if($origin==='CombatChain'){
+  $origin=in_array((string)($o->FromZone??''),['Equipment','Weapons'],true)&&in_array((string)($o->Role??''),['DEFENSE','DEFENSE_REACTION'],true)?'Equipment':'';
+ }
+ if(!in_array($origin,['Arena','Equipment','Weapons','Hero'],true))return;
+ $uid=intval($o->UniqueID??0);$controller=intval($o->Controller??0);
+ if($uid<1||!FaBSeatIsLive($controller))return;
+ FaBROSQueue($controller,'fluttersteps',$uid,['rosEvent'=>'rosFlutterDestroyed']);
+}
+
+/** The earned permission is independent of the destroyed physical source. */
+function FaBROSResolveFlutterDestroyed(int $p,object $o): void {
+ if(!FaBSeatIsLive($p)||($o->CardID??'')!=='fluttersteps'||($o->Kind??'')!=='ABILITY'
+  ||intval($o->Controller??0)!==$p||intval($o->SourceUniqueID??0)<1
+  ||!is_array($o->Params??null)||($o->Params['rosTrigger']??false)!==true
+  ||($o->Params['rosEvent']??'')!=='rosFlutterDestroyed')return;
+ FaBMSTAdd($p,'AURA_INSTANT');
+}
+
 function FaBROSPrevent(int $p,int $n,string $type,int $source): int {
  $left=[];$earned=[];
  foreach(FaBWTREffects($p) as $e){
@@ -139,6 +252,6 @@ function FaBROSSlot(int $p,int $uid,int $n): void {$slots=explode('&',FaBROSSlot
 function FaBROSPlan(int $p,int $v): string {if(!FaBSeatIsLive($v))return '';$uids=FaBDYNPrivateHand($p,$v);foreach(FaBChoiceRefs($v,'Arsenal') as $r){$o=FaBIdentityFromMZ($r)['object'];$temp=AddTemp($p,CardID:$o->CardID);$uids[]=intval($temp->UniqueID);}foreach(FaBChoiceRefs($v,'Hero') as $r)FaBSetObjectCounter(FaBIdentityFromMZ($r)['object'],'ROS_PLAN',1);return FaBEVRUIDRefs($uids);}
 function FaBROSGrantGo(int $p,int $uid): void {if(!FaBARCCard($uid,'rosSurgeGo')&&FaBWTRMayGoAgain($p)){AddActionPoints($p,intval(GetActionPoints($p))+1);FaBROSGo($p,$uid);}FaBARCSetCard($uid,'rosSurgeGo',true);}
 function FaBROSFinishBlocks(): void {$s=FaBGetState();foreach(FaBLiveSeats() as $p){$aa=false;$na=false;$face=null;foreach(FaBChoiceRefs($p,'CombatChain') as $r){$o=FaBIdentityFromMZ($r)['object'];if(intval($o->ChainLink)!==intval($s['chainLink'])||!in_array($o->Role,['DEFENSE','DEFENSE_REACTION'],true))continue;if($o->CardID==='face_purgatory')$face=$o;if(FaBWTRIsAttackAction($o))$aa=true;elseif(FaBHasType($o,'Action'))$na=true;}if($face&&$aa&&$na&&!FaBARCCard(intval($face->UniqueID),'rosFace'.$s['chainLink'])){FaBARCSetCard(intval($face->UniqueID),'rosFace'.$s['chainLink'],true);FaBROSQueue($p,'face_purgatory',intval($face->UniqueID),['rosTarget'=>intval($s['attacker'])]);}}}
-function FaBROSChorus(int $p,int $uid): int {$f=FaBFindUID($uid);return $f&&(FaBHasType($f['object'],'Action')||FaBHasType($f['object'],'Instant'))&&!FaBHasType($f['object'],'Token')?FaBROSCount($p,'CHORUS'):0;}
+function FaBROSChorus(int $p,int $uid,string $sourceRef=''): int {$f=FaBDamageSourceView($sourceRef,$uid);return $f&&(FaBDamageSourceHasType($f['object'],'Action')||FaBDamageSourceHasType($f['object'],'Instant'))&&!FaBDamageSourceHasType($f['object'],'Token')?FaBROSCount($p,'CHORUS'):0;}
 function FaBROSStoredSource(int $p,string $key): int {foreach(FaBWTREffects($p) as $e)if(($e['type']??'')==='ROS_'.$key)return intval($e['source']??0);return 0;}
 function FaBROSShelterFallback(int $p,int $n,bool $unpreventable): int {foreach(FaBROSShelters($p) as $r){if($n<=0)break;$f=FaBIdentityFromMZ($r);if(!$f)continue;FaBMONDestroy(intval($f['object']->UniqueID));if(!$unpreventable)$n=max(0,$n-1);}return $n;}

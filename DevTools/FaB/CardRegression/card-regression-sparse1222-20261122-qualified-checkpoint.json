@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T18:53:23.716616+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1222-20261122.json",
+  "source_spec_sha256": "705fb40c1033446c6e79359dc12973587b66223feb8278bc296aa4fcae335d86",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 45,
+  "native_assertions": 457,
+  "manual_passes": 37,
+  "totals": {
+    "saved_registered_scenarios": 5132,
+    "duels": 3075,
+    "four_live": 2057,
+    "recorded_primary_ids": 2280,
+    "identity_denominator": 5196,
+    "recorded_groups": 2154,
+    "group_denominator": 3324,
+    "four_live_groups": 2046,
+    "phase_qualified_scenarios_at_actual_contexts": 1769,
+    "phase_qualified_unique_groups": 1759,
+    "creation_replay_passes": 2511,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 930,
+  "scenarios": [
+    {
+      "card_id": "warmongers_diplomacy_blue",
+      "group_id": "identity:warmongers_diplomacy_blue",
+      "scenario_id": "card-warmongers-diplomacy-blue-four-live-sparse1222-all-four-effect-choices-and-next-turn-war-rejects-naa-allows-real-attack",
+      "effect_branches": [
+        "four_real_choices_in_left_order_source_held_then_native_next_turn_war_rejects_nonattack_action_and_allows_real_four_damage_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-warmongers-diplomacy-blue-four-live-sparse1222-all-four-effect-choices-and-next-turn-war-rejects-naa-allows-real-attack",
+      "source_spec": "card-regression-sparse1222-20261122.json",
+      "source_spec_sha256": "705fb40c1033446c6e79359dc12973587b66223feb8278bc296aa4fcae335d86",
+      "review_evidence": "review-evidence/sparse1222-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4df812bfe3c2358e867864f142b93d1037922d7dff41e3d31b5661fde8b88541",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1222-20261122-replay.json",
+          "sha256": "8294e46644f3ed815c6c69fedce546631c798f9717520355ed85f009fa070370",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

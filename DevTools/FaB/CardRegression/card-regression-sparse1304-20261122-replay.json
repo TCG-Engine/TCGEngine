@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-olde-leather-boots-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-olde-leather-boots-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8ee554732508aa00dbf3cec2bfe4a611a20687a5e65bb32e2423d61d35729f4a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a1257e893016846d24e0cfcf278ca54e617c8f7272bcfdc201becacf977b06c",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "71176c19bc0f7ced8f17fd56969fc62d62ee1d4bad609b21b26cb59246fdfb95",
+        "expected_final_gamestate.txt": "bdd058acb37e6f8044300ab349422add05190bf01fd1970aa1fea99af15b465c",
+        "meta.json": "fe53624d690db0b297174f1869d4fdb76cb40ec5fafcd89b1b5809a110844cc3"
+      }
+    },
+    {
+      "slug": "card-olde-leather-gloves-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-olde-leather-gloves-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e28706625f04b84194910778b22295b1d7c6e8e06b3ea320f6eef3280d0b28c0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "117cba38e06d9a206ca155645b620f907de4f76fc084e107b5bb27a60630d747",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "78852721770a0547edef09ca33eeef3af59fdaa9b9ee1051fc32ee327ecf0965",
+        "expected_final_gamestate.txt": "46eb04621bd90db7bae4acc11dacd32d21b90635a27fe212fe96734f8d12a7a9",
+        "meta.json": "883f367f0f6f7c67e2c4fc67252917a1baf86fe83aebdb83c859238ce3ad9e67"
+      }
+    },
+    {
+      "slug": "card-olde-leather-helm-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-olde-leather-helm-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b5ffc5775158b8e0568ff51650d3e9ec37415d696c2cef83fd4cac7608407899",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0763dbcd3e36649724abf1ab9bc2222622259c5a7afa56506e1c40e89c9c2177",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "842631554d3ce3b1b985a584262f4d32d72b0693b2f3253005bc04690b1877ba",
+        "expected_final_gamestate.txt": "b526aea691133ac9fbddda8917a311a57fc835b824bec6fe24450ee5b01f0679",
+        "meta.json": "f061726a87ee97809f54f690429f9ada0c80d675743bdc37b620158b1982d7f1"
+      }
+    },
+    {
+      "slug": "card-olde-leather-plate-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-olde-leather-plate-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4c963c58d48f0c888275b26e41c4e0741c3b8d934601f7edfb8c071e72820eb3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a23d0e2431fd5dedeb47cca33dc815f4edec5224e3026a06acccc027ebe068d4",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "c1f4b17f0c2d31ea1389f41687f16fd943535b893d0a3d607ecf0fb82c27b054",
+        "expected_final_gamestate.txt": "2744bbf933de49eebfb24a0afc3d38a0e4efe1b9df14a1bc4d81b0cf2aaf474b",
+        "meta.json": "19dfce1d3b89898fdab773d2fee0c6592df46b36ea9926e61f2f0c9340356f80"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

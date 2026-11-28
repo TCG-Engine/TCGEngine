@@ -1,0 +1,7 @@
+{
+    "name": "Unforgetting Unforgiving / real defense without printed qualifying event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T23:04:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printed WHEN defends earns an owned responseable layer even when current attacking hero equipment has no -1DEF counter. Two real adult seats and original physical setup. After both respond, false IF gives no search, shuffle or permission; original4DEF blocks4 for0damage and source closesGY. Original gameplay checks kept; only new ABI allocation shifts final UIDcounter8\u21929. No positive search inferred. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unforgetting_unforgiving_red FaBSim/GeneratedCode/GeneratedMacroCode.php#unforgetting_unforgiving_red FaBSim/Custom/GameLogic.php#OnDefended"
+}

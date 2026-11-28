@@ -1,0 +1,118 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1434-20261122.json",
+  "source_spec_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+  "input_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+      "card_id": "mind_meets_might_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fc1212f1aaad8c7383e4d8f69786a72d3b7a96a182b00cd276f61e7c951f16c",
+        "actions.json": "3343b09147247150ff87f4dd8db79711420fac2e8a34c6c7ecfe67a4d2b892ac",
+        "assertions.json": "4bd56a58fa8a366ab345784df2fa181a1b31bfba55af2ed67fd579d4d5a3e7cc",
+        "expected_final_gamestate.txt": "5de46901e733b426ac4bb6a9410ffb14a06ccb761605a4f646fa27bea987a094",
+        "meta.json": "2785bba8f1e335f3c1a7c040936b729b66f621638ba86bfb4516e9b1cb0b2648"
+      },
+      "fixture_sha256": "debe12e6c59a46ab1972f75dec20a997fb9407ed40d732d3d48bd04f6b3bab59",
+      "actions": 33,
+      "native_assertions": 320,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1434-20261122.json",
+      "input_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1434-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+        "fixture_slug": "card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+    "source_note_sha256": "46e017421b46b44d6c8c3c04ab3ccc46005474185a2419a3d526e95ece4c7455",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 320,
+    "persistable_assertions": 320,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_MIRAGE_STATE_TRIGGER_LAYER_DESTRUCTION_AND_OBSERVABLE_LOSS_OF_DEFENSE",
+    "per_case": [
+      {
+        "card_id": "mind_meets_might_red",
+        "group_id": "identity:mind_meets_might_red",
+        "native_controls": 33,
+        "persistable_assertions": 320
+      }
+    ],
+    "basis": [
+      "ActualYoungDori20 seats1-3/YoungZyggy20 seat4 manualUPF is cachedclasslegal for GenericRagingOnslaught3/base7, GenericBluepitch3 and primaryIllusionistMindMeetsMightRed3def/Mirage. Primarycycleuncovered/unheld verified. Its printedHero-hit effect is notearned bydefending; noleaveArena orautomatedHero event is owed.",
+      "DTDRuntime85-90 requires actualcurrentnonIllusionistattackpower>=6 and currentlinkDEFENSE/DEFENSE_REACTION source. Original7Hand4reallydefends then remainsCC whileDEFEND_DECLARE;100-101 suppressesstate-trigger scanning until declarationfinishes. Firstpass4 viaGameLogic2651->FinishDefendDeclaration returnsattacker1priority, stateprocess2484 queuesseparateMirage viaDTDRuntime121/ROSQueue24. Thus expectedPRIORITY1/ABI8Controller4Source7 with7stillCC/HP20 is supported.",
+      "Freshallfourseatpasses1,2,3,4 resolveoneAbility; DTDRuntime129-146 validatesphysicalsourceepoch/transition/attack/link and stilltrueMiragecondition, then destroysoriginal7throughMONDestroy. GameLogic1953-1954 ROS-eventresolution removesvirtual8 andreturnsDEFEND_PRIORITY1/turnplayer1/resetpasses. Noextraenemyfirstresponse/hiddenmulti-passcontrol is assumed.",
+      "ActualBlue6pitch3pays3/AP0/R0, primaryattacker5remains7power/nogo. Destroyeddefender7GY4/notCC beforeDamage givesactual7-0damageHP4=13, notcacheddefenseoracle. Remainingfourdefense/reaction/damage/Resolution/closecycles leave5GY1/6Pitch1/7GY4/virtual8gone/UID8RNG0/allAPResources0/noStackDQCC/otherzones.33authoredone-inputcontrols320persistableassertions; ordinaryCOMPLETE endpoint."
+    ],
+    "limits": [
+      "Only positiveMirage state-trigger separateprioritylayer, physicaldefender destruction and observableloss ofdefense. No primaryHit, under6/Illusionistattacknegative, responsepowerchanges/retrigger/transitions/multipleMirage, supportingidentity/siblings/wholecard credit.",
+      "Pending native execution only. No game/test/replay, engine/repository edit, original checkout access, authentication, fullsuite or Git operation performed; no repair or expectation fitting."
+    ],
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_hit_ability_credit": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1434.py": "fb6171a40ddbe5402659ac0d05d39ef5f2b2a3b6a8b8058736cf27e70f4515d3",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "author_breadth1428.py": "e063b4a73d548a6f5f9cf0dfd557dc551c10fdc03cae29e158066acfa99b862b"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1434-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d3514b8a5f7f12a6ddf59f4f8aa91cfe917a458ff17800941792572be47f6451"
+  },
+  "full_suite_run": false
+}

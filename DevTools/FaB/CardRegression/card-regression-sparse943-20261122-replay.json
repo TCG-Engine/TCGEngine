@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-one-two-punch-red-four-live-sparse943-actual-first-chain-three-without-head-jab-granted-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-one-two-punch-red-four-live-sparse943-actual-first-chain-three-without-head-jab-granted-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7f864037668339991954b405c9d49f8d4bfc32d931f3446b4637b540e322467f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2bc3702ee1e7c05fc5badc6416b985eaf4d2dedf33307049531ad02f7024ca53",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "2324b63f9f98e4a242bc24be921b047ebd69f9aa7b21d796fe85a793d3d05ad5",
+        "expected_final_gamestate.txt": "053b1ac5e9cbe540480b0452618ca2cfc2bceb898b10365d37ac70775b74ca16",
+        "meta.json": "0fcb9c8f3bdbe841c7446195599c2d448270867ad7b90991344628625db62ff9"
+      }
+    },
+    {
+      "slug": "card-recoil-red-four-live-sparse943-actual-first-chain-three-keeps-real-enemy-hand-without-combo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-recoil-red-four-live-sparse943-actual-first-chain-three-keeps-real-enemy-hand-without-combo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41efd9527e62df050189526edc3d774deadd88d5188221ae407d580ae1f031fb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7b846e006d83b4face20d200eb80653778f7652a10a7ddf766c92ca6d7de9b5",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "80d32cf0461b0ed048c8dc7271bb9a0d257adab34f786944800e1085f9363794",
+        "expected_final_gamestate.txt": "5849fcd65bc10b4f690eb1f845bf984205e1a69d41da7fb1853eb8bfb0d8d00d",
+        "meta.json": "8b07ca5a1e117c6cb6a9f1f1343a7db88caf51fe61fa50bcac6cd5aba0c3f141"
+      }
+    },
+    {
+      "slug": "card-smashing-ground-blue-four-live-sparse943-actual-base-five-keeps-real-arsenal-below-six-power-grant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smashing-ground-blue-four-live-sparse943-actual-base-five-keeps-real-arsenal-below-six-power-grant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "175ee3881127a3c4bd74ab4e27a8c4b2487c781b0482faf1a112be9bbb87b0e4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cbe1c79dbe5205e274567c9c6e8a0f3dd840c3ee6e05ae85cc660c2076f6431",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a79d6601222add42868e99fa2b30236ef9b9055b725eeb4082b490b6c566fdf9",
+        "expected_final_gamestate.txt": "2a55165b665a613361b288e607169db71c2ca836a2a06291a50e5805d338cda0",
+        "meta.json": "82dc18ae0e35fa5b03ea712916514fd5d4e6533ec9486fd142292d963578cfaa"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

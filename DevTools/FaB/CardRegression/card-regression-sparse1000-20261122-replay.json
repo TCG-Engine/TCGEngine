@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-lightning-blue-four-live-sparse1000-live-action-without-lightning-fusion",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-lightning-blue-four-live-sparse1000-live-action-without-lightning-fusion",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4d32c5491e51e9db4c710657ec702c4488d2e372ef76d3b32a9429c10ab88b3c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "debd300406ae2fb09ef87241e25043ca76cc412207066a68d223d923b843a715",
+        "actions.json": "28239c88b64affb3a6e6e9939aaa74baf5f12dbab24237908125f76fd12a86eb",
+        "assertions.json": "60a02961c914ab7c9d05b10e0837388d1c7097bf699e3af3370cf812a5193412",
+        "expected_final_gamestate.txt": "b3efb50034d7f87d8f2e3ab59dc4f0716c33a25cf1de320945eef5ebe3018277",
+        "meta.json": "497f6d6e8078b05804da0d321f854061690872852517de266cbc69aa749a40eb"
+      }
+    },
+    {
+      "slug": "card-amulet-of-assertiveness-yellow-four-live-sparse1000-live-reaction-with-three-hand-cards",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-assertiveness-yellow-four-live-sparse1000-live-reaction-with-three-hand-cards",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1000-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "488ae9fc2b6a0984970ed41658aea0f6b44eec5df1f9e7bf4b7fd058d9bdb878",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46bdb9a593a852833e1ade9203164ae07628fe184a91c76ae7004cd2cf391bad",
+        "actions.json": "ebd69b8728f67425a19902ede6958cef89fcb54101b6cde40f61f18abf275484",
+        "assertions.json": "c6cb5a46429f6c4ee898f8abc8f1d9a63ea36a3630cfeb724be1a94c5aaf96fc",
+        "expected_final_gamestate.txt": "7a1aa3ccff0d3378dfdd595264aa1156589135c767d69f953e587ee48d913c53",
+        "meta.json": "1acc89da0179be800fad092f38fcc79e41a4ca39a1649364a710d9c12eefee07"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

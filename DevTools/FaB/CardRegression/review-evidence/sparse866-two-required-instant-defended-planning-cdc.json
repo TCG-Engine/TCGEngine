@@ -1,0 +1,129 @@
+{
+  "status": "INDEPENDENT_APPROVED_B866_TWO_REQUIRED_KNOWN_CONTRACT_PLANNING_NOTES",
+  "phase": "PLANNING",
+  "batch": 866,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-two-required-contract-notes-manifest.json",
+    "sha256": "9a7cd10149e8d7b3958c60519c06d654831b692b59818569cd49fee13d30a61c"
+  },
+  "manifest_sha256": "9a7cd10149e8d7b3958c60519c06d654831b692b59818569cd49fee13d30a61c",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-firm-reservation.json",
+    "sha256": "45f03624ec3076ecf273fb2011ee0855664c5ecc1bcdace808ac3f14579d9c07"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-firm-reservation-support-admission.json",
+    "sha256": "213bc26f83a6e62885a787c639bdeb0239091a9f5b0db469c7831359c4c68fe4"
+  },
+  "prior_Soul_placement_basis": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-firm-reservation-support-admission-soul-basis.json",
+    "sha256": "12fd03f36665bf8bea640975590311288adf5cfe40f0d1d4a3ef484687a27102"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 11,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "eclipse_existence_blue",
+      "group_id": "identity:eclipse_existence_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "UNATTEMPTED_EXACT_REQUIRED_POSITIVE_ORDINARY_INSTANT_SOURCE_LIFETIME",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-eclipse-required-instant100137-unattempted-note.json",
+        "sha256": "871070ff92236ab6e9add386a31305d77bdac2cb75196ce732c096ced6725769"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 100,
+          "card_id": "lubricate_blue",
+          "reviewed_historical_runtime": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse586-lubricate-selected-lifetime-planning-9fbaa.json",
+            "sha256": "2e020b70ecba3093ef60676b363d23a3083b9b3e7c9f01f239b56ed538461110"
+          }
+        },
+        {
+          "human_row": 137,
+          "card_id": "save_the_thought_blue",
+          "reviewed_historical_runtime": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\save-thought655-selected-positive-graveyard-choice-lifetime-unattempted-c53.json",
+            "sha256": "9d224fb5026055563aa3c45af3bdb2ac9163c8288b55827b3d82788b8c6965da"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "ironhide_helm",
+      "group_id": "identity:ironhide_helm",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "UNATTEMPTED_EXACT_REQUIRED_ORDINARY_DEFENDED_WHEN_BEFORE_POSITIVE_PAY",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch866-ironhide-required-defended274-unattempted-note.json",
+        "sha256": "b04b6f781231f580bd97accacb0c935c34139b570f4b2baa32c1206e2284b139"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 274,
+          "card_id": "toby_jugs",
+          "reviewed_historical_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse826-act-r4-source-and-toby-unattempted-a11.json",
+            "sha256": "093d82e74e92ff789b8fffe15405d21da76713e9ea4880f00856e3b368fd2e27"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Both exact frozen notes/manifest, Root firm and support admissions, eleven current guards, selected actual printed metadata/canonical rows, and all three historical retained proof hashes independently match. Historical100/137/274 runtimes remain historical; no old case is replayed or retagged current.",
+    "Eclipse is actual Shadow Instant Blue0; LeviaYoung20 is a legal Shadow owner, PrismYoungLight20 at current18 is legitimate injury, and Generic cards are admitted. The fixed positive20>18 condition and owned GY Action guarantee a required positive resolving MZMAYCHOOSE. Full current GL1588 and1654..1698 named registries exclude this nonpersistent Instant, so1840 clears its physical Source before1841 executes the actual canonical/emitted ResolveCard await. Exact Lubricate100/SaveThought137 (also corroborated by EvenBigger271) source-lifetime contract applies; no missing-body/emptyGY/decline/false-condition/synchronous waiver.",
+    "Root immutable Soul basis12fd and actual printed SoulFoodYellow LightAction0 establish legitimate prior placement of this card AND all Hand cards into Prism Soul. The simplest complete future precondition retains both GenericBlue and SoulFood in Soul4, chooses only Blue for Eclipse, and leaves Food there. No invented Soul flag, unrecorded displacement assumption, or prior SoulFood/Prism activation credit is required; all prior and tested gameplay remains unrun.",
+    "Eclipse future full path still requires own GY Action sameUID to owner1Banish after source responses, real GenericWoundingRed4 hit Prism18->14, separate delayed hit layer/four responses, caster1 positive opponent4Soul Blue choice to owner4Banish, then lose1life14->13. MONHit299 listener, optional Soul chooser and MONBanishSelected/ARCLoseLife bodies exist; ARC289..292 subtracts life rather than dealing damage. Later trigger identity/timing/choice/life-loss and all physical outcomes remain unattempted behind the earlier physical-spell lifetime edge.",
+    "Ironhide is Generic Head with printed DEF0, not innate Blade Break. Current earlier native MONDefended has no armor exception; GL1243 directly enters its implemented canonical/emitted positive MZMODAL followed by actual Blue pitch choice before a separately earned WHEN/four responses. This is exact ordinary Defended274, not absence of payment or a blanket optional-await rule.",
+    "Ironhide future complete route retains real attacker BrutalRed6/cost2/Blue3R1AP0, physical Helm declaration, earned four BEFORE pay1 from defenderR0 via realBlue3/R2, DEF0+2 and real4damageHP16. Granted When-chain-closes destroyThis requires its own source/layer/responses/physicalownerGY and full cleanup. Existing tags/cleanup bodies are source-only downstream; no no-pay/basicblock or intrinsicBladeBreak substitute, Native result, new bug, or coverage is approved."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "eclipse_existence_blue",
+      "action": "Execute full conditional GY banish plus real Light-hit/Soul/life-loss route",
+      "reason": "Exact required positive awaited physical Instant lifecycle100/137 before resolution choice",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "ironhide_helm",
+      "action": "Execute full paid defend/buff/damage/granted-close-destruction route",
+      "reason": "Exact ordinary Defended-WHEN274 before positive pay/pitch choice",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Both selected cards and all complete positive effects, physical movement/HP13/HP16/trigger layers/prior state/support/siblings/fullcard remain Native-unrun.",
+    "No executable/no quiet fallback/no newissue/root/Core/repair or qualification approval.",
+    "No PHP/Native/Rwrites/newagents/fullsuite/replay/sourcefix or deniedReincarnate199/188/184/B787 retry by reviewer."
+  ]
+}

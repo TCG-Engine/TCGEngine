@@ -1,0 +1,131 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1398-20261122.json",
+  "source_spec_sha256": "5bbaf4cb32c23b57ec3f7e7e021033af3bff6793a8f8c167309a59ab2549d064",
+  "input_sha256": "5bbaf4cb32c23b57ec3f7e7e021033af3bff6793a8f8c167309a59ab2549d064",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-genesis-yellow-four-live-sparse1398-real-other-hero-start-no-soul-shield-or-draw-with-eligible-light-illusionist-hand",
+      "card_id": "genesis_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e17dd542100e47fafa9a30aca3f4f72772862f40f1ba9cb9341d5fd81c4d8635",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "52d9388f6a1ab588c171825d0e9cad008f2b271ee02102146eeea5f598bee23f",
+        "expected_final_gamestate.txt": "6d1cf2be1c4b681cdb7499b5bde9bc29f79abf1e2e905f7d2471905ae3630b92",
+        "meta.json": "ffe37180cf72c5b8cce281a15649fc7893b52ca82b8335308cf6d6463094b522"
+      },
+      "fixture_sha256": "484bd5fab0e9fdca25247d6a2795e2617b3df42a0bb713d9497e6e77482a07f1",
+      "actions": 35,
+      "native_assertions": 422,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1398-20261122.json",
+      "input_sha256": "5bbaf4cb32c23b57ec3f7e7e021033af3bff6793a8f8c167309a59ab2549d064",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "14": "p4CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1398-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-genesis-yellow-four-live-sparse1398-real-other-hero-start-no-soul-shield-or-draw-with-eligible-light-illusionist-hand",
+        "fixture_slug": "card-genesis-yellow-four-live-sparse1398-real-other-hero-start-no-soul-shield-or-draw-with-eligible-light-illusionist-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "5bbaf4cb32c23b57ec3f7e7e021033af3bff6793a8f8c167309a59ab2549d064",
+    "source_note_sha256": "b1c580e81c4409d1dfd2604e3e2e12b9ee3e307ed9fdc4e8ca437823f7296cf7",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 35,
+    "query_checks": 422,
+    "persistable_assertions": 422,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONTROLLER_START_EVENT_FILTER_WITH_REAL_OTHER_SEAT_START_AND_ATTACK",
+    "per_case": [
+      {
+        "card_id": "genesis_yellow",
+        "group_id": "identity:genesis_yellow",
+        "native_controls": 35,
+        "persistable_assertions": 422
+      }
+    ],
+    "required_qualification_attack_refs_by_step": {
+      "14": "p4CombatChain-0"
+    },
+    "source_array_step_to_native_input_count": {
+      "20": 14
+    },
+    "basis": [
+      "Unrepresented/unheld LightIllusionistInstantAura Genesis priorownedArena5 legalundernaturalYoungPrism20/threeDori20/manual4UPF/cachedallowed. ActualLightIllusionistHerald6Hand andDeckBlue8nonempty are realeligiblewould-beSoul/shield/draw controls, notfabricatedchoices/history. PriorAura can havepriorownstartresolved/declined; no dueowner1start is skipped in this transition.",
+      "ExplicitinitialTurnPlayer3/Priority3/AP3=1 andhelperchecksrebound; fourActionpasses3,4,1,2 reachEND_PHASE3 thenfourEndpasses3,4,1,2 reachnativeStart4/TurnNumber3/AP4=1. EndingP3hand/deckempty, no refillchoice/UID. MONStart275-281 iteratesonlyArenaofstartingplayerp; Genesisowner1 is not startingplayer4, so no earnedGenStartlayer/Soulchoice/reward. No unconditionalowntrigger is waived because ofmissingassets.",
+      "Actualactor4Wounding7AA0 formalHero1target and sourcepriority4/responses1,2,3\u2192ATTACK4; combatdefender1/grouppriority4,1,2,3/reaction4,1,2,3/damage4 andresolution4,1,2,3 coherent. OpposingGenesisSpectra alsolegalattacktarget, so onlyType/selectedHero1 asserted; exclusiveParamlist deliberatelynotclaimed. Actual4damagePrismHP16 (no wrongShieldprevention), physicalAura5/HandHerald6/Deck8/Soul0/noextraUID8 unchanged; source7GY4/AP0/R0/quietStackDQs correct.",
+      "Existingqualificationmap verified sourcehash andcurrentadapterhash; sourcearrayindex20power/go_again check follows14actualnativecontrols, mapkey14\u2192p4CombatChain0 correct under common.review consumed-input contract. All pass_until goals are immediate nextmanualwindow/priority, no declaredmulti-input override. Nativeexecution/replay notclaimed."
+    ],
+    "limits": [
+      "Only wrong-controllerstart event filter with realphase/attack/fates and nonemptySoul/rewardcontrols. Positiveownstart/Soul/Shield/draw/triggerresponse timing, Spectraattack/destruction, priorAura provenance, supportidentities/siblings/wholecard untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1398.py": "893c22487b92b9a8144899423ddfe0f671e26a3a796bd01875d8d94e5ee4319d",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1395-local-20261122/proposed.json": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+      "sparse1398-local-20261122/expected-attack-refs.json": "56acdbe06061e16bc513778c11f1a5073ebde9aebd6aecb9368c3d0a83540d9f",
+      "breadth_batch.py": "b340fa062c7ced832ff7a8468ae2aa128a976ef4cb891b31aa188bb2323c5109",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_controller_start_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1398-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4a9e794ad2c284bc6dc163cc256c14b45e3a1bcce9576128481234341810a117"
+  },
+  "full_suite_run": false
+}

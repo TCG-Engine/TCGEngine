@@ -1,0 +1,7 @@
+{
+    "name": "Head Banging Chorus / first Guardian hit draws after responses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-17T02:43:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Focused normal-save successor independently promoted. Alloriginal37actions4509queries/setup unchanged: realChorusInstant1/Bluepitch/fourresponses/Auraentry, firstGuardianRisingEnergy7cost2naturallyemptiesHand, actual4damage toHero4HP16, separatelyearnedhitlayer retainsDeck8/Hand0throughfreshfour, thenconditionaldraw1. NoFullCardcontinuousgrantclaim: lateAuraentry,pre-capturecontrol,multiAura source-onlylimits remainopen. Sources: https://rules.fabtcg.com/en/cr/06-effects/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

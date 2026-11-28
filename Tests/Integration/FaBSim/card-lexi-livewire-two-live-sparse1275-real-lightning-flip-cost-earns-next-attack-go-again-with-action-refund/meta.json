@@ -1,0 +1,7 @@
+{
+    "name": "Lexi, Livewire / earned printed go again through actual combat",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:04:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT_TWO_LIVE40_VS40_ONLY; bothactualmanualplayersrespond. ActualfaceDownLightningWeave3ArsenaliscostchoiceforHeroABI5; itstaysFaceDown1beforechoice/AP1. ActualanswerflipsSAME3FaceDown0aspaidcost/AP0beforebothresponses. HeroresolvesLightningnextattackGAandownGAAP1. ActualGenericWounding4HandAction0usesAP1to0, getsactualearnedGO_AGAINbeforebothresponses, printedpower4/actual4damageHP36/AP0untilbothDamagepassesthenAP1. Weave3notplayed, noWeavepump; actual4ownedGY/3faceupArsenal/R0. NoIce/Frostbite/Bow/Arrow/onceRepeat/support/Youngcredit. Noalternatebranch/pitchsibling/fullHerocredit. ProvenYoungpatterns429/296reusedasdesignonly; theirchecksarenotreplayed/requalifiedorcredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lexi_livewire FaBSim/Custom/GameLogic.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/ARCAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

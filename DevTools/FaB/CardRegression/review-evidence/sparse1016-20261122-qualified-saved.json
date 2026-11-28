@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/current-source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1016-20261122.json",
+  "source_spec_sha256": "0114206914bb5bbe1008d4215ad16d7e792f2ad3e90f6c5fea2accc17215effd",
+  "input_sha256": "0114206914bb5bbe1008d4215ad16d7e792f2ad3e90f6c5fea2accc17215effd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fire-in-the-hole-red-four-live-sparse1016-real-bow-untap-plus-three-arrow",
+      "card_id": "fire_in_the_hole_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b810178d3d7208badb2386372a40bf16c4a9ee8c9835df29acc17cd6e034952",
+        "actions.json": "5d7795b9995e73abc80e920dce4d3d2e3cc16a04ba818f14fcfe607f15eb6c6a",
+        "assertions.json": "a762edadbbdc67ae63c1a6da359ba5b40c5967d156e226bc98a12a1c985c494c",
+        "expected_final_gamestate.txt": "9ac646b1b6a2d9bd2c0f03a340ce969b376bba050578971197daabc0caf8feb2",
+        "meta.json": "1035a6485dcd4bc9a4a78bf7374e739c90801b33d9bfcae447b71a1139c8700a"
+      },
+      "fixture_sha256": "a45af06f81644643af57a0bf8a5748f5d2c3b6166e5550b32d260852d8acd59d",
+      "actions": 36,
+      "native_assertions": 263,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1016-20261122.json",
+      "input_sha256": "0114206914bb5bbe1008d4215ad16d7e792f2ad3e90f6c5fea2accc17215effd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1016-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fire-in-the-hole-red-four-live-sparse1016-real-bow-untap-plus-three-arrow",
+        "fixture_slug": "card-fire-in-the-hole-red-four-live-sparse1016-real-bow-untap-plus-three-arrow",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invigorate-red-four-live-sparse1016-unfused-real-arrow-no-plus-four",
+      "card_id": "invigorate_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fde81ca323ee4b82b5eed5b0e701bb751354605de8e48d1b987eb5ba9493ef05",
+        "actions.json": "828d672398994d027e562c6c429848c2ace07d5fb839a44e5c0d656e4d8a1edb",
+        "assertions.json": "8ebc978c514725deb162775570c5b17aae1991f52815ad2c8f5280e604fa87f5",
+        "expected_final_gamestate.txt": "a658237ae9760325082e78229a7eae6e0b614575345940c4ddada77676929ebf",
+        "meta.json": "cf0cecaefbdf6692a4b1ded6fc893208cd3547c93ce35e210cb311d9c32c543c"
+      },
+      "fixture_sha256": "3629c7bc779e7ba20493c07f49296be303e95f7ce6250e2f23292229cafaa693",
+      "actions": 35,
+      "native_assertions": 255,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1016-20261122.json",
+      "input_sha256": "0114206914bb5bbe1008d4215ad16d7e792f2ad3e90f6c5fea2accc17215effd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1016-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invigorate-red-four-live-sparse1016-unfused-real-arrow-no-plus-four",
+        "fixture_slug": "card-invigorate-red-four-live-sparse1016-unfused-real-arrow-no-plus-four",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0114206914bb5bbe1008d4215ad16d7e792f2ad3e90f6c5fea2accc17215effd",
+    "reviewer": "breadth_review independent cached-text/current-source/transport review",
+    "basis": [
+      "FireInHole RangerAction0 legalLexi20, printeduntargeted nextarrow+3/optionaluntapbow/GA. ActualreadyownArsenalArrow6 andinitialtappedownedBow7 are legitimatepreexistingassets. Fourmanualsource responses thenactualMZMULTICHOOSE0..1 untap atresolution; source5physicallyheldStack/AP0/GY0 untilanswerBow7. Generated8ea8f965\u2192FaBSEANext arrow3 andFaBSEAUntap selected7 matchesprintednon-targetchoice. ObservedBowStatus2/source5ownedGY/AP1 iscorrectexpectedpositiveeffect, noearlyGA.",
+      "ActualBoltNShot6fromArsenalwithownedDeathDealer7 thenconsumes+3\u2192power7 vsrealHandAAdef9, zeroDamage/noHit/HP20; persistedpower7/attackPower7/defense9, physical6fates andunusedBow7readiness pinbothbuffanduntap. StaticBolt power>base4 grantsGAevenblocked/AP1atResolution. NoReload/hit layer owed.",
+      "Invigorate isElementalAction0, legalElementalLexi20, printed NEXTattackyouFUSE gets+4/GA. ExplicitELE_NEXT_FUSED4 retaineduntilFaBELEFused(uid) true; actualGenericBolt6 hasnoFusion andisnotfused, so mustremainpower4, not8. Persistedpower4/attackPower4 vsdef9 pinsabsenceofbonusdespitefullblock; noBoltGA atbasepower/AP0afterResolution/final. Unconsumedfuturefusedbonus isnotexercised.",
+      "Bothsameactualowned5Stack\u2192GY, Arrow6ownedGYafter5, Bow7properclass/ownership, realdefenders8/9/10ownGY4, naturalall20/allfourmanual/targetbeforeassets, cost0APtransitions/quietqueues consistent. No forbidden author-onlydiagnostics; expectationsfromprintedcache/currentproducerandconsumer, not gameoutput."
+    ],
+    "limits": [
+      "Only specified untap/+3consumer andunfused/no+4 branch. PositiveFusion/futureconsumption, Reload/Hit/creatorownership, bowactivation/load/entry, hero/support/siblings/fullcards untested; known timing/ownershipfamilies untouched.",
+      "Root owns native inputs/savedassertion audit/onecleanreplay. Reviewer ran no native/PHP/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1016-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6d011725eb891cc2ac45c7961c6a88fc6d4b6673b17d90fa42468b554aac6c6f"
+  },
+  "full_suite_run": false
+}

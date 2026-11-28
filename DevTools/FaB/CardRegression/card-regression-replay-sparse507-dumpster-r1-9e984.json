@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch507.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T19:27:13.198564+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dumpster-dive-red-four-live-real-item-boost-earns-one-power-and-go-again-with-paid-action-point-consumer",
+      "fixture_sha256": "34131a0ff05f635b02b74afb5149c1db2e86c76a4e1ca6f0c734a2b84d7d4a86",
+      "passed": true,
+      "result": "[PASS] dumpster_dive_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dumpster-dive-red-four-live-real-item-boost-earns-one-power-and-go-again-with-paid-action-point-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] dumpster_dive_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

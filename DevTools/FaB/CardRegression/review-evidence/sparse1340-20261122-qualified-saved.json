@@ -1,0 +1,166 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1340-20261122.json",
+  "source_spec_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+  "input_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+      "card_id": "breed_anger_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22e386e2584ae511186f2e05a152ac3fd7acf86e695b2acd7ef7c555e798c92f",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "dace57d0bd12b45a1d73bf5ad1a2e3bb8af43f71fe41c29f782f9aac2afee5c5",
+        "expected_final_gamestate.txt": "ed483ed9931cf9452c21e3a391dc828f4b2111d6ec905e5b96c5fcb6c2f29068",
+        "meta.json": "0d9e88e3cb9dea812550089d214bc068fa58bacfdbb20d94f9bba0074f1d90ed"
+      },
+      "fixture_sha256": "c01ee3dc3aac5b7078e0d240ec58c4b78658964843d92f1972c7c74ca82a9fdf",
+      "actions": 29,
+      "native_assertions": 444,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1340-20261122.json",
+      "input_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+        "fixture_slug": "card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+      "card_id": "crash_site_salvage_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e583abf893072d23d1a98c3755bc984f060b385cca7fa79fef549dc29027452",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "45304fe9b1dc278fca423066f12fd6b00376831b0ab044ab954064f97f13f7c7",
+        "expected_final_gamestate.txt": "03eb47891c8ab295e09a6823b442cc7b2fc9c98d6a9e2ded4f0f291c1f2f557c",
+        "meta.json": "ee5a68fb583e085d24e73366da32de77f350c55026e496aa34bb31b911b3856c"
+      },
+      "fixture_sha256": "bdb74c0224bc163e32814a818c476982023613af68a76e2dc80a6d43295f837e",
+      "actions": 28,
+      "native_assertions": 388,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1340-20261122.json",
+      "input_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+        "fixture_slug": "card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+    "source_note_sha256": "f2d168013672510074b78e6b9e42bebe22d4d1536e7e495ca290e496c13afac6",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 57,
+    "query_checks": 832,
+    "persistable_assertions": 832,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_GO_AGAIN_WITH_REAL_BASE_ATTACK_AND_NATIVE_AFFORDABLE_FOLLOWUP_REJECTION",
+    "per_case": [
+      {
+        "card_id": "breed_anger_red",
+        "group_id": "pitch-cycle:breed_anger",
+        "native_controls": 29,
+        "persistable_assertions": 444
+      },
+      {
+        "card_id": "crash_site_salvage_yellow",
+        "group_id": "identity:crash_site_salvage_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 388
+      }
+    ],
+    "basis": [
+      "Cached Breed AngerRed NinjaAA1/power4 and CrashSiteSalvageYellow Pirate/MechanologistAA0/power3 are legal under natural YoungIraCrimsonHaze20 and YoungDash20 respectively plus three YoungDori20, actual four manual UPF seats. Both distinct groups unrepresented/unheld. Physical HeroUID1..4/primary5/Blue6+ArsenalWounding7+Tiger8 for Breed; primary5/ArsenalWounding6 for Crash, exact owned source controls. Initial history/lastAttack/previousAttack/effects empty and no combat open.",
+      "Breed actualBlue6pitch3 pays1 leavingR2/AP0, first attack4 notIra secondattack+1 (CRUCards238). Generated AttackDeclared20734 checks FaBMSTPreviousTiger(uid); MSTCards159 inspects captured outPreviousNames for actual CrouchingTiger, not Hand presence. No earlier attack means false even with real ownedTiger8Hand; no GO_AGAIN/TigerBanish creation, no earned conditional WHEN. Strict actual4HeroDamageHP16, Tiger8 untouched, Banish/Arenas0/UID8/RNG0. Tiger Ephemeral end-phase not reached, no expiry claim.",
+      "Crash generated Prepare122725-122761 finds Item/Equipment Graveyard refs empty, chosen dash, skips chooser and invokes FaBOMNScrap. OMNCards351-353 sets cogfalse and calls EVOScrap61, recording evoScrap0/no object moved; no physical099 effect-cost route. Generated AttackDeclared21059 checks evoScrap before grantingGA and only nestedCog would createGold, both false. Strict actual3HeroDamageHP17/noGA/Gold/allArena0/Banish0/UID6/RNG0, Dash optional startup declined.",
+      "Both actual attacks traverse all four source/combat response windows, no earned refund after final Damage passes. Fullclose leaves own original5GY, legal actual face-down GenericWounding Arsenal0, AP0/resources2 or0. Wounding printed0 is resource-affordable; actual postlink native click must reject before target/source movement since GameLogic995 Action timing requiresAP>0, DoPlayCard1011 returns on CanPlayCard false. Exact same owned ArsenalUID/FaceDown, health/resources/UID/RNG0, no Stack/decisions/pendingPayment and all physical fates are checked before/after. Observable native consumer rejection pins no false go-again refund; total57 controls/832 persistable assertions."
+    ],
+    "limits": [
+      "Only false Combo/Scrap conditions, actual base-cost/base-power/damage, absence of new Tiger/Gold and native affordable-followup rejection pending native save/replay; no native pass/coverage credit claimed.",
+      "No positive Combo, Scrap payment, trigger response/timing, go again, token creation, Tiger play/expiry, Hero passive activation, alternate target, sibling/support/full-card coverage. Empty-object path does not validate physical additional-cost order. Existing holds unchanged.",
+      "Only W receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full-suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1340.py": "1a3ff6d7c9a8804c743fc7f76b14f7bfcbdcb178823ba3c28f319c55157ae8a7",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_combo_or_scrap_credit": false,
+    "positive_go_again_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b59a2fdae71a44115b53e99c7d533a7325beaf2619f05db052e0cdd2e0339c94"
+  },
+  "full_suite_run": false
+}

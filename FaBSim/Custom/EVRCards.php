@@ -1,12 +1,111 @@
 <?php
+/** Accepted die results only: a replaced/rerolled result never happened (CR 8.5.28a). */
+function FaBEVRRememberDieRoll(int $player,int $roll): void {
+    if(FaBSeatIsLive($player)&&$roll>=1&&$roll<=6)FaBEVRAdd($player,'ROLLED_'.$roll);
+}
+function FaBEVRHighRollerCard(string $id): bool {
+    return in_array($id,['high_roller_red','high_roller_yellow','high_roller_blue'],true);
+}
+function FaBEVRHighRollerDouble(int $player,string $id): bool {
+    if(!FaBEVRHighRollerCard($id))return false;
+    for($roll=3+intval(CardPitch($id));$roll<=6;++$roll)if(FaBEVRCount($player,'ROLLED_'.$roll)>0)return true;
+    return false;
+}
+/** UPF single-target instances use adjacent heroes; ordinary formats also allow self. */
+function FaBEVRIntimidateTargets(int $player): array {
+    if(!FaBSeatIsLive($player))return [];
+    $seats=FaBGetState()['gameMode']==='UPF'?FaBAdjacentOpponents($player):FaBOpponents($player);
+    if(FaBGetState()['gameMode']!=='UPF')$seats[]=$player;$out=[];
+    foreach(FaBLiveSeats()as$seat){
+        if(!in_array($seat,$seats,true))continue;
+        foreach(FaBChoiceRefs($seat,'Hero')as$ref){
+            $f=FaBIdentityFromMZ($ref);if(!$f||!FaBHasType($f['object'],'Hero')||intval($f['object']->Controller??0)!==$seat)continue;
+            $uid=intval($f['object']->UniqueID??0);if($uid>0)$out[$ref]=['uid'=>$uid,'player'=>$seat];
+        }
+    }
+    return $out;
+}
+function FaBEVRHighRollerPending(int $player,int $uid): ?object {
+    $f=FaBFindUID($uid);$p=FaBGetState()['pendingPayment']??null;
+    if(!$f||$f['zone']!=='Stack'||!FaBSeatIsLive($player)||!is_array($p))return null;
+    $o=$f['object'];
+    if(!FaBEVRHighRollerCard((string)$o->CardID)||intval($o->Controller??0)!==$player
+        ||!in_array((string)($o->Kind??''),['ACTION','INSTANT'],true)
+        ||intval($p['uid']??0)!==$uid||intval($p['player']??0)!==$player
+        ||!empty($p['isAbility'])||!empty($p['isWeaponAttack'])||!empty($p['isArenaAttack'])||!empty($p['preparedEffectError']))return null;
+    return $o;
+}
+function FaBEVRRejectHighRoller(int $player,int $uid,int $serial): void {
+    $o=FaBEVRHighRollerPending($player,$uid);if(!$o)return;
+    $d=(array)($o->Params['evrHighRollerDeclaration']??[]);if(intval($d['serial']??0)!==$serial)return;
+    $v=GetVersions($player);$undo=$v[0]??null;$hash=(string)($d['undoHash']??'');
+    if($hash!==''&&is_object($undo)&&hash_equals($hash,hash('sha256',(string)$undo->Version))){LoadVersion($player,0);return;}
+    $s=FaBGetState();$s['pendingPayment']['preparedEffectError']='High Roller target declaration is invalid.';FaBSetState($s);
+}
+function FaBEVRQueueHighRollerTarget(int $player,int $uid,int $serial): void {
+    $o=FaBEVRHighRollerPending($player,$uid);if(!$o)return;
+    $d=(array)($o->Params['evrHighRollerDeclaration']??[]);
+    if(intval($d['serial']??0)!==$serial||($d['stage']??'')!=='CHOOSING')return;
+    $index=count((array)($d['targets']??[]));if($index>1)return;
+    $current=FaBEVRIntimidateTargets($player);$refs=[];
+    foreach((array)($d['offered']??[])as$ref=>$target)if(isset($current[$ref])&&$current[$ref]===$target)$refs[]=$ref;
+    if(!$refs){FaBEVRRejectHighRoller($player,$uid,$serial);return;}
+    DecisionQueueController::AddDecision($player,'MZCHOOSE',implode('&',$refs),1,'Declare_Intimidate_target_'.($index+1));
+    DecisionQueueController::AddDecision($player,'CUSTOM','FAB_EVR_HIGH_ROLLER_TARGET|'.$uid.'|'.$serial.'|'.$index,1,'',1);
+}
+/** Canonical Prepare and the local missing-Prepare bridge share this exact declaration flow. */
+function FaBEVRPrepareHighRoller(int $player,int $uid): void {
+    $o=FaBEVRHighRollerPending($player,$uid);if(!$o)return;
+    if(HasNoAbilities($o)){FaBFinishPreparedCard($uid);return;}
+    $serial=intval(FaBARCCard($uid,'evrHighRollerAnnouncement',0))+1;FaBARCSetCard($uid,'evrHighRollerAnnouncement',$serial);
+    $v=GetVersions($player);$undo=$v[0]??null;
+    $o->Params['evrHighRollerDeclaration']=['serial'=>$serial,'stage'=>'CHOOSING','offered'=>FaBEVRIntimidateTargets($player),
+        'targets'=>[],'undoHash'=>is_object($undo)?hash('sha256',(string)$undo->Version):''];
+    FaBEVRQueueHighRollerTarget($player,$uid,$serial);
+}
+function FaBEVRAcceptHighRollerTarget(int $player,int $uid,int $serial,int $index,string $ref): void {
+    $o=FaBEVRHighRollerPending($player,$uid);if(!$o)return;
+    $d=(array)($o->Params['evrHighRollerDeclaration']??[]);$current=FaBEVRIntimidateTargets($player);
+    if(intval($d['serial']??0)!==$serial||($d['stage']??'')!=='CHOOSING'
+        ||$index<0||$index>1||count((array)($d['targets']??[]))!==$index)return;
+    if(!isset($d['offered'][$ref],$current[$ref])||$d['offered'][$ref]!==$current[$ref]){FaBEVRRejectHighRoller($player,$uid,$serial);return;}
+    // Separate instances may use the same legal target; do not filter the second menu.
+    $d['targets'][]=$current[$ref];$o->Params['evrHighRollerDeclaration']=$d;
+    if($index===0){FaBEVRQueueHighRollerTarget($player,$uid,$serial);return;}
+    $d['stage']='COMPLETE';$o->Params['evrHighRollerDeclaration']=$d;
+    $o->Params['evrHighRollerTargets']=$d['targets'];FaBFinishPreparedCard($uid);
+}
+function FaBEVRResolveHighRoller(int $player,int $uid): void {
+    $f=FaBFindUID($uid);$p=FaBGetState()['resolvingReaction']??null;
+    if(!$f||$f['zone']!=='Stack'||!is_array($p)||!FaBSeatIsLive($player))return;
+    $o=$f['object'];$targets=(array)($o->Params['evrHighRollerTargets']??[]);
+    if(!FaBEVRHighRollerCard((string)$o->CardID)||intval($o->Controller??0)!==$player||HasNoAbilities($o)
+        ||($p['resolutionClass']??'')!=='PLAIN_SPELL'||($p['cardID']??'')!==(string)$o->CardID
+        ||($p['sourceMZ']??'')!==$f['mzID']||intval($p['uid']??0)!==$uid||intval($p['controller']??0)!==$player
+        ||count($targets)!==2||($o->Params['evrHighRollerDeclaration']['stage']??'')!=='COMPLETE'||!empty($o->Params['evrHighRollerResolved']))return;
+    $o->Params['evrHighRollerResolved']=true;$count=FaBEVRHighRollerDouble($player,(string)$o->CardID)?2:1;
+    for($i=0;$i<$count;++$i){
+        $target=$targets[$i];$hero=FaBFindUID(intval($target['uid']??0));
+        if(!$hero||$hero['zone']!=='Hero'||intval($hero['player'])!==intval($target['player']??0)
+            ||!FaBSeatIsLive(intval($hero['player']))||intval($hero['object']->Controller??0)!==intval($target['player']))continue;
+        FaBIntimidate($player,intval($target['player']),1,$uid,(string)$o->CardID);
+    }
+}
+
 // Everfest's shared rules. Interactive decisions are authored as await macros.
 function FaBEVRCount(int $p,string $key): int {return FaBARCEffect($p,'EVR_'.$key);}
 function FaBEVRAdd(int $p,string $key,int $n=1): void {FaBWTRAddEffect($p,'EVR_'.$key,$n);}
 function FaBEVRClear(int $p,string $key): void {FaBWTRSetEffects($p,array_values(array_filter(FaBWTREffects($p),fn($e)=>($e['type']??'')!=='EVR_'.$key)));}
 function FaBEVRNext(int $p,string $kind,int $n): void {FaBEVRAdd($p,'NEXT_'.$kind,$n);}
-function FaBEVRCreate(int $p,string $id,int $n): void {if(FaBSeatIsLive($p))for($i=0;$i<$n;++$i)FaBWTRCreateArena($p,$id);}
+function FaBEVRCreate(int $p,string $id,int $n): void {
+    if(!FaBSeatIsLive($p)||$n<1)return;
+    // One create-N instruction is one replacement event, not N create-one events.
+    if(FaBHasType($id,'Token')){FaBHVYToken($p,$id,$n);return;}
+    for($i=0;$i<$n;++$i)FaBWTRCreateArena($p,$id);
+}
 function FaBEVRRoll(int $p): int {
     $roll=EngineRandomInt(1,6);if(FaBEVRCount($p,'READY'))$roll=max($roll,EngineRandomInt(1,6));
+    FaBEVRRememberDieRoll($p,$roll);
     if($roll===6)FaBDTDAdd($p,'ROLL_SIX');
     if($roll>=4)FaBEVRAdd($p,'HIGH_ROLL');
     foreach(FaBCRUEquipment($p,'skull_crushers') as $r){if($roll===1)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));elseif($roll>=5)FaBEVRAdd($p,'CRUSHERS');}
@@ -87,8 +186,42 @@ function FaBEVRAttack(int $p,object $o): void {
         $uid=intval(FaBObjectCounters($o)['WEAPON_UID']??FaBObjectCounters($o)['MON_SOURCE_UID']??0);$f=FaBFindUID($uid);
         if($f&&FaBEVRCount($p,'OATH'))FaBSetObjectCounter($f['object'],'POWER',intval(FaBObjectCounters($f['object'])['POWER']??0)+FaBEVRCount($p,'OATH'));
         if(FaBHasType($o,'Sword')||FaBHasType($o,'Dagger')){FaBEVRAdd($p,'SWORD_DAGGER');$n=FaBEVRCount($p,'SWORD_DAGGER');if($n<=2&&FaBEVRCount($p,'SLICE'))FaBWTRTag($o,'WTR_POWER:'.($n===1?1:FaBEVRCount($p,'SLICE')));}
-        if($f&&FaBHasType($o,'Illusionist')&&$f['zone']==='Arena')foreach(FaBMONArena($p,'shimmers_of_silver') as $r){$a=FaBIdentityFromMZ($r)['object'];if(intval(FaBObjectCounters($a)['EVR_TURN']??-1)!==intval(GetTurnNumber())){FaBSetObjectCounter($a,'EVR_TURN',intval(GetTurnNumber()));FaBSetObjectCounter($f['object'],'POWER',intval(FaBObjectCounters($f['object'])['POWER']??0)+1);}}
+        if($f&&FaBHasType($o,'Illusionist')&&$f['zone']==='Arena')FaBEVRQueueShimmersAttack($p,$o,$f);
     }
+}
+function FaBEVRQueueShimmersAttack(int $p,object $attack,array $target): void {
+    $aura=$target['object']??null;$turn=intval(GetTurnNumber());
+    $targetUID=intval(FaBObjectCounters($attack)['WEAPON_UID']??FaBObjectCounters($attack)['MON_SOURCE_UID']??0);
+    if(!FaBSeatIsLive($p)||($attack->Role??'')!=='ATTACK'||intval($attack->UniqueID??0)<1
+        ||intval($attack->Controller??0)!==$p||!FaBWTRIsWeapon($attack)||!FaBHasType($attack,'Illusionist')
+        ||($target['zone']??'')!=='Arena'||($target['player']??0)!==$p||!is_object($aura)||!empty($aura->removed)
+        ||$targetUID<1||intval($aura->UniqueID??0)!==$targetUID
+        ||intval($aura->UniqueID??0)<1||intval($aura->Controller??0)!==$p||!FaBHasType($aura,'Aura')||$turn<1)return;
+    foreach(FaBMONArena($p,'shimmers_of_silver') as $ref){
+        $found=FaBIdentityFromMZ($ref);$source=$found['object']??null;
+        if(!$found||$found['zone']!=='Arena'||$found['player']!==$p||!is_object($source)||!empty($source->removed)
+            ||$source->CardID!=='shimmers_of_silver_blue'||intval($source->UniqueID??0)<1
+            ||intval($source->Controller??0)!==$p||HasNoAbilities($source)
+            ||intval(FaBObjectCounters($source)['EVR_TURN']??-1)===$turn)continue;
+        // Reserve the once-per-turn trigger now, but put its counter only on resolution.
+        FaBSetObjectCounter($source,'EVR_TURN',$turn);
+        $uid=intval($aura->UniqueID);$epoch=FaBArmCapturedSourceEpoch($uid,'evrShimmersTargetEpoch');
+        FaBROSQueue($p,'shimmers_of_silver_blue',intval($source->UniqueID),
+            ['rosEvent'=>'evrShimmersAttackCounter','evrShimmersTarget'=>$uid,'evrShimmersEpoch'=>$epoch]);
+    }
+}
+function FaBEVRResolveShimmersAttackCounter(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];
+    $uid=$params['evrShimmersTarget']??null;$epoch=$params['evrShimmersEpoch']??null;
+    if(($layer->CardID??'')!=='shimmers_of_silver_blue'||($layer->Kind??'')!=='ABILITY'
+        ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='evrShimmersAttackCounter'
+        ||!is_int($uid)||$uid<1||!is_int($epoch)||$epoch<1
+        ||intval(FaBARCCard($uid,'evrShimmersTargetEpoch',0))!==$epoch)return;
+    $target=FaBFindUID($uid);
+    if(!$target||$target['zone']!=='Arena'||!empty($target['object']->removed))return;
+    // The same Arena object can change controller, name or abilities after capture.
+    $o=$target['object'];FaBSetObjectCounter($o,'POWER',intval(FaBObjectCounters($o)['POWER']??0)+1);
 }
 function FaBEVRPower(int $p,object $o): int {
     $n=FaBHasType($o,'Brute')?FaBEVRCount($p,'CRUSHERS'):0;
@@ -101,6 +234,7 @@ function FaBEVRDefense(int $p,object $o): int {
     if(FaBWTRBase($o->CardID)==='wax_on'&&$a&&FaBWTRIsAttackAction($a['object'])&&is_numeric(CardCost($a['object']->CardID))&&intval(CardCost($a['object']->CardID))===0)$n+=2;return $n;
 }
 function FaBEVRAfterMove(int $p,object $o,string $from,string $to): void {
+    FaBAdvanceCapturedSourceEpochs($o,$from,$to,['evrShimmersTargetEpoch']);
     // Persistent engine UIDs must not reconnect an old trigger to a returned new object.
     if($to==='Arena'&&$from!=='Arena'&&$o->CardID==='talisman_of_warfare_yellow')FaBARCSetCard(intval($o->UniqueID),'evrWarfareArenaEpoch',intval(FaBARCCard(intval($o->UniqueID),'evrWarfareArenaEpoch'))+1);
     if($to==='Graveyard')foreach(FaBLiveSeats() as $seat)FaBEVRAdd($seat,'GRAVEYARD');
@@ -132,7 +266,7 @@ function FaBEVREnd(int $p): void {
     if(FaBEVRCount($p,'OATH'))foreach(FaBChoiceRefs($p,'Weapons') as $r)FaBSetObjectCounter(FaBIdentityFromMZ($r)['object'],'POWER',0);
 }
 function FaBEVRPrevent(int $p,int $n,string $type,string $ref=''): int {
-    $f=FaBIdentityFromMZ($ref);$uid=$f?intval($f['object']->UniqueID):0;$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='EVR_STEADFAST'&&(intval($e['sourceUID'])===$uid||($f&&intval($e['sourceUID'])===intval(FaBObjectCounters($f['object'])['WEAPON_UID']??FaBObjectCounters($f['object'])['MON_SOURCE_UID']??0)))){$used=min($n,intval($e['amount']));$n-=$used;$e['amount']-=$used;if($e['amount']<=0)continue;}$left[]=$e;}FaBWTRSetEffects($p,$left);
+    $f=FaBDamageSourceView($ref);$uid=$f?intval($f['object']->UniqueID):0;$left=[];foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='EVR_STEADFAST'&&(intval($e['sourceUID'])===$uid||($f&&intval($e['sourceUID'])===intval(FaBObjectCounters($f['object'])['WEAPON_UID']??FaBObjectCounters($f['object'])['MON_SOURCE_UID']??0)))){$used=min($n,intval($e['amount']));$n-=$used;$e['amount']-=$used;if($e['amount']<=0)continue;}$left[]=$e;}FaBWTRSetEffects($p,$left);
     if($n===1&&FaBMONArena($p,'dissolution_sphere'))return 0;
     if($type==='ARCANE')foreach(FaBMONArena($p,'pyroglyphic_protection') as $r)$n=max(0,$n-FaBWTRPitchValue(FaBIdentityFromMZ($r)['object']->CardID,[3,2,1]));return $n;
 }
@@ -188,7 +322,7 @@ function FaBEVRHit(int $p,object $o,int $n): void {
  if(in_array('EVR_ASSERT',$tags,true))FaBEVRBanishTop($p,'AA');
  if(in_array('EVR_NO_PREVENT',$tags,true)&&FaBFaiHeroHit())FaBWTRAddEffect(intval(FaBGetState()['defender']),'EVR_NO_PREVENT',1,['source'=>$p]);
  if(FaBWTRIsAttackAction($o))foreach(FaBCRUEquipment($p,'mask_of_the_pouncing_lynx') as $ref)FaBRunSourceMacro('Hit',$p,'mask_of_the_pouncing_lynx',['mzID'=>$ref,'amount'=>$n]);
- if(FaBWTRIsAttackAction($o)&&FaBEVRCount($p,'SMASH')&&FaBFaiHeroHit()){FaBEVRClear($p,'SMASH');FaBRunSourceMacro('ResolveAbility',$p,'smashing_good_time_red',['mzID'=>$r]);}
+ FaBEVRSmashingHit($o, $n);
 }
 function FaBEVRDestroyed(int $p,object $o): void {
  $b=FaBWTRBase($o->CardID);$uid=intval($o->UniqueID);$r=FaBFindUID($uid)['mzID']??'';
@@ -208,7 +342,27 @@ function FaBEVRDrew(int $p,int $n): void {
  if($n<=0)return;
  if(GetCurrentPhase()==='MAIN')foreach(FaBOpponents($p) as $seat)if((FaBCRUHero($seat,'valda_brightaxe')||FaBCRUHero($seat,'valda_seismic_impact'))&&!FaBSEAHeroCreationBlocked($seat))FaBEVRCreate($seat,'seismic_surge',$n);
  $ref=(string)DecisionQueueController::GetVariable('mzID');$f=FaBIdentityFromMZ($ref);
- if(GetCurrentPhase()==='MAIN'&&$f&&FaBHasType($f['object'],'Action'))foreach(FaBCRUEquipment($p,'earthlore_bounty') as $r)FaBEVRCreate($p,'seismic_surge',$n);
+ if(GetCurrentPhase()==='MAIN'&&$f&&FaBHasType($f['object'],'Action'))foreach(FaBCRUEquipment($p,'earthlore_bounty') as $r){
+  $equipment=FaBIdentityFromMZ($r);$o=$equipment['object']??null;
+  if(!FaBSeatIsLive($p)||!$equipment||$equipment['player']!==$p||!is_object($o)||!empty($o->removed)
+   ||$o->CardID!=='earthlore_bounty'||intval($o->UniqueID??0)<1||intval($o->Controller??0)!==$p
+   ||($equipment['zone']!=='Equipment'&&($equipment['zone']!=='CombatChain'||($o->FromZone??'')!=='Equipment'))
+   ||HasNoAbilities($o))continue;
+  // One draw effect earns one layer carrying the number actually drawn.
+  FaBROSQueue($p,'earthlore_bounty',intval($o->UniqueID),['rosEvent'=>'evrEarthloreActionDraw','evrEarthloreCount'=>$n]);
+ }
+}
+function FaBEVRResolveEarthloreActionDraw(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];$count=$params['evrEarthloreCount']??null;
+ if(($layer->CardID??'')!=='earthlore_bounty'||($layer->Kind??'')!=='ABILITY'
+  ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+  ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='evrEarthloreActionDraw'
+  ||!is_int($count)||$count<1)return;
+ // The earned creation is independent of the Equipment's later zone, controller or abilities.
+ $hadController=array_key_exists('fabEffectController',$GLOBALS);
+ $previousController=$hadController?$GLOBALS['fabEffectController']:null;$GLOBALS['fabEffectController']=$p;
+ try{FaBEVRCreate($p,'seismic_surge',$count);}
+ finally{if($hadController)$GLOBALS['fabEffectController']=$previousController;else unset($GLOBALS['fabEffectController']);}
 }
 function FaBEVRFractalValue(object $o,string $stat): int {
  $n=0;foreach(FaBLiveSeats() as $p)foreach(FaBChoiceRefs($p,'CombatChain',['attackAction'=>true]) as $r){$a=FaBIdentityFromMZ($r)['object'];if($a->CardID==='fractal_replication_red'||!FaBHasType($a,'Illusionist'))continue;$n=max($n,intval($stat==='POWER'?CardPower($a->CardID):CardDefense($a->CardID)));}return $n;
@@ -230,4 +384,36 @@ function FaBEVRLethalSource(int $p): bool {
   if(FaBWTRBase($o->CardID)==='emeritus_scolding'&&intval($o->Controller)!==intval(GetTurnPlayer()))$base+=2;
   if(FaBARCArcaneAmount(intval($o->Controller),intval($o->UniqueID),$base,$p)>=$life)return true;
  }return false;
+}
+
+/** Smashing's delayed effect retains its own source, independently of an attack. */
+function FaBEVRRegisterSmashing(int $p, int $sourceUID): void {
+ $f=FaBFindUID($sourceUID);
+ if (!$f || !FaBSeatIsLive($p) || !in_array($f['object']->CardID, ['smashing_good_time_red','smashing_good_time_yellow','smashing_good_time_blue'], true)) return;
+ FaBWTRAddEffect($p, 'EVR_SMASH', 1, ['sourceUID'=>$sourceUID,'sourceCardID'=>(string)$f['object']->CardID]);
+}
+function FaBEVRSmashingHit(object $attack, int $damage): void {
+ if ($damage<=0 || !FaBWTRIsAttackAction($attack) || !FaBFaiHeroHit()) return;
+ $victim=intval(FaBGetState()['defender']);
+ if (!in_array($victim, FaBSeatOrder(), true)) return;
+ // The printed next-time effect does not restrict whose attack action hits.
+ foreach (FaBLiveSeats() as $owner) {
+  $left=[]; $pending=[];
+  foreach (FaBWTREffects($owner) as $effect) {
+   if (($effect['type']??'')!=='EVR_SMASH' || intval($effect['sourceUID']??0)<1
+       || !in_array((string)($effect['sourceCardID']??''), ['smashing_good_time_red','smashing_good_time_yellow','smashing_good_time_blue'], true)) { $left[]=$effect; continue; }
+   $pending[]=$effect;
+  }
+  if (!$pending) continue;
+  FaBWTRSetEffects($owner, $left);
+  foreach ($pending as $effect) FaBROSQueue($owner, (string)$effect['sourceCardID'], intval($effect['sourceUID']), ['rosEvent'=>'evrSmashingNextAAHit','smashVictim'=>$victim]);
+ }
+}
+function FaBEVRResolveSmashingHit(int $p, object $trigger): void {
+ $victim=intval($trigger->Params['smashVictim']??0);
+ if (($trigger->Params['rosEvent']??'')!=='evrSmashingNextAAHit' || intval($trigger->Controller)!==$p || intval($trigger->SourceUniqueID)<1
+     || !in_array($victim, FaBSeatOrder(), true)
+     || !in_array($trigger->CardID, ['smashing_good_time_red','smashing_good_time_yellow','smashing_good_time_blue'], true)) return;
+ $source=FaBFindUID(intval($trigger->SourceUniqueID));
+ FaBRunSourceMacro('ResolveAbility', $p, $trigger->CardID, ['mzID'=>$source['mzID']??'','evrSmashingVictim'=>$victim]);
 }

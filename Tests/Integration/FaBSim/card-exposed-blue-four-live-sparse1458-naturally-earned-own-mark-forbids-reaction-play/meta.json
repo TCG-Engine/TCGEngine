@@ -1,0 +1,7 @@
+{
+    "name": "Exposed / naturally marked controller cannot play in otherwise correct reaction window",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T02:46:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Real IsolateRed5 cast by Uzuri1 at adjacent Fai4, cost0 power3, AP0. Real SmokeOutRed7 costs0 and defends3 only after all four source responses, then fresh separate all-four mark-trigger responses mark attacking Hero1. ExposedBlue6 remains owned in Hand1 in fresh REACTION1, own attack5 exists, printed cost0; actual click rejects solely due to naturally earned ownMark1, no layer/choice/power+1/defenderMark. Physical damage3-3=0 allHero20. Full combat close moves5GY1/7GY4, primary6Hand1, ownMark persists/RNG0/UID8/no AP refund. Limited printed prohibition only; no unmarked positive/+1/target/mark credit. No seeded marks, engine edits, sibling or support-identity credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#exposed_blue FaBSim/Custom/HNTRuntime.php#FaBHNTCanPlay FaBSim/Custom/HNTCards.php#FaBHNTQueueSmokeDefended FaBSim/Custom/GameLogic.php#FaBCanPlay"
+}

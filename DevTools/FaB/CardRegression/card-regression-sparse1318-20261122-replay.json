@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-leave-a-dent-blue-four-live-sparse1318-real-go-again-funds-generic-attack-does-not-gain-guardian-crush-mill",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-leave-a-dent-blue-four-live-sparse1318-real-go-again-funds-generic-attack-does-not-gain-guardian-crush-mill",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1318-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1318-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "19e2e3de14cf7a50c18e2a14cb2ef482fa0099bddd9e0d3622b55c33acf3300b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3536e88ae41ee94c6695fcb0d85deffe85adc6c6127ead30c6ff465040fec74",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "32d1fb596c4c656d848ea745a7120b1aaed3bcce4f3582b9c7c276b8f16a7711",
+        "expected_final_gamestate.txt": "5501fba45139781f195bd41542f8b6d2eca437d950b4241cc01bc49907b49785",
+        "meta.json": "baa29297568c22dfa8bcca39fe51de77f3ba33cbb41a3cfa3bba04fcdcd3e620"
+      }
+    },
+    {
+      "slug": "card-toxicity-red-four-live-sparse1318-real-go-again-funds-generic-attack-does-not-gain-assassin-ranger-life-loss",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-toxicity-red-four-live-sparse1318-real-go-again-funds-generic-attack-does-not-gain-assassin-ranger-life-loss",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1318-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1318-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7f53c499c6a33ce2321b9590d3c33200ad27c1c71278042cc94b9618cf522124",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dacd3200e948f4ab564a021cae79b6ffa8b91f084440fab9ff86e9777c78eefa",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "bc7efd1d6e3533564580db9440a64a79656a21647eb2f51aaf3cd076c9dd7dbf",
+        "expected_final_gamestate.txt": "f41497b403eb391d6156f98979406174a5d1c93867abc660fadc80c5f903904c",
+        "meta.json": "dbdbef585140a6d190ba2797cb8e7492c5ef9fd18fd21cac13761f3113e65cb0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

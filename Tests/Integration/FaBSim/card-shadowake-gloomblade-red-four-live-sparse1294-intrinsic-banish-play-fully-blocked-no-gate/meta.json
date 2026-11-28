@@ -1,0 +1,7 @@
+{
+    "name": "Shadowake Gloomblade / actual intrinsic Banish play with full defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:52:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_INTRINSIC_BANISH_PLAY/FULL_DEFENSE_NO_HIT_GATE_ONLY. NaturalYoungVynnset20/fourmanualUPF/actualfaceupprimary5Banish/noexternalPlayableFromBanishflag orhistory. NoRunechantsANYArena soUsurpmandatoryifableunable/no+2. ActualYellow6pitch2paysprinted2/AP1to0/R0/source5StackfromBanishthroughallfourresponsewindows. Actualprimary4powerfullyblockedbytwoactual3defenseGenericHandcards\u21920damage/nohit/noearnedGateWHENtrigger/UID/token; originalArsenalcontrolunchanged, bothdefendersownedGY4. Fullsame5ownedGY1/sourceBanishnowempty/actualfunderPitchifany/APR0/UID9RNG0/cleanStackDQsCC. No paidUsurp/positiveHeroHit/Gateproduction/BloodDebtend/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shadowake_gloomblade_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

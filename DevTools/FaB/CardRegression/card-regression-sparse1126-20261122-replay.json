@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-iyslander-four-live-sparse1126-real-non-ice-blue-item-from-arsenal-as-instant-on-another-players-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-iyslander-four-live-sparse1126-real-non-ice-blue-item-from-arsenal-as-instant-on-another-players-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1126-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1126-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "785426d28eb0568d504196c02da833f23ff334ea132340feaf998b540b2e4f3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1db209a9ac3fd0913d2861894c493992731c7370d847ddec97b135419a375437",
+        "actions.json": "f021f2fba610fe71ee2101f41800baad67f0ecdc5aabbb5edcf209d1450f6907",
+        "assertions.json": "52742cff139c97c158e43d047e8eed9cfd827104d2db9e64ccb729cc1b6a7ffa",
+        "expected_final_gamestate.txt": "8addcfc908cd19f2e769a013b1156f7b9e2667a9dd1f7066dbfea0fbedba3205",
+        "meta.json": "34e387b739603fa941fefdc265dc612cbe4f11cb4af52e3a0a5e231fa3e23bea"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

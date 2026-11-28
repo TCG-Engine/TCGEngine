@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-strength-of-sequoia-red-four-live-sparse893-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-strength-of-sequoia-red-four-live-sparse893-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8ab69e7256f859819e7d5c37519fbd533f40cbb9b4b7e610bca2a9262387b95b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4bcc413812cc0728b78ee5f070c6d71356ee241e97d065b6e61c523fba983402",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "79d8efd589a7e4fbb5bee2396dbcfce3c1ba5065e6029f0bd3a70b25976b05ff",
+        "expected_final_gamestate.txt": "b5212ca2ffddeab184358d2e7b2bab9c8d6af9232970b18e76b780f4a409b2d4",
+        "meta.json": "10c8b0978116eb223179ce8edda45d817d6b2926c50e26b60985c7a60d54776d"
+      }
+    },
+    {
+      "slug": "card-blessing-of-aether-red-four-live-sparse893-natural-start-destroys-real-aura-then-next-arcane-spell-deals-six",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-aether-red-four-live-sparse893-natural-start-destroys-real-aura-then-next-arcane-spell-deals-six",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "94858ff74c57315f82f1cd81f673e038fcc7e8e5ce8f9de1dca63382a20556fe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ec96c3488991919a5e42bf5f957f8090bcfc38370e47deeef52237b325ba412",
+        "actions.json": "4f57c1b8092214a3e32daa186da54c9c6b81735805d822930725ef51e466bfae",
+        "assertions.json": "f469d792d65c3fdd41c5b5c93ab212e168a2df47dde761725bae523ff0653528",
+        "expected_final_gamestate.txt": "7f7dff4c7ee91964386c5bdac6a558367fe36be0496f31ffc1ddc019d2f0c287",
+        "meta.json": "4967a5dc796fc4090c0b54fc19e8c13fecae46209858eb0d3efad78195ebf8eb"
+      }
+    },
+    {
+      "slug": "card-blessing-of-spirits-red-four-live-sparse893-natural-start-destroys-real-aura-then-creates-three-owned-spectral-shields",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-spirits-red-four-live-sparse893-natural-start-destroys-real-aura-then-creates-three-owned-spectral-shields",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5a2d3027cd1bf2e9ff3579cba247c36f6faeda1fc1fca082f794b7ecfed9b712",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba133cbe75d8151deaebd11aa635b6c539f657eafed7195869c61977938f4714",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "7633bee179a9dca7f3e2c4157e208537fffc5deae7b1db4953cdbd093a474d5a",
+        "expected_final_gamestate.txt": "3d38fe138f790e7906f21bcef7c54891b6ed19b638162c05bb9c3ceba83b2bb9",
+        "meta.json": "fd7c1270ffeed0a4048445db826d579abdd96ee8efd80d957897ed0918787e72"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

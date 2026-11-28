@@ -1,0 +1,7 @@
+{
+    "name": "Peaceful Sanctuary / prevents another player creating an aura token",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:55:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CONTINUOUS_NO_AURA_TOKEN_CREATION_ONLY. FourmanualYoungDori20/Dori20/Dori20/Prism20. ActualSanctuary5cost0/AP0receives4responsesandentersArena1(noGA). AllliveplayersreceiveACTIONpriority, atseat4actualIllusionistPrismaticShieldBlue6Instantcost3isplayedandrealBlue7pitch3pays3/R0/AP4stays0. Fourfreshspellresponses4/1/2/3thenresolve. CorrectexpectedNOShield(oranyAuraToken)Arena4, real6ownGY4/Pitch7/primary5Arena1/noCostrefund/noStackDQCC/maxUID7/RNG0/healthunchanged. OfficialMPWnotesfirstabilitypreventsAuraTokencreation; CR1.1.2bplayer/heroaliasand8.5.2cinstructedplayercreatesToken. ThisisnotrestrictedtoHerocardactivatedabilities. NoHeroabilitycost/soul, upkeep/removal/non-AuraToken/othercreation/support/fullcardcredit. IfTokencreated, failbeforeSave; neverrelaxzeroexpectation. Sources: FaBSim/GeneratedCode/cardArrayCache.json#peaceful_sanctuary_red https://judge.fabtcg.com/cards/detail/5073/ https://fabtcg.com/rules-and-policy-center/release-notes/mastery-pack-warrior/ https://rules.fabtcg.com/en/cr/01-game-concepts/#1112b https://rules.fabtcg.com/en/cr/08-keywords/#852-create-token FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php"
+}

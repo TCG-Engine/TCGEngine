@@ -1,0 +1,74 @@
+{
+  "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "repair-bracken-rap-red-four-live-20261125-real-resource-pitch-false-earned-layer-no-might-and-six-damage",
+      "passed": true,
+      "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-bracken-rap-red-four-live-20261125-real-resource-pitch-false-earned-layer-no-might-and-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean1.log"
+      ],
+      "complete_log_sha256": "9e22c4325ad7454d04ac830f6e4d09684526830839da6681f3fc839835ac4976",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+      "passed": true,
+      "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean2.log"
+      ],
+      "complete_log_sha256": "c45485dcbe9b087204f78814f4f4c340d41b77c82d096139f451e171136f711e",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+      "passed": true,
+      "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean3.log"
+      ],
+      "complete_log_sha256": "b95fab69aaa15ea30224ec351290d27c81d1d8d51f0064072eb97ebd0ca6a385",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+      "passed": true,
+      "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean4.log"
+      ],
+      "complete_log_sha256": "0343dfdec4ff128a19bebc7893de88dd6b2b216187518e8ffa97ca352f7a4178",
+      "raw5_unchanged": true
+    }
+  ]
+}

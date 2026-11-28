@@ -1,0 +1,7 @@
+{
+    "name": "Lumina Lance / actual Light attack reaction with zero Soul banish chooses zero modes and adds no bonus",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T01:40:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Original zeroSoul/zeroModes legalLightAA reaction/nativeblock oracle unchanged. OfficialJudgeHub2295 permitsupto3/zero; Weapon restriction is absent. Exact namedWTRfalsefallback fixed; existingDTDLightguard/body unchanged. PositiveSoul/modal/targettiming/nonLightzero branches remain unqualified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lumina_lance_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#lumina_lance_yellow:0:PrepareCard FaBSim/GeneratedCode/GeneratedMacroCode.php#lumina_lance_yellow:0:ResolveCard FaBSim/Custom/DTDCards.php#FaBDTDBanishSoul FaBSim/Custom/GameLogic.php#FaBTryCompletePayment"
+}

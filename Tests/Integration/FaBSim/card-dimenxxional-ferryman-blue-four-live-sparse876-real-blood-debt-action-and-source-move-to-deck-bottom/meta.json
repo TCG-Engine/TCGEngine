@@ -1,0 +1,7 @@
+{
+    "name": "Dimenxxional Ferryman / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:19:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Put this and an action card with blood debt from your banished zone on the bottom of your deck.\n\n**Go again** Representative only: real_blood_debt_action_and_source_move_to_deck_bottom. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dimenxxional_ferryman_blue"
+}

@@ -1,0 +1,256 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B355_EARNED_NAA_PUBLIC_BANISH_PERMISSION_PAID_SEVEN_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T17:39:48.524082+00:00",
+  "source_spec": "card-regression-batch355.json",
+  "input_sha256": "79cea8367e556cdb4e697e26c1876ad5ba5640a455c5cb000d9efd7f547758ca",
+  "manifest_sha256": "fc2e9e0f7f0442fb4fc4df4d33d8efddeb639ab4ec95b45bcd1f0d4994ecdf8d",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "source_guards_verified": 18,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch355-independent-source-review.json",
+    "sha256": "9ac629b2a2cba28a56ca7b0ccbe045bc79a7f589cbce9afed3dc9f29d25a2ebd",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch355-20261103T173729Z-6aea1bd991e52.json",
+    "sha256": "c83ee473655cd4fa92bee28c1cd93a96edeeda8168682d6d9e5cccd293818ee5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch355-native-r1\\receipt.json",
+    "sha256": "459db435bbb118e685bb548520e6def9b6c1213619d455e8a4aadc12587138a2"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch355_saved_readonly.py",
+    "sha256": "f43af42185af3eda7d013fca379915b65091b3f98a153416e23e293ced39a5ad"
+  },
+  "reviewer_independence": "Meta authored original355; saved reviewer independently source-reviewed but did not author scenario, source implementation or native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "unhallowed_rites_red",
+      "slug": "card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+      "source_spec": "card-regression-batch355.json",
+      "input_sha256": "79cea8367e556cdb4e697e26c1876ad5ba5640a455c5cb000d9efd7f547758ca",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+      "fixture_sha256": "a9c248b475fba0a9a36043c793b83465e3c9b53d798b7cb8fb9cdc87bbf18304",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "80ce84f2913dd3b2c725fa1ea98c490493ed4f3c5a23a61c545c25c2f22abb4d",
+        "actions.json": "39ee38bb303d63a314e1336e3abe61275f7fa5ae158ed136e2b48e02207ef594",
+        "assertions.json": "1ca0689ed995d3c15c62557747526687f0d0093e3c16ef98acea675825fee869",
+        "expected_final_gamestate.txt": "bc522a061fd97f0349469c6c5bb25634ef7f2a0502ed01790d7fe12a4c2b1d8b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80ce84f2913dd3b2c725fa1ea98c490493ed4f3c5a23a61c545c25c2f22abb4d",
+        "actions.json": "39ee38bb303d63a314e1336e3abe61275f7fa5ae158ed136e2b48e02207ef594",
+        "assertions.json": "1ca0689ed995d3c15c62557747526687f0d0093e3c16ef98acea675825fee869",
+        "expected_final_gamestate.txt": "bc522a061fd97f0349469c6c5bb25634ef7f2a0502ed01790d7fe12a4c2b1d8b",
+        "meta.json": "c9e33c4dd6d2989a1509a59eeacef408131a60d4c07355979263edada6a27af5"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "80ce84f2913dd3b2c725fa1ea98c490493ed4f3c5a23a61c545c25c2f22abb4d",
+        "actions.json": "39ee38bb303d63a314e1336e3abe61275f7fa5ae158ed136e2b48e02207ef594",
+        "assertions.json": "1ca0689ed995d3c15c62557747526687f0d0093e3c16ef98acea675825fee869",
+        "expected_final_gamestate.txt": "bc522a061fd97f0349469c6c5bb25634ef7f2a0502ed01790d7fe12a4c2b1d8b",
+        "meta.json": "c9e33c4dd6d2989a1509a59eeacef408131a60d4c07355979263edada6a27af5"
+      },
+      "actions": 33,
+      "native_assertions": 2724,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "unhallowed_rites_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "unhallowed_rites_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_assertion_mapping_sha256": "274373b8445e3caa64839aa1453cedcab7f6fefaea72e2895254141e5e1a7f81",
+      "native_action_mapping_sha256": "3097a3b81188597ba17ea64037d6a94a3316c571c44f69d2e2043a7b537282e5",
+      "native_assertion_mapping_sha256": "a80b552e82314dd156e55c83d854e682d895b3fee4674519af1377346206d036"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2724,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actualinitial5publicownedBanish/FaceDown0/PlayableFromBanish0, no NAAhistory/privatepermission/bonus/resourcesseed. ActualNimblism6NAA0/APspent waitsallfour1,2,3,4then6GY/earnedAP1 and actualNAAhistory. Actual5Banishclick/normalP4targetdeclaration while5stillBanish, answer5StackSourceBanish/UID5 thenrealBlue7pitch3pays1/APbeforefreshfour\u2192R2AP0.",
+    "Everyapprovedinput/assertion matchesactualsavedledger: original5heldStackthroughfirstthreeprimaryresponses, fourthsame5Chain/FromBanish/link1/POWER3/base4+3=7/noGA. Exactfourseatattack/emptyP4finish/defending/reactionrounds produceactual7physicaldamage/HP4=13, notcachedpoweralone. NoeligibleGYNAABloodDebt atprimaryresolution; nooptionalrecyclechoice isearned orcredited.",
+    "Bothfullschemaendpointsshowallfouryoungheroesready/live/manualwith48preferencesverifiedperendpoint. FinalrawGYexactUIDset{5Unhallowed,6Nimblism}, Pitch7Blue, R2AP0/HP13; alloriginalUID1..7conserved/noallocation/entropy. ActualplayedFromBanish nativeprovenance and primaryhitUID5 corroborateorigin; positiveNimblismnext-AA effectconsumed. Stack/chains/Hands/Decks/Banish/Temp/DQs/payment/manager/awaitframesclear."
+  ],
+  "limits": [
+    "OnlyRedpositiveearnedNAAcondition/publicBanishcost1/base4+support3physical7branch. Nofalseconditionrejection,Hand-origin,FaceDownBanish,optionalBloodDebtrecycle,EndPhaseBloodDebt,hero,sibling/support-primary/fullcard/control/fullsuitecredit.",
+    "Nativecompletedledger plusparsedendpoints aretheactualevidence; noextra per-inputrawsnapshots or reviewerexecutionclaimed. Roottargetedreplays/registrationseparate.",
+    "NoPHP/native/R/source/generator/service/replay orlegacyreviewbyreviewer."
+  ]
+}

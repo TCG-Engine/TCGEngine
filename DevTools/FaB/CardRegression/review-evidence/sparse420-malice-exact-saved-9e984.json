@@ -1,0 +1,258 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B420_MALICE_SUBSET_FEATHERFOOT_BLOCKED_UNSAVED",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T06:13:57.194967+00:00",
+  "reviewed_subset": true,
+  "source_spec": "card-regression-batch420.json",
+  "input_sha256": "f6b6b59e1d40bb8dae5c9b95a1eaa1b3a55145268fe8391b1c8de7b6471f42dc",
+  "manifest_sha256": "7a35dd2eed9780f229a6ed55657495baabcfe4c8eb81f8de0dfaa91d318c4d22",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 64,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch420-independent-source-review.json",
+    "sha256": "bc2aaf66e4c848f5f70e55efa3fe7dbcb058b14d790212f2bc9990ecce2ddd6a",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch420-20261105T060859Z-6aec1d7b62347.json",
+    "sha256": "ee3e13c470c663d097a8471cd7f11a7f232980ab7bda32f217ce67c6e5f90062"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch420-native-r1-9e984\\receipt.json",
+    "sha256": "1e08accfc863f532cb20576a3468176cd20d9513e3af716adbdae595193902bf"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "malice",
+      "group_id": "identity:malice",
+      "slug": "card-malice-four-live-sparse-real-paid-tapped-hero-grants-zombie-graveyard-play-permission-consumed",
+      "source_spec": "card-regression-batch420.json",
+      "input_sha256": "f6b6b59e1d40bb8dae5c9b95a1eaa1b3a55145268fe8391b1c8de7b6471f42dc",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-malice-four-live-sparse-real-paid-tapped-hero-grants-zombie-graveyard-play-permission-consumed",
+      "fixture_sha256": "bb7b2faad65e825ce476dbc2f48b50a2e7943651d63a819b36f2ec1e4926ac60",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "811134177dc4e0f39b4f3139dbfce786b2681ff1a11f7177bdfdfabd5fb2e04c",
+        "actions.json": "34d79700c4e838fe167cdd246d7c510d413d8204e707705d21b206859896bdc0",
+        "assertions.json": "7ec7d7718d5e202a52a58bb8d098f934821783c06ed547016bcc09ee96bf81fd",
+        "expected_final_gamestate.txt": "da8de85bf3dd6a4b5eb3abfe2e068f67813a157456892c7b399107a88fd20401"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "811134177dc4e0f39b4f3139dbfce786b2681ff1a11f7177bdfdfabd5fb2e04c",
+        "actions.json": "34d79700c4e838fe167cdd246d7c510d413d8204e707705d21b206859896bdc0",
+        "assertions.json": "7ec7d7718d5e202a52a58bb8d098f934821783c06ed547016bcc09ee96bf81fd",
+        "expected_final_gamestate.txt": "da8de85bf3dd6a4b5eb3abfe2e068f67813a157456892c7b399107a88fd20401",
+        "meta.json": "d0aa847cdea2ecf98f89313090df6d6518fd701ab76dfd27cf12ec21e2dbaf32"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "811134177dc4e0f39b4f3139dbfce786b2681ff1a11f7177bdfdfabd5fb2e04c",
+        "actions.json": "34d79700c4e838fe167cdd246d7c510d413d8204e707705d21b206859896bdc0",
+        "assertions.json": "7ec7d7718d5e202a52a58bb8d098f934821783c06ed547016bcc09ee96bf81fd",
+        "expected_final_gamestate.txt": "da8de85bf3dd6a4b5eb3abfe2e068f67813a157456892c7b399107a88fd20401",
+        "meta.json": "d0aa847cdea2ecf98f89313090df6d6518fd701ab76dfd27cf12ec21e2dbaf32"
+      },
+      "actions": 12,
+      "native_assertions": 1030,
+      "actual_manual_passes": 8,
+      "actual_priority_response_passes": 8,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "schema_property_assertions": 260,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_cleric_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 1
+        },
+        "5": {
+          "card_id": "restless_cleric_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "27b25f90e03ae94c1fa8fda563e58746069cc87fbbf96a8c4f716d4541ae94df",
+      "native_action_mapping_sha256": "6632e0965668065b6c8b5f9a0fa4a887f3ee94f5d31d30e22075cd95dfe687e8",
+      "native_assertion_mapping_sha256": "da4a45161fc616f32a34727264cfcaad417e072f6bebcc60f3128e44a41ca703"
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "index": 1,
+      "card_id": "talisman_of_featherfoot_yellow",
+      "group_id": "identity:talisman_of_featherfoot_yellow",
+      "slug": "card-talisman-of-featherfoot-yellow-four-live-correct-probe-real-plus-one-reaction-earns-destroy-and-go-again-layer",
+      "source_spec": "card-regression-batch420.json",
+      "input_sha256": "f6b6b59e1d40bb8dae5c9b95a1eaa1b3a55145268fe8391b1c8de7b6471f42dc",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "fixture_exists": false,
+      "status": "NATIVE_BLOCKED_MISSING_RESPONSEABLE_TRIGGER_NO_FIX_APPLIED",
+      "error": "Expected Stack count 1, got 0.",
+      "accepted_inputs": 20,
+      "native_classification": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-featherfoot420-independent-native-before-classification.json",
+        "sha256": "7d07a620b357fad2c812729e2843811b9a354fd710f94dad1162eacc66f2cf9f"
+      },
+      "coverage_credit": false,
+      "note": "Originalexpectedbehaviorremainsnormativelycorrect; failedattemptisnotapassingfixture. Unreachedpower5/itemzones/suffixnotclaimed."
+    }
+  ],
+  "total_actions": 12,
+  "total_native_assertions": 1030,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 260,
+  "material_findings": [
+    "ActualHero1activationdeclaressolepublicZombie5beforepaying, Blue6pitch3pays1/AP0/R2/TAPHero1onlyafterassets. SourceABI7retainsphysicalHero1identitythroughactualfresh1/2/3/4responses; ownGAAP1andtargetpermissiononlyfourth. Actualsame5GYplay0spendsAP1\u21920/R2unchanged, source5heldthroughsecondfreshfour\u2192sameownedreadyDamage0ClericArena; noAPrefundfromunactivatedClericability.",
+    "Completeactualinitial/finalraw5/all12envelopes/1030orderedchecks/260properties/eightmanualresponses/all48manualsettingsperendpoint/fullUIDownership/economy/sourcecleanupverified. Original1..6conserved, actualABI7ceased, Blue6exactfullrawrecordmovedPitch, Hero1onlyStatus2\u21921/allotherHerofieldsunchanged, ClericFAB_PLAY_ORDER1/noDecaycounter/counter7. ActualarcCards7grantbinds5/GY/seat1/Zombie and5actualiarPlayedFromGraveyard; permissionclearedafterrealconsumer, notseeded. Fullqueues/Stack/frame/combat/target/paymentempty.",
+    "Featherfootkeptblockedandunsavedwithseparateindependentnative-beforeclassification. No health/after-choice/trigger-resolutionsuffixqualification; thisreviewapprovesMaliceonly for reviewed-subsetregistration."
+  ],
+  "limits": [
+    "Maliceonlytarget/pay/AP/tap/abilityGA/realGYpermissionconsumer. NoZombieDeath/Corpse/Clericability/lifegain/allyattack/Decay/endphase/expiry/foreignpermissions/adult/sibling/supportprimary/newcontrolcredit.",
+    "Onlyactualinitial/finalrawsnapshotsarecomplete; intermediatefactsarepassedassertions/envelopes, notinventedfullsnapshots/privatePC. HistoricalceasedABI7metadataisnotalivevirtualobject. Versionsopaqueundo data excludedfromcurrentUIDinventory.",
+    "NoFeatherfootpassingfixture/coverage orsourcefixapproval. NoPHP/native/replay/R/source/service/gen/fullsuite/denied094089090retry/reroute byreviewer. Rootreplays/registrationseparateunclaimed."
+  ],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch420_malice_saved_readonly.py",
+    "sha256": "52f098ef9d790ab8c8fa99d73a8926dfa83b93cf8f361fc9de5126b1b2afd6eb"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

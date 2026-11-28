@@ -1,0 +1,51 @@
+{
+  "status": "DEATHMATCH079_ORIGINAL32_2481_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker and original335 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+  "input_sha256": "c30bab81a35b399c8330566aca276d4747eee9e651e84521767ad631fc77a883",
+  "source_spec": "card-regression-repair-deathmatch079-global-hero-permission.json",
+  "fixtures": [
+    {
+      "slug": "card-deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe",
+      "card_id": "deathmatch_arena",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0555d82efa2d24b92d5ec05841eb66866d562698e2cdae75c5d29a3c3b4e3730",
+        "actions.json": "772ad630b1d353c6a3465eaeed1b064493b640c78844fa5447b7055df06bf5f4",
+        "assertions.json": "350f2fafd94e65a55eeea073016da5055a3d4f8ed03695c95c0bd59818b5ec4c",
+        "expected_final_gamestate.txt": "ad0e863abd246e3900e35ae109bc11b43d01fd461a56fadd07239cf5bb7eb7c4",
+        "meta.json": "e38c907f85406d0d876f5d93ebaa442d39f56be037849c4374fc68e1b6ba2575"
+      },
+      "fixture_sha256": "ba2d8270a371eef42a2fb9d35a81ee4e41dc045d10feddd619254ac718d4fd70",
+      "actions": 32,
+      "native_assertions": 2481,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+      "runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+      "source_spec": "card-regression-repair-deathmatch079-global-hero-permission.json",
+      "input_sha256": "c30bab81a35b399c8330566aca276d4747eee9e651e84521767ad631fc77a883"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-deathmatch079-replay.json",
+    "sha256": "4b65fa64f5f2d00222a0b9d323d7e3f84345f36dca79c73187faa6b582d21845",
+    "passed": true
+  },
+  "source_review_sha256": "1355689a7367e2cf2d448a337f36b1ca536d42956dfae33d852e854456202fac",
+  "components": 49,
+  "component_receipt_sha256": "4c6e9455a6fa8e9aed48575c584eeba32da1fee3a86dece0850e168091beceb6",
+  "basis": "All original32actions/2481queries/setup preserved. Actual0-cost Landmark5cast stays Stack through four manual responses then enters owned Arena and grants its own go again AP1. Real Wounding6 click offers all three opposing Heroes including nonadjacent3; actual standard answer selects3, spends AP and resolves physical4damage intoHP3=16 through all-seat response/defense flow. All other HP20, same Landmark5Arena, same AA6ownGY, no earned lethal Gold/new UID, R/AP0/full Stack/DQ/await/combat cleanup. Hero-only global permission preserves default permanent adjacency and UPF focus by actual source and49 isolated controls. Existing before failure remains retained; no observed-value fitting.",
+  "official_sources": [
+    "https://fabtcg.com/rules-and-policy-center/release-notes/heavy-hitters/",
+    "https://rules.fabtcg.com/en/trp/09-special-formats/"
+  ],
+  "limits": [
+    "One original nonlethal ordinary AA nonadjacent-Hero branch. Gold/death, weapons, Ally attacks, other Landmarks, Legendary and foreign-control gameplay not newly qualified.",
+    "49 actual-function controls separately exercise global source holders, absence/blanking/departure, dead/self, permanent adjacency, focus and public target-claim boundaries with modeled primitives. They are not additional native fixtures.",
+    "No Core, generated, lifecycle, schema or remote authoring edit. Existing explicit anyHero descriptors preserved; separately denied repairs untouched. No full suite or historical corpus replay."
+  ]
+}

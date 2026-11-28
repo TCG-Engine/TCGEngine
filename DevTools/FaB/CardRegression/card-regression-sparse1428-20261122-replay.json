@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blink-of-an-eye-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blink-of-an-eye-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "69f46e7a83cf557303c52d06c6cce194b6f410a7e12dbb34ef6a0008e1fb58b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e626af11ed11094dd84f551e5ffa77623aa7cb293e69740ec1065349ca9c94b6",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "faad40171fee1321285fc3e8ef2c5eeec592ddd660d3e415dc8f2dcb0a8f6297",
+        "expected_final_gamestate.txt": "068ecb68e57408c8e1bcfdad2a8fe5f035d02ebaa51ed8a91f8a63e14f61944d",
+        "meta.json": "fa9f92da5f9ef55cb837e7b5e1bf29975b0270634c4e89c98f66f94766e62a79"
+      }
+    },
+    {
+      "slug": "card-polarus-pulse-ray-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-polarus-pulse-ray-red-four-live-sparse1428-real-zero-defense-equipment-does-not-fragment-seven-power-or-earn-extra-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1428-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "dd6fdf206b3e33406f23ba9fd091ea6ee00bc073d9427191d6faf44f0f6e9335",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4bf8664a5d4a0079661efb7fb295199310a72ddc3718c3c9575fb174d26bb417",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "5926e1ad21237305bb5151463f5138690b97231f74afcfc5f24feb13db750d4d",
+        "expected_final_gamestate.txt": "67a0d9e070dc18898acacb95709f50cf49e13feb89e64f9a83e58d88ae518cd4",
+        "meta.json": "2bd84d6cef4951770845d86c6d84f334576386025b06ec32c81431f36e38b646"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

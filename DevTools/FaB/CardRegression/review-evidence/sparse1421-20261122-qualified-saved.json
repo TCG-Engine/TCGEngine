@@ -1,0 +1,131 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1421-20261122.json",
+  "source_spec_sha256": "19290166352728caa1fe111c53ea6342a617c2b066597fa83efdd3ba9b09a79a",
+  "input_sha256": "19290166352728caa1fe111c53ea6342a617c2b066597fa83efdd3ba9b09a79a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sonata-arcanix-red-two-live-sparse1421-zero-x-short-deck-one-return-one-arcane-singleton-self-banish-and-returned-attack",
+      "card_id": "sonata_arcanix_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12b3fdd4683b733ad9cbb0ea3c1bd0e85abf289d8cb20afdc4583c6216b47223",
+        "actions.json": "15403452606292659d9ff9fe4633b9f4976f7ebd1d83eb31e75888f7ba73195d",
+        "assertions.json": "507ad07b3e11e4074d255cf4a838da5a8de04d181763a6e17664d629fc383180",
+        "expected_final_gamestate.txt": "b2e4a64a8dcd29433b86e19c49494c81eba72df13d8313ab5f6ef4b7eac48fc3",
+        "meta.json": "921b7b5177d58f034afd6c405c3d975533c2460049e09f1e17a92f1cb35b9c60"
+      },
+      "fixture_sha256": "94775d185997697cdb1f2ff595e4d7a9b76cc0c4456f580abacb5eec0da9e55f",
+      "actions": 20,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1421-20261122.json",
+      "input_sha256": "19290166352728caa1fe111c53ea6342a617c2b066597fa83efdd3ba9b09a79a",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1421-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sonata-arcanix-red-two-live-sparse1421-zero-x-short-deck-one-return-one-arcane-singleton-self-banish-and-returned-attack",
+        "fixture_slug": "card-sonata-arcanix-red-two-live-sparse1421-zero-x-short-deck-one-return-one-arcane-singleton-self-banish-and-returned-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "19290166352728caa1fe111c53ea6342a617c2b066597fa83efdd3ba9b09a79a",
+    "source_note_sha256": "9acf1651a2f3ac773b6572e9c51a07ca07cf158a6000a0df7675481330f0d543",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 20,
+    "query_checks": 283,
+    "persistable_assertions": 283,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_SHORT_DECK_X0_RETURN_REAL_DAMAGE_SELF_BANISH_GO_AGAIN_WITH_SINGLETON_SHUFFLE",
+    "per_case": [
+      {
+        "card_id": "sonata_arcanix_red",
+        "group_id": "identity:sonata_arcanix_red",
+        "native_controls": 20,
+        "persistable_assertions": 283
+      }
+    ],
+    "basis": [
+      "Distinct lawful short-deck branch; primaryidentity stillunrepresented while separateB1420 normal-three/remainder-two strong-shuffle sourcehold remains unrun/unresolved. Genuine two adultmanualCC Forsaken40/Dori40, actualSonata3Hand and onlyNimBlue4/WoundingRed5Deck, cachedlegal. Nohistory/effectseed, sourcearchetypeShadowRuneblade admits genericRunebladeAction; no Runechantscreated sofrontHeroWHEN unearned.",
+      "PrintedXX cost and generatedPrepare145141-145168 computesmax=intdiv(FaBAvailablePitch,2); actualR0/onlysourceHand meansmax0. ActualNUMBERCHOOSE0|0 before payment setsmonX0/actualcost0 viaMONSetCost, thenAP1->0 and bothmanualresponses before effects. No fabricatedXflag or positiveadditional-object-cost route.",
+      "GeneratedResolve100223-100228 requestsX+3=3 but ARCCards102-106 array_slice actualavailableDeck2 stages sameUID4,5. ActualoneNAA/oneAA yields selectedlegaloneoriginal5 return toHand while3stillStack. Parent-providedMonarch short-deck clarification and localcapped staging support revealavailabletwo; selectedone return is legal under both cachedcurrent and legacyoptionalwording. Exactminimum/zero-selectionParam assertion was removed; no decline/minimumpolicy credited.",
+      "Single-opponentHero2 damage default explicitlyprecommitted before hiddenreveal; laterMZCHOOSE repeats2, no information-dependent retarget or target-binding/UPF evidence. Actualone returnedAA means1arcaneHP2=39. CardChoices237-239 restores onlyremainingTemp4 toDeck thenFaBShuffleDeck; EngineShuffle(deck,true) withONEcard haszeroiterations, so neither strongrandom_int norEngineRandomInt runs andRNG0 is correct. ExactDeckUID4 is persistentlyasserted, no unorderedset/manualguard or guessedshuffleorder needed.",
+      "Actualsource3 selfBanish then managedplainActioncompletion LKI preservesprintedGA/AP1; returnedWounding5AA0 actuallyspends it, base4/noNimblismbuff because Nimwasrevealed notplayed. Fulltwo-manual combat gives4physical39->35, thenAP0/R0. Final3Banish/5GY/4Deck/UID5RNG0/quietStackDQs/combatclosed are coherent. Initial/source/click references remapped toactualshortDeck;20controls/283persistablechecks."
+    ],
+    "limits": [
+      "Only X0 shortDeck2, chosenlegaloneAA return, one arcane, singletonremainder, self-banish/GA and realreturnedattack. No normal-three reveal/randomizedshuffle/nonzeroX/zero-choice/minimum-policy, independent publicreveal-log assertion, targetbinding/UPF, Hero/support/secondaryidentities/siblings/whole-card credit. B1420 randomized boundary remainsheld.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth, full suite or Git operation. Singleton shuffle is a different valid branch, not an engine repair or assertion change to a failed recording; no previous game exists for either source-only draft."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1421.py": "0c4c308fa716b2390fc21d9ff395574221a909ac2a727a29bfb2ee562b8f8fd1",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "sparse1420-local-20261122/proposed.json": "74bfbc80c8c2d8852ae709f8d7d301fe9fefe2fade158e5924bcd2b7640c1b64"
+    },
+    "normal_three_reveal_or_randomized_shuffle_credit": false,
+    "nonzero_x_credit": false,
+    "four_player_or_target_binding_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "zero_selection_or_minimum_policy_credit": false,
+    "positive_short_deck_return_and_consumer_scope": true,
+    "official_rules_evidence": [
+      {
+        "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/monarch/",
+        "scope": "Parent supplies explicit short-deck whole-available-deck clarification. Independent directpublic fetch502; no authenticated/retry request or claimed directretrieval quote. LocalStageTop cap and do-available-effect semantics independentlyreviewed, chosenonebranch valid under both textversions."
+      },
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "scope": "Previously retrieved primaryTRP5.14 single-opponent damage-effect default, precommittedHero2 before hiddenreveal; no late binding endorsement."
+      }
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1421-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e16e06353849d4c8a63555fe65b4d0709383c39a3bf38d79a25b896c39b12b52"
+  },
+  "full_suite_run": false
+}

@@ -1,8 +1,56 @@
-/* Loaded only by FaBSim's layout, for both duel and multiplayer games.
- * Target controls and zones, not the whole board: multiplayer mounts chat
- * and game events inside the board on small screens. Keep descriptions,
- * logs, and other reading surfaces selectable by default.
- */
+/* FaBSim duel and multiplayer use the same surfaces and card states. */
+:root {
+  --fab-surface: #202224;
+  --fab-field-warm: #2b2726;
+  --fab-field-cool: #252a2e;
+  --fab-field-line: #ffffff12;
+  --fab-light-warm: #b9967212;
+  --fab-light-cool: #98b2c514;
+  --fab-action-play: #67c59a;
+  --fab-action-pitch: #83b7df;
+  --fab-action-block: #bcc4cd;
+  --fab-action-arsenal: #d7a36c;
+  --fab-card-choice: #b3a4df;
+  --fab-card-selected: #dfbd72;
+  --fab-card-target: #dc8986;
+}
+
+/* The engine sets an inline border on the image. Use a shadow ring so the card's dimensions stay stable. */
+:root .selectable-card { --fab-card-ring: var(--fab-card-choice); will-change: auto; }
+:root .selectable-card[style*="var(--fab-action-"] { --fab-card-ring: var(--highlight-color); }
+:root .combat-attacker-card { --fab-card-ring: var(--fab-action-pitch); }
+:root .combat-weapon-card { --fab-card-ring: #8f9ca6; }
+:root :is(.combat-targeted-card,.yesno-decision-target) { --fab-card-ring: var(--fab-card-target); }
+:root .selectable-card.selected-inline { --fab-card-ring: var(--fab-card-selected); --fab-ring-width: 2px; }
+:root .selectable-card:is(.multi-over-budget,[style*="not-allowed"]) { --fab-card-ring: #77838e; --fab-halo: 0%; }
+:root .selectable-card:hover { transform: none; }
+
+:root :is(.selectable-card,.combat-attacker-card,.combat-weapon-card,.combat-targeted-card,.yesno-decision-target) > a > img:not(.counter-image-icon) {
+  border-width: 1px !important;
+  border-color: transparent !important;
+  box-shadow: 0 0 0 var(--fab-ring-width, 1px) var(--fab-card-ring) !important;
+  box-shadow: 0 0 0 var(--fab-ring-width, 1px) var(--fab-card-ring),
+              0 0 var(--fab-halo-radius, 5px) color-mix(in srgb, var(--fab-card-ring) var(--fab-halo, 24%), transparent) !important;
+  transition: box-shadow 150ms ease;
+}
+
+:root .selectable-card:where(:hover,:focus-within):not(.multi-over-budget,[style*="not-allowed"]) {
+  --fab-halo-radius: 8px;
+  --fab-halo: 40%;
+}
+
+:root .selectable-card.pulse img { animation: none; }
+:root .selectable-subcard {
+  animation: none;
+  border-color: var(--fab-card-choice) !important;
+  box-shadow: 0 0 0 1px var(--fab-card-choice) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root :is(.selectable-card,.combat-attacker-card,.combat-weapon-card,.combat-targeted-card,.yesno-decision-target) > a > img:not(.counter-image-icon) { transition: none; }
+}
+
+/* Keep descriptions, logs and other reading surfaces selectable. */
 .prevent-select,
 button,
 [role="button"],

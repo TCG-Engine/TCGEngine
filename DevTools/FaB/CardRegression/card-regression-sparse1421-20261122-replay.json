@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sonata-arcanix-red-two-live-sparse1421-zero-x-short-deck-one-return-one-arcane-singleton-self-banish-and-returned-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sonata-arcanix-red-two-live-sparse1421-zero-x-short-deck-one-return-one-arcane-singleton-self-banish-and-returned-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1421-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1421-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e445c234568ffe516d549408a6c4448a46ca5a2e2d1d7ad73f7a8309773c0b58",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "12b3fdd4683b733ad9cbb0ea3c1bd0e85abf289d8cb20afdc4583c6216b47223",
+        "actions.json": "15403452606292659d9ff9fe4633b9f4976f7ebd1d83eb31e75888f7ba73195d",
+        "assertions.json": "507ad07b3e11e4074d255cf4a838da5a8de04d181763a6e17664d629fc383180",
+        "expected_final_gamestate.txt": "b2e4a64a8dcd29433b86e19c49494c81eba72df13d8313ab5f6ef4b7eac48fc3",
+        "meta.json": "921b7b5177d58f034afd6c405c3d975533c2460049e09f1e17a92f1cb35b9c60"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

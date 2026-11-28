@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch357.json",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:52:07.546270+00:00",
+  "fixtures": [
+    {
+      "slug": "card-slap-happy-red-four-live-sparse-real-zero-cost-instant-prevents-two-and-creates-owned-vigor",
+      "fixture_sha256": "49ae407fa3cc454bfbb0cfeb1b4108276d608e85add722dc80e2783959e1c7bc",
+      "passed": true,
+      "result": "[PASS] slap_happy_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-slap-happy-red-four-live-sparse-real-zero-cost-instant-prevents-two-and-creates-owned-vigor",
+      "returncode": 0,
+      "stdout": "[PASS] slap_happy_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

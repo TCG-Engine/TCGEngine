@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-seek152-after-native-combo.json",
+  "runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:24:05.558692+00:00",
+  "fixtures": [
+    {
+      "slug": "probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+      "fixture_sha256": "cc19b620c84f27088c02e078bdc613f1fc97e066fd9d7ce278275917c77ecbea",
+      "passed": true,
+      "result": "[PASS] seek_vengeance_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+      "returncode": 0,
+      "stdout": "[PASS] seek_vengeance_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Astral Bridge / single-opponent default, real non-instant mill",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:34:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_CC_OSCILIOCONSTELLA36_DORI40. PublishedTRP5.14explicitAstralBridgeexampledefaultsomittedarcaneHeroTargettoonlyopposingHeroBEFOREmill; noMULTIHero/defaultorlatenttargetbindingclaim. RealAstral3Instant0Handwaitsbothresponses/preservesAP1/TopWoundingBlue4andsecondBauble6staybeforeeffect. Actualmillonly4GY0(nonInstant)thereforenopermission; resolving3notGYyetandnopriorInstantGYsoStarfallFALSE/noarcane/targetprompt. Finish3GY1/AP1/allHPunchanged/6onlyDeck. Actual4GYplayattemptREJECT/Stackempty/AP1/physical4and3remain. SpendAPonrealHandWounding5AA0/onlyopponentautotarget/base4/noGO/actual4physicalHP2=36/fullclose. Final4GY0/3GY1/5GY2/6Deck0/UID6RNG0/R0AP0/allquiet. Positiveonecardmill/order/InstantAPfollowthroughpairednonInstantpermission/selfStarfallnegative. No positiveInstantpermission/Starfallpacket/timing/UPFtargeting/pitchsiblings/secondary/fullcardcredit. FourliveB1410remainssourceheldunrun, notcured. Sources: FaBSim/GeneratedCode/cardArrayCache.json#astral_bridge_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/WTRCards.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

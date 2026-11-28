@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse911-20261122.json",
+  "source_spec_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+  "input_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-beast-within-yellow-four-live-sparse911-actual-six-damage-and-combat-chain-origin-graveyard-exclusion",
+      "card_id": "beast_within_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "714bf1139d9e537e580c79d9bd1d7fce6b7c1b819df0c4d84738ba4258c2314b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "52f287f68d01f336250bb7497b55bfca34290a3a3f1a63e8f37c29a3f138e4cb",
+        "expected_final_gamestate.txt": "cea23e160c5dd99bd5acd1abad69c5beb1553a053f069b492648e4aca0dbe84f",
+        "meta.json": "5b9e16c2b1d03878e21ac6f801a805f00f29cb9e4702bc31e34daf9a4710e5ba"
+      },
+      "fixture_sha256": "31f364467c917815ba46c5923cfd7672566aea9fe0b96d32902426aa22902271",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse911-20261122.json",
+      "input_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beast-within-yellow-four-live-sparse911-actual-six-damage-and-combat-chain-origin-graveyard-exclusion",
+        "fixture_slug": "card-beast-within-yellow-four-live-sparse911-actual-six-damage-and-combat-chain-origin-graveyard-exclusion",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+      "card_id": "nasty_surprise_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3be67beb5d647d0f629fe958dc9c8a97c96e8862665bca8e1c30b757879f420",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "900487148d0c3fcea3c2ede1fd1bfe55220a29d34af6ac6873a604acf1eb1593",
+        "expected_final_gamestate.txt": "64573fec9dd4d6438ca73c6d94b00e9492243f78763ed2f4b835ee3c162965cb",
+        "meta.json": "aa700a2386ae92fd2ba090e3105fdd9fb398a7fc92e87d90ea8bee03cd68e944"
+      },
+      "fixture_sha256": "e612204c867ac08849ac5daeec4de5bc5c8e069e1c426f82e1f9e9e9edd8b95f",
+      "actions": 27,
+      "native_assertions": 120,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse911-20261122.json",
+      "input_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+        "fixture_slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-second-tenet-of-chi-moon-blue-four-live-sparse911-actual-five-without-transcend-chain-resolution-draw",
+      "card_id": "second_tenet_of_chi_moon_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8d63de19c800f607c517a57d44ef0d3ff3e0b29368e3ff2115618ef04877e91f",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a3d648eef570583eccc35e4c55a546f1aaab877db545a457050396a7cda67e4e",
+        "expected_final_gamestate.txt": "fcb869589a4706e86796c0aeadba47fdcf09dc5d6c950fc3ea96bdda3542ba59",
+        "meta.json": "ba3a7c933eece44e86ca254ecbbcbbe425f0f4c20aaaec02641577c035a69a68"
+      },
+      "fixture_sha256": "b76d1e0366887cb4946bb576b9beef21be41e5a0b721009fd17960b4fc24f9c1",
+      "actions": 28,
+      "native_assertions": 148,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse911-20261122.json",
+      "input_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-second-tenet-of-chi-moon-blue-four-live-sparse911-actual-five-without-transcend-chain-resolution-draw",
+        "fixture_slug": "card-second-tenet-of-chi-moon-blue-four-live-sparse911-actual-five-without-transcend-chain-resolution-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "47b7e60ca5124f18d428ed59b60188e239c27d8b76ff74e841b47fed80b54cbe",
+    "basis": [
+      "Only final remaining3 named branches approved. Printed Beast3/base6 on Rhinar20, Nasty0/base2 on Dorinthea20, SecondTenet3/base5 on legal Mystic Nuu20 match actual GenericBlue payment where needed, real physical5 ATTACK and ownGY, actualHero4damage, AP0 and four live manual combat.",
+      "Beast main Hand attack ends from CombatChain, an origin explicitly excluded from its printed GY trigger; Rhinar has no discard event. Positive other-origin trigger/life-loss/banish-loop not exercised. Nasty own normal combat cleanup is not an opponents effect, so its printed trigger event does not occur; no token ownership behavior exercised.",
+      "SecondTenet noTranscend means the conditional chain-resolution draw ability is never granted. Real ownDeck7 marker and Hand0/Deck1 retained make an erroneous draw observable.",
+      "SwingBig/ShootMouth excluded before native execution: WHEN-chain-close still earns trigger even when IF-miss effect false. No approval of earlier immediate-quiet drafts or new native defect claim."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Main base packets and explicit setup/origin controls only, no dormant positive branches, siblings or supporting-card group credit. Beast emptyDeck does not certify behavior of its positive GY loop.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fe4a51566d9db3c8faf7311e3f017759e18d64ec7398587b348f7a1aaf8c0bdd"
+  },
+  "full_suite_run": false
+}

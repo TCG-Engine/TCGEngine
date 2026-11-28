@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T12:16:54.264525+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1546-20261122.json",
+  "source_spec_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 52,
+  "native_assertions": 1006,
+  "manual_passes": 40,
+  "totals": {
+    "saved_registered_scenarios": 5635,
+    "duels": 3136,
+    "four_live": 2499,
+    "recorded_primary_ids": 2783,
+    "identity_denominator": 5196,
+    "recorded_groups": 2657,
+    "group_denominator": 3324,
+    "four_live_groups": 2488,
+    "phase_qualified_scenarios_at_actual_contexts": 2272,
+    "phase_qualified_unique_groups": 2262,
+    "creation_replay_passes": 3014,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1433,
+  "scenarios": [
+    {
+      "card_id": "deep_recesses_of_existence_blue",
+      "group_id": "identity:deep_recesses_of_existence_blue",
+      "scenario_id": "card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "effect_branches": [
+        "actual_faceup_banish_rune_gate_with_exact_printed_cost_runechant_threshold_waives_resource_cost_then_real_runechant_triggers_resolve_before_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "source_spec": "card-regression-sparse1546-20261122.json",
+      "source_spec_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+      "review_evidence": "review-evidence/sparse1546-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a60d5486ea766f0ea1a0d76ca00a33b0a34fda371476d53cde77ad0f5e2bee15",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1546-20261122-replay.json",
+          "sha256": "7185dafa50486bde269c97fd7c7947281aa691e5bebfd251bf3589a5db6df537",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "widespread_annihilation_blue",
+      "group_id": "identity:widespread_annihilation_blue",
+      "scenario_id": "card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "effect_branches": [
+        "actual_faceup_banish_rune_gate_with_exact_printed_cost_runechant_threshold_waives_resource_cost_then_real_runechant_triggers_resolve_before_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "source_spec": "card-regression-sparse1546-20261122.json",
+      "source_spec_sha256": "abc872aa99f85e1187a43e9519246cfeb3ed590006e9f1d118923c1be9fb597e",
+      "review_evidence": "review-evidence/sparse1546-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a60d5486ea766f0ea1a0d76ca00a33b0a34fda371476d53cde77ad0f5e2bee15",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1546-20261122-replay.json",
+          "sha256": "7185dafa50486bde269c97fd7c7947281aa691e5bebfd251bf3589a5db6df537",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

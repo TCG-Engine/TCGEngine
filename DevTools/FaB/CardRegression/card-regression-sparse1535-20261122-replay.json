@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e6822c01c9439ef343b949a2c466c7a9e6dda7e0581c05ebec3fa31fe804d648",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63cc95ce37d25a2eb98a8e4ef094af95344582ad17a6ccff245d9fcc21162a56",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "b3ee529070bc96b7e913666cf8657f9f735428ac03a9bbd6184a7558972be0de",
+        "expected_final_gamestate.txt": "eabff0940c7f1780deaba56af9b6e09feb6cf9ca105ca17590be595d3968bf40",
+        "meta.json": "be8c361af2e86e6a04bc242af1d58c5c59d3807f33782e2d901bf265fae98259"
+      }
+    },
+    {
+      "slug": "card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f24ada1473079c126f3a660142aeccde539819aab7b03efb689ba9aa80e7926c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63038dfab14aea5f6465fe6f2ddc32f3754134eef68b13452d060ab37f101775",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "8e182d5113a785c1e9110ddb853b41f19cb15ba4df492425e34d4a61d39b38a9",
+        "expected_final_gamestate.txt": "06715ab995987cfe62619f9ea57df7ee99d0807f1a36dff05aa8a24a076f8bfa",
+        "meta.json": "059e667bfd571bebeb5ce5b39ff88b45fb1df7ea5f03aad8b8b7446cae1faf2a"
+      }
+    },
+    {
+      "slug": "card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2b4ec9a63dfcc1d97cced324faae8990c87cc77f06ee19196877112cbf196701",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f6567af57207585739a0cb4b6ba5b2ce0267de21451b3c33b69c27ef97366513",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "41059ace5cf07130a3a8983aec6a8e24e875cc65a8fbbcc8e97db943376ce744",
+        "expected_final_gamestate.txt": "ce1673118817576a6c848beabeaf7637826171879f6b1561ddc936b4aa72aef6",
+        "meta.json": "18c667f212d1fedb751a29f5c643cd2b2d565a91484d0af4f33ecd93e68c5e73"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

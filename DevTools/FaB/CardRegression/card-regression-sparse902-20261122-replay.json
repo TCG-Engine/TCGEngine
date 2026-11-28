@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-winters-wail-four-live-sparse902-real-blue-pays-three-then-actual-four-weapon-damage-without-unearned-ice-frostbite",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-winters-wail-four-live-sparse902-real-blue-pays-three-then-actual-four-weapon-damage-without-unearned-ice-frostbite",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse902-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse902-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "73e2ed097934705653e1be345d0917f1ca983a39b480d070c447ecad30a7c57b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e53349f4eb96cd5cbeb535c080b4d8e15e17a202d7e922c1130c9469e824773a",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "6bcffeace1eaa31260d2b17cd6c323750bb97d7bc6e0e8f82783c81bbf1015b8",
+        "expected_final_gamestate.txt": "881f083276d28fbd426be9068ed60df6dae152e6248db4eea47ad295ba545220",
+        "meta.json": "3b2a416e2b98108ec4fd1c5edbf9320709740c54f3a111e1fdc7570e104672f2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

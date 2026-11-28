@@ -1,0 +1,7 @@
+{
+    "name": "Tome of Duplicity / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Look at the top 2 cards of your deck, then banish one. If it's a non-attack action card, you may play it this turn as though it were an instant. Representative only: banishes_actual_second_peeked_nonattack_and_restores_other_card. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tome_of_duplicity_blue"
+}

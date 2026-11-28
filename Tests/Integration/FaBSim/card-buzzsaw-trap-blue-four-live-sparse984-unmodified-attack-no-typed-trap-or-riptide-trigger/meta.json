@@ -1,0 +1,7 @@
+{
+    "name": "Buzzsaw Trap / sparse four-live trap representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:07:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Legendary Riptide Specialization**\n\nWhen this defends an attack with {p} greater than its base, the attack can't gain {p} this turn. Named negative-trigger representative: actual unmodified Raging Onslaught7 has printed/current power7, so WHEN defends an attack with power greater than base event is absent. Defender4 riptide natural19 plays owned facedown Arsenal5 in real Reaction at cost0/no AP, retains real HandBlue6 unplayed. Actual printedDEF3 blocks7 to4damage/HP15; all other heroes remain20. Every live seat manually responds, including DR4,1,2,3 then fresh1,2,3,4. Primary5 and support7 finish in respective owned graveyards; Blue8 really paid attack3, NAA9 remains attacker Hand. No positive trap trigger, power increase, activation or ownership-creation credit. Actual source is Arsenal, not Hand; unused defender HandBlue6 and empty Arsenal after play make absence of Riptide hand-play trigger observable. AttackerHP20 excludes spurious trap-trigger damage; plain attack per-card TurnEffects[] excludes OUT_NO_GAIN tag, but future power-gain behavior is not exercised. Sources: FaBSim/GeneratedCode/cardArrayCache.json#buzzsaw_trap_blue"
+}

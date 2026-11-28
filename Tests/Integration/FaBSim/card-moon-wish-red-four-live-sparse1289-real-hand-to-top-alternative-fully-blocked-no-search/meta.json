@@ -1,0 +1,7 @@
+{
+    "name": "Moon Wish / real alternative cost at zero resources, then fully blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:25:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_DORI20_MANUAL_UPF_POSITIVE_ALTERNATIVE_COST_FULLY_BLOCKED_ONLY. Actual5Hand printedcost2/R0/AP1, actualcost6Hand GenericBlue6putontopofexistingDeckSunKiss7asrealalternativecostbeforeallresponses, notpitched/drawn; exactorder6,7. NativeactualHero4declaration, MZMAYCHOOSEreal6, AP1to0/R0/Pitch0, fourmanualresponses. Actualpower5/GAFalse; twoactualGenericHanddefenders3+3defense6preventallphysicaldamage. NOhitsonoSunKisssearch/shuffle/Deckmovement; originalcost6topSunKiss7secondremainuntouched. Final5ownedGY/Deck6,7/defendersownedGY4/allHP20/R0/UID9RNG0/StackDQsCCclean. NOpositivehit/heal/search/normalnumericcost/decline/randommode/Brewactivation/Arenadestroy/otherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#moon_wish_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCCards.php FaBSim/Custom/EVRCards.php FaBSim/Custom/GameLogic.php"
+}

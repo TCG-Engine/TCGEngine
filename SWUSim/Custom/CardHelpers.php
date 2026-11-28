@@ -269,6 +269,21 @@ if (!function_exists('SWUFriendlyUnits')) {
 if (!function_exists('SWUControlledUnits')) {
     function SWUControlledUnits(?string $arena = null, $filter = null): array { return SWUAllUnits('my', $arena, $filter); }
 }
+// The units an ability COST of "exhaust / defeat a friendly unit" may be paid with. Team Suns keeps a cost on YOUR OWN board
+// (a judgement pinned by core/TeamSuns_FriendlyPoolsSpanTheTeam.md::AbilityCostPaidWithAFriendlyUnit_StaysOwnBoard); Always Two
+// lets it use the teammate's units — owner ruling 2026-11-20 (e.g. Fennec Shand ASH), alwaystwo/FriendlyUnitCosts.md.
+// Outside a team game both are your own units, so every other format is unchanged.
+if (!function_exists('SWUCostUnits')) {
+    function SWUCostUnits(?string $arena = null, $filter = null): array {
+        return (function_exists('SWUIsAlwaysTwo') && SWUIsAlwaysTwo()) ? SWUFriendlyUnits($arena, $filter) : SWUControlledUnits($arena, $filter);
+    }
+}
+// The BOARDS whose units can pay such a cost for $player — for availability checks that walk arenas by seat.
+if (!function_exists('SWUCostBoards')) {
+    function SWUCostBoards(int $player): array {
+        return (function_exists('SWUIsAlwaysTwo') && SWUIsAlwaysTwo()) ? SWUTeamBoards($player) : [$player];
+    }
+}
 
 // OBJECT-returning sibling of GetUnitsInPlay for text that says "FRIENDLY" — spans the TEAM.
 //

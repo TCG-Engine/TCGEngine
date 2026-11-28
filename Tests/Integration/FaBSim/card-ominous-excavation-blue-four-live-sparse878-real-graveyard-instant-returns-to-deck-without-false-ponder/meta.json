@@ -1,0 +1,7 @@
+{
+    "name": "Ominous Excavation / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may shuffle an instant card from your graveyard into your deck.\n\nIf an aura you control was destroyed this turn, create a Ponder token. Representative only: real_graveyard_instant_returns_to_deck_without_false_ponder. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ominous_excavation_blue"
+}

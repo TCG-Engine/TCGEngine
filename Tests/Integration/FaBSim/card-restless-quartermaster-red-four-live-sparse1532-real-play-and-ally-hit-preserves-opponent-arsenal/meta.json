@@ -1,0 +1,7 @@
+{
+    "name": "Restless Quartermaster / actual Hand play and Ally hit preserves nonempty opposing Arsenal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:37:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActuallegalMalice20/Vox7/Potion8. PotionActionAP1to0/destroy8\u2192ABI11/fourresponsesgain2AP. Actualprimary5HandAction0consumesAP2to1, fourresponsesenterreadyZombie5(notGY/BanishsoVoxentrytriggerunearned). ActualZombieAction1/tap declaresrealAshwing9Ally, Blue6pitch3\u2192R2/AP0/proxy12. Actual3damagekills1HPAlly, allHero20/noHero-hitlayer; realvictimArsenalWounding10preserved/nonBanish. Fullfourmanualclose primary5Arena/tapped,Vox7ready/Potion8GY/Blue6Pitch/AP0/R2/UID12. OnlyrealplayandHero-eventexclusion; nopositiveHeroHitbanish/ordinaryHit285295/Decay/MaliceZombieDeath orsiblings/secondarycredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#restless_quartermaster_red FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec FaBSim/Custom/IARRuntime.php#FaBIARAfterMove FaBSim/Custom/GameLogic.php#OnHit FaBSim/Custom/WTRAbilities.php#FaBWTRPayAbilityCosts"
+}

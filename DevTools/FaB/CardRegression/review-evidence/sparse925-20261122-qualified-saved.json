@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse925-20261122.json",
+  "source_spec_sha256": "88df81ed2ffa9942f0249b6cd12b895d972c124382bbaa6c8d39428cf1a7cc8f",
+  "input_sha256": "88df81ed2ffa9942f0249b6cd12b895d972c124382bbaa6c8d39428cf1a7cc8f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-hot-streak-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-2-without-conditional-bonus",
+      "card_id": "hot_streak",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b4eb5e4a993b44a4c39666949c7338b00afb39f567ce4f397b3331a5a936eb58",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "b15587a9a9b473743ea5c0b62e4e21be3206a4112a1ecc79c0b32a901f93871c",
+        "expected_final_gamestate.txt": "0d761005f688bb1a6f6c0fe3eda5892b173247eaaa538ffb6fba338fea5915c2",
+        "meta.json": "062c2e374c9c08a186eb25a4f2ed7b8688eed87973a2ba9539e16fc34efe094f"
+      },
+      "fixture_sha256": "4988ed6337aff1d55dd5197ba86bdbd9ecb53fc821a0b915cf237c10a320b151",
+      "actions": 28,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse925-20261122.json",
+      "input_sha256": "88df81ed2ffa9942f0249b6cd12b895d972c124382bbaa6c8d39428cf1a7cc8f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hot-streak-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-2-without-conditional-bonus",
+        "fixture_slug": "card-hot-streak-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-2-without-conditional-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-decimator-great-axe-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+      "card_id": "decimator_great_axe",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df6a24f811f2ff9712648408b18db903abf993fa24428862740c33041307c74d",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "dcbff6a9d8617108f5a7c1a2dce10bdca81f6e0afc0cd657ea9174d736f4fc22",
+        "expected_final_gamestate.txt": "212129490de01e350bc6a080809ac889bd31ddd46be1a7acb6f63873b400ae5e",
+        "meta.json": "4035e407e78afcd1268850ba73190757966fa4b3d325c4452f9b61d319a91339"
+      },
+      "fixture_sha256": "68814936b12c4e3f1072b747e1e5b2fbabe8ef9daaba63d64112a06ddafb30ee",
+      "actions": 28,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse925-20261122.json",
+      "input_sha256": "88df81ed2ffa9942f0249b6cd12b895d972c124382bbaa6c8d39428cf1a7cc8f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-decimator-great-axe-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "fixture_slug": "card-decimator-great-axe-four-live-sparse925-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "88df81ed2ffa9942f0249b6cd12b895d972c124382bbaa6c8d39428cf1a7cc8f",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Filtered exact two previously reviewed branches: legal natural20 Warrior Boltyn uses owned physical Weapon5, actual Generic Blue6 pays HotStreak1/Decimator3 leavingR2/R0 and AP0. Native DYNRuntime25-44 explicitly recognizes both costs, legal equipped weapon attack, target preflight and proxy Stack/physical-source linkage.",
+      "Hot Streak is never defended by an attack action card, so its WHEN-defended event does not occur and no GA is earned. Decimator is never defended by a non-equipment card, so no halving target or trigger is earned. Actual unblocked2/4damage and originalWeapon5 retained with proxy removed/no ownGY are coherent.",
+      "All four live/manual combat windows, physicalBlue6Pitch, Stack SourceUniqueID5 and chain CountersWEAPON_UID5 remain guarded. No invented proxy Owner assertion."
+    ],
+    "limits": [
+      "Source/spec review only; native verification and one clean targeted replay pending Root.",
+      "Four unverified activation routes BoneBasher/DawnbladeResplendent/Durendal/HammerHavenhold were excluded before execution and receive no credit or native-defect claim.",
+      "Positive defended/GA/halving/second-attack/whole-card behavior and supporting identities untested. No PHP/native execution, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse925-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e9c8665c30aa6eb4acdf166b9c7d040e696e575d6d875869b8c6f7d32500a88b"
+  },
+  "full_suite_run": false
+}

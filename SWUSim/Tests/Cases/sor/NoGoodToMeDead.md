@@ -170,8 +170,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 - P1>AnswerDecision:theirGroundArena-0
 - P2>Drain
 - P2>AnswerDecision:myGroundArena-0
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1NODECISION

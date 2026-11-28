@@ -1,0 +1,149 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B339_NUU_REAL_CHI_BLUE_LOOK_BANISH_EARNED_FOREIGN_FREE_PLAY_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T13:35:39.725241+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch339.json",
+  "input_sha256": "c878eb8691e0e232206e3434643ea77bf8de86118193d81036c1e244ad2a1839",
+  "manifest_sha256": "eee0030297ef0882db7d32e2354c0fa8f81382e1d74f8ed1e1b006f901817f99",
+  "fixtures": [
+    {
+      "slug": "card-nuu-young-four-live-sparse-real-chi-ability-blue-deck-banish-earns-foreign-three-cost-attack-for-zero",
+      "card_id": "nuu",
+      "group_id": "identity:nuu",
+      "fixture_sha256": "8a4d08bd515fa0198d110ff0860162c5286ac5fc152882dc51b35f3e14af43c3",
+      "behavior_sha256": "8a4d08bd515fa0198d110ff0860162c5286ac5fc152882dc51b35f3e14af43c3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6c960d62c8ce347034b2885d1e7170e61c1c644feee813270422275229b1a98",
+        "actions.json": "484f8598d42e779f401f7bdca8340f12aa6fb4d2d336ea9da340a41a245844db",
+        "assertions.json": "8ff9b282e6d9cd7d50ca6d0e67491f0abb7b1fa36951e1ac3a6be0d3d8beeb97",
+        "expected_final_gamestate.txt": "0b99154d88622f48193f6240ac8e728db679d94a3e42f6ad10c1504fcc00bf1b",
+        "meta.json": "05a33e0a81b2a4867f469fc55cac9ca250fca5b1d92c177b85ba88edf6a1f509"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d6c960d62c8ce347034b2885d1e7170e61c1c644feee813270422275229b1a98",
+        "actions.json": "484f8598d42e779f401f7bdca8340f12aa6fb4d2d336ea9da340a41a245844db",
+        "assertions.json": "8ff9b282e6d9cd7d50ca6d0e67491f0abb7b1fa36951e1ac3a6be0d3d8beeb97",
+        "expected_final_gamestate.txt": "0b99154d88622f48193f6240ac8e728db679d94a3e42f6ad10c1504fcc00bf1b",
+        "meta.json": "05a33e0a81b2a4867f469fc55cac9ca250fca5b1d92c177b85ba88edf6a1f509"
+      },
+      "actions": 36,
+      "native_assertions": 2784,
+      "actual_manual_pass_inputs": 29,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_pass_inputs": 28,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "virtual7_absent": true,
+      "final_graveyard_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_pitch_uids": [
+        5
+      ],
+      "initial_permission_seed_absent": true,
+      "actual_earned_Nuu_permission": {
+        "type": "MST_NUU",
+        "amount": 1,
+        "uses": 1,
+        "victim": 4
+      },
+      "permission_effect_index_unpinned": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual InnerChi5 pitches for Nuu Chi3, leaving RChi0/AP1. Virtual7 captured Hero1 and remains Stack through four fresh responders then opponentP4/TopRearrange/optionalModal. Original foreignOwner4Controller4 UID6 Deck4->Temp1->publicBanish4 with genericPlayableFlag0. Only after Banish answer source7 clears/ACTION/AP1. Actual earnedMST_NUU victim4 exists, no initialseed. Normalactor1click foreignBanish6 and targetP4 thenplaysprintedcost3forresource0 while spendingAP1. Same6Stack/Chain Owner4Controller1/printed5/noGA/GenericnoStealth deals5P4HP15. Fullclose same6Owner4toGY4/rawlastController1, ownChi5Pitch, originalUID1-6 conserved/virtual7absent/counter7/Random0/allRChiAP0/allheroesready/live/alltransientsandownedawaitframesclear.",
+      "qualification": "Real paidNuu producer/lookblue/optionalbanish/earnedpermission plus actual foreignAA witness; oldseededconsumer not newprimarycredit. No OncePerTurn/Stealth/Transcend/endphaseexpiry/otherchoice oropponent/heroage/fullcard/control credit; wronglocalChi-front image is excluded from face evidence."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch339-independent-source-review.json",
+    "sha256": "323959bba40aab28eb938adce6c59f78bd8adb32c134d117df083912fcda0482",
+    "manifest_sha256": "eee0030297ef0882db7d32e2354c0fa8f81382e1d74f8ed1e1b006f901817f99"
+  },
+  "source_guards_verified": 19,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch339-20261103T133003Z-6ae9e1db5c3dd.json",
+    "sha256": "59361ddd376408cf1701843f46861f39d31475359b2ceaf8b40e4b465675a20c"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch339.recording-results.json",
+    "sha256": "9ec729c1db151b066fe9553d40a70142b42163d25f2567aa36f09e66ecd89af9"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch339-native-r1\\receipt.json",
+    "sha256": "42d8530898be1312e719cf7cfe31056d241c49e44cdf73847712bc622fdffab4"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Hash-bound source/wrapper/archive/raw-five/meta/action/assertion-equality prefix only; B339 physical andearned-permission checks explicit."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0 and exact-five-file match; reviewer ran onlypure read-onlyPython, no PHP/native.",
+    "Approved correctexpectations unchanged; one realChi producer plus reusedforeignconsumer witness, no seeded permission.",
+    "RawGYController1 is inactive last-controller bookkeeping; originalOwner4/GY4 and activeController1verified. No actualInnerChibackimageview/Transcend/OPT/Stealth/expiry claim.",
+    "Root replay qualification is separate; no fault-control credit or reviewer R/source/generation/backend/fullsuite/denialretry."
+  ]
+}

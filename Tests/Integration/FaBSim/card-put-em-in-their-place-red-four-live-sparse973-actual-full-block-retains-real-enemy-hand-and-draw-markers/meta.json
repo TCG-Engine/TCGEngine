@@ -1,0 +1,7 @@
+{
+    "name": "Put 'Em In Their Place / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:00:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Valda Specialization**\n\n**Crush** - When this deals 4 or more damage to a hero, they discard their hand, then they draw that many cards. Representative only: actual_full_block_retains_real_enemy_hand_and_draw_markers. Actual two Blue6/7 pitches pay printed4/5/6, firstR3/AP1/PITCH thenR2/1/0/AP0. Four-live manual combat, physical source5 owned graveyard; real retained markers. No positive typed Crush/Tower/discard/extra turn/future effect or hero activation credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#put_em_in_their_place_red"
+}

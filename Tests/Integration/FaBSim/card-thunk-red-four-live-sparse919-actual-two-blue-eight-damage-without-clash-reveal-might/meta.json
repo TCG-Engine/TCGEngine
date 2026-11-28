@@ -1,0 +1,7 @@
+{
+    "name": "Thunk / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:28:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When you win a **clash** revealing this, create a Might token. Representative only: actual_two_blue_eight_damage_without_clash_reveal_might. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#thunk_red"
+}

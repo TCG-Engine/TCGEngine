@@ -1,0 +1,101 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1271-20261122.json",
+  "source_spec_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+  "input_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+      "card_id": "dash_io",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "294a2e4876f74f2ec860edb9036730ac960eac4717a69dfc65f21115441b4006",
+        "actions.json": "97810e205d7164ac48a317fecf33a4ead1f1f9686dc27a764cae403ae22c0d59",
+        "assertions.json": "0d04e26d3719802fa92b186f7895fcf439e7e47aecafe08cf9ab59640d5f173a",
+        "expected_final_gamestate.txt": "2e5d1e5f3bf4d9c7ff9c07a81aba414576e121d19142887aaa2c707d498c0835",
+        "meta.json": "14d707ff7a630c21d9d7609a9b06720ef7811f3becdb57033857ab81298ff370"
+      },
+      "fixture_sha256": "62fff6b718b42d20bc80044a12d4a93938ce71e37da14b264991beb696116875",
+      "actions": 5,
+      "native_assertions": 201,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1271-20261122.json",
+      "input_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1271-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+        "fixture_slug": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "5ea3b681801c819a0d0a2f9bef987a3c6c82136c9e4fd8b9de61723f4f742fb1",
+    "source_note_sha256": "f7036c5c633b8ad383bb0350b1c32dd57d9da7343edb1c693648816bb37182c2",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 5,
+    "query_checks": 201,
+    "persistable_assertions": 201,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_DASH_IO_DUEL_TOP_ITEM_INSTANT_SURCHARGE_AND_ONCE_REJECTION",
+    "basis": [
+      "Cached DashIO is naturally36 Mechanologist versus adultDorintheaIronsong40 in unchanged legacy duel, omitted activeSeats/exact12/defaultgameModeempty/noPassives/both manual players. Group identity:dash_io was absent from current base/incremental coverage and has no exact/group source-only hold. Exact realBlue3Hand and two eligibleFuelInjector4/5Deck are lawful, no initial permission/play history/resources/AP seeded.",
+      "Printed Dash allows once-per-turn top MechanologistItem printedcost1orless asInstant with additionalresource1. Cached FuelInjectorBlue is MechanologistActionItem cost0, so both copies qualify; its separate Instant bottom-to-gain-resource ability is not played or credited. InitialAP0 makes actual Instant permission observable rather than ordinary Action play.",
+      "Current EVO DashTop checks actual firstDeck UID, Mechanologist+Item+cost<=1 and absentDASH_PLAY. GameLogic determines Instant kind before moving actual4, records evoDashPlay on sameUID while still realtopDeck and uses that marker for EVOCost+1 after moving onto Stack. ActualBlue3 pitch3 must pay1, leaveR2/AP0 and no earlyArena item; current native duelPriority2 then realmanualpasses2and1 hold actual4StackINSTANT until resolution.",
+      "Persistent item resolution moves samephysical4 to ownedArena, leaving distinctsameeligible5 as actualnexttopDeck. EVORuntime Played marks DASH_PLAY from actual Deck play; its hook is called after the earlier WTR effects write and payment-state commit, so no selected pre-hook overwrite is evident. Later source eligibility rejects another top play after the once flag.",
+      "ActualsecondDeck5 click must leave same5 in Deck with R2 sufficient for its nominalcost0+extra1 and AP0 still. No target/Stack/payment/newUID/resource/AP change may occur. Because second copy is real and eligible and R2 is sufficient, success first plus failure second isolates once permission rather than affordability or wrong type/source. Final4Arena/3Pitch/5Deck, HP36/40/AP0/R2/UID5/RNG0 and empty Stack/two queues/combat chains are correct planned outcomes.",
+      "Unsupported Stack FromZone queries were corrected to actual schema SourceZone before native execution. The Stack schema has SourceZone; both source-origin checks now bind Deck without changing any card/cost/permission expectation. All201 native assertion/state checks persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native result, replay or coverage credit claimed.",
+      "Only one positive zero-cost topItem Instant play with surcharge and fresh same-turn repeat rejection. No top-card visibility UI, Item activation, cost1/ineligible controls, turn reset, DashDatabase/young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1271.py": "9a340909f9405a196aa77f7a0660dbc4f278faf2fed715ad6c24f24aabcecf41",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1271-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "68be90311db81dadd34d7f042957a4ee416024a32d159cc31fed26611210df3e"
+  },
+  "full_suite_run": false
+}

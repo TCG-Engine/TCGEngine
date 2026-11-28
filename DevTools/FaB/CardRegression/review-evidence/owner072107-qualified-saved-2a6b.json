@@ -1,0 +1,71 @@
+{
+  "status": "ORIGINAL_GENIS9_1569_FROSTHAVEN37_3259_AND_SINGLE_REPLAY_EACH_PASS",
+  "reviewer": "root exact original Source/Saved/physical outcomes; separate cross-author source reviews retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+  "input_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90",
+  "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+  "fixtures": [
+    {
+      "slug": "card-genis-wotchuneed-four-live-original-correct-probe-two-opponents-accept-caster-creates-silver",
+      "card_id": "genis_wotchuneed",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89fe35ac6ae8050c25e2a05d7385e14000f7036cf37c821d2de08bb2ef397c34",
+        "actions.json": "c3caa88e8979da26cd7c257fba958f44073d82f66afcb5014c4e0dd297d9d70a",
+        "assertions.json": "c028030b618708d03c381b498c132bc72f70b4210789f87a3f62393a1b0dc5db",
+        "expected_final_gamestate.txt": "f9a212e4205fdb7bcee64c2621fbd3dceff7773cb34610a6ebb15149bf32d892",
+        "meta.json": "a2c457e79d1ff8b7655f5a09e8a2d0b044c42ecb8bd5369b80c347621cdacaf9"
+      },
+      "fixture_sha256": "7d1141aed169ffbd7a12a54270dfa8a5c0251ae493c88cab6dd54793ea200904",
+      "actions": 9,
+      "native_assertions": 1569,
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+      "input_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90"
+    },
+    {
+      "slug": "card-frosthaven-sheath-red-four-live-real-ice-pitch-earns-frostbite-and-five-defense",
+      "card_id": "frosthaven_sheath_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c98652a0a0d5227bd47142b9177764cf83e335f55e650e5f9a10415eff94ed5",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "70d1f3ddd70a236026c8b7a8fec35dc0266c3807f2c7615cc295ddeba7c21c5e",
+        "expected_final_gamestate.txt": "0d5c44edc9439d960130d6d6b51d3f40a8cab1ac7f0a3410487f524624eb9c5b",
+        "meta.json": "0f377de9e538a37d02a61708591f355047b2467302dfdc62c5f1cd5c2c2f03a2"
+      },
+      "fixture_sha256": "fdfaa82e6eaad4e606d5d177cda61ea7630ac7794d36929cc5df2705f3e6bae7",
+      "actions": 37,
+      "native_assertions": 3259,
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "runtime_sha256": "2a6b027d35a4be607109eb1d0de20c4b008562a9046732dd52bd1626ad912c6f",
+      "source_spec": "card-regression-repair-owner072107-after2a6b.json",
+      "input_sha256": "003a627b9c1b55472d4ed87eacbd32bf51485db5f1cde81f474d97b5bff4ca90"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-owner072107-after2a6b-replay.json",
+    "sha256": "b3d9586b4af53c731096313f6eb79c379620cf546d7e17a269d078426270a19c",
+    "passed": true
+  },
+  "basis": "Originalgameplay/setup/queries exact. Genis real4responseactors, P2/P4actualbottomdraw, P3declines; bothphysicalSilver14/15 staycaster1Owner1Controller1, AP1/R1/HP20. Frosthaven realIcepitch/DR and latephysicalFrostbite9Owner4Controller1, physicalfive-defense effect givesactual2damage/Hero4HP18 andcleanup. Genis4truepriorityPASS; Frost32PASS envelopes include1defender-declarationfinalizer.",
+  "source_reviews": [
+    "f0672a607d2a40ed0e484a66ee039c28fb0314fe3189a2d6d3fbebf439495e0e",
+    "24c347323ad78b2f890d07622b904f46a23200ec43334860e5a97379f8175932"
+  ],
+  "local_transform_components": 16,
+  "actual_emitted_components": 136,
+  "actual_emitted_receipt_sha256": "e9f8ebf52d0fcaf74f26b14fae1371d8322c1f744e6710630c3f9383bd7930d7",
+  "limits": [
+    "NativeGenis namedtwo-accept/one-decline branch. All-decline/othercaster seats are actual-emitted component controls, not native coverage.",
+    "NativeFrosthavenRed sole importedprinting only. Other token creation/replacement or reactive ownership routes unqualified.",
+    "First emission was timestamp-only, caught and retained; V2card-scopedexactlegacybridge is required activefix. No generated handedit or remoteauthoring.",
+    "No full suite, denied repair, Core change, newbreadth or sibling credit."
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B358_ATTACKER_DRAW_TWO_DEFENSE_REACTION_PREVENTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T18:03:12.231083+00:00",
+  "source_spec": "card-regression-batch358.json",
+  "input_sha256": "0a05b43bd2d32c25a9bbc27fb2a935a411b3580a27862d4295f153f607e1fded",
+  "manifest_sha256": "e7a13c49f3680a1376a1c27abb710b88dfbc893220ae498312fda24a1243b444",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "source_guards_verified": 18,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch358-independent-source-review.json",
+    "sha256": "67332daddea4ebaa9f0d9689e66181716027354fb18324b14a70c9b50864a181",
+    "reused_not_new_source_approval": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch358-20261103T180017Z-6aea21312405b.json",
+    "sha256": "127e2f389b5dc85c89d4bf8772d6b8c96ff1edc42ab8712963c6c1dad476766b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch358-native-r1\\receipt.json",
+    "sha256": "a406f621d5e89629c5a496c94e25138e1ff06533afc2511fa5dd78c12a0dc3aa"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch358_saved_readonly.py",
+    "sha256": "6e2b7a1b42aaf6833bec42ab57fa148841b80f96f29c2df16a2937b12f74d01a"
+  },
+  "reviewer_independence": "Sparseauthoredoriginal358; savedreviewerindependentlysource-reviewed butauthoredneitherscenario nor implementation/native recording.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "hold_the_line_blue",
+      "slug": "card-hold-the-line-blue-four-live-sparse-real-attacker-draws-two-earns-defense-reaction-prevention-three",
+      "source_spec": "card-regression-batch358.json",
+      "input_sha256": "0a05b43bd2d32c25a9bbc27fb2a935a411b3580a27862d4295f153f607e1fded",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "recorded_runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-hold-the-line-blue-four-live-sparse-real-attacker-draws-two-earns-defense-reaction-prevention-three",
+      "fixture_sha256": "b92f1bc55b22eac4ccecbb005d2f578b0f9427708cffe14029a2468945d4ced8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "5c8449a85b752781a984a47222023015debadd81144b6914f875af24b994ed42",
+        "actions.json": "ba57ea0891b94fbad8213569c8a23afba2a6536117ae5cccd6e8c68729ee9af2",
+        "assertions.json": "2b5530f98d9e792f5948379a00e39b453407c1f2629fb473b0346a6b5a28951d",
+        "expected_final_gamestate.txt": "b172f70b6e0492d2bad8e77cdc31dbda8ff7883c8a1f91cb210d88ffc1b4d294"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5c8449a85b752781a984a47222023015debadd81144b6914f875af24b994ed42",
+        "actions.json": "ba57ea0891b94fbad8213569c8a23afba2a6536117ae5cccd6e8c68729ee9af2",
+        "assertions.json": "2b5530f98d9e792f5948379a00e39b453407c1f2629fb473b0346a6b5a28951d",
+        "expected_final_gamestate.txt": "b172f70b6e0492d2bad8e77cdc31dbda8ff7883c8a1f91cb210d88ffc1b4d294",
+        "meta.json": "f39b256493bcbf93affc6fe955e19d296c5f5a14cfb65db367eadb305c3d12df"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5c8449a85b752781a984a47222023015debadd81144b6914f875af24b994ed42",
+        "actions.json": "ba57ea0891b94fbad8213569c8a23afba2a6536117ae5cccd6e8c68729ee9af2",
+        "assertions.json": "2b5530f98d9e792f5948379a00e39b453407c1f2629fb473b0346a6b5a28951d",
+        "expected_final_gamestate.txt": "b172f70b6e0492d2bad8e77cdc31dbda8ff7883c8a1f91cb210d88ffc1b4d294",
+        "meta.json": "f39b256493bcbf93affc6fe955e19d296c5f5a14cfb65db367eadb305c3d12df"
+      },
+      "actions": 41,
+      "native_assertions": 3966,
+      "actual_manual_passes": 36,
+      "actual_priority_response_passes": 35,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hold_the_line_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hold_the_line_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "actual_attacker_DTD_DRAWN_sum": 2,
+      "actual_defender_DTD_DRAWN_sum": 0,
+      "checkpoint_assertion_mapping_sha256": "55bbf4fd4818535c1f8347d4a50d589ccfc87619ef655cbf058bcfba45f69333",
+      "native_action_mapping_sha256": "a591293f7e633ed0ac3f498b8d27f13b9d847a274c8f495ce4f148072f53cfaf",
+      "native_assertion_mapping_sha256": "4aff14f491c9c03e4e766dc4f696d8de7324ced541ccd583a1c9bcfd37aab075"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 41,
+  "total_native_assertions": 3966,
+  "total_manual_passes": 36,
+  "total_priority_response_passes": 35,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "ActualBellow6Action1/Blue7pitch3paysbeforeactualsoleSix8discardcost\u2192R2AP0; fourresponsesrealDeck10/11draw/tail12retained/ownGAAP1. RawfinalactualP1DTD_DRAWNsum2/P4sum0 corroboratesphysicaldrawUIDs, notseededcondition. ActualArsenalSmash9cost2fromearnedR2/AP1\u2192RAP0,printed7+Bellow2=9/noGA,10/11remainHand.",
+    "ActualP4HoldLine5GenericDR0/sourceStackheldfresh4,1,2,3 then5actualDEFENSE_REACTION/link1. Printeddef2/source-backedconditionalPREVENT_DAMAGE3plusactualninepowerAA yieldsnativepacket4/HP16afterfreshReactionfour. No separatecomputed-def2nativeassertionisinvented: CardID/Role/physicalsource,printeddefenseandfullactualHP/damageassertsarethecombinedmaterialevidence. PositivePREVENT_DAMAGEresidueabsentinrawfinal.",
+    "All41actualinputs/3966orderedchecks/36manualPassinputs(nineperseat,35priority+P4finish)exact; rawfive/fullschemaendpoints/allphysicalowners/48manualpreferencevaluesperendpointverified. FinalGY1UIDset{6,8,9}/GY4{5}/Pitch7/Hand10,11/Deck12/alloriginal1..12conserved/RAP0/Counter12RNG0. Fourheroesready/live; Stack/chains/Arsenal/Arena/Banish/Temp/DQs/payment/manager/framesclear."
+  ],
+  "limits": [
+    "OneBlueactualATTACKERdraw2/DRdef2/prevent3/fullpositivepacket. Nofalsecondition/defenderdrawalternative/otherdrawcounts/otherpacket/refresh/expiry/Levia/Bellow/Smashsupport-primary/sibling/fullcard/control/fullsuitecredit.",
+    "Actualcompletednativeledger+parsedendpoints only; noextra per-inputrawsnapshots/native/replay/controlbyreviewer. Roottwofocusedreplays/registrationseparate.",
+    "NoPHP/native/R/source/generator/service/legacyauditbyreviewer."
+  ]
+}

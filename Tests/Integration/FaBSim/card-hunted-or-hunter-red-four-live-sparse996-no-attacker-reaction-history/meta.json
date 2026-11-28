@@ -1,0 +1,7 @@
+{
+    "name": "Hunted or Hunter / four-live absent attacker-reaction event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:11:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends and the attacking hero has played or activated an attack reaction this chain link, they lose 1{h}. Named typed-event-absent branch only. Actual attacker1 paid normalRaging7 usingBlue8, then no attackerreaction played/activated; actual defender4DR5 is not attacker1history. PrintedWHENdefendsANDattackerhasreaction predicate false, no earnedPox/mill/lifeloss/Riptidetraptrigger. ActualHand9NAA andDeck10/11 remainordered/owned, P1HP20 andallArena0, so absenceofvictimassetsdoesnotmaskeffect. ActualArsenal5cost0/DEF3 against7 yields4physicaldamage, natural uzuri20 to 16, actualunuseddefenderBlue6Hand retained/AP0/R0. All4manual priority/reaction seats, physical5CCRoleDEFENSE_REACTION thenownedGGY4, support7GGY1 andactualpitch8. Positive attreaction/trigger/ownership/mill/hit branches unrun; no hero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hunted_or_hunter_red"
+}

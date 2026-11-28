@@ -1,0 +1,7 @@
+{
+    "name": "Reek of Corruption / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:35:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've played or created an aura this turn, this gets \"When this hits a hero, they discard a card.\" Actualfreshturn firstattack, noarcaneDamage/playedCreatedAura/attackReactions, staticgrantfalse so no earnedhitability. RealenemyHandmarkerretained/noBanish/noGY, printedbaseHPdamage, actualpayment/native4manualcombat/source5ownGY. Positivehistorycondition/banish/discard/handlook/search branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reek_of_corruption_red"
+}

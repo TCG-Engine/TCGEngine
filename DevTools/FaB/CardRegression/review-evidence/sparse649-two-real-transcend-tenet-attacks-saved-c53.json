@@ -1,0 +1,568 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B649_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T21:47:30.856337+00:00",
+  "source_spec": "card-regression-batch649.json",
+  "input_sha256": "252b0c5a471de90e1ee4abf173f73190deda056478d1ef5f493ad9e6d875633b",
+  "manifest_sha256": "eb9b19c1c4fb35e714675734de2f4c2626d91110fa6a21f6360b537e94a0d15a",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch649-independent-source-review.json",
+    "sha256": "638087ebd92c6b0b0197cdcb208751c1ac70620fd35d507194294436b713cb22",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch649-20261106T214434Z-6aee4a42d9db0.json",
+    "sha256": "08297c5f5c1b4f00dd6aa0d79d3c0a985cb23329adc95f2812347a5dc411a858"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch649.recording-results.json",
+    "sha256": "e33e182e8ee3fe8af1024fb373be95e60720808d649ea94c2651cacc1ffd0e45"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch649-native\\receipt.json",
+    "sha256": "1716c1e91fd6b6430c3555021952046af3a26c3d997625475ddfcb4b3db917e0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "second_tenet_of_chi_tide_blue",
+      "group_id": "identity:second_tenet_of_chi_tide_blue",
+      "slug": "card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "source_spec": "card-regression-batch649.json",
+      "input_sha256": "252b0c5a471de90e1ee4abf173f73190deda056478d1ef5f493ad9e6d875633b",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_TRANSCEND_AND_PLUS_TWO_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "fixture_sha256": "f3be141adae5a868dd5c2ed9b0e531f7b37204ffcb51f38339d4e639c8ddeb47",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "234ad0e552c21f9867f1e92dcd2f831f0c13fe077d28399db21779c28d638187",
+        "actions.json": "2467a22f2cf6cf2fe88077e0f52ee3039ce9f82649dc2be6f316035e00e285ab",
+        "assertions.json": "e067596e491b4500be312e086e41da762599c647fd4f14e1f738a404341ed5dd",
+        "expected_final_gamestate.txt": "5617e2a7af71c744de6be35601ff6dbe14dd8982a2c2be3aee5e79dd1c46e25e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "234ad0e552c21f9867f1e92dcd2f831f0c13fe077d28399db21779c28d638187",
+        "actions.json": "2467a22f2cf6cf2fe88077e0f52ee3039ce9f82649dc2be6f316035e00e285ab",
+        "assertions.json": "e067596e491b4500be312e086e41da762599c647fd4f14e1f738a404341ed5dd",
+        "expected_final_gamestate.txt": "5617e2a7af71c744de6be35601ff6dbe14dd8982a2c2be3aee5e79dd1c46e25e",
+        "meta.json": "aab692dfbebf6e0ba42462f846c359de268b6809bc005306a8fcdaf51a9aed8b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "234ad0e552c21f9867f1e92dcd2f831f0c13fe077d28399db21779c28d638187",
+        "actions.json": "2467a22f2cf6cf2fe88077e0f52ee3039ce9f82649dc2be6f316035e00e285ab",
+        "assertions.json": "e067596e491b4500be312e086e41da762599c647fd4f14e1f738a404341ed5dd",
+        "expected_final_gamestate.txt": "5617e2a7af71c744de6be35601ff6dbe14dd8982a2c2be3aee5e79dd1c46e25e",
+        "meta.json": "aab692dfbebf6e0ba42462f846c359de268b6809bc005306a8fcdaf51a9aed8b"
+      },
+      "actions": 38,
+      "native_assertions": 2878,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 683,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "homage_to_ancestors_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "second_tenet_of_chi_tide_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "inner_chi_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "second_tenet_of_chi_tide_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDorder": [
+        6,
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        8
+      ],
+      "final_Hand1_exact_transformed_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        22,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "78e1f45d7089957f42644dace58c5780e800ff672f6a6a7f6cd9852a27a1ec10",
+      "native_assertion_mapping_sha256": "685f8265050789944ac9051d46cf3df707b8c9c02db0841d783a6cfdc10a8226"
+    },
+    {
+      "index": 1,
+      "card_id": "second_tenet_of_chi_wind_blue",
+      "group_id": "identity:second_tenet_of_chi_wind_blue",
+      "slug": "card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "source_spec": "card-regression-batch649.json",
+      "input_sha256": "252b0c5a471de90e1ee4abf173f73190deda056478d1ef5f493ad9e6d875633b",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_TRANSCEND_AND_GO_AGAIN_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "fixture_sha256": "90a424040233449ed386b889871f48aebbe47a83d8a3345382a5ea22db7beb12",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7f98901512422f805bc30d9c1f235b1419c32bb91d06f558c04721070972fc35",
+        "actions.json": "0ff35c7bb927cc74f2fbd7fffd036d42b1193ef1130f39682269a44a6eb26f65",
+        "assertions.json": "7b577c1b429d9d66fcfbe4ddef33506ae2757fc852f674eacddc25e4c7e589db",
+        "expected_final_gamestate.txt": "a6d232e78d0a3c76b5a3338c53f97000d8bfd90b699c86d4e421e75cd63f842e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7f98901512422f805bc30d9c1f235b1419c32bb91d06f558c04721070972fc35",
+        "actions.json": "0ff35c7bb927cc74f2fbd7fffd036d42b1193ef1130f39682269a44a6eb26f65",
+        "assertions.json": "7b577c1b429d9d66fcfbe4ddef33506ae2757fc852f674eacddc25e4c7e589db",
+        "expected_final_gamestate.txt": "a6d232e78d0a3c76b5a3338c53f97000d8bfd90b699c86d4e421e75cd63f842e",
+        "meta.json": "b32a7253227e91faca2988da8e33202f1394d8bc4a9a12975b9294f907fea5d3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7f98901512422f805bc30d9c1f235b1419c32bb91d06f558c04721070972fc35",
+        "actions.json": "0ff35c7bb927cc74f2fbd7fffd036d42b1193ef1130f39682269a44a6eb26f65",
+        "assertions.json": "7b577c1b429d9d66fcfbe4ddef33506ae2757fc852f674eacddc25e4c7e589db",
+        "expected_final_gamestate.txt": "a6d232e78d0a3c76b5a3338c53f97000d8bfd90b699c86d4e421e75cd63f842e",
+        "meta.json": "b32a7253227e91faca2988da8e33202f1394d8bc4a9a12975b9294f907fea5d3"
+      },
+      "actions": 60,
+      "native_assertions": 4664,
+      "actual_manual_passes": 54,
+      "actual_priority_response_passes": 52,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 13,
+        "2": 13,
+        "3": 13,
+        "4": 15
+      },
+      "schema_property_assertions": 1238,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "homage_to_ancestors_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "second_tenet_of_chi_wind_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "inner_chi_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "second_tenet_of_chi_wind_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDorder": [
+        6,
+        5,
+        9
+      ],
+      "final_Pitch1_exact_UIDs": [
+        8
+      ],
+      "final_Hand1_exact_transformed_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        22,
+        20,
+        20,
+        11
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "07df58d169ef91362b4f488e26361e3295ae6b13e4fef4bc98dd352ba0353af5",
+      "native_assertion_mapping_sha256": "180d3f0fe08a81ec2e96fa84f3b1be1be5a1f727df2255753b4cfd2a586d3e28"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 98,
+  "total_native_assertions": 7542,
+  "total_manual_passes": 87,
+  "total_schema_property_assertions": 1921,
+  "material_findings": [
+    "Exactraw10/all98actualenvelopes7542orderedchecks87manual/48preferencesatbothendpoints/current70c53guards+ab33 match independent638087 source. Tide38/2878/33manual andWind60/4664/54 separatelyreconciled. Fullphysicalendpoints/terminalassertionsparsed; unchangedsource/rules/scaffoldnotreaudited.",
+    "BothactualSigil6firstBlueInstant sourcefourheal20→21/AP1, thenHomage7sourcefourheal21→22 and SAMEphysical7transformsInnerChi/ownerHand onlyonfourth. ActualBlueplayhistory/earnedMST_TRANSCENDEDtypedcarrier andphysicalbackfacepresent; noChiwaspitched/spent/generatedasasset, finalChi0. RealBlue8fundsprimary3/AP0frompriorFDArsenal.",
+    "Tideactual5+2=7/noGA/sevenHP13; Windactual5/HP15/GArefundonlyResolutionfundsrealRed9AA0/secondlinkfourHP11/noGA. FullcloseexactGY6,5(/9),Pitch8,HandInnerChi7/originalUIDsets/counter8or9/RNG0/RAPChi0/quiet. NuuStealthWHEN/Heroabilityunearned; noomittedsupporttrigger."
+  ],
+  "limits": [
+    "Onepositivebranchperidentity; nofalseTranscend/otherpitch/siblings/fullcardorSigil/Homage/Nuu/InnerChiprimarycredit. NoChiassetpitch/spend/Heroability/otherTranscendproducer/expirycredit. Selectedsynchronousphysicalresultdoesnotcertifyintra-callGY/preclear timing.",
+    "NoreviewerPHP/native/replay/R/source/fullsuite/deniedrepair. Rootfocusedreplays/registration/qualificationremainseparate. UndoVersionshash-bound/excludedfromphysicalinventory. UnfrozenPotion-ownGA premisewasretractedandisabsentfrombothrecipes."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch649_saved_readonly.py",
+    "sha256": "29d6d374864be09b783667a13111e6c58b601a6f7e7486bd21db89ba5e6b4ca4"
+  }
+}

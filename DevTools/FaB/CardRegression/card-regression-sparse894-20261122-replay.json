@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rising-sun-setting-moon-blue-four-live-sparse894-first-blue-instant-draws-then-puts-real-drawn-card-on-bottom-without-transcend",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rising-sun-setting-moon-blue-four-live-sparse894-first-blue-instant-draws-then-puts-real-drawn-card-on-bottom-without-transcend",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse894-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse894-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b3d8b4d4bdff47146585ed3ead4d42cb4441a4cb89a704ca12a9dc2531dc29cc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a239171ae32f567a298d60143075bf9b6b46a0711342c6f654a6440dfb04073c",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "c74f0a1a3a65389394d06c8d6bbc8b3c38d653b4edb40be93273e4368d60a14a",
+        "expected_final_gamestate.txt": "ef649e480d7d23a8fc8c2e3c40146c6980ac75e6d0dd3c18a9e87e2a6a884ef9",
+        "meta.json": "9e86f8f40fc6ca01676ad4b83367bc60939aa4f1ecb1098e99746f014a0c5beb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

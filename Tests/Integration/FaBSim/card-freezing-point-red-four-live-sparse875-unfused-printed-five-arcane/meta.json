@@ -1,0 +1,7 @@
+{
+    "name": "Freezing Point / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:14:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Ice Fusion**\n\nDeal 5 arcane damage to target hero. If this was **fused**, instead deal X arcane damage, where X is 5 plus the number of Frostbites, Ice afflictions, and **frozen** cards they control. Representative only: unfused_printed_five_arcane. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#freezing_point_red"
+}

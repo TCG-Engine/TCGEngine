@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-golden-cog-four-live-sparse892-natural-owner-turn-start-zero-steam-token-is-destroyed",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-golden-cog-four-live-sparse892-natural-owner-turn-start-zero-steam-token-is-destroyed",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse892-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse892-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c82c500c706409419c50b862d9b8b8f0e17c5b01692ff908d68399c577067a68",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8dc9e2737b44251863f9e82c6a3f945d3ec75cf1f2dd6ed3d8cd8e8b74f8bc1b",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "9cd308923269f860bd33d25bdd5354d4aa5691e17bad1fe37f576cc388878ae6",
+        "expected_final_gamestate.txt": "752849ee390f01d39244eed21088065f798d307c853c06756df476ba0d23c3a2",
+        "meta.json": "0fab9909a2a89c055dc51a7e27d5a27880f1eae64d46d0351fd4904fdaa5dcb4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

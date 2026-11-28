@@ -1,0 +1,90 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1471-20261122.json",
+  "source_spec_sha256": "61cc234547e75eaea2310bd73f5574bbc23eed1125ab95148c0b51f37d2217eb",
+  "input_sha256": "61cc234547e75eaea2310bd73f5574bbc23eed1125ab95148c0b51f37d2217eb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-villainous-pose-red-four-live-sparse1471-second-boo-real-plus-four-and-go-again-action-consumer",
+      "card_id": "villainous_pose_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04591b561a09e01eaa7eb34a85f58e06fb27ead119e5347b8fb2d14d9b66ec10",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "82b96372335259327661c7f8c7b8e7647f22a320e4522990a201479e17ff0e64",
+        "expected_final_gamestate.txt": "688d0e4d1102b38c11b3e75a3ff660ec78a1f2c4cf08b51aa1006ac3a4031a16",
+        "meta.json": "de362de2799dc91e279283dfab339961412a5e964af65edbf1ab4fa12a89ffa1"
+      },
+      "fixture_sha256": "94f8ba5b770c8d9e2124b1298be18b8c6e6fb500c7611034d681113aa3e89e72",
+      "actions": 32,
+      "native_assertions": 315,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1471-20261122.json",
+      "input_sha256": "61cc234547e75eaea2310bd73f5574bbc23eed1125ab95148c0b51f37d2217eb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1471-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-villainous-pose-red-four-live-sparse1471-second-boo-real-plus-four-and-go-again-action-consumer",
+        "fixture_slug": "card-villainous-pose-red-four-live-sparse1471-second-boo-real-plus-four-and-go-again-action-consumer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1471,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T03:25:57.781560+00:00",
+    "spec_sha256": "61cc234547e75eaea2310bd73f5574bbc23eed1125ab95148c0b51f37d2217eb",
+    "source_note_sha256": "018518a1ac5a922278fb3759067ad080a9cb0b393fb6f1f5b218b396099fe663",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 1,
+    "planned_actions": 32,
+    "persistable_checks": 315,
+    "named_primary_ids": [
+      "villainous_pose_red"
+    ],
+    "findings": [
+      "Independent source/spec review confirmed prior firstBOO at equal20 is rule-reachable declared history; first-time Killjoy trigger remains unearned on actual secondBOO.",
+      "Prior-history setup and all primary8damage/AP/R/fates remain. Before native execution removed three erroneous wholeeffect equalities that would have erased normal persistent event bookkeeping. No intended rule or outcome expectation weakened.",
+      "Native body order NEXT4 then BOO verified, but currentBOO increment receives no observation credit. Exact initialpriorhistory plus real +4 attack/goagain consumer are the bounded claims."
+    ],
+    "limits": [
+      "Reviewer ran no games/replays and read no native outputs. Passing coverage requires saved first targeted replay.",
+      "Only positive nextattack+4 and goagain/AP consumer; no earlier BOO/capture/Killjoy abilities/currentBOO increment/nonadjacenttarget/pitchsibling/fullcard credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1471-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1be9dc038c4b41cf463d81e5f05c0a2b0c2d7dc9e51193a2aeef33744a51db61"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Call to the Grave / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:33:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Search your deck for a card, put it into your graveyard, then shuffle.\n\n**Go again** Representative only: choose_real_deck_card_to_graveyard_then_shuffle_and_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#call_to_the_grave_blue"
+}

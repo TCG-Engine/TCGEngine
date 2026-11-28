@@ -26,8 +26,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 WithP1GroundArena: IC27_089:1:0
 ## WHEN
 - P1>Pass
-- P1>ResourceHand:0
 - P2>ResourcePass
+- P1>ResourceHand:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 P1GROUNDARENAUNIT:0:POWER:3
@@ -83,8 +83,8 @@ WithP1GroundArena: IC27_089:1:0
 ## WHEN
 - P1>Pass
 - P1>SimulateRequestBoundary
-- P1>ResourceHand:0
 - P2>ResourcePass
+- P1>ResourceHand:0
 ## EXPECT
 P1GROUNDARENAUNIT:0:UPGRADECOUNT:1
 

@@ -173,8 +173,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2BASEDMG:19
@@ -213,8 +213,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2BASEDMG:25
@@ -506,8 +506,8 @@ WithP3Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 - P1>AnswerDecision:p3Base-0
 #// Finish the regroup. These two ResourcePasses are what carry the game over the boundary into
 #// ActionPhaseStart, where _SWUScoreTwinSunsEndOfPhase() scores the phase that just ended.
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 ## EXPECT
 SEATLIVE:3:false
 GAMEWINNERS:2

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sonic-boom-yellow-four-live-sparse1010-actual-three-arcane-with-real-non-wizard-top-card-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sonic-boom-yellow-four-live-sparse1010-actual-three-arcane-with-real-non-wizard-top-card-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c975eca5785bf041a060f0e2d6f1f22cbb2b9a0a362e78d4e51c98a220f75fd2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41633d1067e4a6b6cdaf7fc4c7ba9fed345ecc24746b57047b3bb383d22499b3",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "fb64d85a908f0ed1c1b9913f30daeb710622a53ce409f540fcf97266f64597aa",
+        "expected_final_gamestate.txt": "0c5bb6e7a1cc5a983953eea8167e187947442185e4c2c871f85c1616192f3f02",
+        "meta.json": "ea7053f5e216e9802687a2f11b9c990b4ef646a4376ed386185855979beaa1ff"
+      }
+    },
+    {
+      "slug": "card-cindering-foresight-red-four-live-sparse1010-actual-opt-three-moves-third-card-top-and-second-card-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cindering-foresight-red-four-live-sparse1010-actual-opt-three-moves-third-card-top-and-second-card-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "764fe8056ffde7d8513a29f6fb7de23c4125b43a787e116ebdcacd170561362b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f0907c6617411df377daf7e57a5851117edf5b63c4564384478f66cb972e689f",
+        "actions.json": "7825c25d49102ee79dd9b1be1fd2a9951d9587ab20188279da8be3dc3d0269ab",
+        "assertions.json": "4097169cf1ac2bf509abd354b6a7bf288c068446a1e360cce1bbec0afa5df2be",
+        "expected_final_gamestate.txt": "479f83be1a2e8144971337b6e92e0047fdbc0c8128a524b847c3246fde0b6a9e",
+        "meta.json": "458f4ab9a3fc54da17d60e22a07a319b185423283d9d2b5dc8c6a1b86b26f525"
+      }
+    },
+    {
+      "slug": "card-splatter-skull-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-banish-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-splatter-skull-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-banish-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cb5bdde94d78896340aabf3cd968e0909f8bcc7015ec2a0afcc11030e9bbc843",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36b4d7180967337ea11466e2fcfe6d99632a2e11fe018ec77d165c1b903d0909",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "81403a179a1ab3af69d1535b4a6db61692719abe64447581a1640d501a2d9474",
+        "expected_final_gamestate.txt": "af94172c4b10d653f6ddc9d5e59ea44abf8b91b9a28760a3df730ebed2c9a757",
+        "meta.json": "a453a474370ecbaf7763337aedf5b423e0e78f9624d71a05ff5fe3ecf97a57e8"
+      }
+    },
+    {
+      "slug": "card-conquer-the-icy-terrain-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-arsenal-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-conquer-the-icy-terrain-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-arsenal-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3f555df1628d0286590a340329a119d970644fcd58d3ef9eceb3200df0bb1b4a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f3fce3071176485a1f30f3ff8dafecbd81358bf35101403d80721650341d384",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "2eac527da276fd93eed4df142432baf057b9e14b62138e573c97f32cf3ffc403",
+        "expected_final_gamestate.txt": "444deb79d4cf6167ee21ad10d0869c5779c53e0082bcb6ab99a43937672163fc",
+        "meta.json": "6187859932557e23ea0979a81fa01a6653cf1c803124ae749fd855111f9db882"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

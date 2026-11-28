@@ -1,0 +1,47 @@
+{
+  "status": "RADIANT189_ORIGINAL40_4594_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent from Ebbing Source author; actual original Source/Saved/physical review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+  "input_sha256": "5944545e9878a9046964e659d9fe49b98077b99519ff59e17aa6e6fdcadd84db",
+  "source_spec": "card-regression-repair-radiant189-earned-layer.json",
+  "fixtures": [
+    {
+      "slug": "probe-radiant-forcefield-yellow-four-live-one-soul-prevent-one-earned-empty-soul-destruction",
+      "card_id": "radiant_forcefield_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c82744eba684dbbceaa2337f6963442b205ac1940e499b16cb7a5ae902b50511",
+        "actions.json": "14395a038c45d98125aa7ccb9d37d92cf96368b7db9a26f2ceb01d38609bb1ee",
+        "assertions.json": "9bc4a33673e5c38b0fb396d1909fdb05576eb9bf46bb5ccab37f5da2d753bb1d",
+        "expected_final_gamestate.txt": "e03253e047d03459122ec21c21704d278c7077b0b7e446f78e32980c62a5f738",
+        "meta.json": "15b2ba4fe02051b4f4cbcf09b51ccd29aca99cd503a67a35d26cf286e34642fc"
+      },
+      "fixture_sha256": "fcd2160038bd3d9942d0c6a784695e71cb53293f5f943c8c3b9c05f1ae6ac70d",
+      "actions": 40,
+      "native_assertions": 4594,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 36,
+      "recorded_runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+      "runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+      "source_spec": "card-regression-repair-radiant189-earned-layer.json",
+      "input_sha256": "5944545e9878a9046964e659d9fe49b98077b99519ff59e17aa6e6fdcadd84db"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-radiant189-replay.json",
+    "sha256": "7d18b96bc087681f538b47fedb22cd4daa9330dcfcb43d79a3e1f53289355d00",
+    "passed": true
+  },
+  "source_review_sha256": "29df32dcc03b809df90bccac2eb759c6c2ac4745db1cf7ad956ab8042b0132b0",
+  "components": 50,
+  "basis": "Original40inputs4594queries unchanged. RealSoul7publicBanish prevents1ofincoming4\u2192actualHP4=17/Soul0. SameAura6 remainsArena atpostatomicboundary whilecapturedcontroller4/SourceUID6ABILITYwaits; fourgenuinelivingmanualresponses precedeoriginalAura6ownerGY4 destruction. Originaldamage/preventiononce/sourceidentity/Stack/economy/cleanup allretained; no immediateDestroyorloweredexpectation.",
+  "limits": [
+    "Native lastSoul same-seat positive branch only; entryemptySoul/differenttransitions/invalidpayload/blank/refill/name/control/epoch guards are component evidence, notadditionalNativebranchcredit.",
+    "Nonmoveunblank/control-observation andnonhook/foreignSoul-destination attribution remain unqualified source gaps, notfixedgeneralstateobserver.",
+    "Only selectedRadiantmoveproducer/resolver; no Mirage090/094virtual/096plainSpell/otherdeniedgoal. No fullsuite or newcatalogbreadth.",
+    "Historicalstrictdiagnostic retained; onlynewrepair-normaloperationalwrapperpermitscorrectsave aftersemanticgates."
+  ]
+}

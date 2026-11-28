@@ -1,0 +1,99 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_RAZOR_ORDINARY_HIT_CONTRACT",
+  "phase": "PLANNING",
+  "batch": 858,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-razor-required-hit-note-manifest.json",
+    "sha256": "8927a50158ef3854aa7f31e90897ccb744796040a6f1df2345d6ea0d0edf4291"
+  },
+  "manifest_sha256": "8927a50158ef3854aa7f31e90897ccb744796040a6f1df2345d6ea0d0edf4291",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-razor-required-ordinary-hit-unattempted-note.json",
+    "sha256": "b506b5dd5ca40c878e6a751a150e8493e7f400ff8a9b7d0c761194d7d5c573f0"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-firm-reservation.json",
+    "sha256": "674837ac23a16493926cde4bd7109144678b5fc64d52bc8a5f048f8651ae827f"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-firm-reservation-support-admission.json",
+    "sha256": "1e94415c5dd1ad19b160a9fc8606b368ff72839f07e66d48dee817d1ad9481ad"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 13,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "razor_ring_blue",
+      "group_id": "identity:razor_ring_blue",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_ORDINARY_HIT_CONTRACT",
+      "classification": "KNOWN_REQUIRED_HIT_WHEN_RESPONSE_BEFORE_DEFEND_DEBUFF_285_295",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-razor-required-ordinary-hit-unattempted-note.json",
+        "sha256": "b506b5dd5ca40c878e6a751a150e8493e7f400ff8a9b7d0c761194d7d5c573f0"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_row": 295,
+          "card_id": "stun_star_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Actual canonical and emitted Razor Hit body exists: ordinary GL1264 FaBRunSourceMacro invokes it after a positive hero hit; it directly adds OMN_RAZOR1 before a separate earned responseable Hit layer. This is the precise retained ordinary-Hit285/Pursuit and295/Stun contract, not a new native finding or body absence. Both retained proof bytes and current ledger records were independently matched.",
+    "Native actual Shuriken Item attack1R/base1, payment/tap, printedGA and MON72/OMN444 Arena close-destruction support exist. The full first-hit realHP19/capturedphysicalsource-controller/freshfour-before-next-Action-defend-debuff remains required and unrun. No privateflag-only or cast/attack-only baseline is approved.",
+    "Root1e94415c admitted actual Young Fai20 before input/Native under the printed no-extra-Hero-effect route. Fai legally admits Ninja Razor/Generic Wounding; optional Phoenix starting setup is declined and activated return ability remains unused, no Draconic chain ability is invoked. Tentative Katsu-unused/noCombo assumption is explicitly withdrawn because first AA hit would earn Katsu trigger. No invalid Katsu executable was approved or run; no source-health support resample is adopted.",
+    "Future realRazor firstattack1 thenGA must continue at actual RESOLUTION before true close with realWoundingRed0 in same open chain. Real Hand BlueAction printedDEF3 must become currentDEF2 and actual4minus2damage must reach finalHP17, with physical card/owner/link and actualdamage witnesses. Neither prematurely close/reopen nor seeded chain/AP/DEF is permitted.",
+    "True close only after the full consumer must destroy the same Razor via scheduled activation cost, with Red ownerGY1/Bluedefender ownerGY4/BluePitch1/R2AP0/StackDQchaincleanup. No extra close priority or missing-destruction claim. All this remains unrun behind the earlier known Hit contract; expiry, other defend types, reset, priorItemcast, siblings/Hero/support/fullcard uncredited.",
+    "All13 current selected guards, exact frozen note/manifest/firm/supplement, primary/support printed metadata and printing aliases/canonical row matched. Only compact planning accuracy/retention is approved; no executable Source/Native/new issue/fixture/qualification or coverage."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_prior_independent_trigger_review": true
+    }
+  ],
+  "limits": [
+    "Full positive hit/debuff/actualsamechainconsumer/automaticcost-destruction route remains UNATTEMPTED.",
+    "No new Native/issue/root/fix/fixture/coverage claim or shortened quiet branch.",
+    "No PHP/native/R writes/fullsuite/Git/remote/deferred Radiant or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T09:18:57.369981+00:00"
+}

@@ -1,0 +1,143 @@
+{
+  "status": "NATIVE_CONFIRMED_B782_FIRST_CHOICE_SOURCE_RETENTION_FAILURES_UNSAVED",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T03:53:30.856994+00:00",
+  "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+  "cases": [
+    {
+      "card_id": "pound_of_flesh_blue",
+      "source_spec": "card-regression-batch782-pound-first-choice-probe.json",
+      "input_sha256": "513a35c34d597923ee3fc99031bb20ed5a3aed653473e441a4edfaeb3f3f457c",
+      "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch782-pound-independent-strict-diagnostic-source-review.json",
+        "sha256": "75863575c3f8e2b69ca6a642cd4e325c686b4bd124ab63a10e10a50e52f74316"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b782-pound-first-choice-native-before\\receipt.json",
+        "sha256": "53bb62df6fb524f82b87e44816482dbeb72a3d35a500d58d6397b98bf38a59d0"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch782-pound-first-choice-probe.recording-results.json",
+        "sha256": "5c7b2f3e6526dc5e0dfb1715d8e7ee23172f2b036607dfe9de109d403183bef7"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch782-pound-first-choice-probe-20261114T035053Z-6af7da9d6cedf.json",
+        "sha256": "0ebc89acbd54c6732ac4b8214861c4abf85a76bc45fb2d2c401484c25eef7108"
+      },
+      "actual_native_inputs": 5,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "persisted_prior_successful_queries": 327,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 328,
+      "failed_query": {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "Stack",
+        "value": 1,
+        "viewerPlayerID": 1
+      },
+      "direct_observed_Stack_count": 0,
+      "direct_observed_pending_choice": {
+        "player": 1,
+        "type": "MZCHOOSE",
+        "Param": "p1Hand-0&p1Hand-1"
+      },
+      "direct_observed_selected_await_continuation": "pound_of_flesh_blue:0:ResolveCard-await|pound_of_flesh_blue:0:ResolveCard#1|4|chosen",
+      "direct_observed_other_DQ_empty": true,
+      "initial_raw_sha256": "2d31b5f57401bea01db41695e418dd609ce728f0b3d1217e669dbb7b69799889",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 139,
+      "post_zone_AP_snapshot_available": false,
+      "physical5_Graveyard_and_AP1_are_source_derived_only": true,
+      "source_derived_explanation": "The already reviewed ordinary-spell fallback clears source and applies go-again before await completion. This actual result directly proves Stack0 during pending choice; no actual GY5/AP1 scalar is certified because the first final check failed before those checks and no post-export exists.",
+      "native_confirmed_unfinished_effect_source_retention_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "tectonic_instability_blue",
+      "source_spec": "card-regression-batch782-tectonic-first-choice-probe.json",
+      "input_sha256": "d663655809b58415636f43cf099b3b1b80bba02bd1261f3c8931e5d4bb86ac1a",
+      "runtime_sha256": "cd7348b373b8adc0d4e5108b74b44fff9fd6e1b9a2e855e8cd14661bc2b66edf",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch782-tectonic-independent-strict-diagnostic-source-review.json",
+        "sha256": "02f076bc2667b4da7008694ac9d25e46be3c250abb6c9c664e80f43f7ee79b7f"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b782-tectonic-first-choice-native-before\\receipt.json",
+        "sha256": "7210771c32a2801bed8341c163088b45aee722f78a96031dbe37e62322eb81da"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch782-tectonic-first-choice-probe.recording-results.json",
+        "sha256": "3d7c3b748eb40f046fb8ed47b18b61f2352c133d74cbede1194938121280fd47"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch782-tectonic-first-choice-probe-20261114T035128Z-6af7dac0103df.json",
+        "sha256": "a22ac697b5e17c875303d1e9ddd4ef0b8704f566d5f2c6e9afc6a931db8ddeed"
+      },
+      "actual_native_inputs": 5,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "persisted_prior_successful_queries": 311,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 312,
+      "failed_query": {
+        "step": 5,
+        "type": "zone_count",
+        "zone": "Stack",
+        "value": 1,
+        "viewerPlayerID": 1
+      },
+      "direct_observed_Stack_count": 0,
+      "direct_observed_pending_choice": {
+        "player": 1,
+        "type": "MZCHOOSE",
+        "Param": "p1Arsenal-0"
+      },
+      "direct_observed_selected_await_continuation": "tectonic_instability_blue:0:ResolveCard-await|tectonic_instability_blue:0:ResolveCard#1|5|chosen",
+      "direct_observed_other_DQ_empty": true,
+      "initial_raw_sha256": "a1ed9583caf52cd1c79ef0c32856bddabaa955bcf3ad67d95485617269d496fb",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 155,
+      "post_zone_AP_snapshot_available": false,
+      "physical5_Graveyard_and_AP1_are_source_derived_only": true,
+      "source_derived_explanation": "The already reviewed ordinary-spell fallback clears source and applies go-again before await completion. This actual result directly proves Stack0 during pending choice; no actual GY5/AP1 scalar is certified because the first final check failed before those checks and no post-export exists.",
+      "native_confirmed_unfinished_effect_source_retention_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    }
+  ],
+  "total_native_inputs": 10,
+  "total_direct_persisted_successful_queries": 638,
+  "confirmed_gameplay_defect_scope": "Only the directly observed absent Stack source while the selected resolving first choice/await remains pending. No full-route or fix claim.",
+  "fixture_saved": false,
+  "passing_coverage": false,
+  "source_application_approved": false,
+  "limits": [
+    "No invented post-state snapshot, direct graveyard location, AP balance, later effect outcome or passing continuation. Observed ACTION marker is recorded diagnostic context, not a rules-approved in-resolution priority window.",
+    "Initial48 manual booleans per case were directly parsed; there is no finalraw48 claim. All prior327/311 successes are persisted evidence, not fail-fast inference.",
+    "Root alone ran actual no-save probes; this reviewer ran noPHP/native/game/replay/R/source/Git/remote actions."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch782_actual_first_choice_failures.py",
+    "sha256": "52697efd83ab02a3ca2fb05ac6f1eb70f6c7cadc976b8ab899bbb28f314d59b9"
+  },
+  "blockers": []
+}

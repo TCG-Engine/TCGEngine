@@ -1,0 +1,68 @@
+{
+  "status": "EDICT120_FLUID122_ORIGINAL71_6167_TWO_CLEAN_REPLAYS_PASS",
+  "reviewer": "Root independent of b820 source proposal and original correct scenarios",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+  "input_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08",
+  "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+  "fixtures": [
+    {
+      "slug": "card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+      "card_id": "imperial_edict_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa877e99a0bfb5254e99a226c3fe39845d4834cb7814f42fe036071af2f9fab1",
+        "actions.json": "5e6376a5cdcf6fcff73c7fd20b742fee35594f15c0275f69a128ba2333404f78",
+        "assertions.json": "7cdf2212c623b9a3de70ba5c94a4e0a971e8ddfaf987d393b4ae6ba50de26123",
+        "expected_final_gamestate.txt": "2e49c62b7bc2d423f2ce83240eed528c12a990c9206bcaa3402b06b43b5857e8",
+        "meta.json": "c1dfc14c5323e39cc8a6d0e856653f37b183f73e9793525e3344aa833c032da9"
+      },
+      "fixture_sha256": "f8492fa8bfb8aa2c965487ce7be2c668efd99a6cd3f29742881d894b6e98d775",
+      "actions": 39,
+      "native_assertions": 3511,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+      "input_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08"
+    },
+    {
+      "slug": "card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe",
+      "card_id": "fluid_motion_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a02d446ac8bd692abbfb66687322a439ef13f5278062e23e1e044d4ae18c7d8c",
+        "actions.json": "0ddc01dbfe0e238f6e0881a4cffa79901de121ae266928cc7509f9841dfd3fa2",
+        "assertions.json": "6438bc85fbf92ed4f3cd306c45f3cc92e38c3258a0fad082416110c8570c4c2e",
+        "expected_final_gamestate.txt": "cffc07824e9fb68c865b34bc8ff1c888966f9545678c2a4b3f3e40cf14667b6f",
+        "meta.json": "783f27686566d0f84ec2015ba172da5f3060cca5b3557f8b5cabb9ab7b520e4e"
+      },
+      "fixture_sha256": "5af4e5377d1f6d3501993a36bb75785fe50e26a2441e33258cc942f0c9088013",
+      "actions": 32,
+      "native_assertions": 2656,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+      "input_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-edict120-fluid122-replay.json",
+    "sha256": "785ce5105588b9d20857df2922e37ebc3e78ee3f9b5d663e9801a66ae2f99b9e",
+    "passed": true
+  },
+  "source_review_sha256": "b7cc0d51c4ce564b432689e4d8593aea8194dad28b1689d16b8f9eec5517f0ff",
+  "components": 23,
+  "component_receipt_sha256": "88037abc7364454c9b2eb046c50aa4756d6558fac25a9e4f90222deb39477c54",
+  "basis": "120 realEdict5destroy/name/ownGA andpaidRaging7damageclose arefollowedbyrealopponentpriority: namedSigil6remainsHand/HP13 withprohibitionstillstoredafterclose.122 actualOrbWeaver6createsownedGraphene7throughsuccessfulWeaponsallocation, genuinePEN_CREATED1makesFluid5earnGA anddeal2, actualAPrefund1/HP18. All71originalinputs6167queries unchanged, fullphysicalcleanup/allseatfourliveflow independentlymatchedSaved; strongerEdictv2only andFluidcase1only.",
+  "limits": [
+    "Edict same-turn after-close admission Native; next-owner-start expiry and othercreator controls isolated actual components, not extra Native branches.",
+    "Fluid/Graphene existing creation route only; other creators/token matrix unqualified. No directgoagain shortcut, genericvirtual094, generatededit, fullsuite or historicalcorpusreplay.",
+    "First component harness missed an unrelated block-lookup dependency; corrected harness includes actual block function with explicit absent-attack lookup. No gameplay failure/Source change inferred from that harness error."
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "status": "APPROVED_EXACT_SAVED_PARTIAL_REPRESENTATIVES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "review_date": "2026-11-02",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch257.json",
+  "input_sha256": "398d3ed1a1c4c2303bc01931c01e5645a32665721c7790268ca218ca015f3289",
+  "manifest_sha256": "07f396afc18a298c643aed7e3849d211b3460c01613690d00aed16304ff61ad1",
+  "independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch257-independent-source-review.json",
+    "sha256": "5a84745db38dbdfa85bdac47583602a21dbf4cd42c47278600017a251fb79b47"
+  },
+  "native_recording_evidence": {
+    "archive": "recording-runs/card-regression-batch257-20261102T204035Z-6ae8f54356d63.json",
+    "archive_sha256": "52b8822e3e30d1411bee6561f320ed398f90bb7c9326c1d357e43450b62045ac",
+    "wrapper_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch257-native-r1\\receipt.json",
+    "wrapper_receipt_sha256": "ca2210d9ce88e72247d9c3cf568531bf620d362e9a4316853c463bb9a1d2aa59",
+    "stdout_sha256": "a718c8eb80e106c8bd53c62a51f48a9fe85762231ac8260e9ca0e16437411b61",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "all_three_recorded_semantically_checked": true,
+    "runtime_before_equals_after": true
+  },
+  "review_method": "Independent exact ordered comparison of all native actions and every persisted assertion, including action-step placement and actual pass actor, against approved raw source. Fully parsed six snapshots from schema/serialization order and inspected printed faces plus selected primary implementation deltas. Verified physical identity/ownership, legal manual-four-live inputs, real costs/source response checkpoints and material physical outcomes. Reviewer performed read-only inspection and W proof authoring only.",
+  "fixtures": [
+    {
+      "slug": "card-guardian-of-the-shadowrealm-red-four-live-sparse-real-paid-banish-action-returns-same-card-to-hand",
+      "card_id": "guardian_of_the_shadowrealm_red",
+      "group_id": "identity:guardian_of_the_shadowrealm_red",
+      "fixture_sha256": "4472b069007f5d35092e503c14fb7a968dced1572e5041d454abc56b8eb7eaf4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "775074430b98512f018b5cd3bde81f1195b22e441094c1e1594befbc614911cb",
+        "actions.json": "771d77e6cbbe083a33526650e17dc264cefe7b6c278e68ad02aa51c632c2736d",
+        "assertions.json": "b43dce02c500bd3bf629102b292d2de356937e3c3f4cbe64de277b45492f5b99",
+        "expected_final_gamestate.txt": "c72e27618899f1c8946c85fc0348d5fdc2d01c4ec56942885f76f549f4c3075b",
+        "meta.json": "e6353adbd9416f80d90aeee0a720b32130a5d2f25d1f4495c0b9863bd90c4b46"
+      },
+      "actions": 6,
+      "native_assertions": 547,
+      "actual_manual_passes": 4,
+      "manual_passes": 4,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "all_initial_and_final_snapshot_fields_parsed": true,
+      "initial_four_live_manual_owned_legal_profile_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "saved_semantic_findings": "Legal young Levia and three owned young Dorintheas. Physical face-up Guardian5 remains in Banish while activation creates virtual ABI7 with SourceZone Banish and SourceUniqueID5. Actual Blue6 pays printed2 and AP1, leaving R1/AP0. Exact actions and assertions pin real responders1/2/3/4, keeping physical5 and virtual7 through the first three. Fourth completion returns the same physical5 to its own Hand and clears virtual7. All graveyards are empty, Pitch contains6, no Go again is gained, and all HP remain20. Fully parsed snapshots conserve every physical UID and owner/controller without duplicates.",
+      "qualification": "Only paid Banish-zone return. Defense Reaction play, Blood Debt/end phase, repeated activation, face-down rejection, source removal and hero/support/full-card branches remain uncredited."
+    },
+    {
+      "slug": "card-sheltered-cove-four-live-sparse-real-three-resource-instant-destroy-prevents-two-of-seven",
+      "card_id": "sheltered_cove",
+      "group_id": "identity:sheltered_cove",
+      "fixture_sha256": "9120dc4b402ebb93a2bfda66dfea46cd1c61914409520bda249a337f10407e1f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2594084cbb8ee108c0db284ab5585cc342ad59b4d3a0ff2c874eddbd83d851ba",
+        "actions.json": "e2fadd503708cce96ba083ca10fe2db8de910175869d050db15f5e2b98d88e1e",
+        "assertions.json": "e2843593878787b8c2fe528f548f1bfaa2893c650719f0d5c81a2a06e6b13345",
+        "expected_final_gamestate.txt": "3a1aa02f4701ac0b6ac35579d3ffb10a84cddd9bd4bbfdbf372db253dbc19dfe",
+        "meta.json": "678e445b4106698fbabe1d9e094c52882e4f86a0fcefff4812d00e6d19ba9064"
+      },
+      "actions": 37,
+      "native_assertions": 2678,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "all_initial_and_final_snapshot_fields_parsed": true,
+      "initial_four_live_manual_owned_legal_profile_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "saved_semantic_findings": "Legal young Fai and three owned young Dorintheas. P1 actually pitches Blue7 to fund Raging6 printed3/AP1; adjacent P4 receives real reaction priority. Owned Cove5 activation at AP0 creates ABI9 from Equipment/SourceUniqueID5 and waits for printed3 while physical5 stays equipped. P4 pitches Blue8 and pays3, then destroys exact Cove5 as a cost into public owner4 graveyard before the response round. Actual responders4/1/2/3 preserve virtual9 and sourceUID5 until resolution. The subsequent real7 packet is prevented2 to5 damage/HP15; final prevention is fully consumed. Parsed final graveyards are P1{6},P4{5}; Pitch UIDs are P1{7},P4{8}. All R/AP are0, other HP20 and all physical identities are conserved.",
+      "qualification": "Only one full prevention2 against actual physical7. Partial packets, leftovers, other damage, insufficient funding, source replacement, expiry and hero/support/full-card branches remain uncredited."
+    },
+    {
+      "slug": "card-increase-the-tension-red-four-live-sparse-real-paid-next-arrow-plus-three-and-seven-damage",
+      "card_id": "increase_the_tension_red",
+      "group_id": "pitch-cycle:increase_the_tension",
+      "fixture_sha256": "fda69fd8c30fdcbed41b4cf6f989393196264699b62d0a0579c10c682611b615",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b004e9ac9729a7f2e2cf54e38e53f8fca773e0e454953e6e74f4c1e7cd149f1a",
+        "actions.json": "9bb2d35026add310bf66342afa99f03bc44475b01cc258122982e0e567186b7e",
+        "assertions.json": "f2453945df4e03c038f4a816e9264dc284b9029ec746bc73f17f0981664ae271",
+        "expected_final_gamestate.txt": "5253fae49cc8d4f315c77dccb0b58793165f98fec52c1aa5a78b63ee36c51597",
+        "meta.json": "622c3f3288da3af561bbdfebd3c0b9b2172ba7328958f0d831da6e1ae0bc5c84"
+      },
+      "actions": 33,
+      "native_assertions": 2356,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "all_initial_and_final_snapshot_fields_parsed": true,
+      "initial_four_live_manual_owned_legal_profile_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "saved_semantic_findings": "Legal young Azalea and three owned young Dorintheas; ready Bow8 and initially face-down Arsenal Head Shot6. Real Blue7 pays Tension5 printed1/AP1, leaving R2/AP0. Four actual responders complete the effect and Go again/AP1. Real Arrow6 targets adjacent P4, uses existing R2 to pay printed1 and spends earned AP, leaving R1/AP0. No Bow activation or face-up load occurred, so printed Head Shot4 has no incidental+2. Saved computed7 and actual7 damage/HP13 witness earned Tension+3 through complete combat. Fully parsed final public own graveyard has exact unordered UID set{5,6}; Pitch7, ready Bow8 with empty counters, empty Arsenal/Stack/queues, and every physical UID/owner/controller conserved.",
+      "qualification": "Hand Defense Reaction restriction receives no credit: none is attempted. No siblings, other arrows, repeated attacks, expiry, Bow activation or hero/support/full-card credit."
+    }
+  ],
+  "totals": {
+    "fixtures": 3,
+    "actions": 76,
+    "native_assertions": 5581,
+    "actual_manual_passes": 65
+  },
+  "limits": [
+    "Raw4 fixture digest concatenates each filename and its raw bytes in initial/actions/assertions/final order. Raw5 binds metadata too.",
+    "Initial effects/play/hit histories, resources and undo versions are unseeded. Final turn bookkeeping/history/undo versions are earned native state.",
+    "Review is limited to the concrete named branches; no full internal callback-order, sibling, hero/support primary or complete-card certification.",
+    "Root creation replays are separate evidence and are not certified by this saved review. No suite or isolated causal fault-control credit."
+  ],
+  "reviewer_ran_native_or_mutated_repository": false,
+  "replay_qualification_claimed": false,
+  "remaining_blockers": []
+}

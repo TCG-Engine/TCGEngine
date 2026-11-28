@@ -1,0 +1,173 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse913-20261122.json",
+  "source_spec_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+  "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-poisoned-blade-red-four-live-sparse913-actual-three-and-go-again-without-any-dagger-hit",
+      "card_id": "poisoned_blade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7205ca68d4b93f594019e9b8712bf009f225debce1a2c9416e9f90fc4346e0db",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6c9ae32a2cf4d4ef5f2bdacb73c0ea787bd65c225bb7512fec71cc4e664f6ed1",
+        "expected_final_gamestate.txt": "68001e4417ec3eff9a7013eee2d0592bd0174747ed6d7c9d1ea77f14b417d5a0",
+        "meta.json": "c5d5e77e6f7c9d1fbd95b727bed81c71a11c9f128ee65ca889d7a5561d990343"
+      },
+      "fixture_sha256": "9a7cf62f71ac82c1acdc90e0d62fa59e87da9e1bb62cb03ac6f3d6c79e7be254",
+      "actions": 28,
+      "native_assertions": 147,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse913-20261122.json",
+      "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-poisoned-blade-red-four-live-sparse913-actual-three-and-go-again-without-any-dagger-hit",
+        "fixture_slug": "card-poisoned-blade-red-four-live-sparse913-actual-three-and-go-again-without-any-dagger-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-under-the-trap-door-blue-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-trap-ability",
+      "card_id": "under_the_trap_door_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d8613c2d1007ca96c7c10086075b8a4f5c46c345424fd867985049f4fb39919",
+        "actions.json": "3593173685454522019b405de78cb5503822c22a7904ad622d8a4fcde6586217",
+        "assertions.json": "d5dc566070432fc3444e61166a150fa2cdcc4aac73401642d1bf807648e99201",
+        "expected_final_gamestate.txt": "c747c595ddfeef39adbe7b58cd27cfc933837d902f4f7f247ade6fb810fcc8a1",
+        "meta.json": "ab6ffd6863b108e1a6445cae6ecabb3dcf6eb8892c79905a53351c907d10a2cc"
+      },
+      "fixture_sha256": "64403bcdcb2027eabd604f3cdc335b746e79175f5d45bef43173bd575b4fa4f1",
+      "actions": 28,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse913-20261122.json",
+      "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-under-the-trap-door-blue-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-trap-ability",
+        "fixture_slug": "card-under-the-trap-door-blue-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-trap-ability",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-reapers-call-red-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-mark-ability",
+      "card_id": "reapers_call_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b0da5bd7d987f8a2df7541f51022bb262648bcecd47aa7d1d64f03b23627925e",
+        "actions.json": "3593173685454522019b405de78cb5503822c22a7904ad622d8a4fcde6586217",
+        "assertions.json": "bb18208cc2f78e676cc5bbc8d7e50caf8442b70905e0996358ed8fd8465de0a6",
+        "expected_final_gamestate.txt": "e508f9892b81689254d2c8d7eac22017403d9b8aea9d60371e49e88c392295a4",
+        "meta.json": "a3251af2aaa45f16b7b7abb413e2b244a8de20635ef395fd20d43dce1431ca76"
+      },
+      "fixture_sha256": "1e99ff8025b2cfbe39973b3a9171c8db2b1dff75a86ff349ac30c27453dc2d44",
+      "actions": 28,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse913-20261122.json",
+      "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-reapers-call-red-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-mark-ability",
+        "fixture_slug": "card-reapers-call-red-four-live-sparse913-actual-owned-stealth-attack-not-instant-discard-mark-ability",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shapeless-form-blue-four-live-sparse913-actual-one-and-go-again-without-ephemeral-card-play",
+      "card_id": "shapeless_form_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "30d4a8ddb51b06cc4d1fc63055af4dd0c7571320cf3029d42adc4e7ca369359e",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "0c598c11b4f672d1e65ca20c66f2185b8439623c8fb4bddbaf6f5a899a310bae",
+        "expected_final_gamestate.txt": "2e67011d0b332d655c745344daa94146eb940f8de3cb6860f6714bbd23d1b601",
+        "meta.json": "0bb1ebd895221c73304df53d0f3168f7cdec423e7477692082948c5cbe867c2e"
+      },
+      "fixture_sha256": "09a01b50043450c1d61631e33b7274dab1a7075836d9b331bb44bca312d5f97f",
+      "actions": 27,
+      "native_assertions": 125,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse913-20261122.json",
+      "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shapeless-form-blue-four-live-sparse913-actual-one-and-go-again-without-ephemeral-card-play",
+        "fixture_slug": "card-shapeless-form-blue-four-live-sparse913-actual-one-and-go-again-without-ephemeral-card-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-voltbound-duality-red-four-live-sparse913-actual-four-attack-not-instant-discard-arcane-token-ability",
+      "card_id": "voltbound_duality_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f49329d0a1bac9e0dd4edb63e7fb4fd76ee6ccf154bffcfc0771c11a9b41f4a",
+        "actions.json": "3593173685454522019b405de78cb5503822c22a7904ad622d8a4fcde6586217",
+        "assertions.json": "90234282abf70a7e9ad4e7da3296eab189bea2cf4606683d182115a48cf8b12a",
+        "expected_final_gamestate.txt": "a8eb754a8f14f137f72eaa4b77054affdd91e1172c027709f4cc559964d45d2f",
+        "meta.json": "9dfdbee19e0e9c4515b64cf583d94634fb85d55e569954c1a43baab0b5d6f11b"
+      },
+      "fixture_sha256": "826beb2bd780e1951d4f04977f5560d0b4d40651774252acfd6ce173772e004e",
+      "actions": 28,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse913-20261122.json",
+      "input_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-voltbound-duality-red-four-live-sparse913-actual-four-attack-not-instant-discard-arcane-token-ability",
+        "fixture_slug": "card-voltbound-duality-red-four-live-sparse913-actual-four-attack-not-instant-discard-arcane-token-ability",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "27435a9780c5484a17dd139868395dd323199056080455154ccbb158687159e0",
+    "basis": [
+      "Cached physical costs/powers Poisoned1/3, UnderTrap0/1, Reapers0/3, Shapeless0/1, Voltbound0/4 and natural legal Fai/Uzuri/Zen/Aurora20 match actual Blue payment, Hero4damage and owned physical5 Chain/GY; four manual seats/full combat.",
+      "Corrected native selection for three dual-use Hand cards: first MZMODAL0 selects PLAY (GameLogic context-action PLAY before ARC_0); source5 stillHand/Stack0/AP1/R0, then actual attack target. Canonical alternate bodies are ResolveAbility only, not erroneously invoked as primary Prepare. No alternate ability activated, no discarded source or ability cost/target credit.",
+      "Unconditional printedGA on Poisoned/Shapeless gives AP1 only at resolution/final. No ownedDagger hit and no ephemeral card played, so their separate event triggers never occur. Actual ordinary AA is not a Dagger, and Shapeless lacks ephemeral. Other heroes have no relevant automatic hit/play trigger."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named primary mainattack/printedGA and corrected UI transport. Positive Dagger/ephemeral/alternate abilities/admission, Mark/trap/token/arcane branches untested.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse913-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "93c61859abb3b4390043539106f32866a371e0696aa7dc708a2de95777bacd6f"
+  },
+  "full_suite_run": false
+}

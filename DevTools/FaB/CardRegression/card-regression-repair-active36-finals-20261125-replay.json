@@ -1,0 +1,258 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-aether-dart-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c92cfa50a662819044a382ed9889197b8513d1cbed91f560961a4ae569f0009a"
+    },
+    {
+      "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "1d1518993a27ed26d8459d7f79951cec44cf98ba03ce38bea28ead9405809fd6"
+    },
+    {
+      "slug": "card-aether-dart-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fea8555d8fb6dcd7132c406aa8d4f4ef5529f3060b8d32c80debafd163a761c2"
+    },
+    {
+      "slug": "card-aether-dart-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fee65e0f3c12cc886763b6e0fde10e8073661e9f4b10c5284e7d7e137dfa3f98"
+    },
+    {
+      "slug": "card-aether-hail-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ddffe8c4de8df0c09b779e7c02240d09d992bfe2902e67a07fd0c55d862ce681"
+    },
+    {
+      "slug": "card-aether-hail-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0f076921719c1b9dfd81999e2d4bbe5c872c8fa5d5894692942b8970e303dadf"
+    },
+    {
+      "slug": "card-aether-hail-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0161dd15ac53f3944e23b34cb74d01debe8bb9c1a2b9b4b94d2befb277a2463d"
+    },
+    {
+      "slug": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "846bd0ba9d2ab6195a837e7c78f5fb589879046201351cf30750b54855b0705d"
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "421e4b552428c1377a31fe67c0c870b430ca33b31d8c5c8fafea0cd3e9dcd4c5"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "280126e4daf5acd6c9ede5f16629fa27ce813c492d2c9d059e65fcab253f59a1"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "fb25302fde8e159109c23db3add4141f78562a38bc712f201c5acfcb764c3e20"
+    },
+    {
+      "slug": "card-balance-of-justice-four-live-sparse-real-opponent-draw-two-then-owned-instant-draw",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "5dd56ca0e5330ec3619ef89a414aecf3f0140599c342dd5545577720ff7d66f8"
+    },
+    {
+      "slug": "card-blink-blue-opponent-response-before-scalar-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "45993426f65e742e218f3628b1ee7939ede538ef6ab16c048af54a9f36f209a3"
+    },
+    {
+      "slug": "card-blink-blue-two-copies-stacked-resolve-one-at-a-time",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3081639c4e61a2757d9734e4f9107c693174e867baec26cce32982b4cdaac33f"
+    },
+    {
+      "slug": "card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b96afa27e632b74e3e73e113121f2b3cbdaae41ec7ca061d0d61d93d572ab6c5"
+    },
+    {
+      "slug": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7aad891f10227bfc4795b27330eb3ddbb9f188fc1dfcade2fe15090d4bcd508e"
+    },
+    {
+      "slug": "card-cosmic-flare-red-opponent-response-before-scalar-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "11506e863cbe331fa792b4caf0c5aa33c3a055149ca5a3e9ed54de6429af20e9"
+    },
+    {
+      "slug": "card-cosmic-flare-red-two-copies-stacked-resolve-one-at-a-time",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b7e20283a779298ce9ae532be8cf12dad0d1cd6531e77be651384c83f9a33c44"
+    },
+    {
+      "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "57c0211a22ca6f36f9202dbf9fdde446aff6ca3d488bb23bf702c83d376692de"
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "7cc9c8855634d0598a02a4b84d5b6a78c72d2ba7bccd458cf728ca3cdae4be28"
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d4e481be4dbc0d67b30f9c36173fc09da673a53d8f18940379e4430dfd732f46"
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c9e8832072fef0bdbf7178eb3e025168322d7763a17c27cc6e8e4b59ea8a2221"
+    },
+    {
+      "slug": "card-frosting-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "e697902d997eb46eb0a710fc9764853429d6a332b589b14a1871d575311df966"
+    },
+    {
+      "slug": "card-frosting-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "96c66f343eefdae7fdba10fc45ae6b20a3dae823e46cba09ab847adddfb50e34"
+    },
+    {
+      "slug": "card-frosting-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9dbfdbd0d280b7ed36dda12e64072fb4230980442c7074e29a2f3e7fca16b2b8"
+    },
+    {
+      "slug": "card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "c4f34c99181249d8e18c57d5f2bddc226bd5e3e029d24ad8e318a82787fd767b"
+    },
+    {
+      "slug": "card-healing-balm-blue-opponent-response-before-life-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "4e18615c3d3e9537c91c8bb60202e60166ed3b5e00ad16229bf0096cd3ae8ddc"
+    },
+    {
+      "slug": "card-healing-balm-red-opponent-response-before-life-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "9ef3b468e23ef8b7e7eb701fb7337000a8bb63f1f51ca4e4d771448b938f32d1"
+    },
+    {
+      "slug": "card-healing-balm-yellow-opponent-response-before-life-gain",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "689372802c895703d8c10bc819f7a0345b2eed4788a559163d3625f5b3201955"
+    },
+    {
+      "slug": "card-ice-bolt-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "0f477a0789403d9ac3284664936ca552577cf356207503c8ab38ed88e7bfe505"
+    },
+    {
+      "slug": "card-ice-bolt-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "19f10cd713dfa815a88f843246ea088e553e5c69edc8af5799b87fed2ef4bd11"
+    },
+    {
+      "slug": "card-ice-bolt-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "822c9e7909f3a07af45e639122a05a0f70d74380e63e619e5750b297334fc44a"
+    },
+    {
+      "slug": "card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "44162365007f481c0ba089725274cbcccd4b4c7509b5fe8370957c6713b2dbca"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "ad8188fd1210c55ceeaa1675e0a799bb5faca2ecf275691c073d4d3c8943e2c4"
+    },
+    {
+      "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "329851bb1bb34bc27b98077bbb7335eb91b9f5b930ceef40a4be89b143d65933"
+    },
+    {
+      "slug": "card-snatch-red-opponent-responds-before-hit-draw",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "3b0dfd0885137e3872d3e469f5c64c1db2c957b4fd2607422da549ecadb576bd"
+    }
+  ],
+  "full_suite_run": false
+}

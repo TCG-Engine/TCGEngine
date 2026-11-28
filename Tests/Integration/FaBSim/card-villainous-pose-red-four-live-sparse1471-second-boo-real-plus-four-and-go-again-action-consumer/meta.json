@@ -1,0 +1,7 @@
+{
+    "name": "Villainous Pose / second BOO and actual eight damage after go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:26:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Explicit prior first BOO already resolved at tied20; seeded native SUP_BOO1 is setup history only, no prior event or Hero credit. Actual Pose5 costsR2/AP1 before four responses, source5 Graveyard and printedgoagain AP1. Native body source contains nextattack+4 then BOO, but newBOO increment is not independently observed/credited here. Actual Wounding6 targetHero4 declared beforeAPspend; AP0/R0, all four response/attack/defend/reaction/damage/resolution windows. Actual base4+4=8 and Hero4HP12; others20, no firsttimeKilljoytrigger earned. Fullclose physical5+6GY/noAP. No Hero/earlierhistory/firstBOO/pitchsibling credit or engine changes. Sources: FaBSim/GeneratedCode/cardArrayCache.json#villainous_pose_red FaBSim/GeneratedCode/cardArrayCache.json#killjoy_the_crooked_blade FaBSim/GeneratedCode/GeneratedMacroCode.php#villainous_pose_red FaBSim/Custom/SUPCards.php#FaBSUPCrowd FaBSim/Custom/SUPCards.php#FaBSUPNext FaBSim/Custom/SUPCards.php#FaBSUPPlayed"
+}

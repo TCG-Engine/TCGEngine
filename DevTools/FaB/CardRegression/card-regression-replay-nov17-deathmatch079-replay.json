@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-deathmatch079-global-hero-permission.json",
+  "runtime_sha256": "d125667bd612719b9587c40dabd3ca82af0f01e5dcf20bba28bfe5862b7a6503",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T02:27:01.085341+00:00",
+  "fixtures": [
+    {
+      "slug": "card-deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe",
+      "fixture_sha256": "ba2d8270a371eef42a2fb9d35a81ee4e41dc045d10feddd619254ac718d4fd70",
+      "passed": true,
+      "result": "[PASS] deathmatch_arena / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-deathmatch-arena-four-live-original-correct-real-landmark-permits-nonadjacent-p3-attack-probe",
+      "returncode": 0,
+      "stdout": "[PASS] deathmatch_arena / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

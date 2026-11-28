@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-long-whisker-loyalty-red-four-live-sparse1560-zero-draconic-links-zero-modes-on-real-sword-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-long-whisker-loyalty-red-four-live-sparse1560-zero-draconic-links-zero-modes-on-real-sword-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1560-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1560-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "511e003bb57882d613664737b7e251b85248e7ff65d3a842b1149b3faec5ef8f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aeb29538cc5692b9486c087d6bef5eee598df2c352fce1f4b708640e3d30c635",
+        "actions.json": "5456e790db9a937f644997e2bb339a34802add2ca00145bc81c9ff060c9ec6a6",
+        "assertions.json": "d2c9d78c96ca887691910b81abc8780cc8f7b76664f36efc4536230a283d38bb",
+        "expected_final_gamestate.txt": "99a96bbc608875e600e2aa876c71778e6cd754d6313de6426f864aa36dbbcb50",
+        "meta.json": "af9ff33867cf1d19eed15f66a37d5833dad1ebf11cfdbac9a9e08abb777a94a8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

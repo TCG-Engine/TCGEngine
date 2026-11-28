@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4241f21090cee5ccf382a76349f44399b2b6d03c90a98e51d674d500abee07ef",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d73ae6198e8409aefe791aabfdbde1f1c3ba4499154a10254d3e16fb3766981e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "069bd489c003600c6af7f1ea47024bd486e86c07bd483e991a4743fe18cc0146",
+        "expected_final_gamestate.txt": "a60e02bba4cd0269e9e0aa732b6f2d2ef0059f1934e874a0d3c8df32bf2f0522",
+        "meta.json": "2a114a78c788dfa77297b6fa9e847bb7e99cb6aca5263698666e4443e861629f"
+      }
+    },
+    {
+      "slug": "card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "97169be6f6da705fe6fc5fd7b1f831e857609eb7983865b6bae560334d29c215",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b49960702d89c03823b2538cb8d02e2f4dc671797485d92b976f9ff19b9af746",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "d8d7173332c074f4f0290cd169ba4135ed7009609a00caa4f9eaf9b2b8bdbeb3",
+        "expected_final_gamestate.txt": "0ecaa085f925205103f525904965eea582c14ddd5f089671ec99a39c120f55a0",
+        "meta.json": "b5f66796711a6c483686ab40407f3fbbb3f963d5bdf18930c2bd388d12e990a3"
+      }
+    },
+    {
+      "slug": "card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d15e5c46c749f42c57990bd1e5ab2b10b75e6ff654675b0f838c4a96361cef8e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80758e61b3e9bde7fde27c1247a0c40ce46655096f720a80eb26b4573a5d14c7",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9c7875664f9093d47f11797ee0628942102143ae469365726433ec6510d76163",
+        "expected_final_gamestate.txt": "5a71b6f92259c8302532a2a2f105cf9503e7041709af3a84601a9c75cb02e2e6",
+        "meta.json": "3804f7c7c540a2e6eef90addf5f3325a16960666e748330c8e3e9ba52141107b"
+      }
+    },
+    {
+      "slug": "card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1062-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c238a3edded7e3ef2ec01635e752f4b65eb26e6e2696a4cbcec3f1ad999f6744",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f393b322299bfbfc2534012044bc837e5924780214103a043b968e6f415e4c6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "51b33ab6e7cfaf30ee57105f955c77823932eeb698f8643d3bf902811db67439",
+        "expected_final_gamestate.txt": "4bbbc86734a19593fcfce4b1c9cf2ef4d118810e032cdd5e2d98ae5b45780d20",
+        "meta.json": "76cf66d451341b608f37b7ccec9746fa4a3f2efb58f2b6d12df394cf11f42024"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

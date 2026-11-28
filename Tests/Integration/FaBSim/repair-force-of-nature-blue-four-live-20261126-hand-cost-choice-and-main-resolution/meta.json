@@ -1,0 +1,7 @@
+{
+    "name": "Force of Nature / declined Fusion and real go-again consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:32:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Original correct first-choice header assertions preserved. Actual current Hand0 physicalUID6 is selected through ordinary input; source costs complete, then allfour source responses. Scope ends before combat damage, except Force mainAction completes; no unrun Hit/timing branch credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#force_of_nature_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#force_of_nature_blue FaBSim/Custom/ELECards.php#FaBELEFinishFusion FaBSim/Custom/GameLogic.php#FaBPlayCard"
+}

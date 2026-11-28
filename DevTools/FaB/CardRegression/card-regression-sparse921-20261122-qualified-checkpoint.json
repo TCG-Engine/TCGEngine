@@ -1,0 +1,242 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T18:47:18.000030+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse921-20261122.json",
+  "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+  "new_scenarios": 7,
+  "new_groups": 7,
+  "new_primary_ids": 7,
+  "actions": 193,
+  "native_assertions": 963,
+  "manual_passes": 175,
+  "totals": {
+    "saved_registered_scenarios": 4411,
+    "duels": 3075,
+    "four_live": 1336,
+    "recorded_primary_ids": 1559,
+    "identity_denominator": 5196,
+    "recorded_groups": 1433,
+    "group_denominator": 3324,
+    "four_live_groups": 1325,
+    "phase_qualified_scenarios_at_actual_contexts": 1048,
+    "phase_qualified_unique_groups": 1038,
+    "creation_replay_passes": 1790,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 209,
+  "scenarios": [
+    {
+      "card_id": "banneret_of_courage_yellow",
+      "group_id": "identity:banneret_of_courage_yellow",
+      "scenario_id": "card-banneret-of-courage-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-courage",
+      "effect_branches": [
+        "actual_four_attack_without_soul_charge_courage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-courage-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-courage",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_gallantry_yellow",
+      "group_id": "identity:banneret_of_gallantry_yellow",
+      "scenario_id": "card-banneret-of-gallantry-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "effect_branches": [
+        "actual_four_attack_without_soul_charge_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-gallantry-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_protection_yellow",
+      "group_id": "identity:banneret_of_protection_yellow",
+      "scenario_id": "card-banneret-of-protection-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "effect_branches": [
+        "actual_four_attack_without_soul_charge_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-protection-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-token",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_resilience_yellow",
+      "group_id": "identity:banneret_of_resilience_yellow",
+      "scenario_id": "card-banneret-of-resilience-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-defense-bonus",
+      "effect_branches": [
+        "actual_three_attack_without_soul_charge_defense_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-resilience-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-defense-bonus",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_salvation_yellow",
+      "group_id": "identity:banneret_of_salvation_yellow",
+      "scenario_id": "card-banneret-of-salvation-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-life-gain",
+      "effect_branches": [
+        "actual_three_attack_without_soul_charge_hit_life_gain"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-salvation-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-life-gain",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_swordsmanship_yellow",
+      "group_id": "identity:banneret_of_swordsmanship_yellow",
+      "scenario_id": "card-banneret-of-swordsmanship-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-flurry",
+      "effect_branches": [
+        "actual_four_attack_without_soul_charge_flurry"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-swordsmanship-yellow-four-live-sparse921-actual-four-attack-without-soul-charge-flurry",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "banneret_of_vigor_yellow",
+      "group_id": "identity:banneret_of_vigor_yellow",
+      "scenario_id": "card-banneret-of-vigor-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-resource",
+      "effect_branches": [
+        "actual_three_attack_without_soul_charge_hit_resource"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-banneret-of-vigor-yellow-four-live-sparse921-actual-three-attack-without-soul-charge-hit-resource",
+      "source_spec": "card-regression-sparse921-20261122.json",
+      "source_spec_sha256": "fad45cbde74763b5c7d4d23262e2899887577ab8cdd4dd57e4d60bfff9b4d7a5",
+      "review_evidence": "review-evidence/sparse921-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3ed56aa02c9821b35e94b44561b2cf3124a3c77172f79c3c3281ffdc5ece0ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse921-20261122-replay.json",
+          "sha256": "c8604fa69d75a3134e5678541cd69f1e37a25cf4448f7f3c1ccfdf66e585f25e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "poison_the_tips_yellow / positive_Reload_same_UID_face_down_Arsenal_then_go_again_spent_on_real_Item",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T05:45:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual primary5 Actioncost0 AP1to0 beforefourmanualresponses. During positiveReload ownHand6/7 MZMAYCHOOSE, samephysicalsource5 remainsStack/GY0/AP0, not earlyrefund. ActualchooseWoundingBlue6 loads samephysicalCard faceDownArsenal6 whilePotion7staysHand; thenprimary5GY/AP1. Actual0costPotion7 Actionspends earnedAPto0, fourmanualresponses putPotion7ArenaReady. EndArsenal6faceDown/GY5/Arena7/R0/HP20/noStackDQawait/newUID. ImmediatepositiveReload and actualGAconsumer only; grantedArrowhitdiscard effect/later attacks untested and uncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#poison_the_tips_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#poison_the_tips_yellow FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch295.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T06:10:55.410787+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+      "fixture_sha256": "3b50f5d527fb8c048d5bc9011c122319026c1e26632ec4a7233238dab1f16f6b",
+      "passed": true,
+      "result": "[PASS] ira_crimson_haze / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+      "returncode": 0,
+      "stdout": "[PASS] ira_crimson_haze / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

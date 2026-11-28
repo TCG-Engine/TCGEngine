@@ -1,0 +1,7 @@
+{
+    "name": "Fang, Dracai of Blades / actual printed non-marked Hero branch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:09:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT40_NATIVE_DUEL_ONLY, bothmanualplayersrespond. FangWarriorownsactualthreepriorFealtytokens3,4,5Arena andlegalDraconicWarriorObsidianDagger6Weapon/noHand/R0/AP1/noMark/discountseed. Printed3FealtyconditionreducesactualnormalR1activationto0: actual6clickdirectPRIORITY/AP0/tap6/proxy7withnopitch. Bothresponses\u2192actualfirstlinkDaggerpower1/noGA(noDraconicCARDplayedthischainlink), real1damageunmarkedDoriHP39. NoFealtyhittriggernewtoken, actualthreeoldFealtyremain, dagger6staysownedtappedWeapons, AP/R0/UID7/RNG0clean. Onlystaticpositive3threshold, noFealtyproducer/markedhit/thresholdnegative/repeat/otherDagger/support/Young/fourlivecredit. Noalternateidentity/wholeHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fang_dracai_of_blades FaBSim/Custom/HNTRuntime.php FaBSim/Custom/HNTCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

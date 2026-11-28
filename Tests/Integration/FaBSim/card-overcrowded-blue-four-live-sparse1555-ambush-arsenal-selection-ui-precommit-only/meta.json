@@ -1,0 +1,7 @@
+{
+    "name": "Overcrowded / Ambush Arsenal UI selection before defense declaration commit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:22:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20Dori/Dori/Dori/IraCrimsonHaze(Ninja4). RealWound5Hand1/primary6FaceDownArsenal4; noothercards orArtOfWar/DownDirty/NoHeroStandsAlonepermission. ActualWound5AA0targetsHero4/AP0/fourresponsepasses andfourAttackpasses\u2192DEFEND_DECLARE4. NativeP4Arsenal6click causally admitted byprintedAmbush(GL2100) selectsactualCard6 fromArsenal; nativeprovisionalrepresentationCC4RoleDEFENSE/FromArsenal/declaredBlockUIDs6 whilewindowstillDEFEND_DECLARE4. STOPbeforedefenderscommit/pass/FinishDefendDeclaration, whereOnDefendedwouldbecalled. CR7.3.2 declaresallcardsandmoves themsimultaneously; thisonlycertifiesprecommitUIadmission/selection, NOTcompletedrulesmove/actualdefending/keywordcompletion/WHENtimingor reward. PendingnoStack/DQs/HPdamage/otherassets, AA5CC1andselected6nativeCC4, nofutureeffectblessed. Noengine/recorder/runnerchange orsupport/sibling/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#overcrowded_blue FaBSim/Custom/GameLogic.php#FaBCanBlock FaBSim/Custom/GameLogic.php#FaBDeclareBlock FaBSim/Custom/GameLogic.php#FaBFinishDefendDeclaration FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

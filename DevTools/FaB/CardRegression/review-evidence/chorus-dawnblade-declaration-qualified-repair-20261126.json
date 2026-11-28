@@ -1,0 +1,140 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+  "source_spec": "card-regression-repair-chorus-dawnblade-declaration-20261126.json",
+  "input_sha256": "a3f8ecce94cba2a7bdd4381d25305c84924555f5028ef2bdf3c7e685fc4a42cc",
+  "fixtures": [
+    {
+      "slug": "repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+      "card_id": "chorus_of_ironsong_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b28c1b4bf063d7b1e0c3767db7b12e1ae93756a2f511c1adc62b3ebc3c52f10",
+        "actions.json": "87171ae467f0525874ca7e260a7c4386a96e6126de65ad9b8a09451adcae3e19",
+        "assertions.json": "bf12e632dd37e6e4e5d0fb6c51451314a6db93974dc470f94f83f4b1e1f8b014",
+        "expected_final_gamestate.txt": "0eb302bcd641dbdea255bf7db58cf78a00b80a78f23c0d623821e73847ae5be5",
+        "meta.json": "c2ccbd4812f0fe8265db99f9a4eba322214e2865bb9e66fa6ac0797c053242a7"
+      },
+      "fixture_sha256": "4827e31cd31dcbeab7ddb9fbf4b937c949a93e5ffa27bd089e1d0a130415f69a",
+      "actions": 34,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "runtime_sha256": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "source_spec": "card-regression-repair-chorus-dawnblade-declaration-20261126.json",
+      "input_sha256": "a3f8ecce94cba2a7bdd4381d25305c84924555f5028ef2bdf3c7e685fc4a42cc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+    "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+    "changes": [
+      {
+        "path": "FaBSim\\Custom\\CardChoices.php",
+        "before_sha256": "cbf22e18438a46d113c13c18d7d5f2696cad8322abab66e72f1b5e6ad7622de0",
+        "candidate_sha256": "01ec588e2bfbb564226d236ce4793394fea4f44365527c076e834eb064c9f145",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\candidate-CardChoices.php"
+      },
+      {
+        "path": "FaBSim\\Custom\\DTDCards.php",
+        "before_sha256": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+        "candidate_sha256": "b9bf6b07c4a720c1e3114bffbe213049eb2830e305bce647d9a20d413dbb4bb5",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\candidate-DTDCards.php"
+      },
+      {
+        "path": "FaBSim\\Custom\\GameLogic.php",
+        "before_sha256": "d2e34d657816c46ea90a8cb48ed848144fa9d60ecc88b9aa8c4d773e159aaf8c",
+        "candidate_sha256": "e1eefa6c2fac9c5ce639394b3c7fde22f010f5d07969253288567bae17a71948",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\candidate-GameLogic.php"
+      }
+    ],
+    "scope": "Extend existing audited declared-reaction profile to physical Dawnblade Weapon targets. Prepayment declaration, guarded offered UID+presence epoch, no late retarget, departure invalidation; preserve old CombatChain profiles/options shape and resolution path. Chorus legality uses actual permanent selector, modifiers apply to weapon not unrelated current attack."
+  },
+  "targeted_replays": {
+    "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+    "fixtures": [
+      {
+        "slug": "repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+        "passed": true,
+        "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "a5d997c33b498afc534a762e99b5e6e8274cdeb83cf614957549766a20a614da",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-razor-reflex-red-four-live-declare-mode-target-before-payment-repair-witness",
+        "passed": true,
+        "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-razor-reflex-red-four-live-declare-mode-target-before-payment-repair-witness",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "5023f6d52c129f81c3e130ba1c20cb4800140554f461c2aeb56080b0f843007d",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+        "passed": true,
+        "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "6d8d6ca043724d852fa3e8a9006b53ea168f4138568ced1781e6d813e0a90779",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Native own equippedDawnblade while otherAA attacks; foreign-controller weapons and unusual weapon-zone changes untested in gameplay.",
+    "Ten actual stamp/resolution component checks cover staleepoch/departure/wronguid/name/suppressedsource; isolated lookup/tag I/O.",
+    "Later Dawnblade attack and damage-prevention outcome not tested. Existing weapon-proxy propagation of permanent UPR_UNPREVENTABLE tag is a source-only concern, not demonstrated repair coverage or a new confirmed backlog gate.",
+    "One newly authored provenance-marker assertion corrected from actual FaBTagUID\u2192FaBCRUSelfTag semantics; original oracle and4damage expectations unchanged.",
+    "Primary-agent semantic/saved review; strict comparator unchanged. No fullsuite yet."
+  ],
+  "scope": "Existing audited declared-reaction pipeline supports exact Chorus permanent profile. PhysicalDawnblade target offered/bound beforecost, serialized UID/presence stamp rejects changed/departed targets, writer projectsactualWeaponrefs. Old chain-link profiles retain stamp/options shape. Original16-input admission oracle unchanged;34-inputfollow-through paysactualBlue3/cost1,4responsesapplybuffonlytoWeapon8, unrelatedWounding5remains4power/deals4, andfullcloseleavesquiescentStack/CC/DQ. No late target prompt.",
+  "additional_validation": {
+    "actual_permanent_target_checks": 10,
+    "original_admission_unsaved_pass_inputs": 16,
+    "no_dawnblade_unsaved_rejection_pass_inputs": 16
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-knick-knack-bric-a-brac-red-four-live-sparse1478-zero-coins-real-cost-three-and-potion-search",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-knick-knack-bric-a-brac-red-four-live-sparse1478-zero-coins-real-cost-three-and-potion-search",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1478-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1478-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5cdb80971be561da63cee7c658bc2eba0df1aad42ead46362840724d4814e61f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9c1d93fc29e89e6c9cad0feaf83e99186033f93f4a9643b7397cdcd918c34e0",
+        "actions.json": "9661c033c94a4a48893da41d89cf023756b76ee23545396d11661223610547b1",
+        "assertions.json": "fd34673128dc28ce6217cf339b801025e50188b25978b2dac5e0cbbf72b54e00",
+        "expected_final_gamestate.txt": "679af42d7610d10bbed32a7c880386293c364f8414a1efbf968e263b378e2c0e",
+        "meta.json": "b034d19fcd03f8caa2c20eea11e266d3f4ce6500df29948c2464df4bb33d4518"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

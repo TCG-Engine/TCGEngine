@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T13:27:55.858253+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1181-20261122.json",
+  "source_spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 21,
+  "native_assertions": 752,
+  "manual_passes": 12,
+  "totals": {
+    "saved_registered_scenarios": 5063,
+    "duels": 3075,
+    "four_live": 1988,
+    "recorded_primary_ids": 2211,
+    "identity_denominator": 5196,
+    "recorded_groups": 2085,
+    "group_denominator": 3324,
+    "four_live_groups": 1977,
+    "phase_qualified_scenarios_at_actual_contexts": 1700,
+    "phase_qualified_unique_groups": 1690,
+    "creation_replay_passes": 2442,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 861,
+  "scenarios": [
+    {
+      "card_id": "heirloom_of_rabbit_hide",
+      "group_id": "identity:heirloom_of_rabbit_hide",
+      "scenario_id": "card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+      "effect_branches": [
+        "existing_faceup_ward_4_prevents_real_arcane_and_is_destroyed_other_abilities_untested"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "source_spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "review_evidence": "review-evidence/sparse1181-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cd2836c189560d8892f3bb5945e6979450fcdf7126d8a98e24f2c12ab02edc2d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1181-20261122-replay.json",
+          "sha256": "14fb8e2faccb47e59842b3ffd2c9964e5f48459ddac7fa175848ce354275f2d4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "solitary_companion_red",
+      "group_id": "pitch-cycle:solitary_companion",
+      "scenario_id": "card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+      "effect_branches": [
+        "existing_faceup_ward_3_prevents_real_arcane_and_is_destroyed_other_abilities_untested"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "source_spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "review_evidence": "review-evidence/sparse1181-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cd2836c189560d8892f3bb5945e6979450fcdf7126d8a98e24f2c12ab02edc2d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1181-20261122-replay.json",
+          "sha256": "14fb8e2faccb47e59842b3ffd2c9964e5f48459ddac7fa175848ce354275f2d4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tranquil_passing_red",
+      "group_id": "pitch-cycle:tranquil_passing",
+      "scenario_id": "card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+      "effect_branches": [
+        "existing_faceup_ward_1_prevents_real_arcane_and_is_destroyed_other_abilities_untested"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "source_spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "review_evidence": "review-evidence/sparse1181-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cd2836c189560d8892f3bb5945e6979450fcdf7126d8a98e24f2c12ab02edc2d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1181-20261122-replay.json",
+          "sha256": "14fb8e2faccb47e59842b3ffd2c9964e5f48459ddac7fa175848ce354275f2d4",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

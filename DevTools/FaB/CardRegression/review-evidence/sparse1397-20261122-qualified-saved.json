@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1397-20261122.json",
+  "source_spec_sha256": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706",
+  "input_sha256": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blunten-yellow-four-live-sparse1397-actual-attack-action-not-weapon-two-defense-attacker-real-hand-not-discarded",
+      "card_id": "blunten_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1ec2ae9e5f3a04c4662cce95b91e451efb79d83ea013576a3135b126a427366",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "c256d500f0f60367d0221c05adbbfc943e48afd669c3ae4ed8872ce3b4919064",
+        "expected_final_gamestate.txt": "920d3e14667d4a35d9b29bd6e4b311098b7a3ca80f2fdd7a214272c0cc01674b",
+        "meta.json": "d9ab8911cc8db93795ce1d6520a6a0d0d4d56d45db028031c02ebf9acd8fe2ed"
+      },
+      "fixture_sha256": "8a2a67824062753a99a3f5d93fcd52732c2ad3470e500e4165619001863a59c4",
+      "actions": 28,
+      "native_assertions": 378,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1397-20261122.json",
+      "input_sha256": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blunten-yellow-four-live-sparse1397-actual-attack-action-not-weapon-two-defense-attacker-real-hand-not-discarded",
+        "fixture_slug": "card-blunten-yellow-four-live-sparse1397-actual-attack-action-not-weapon-two-defense-attacker-real-hand-not-discarded",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-heads-yellow-four-live-sparse1397-actual-generic-attack-not-guardian-four-defense-no-clash-or-head-counter",
+      "card_id": "clash_of_heads_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fb55f48a3f558850259ac2018d32f6462b67d331873ce12cee657c67de7347f",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "8f527f27f07b6aa04530569ea410e6990b42ee6845260104b79b0605724a3f75",
+        "expected_final_gamestate.txt": "551da99ff296931b4dd03a7db1986b334e5d92208b2a725ef5ab3daf6e9a3e16",
+        "meta.json": "81d9645fb7096914dc89b48ea9a45e80785857d2ffdc850d9c9340d62bcf3b63"
+      },
+      "fixture_sha256": "4da39f3822059e6ee0d24f3a039574e6e7b26f5d1b55e363d1ec68f73f8978ac",
+      "actions": 28,
+      "native_assertions": 378,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1397-20261122.json",
+      "input_sha256": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-heads-yellow-four-live-sparse1397-actual-generic-attack-not-guardian-four-defense-no-clash-or-head-counter",
+        "fixture_slug": "card-clash-of-heads-yellow-four-live-sparse1397-actual-generic-attack-not-guardian-four-defense-no-clash-or-head-counter",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "f25d21084ce8e3822e7c74aa2bf1376be02f8417c23cb7fe26366695b40ed706",
+    "source_note_sha256": "455f036b29022eb82964d84a410a0c735afc611318b51c72f2c00a4c7044808d",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 56,
+    "query_checks": 756,
+    "persistable_assertions": 756,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "REAL_PRINTED_HAND_DEFENSE_WITH_IMPLEMENTED_FALSE_WEAPON_OR_GUARDIAN_ATTACK_FILTER",
+    "per_case": [
+      {
+        "card_id": "blunten_yellow",
+        "group_id": "identity:blunten_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 378
+      },
+      {
+        "card_id": "clash_of_heads_yellow",
+        "group_id": "identity:clash_of_heads_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 378
+      }
+    ],
+    "basis": [
+      "Retainedtwo unrepresented/unheld groups only. BluntenWarriorBlockdef2 underYoungDori20, ClashGuardianBlockdef4 underYoungBravo20; otherYoungDori20/manual4UPF/cachedallowed. RealGenericWoundingRed5Hand0costAA4/spendsAP0/formaladjacentHero4; actualBlue6extraHand retained. Fullfourmanualsource/defense/reaction/damage/close supported.",
+      "Blunten actualHand4primary7defendsRoleDEFENSE/FromZoneHand. GeneratedDefended24769/await219660 testsFaBPENWeaponAttack before discard; PENCards70-72 inspects actualattackUIDWeapon type, GenericAAfalse. ExtraattackerBlueHand6unchanged, noDiscardchooser/layer/Handmovement. Printed2def actual4-2=2damageHP4=18; nopositiveWeapontrigger entered.",
+      "Clash actualprimary7def4 fullyblocksGenericAA4/actual0damageHP4=20. GeneratedDefended24926/await221478 testsFaBMPGGuardianAttack; MPGCards93 checks actualattackobjectGuardian, notdefendingHeroBravo. FalseGenericAAclassmeansnoClash/rewardlayer. ActualDeckRed8AA4vsDeckBlue9AA2 unequal, realHeadIronrot10readyCounters[] creates nonvacuous possibleloserconsequence; currentDecks/Head/HP/UID10/RNG0quiet unchanged. No directreveal-log absence claimed.",
+      "Finalattack5GY1/primary7GY4/extraBlue6Hand1/Deck8and9/Head10Equipment4/otherzones0/economyAP0/R0 coherent. Beforeanynative A MomentsPeace was removed because boundedCustom/Generated searchfoundnoactiveimplementation; its source-only screen accuratelyclaimsno nativeattempt/fixture/coverage/engine-defect. Approval covers onlytwoimplementedconditions."
+    ],
+    "limits": [
+      "Only actualprinteddefense and implemented falseWeapon/Guardian attack filters; positiveBluntenWeapondiscard/ClashGuardian/winner/headcounter/timing/choices, otherpitches/supportidentities/wholecard untested. A MomentsPeace unapproved/source-onlyunsupported/noCredit.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1397.py": "cb14b87084e8fe2b4a52407a59c571cad3f5e5939f53297f38354498c3ec5ed7",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1374-local-20261122/proposed.json": "460bc16c1b624ad1bf6d095799035af0568ab8d43d83f22296b47095749b89ae",
+      "sparse1397-local-20261122/source-only-screened.json": "dc0a367a7e2350d5b29040a069a6190cc33700b100b64e1643bb595800708a99"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_trigger_credit": false,
+    "pitch_sibling_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1397-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ccf88dbb17969faea92d2f6f3a1a35bf089cafaa29a67cee2114a6154acc8944"
+  },
+  "full_suite_run": false
+}

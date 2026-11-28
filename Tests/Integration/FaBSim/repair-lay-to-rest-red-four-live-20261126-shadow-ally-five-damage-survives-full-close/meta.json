@@ -1,0 +1,7 @@
+{
+    "name": "Lay to Rest / no-save Shadow-controller Ally power diagnostic",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:16:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "All original20inputShadowAlly damage/survival checks retained. No Hero-only WHEN layer earned for Ally; sourceprinted5mustnotreceivecontrollerShadowHero+1. Actual Blasmophet9survivesDamage5, nativefullclose keepsAlly. Separate correct-Hero timing probe is unsaved, not coverage expansion. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lay_to_rest_red FaBSim/GeneratedCode/GeneratedMacroCode.php#lay_to_rest_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

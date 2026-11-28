@@ -1,0 +1,386 @@
+{
+  "status": "ACTUAL_UNSAVED_DIAGNOSTIC_CONFIRMED_PREMATURE_EBBING_GO_AGAIN",
+  "phase": "ACTUAL_DIAGNOSTIC_CLASSIFICATION",
+  "batch": 818,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T04:19:55.898430+00:00",
+  "actual_classification_review_complete": true,
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b818-ebbing-r2-native-unsaved-secondary-trigger\\receipt.json",
+    "sha256": "57f83f7629c2b5ae84abae4d738dd7a5a661369da04dc7fd90747baa48581090"
+  },
+  "actual_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch818-ebbing-original-correct-two-when-probe-r2.recording-results.json",
+    "sha256": "105ce2b841c9f7112dd7a67834553726ebc887cbda19e222d46d7c6d35a12547"
+  },
+  "actual_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch818-ebbing-original-correct-two-when-probe-r2-20261115T041549Z-6af931f54b631.json",
+    "sha256": "01b3c05fa203f0099bd797bca7be39866d94ae59aed1589498fe5329b0f5be7c"
+  },
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-r2-author\\ebbing-arcstride-blue-real-fragment-secondary-when-go-again-red-consumer-r2.json",
+    "sha256": "359a5f78e745924044c63b29daa777221725b191bd17118a764680585a177978"
+  },
+  "manifest": {
+    "path": "nov15-batch818-ebbing-blue-real-fragment-secondary-when-go-again-red-consumer-probe-r2-author\\manifest.json",
+    "sha256": "590341e00df59f547712b3ad30dd0e62f1643f2dc94a5b70ac1e5a2227532219"
+  },
+  "prior_independent_diagnostic_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-ebbing-r2-independent-correct-diagnostic-source-review.json",
+    "sha256": "e1f2d19783f56af37ab1ff51a3474fcf4f0a7a31416ac36a3095865eeed35f38"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_unchanged": true,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 19,
+  "all_current_guards_matched": true,
+  "classification": "NATIVE_CONFIRMED_SELECTED_INSTANCE_OF_RESPONSEABLE_TRIGGER_SEQUENCING_FAILURE",
+  "confirmed_gameplay_bug": true,
+  "new_distinct_root_count_claimed": false,
+  "root_family_attribution": "Observed Ebbing secondary WHEN is folded into primary Fragment resolution. Treat as a new confirmed selected instance in the broader responseable-WHEN failure family; distinct root accounting requires explicit issue reconciliation, no automatic extra root count.",
+  "actual_native_inputs": 16,
+  "actual_manual_passes": 13,
+  "actual_priority_response_passes": 12,
+  "actual_formal_defense_finish_inputs": 1,
+  "actual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_manual_actor_counts": {
+    "1": 3,
+    "2": 3,
+    "3": 3,
+    "4": 4
+  },
+  "actual_successful_persisted_queries": 1141,
+  "first_failed_query_number": 1142,
+  "first_failed_query": {
+    "step": 16,
+    "type": "card_property_equals",
+    "mzId": "p1CombatChain-0",
+    "property": "TurnEffects",
+    "value": "[\"WTR_POWER:-2\"]",
+    "viewerPlayerID": 1
+  },
+  "actual_failed_physical_TurnEffects": [
+    "WTR_POWER:-2",
+    "GO_AGAIN"
+  ],
+  "remaining_not_successfully_completed_queries": 3302,
+  "queries_after_failed_query_unattempted": 3301,
+  "later_unrun_controls": 47,
+  "actual_initial_raw_sha256": "f47b9458c32854cb971fc877df6d5a55ff4e7316c085650c280b6a756d26dee4",
+  "actual_initial_endpoint_queries_evaluated": 132,
+  "actual_initial_manual_preference_values_verified": 48,
+  "actual_initial_physical_UID_locations": {
+    "1": {
+      "card_id": "zyggy",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "ebbing_arcstride_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "6": {
+      "card_id": "wounding_blow_red",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "betsy",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2
+    },
+    "3": {
+      "card_id": "betsy",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3
+    },
+    "4": {
+      "card_id": "betsy",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4
+    },
+    "7": {
+      "card_id": "wounding_blow_blue",
+      "zone": "p4Hand",
+      "owner": 4,
+      "controller": 4
+    }
+  },
+  "actual_fragment_primary_layer_observed": true,
+  "actual_primary_four_responses_observed": true,
+  "actual_same_attack_UID": 5,
+  "actual_defender_UID": 7,
+  "actual_defense3_observed": true,
+  "actual_fragmented_flag_and_event_observed": true,
+  "actual_unfragmented_power3_and_noGA_through_first3_primary_responses": true,
+  "actual_early_GO_AGAIN_physical_tag_observed": true,
+  "postFragment_power1": "Source-derived from observed physical -2 on printed/base3 and prior fresh3/noothermodifier. Postresolution computed-power query UNEXECUTED, so not separately observed as a successful query.",
+  "secondary_Stack_absence": "Source-derived from current canonical inlineGA/no queue and generic handler return DEFEND_PRIORITY; Stack query at step16 UNEXECUTED and result contains no raw final Stack snapshot. Not separately reported as observed empty Stack.",
+  "cached_attackGoAgain_false": "Observed cached field remains false, but it is stale corroboration only and does not negate actual physical GO_AGAIN tag. No cached-GA bug oracle used.",
+  "actual_observed_state": {
+    "window": "DEFEND_PRIORITY",
+    "combatOpen": true,
+    "combatStep": "DEFEND",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [
+      7
+    ],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "Ebbing Arcstride",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 3,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [
+      7
+    ],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_LIGHTNING",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_LAST_LIGHTNING",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_ILLUSION_AA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_ebbing_arcstride",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_ILLUSION_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [],
+      "3": [],
+      "4": [
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_DEFENDED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "ebbing_arcstride_blue"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstBluePlayedTurn": 2,
+        "mstBluePlayedPlayer": 1,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": true,
+        "omnFragmented": true
+      },
+      "7": {
+        "iarPermission": []
+      }
+    },
+    "arcActions": {
+      "1": 1
+    },
+    "outPreviousNames": {
+      "1": []
+    },
+    "lastAttackCardID": "ebbing_arcstride_blue",
+    "attackTargets": [
+      {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      }
+    ],
+    "defendIndex": 0,
+    "attackGoAgain": false,
+    "omn": {
+      "2": {
+        "1": {
+          "FRAGMENT": 1
+        }
+      }
+    }
+  },
+  "secondary_trigger_responses_reached": false,
+  "go_again_AP_refund_reached": false,
+  "Red_consumer_reached": false,
+  "damage_and_terminal_cleanup_suffix_reached": false,
+  "probe_only": true,
+  "fixture_saved": false,
+  "new_fixtures": 0,
+  "raw5_saved_fixture_review": false,
+  "final_raw_gamestate_available": false,
+  "final_raw_manual_preferences_verified": false,
+  "coverage_credit": false,
+  "qualification": false,
+  "passing_recipe_approved": false,
+  "promotion_approved": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "source_only_held_cases": [
+    {
+      "card_id": "tide_chakra_blue",
+      "group_id": "pitch-cycle:tide_chakra",
+      "status": "KNOWN_REQUIRED_CONTRACT_UNATTEMPTED",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch818-tide-chakra-known-admission-target-contract-unattempted-planning-hold.json",
+        "sha256": "8342bcb5b83d6565f71d9167c3c0cd1ea7ec34718ba62b3aef64ec9f4146de90"
+      },
+      "known_issue": "FAB-REG-148",
+      "known_hold_rows": [
+        239,
+        248
+      ],
+      "earliest_gate": "GL914 invokes whole WTRCanPlay464..487: no Tide exception, default487 requires Weapon; fixed Isolate is Action Attack. Later MSTCanPlay181 hybrid availability cannot override rejection. Only Sirens was natively reproduced for148, Tide unattempted.",
+      "later_gate": "All Tide RGB canonical ResolveCard perform late MZChoose of hybrid attack then buff; no early Prepare binding, same239/248. Actual helpers exist; not blanket missing functionality.",
+      "Nuu_scope": "MSTRuntime59 granted Stealth link-resolution callback acknowledged; zero-defender suffix is unattempted and gives no Nuu outcome certificate.",
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false
+    }
+  ],
+  "next_scope": "Review separately frozen UNAPPLIED Ebbing-only builder/canonical/guarded CodeGeneration/native ROS secondary-event proposal. No R writes, Native, broad blanking or GameLogic repair authorized to reviewer.",
+  "limits": [
+    "Only actual prefix16/1141 and first physical semantic failure observed. All expected secondary-layer responses, GA refund, Red4/HP16 and final owner cleanup remain UNREACHED.",
+    "No secondary Stack count or postFragment fresh power query success claim; no final raw snapshot or passing fixture/raw5.",
+    "Reviewer W-only/read-only R, no PHP/native/replay/R/source/Git/remote/heldrepair/newagents."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch818_ebbing_actual_unsaved.py",
+    "sha256": "5dcbd488d7c1736c471ea1a40b86d39a9a01b4e1a078ba7284e63241857f67b3"
+  },
+  "actual_latest_successful_health_query_steps": [
+    16,
+    15,
+    15,
+    15
+  ],
+  "actual_latest_successful_health_values": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "health_query_boundary_limit": "Failure occurs within P1 physical-card block. P2/P3/P4 step16 health queries unexecuted; latest successful all-seat values are P1at16 and othersat15, plus observed damageDealt0. No later damage outcome claimed."
+}

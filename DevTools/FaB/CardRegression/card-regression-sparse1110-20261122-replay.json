@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-starfield-carapace-four-live-sparse1110-ordinary-real-defense-and-blade-break-without-instant-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-starfield-carapace-four-live-sparse1110-ordinary-real-defense-and-blade-break-without-instant-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1110-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1110-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3d9dd9901a7361a7f729db40301ed04f7a251588b0d5b3d21093116ba5c6aaff",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "717a3f353d22911cf8020f25f0f6b499e84b0fc49cbadef4cf9ecc04ea98dbbe",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "07dfb65e6b98f2886b8efc6006c6a5fee5f777d9ce244b54a9a81c1c0ea1c709",
+        "expected_final_gamestate.txt": "9a5ffeab49fded2edff8b5e240203dd1f6896fe673b006fb39c0f38ef7527950",
+        "meta.json": "2373e61e45827dc0b9c42fadadc1ccf87a2efc9a1eebbb049d0fd5d1ae3836cc"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

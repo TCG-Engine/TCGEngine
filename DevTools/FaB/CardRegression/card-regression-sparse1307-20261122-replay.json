@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "113609a08e2d5fe51e74e787f13a672fc40daa78c33f2ca72b86ef37b006ad83",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "951d91e7efc61d18ab9bca6942aa708c5972f5259df59ca942020825321ea536",
+        "actions.json": "31e63948cdd854a9012557b075fe2bb994bcd5c47b1046a810e04d1a56fcfb7a",
+        "assertions.json": "d4551abc62e9dbee5e23884ed74d42f6c2a176b4a189ed09e49655683f394c68",
+        "expected_final_gamestate.txt": "6f28480fef401f2bb17c3197487421f0657dfe110d4d35ff8667ee65358eca3b",
+        "meta.json": "ab6d9d7d28b1fcedfc139bcd6ae95bea2a197c61f79df90b08372d92462080e8"
+      }
+    },
+    {
+      "slug": "card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1307-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e112a914807c365b3e0766f2cee279121e719a2f104422da9f676a2ee424d4dc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d7fd96df555480427437bb3fa39ed63675842a334dc8808366a1859d4dc96983",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "aa5662a15c2c6b2d08bd2b8f6cc7b01b8f5b9c4df386b12f95dbfec328dcba6a",
+        "expected_final_gamestate.txt": "c36650ef440da405689082e7b951075982612075a5fab0921cd642c4fb9e66eb",
+        "meta.json": "cbc0422e16c1c5b2aa22df8714d06468767040415c17ffd8d608117330a4d737"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

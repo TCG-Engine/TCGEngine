@@ -1,0 +1,54 @@
+/* The shade stops inside the border. Keep bright artwork from showing through that line. */
+:root[data-fab-local-playmat] :is(.fab-upf-seat.is-mine,.fab-board-local) {
+  --fab-mat-shade: #1b1919d4;
+  background-clip: padding-box;
+}
+:root[data-fab-opponent-playmat] :is(.fab-upf-seat:not(.is-mine,.is-memorial),.fab-board-opponent) {
+  --fab-mat-shade: #171d22d4;
+  background-clip: padding-box;
+}
+
+:is(.fab-upf-seat,.fab-board-field) { isolation: isolate; }
+:is(.fab-upf-seat,.fab-board-field)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--fab-mat-shade, transparent);
+  pointer-events: none;
+}
+
+#fab-playmats {
+  width: min(760px, calc(100vw - 24px));
+  max-height: min(680px, calc(100dvh - 24px));
+  box-sizing: border-box;
+  padding: 0;
+  border: 1px solid #777064;
+  border-radius: 12px;
+  color: #f3eee5;
+  background: #232528;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+#fab-playmats[open] { display: flex; flex-direction: column; }
+#fab-playmats::backdrop { background: #101113b3; }
+.fab-playmat-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px 8px; }
+.fab-playmat-header h2 { margin: 0; font-size: 18px; }
+.fab-playmat-sides { display: flex; gap: 8px; padding: 0 16px 12px; border-bottom: 1px solid #ffffff14; }
+#fab-playmats button { color: inherit; background: #303237; border: 1px solid #ffffff24; border-radius: 6px; cursor: pointer; font: inherit; }
+.fab-playmat-close { width: 32px; height: 32px; }
+.fab-playmat-sides button { padding: 5px 12px; }
+.fab-playmat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(132px, 100%), 1fr));
+  gap: 8px;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px 16px 16px;
+}
+#fab-playmats .fab-playmat-tile { display: flex; flex-direction: column; align-items: stretch; overflow: hidden; padding: 0; text-align: left; }
+.fab-playmat-tile img, .fab-playmat-plain { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--fab-field-warm); }
+.fab-playmat-tile span:last-child { padding: 5px 8px; font-size: 12px; }
+#fab-playmats button:hover { border-color: #a69b84; }
+#fab-playmats button[aria-pressed=true] { border-color: #d7b56e; background: #3e3528; }
+#fab-playmats button:focus-visible { outline: 2px solid #e8c783; outline-offset: -2px; }

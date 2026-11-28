@@ -1,0 +1,173 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root, independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse976-20261122.json",
+  "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+  "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-meet-madness-red-four-live-sparse976-actual-unmarked-full-block-retains-three-real-opponent-zones",
+      "card_id": "meet_madness_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df864533dca2bdb33fe26f1a68dcd3733622be4bc68c63d4b0f3fea05aafa0a9",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "18e229072031d27b60b466ecfd9e8c420c978ae548d7d0a08d917991eb55f9c9",
+        "expected_final_gamestate.txt": "b4047dfc7243e825853c65067111cd77aaa851661991a4e94b69a10ddfa21c56",
+        "meta.json": "d71487743cc7ab0ee1118ce8b2a1f17ae9537816e547e0c494ab3b1a93d32c63"
+      },
+      "fixture_sha256": "ae08930ff30aa0381de34c22637f3d6fccfb4e119d99fe783d6b10530003a03e",
+      "actions": 28,
+      "native_assertions": 192,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meet-madness-red-four-live-sparse976-actual-unmarked-full-block-retains-three-real-opponent-zones",
+        "fixture_slug": "card-meet-madness-red-four-live-sparse976-actual-unmarked-full-block-retains-three-real-opponent-zones",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mutually-assured-destruction-red-four-live-sparse976-actual-full-block-with-no-reaction-play-retains-all-seat-decks",
+      "card_id": "mutually_assured_destruction_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d41e53bd1d4a3a2703705e9a688d7d62c7cc6a4b2b7f77eb2ea64246bdcf5ff1",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1722f5ccafcac73ca39fac44748a6845135aa9e3ad65ae5eee2a8859f2c7fa5b",
+        "expected_final_gamestate.txt": "9bd7fef1296d1a7f22294536582b0f36aa8a6ffc01f74b27ad8ed835005b3906",
+        "meta.json": "0464e5ad817cb0cf1501d6fa603d1a55c6a5aa6cab31f23a69c63a7b4c6d585e"
+      },
+      "fixture_sha256": "e40accac34c624e262e740c6e56a3f30605753dd2b705dc34d4d02eb327d7709",
+      "actions": 30,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mutually-assured-destruction-red-four-live-sparse976-actual-full-block-with-no-reaction-play-retains-all-seat-decks",
+        "fixture_slug": "card-mutually-assured-destruction-red-four-live-sparse976-actual-full-block-with-no-reaction-play-retains-all-seat-decks",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-prey-on-insecurity-red-four-live-sparse976-actual-action-play-full-block-without-optional-reaction-cost",
+      "card_id": "prey_on_insecurity_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44c8c77d5bf1cc7dc6dbf8c66c7583ce0589d12b1556fc61b15959bede57a292",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "94c45d055184029017ebec4b4b8e4724567db682f9b48af182e24987ff7c76f8",
+        "expected_final_gamestate.txt": "f85bfe5adda1eb6d4054354c467a594b51fe8da6f8757309a6c877614ee49e15",
+        "meta.json": "693d35789558237d12b0daa95db74a4e98c05bfbb0f061d8fc3ce986bf64e675"
+      },
+      "fixture_sha256": "51233827774f2576f9117ce7fcf48fec66fa9dbc68b26fed21ec33c425ab30dc",
+      "actions": 29,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-prey-on-insecurity-red-four-live-sparse976-actual-action-play-full-block-without-optional-reaction-cost",
+        "fixture_slug": "card-prey-on-insecurity-red-four-live-sparse976-actual-action-play-full-block-without-optional-reaction-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pilfer-the-wreck-red-four-live-sparse976-actual-full-block-retains-yellow-faceup-enemy-graveyard-card",
+      "card_id": "pilfer_the_wreck_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c5be7ec9ff64b8c47c88cdfa5b31d5f27ac0e6afee84a60608b5a93fcc39003",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "e964a5ff6793392349b9086689dfdfaf2569878e9222682da27134c97d6303b9",
+        "expected_final_gamestate.txt": "e35da95899840b93ef95aec9949d22773e407d1aad4618b2e5539e25797df6c4",
+        "meta.json": "6a09055cdb8348ba9b99cc1b7bacc7a5c51229ee6cb7d1e36723480dcde5bbc4"
+      },
+      "fixture_sha256": "2cbe4a52384c5adbd0ae6943274a3b0b5222715c775df4c0546ad4aa5195b8be",
+      "actions": 31,
+      "native_assertions": 184,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pilfer-the-wreck-red-four-live-sparse976-actual-full-block-retains-yellow-faceup-enemy-graveyard-card",
+        "fixture_slug": "card-pilfer-the-wreck-red-four-live-sparse976-actual-full-block-retains-yellow-faceup-enemy-graveyard-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-urgent-delivery-red-four-live-sparse976-actual-full-block-retains-eligible-zero-cost-item-in-hand",
+      "card_id": "urgent_delivery_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9446162379df4b6c988357e571bbdc6c649d38c96814202d6c332194fc7117c8",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "5e09b5d848e73a6121100d3af4acd556621fcaf19b0c2989254c996e9b340f08",
+        "expected_final_gamestate.txt": "e88b03863b9c29229d38f31bd59138952d929e3e81713eeee7b30dc11409bd2a",
+        "meta.json": "c47f4ce07f94035d9055f8cc6b13ef23c1930a6d996e84cecbca2d111ee1873e"
+      },
+      "fixture_sha256": "19872cf820cfb4b8855bbe77a4778468b08e6805c826b3321aa12a37b1a46951",
+      "actions": 29,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "input_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-urgent-delivery-red-four-live-sparse976-actual-full-block-retains-eligible-zero-cost-item-in-hand",
+        "fixture_slug": "card-urgent-delivery-red-four-live-sparse976-actual-full-block-retains-eligible-zero-cost-item-in-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root, independent of breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+    "basis": [
+      "Exact packet/cached card and hero text read independently; five current groups uncovered, correct natural20 and ChaosAssassin ArakniWeb, Uzuri plainAssassin, Marlynn Pirate, Dash Mechanologist. None of the native actions activates hero/optional reaction or enters endphase. Four live/manual and owned physical5 original.",
+      "Meet unmarkedHeroCounters[] actualAA3 exactblock3 catches unearned marked+1; real extraHand7/Arsenal8/Deck9 retained, noHit/RNG. MAD actual2AAdef6 exactblock6 with only priority passes/defense declarations, no reaction card plays; allfour actualDecks9-12 retained/noPox/Banish/Arena/Silver. Positive event producers remain unverified.",
+      "Prey normal Action play, optional AttackReaction never activated; ownedHand8 retained/Deck0 and source5ownedGY. Pilfer3/7 actual3AAdef9 fullblock/noHit, actualyellowGY10FaceDown0 retained at0, defenders7/8/9 append1/2/3, noGold. Urgent0/4 physical2AAdef6 block/noHit, actualcost0CopperCog8 retainedinHand/noArena entry, no207Steam/Crank credit.",
+      "All costs/AP and actualhealth/source+defenderfates correct; no cached defenseValue oracle. Bounded branch scope avoids known unearned/optional-cost/event dependencies. Native recording/exact stored mapping/one clean replay pending."
+    ],
+    "limits": [
+      "Named main/full-block and physical retention only; no exact unblocked power in overblock cases, positiveRandom/Contract/Reaction/banish/Gold/item-entry/owner/Boost/endphase/hero producer or pitch sibling/full-card credit.",
+      "No engine source changes, original checkout access, network/auth, Git mutation, full suite or known-failure reprobe."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse976-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd"
+  },
+  "full_suite_run": false
+}

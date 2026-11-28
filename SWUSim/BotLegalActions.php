@@ -740,7 +740,7 @@ function SWUBotFreePlayActions($gameName, $seat) {
         if (SWUBlastCounterAvailable()) {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'BlastCounter-0!CustomInput!TakeCounter'];
         }
-        if (GetPlanCounter() === 'AVAILABLE') {
+        if (SWUPlanCounterAvailable()) {
             $actions[] = ['playerID' => $seat, 'mode' => 10001, 'cardID' => 'PlanCounter-0!CustomInput!TakeCounter'];
         }
         // House-rule 4th counter (Take Credit / Take Restore). Same termination argument: while it is in the centre

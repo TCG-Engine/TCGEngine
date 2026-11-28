@@ -100,7 +100,7 @@ cosmic_flare_red 3 1 1 0
 1
 MAIN
 
-{"mzID":"p1Graveyard-0","mzIDCardID":"cosmic_flare_red","cardID":"cosmic_flare_red","fromZone":"Arsenal","fabSourceZone":"Arsenal","evoEvent":""}
+{"mzID":"Stack-0","mzIDCardID":"cosmic_flare_red","cardID":"cosmic_flare_red","fromZone":"Arsenal","fabSourceZone":"Arsenal","evoEvent":""}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"cosmic_flare_red":1}}}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"cosmic_flare_red":1}}}
 3

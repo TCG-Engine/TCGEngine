@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "crazy-brew-four-live-sparse1112-native-destroy-cost-roll-four-life-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=crazy-brew-four-live-sparse1112-native-destroy-cost-roll-four-life-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1112-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1112-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ac1dfadbde1dd63b9365dab0ecee0ec04627d6111b33f47fb74a9b191db5d9b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "685f244973a3d3fb23912fc4ab15a73d543f2693fcdac874404e98fb01846402",
+        "actions.json": "a77a409609aea8b2937979ca6dda61acf4734be25e60540eea22383b00eeebb9",
+        "assertions.json": "16f18afb95f7a06194bd7157c49b1558922f2f4b019ca167ad8627b4d3a6c736",
+        "expected_final_gamestate.txt": "7ded2ed8b628912bcc6d8c8c7641aa81d0a72201475a7bf6d42dd2ebddea451b",
+        "meta.json": "3df2ef2a970e98fc3d13911067c12d108d225db5f222f018a695e55db7870506"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rage-specter-blue-four-live-sparse1182-off-turn-ward-one-prevents-one-not-six",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rage-specter-blue-four-live-sparse1182-off-turn-ward-one-prevents-one-not-six",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1182-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1182-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "330fb5889598607f97828414fabe49d264570c48a6d09b37778c274f0adf3d9a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5dead2fa7a9c6d4c0cb3bc3f8271d3b34d1b63b807a85a9ede13dd37c8be66f",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "a47191ceb1dbf0268e75939e97940c208fd6ffbd9b0a23fc49d3c3ffb09c2091",
+        "expected_final_gamestate.txt": "5338bbcf205ea6518e1e93d819baa15d0484c3b42b955913e3beff741a8624c2",
+        "meta.json": "96838e0866933a6f3d0f26588d8b6ee145dd6c3ec4ccbabc5d7744ec44502443"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

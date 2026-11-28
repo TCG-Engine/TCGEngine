@@ -1,0 +1,7 @@
+{
+    "name": "Skull Crack / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:08:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is discarded at random, gain {r}. Representative only: actual_six_attack_without_random_discard_resource_event. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skull_crack_red"
+}

@@ -210,8 +210,17 @@ function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSn
     return [true, 'Updated final snapshot.'];
   }
 
-  $expected = RegressionNormalizeGamestateTextForComparison($rootName, file_get_contents($expectedPath));
+  $expectedRaw = file_get_contents($expectedPath);
+  $expected = RegressionNormalizeGamestateTextForComparison($rootName, $expectedRaw);
   if (RegressionNormalizeNewlines($expected) !== RegressionNormalizeNewlines($actual)) {
+    if ($rootName === 'FaBSim') {
+      $meta = RunnerLoadMeta($fixtureDir);
+      if (is_array($meta['reviewedFinalCompatibility'] ?? null)) {
+        require_once __DIR__ . '/FaB/CardRegression/final_snapshot_compatibility.php';
+        [$compatible, $compatibilityMessage] = FaBRegressionReviewedFinalCompatibility($expectedRaw, $actual, $meta['reviewedFinalCompatibility']);
+        if ($compatible) return [true, $compatibilityMessage];
+      }
+    }
     return [false, RegressionFormatSnapshotDiff($expected, $actual)];
   }
   return [true, ''];

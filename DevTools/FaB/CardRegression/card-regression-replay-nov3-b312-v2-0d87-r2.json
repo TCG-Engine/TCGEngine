@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch312-v2-legal-owner.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T09:05:35.166712+00:00",
+  "fixtures": [
+    {
+      "slug": "card-starfield-touch-four-live-sparse-real-one-resource-destroy-untaps-same-owned-aphrodias",
+      "fixture_sha256": "3602dc942b8c3cbb41bce3a36df4e8522f7d44060ea0b3e91e6b5d619b1a06eb",
+      "passed": true,
+      "result": "[PASS] starfield_touch / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-starfield-touch-four-live-sparse-real-one-resource-destroy-untaps-same-owned-aphrodias",
+      "returncode": 0,
+      "stdout": "[PASS] starfield_touch / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

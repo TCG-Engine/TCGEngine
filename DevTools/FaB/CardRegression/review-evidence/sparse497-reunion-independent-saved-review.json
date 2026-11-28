@@ -1,0 +1,327 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_REUNION_PAID_ENTRY_AND_MANDATORY_WARD_FULL_FIVE_PREVENTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T18:01:46.586211+00:00",
+  "source_spec": "card-regression-batch497.json",
+  "input_sha256": "7c8c2223900836c3008b3455e1826d608016a932229a072e469895b744ee8017",
+  "manifest_sha256": "67d4fd419b0a3de253e6b5523b2f9e1c0faaef17d59ad75e217e320a54c2b45e",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch497-independent-source-review.json",
+    "sha256": "de011b091bc40966b8d0d24279e3c1bfba5f9506333b7c7a8baf1a6d0c292fdd",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch497-20261105T175714Z-6aecc37a4b38e.json",
+    "sha256": "85bc0e182606fddd757b5ee7e600ea070035bc0e188c840dc81483938602755c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch497.recording-results.json",
+    "sha256": "b89d19509f125814c3d0596946e2d3b868647cbc4bcefd08c5c44e7e8135b9fa"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch497-native-r1-9e984\\receipt.json",
+    "sha256": "4c1b5e2afad99358e17342604fd6d6e12f8172ce0915875c8eb2da985f4d33ab"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "10000_year_reunion_red",
+      "group_id": "identity:10000_year_reunion_red",
+      "slug": "card-10000-year-reunion-red-four-live-real-eight-paid-aura-ward-prevents-opposing-five-arcane-and-destroys",
+      "source_spec": "card-regression-batch497.json",
+      "input_sha256": "7c8c2223900836c3008b3455e1826d608016a932229a072e469895b744ee8017",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_EIGHT_AURA_MANDATORY_WARD_PREVENTS_FIVE_PACKET",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-10000-year-reunion-red-four-live-real-eight-paid-aura-ward-prevents-opposing-five-arcane-and-destroys",
+      "fixture_sha256": "ecc7fa642e604c68cd95cde3e47959e385c58ce3a64740957596826f6e6371eb",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "034c2bcd8128385a8e6159390acb12b2a8ad25fc2c64f43fed98973e51e98f3e",
+        "actions.json": "8856a93d8918ff3d7d893b6933c75a62272862a31e4e98b8ef448a1c5acaa1b2",
+        "assertions.json": "2557d45f1bd1ea75cefba89a909138ae779e633e04733b9eca15c95ee26c13a4",
+        "expected_final_gamestate.txt": "4b1d2548983279e145c9c68c3be6a4aec6d3efb11ccdad3bb5c6a1a5032206e6"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "034c2bcd8128385a8e6159390acb12b2a8ad25fc2c64f43fed98973e51e98f3e",
+        "actions.json": "8856a93d8918ff3d7d893b6933c75a62272862a31e4e98b8ef448a1c5acaa1b2",
+        "assertions.json": "2557d45f1bd1ea75cefba89a909138ae779e633e04733b9eca15c95ee26c13a4",
+        "expected_final_gamestate.txt": "4b1d2548983279e145c9c68c3be6a4aec6d3efb11ccdad3bb5c6a1a5032206e6",
+        "meta.json": "9ba5561f3dd318ac3a044dc05a308f3566fe0783fbfce1b90647753ce869401e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "034c2bcd8128385a8e6159390acb12b2a8ad25fc2c64f43fed98973e51e98f3e",
+        "actions.json": "8856a93d8918ff3d7d893b6933c75a62272862a31e4e98b8ef448a1c5acaa1b2",
+        "assertions.json": "2557d45f1bd1ea75cefba89a909138ae779e633e04733b9eca15c95ee26c13a4",
+        "expected_final_gamestate.txt": "4b1d2548983279e145c9c68c3be6a4aec6d3efb11ccdad3bb5c6a1a5032206e6",
+        "meta.json": "9ba5561f3dd318ac3a044dc05a308f3566fe0783fbfce1b90647753ce869401e"
+      },
+      "actions": 27,
+      "native_assertions": 2624,
+      "actual_manual_passes": 18,
+      "actual_priority_response_passes": 18,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "actual_manual_actor_counts": {
+        "1": 5,
+        "2": 5,
+        "3": 5,
+        "4": 3
+      },
+      "schema_property_assertions": 1109,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "10000_year_reunion_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "verdance",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "voltic_bolt_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "storm_striders",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "10000_year_reunion_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "come_to_fight_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "verdance",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "storm_striders",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "voltic_bolt_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "c257bd3038d0b3b393be0e1a754b5341c7069e84562f283788d76811aba54a7b",
+      "native_action_mapping_sha256": "7719c7ed71b19e21d8690e017e26c1f13189b17375e21708b81ea7477dc61fdb",
+      "native_assertion_mapping_sha256": "0f64ebd13653eb5847eaf0a4fb1f26347f23c74465c77d65ab0968dd03957873"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 27,
+  "total_native_assertions": 2624,
+  "total_manual_passes": 18,
+  "total_priority_response_passes": 18,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 1109,
+  "material_findings": [
+    "Exactsavedraw5/all27nativeactions/2624persistedorderedchecks/1109schemaproperties/18allseatmanualinputs/all48rawpreferencesateachendpoint/69sourceguards verifiedagainstunchangedcorrectsource. No extra game/reviewerhelperexecution.",
+    "ActualthreeP1distinctBlues6,7,8pitch3each fund8/R1/AP0 beforefreshfour; same5legallyownedIllusionistAuraentersready/Damage0/nofreealtcountercost/noseededWard/grant/history. Dromainoredpitch/DragonorotherHeroeffectearned.",
+    "ActualP4Storm9cost1/Blue10pitch3 leavesR2anddestroy9beforecapturedABI12fresh4,1,2,3. ActualoffturnBolt11KindINSTANTfromearnedpermission,targetP1/paid2/R0/noAPrefund; correctsame-turn3ActionpassesgiveP4actualpriorityinbothopportunities.",
+    "ActualmandatoryP1MZCHOOSEholdsownedAura5Arena andsameBolt11physicalStack throughunresolvedprevention; answer5destroysphysical5, real5packetfullyprevented/allHP20, then11publicownGY4. This witnessesdamageattempt+replacement/destruction, notmerelyinertdamagebody. FinalarcaneDealt4\u21921=0separatelycorroboratesfullprevention.",
+    "AlloriginalUID1..11conserved: Reunion5GY1; Storm9+Bolt11GY4; Pitch1ordered6,7,8/Pitch4UID10allrawunchanged; onlyvirtual12ceased/Counter12. FourHeroeswholeunchanged/R1onlyP1/allAPChi0/StackChainsDQawaitpaymentcombatquiet."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2966/",
+      "finding": "FreshactualCardOraclelinkresolvedcurrentcardcost8/nonMysticIllusionistAura/optionalcounteralt/Ward10."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/486/",
+      "finding": "CurrentVolticRedWizardAction2/targethero5arcane."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.20"
+      ],
+      "finding": "Wardmandatorydestroy/staticreplacement, notresponseableWHENtrigger."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "finding": "Ordinarycard/Instantpermissionplaycosts, resolvesonlyafterpropermanualresponses; spellretainedthroughunresolvedchoice."
+    }
+  ],
+  "limits": [
+    "Onlydefaultpaid8entryandone5damagepacketWardprevention/destruction. PrintedWard10magnitudeisnormativerule, butthiscasecannotdistinguishWard5fromWard10anddoesnotcertify10cap/partialremainder/multipacket/alternativecountercost/suppression/unpreventable/foreigncontrol/expiry/fullcard/siblings/supportprimary/Heroattackbranches.",
+    "No leftoverWardshieldbanked; nofreshWardtriggerlayerinvented. Rawhashesbindundo bytes butopaqueVersions excludedfromcurrentphysicalinventory; oldDQvariablesarenotactiveobjects. Fullinitial/finalphysicalsnapshots, intermediatefactsactualcompletednativeassertions.",
+    "BarragingBeatdownadjacentplanningholdunattempted/nocase/nativebug/coverage; heldrepairsremainunchanged. Rootreplays/registrationseparate; noPHP/native/replay/R/source/gen/service/fullsuite/remote/git/deniedretry byreviewer."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch497_saved_readonly.py",
+    "sha256": "fb9ca07c43c7b7ceebb3f90e685bc24bd5bd948246e2a25a0514f53922cb3eb3"
+  }
+}

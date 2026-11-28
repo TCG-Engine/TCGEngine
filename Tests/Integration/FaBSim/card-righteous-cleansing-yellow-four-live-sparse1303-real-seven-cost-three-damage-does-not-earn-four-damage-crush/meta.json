@@ -1,0 +1,7 @@
+{
+    "name": "Righteous Cleansing / real sub-threshold Crush damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:07:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNG20_ONLY. Bravo20legalGuardian/Righteous5Handcost7paidbyactualBlue6Blue7Red8(3+3+1)/R0/AP1to0, tenprintedpower. ActualDori4IronrotHelm9def1plusrealGenericHandAA10/11def3each=7defense, actual3damageHP17. Crushrequires4ormoreHeroDamage, so noearnedCrushlayer/Decklook/banish/reorder. FiveactualdistinctGenericDeck12through16preservedexactorder/UID/OwnerController4andBanish0excludesvacuousemptyDeckguard. PositiveCrush/reorderchoicesuntested. Allfourfreshsourcepriority/combatresponses, noartificialeffect/power/defense/costhistoryseed. Finalattack5ownedGY1/equipment9ownedGY4/handblockersGY4ifany/fundersPitch1ifany/allAPR0/noextraUIDorRNG/StackDQsCCclean. NoHero/support/otherpitch/positiveCrush/entrypermission/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#righteous_cleansing_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php"
+}

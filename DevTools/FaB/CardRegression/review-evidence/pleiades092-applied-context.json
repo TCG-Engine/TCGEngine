@@ -1,0 +1,49 @@
+{
+  "status": "APPLIED_ORIGINAL_NATIVE_PASS_QUALIFICATION_PENDING",
+  "runtime_before": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "runtime_after": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/SUPCards.php",
+      "before_sha256": "a1ec1c7ca72ead8a8ec28ba1125e6a5a683b24df243d4a3a103c824b50bc14a3",
+      "after_sha256": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "24a0348f1ec45273784ed293ee57b5247596849797ada944d65f229bbd5c961c",
+      "after_sha256": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa"
+    }
+  ],
+  "source_proposal_sha256": "ceb245d6ee51d64481a81f2f68485aadfe8028d9e5f04dbf4fb0f08775099967",
+  "source_peer_sha256": "d497643da1880322ad76b46e361752197d57d896b56cb5fee9690055dd9758d7",
+  "component_receipt_sha256": "3e89c330c6ae99583c63ea39aa267448058e9022a8f09159f9bc921e38ef12c2",
+  "component_contracts": 22,
+  "component_assertions": 84,
+  "component_named_functions": 34,
+  "component_compiled_callbacks": 1,
+  "PHP_syntax_checks": 3,
+  "actual_R_after_syntax_checks": 2,
+  "operational_peer_sha256": "8c37061c7ac5bdd222cdf9aa09272c32eaa420bdd728933843c364d8db983957",
+  "external_full_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-pleiades092-source-application\\receipt.json",
+    "sha256": "604ab2191fc9215f1a16b16ddae56327e0a522f512ee7b82d3d75bf366a135ba"
+  },
+  "external_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-pleiades092-native-after-9e984-r1\\receipt.json",
+    "sha256": "1a9ce4d0935b819a7c74b451ac364aeece315004a9b6c67eddf33e81d06c6146"
+  },
+  "original_spec": "card-regression-batch400.json",
+  "original_input_sha256": "b3bb4fa3b281379142d194b214e98f44db5e3a30bbd296a7cee6fd204152e8fb",
+  "unchanged_native_actions": 37,
+  "unchanged_native_assertions": 3129,
+  "focused_compatibility": [
+    "card-regression-replay-nov4-pleiades092-preach-compat-9e984.json"
+  ],
+  "source_only_runtime_context": false,
+  "Core_changes": false,
+  "generated_changes": false,
+  "service_or_generation_invoked": false,
+  "other_old_qualifications_retagged": false,
+  "full_suite_run": false,
+  "limits": "Saved semantic review and two clean replays remain separate qualification gates. Other Hero/pitch/crowd branches are unqualified."
+}

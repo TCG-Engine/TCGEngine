@@ -1,0 +1,481 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1501-20261122.json",
+  "source_spec_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+  "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-beckon-steel-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "beckon_steel_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6f89697bcea0833e1d346d65f9a0dd6f5e8946d8fee8378481f9bf4b511e80c7",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "70ec3eadd2ef0174f6d48caad86a866ec16a19639c0da26abb7abb347d4d757a",
+        "expected_final_gamestate.txt": "99a022fd03cd02aeb10e841f94769f618b00e2d31b745df1382a424eee6e22eb",
+        "meta.json": "30975921eedb565c2d1da0161f437869da3683fd294815c5ca50fa5a449a6613"
+      },
+      "fixture_sha256": "f5dfb427ec649a13b11d71c27fad3431ab36c6bcaa83a3af2435a7ad41793797",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beckon-steel-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-beckon-steel-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-beat-of-the-ironsong-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "beat_of_the_ironsong_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dfa7083c29c088e48e59033a822a518954016f954b7b0152da0f901ac7f6e6bf",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "545a2a4adcd03f4e756ebec05633c7b39fdc171b97cc0f416cc8bfa45325fcdb",
+        "expected_final_gamestate.txt": "bfd32d66900be85c96719a982a317c978c714c1fe39731344fcf4250a0d62d9b",
+        "meta.json": "2e47ab80ce4bfd066e4620324d0773d92d20a3ac8e8796a57f3ffb3656576eb3"
+      },
+      "fixture_sha256": "6dc3a43a02b3783329c71160321aa00dd61f12015a65aea9056508f7449fa4dd",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-beat-of-the-ironsong-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-beat-of-the-ironsong-blue-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blood-follows-blade-yellow-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "blood_follows_blade_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "aaef6382a7145e49c8d3879be8395962e8b2a2815c5dde52776172b50c4f4aed",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "692fa5cf6e18a0b7a942583cbb10f41429d48fced69867b42d7677ecfe5cefb5",
+        "expected_final_gamestate.txt": "101ed41075774b196c57a6b0f2038be76aead0e39abff059f303b575baf9106b",
+        "meta.json": "e828318df2baf4ef2e8eaeb0f40aa5d265f3a438b3646ad6dd8c3196025b4fbf"
+      },
+      "fixture_sha256": "805f037fabd302cdf0c2eb0639f8d056886f87ecc72b202e556503b24af5f0b3",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blood-follows-blade-yellow-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-blood-follows-blade-yellow-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cut-the-deck-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "cut_the_deck_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "090d6feaa844ac15e7e973a7b390cbff452e8f14146a58172fad6259e8fab009",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "34df5bb423f776a2d29cb19ca8dc77f54c888906dbd16a93219e33186d9c1ace",
+        "expected_final_gamestate.txt": "9a1067cd9bc801fee1d7c1d7d17a943397514c2260b3d900387e893fb4b89aa2",
+        "meta.json": "fc1e47a719f084ad11a46fdd70ce239b53c652dc31c7891c6f8d6366a83422eb"
+      },
+      "fixture_sha256": "73be0032bf840a91bcd4da8a60b58c8df5a7f6c5308403f0edafe50bbc64ba45",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cut-the-deck-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-cut-the-deck-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-display-of-craftsmanship-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "display_of_craftsmanship_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97f1b2c496cd7ddb0c3aa877105a1a1f6c4b9f8f47305aaee4ea7e9ac1e1448a",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "0e3063b4ab77ecff89ddd87d61b8acd54a6fabceedd8afd00bbcdebff37f7cd1",
+        "expected_final_gamestate.txt": "ba1fff69449a612a9ef4f29102e3fe931acb1fd1affe5800c024032d053edf2a",
+        "meta.json": "7ec5e583e96c09374744954ac85a568de0dfe93b007c5d324a045a86a4f3518e"
+      },
+      "fixture_sha256": "3e6f012ceb4308f0cbd81aafa6eaf480460a612a8ff8ef63c8b80c35e657225b",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-display-of-craftsmanship-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-display-of-craftsmanship-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-swordmasters-shine-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "swordmasters_shine_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3df9017f9b4c78633137968bce494ce10715d4406f01a41b36ab1b7c2dbd8472",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "85f1c6bd67575f45cfa62648525e7055d1f12e0d82c81d663285ebd23b1ff374",
+        "expected_final_gamestate.txt": "3f27ffd7d5979243f86c1b3cc8bef3d5955b441e6bb568167afa47ad1ae06844",
+        "meta.json": "46d0fcee65517a88597bc665924e4221a16e40658c525b40bf7ae5fa5d66c679"
+      },
+      "fixture_sha256": "0d85970d036a2512deac99b3837c457ffaf45900b0b048ff7eacfaa167eae8d1",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-swordmasters-shine-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-swordmasters-shine-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-scar-tissue-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "scar_tissue_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a8dcf3bde3483ed215c564b08e0c8d4fa2a2b78d0f61cfe005c27ef8cc0f63e",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "6925fccacfa63e88df2e00a1e6b543d4132d34e86852b96c359b3053880f3f5e",
+        "expected_final_gamestate.txt": "e1f780aa3144701fd666a8e6a9fb3e2abb7ff39c8eea51b01422cc3846ed6c8f",
+        "meta.json": "601716e92ef43aa351d54eb1e529349797b2dfdeac1b9c3209be4113ca56a47b"
+      },
+      "fixture_sha256": "3a65e50f22204f1a83ba40a935b57ff75eb9e71cd3536e10484fec5cca795d29",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scar-tissue-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-scar-tissue-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-take-a-stab-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "take_a_stab_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2f2476e236a8ff03c652ca976dc3b6d1c100bf3815469a135f7afb0db8bb4c27",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "b6ccd8051e22caf6d473848e1339c1b8d759e8c0b3bb86f9e0b6a3ad30441aff",
+        "expected_final_gamestate.txt": "571823e480be65731c35a557c15af0b684710526df877069ed149967746e9b54",
+        "meta.json": "c486b9f75adac0f622ff5bd6ae6bbfecab759cc01fc0e8b4af8315312eb5288c"
+      },
+      "fixture_sha256": "e8cf6e560d637dcaa2f84837f78fcc57c62c72f5f2b2d09bd78c80b11ac92be4",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-take-a-stab-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-take-a-stab-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-to-the-point-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "to_the_point_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83e1e982baa6bbfcc5da6a2b1eb7adeb3840ebf1aad0390fcb09f102ac984945",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "f2d45da295bdff57f7597696dc0b2d5e16d6a261fd2185be7bf62487a39c81ef",
+        "expected_final_gamestate.txt": "e59e9c69f4971f8f8eeeb175d8c665788a46020387a9cd557d4024e385d2bac0",
+        "meta.json": "9a002b6c6a5072a69f231b93713bf0271cf4e10694d0fbeb84e2153b69b2a316"
+      },
+      "fixture_sha256": "df99a1b017204694bf88e717aa74780ab985fdd28fbd5d4f800bb90ef01fcbf3",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-to-the-point-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-to-the-point-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-searing-gaze-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "searing_gaze_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e32bc412715e37cdfbc57820369fa33d0e5b1df339426e1a5e3339167021072",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "cf370693ffb23a9d4314fd35cc04d39945fa21cca3a1633ccd3d4f2584bf576f",
+        "expected_final_gamestate.txt": "6d75c64b4980e93bf76b04fd546a1d7201fcabc8678199d1db0939e81c2bd77b",
+        "meta.json": "d0e91bb3a448b4fb3a35c29e94da66d184d557f1edfa0c09fbf91b832336bf9d"
+      },
+      "fixture_sha256": "26a680bc3a45a8f5d6fc5be76121df00f7a2319fa703dad867a32938355ee939",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-searing-gaze-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-searing-gaze-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sizzling-steel-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "sizzling_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b8a3f3c62ebfab9fee7c119d4db443e6ea0002b038d3286a68477d76ca4fb08",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "278a65a5b160c381ab9d5b9964ec5511551b641cd8ec3fc05eab7a5a97f7f707",
+        "expected_final_gamestate.txt": "e3ebf216a409b9e51df0b9569aabb6da89e607b54ba2746ecf3f1e31c287388f",
+        "meta.json": "d4e93d2405b634cbb739869468391b68f1271e94f5de431fdbdb9029cd4a2d7d"
+      },
+      "fixture_sha256": "a41f3e621ac32aca2c0e0bdc854837bb26333c8dbeb2dad211f8133e1e13eb78",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sizzling-steel-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-sizzling-steel-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stabbing-pain-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "stabbing_pain_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "744bf710ab77f35effed91f11e5798865abd3943bb4c6d8de3f9fc905c74ed92",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "e4fc34b3815a8c5083688fad7c4188cdec7f197bb1b2fedfe48228e2ec107e31",
+        "expected_final_gamestate.txt": "b58fc0ed86e908e670af396b3f96ff7e11b3c50d3638b7e324d326ed05901170",
+        "meta.json": "d3d3af9e58d8f86cd71b7eca6c7e0953b59f9f24e472b4955aa7abd59727c367"
+      },
+      "fixture_sha256": "c0c629e755b42dd1367ade4fdc715325db80f61360bc43639ef8385ea5684d76",
+      "actions": 28,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1501-20261122.json",
+      "input_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stabbing-pain-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-stabbing-pain-red-four-live-sparse1501-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1501,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T06:08:31.463303+00:00",
+    "spec_sha256": "4e2028f028830dfa6cc27af71ae305009c3ac41fdc001780447b4f9801b3bc8a",
+    "source_note_sha256": "b4d8e2e1c311555b8e93f5424c9808e62464b5759fb42169076c11125b47e04b",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc"
+    },
+    "cases": 12,
+    "findings": [
+      "Every printed target is an attack, not equipped permanent. Beat Ironsong chooses at least1 mode with mandatory Dawnblade attack; no zero-mode alternative.",
+      "Kassai young specialization, hybrid Assassin/Warrior Uzuri and DraconicWarrior Fang legal; unmarked victim earns no Fang trigger. Real Blue3 covers cost0-3.",
+      "Actual generic WoundingAA4 not Warrior/Weapon/Sword/Dawnblade/Dagger; WTR specific Warrior/defaultWeapon and HNT mandatoryDagger guards match absent targets. Full actual4damage/fates, primary/funding/assets intact."
+    ],
+    "limits": [
+      "Twelve distinct rejection-only groups, no positive effects, target timing, Mark/additionalattack or new globalroot credit. Source/spec review, no reviewer game execution."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1501-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9ffc811fb61e4dd73abafe60e61bf2ce55e7ab45f5c7eeef9954fa6014cae0fc"
+  },
+  "full_suite_run": false
+}

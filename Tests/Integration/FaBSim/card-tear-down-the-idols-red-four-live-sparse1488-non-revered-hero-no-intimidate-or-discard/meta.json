@@ -1,0 +1,7 @@
+{
+    "name": "Tear Down the Idols / non-Revered Hero does not earn either printed trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T05:59:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualReviledKayo1 primary5formallytargetsadjacentHeroDori4 (notRevered), twoactualHandcards7/8. Printedcost3paidrealBlue6pitch3R0/AP0. Allfourmanualpriority/attack/defense/reaction/damage/resolutionpasses. Power7/noGA, actualHero4loses7to13; neither printedReveredattacks norReveredhits condition isearned. SameUID7/8Handremainthroughattack/damage/fullclose, victimBanish/GYempty, noIntimidate/discard/Stack/DQornewUID/token. Ownsource5GY/Blue6Pitch/AP0/R0/otherHeroes20. Narrowtype-conditionnegative only; positiveReveredtriggers/timing andKayoabilities untested, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tear_down_the_idols_red FaBSim/GeneratedCode/GeneratedMacroCode.php#tear_down_the_idols_red FaBSim/Custom/SUPCards.php#FaBSUPHeroType FaBSim/Custom/GameLogic.php#FaBPlayCard"
+}

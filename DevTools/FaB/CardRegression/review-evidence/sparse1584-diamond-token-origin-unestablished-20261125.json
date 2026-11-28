@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "batch": 1584,
+  "status": "HELD_BEFORE_NATIVE_LEGAL_PRIOR_STATE_UNESTABLISHED",
+  "card_id": "diamond",
+  "group_id": "identity:diamond",
+  "classification": "DIAMOND_PRIOR_TOKEN_ORIGIN_AND_FORMAT_UNESTABLISHED",
+  "reason": "Printed resource0 Action destroy-self draw1/goagain oracle is correct, but the all-Dorinthea prior Diamond is not substantiated by a concrete legal creation/transfer history. Cache names Diamond Hands as sole Diamond producer, RuuDi specialization; DiamondHands CC/LL/Blitzfalse, RuuDi adult40. A casual-format exception or transfer route was not established. No global impossibility or source implementation verdict.",
+  "independent_source_spec_review": {
+    "reviewer": "/root/breadth_review1457",
+    "result": "activation_oracle_valid_setup_not_yet_approved",
+    "scope": "No native game, source write or independent replay."
+  },
+  "source_spec_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1584-local-20261122\\proposed.json",
+    "sha256": "019e9595767e0a06a1ffbea4dfed11d3b7d6f2c5f09e3f34047dd1ae509b976b"
+  },
+  "cache_sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "engine_repaired": false
+}

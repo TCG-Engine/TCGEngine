@@ -1,0 +1,7 @@
+{
+    "name": "Uzuri, Switchblade / actual adult duel printed branch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:42:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT40_VS40_NATIVE_TWO_LIVE_ONLY. Bothrealmanualplayersrespond. UIDsHero1,2/assets3,4,5/ABI6; supportedmodeomitsactiveSeats/defaultemptygameMode/noPassives. ActualWither3Stealth0attackssoleopponent2throughbothresponses/emptydefensetoReaction1. ActualHeroReaction0ABI6choosesrealHandWounding4banishfaceDowncost; uniqueactiveStealth3frozenbeforepriority. Bothresponseskeep3CC/4hiddenBanish/actualDecktop5. Lastactor1reactionresponseusesexistingstackEmptygoaltoforceonepasswhenreturnpriorityremains1. Onlyresolutionreveals/moves4toCCattackerandputs3Deckbottomafteruntouched5. FreshbothReaction/Damagepassesactual4power/damageHP2=36/nooldFrailty, full4GY/Deck5then3/HandBanish0/APR0/UID6clean. Onlyunchangeduniquetargetpositive0costAACswap; noalternateTarget/cost2boundary/nonAAC/failedswap/onceRepeat/reveal-log/Young/support/fullcardcredit. PriorYoung1280/1282sourcesaredesignsnotreplayed/requalifiedorcreditedagain. Sources: FaBSim/GeneratedCode/cardArrayCache.json#uzuri_switchblade FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OUTCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

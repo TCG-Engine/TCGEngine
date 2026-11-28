@@ -1,0 +1,115 @@
+{
+  "status": "APPROVED_EXACT_SAVED_RECKLESS_SWING_REAL_SIX_DISCARD_ATTACKER_TWO_AND_DEFENSE_FOUR_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T11:47:21.419776+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch331.json",
+  "input_sha256": "22f354896a38ee037b9d0c30fa30fc64e9eb5d2d2952323bd7d135ef515d2705",
+  "fixtures": [
+    {
+      "slug": "card-reckless-swing-blue-four-live-sparse-real-six-power-discard-deals-two-to-attacker-and-defends-four",
+      "card_id": "reckless_swing_blue",
+      "group_id": "identity:reckless_swing_blue",
+      "fixture_sha256": "38de3e98639931bd5b5a24cfaeac5b72e297bfa3185147a96d3580b68564b7d7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c05adbe688bd40d0112fd2cd779ebeb1cbe3cbc48bdd0d8c31cee28f1764120c",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "63cb1da8d529b6c80d9bd933537b7e63aa6600ae263c32749bf1001b0ede0a6b",
+        "expected_final_gamestate.txt": "3f8c4477d6ed8de55bd91e6907b61ed216eab66e3c9a53f1f87fad74f6c60685",
+        "meta.json": "88204fff0cf691282c7e8a5f384987c86104aaeefa401b37a5462495b85c8547"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c05adbe688bd40d0112fd2cd779ebeb1cbe3cbc48bdd0d8c31cee28f1764120c",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "63cb1da8d529b6c80d9bd933537b7e63aa6600ae263c32749bf1001b0ede0a6b",
+        "expected_final_gamestate.txt": "3f8c4477d6ed8de55bd91e6907b61ed216eab66e3c9a53f1f87fad74f6c60685",
+        "meta.json": "88204fff0cf691282c7e8a5f384987c86104aaeefa401b37a5462495b85c8547"
+      },
+      "actions": 36,
+      "native_assertions": 2993,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5,
+          8
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        18,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual legal P4 youngLevia20 owns primary5 and sole printedSix8; P1 actualRaging6/Blue7. Real Blue7 pays attack3/AP1 to R0/AP0. Actual target and allseat combat reach P4 Reaction priority with both5/8 Hand. Native DR5 click20 takes physical5 to Stack and actual soleSix8 to ownedpublicGY BEFORE response actors4,1,2,3. Firstthree retain5Stack and allHP20; fourth source resolves printed conditional2 damage to ATTACKING P1 (HP18), then same5 becomes actual DEFENSE_REACTION/FromHand/link1. Only fresh Reaction round deals attacking7 minus primary printeddef4 = 3 to P4 (HP17), with P1 remaining18. No output fitting: every36 actor/mode/payload and2993 ordered native assertions equals frozen independently approved expected input. Fullclose exactGY4UIDset5,8/GY1uid6/Pitch7/allRAP0/originalUID1-8 owners conserved/counter8/no virtuals/StackChainsqueuespaymentawait clear/allfourlive/manual8each/11windowsfalse.",
+      "qualification": "Only actual DR0/sole-six random additional discard/printed attacking-hero2/defense4/combat3/fullcleanup. No non6/emptyHand/multiplechoice RNG distribution/otherfunding/prevention/retarget/hero/supportprimary/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch331-independent-source-review.json",
+    "sha256": "58f823bb10ad5b21cb530c00bc8f105bbe90a3226fbb7ea3260082f8bc1d3733",
+    "manifest_sha256": "c28758ade3df743fac07ed84f3a0d10aa0f4472f78586c2722189e5dbd8f7d9b"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch331-20261103T114304Z-6ae9c8c8a0260.json",
+    "sha256": "80096a87386619145502146e8d5573a45522e0a05076775b3778b7fd378971f9"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch331.recording-results.json",
+    "sha256": "b41e20f953bdc493445427ec8e55374ab79313172898a0b2368b63786e31f31c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch331-native-r1\\receipt.json",
+    "sha256": "3247c2d64aab299875fc10428df91f1b346d176a95833e0f9eff30033b8bd85d",
+    "stdout_sha256": "bf961efdc99afa1dd8d60f8a02f4d7e352c79c257046ba4ab1b37e277e6f533e",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent read-only exact saved rawfive review: all36 native actor/mode/payloads plus2993 ordered assertions equal frozen expected spec; full schema endpoints/manual profiles/UIDs/ownership/economy and separate attacker2/defender3 damage witnesses checked. Existing pure parsers/normalization only; no author builder/PHP/native/replay/R/source writes.",
+  "limits": [
+    "Saved creation review only; Root two focused replays are separate evidence, not executed by reviewer.",
+    "Only actual DR0/sole-six random additional discard/printed attacking-hero2/defense4/combat3/fullcleanup. No non6/emptyHand/multiplechoice RNG distribution/otherfunding/prevention/retarget/hero/supportprimary/fullcard/control credit.",
+    "Current0d context retained; no source fix/application/proposal/runtime migration/denied-action retry."
+  ]
+}

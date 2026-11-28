@@ -1,0 +1,81 @@
+{
+  "status": "CONFIRMED_MISSING_RESPONSEABLE_MIRAGE_LAYER_AT_CORRECT_DR_RESOLUTION_BOUNDARY",
+  "reviewer": "/root/b105_semantic_review",
+  "created_utc": "2026-11-04T21:03:48.850936+00:00",
+  "source_spec": "card-regression-batch388-v2.json",
+  "input_sha256": "66c6ef2b0788d58e6efdcc0b94f0f203ddfa6dc40b76834608d9b8d014fd2ea8",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "immutable_recording_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch388-v2-20261104T205842Z-6aeb9c82aef48.json",
+    "sha256": "5642534048e60ab72c45f400a5195a483fd63adf1e43bc410913f48036fcc91b"
+  },
+  "healthy_recorded_result": {
+    "slug": "card-put-in-context-blue-four-live-sparse-real-base-three-current-six-attack-legally-defended-by-three-reaction",
+    "status": "recorded_semantically_checked",
+    "actions": 40,
+    "assertions": 3290
+  },
+  "blocked_probe": {
+    "slug": "card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+    "semantically_approved": false,
+    "fixture_saved": false,
+    "attempted_actions": 24,
+    "actual_action_prefix_exact": true,
+    "source_step_of_first_failed_checkpoint": 48,
+    "last_action": {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "DR_source_response_actors": [
+      4,
+      1,
+      2,
+      3
+    ],
+    "first_error": "Expected Stack count 1, got 0.",
+    "actual_state_fields": {
+      "window": "REACTION",
+      "combatOpen": true,
+      "combatStep": "REACTION",
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 6,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "pendingPayment": null,
+      "handBlockUIDs": [
+        5
+      ],
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "attackHit": false
+    },
+    "actual_queues_empty": true,
+    "initial_hash": "ec7f1b28542f68181e156207d6080407b6234e1a348c4f7cdf5b5bcf5645fc1c"
+  },
+  "rules_basis": "Current CR8.3.25 defines Mirage triggered-static;6.6.5/6.6.6 require captured triggered layer before next priority.5.3.2a state-condition must still hold at resolution; selected unchanged Raging7 qualifies.1.11.3/5.3.7 next priority is turn-player1.",
+  "source_cause": {
+    "file": "FaBSim/Custom/DTDRuntime.php",
+    "sha256": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "lines": "57-59",
+    "mechanism": "FaBDTDMirage uses the correct085 FaBFindCurrentAttack gate, then directly calls FaBMONDestroy on current Mirage defenders rather than enqueuing a responseable triggered layer.",
+    "source_derived_movement": "The inline call routes defending Flicker5 to destruction/GY. No full postfailure physical snapshot was captured, so physical GY5/count and complete postfailure ownership are NOT reported as raw-observed."
+  },
+  "evidence_limits": [
+    "Observed Stack0 is the native assertion failure; no fresh trigger response or later damage/cleanup suffix executed.",
+    "Serialized observed attackPower0/defenseValue0 are cached fields, not a fresh calculation; preceding successful native checks pin real attack7.",
+    "Only exact24-action boundary and captured state/queues established; no postfailure whole physical snapshot assumed.",
+    "Original malformed preference-guard attempts were zero-gameplay oracle errors, distinct from this corrected genuine gameplay probe.",
+    "No fixture for Flicker, no source correction or game action by reviewer; unchanged085 current-attack getter qualification preserved."
+  ]
+}

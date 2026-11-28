@@ -1,0 +1,7 @@
+{
+    "name": "No Tall Tales / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:30:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has {p} greater than its base, it gets +1{p}.\n\n**Tower** - If this has 13 or more {p}, it gets \"When this hits a hero, cards they own lose and can't get go again during their next action phase.\" Representative only: actual_base_three_without_tower_granted_hit_ability. Actual printed zero-cost Hand attack, four manual live seats/full unblocked combat, real HP loss and owned physical source in graveyard. No positive Tower/Combo/greater-than-base bonus or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#no_tall_tales_yellow"
+}

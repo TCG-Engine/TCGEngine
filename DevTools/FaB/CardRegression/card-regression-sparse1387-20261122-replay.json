@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-aegis-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-aegis-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fc19fa0750917f97ee8c9c05fc02eb7c3fa8951f33ecdbef5106d463614ada6f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7aad10a86fcc84202772f5c9487b4b307752560859c09fad6545dc9d4555cbf",
+        "actions.json": "89aa8a741eeaece75c653751c152e1b71bf2011605ef582223a0fa9a934c2ee5",
+        "assertions.json": "3e2f0a2b3c1958ba771f6f02f6f297b57e151be274f841c9bca9309872afcb30",
+        "expected_final_gamestate.txt": "3e32f83101edd90f9f1129bff8e013c410ea47fba02848aa4289e3681d0e7dfa",
+        "meta.json": "c83a502c61df1efa244af1014c849aaa6b128a3739d0264f0e7d0b7fcc1891bb"
+      }
+    },
+    {
+      "slug": "card-blessing-of-suraya-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-suraya-yellow-four-live-sparse1387-native-aura-and-real-graveyard-to-deck-not-soul-no-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1387-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1f0ded2e1d0dbce999228dc83634caffd53a37317b282994d140943c6b5facaa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef9f03a292239908b2593a0ba5782623024f9c3861e1237db815609c7ff93e50",
+        "actions.json": "89aa8a741eeaece75c653751c152e1b71bf2011605ef582223a0fa9a934c2ee5",
+        "assertions.json": "e3a52ee1c344fcbf30141f4abef317b08ef27d5a09c2e4f33cb5fac38535b6e9",
+        "expected_final_gamestate.txt": "144094f4b15357562df8c0cf559e530e7bd453fb74201543c11c86410a7533d2",
+        "meta.json": "e3d3c093a37f44ca5263198afbeadbc57cb0a490224574090354c19f5c7832d9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sedate / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:24:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this hits a hero, create an Inertia token under their control. Representative only: actual_hand_block_prevents_hit_and_primary_effect Sources: FaBSim/GeneratedCode/cardArrayCache.json#sedate_red"
+}

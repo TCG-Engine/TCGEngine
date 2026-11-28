@@ -1,0 +1,83 @@
+{
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "41a5c3ebb6135eb529571e182a95e754f8cb6df907ec6d6a9addab42b2741400"
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6f0bac6eb1df777b1a4d19fcde8b2259746a1b3cd0cda02fc20e0bc709324a98"
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "a4e584405ed71fd1873f00ce89a1404f979025d56e344d7183b90f73b1eb7a97"
+    },
+    {
+      "slug": "card-dig-up-dinner-blue-four-live-sparse-real-three-graveyard-selection-recycles-one-heals-one-self-banish",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "58ca4c4f621ecdb51ec607f6788cb26b4315f19b0f89c55bc6b64c083b11a337"
+    },
+    {
+      "slug": "card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "d85264bbe31ef8c449d17d7ede75b6e6fc16b82539fa445efdb061bf975aa107"
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "b5be68c74a3a66808c9300f271a4e701a9a9ed6fcfcc4a85ebbcd08e7dfbe7db"
+    },
+    {
+      "slug": "card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6bd1d01549d2f48e5f4b6ed79f78f48c0bf3ef0c719b06eabc40686d2a41a24f"
+    },
+    {
+      "slug": "card-ray-of-hope-yellow-four-live-sparse-real-paid-lower-life-self-soul-and-shadow-attack-power",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "06de7318b5193b2103f3c6c5a703e8797e903987b9902018c836ceb3d8ce5f19"
+    },
+    {
+      "slug": "card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "6782ac8c18c6ad7a72bd7f3b3c408a9467f77e77a866320b8dd6009fe043e9ad"
+    },
+    {
+      "slug": "card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "016dc9e0050445038822759a7cb26d691b2874cc24482cd0a1a7cdaa667bf22c"
+    },
+    {
+      "slug": "card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "expected_sha256": "aaf12f16e6ace832b326c1433cc354f635cb548c8b03d1791ca1c8c45b5f36d8"
+    }
+  ],
+  "full_suite_run": false
+}

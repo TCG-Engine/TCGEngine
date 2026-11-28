@@ -1,0 +1,7 @@
+{
+    "name": "Sap / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target hero.\n\n**Surge** - If this deals more than 3 damage to a hero, you may remove an energy counter from a permanent they control. Representative only: three_arcane_without_surge_preserves_energy_counter. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. An actual ENERGY counter on generic Tunic is preserved at exactly base damage; the initial Hyper Driver/STEAM support was a discarded oracle-design error, never qualified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sap_red"
+}

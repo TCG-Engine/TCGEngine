@@ -1,0 +1,7 @@
+{
+    "name": "Pop the Bubble / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:53:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target hero.\n\n**Surge** - If this deals more than 3 damage to a hero, destroy an aura permanent they control. Representative only: actual_three_arcane_and_no_aura_destruction_without_surge. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pop_the_bubble_red"
+}

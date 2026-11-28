@@ -1,0 +1,7 @@
+{
+    "name": "Hyper Driver / ordinary attack is not boosting",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:50:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_MAXX20_THREEDORI20. TokenHyperDriver8Arenaowned1readySTEAM2initialreachablepositiononly/noMaxxcreation/Crankentryorprovenancecredit. NativeGenericCriticalRed5cost1paidCriticalBlue6pitch3/R2/AP0/base5/noBoostoption/Deck0/noBoosthistory. ActualattackisNOTboost, so HyperDriverWHENunearned/noSteamremoval/noresource: STEAM2not1/R2not3/source8sameUID/status/Effects/noDest. Allfourmanualresponses/actual5damageHP4=15/fullclose5GY1/6Pitch1/FDArsenal7/Hyper8same/UID8RNG0. Actual0ArsenalconsumerrejectAP0samefates. OnlynoBoosteventguard/nativefunding/damage/counterresourcepreservation; positiveBoostWHEN/timing/removeSteam/gainR/Crank/Maxxcreate/zeroDestroy/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hyper_driver FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/WTRCards.php"
+}

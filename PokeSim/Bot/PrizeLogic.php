@@ -5,8 +5,9 @@
 function PokeBotCanAttack(array $ctx,array $card): bool {
     if($ctx['view']['phase']!=='MAIN'||$ctx['view']['turnPlayer']!==$ctx['seat']
         ||$ctx['seat']===$ctx['view']['firstPlayer']&&$ctx['own']['turns']===1
-        ||!empty($card['conditions']['Asleep'])||!empty($card['conditions']['Paralyzed']))return false;
-    foreach(CardAttacks($card['id'])??[] as $attack)if(PokeHasAttackEnergy((object)['Energy'=>$card['energy']],$attack['cost']??[]))return true;
+        ||!empty($card['conditions']['Asleep'])||!empty($card['conditions']['Paralyzed'])
+        ||($card['turnEffects']['noAttackThrough']??-1)>=$ctx['view']['turn'])return false;
+    foreach(CardAttacks($card['id'])??[] as $attack)if(PokeHasAttackEnergy((object)['CardID'=>$card['id'],'Energy'=>$card['energy']],$attack['cost']??[]))return true;
     return false;
 }
 function PokeBotVisibleThreat(array $ctx,array $target): float {

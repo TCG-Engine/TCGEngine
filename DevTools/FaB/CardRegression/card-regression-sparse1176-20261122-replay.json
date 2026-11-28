@@ -1,0 +1,217 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "adbd6488ae83fe23bec341e1b34957815fffa1d910949222b4f4110da332c2bd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bad77da3ff23021662d0e169c386c23cfa3d340dfdd221796a917167fcda4132",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8131fd95e7d0c2620a7547b20c2804f4d93191a99c31e818d8b7e802ea9453ac",
+        "expected_final_gamestate.txt": "a1141c32bf03e33a94bd2bb394b3448005cb507510a05ea32c427a9e12e46747",
+        "meta.json": "08c25065a221805bfda23c01bd5590a6cbd91d1be28bc57f00c86a94e97f36ca"
+      }
+    },
+    {
+      "slug": "card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "87c3681c0a3a3dcf4bf2430fe7ecacbf672ba8d82292fd3346b4b6897993cf45",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38b363df8e239c4ff16a27300581d1175f89a040e17c143e518448fbf78b110b",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "c3a1d615dd9705820983636b937948432f29f862a2191691707ac3178a1496b2",
+        "expected_final_gamestate.txt": "ffa715c6ea726ef1da58dca4946b2a5da8c6ea810b300a3f2b4e4b7b52ba20fe",
+        "meta.json": "79611360f9d17ab5f80869087bdf2104a333bc3fc1cc493c0539ba5f34536e53"
+      }
+    },
+    {
+      "slug": "card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a418135e32b4bdaba3fe0d1e634720defee2e0bc40963c9608572a56dd2db555",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3610e22a37ceb2f51b95bf7263f51b7af0f719ac76b310dae7ad3dde959d054",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "23f43ffc8a4e8440fea4747e3fcef5c851b916c4eaf05b2c548b246af24e12b0",
+        "expected_final_gamestate.txt": "0b88c47c58882222d739e3e9d6a728bfaed4d1ebc0f7fb78ce41ae8855a3ce36",
+        "meta.json": "b8919d73cac06494c64e58549a87e25eec69877e79d8b91cd18137426859c93a"
+      }
+    },
+    {
+      "slug": "card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ebd1ce121859f657ef5c31d882053bffd7e93b8a5ced37dd691ee93003c5499f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50c7b63d9e9db6eeef469f6b9d13628db57853951b50d2ab88dac328c84cfad6",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8ebea87b9168c881cb0466fd0f21a30ce65d529a196985b50c68c75d8289c27f",
+        "expected_final_gamestate.txt": "5d08478c38b6b53abc2aea7ff6a65f83c24f5dcd25ae20e932dce70331783c93",
+        "meta.json": "622dc2f79ae2e0373b049143a84a50cc5c47f2e6e7e29aa0303f325236c71b7f"
+      }
+    },
+    {
+      "slug": "card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e9f0cfabb019600d39399a1813ef3b9446e370dd475eefe6e94fe8eb33b4802a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1976fed4fed9e7218939ce215027474bc5317945999f413934807a08c3a2abc7",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8195464e69559b1a8b1ba4a127de269adca6efe32d92102bc1ca25663b40f276",
+        "expected_final_gamestate.txt": "d6ebfaa9f1ba5db7fbe01d9f56cd1914e13525ceb37ed69726f7405ee3ea2d89",
+        "meta.json": "5c12a425b922df1d8367fc46140335ceb760a5da7e64f62ff4f88341beb1e05f"
+      }
+    },
+    {
+      "slug": "card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a348b2ae92c94db46302cb674daf3bdc75945d82b057b3c13eba69a678c55359",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c899bf6af31002ccc3f2c80cb2c36862c0714cb69785d0ef1ddeadf229879a2",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "36649ccc1ef31ba0b5cb9374c83cc871c5f3d49a25180779b19c2409f00a27b9",
+        "expected_final_gamestate.txt": "1a17c0eed8b7236bb15b1a16696413864da76e71a401bf23fcd60a59d8ff3ba3",
+        "meta.json": "39235289aad12eb1160a091af19fa80ff22c9746f7b277bb702d2c3a95a7027f"
+      }
+    },
+    {
+      "slug": "card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f4d0d66220025802daebad87bc193ee34839368e261d91cedd6c96c35da311e2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b271ddb4a6093a6e2681df78018f178c3cbd49dc77b48c38a9a22cef91e6a905",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "ba8269c3754050ad6a526bed1b9a605695730fbbbf2c369c60776980a009234b",
+        "expected_final_gamestate.txt": "5d3367fcf293b861658350ad1b295ccfdbabc4e636497d16aa2170eca3fe8203",
+        "meta.json": "af636522e477d174a3d449f6dcebd3b15dcb71da63b129fb901299b8ca728804"
+      }
+    },
+    {
+      "slug": "card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\07.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\07.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d269076380cdc436c1f1e843105c5d599fef6a55de149c988643b48e1865154c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86c45fc79d9ea1a1ed814360c577c7c5fd8448a6797080198d0d267367ee91b3",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "ba4cd1f00a278a1210de89bb1895760dd0fd5306a5467d6e6201668a625c3e4b",
+        "expected_final_gamestate.txt": "8efbdb82a378fdf936ab12d513ed82289da88e7d00ec018fb51d32ff174ff283",
+        "meta.json": "9ab6c37b68d027bc36a02a31404a987d9dc5d63046bf781bcd14740e91037e4e"
+      }
+    },
+    {
+      "slug": "card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\08.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\08.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5478159fd9c18be6577cc9a4074e9b966904eaef8e00eff6db4476b7df955940",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5225301ad9999609af183b8b6d65c360f402c2218bbc64edfe0dd5312a12980d",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "fdc524f20fd4fc0d8415a01f6932eba2ca1de0fc6433f0240ad33ac25040ee00",
+        "expected_final_gamestate.txt": "e67495641a1b3b7d37ed4374ff96c5c123cdad9c97676d4636c1c5fb535ecf87",
+        "meta.json": "6b3aae96a71e140c836d1953ae1f249a71bec38d24ce1a695d8b692ec34a7646"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

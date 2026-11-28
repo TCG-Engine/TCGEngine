@@ -1,0 +1,7 @@
+{
+    "name": "Undead Grasp / four-live actual defense and printed keyword close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:37:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action - {r}, discard a zombie, destroy this: Your next zombie attack this turn gets +3{p} and \"When this hits, destroy this zombie.\" Go again\nBattleworn Namedordinarydefense/Battleworncloseonly. Legalnatural20maliceownsreadyEquipment5DEF1; actualGenericLeadCharge6HandDEF2. Natural20dorintheaactuallyattacksowneddawnblade7power3/cost1, realBlue8pays/R2/AP0. Fourmanualsource+combat, realEquipment5\u2192CCDEFENSEthenHand6\u2192CCDEFENSEgivesexactDEF3/0damage/noHit/HP20. Battleworn1reducesprinted1to0butEquipment5remainsownedEquipmentwithDEFENSEcounter1; Hand6ownedGGY4index0. Physicalweapon7usedretained/Blue8Pitch, AP0/queuesclean/allfourlive. NoAllyattack/BeatChest/Zombiediscard/Arcanepacket/Gold/blueGravypermissionoractivatedbodyoccurs; noGArider/heroactivation/supportidentity/pitchsiblings/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#undead_grasp"
+}

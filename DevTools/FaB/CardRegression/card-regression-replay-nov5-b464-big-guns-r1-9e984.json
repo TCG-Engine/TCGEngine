@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch464.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T12:58:26.940201+00:00",
+  "fixtures": [
+    {
+      "slug": "card-call-in-the-big-guns-red-four-live-sparse-real-prior-arsenal-arrow-consumes-plus-three-and-earned-action-point",
+      "fixture_sha256": "6686d5eb3c2bbf42e8edaf6ea7b36dba02910c5df370402e60997d916b995fc3",
+      "passed": true,
+      "result": "[PASS] call_in_the_big_guns_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-call-in-the-big-guns-red-four-live-sparse-real-prior-arsenal-arrow-consumes-plus-three-and-earned-action-point",
+      "returncode": 0,
+      "stdout": "[PASS] call_in_the_big_guns_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -2,14 +2,38 @@
 /** Shared attachment, Stadium and field-passive helpers called by card macros. */
 function PokeStadium() { foreach (GetStadium() as $obj) if (!$obj->Removed()) return $obj; return null; }
 function PokeDiscardStadium(): void {
-    $obj=PokeStadium(); if (!$obj) return;
-    PokeAdd($obj->Controller,'Discard',$obj->CardID); $obj->Remove();
+    foreach (GetStadium() as $obj) {
+        if ($obj->Removed()) continue;
+        PokeAdd($obj->Controller, 'Discard', $obj->CardID);
+        $obj->Remove();
+    }
 }
-function PokePlayStadium(int $player,string $ref): void {
-    $obj=GetZoneObject($ref); $id=$obj->CardID; $obj->Remove(); PokeDiscardStadium();
+function PokeSummitPartner(int $player, string $id): string {
+    $partner = $id === 'me06-096' ? 'me06-097' : 'me06-096';
+    foreach (PokeObjects($player, 'Hand') as $index => $obj) {
+        if ($obj->CardID === $partner) return PokeRef($player, 'Hand', $index);
+    }
+    return '';
+}
+function PokePlayStadium(int $player, string $ref, string $partner = ''): void {
+    $refs = $partner === '' ? [$ref] : [$ref, $partner];
+    $cards = [];
+    foreach ($refs as $cardRef) {
+        $obj = GetZoneObject($cardRef);
+        $cards[] = $obj->CardID;
+        $obj->Remove();
+    }
+    sort($cards, SORT_STRING);
+    PokeDiscardStadium();
     $zone=&GetStadium(); $zone=[];
-    $stadium=new Stadium($id.' '.$player,'Stadium',0,0); $stadium->CardID=$id; $stadium->Controller=$player; $zone[]=$stadium;
+    foreach ($cards as $index => $id) $zone[] = new Stadium("$id $player", 'Stadium', 0, $index);
     PokeSetVar('stadiumPlayed:'.$player,GetTurnNumber());
+}
+function PokeConditionsProtected($obj): bool {
+    return $obj && !empty($obj->Energy) && (PokeStadium()->CardID ?? null) === 'sv06-149';
+}
+function PokeClearProtectedConditions($obj): void {
+    if (PokeConditionsProtected($obj)) $obj->Conditions = [];
 }
 function PokeToolTargets(int $player): string {
     return implode('&',array_filter(PokeFieldRefs($player),fn($ref)=>GetZoneObject($ref)->Tool==='-'));
@@ -74,6 +98,7 @@ function PokeMoveAttachedBasicEnergy(int $player, string $source, int $index, st
     $id=$from->Energy[$index] ?? null;
     if ($id === null || CardEnergyType($id) !== 'Normal') return;
     unset($from->Energy[$index]); $from->Energy=array_values($from->Energy); $to->Energy[]=$id;
+    PokeClearProtectedConditions($to);
 }
 function PokeDarknessBenchTargets(int $player): string {
     return implode('&', array_filter(explode('&', PokeCandidates($player,'Bench','pokemon')), fn($ref)=>$ref !== '' && in_array('Darkness', explode(',', EffectiveCardElement(GetZoneObject($ref))), true)));
@@ -83,7 +108,8 @@ function PokeAttachEnergyFromZone(int $player, string $source, string $target): 
     $energy=GetZoneObject($source); $pokemon=GetZoneObject($target);
     if (!$energy || $energy->Removed() || !$pokemon || $pokemon->Removed() || $pokemon->Controller !== $player || EffectiveCardType($energy) !== 'Energy') return;
     $id=$energy->CardID; $pokemon->Energy[]=$id; $energy->Remove();
-    EnergyAttached($player, $target, $id);
+    if ($energy->Location === 'Hand') EnergyAttached($player, $target, $id);
+    else PokeClearProtectedConditions($pokemon);
 }
 function PokeAttachEnergySelection(int $player, string $selection, string $target): void {
     foreach (explode('&', $selection) as $ref) if ($ref !== '' && $ref !== '-' && $ref !== 'PASS') PokeAttachEnergyFromZone($player, $ref, $target);

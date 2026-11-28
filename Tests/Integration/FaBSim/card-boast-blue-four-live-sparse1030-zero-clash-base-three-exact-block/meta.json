@@ -1,0 +1,7 @@
+{
+    "name": "Boast / four-live actual defense representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:36:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This gets +X{d} while defending, where X is twice the number of clashes you've won this turn. Namedzero-clashcontinuousdefensebranch. NaturalOldhim20ownsrealGuardianBlock5Hand; naturalDori20actualDawnblade6cost1paidBlue7/R2/AP0. Freshhistory/noClashactions meansHVYClashWins0; primary5alonelegallyHanddefendsatactualDEFEND_DECLARE4\u00e2\u2020\u2019physicalCC5RoleDEFENSE. Printedbase3+2*0=3 vsactualSword3 yields0Damage/noHit/HP20/AP0; noDori/Dawnbladehit. ActualBlock5ownedGY4, weapon6usedretained/Blue7Pitch, allfourmanual/queuesclear. NoCardplay/APcostforblocking, noGuardianreaction/Clash/positivebonus/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#boast_blue"
+}

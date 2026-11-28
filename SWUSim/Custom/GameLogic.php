@@ -25,6 +25,8 @@ include_once __DIR__ . '/SwuPgnViewerGame.php';  // read-only SWU-PGN replay vie
 include_once __DIR__ . '/SwuPgnWriter/_include.php';  // SWU-PGN writer (records PvP games; frame hooks below)
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
+include_once __DIR__ . '/AlwaysTwoVote.php';  // 4P Always Two: the partner vote (SWUVoteGate)
+include_once __DIR__ . '/TableLayout.php';     // the multiplayer table: which games get it, who sits where
 include_once __DIR__ . '/CardDQHandlers.php';
 include_once __DIR__ . '/LeaderAbilities.php';
 include_once __DIR__ . '/BaseAbilities.php';
@@ -6163,7 +6165,9 @@ function _SWUCheckConfidenceWin(): void {
     }
     // Two casters each alone in their own arena: both win conditions are met at the same timing point, so neither player
     // alone won — a draw (CR 6.3's "at the same time"; draws spec 2026-10-30). It used to go to seat 1, checked first.
-    if (count($winners) >= 2 && SeatCountForGame() <= 2) {
+    // Always Two: winners on BOTH teams at the same timing point = a draw; one team's = that team (SWUDeclareGameWinner below).
+    $a2BothTeams = SWUIsAlwaysTwo() && count(array_unique(array_map('SWUTeamOf', array_keys($winners)))) >= 2;
+    if (count($winners) >= 2 && ((!SWUTwinSunsRulesActive() && !SWUIsAlwaysTwo()) || $a2BothTeams)) {
         SWUDeclareGameDraw("GAMEOVER:Both players met Confidence in Victory! The game is a draw!", 'Confidence in Victory');
     } elseif (!empty($winners)) {
         SWUDeclareGameWinner(intval(array_key_first($winners)), null, 'Confidence in Victory');
@@ -6181,7 +6185,7 @@ function _SWUCheckFinalShowdownLose(): void {
         for ($i = count($ge) - 1; $i >= 0; $i--) {
             if ((string)($ge[$i]->CardID ?? '') !== 'SWU_SHD208_LOSE') continue;
             array_splice($ge, $i, 1);                 // one-shot
-            if (SeatCountForGame() > 2) {
+            if (SWUTwinSunsRulesActive()) {
                 // Twin Suns: the loser is eliminated (no damager → no heal); deferred most-HP
                 // scoring at the next phase boundary decides the winner among the survivors.
                 SWUEliminateSeat($p, null);
@@ -6191,6 +6195,13 @@ function _SWUCheckFinalShowdownLose(): void {
             }
         }
         unset($ge);
+    }
+    // Always Two: "you lose the game" loses for the whole TEAM (owner ruling 2026-11-20); boards of BOTH teams at once = a draw.
+    if (SWUIsAlwaysTwo() && !empty($losers)) {
+        $teams = array_unique(array_map('SWUTeamOf', array_keys($losers)));
+        if (count($teams) >= 2) SWUDeclareGameDraw("GAMEOVER:Both teams lose the game (Final Showdown)! The game is a draw!", 'Final Showdown');
+        else SWUAlwaysTwoTeamLoses(intval(array_key_first($losers)), 'Final Showdown');
+        return;
     }
     // Both players played one: both lose at the same timing point, which is a draw (CR 6.3's "at the same time").
     if (count($losers) === 2) {
@@ -7482,6 +7493,8 @@ function QueuePregameSetup($firstPlayer) {
 // $reason 'roll' = the coin-flip winner; 'loser' = the prior game's loser in a Bo3 game 2/3 or a rematch.
 // Twin Suns, and a plain forced first player (tests, self-play, goldfish), never ask.
 function QueueInitiativeChoice(int $chooser, string $reason = 'roll'): void {
+    // 4P Always Two: the roll goes to a TEAM — both teammates vote, blind and at once (AlwaysTwoTeamVote below).
+    if (SWUAlwaysTwoVoteOn()) { _SWUQueueAlwaysTwoTeamVote('initiative', $chooser, $reason, false); return; }
     $tip = $reason === 'loser' ? "You_lost_the_previous_game._Choose_whether_to_start_with_the_initiative"
                                : "You_won_the_initiative_roll._Choose_whether_to_start_with_the_initiative";
     DecisionQueueController::AddDecision($chooser, "OPTIONCHOOSE", "Go_first&Go_second", 5, tooltip:$tip);
@@ -7501,12 +7514,97 @@ $customDQHandlers["InitiativeChoice"] = function($player, $parts, $lastDecision)
     SetTurnPlayer($first);
     SetInitiativeCounter("P{$first}_UNCLAIMED");
     AddGameLogEntry('INITIATIVE', "P{$chooser} {$why} and chose to go " . ($first === $chooser ? 'first' : 'second'));
+    // Always Two: the team that ends up with the initiative picks WHICH of its boards holds it (owner ruling 2026-11-20). $first is that
+    // team's first board; its seat answers. (4P Always Two turns both prompts into blind team votes — plan Phase 5.)
+    if (SWUIsAlwaysTwo()) { _SWUQueueAlwaysTwoStartingBoard($first); return; }
     QueuePregameSetup($first);
 };
 
+// "Board_3_(Darth_Vader)" — the option label for a board, by its leader's title (letters, digits and spaces only, so the label survives
+// the option string's own '&' / '|' delimiters and the client's underscore-to-space rendering).
+function _SWUAlwaysTwoBoardLabel(int $board): string {
+    $leader = strval((GetLeader($board)[0] ?? null)->CardID ?? '');
+    $title  = $leader !== '' ? preg_replace('/[^A-Za-z0-9 ]/', '', strval(CardTitle($leader))) : '';
+    return 'Board_' . $board . ($title !== '' ? '_(' . str_replace(' ', '_', trim($title)) . ')' : '');
+}
+
+function _SWUQueueAlwaysTwoStartingBoard(int $teamBoard): void {
+    if (SWUAlwaysTwoVoteOn()) { _SWUQueueAlwaysTwoTeamVote('board', $teamBoard, '', false); return; }   // 4P: both teammates vote
+    $opts = implode('&', array_map('_SWUAlwaysTwoBoardLabel', SWUTeamBoards($teamBoard)));
+    DecisionQueueController::AddDecision($teamBoard, "OPTIONCHOOSE", $opts, 5, tooltip: "Choose_which_of_your_boards_starts_with_the_initiative");
+    DecisionQueueController::AddDecision($teamBoard, "CUSTOM", "AlwaysTwoStartingBoard|{$teamBoard}", 5, dontSkipOnPass:1);
+}
+
+$customDQHandlers["AlwaysTwoStartingBoard"] = function($player, $parts, $lastDecision) {
+    $teamBoard = isset($parts[0]) ? intval($parts[0]) : intval($player);
+    $board = preg_match('/^Board_(\d)/', strval($lastDecision), $m) ? intval($m[1]) : $teamBoard;
+    if (!in_array($board, SWUTeamBoards($teamBoard), true)) $board = $teamBoard;   // a declined / stale answer keeps the first board
+    SetFirstPlayer($board);
+    SetTurnPlayer($board);
+    SetInitiativeCounter("P{$board}_UNCLAIMED");
+    AddGameLogEntry('INITIATIVE', "P{$board} starts with the initiative");
+    QueuePregameSetup($board);
+};
+
+
+// ── 4P Always Two: the game-start team votes (spec "## 4P Always Two" → "Votes at game start") ─────────────────────────────────
+// Both boards of the team are asked the same question at once. Each answer is held server-side under a SWU_PRIVATE_ key (stripped from
+// every screen, so the vote stays blind) until the teammate's arrives: same answer → decided, exactly as the one-person choice decides it;
+// different → both are told they disagree and asked again, until they match. $kind 'initiative' = go first / second (the team that won
+// the roll); 'board' = which of the team's boards starts with the initiative (the team that goes first).
+function _SWUAlwaysTwoVoteKey(string $kind, int $board): string { return 'SWU_PRIVATE_A2_VOTE_' . $kind . '_' . $board; }
+
+function _SWUQueueAlwaysTwoTeamVote(string $kind, int $teamBoard, string $reason, bool $disagreed): void {
+    if ($kind === 'initiative') {
+        $opts = 'Go_first&Go_second';
+        $tip  = $disagreed ? 'Your_team_disagreed._Go_first_or_second?'
+                           : ($reason === 'loser' ? 'Your_team_lost_the_previous_game._Go_first_or_second?'
+                                                  : 'Your_team_won_the_initiative_roll._Go_first_or_second?');
+    } else {
+        $opts = implode('&', array_map('_SWUAlwaysTwoBoardLabel', SWUTeamBoards($teamBoard)));
+        $tip  = $disagreed ? 'Your_team_disagreed._Which_board_starts_with_the_initiative?'
+                           : 'Choose_which_of_your_boards_starts_with_the_initiative';
+    }
+    foreach (SWUTeamBoards($teamBoard) as $b) {
+        SetSWUVar(_SWUAlwaysTwoVoteKey($kind, intval($b)), '');
+        DecisionQueueController::AddDecision(intval($b), "OPTIONCHOOSE", $opts, 5, tooltip: $tip);
+        DecisionQueueController::AddDecision(intval($b), "CUSTOM", "AlwaysTwoTeamVote|{$kind}|{$teamBoard}|{$reason}", 5, dontSkipOnPass: 1);
+    }
+}
+
+$customDQHandlers["AlwaysTwoTeamVote"] = function($player, $parts, $lastDecision) {
+    global $customDQHandlers;
+    $kind = strval($parts[0] ?? 'initiative');
+    $teamBoard = intval($parts[1] ?? $player);
+    $reason = strval($parts[2] ?? 'roll');
+    // Normalise exactly as the one-person handlers read an answer: anything but Go_second is "first"; a board label names its board.
+    $norm = function ($a) use ($kind, $teamBoard) {
+        if ($kind === 'initiative') return strval($a) === 'Go_second' ? 'Go_second' : 'Go_first';
+        $b = preg_match('/^Board_(\d)/', strval($a), $m) ? intval($m[1]) : $teamBoard;
+        return in_array($b, SWUTeamBoards($teamBoard), true) ? 'Board_' . $b : 'Board_' . $teamBoard;
+    };
+    SetSWUVar(_SWUAlwaysTwoVoteKey($kind, intval($player)), $norm($lastDecision));
+    $answers = [];
+    foreach (SWUTeamBoards($teamBoard) as $b) $answers[intval($b)] = GetSWUVar(_SWUAlwaysTwoVoteKey($kind, intval($b)), '');
+    if (in_array('', $answers, true)) return;                                     // the teammate has not voted yet
+    foreach (array_keys($answers) as $b) SetSWUVar(_SWUAlwaysTwoVoteKey($kind, $b), '');
+    if (count(array_unique($answers)) > 1) {
+        SWULogSeats(array_keys($answers), 'VOTE', 'Your team disagreed — vote again.');
+        _SWUQueueAlwaysTwoTeamVote($kind, $teamBoard, $reason, true);
+        return;
+    }
+    $agreed = reset($answers);
+    if ($kind === 'initiative') $customDQHandlers['InitiativeChoice']($teamBoard, [$teamBoard, $reason], $agreed);
+    else $customDQHandlers['AlwaysTwoStartingBoard']($teamBoard, [$teamBoard], $agreed);
+};
 
 $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDecision) {
-    if ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    // A decline is logged too (owner request 2026-11-21) — the opponent sees the choice was made. Reaching this branch on a
+    // "PASS" answer needs the dontSkipOnPass flag _SWUQueueRegroupResource queues this handler with.
+    if ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' did not resource a card');
+        return;
+    }
     global $playerID;
     $savedPID = $playerID;
     $playerID = intval($player);
@@ -7522,6 +7620,24 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
     }
     $playerID = $savedPID;
     if ($newResource !== null && function_exists('_SWUIc27089OnResourced')) _SWUIc27089OnResourced(intval($player));   // IC27_089 Maz Kanata
+};
+
+// CR 5.4.c regroup resource step: ask $seats[0], then hand the rest to SWURegroupResourceNext, which runs after that
+// seat answers (dontSkipOnPass — a decline must still pass the step on).
+function _SWUQueueRegroupResource(array $seats): void {
+    if (empty($seats)) return;
+    $pl = intval(array_shift($seats));
+    DecisionQueueController::AddDecision($pl, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
+    DecisionQueueController::AddDecision($pl, "CUSTOM",      "SWUApplyRegroupResource", 1, dontSkipOnPass:1);   // logs a decline
+    if (!empty($seats)) DecisionQueueController::AddDecision($pl, "CUSTOM", "SWURegroupResourceNext|" . implode(',', $seats), 1, dontSkipOnPass:1);
+}
+
+$customDQHandlers["SWURegroupResourceNext"] = function($player, $parts, $lastDecision) {
+    // Seats eliminated meanwhile (Twin Suns) are dropped; the rest keep their clockwise order.
+    $live  = array_map('intval', GetLiveSeatsArray());
+    $seats = array_values(array_filter(array_map('intval', explode(',', strval($parts[0] ?? ''))),
+        fn($s) => $s > 0 && in_array($s, $live, true)));
+    _SWUQueueRegroupResource($seats);
 };
 
 // ── Phase handlers ──────────────────────────────────────────────────────────
@@ -7576,7 +7692,10 @@ function ResourcePhase() {
     // CR 5.4.c: starting with the active player (initiative holder), each player
     // may resource 1 card from hand. Player selects a card or declines with "-".
     // Twin Suns: go clockwise across EVERY live seat starting from the initiative holder (not just P1/P2).
+    // ⚠ The holder is read from the initiative counter, NOT GetFirstPlayer() — that is the seat that STARTED the
+    // game and never moves, so a round where the other player took the initiative started with the wrong seat.
     $firstPlayer = intval(GetFirstPlayer());
+    if (preg_match('/^P(\d+)_(?:CLAIMED|UNCLAIMED)$/', strval(GetInitiativeCounter()), $m)) $firstPlayer = intval($m[1]);
     $order = GetLiveSeatsArray();
     $startIdx = array_search($firstPlayer, $order, true);
     if ($startIdx === false) $startIdx = 0;
@@ -7592,12 +7711,12 @@ function ResourcePhase() {
             && (SWUGameMode() === 'goldfish'
                 || (function_exists('MatchReplayIsInterrupted') && MatchReplayIsInterrupted()));
     };
-    $queueResource = function($pl) use ($isPassiveSeat) {
-        if ($isPassiveSeat($pl)) return;
-        DecisionQueueController::AddDecision($pl, "MZMAYCHOOSE", "myHand", 1, tooltip:"Resource_up_to_1_card");
-        DecisionQueueController::AddDecision($pl, "CUSTOM",      "SWUApplyRegroupResource", 1);
-    };
-    foreach ($orderedSeats as $pl) $queueResource($pl);   // initiative holder first, then clockwise (CR 5.4.c)
+    $orderedSeats = array_values(array_filter($orderedSeats, fn($pl) => !$isPassiveSeat($pl)));
+    // SEQUENTIAL, not simultaneous (player report 2026-11-20, IBH Ima-Gun-Di): every seat has its OWN decision
+    // queue, so queueing all the prompts here put one in front of every player at once. Only the initiative
+    // holder is asked now; SWURegroupResourceNext asks the next seat once this one has answered. The seats still
+    // to ask ride in the queued param (not a global), so an Undo to the 'resource' snapshot below resumes the chain.
+    _SWUQueueRegroupResource($orderedSeats);
     // Undo boundary: snapshot AFTER the resource prompt is queued so a regular Undo from the action-phase
     // start lands here with the resource choice re-presented (re-pick your resource); it also floors Undo
     // Phase (the phase jump stops at the first action ABOVE this boundary).
@@ -9560,7 +9679,7 @@ function _SWUEliminationCleanup(int $seat): void {
 // kicked, P3 later took the Blast counter (which both ends the phase AND damages every other base),
 // and the game ended on the spot with P3 declared the winner.
 function SWUEliminateSeat(int $seat, ?int $killer = null, bool $administrative = false): void {
-    if (SeatCountForGame() <= 2) return;                 // Twin Suns only
+    if (!SWUTwinSunsRulesActive()) return;               // Twin Suns only — Always Two never eliminates a board
     $live = GetLiveSeatsArray();
     if (!in_array($seat, $live, true)) return;           // idempotent — already eliminated
     // 1. Remove from LiveSeats (SeatOrder is left intact for rotation math).
@@ -9658,7 +9777,7 @@ function _SWUTeamWipedOut(): array {
 // Deferred Twin Suns end-of-phase scoring (CR §12.7). No-op unless a prior elimination set
 // SWU_TS_GAME_ENDING. Highest remaining base HP among live seats wins; ties share the victory.
 function _SWUScoreTwinSunsEndOfPhase(): void {
-    if (SeatCountForGame() <= 2) return;
+    if (!SWUTwinSunsRulesActive()) return;   // Always Two has no end-of-phase base-HP scoring
     if (GetSWUVar('SWU_TS_GAME_ENDING') !== '1') return;
     if (SWUGetGameWinner() !== 0) return;                 // already scored / ended
     $live = GetLiveSeatsArray();
@@ -9767,6 +9886,9 @@ function _SWUShortTeamCover(int $seat): int {
 // Turns in one trip round the table: every live seat, plus each dead seat a survivor covers. The action phase ends after a pass
 // from every one of them (SWUPassAction) — three live seats with a covered fourth have FOUR turns.
 function SWUTurnSlotCount(): int {
+    // Always Two: the turn belongs to a TEAM, so a trip round the table is two turns — one pass from the team still acting (the
+    // other has claimed the initiative and auto-passes) ends the phase.
+    if (SWUIsAlwaysTwo()) return 2;
     $n = count(GetLiveSeatsArray());
     if (!SWUIsTeamGame()) return $n;
     foreach (GetSeatOrderArray() as $s) if (_SWUShortTeamCover(intval($s)) > 0) $n++;
@@ -10074,6 +10196,11 @@ function SWUDecodeDeckPick($lastDecision, int $caster): int {
 // SWU_COUNTER_TAKEN). Such a seat has "passed for the rest of the round" (CR §12.5.3 / initiative).
 function _SWUSeatTookCounterThisRound(int $seat): bool {
     if (GetInitiativeCounter() === "P{$seat}_CLAIMED") return true;
+    // Always Two: the initiative locks the whole TEAM — "if one teammate takes the initiative, neither player can take actions for
+    // the rest of the round" (spec 2026-11-20). The claim itself stays P{board}_CLAIMED, so card text keeps reading the board.
+    if (SWUIsAlwaysTwo()) {
+        foreach (SWUTeamBoards($seat) as $b) if (GetInitiativeCounter() === "P{$b}_CLAIMED") return true;
+    }
     $taken = GetSWUVar('SWU_COUNTER_TAKEN', '');
     return $taken !== '' && strpos($taken, strval($seat)) !== false;
 }
@@ -10092,10 +10219,24 @@ function SWUCounterRulesActive(): bool {
     return SeatCountForGame() > 2 || SWUIsDualingSuns();
 }
 
+// Are the Twin Suns-ONLY rules in play — Blast / Plan / the house-rule 4th counter, house rules, elimination and the eliminator's
+// heal, end-of-phase scoring? Every Twin Suns / Team Suns game, i.e. more than two seats — EXCEPT Always Two, which runs four boards
+// but plays Doubles over a Premier/Eternal game (spec 2026-11-20-swusim-always-two). Every gate that means "Twin Suns" rather
+// than "more than two boards" asks this; DevTools/tests/alwaystwo_seatcount_gates_test.php keeps the two apart.
+function SWUTwinSunsRulesActive(): bool {
+    return SeatCountForGame() > 2 && !SWUIsAlwaysTwo();
+}
+
+// Is the Plan counter there to take? Always Two has no Plan (initiative only). Read availability through this, never
+// GetPlanCounter() directly — the stored state still reads AVAILABLE (round reset and fixtures untouched), as with the Blast.
+function SWUPlanCounterAvailable(): bool {
+    return GetPlanCounter() === 'AVAILABLE' && !SWUIsAlwaysTwo();
+}
+
 // Is the Blast counter there to take? Dualing Suns has no Blast. The stored state still reads AVAILABLE (the round reset
 // and fixtures are untouched), so every read of availability goes through this rather than GetBlastCounter().
 function SWUBlastCounterAvailable(): bool {
-    return GetBlastCounter() === 'AVAILABLE' && !SWUIsDualingSuns();
+    return GetBlastCounter() === 'AVAILABLE' && !SWUIsDualingSuns() && !SWUIsAlwaysTwo();   // Always Two: initiative only
 }
 
 // Dualing Suns: what taking the initiative costs $player — 1 damage to their own base when the OPPONENT holds it (a steal),
@@ -10111,7 +10252,7 @@ function SWUInitiativeTollFor(int $player): int {
 function _SWUAnyCounterAvailable(): bool {
     if (!SWUCounterRulesActive()) return false;
     if (str_ends_with((string)GetInitiativeCounter(), '_UNCLAIMED')) return true;
-    return SWUBlastCounterAvailable() || GetPlanCounter() === 'AVAILABLE' || SWUFourthCounterState() === 'AVAILABLE';
+    return SWUBlastCounterAvailable() || SWUPlanCounterAvailable() || SWUFourthCounterState() === 'AVAILABLE';
 }
 
 // May $seat choose the PASS action right now? (CR §12.6.1.a)
@@ -10491,7 +10632,7 @@ function SWUTakeCounter(int $player, string $which): void {
         // Blast: deal 1 damage to each opponent's base.
         SWUSimultaneousBaseDamage(function () use ($player) { foreach (OpponentsOf($player) as $opp) SWUDealDamageToBase(1, $opp); });
     } elseif ($which === 'plan') {
-        if (GetPlanCounter() !== 'AVAILABLE') { SetFlashMessage("The plan counter has already been taken."); return; }
+        if (!SWUPlanCounterAvailable()) { SetFlashMessage("The plan counter has already been taken."); return; }   // or the game has none (Always Two)
         SetPlanCounter("P{$player}");
         // Twin Suns house rule "Plan Scry": look at the top N and put each on the top or bottom — nothing is drawn.
         $planScry = SWUHouseRule('planScry');
@@ -10561,7 +10702,7 @@ function SWUTakeCounter(int $player, string $which): void {
 // Twin Suns house rules: which 4th counter this game has — 'credit', 'restore', or '' (neither rule; no 4th counter).
 // The waiting room never lets both be active; Credit wins if a hand-built game ever sets both.
 function SWUFourthCounterKind(): string {
-    if (SeatCountForGame() <= 2) return '';
+    if (!SWUTwinSunsRulesActive()) return '';
     if (SWUHouseRule('takeCredit') !== null) return 'credit';
     if (SWUHouseRule('takeRestore') !== null) return 'restore';
     return '';
@@ -12286,6 +12427,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'SOR_150': HeroicSacrificeDefeatTrigger($player, $mzID); break;
         case 'LAW_205': HeroicSacrificeDefeatTrigger($player, $mzID); break;   // Flash the Vents self-defeat
         case 'ASH_184': Ash184GiveAdvTrigger($player); break;   // Follow Me — give 3 Advantage tokens to a unit
+        case 'HMW_035_NEXT': _SWUHmw035AfterAttack(intval($player)); break;   // Hunter — the second mode, once the first (an attack) completed
         case 'IC27_007': Ic27007OfferReadyResource($player); break;   // Asajj Ventress — the surviving attacker's "may ready a resource"
         case 'LAW_033': Law033Trigger($player, $mzID); break;   // Hound's Tooth — may defeat a lower-power unit
         case 'LAW_034': Law034Trigger($player, $mzID); break;   // Chewbacca — Exp + heal 3 self
@@ -20251,11 +20393,9 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         $savedPidF = $playerID;
         $playerID  = $player;
         $readyF    = false;
-        foreach (['myGroundArena', 'mySpaceArena'] as $zF) {
-            foreach (ZoneSearch($zF, AnyUnitFilter) as $mzF) {
-                $oF = GetZoneObject($mzF);
-                if ($oF !== null && empty($oF->removed) && intval($oF->Status ?? 0) === 1) { $readyF = true; break 2; }
-            }
+        foreach (SWUCostUnits() as $mzF) {   // own board; Always Two: the team's (the cost's own pool)
+            $oF = GetZoneObject($mzF);
+            if ($oF !== null && empty($oF->removed) && intval($oF->Status ?? 0) === 1) { $readyF = true; break; }
         }
         $playerID = $savedPidF;
         if (!$readyF) return false;
@@ -20402,7 +20542,7 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
     // LAW_008 Director Krennic (front) — needs a friendly unit to defeat (the cost).
     if ($cardID === 'LAW_008') {
         $savedPID = $playerID; $playerID = $player;
-        $ok = !empty(ZoneSearch('myGroundArena', AnyUnitFilter)) || !empty(ZoneSearch('mySpaceArena', AnyUnitFilter));
+        $ok = !empty(SWUCostUnits());   // own board; Always Two: the team's (the cost's own pool)
         $playerID = $savedPID;
         if (!$ok) return false;
     }
@@ -20548,9 +20688,11 @@ function _SWUBaseActionProviders(int $player): array {
             // Repeatable card-cost Action (LOF_028 Tomb of Eilram): available iff the cost can be paid,
             // i.e. the player has a ready friendly unit to exhaust.
             $available = false;
-            foreach (array_merge(GetGroundArena($player), GetSpaceArena($player)) as $ru) {
-                if (SWUObjGone($ru)) continue;
-                if (intval($ru->Status ?? 0) === 1) { $available = true; break; }
+            foreach (SWUCostBoards($player) as $cb) {   // own board; Always Two: the team's
+                foreach (array_merge(GetGroundArena($cb), GetSpaceArena($cb)) as $ru) {
+                    if (SWUObjGone($ru)) continue;
+                    if (intval($ru->Status ?? 0) === 1) { $available = true; break 2; }
+                }
             }
         } elseif (isset($baseActionNumUses[$cardID])) {
             $available = _SWUBaseActionUsesLeft($base, $cardID) > 0; // per-GAME budget
@@ -22592,10 +22734,13 @@ function SWUComputeActionsData(int $player): array {
     global $baseAbilities, $baseActionNumUses, $baseActionRepeatable;
 
     $isMain   = (GetCurrentPhase() === 'MAIN');
-    $isMyTurn = (intval(GetTurnPlayer()) === $player);
+    // Always Two: the turn belongs to the TEAM, so either board of it is offered its actions (SWUMayTakeTurnAction — the same
+    // predicate the input gates use). Everywhere else this is exactly "is the turn player".
+    $isMyTurn = SWUMayTakeTurnAction($player);
     $dq       = new DecisionQueueController();
     $dqEmpty  = $dq->AllQueuesEmpty();
-    $active   = $isMain && $isMyTurn && $dqEmpty;
+    // Idle = no decision pending AND no effect still resolving (owner, 2026-11-21): the board offers nothing in between effects.
+    $active   = $isMain && $isMyTurn && $dqEmpty && SWUActionsIdle();
 
     $data = [
         'leaderAbility'       => false,
@@ -22630,7 +22775,7 @@ function SWUComputeActionsData(int $player): array {
         $tookCounter = _SWUSeatTookCounterThisRound($player);
         $data['counterTaken']   = $tookCounter;
         $data['blastAvailable'] = !$tookCounter && SWUBlastCounterAvailable();
-        $data['planAvailable']  = !$tookCounter && (GetPlanCounter() === 'AVAILABLE');
+        $data['planAvailable']  = !$tookCounter && SWUPlanCounterAvailable();
         // Twin Suns house rules: the 4th counter ('credit' | 'restore' | '' = none) and the Restore amount for its label.
         $data['fourthKind']      = SWUFourthCounterKind();
         $data['fourthAvailable'] = !$tookCounter && SWUFourthCounterState() === 'AVAILABLE';
@@ -23352,6 +23497,9 @@ function SWUUndoNeedsConsent(int $requesterSeat, int $targetOrdinal, string $kin
 }
 
 function SWUDoUndo(int $playerID, string $kind = 'step', string $rootName = '', string $gameName = ''): void {
+    // 4P Always Two: Undo while the team's proposal waits for the partner WITHDRAWS it — the proposal took no undo point, so a snapshot
+    // undo would rewind the previous action instead (possibly the other team's). SWUSim/Custom/AlwaysTwoVote.php.
+    if (function_exists('SWUVoteWithdrawOnUndo') && SWUVoteWithdrawOnUndo(intval($playerID))) return;
     $target = SWUComputeUndoTarget($kind, intval($playerID));
     if (!SWUUndoNeedsConsent($playerID, $target, $kind, $rootName, $gameName)) {
         $blocked = _SWUCaptureUndoBlocks();
@@ -23705,6 +23853,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
     $cardZone = $cardArr[0];
     $cardIndex = $cardArr[1];
 
+    // 4P Always Two: while the team's proposal waits for the partner, either teammate's click is refused — SAID, before the silent
+    // "decisions pending" return below (the partner's prompt is one of those decisions).
+    if (!$allowDuringDecisionQueue && SWUVoteRefuseIfPending(intval($playerID))) return "";
     // Block all FSM actions while any player has pending DQ decisions
     // (Opportunity windows, ability choices, combat decisions, etc.)
     $dqController = new DecisionQueueController();
@@ -23721,11 +23872,14 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
-            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
-                // Turn player can play any card during their main phase
+            if($currentPhase == "MAIN" && SWUMayTakeTurnAction(intval($playerID))) {
+                // Turn player can play any card during their main phase (Always Two: either board of the turn team)
                 $handObj = GetZoneObject($actionCard);
                 if($handObj !== null && !CanActivateAttackCardNow($playerID, $handObj->CardID, true)) break;
                 if(function_exists("CanActivateCard") && !CanActivateCard($playerID, $actionCard, false)) break;
+                if (SWURefuseUnlessIdle()) return "";                                       // never while effects resolve
+                if (SWUVoteGate(intval($playerID), 'map', $actionCard)) return "PROPOSED";   // 4P Always Two: the partner accepts first
+                SWUClaimTeamTurn(intval($playerID));
                 SaveUndoVersion($playerID);
                 SWUBeginPlayCard($playerID, $actionCard);
                 return "PLAY";
@@ -23733,7 +23887,7 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             break;
         case "myGroundArena":
         case "mySpaceArena":
-            if ($currentPhase !== "MAIN" || $playerID != $turnPlayer) break;
+            if ($currentPhase !== "MAIN" || !SWUMayTakeTurnAction(intval($playerID))) break;
             if (!$dqController->AllQueuesEmpty()) break;
             $obj = GetZoneObject($actionCard);
             if ($obj === null || (isset($obj->removed) && $obj->removed)) break;
@@ -23741,6 +23895,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 SetFlashMessage("That unit is exhausted.");
                 break;
             }
+            if (SWURefuseUnlessIdle()) break;                                           // never while effects resolve
+            if (SWUVoteGate(intval($playerID), 'map', $actionCard)) return "PROPOSED";   // 4P Always Two: the partner accepts first
+            SWUClaimTeamTurn(intval($playerID));
             SaveUndoVersion($playerID);
             BeginSWUAttack($playerID, $actionCard);
             return "ATTACK";
@@ -25677,7 +25834,17 @@ function MoveEffectStackCardToField($player, $mzCard) {
 // $killer is null on purpose: a concession has no damager, so nobody heals 5.
 function TriggerGameOver($loserPlayer) {
     $loser = intval($loserPlayer);
-    if (SeatCountForGame() > 2) {
+    // Always Two: one teammate conceding (or leaving) concedes the game for the whole team (owner ruling 2026-11-20).
+    if (SWUIsAlwaysTwo()) {
+        AddGameLogEntry('CONCEDE', "P{$loser} conceded", 'ALL');
+        if (DecisionQueueController::GetVariable('GAMEOVER_WINNER') === null
+            && DecisionQueueController::GetVariable('GAMEOVER_REASON') === null) {
+            DecisionQueueController::StoreVariable('GAMEOVER_REASON', 'concede');
+        }
+        SWUAlwaysTwoTeamLoses($loser, "P{$loser} conceded");
+        return;
+    }
+    if (SWUTwinSunsRulesActive()) {
         // Game log: the concession, then SWUEliminateSeat's own "has been eliminated" line.
         // $administrative: a concession must not count toward the Twin Suns win condition either
         // (owner ruling 2026-09-26, alongside the inactivity kick). Otherwise conceding is a way to
@@ -25711,6 +25878,8 @@ function TriggerGameOver($loserPlayer) {
 function SWUDeclareGameWinner($winner, $flashMessage = null, string $logReason = '') {
     global $gWinner;
     if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // already decided
+    // Always Two: a board never wins alone — "you win the game" wins for its team (as Final Showdown's "you lose" loses for it).
+    if (SWUIsAlwaysTwo() && intval($winner) > 0) { SWUAlwaysTwoTeamWins(intval($winner), $logReason !== '' ? $logReason : 'win'); return; }
     $w = intval($winner);
     if ($w < 1 || $w > SeatCountForGame()) return;
     $gWinner = $w;
@@ -25791,7 +25960,8 @@ function SWUDeclareGameDraw(?string $flashMessage = null, string $logReason = ''
 // than one seat, and the others still have no attributable eliminator.
 function SWUCheckBaseDefeatState(array $killerBySeat = []) {
     if (SWUGetGameWinner() !== 0) return; // already decided
-    $twin = SeatCountForGame() > 2;
+    if (SWUIsAlwaysTwo()) { SWUAlwaysTwoCheckTeamDefeat(); return; }   // nobody is eliminated; a team falls with both bases
+    $twin = SWUTwinSunsRulesActive();   // Always Two returned above
     if (!$twin) {
         // CR 6.3: both bases at 0 remaining HP at the same time is a DRAW. Collect every lethal base before
         // deciding — returning on the first one found made the result depend on which seat the loop visited first.
@@ -25883,7 +26053,7 @@ function SWUInSimultaneousBaseDamage(): bool {
 function SWUBaseMaxHp($baseCardID): int {
     $hp = intval(CardHp((string)$baseCardID));
     // House rules are Twin Suns-only: two seats never read the variable — Premier pays nothing on its hot paths.
-    if ($hp <= 0 || SeatCountForGame() <= 2) return $hp;
+    if ($hp <= 0 || !SWUTwinSunsRulesActive()) return $hp;
     return $hp + (SWUHouseRule('extraBaseHp') ?? 0);
 }
 
@@ -27875,15 +28045,19 @@ function SelectionMetadata($obj) {
     // ONLY, so a decision pending on seat 3 or 4 was invisible and the hand lit up green for a play the
     // server would then refuse. Reported on game 3608: JTL_237 TIE Bomber deals indirect damage to the
     // defending player, and while that far seat assigned it the attacker's hand glowed as playable.
-    if (!(new DecisionQueueController())->AllQueuesEmpty()) {
+    // …and nothing glows while an effect is still resolving either (owner, 2026-11-21): SWUActionsIdle = the queues above AND the effect
+    // stack — the same idle rule every main action obeys (SWURefuseUnlessIdle).
+    if (!SWUActionsIdle()) {
         return json_encode(['highlight' => false]);
     }
 
-    // Only highlight cards belonging to the turn player
+    // Only highlight cards belonging to the turn player — in Always Two, to a board of the turn TEAM that may act
+    // (SWUMayTakeTurnAction; everywhere else exactly "owner is the turn player"), judged for that board.
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
-    if ($owner === null || intval($owner) !== intval($turnPlayer)) {
+    if ($owner === null || !SWUMayTakeTurnAction(intval($owner))) {
         return json_encode(['highlight' => false]);
     }
+    if (intval($owner) !== intval($turnPlayer)) { $teamBoard = intval($owner); $turnPlayer = &$teamBoard; }
 
     if (isset($obj->Status) && $obj->Status != 2) { // Not ready
         if(!CanActExhausted($obj)) {
@@ -29205,6 +29379,38 @@ function SWUIsTeamGame(): bool {
     return GlobalEffectCount(1, 'SWU_MODE_TEAMS') > 0;
 }
 
+// ─── Always Two (Doubles) — docs/superpowers/specs/2026-11-20-swusim-always-two-design.md ──────────────────────────
+// Always a FOUR-BOARD team game (SWU_MODE_TEAMS is set too, so every Team Suns pool / enemy gate / opponent picker applies), plus
+// the Doubles rules: one action per TEAM turn, the initiative locks both boards of a team, no strategic pass before it is claimed,
+// a base at 0 HP stays in, the team loses when both its bases are at 0, shared Sentinels. Never-cleared flags on seat 1, set by
+// CreateGame from the format's 'alwaysTwo' mode (and by the WithAlwaysTwo fixture directive). Every helper is false elsewhere.
+function SWUIsAlwaysTwo(): bool {
+    return GlobalEffectCount(1, 'SWU_MODE_ALWAYSTWO') > 0;
+}
+// 1v1 Always Two: one SEAT (person) plays two BOARDS — seat 1 boards 1+3, seat 2 boards 2+4.
+function SWUAlwaysTwoSharedSeat(): bool {
+    return GlobalEffectCount(1, 'SWU_ALWAYSTWO_SHARED_SEAT') > 0;
+}
+// 4P Always Two: one board per person, and every main action needs the partner's Accept.
+function SWUAlwaysTwoVoteOn(): bool {
+    return GlobalEffectCount(1, 'SWU_ALWAYSTWO_VOTE') > 0;
+}
+
+// ── SEAT (a person: login, auth key, clock, concede) vs BOARD (leader + base + deck = the engine's player number) ──────────────
+// Every game but 1v1 Always Two has one board per seat, so these are identities there. In 1v1 Always Two seat 1 plays boards 1+3 and
+// seat 2 plays boards 2+4 (CreateGame loads each seat's second deck onto board seat+2; their auth keys match — Core/GameAuth.php).
+function SWUBoardsOfSeat(int $seat): array {
+    return SWUAlwaysTwoSharedSeat() && $seat >= 1 && $seat <= 2 ? [$seat, $seat + 2] : [$seat];
+}
+function SWUSeatOfBoard(int $board): int {
+    return SWUAlwaysTwoSharedSeat() && $board > 2 ? $board - 2 : $board;
+}
+// May the person at $viewerSeat see / act for $board as their own? $viewerSeat may be either board number of a 1v1 Always Two seat
+// (the table's two halves view as board seat and board seat+2 — SWUSim/AlwaysTwoTable.php), so it is mapped to its seat first.
+function SWUViewerControlsBoard(int $viewerSeat, int $board): bool {
+    return $viewerSeat >= 1 && in_array($board, SWUBoardsOfSeat(SWUSeatOfBoard($viewerSeat)), true);
+}
+
 function SWUTeamOf(int $seat): int {
     if (!SWUIsTeamGame()) return $seat;      // no teams -> everyone is their own team
     return $seat % 2;                        // 1,3 -> 1 (Red);  2,4 -> 0 (Blue)
@@ -29227,6 +29433,97 @@ function SWUTeamOf(int $seat): int {
 function SWUIsEnemySeat(int $actor, int $seat): bool {
     if ($actor <= 0 || $seat <= 0 || $actor === $seat) return false;
     return SWUTeamOf($actor) !== SWUTeamOf($seat);
+}
+
+// Always Two: $board and its live teammates, ascending (Red [1,3], Blue [2,4]). Outside a team game, just [$board].
+function SWUTeamBoards(int $board): array {
+    $out = array_merge([$board], array_map('intval', SWUTeammatesOf($board)));
+    sort($out);
+    return $out;
+}
+
+// May $board take THIS turn's action (play, attack, ability, deploy, initiative, pass)? The turn player always may. In Always Two
+// the turn belongs to a TEAM ("your team gets 1 action per turn, taken by either teammate" — spec 2026-11-20), so the turn player's
+// live teammate may too — but only while no action is in flight (nothing queued, nothing on the effect stack): once a board has
+// started the team's action, its teammate cannot start a second one inside it. Pure — the claim is SWUClaimTeamTurn, made by
+// the caller just before it opens the action, so a refused action never moves the turn. Outside Always Two this is exactly
+// "is the turn player", the check every caller made before.
+// Is the game idle — no effect still resolving (the effect stack) and no decision pending anywhere? A main action may only be taken
+// (and, in 4P Always Two, proposed) then: triggered effects finish before the next action (owner, 2026-11-21 — the same rule the Pass
+// button already enforces, CustomInput.php "Cannot pass while effects are pending.").
+function SWUActionsIdle(): bool {
+    foreach (GetEffectStack() as $e) if (empty($e->removed)) return false;
+    return (new DecisionQueueController())->AllQueuesEmpty();
+}
+// Refuse a main action while effects resolve — SAID, so a stale click is not silently dropped. True = refused (the caller stops).
+function SWURefuseUnlessIdle(): bool {
+    if (SWUActionsIdle()) return false;
+    SetFlashMessage('Cannot act while effects are pending.');
+    return true;
+}
+
+function SWUMayTakeTurnAction(int $board): bool {
+    $turn = intval(GetTurnPlayer());
+    if ($board === $turn) return true;
+    if (!SWUIsAlwaysTwo() || $board <= 0 || !IsSeatLive($board)) return false;
+    if (SWUTeamOf($board) !== SWUTeamOf($turn)) return false;
+    if (!(new DecisionQueueController())->AllQueuesEmpty()) return false;
+    foreach (GetEffectStack() as $e) if (empty($e->removed)) return false;
+    return true;
+}
+
+// Always Two: $board takes its team's turn — it becomes the turn player, so the action resolves as its own ("you" = $board) and the
+// turn passes to the other team from here. A no-op when $board already holds it, and outside Always Two.
+function SWUClaimTeamTurn(int $board): void {
+    if (!SWUIsAlwaysTwo() || intval(GetTurnPlayer()) === $board) return;
+    // Only a board that may take this turn — some input paths claim without a turn gate in front (PlayFromDiscard /
+    // PlayFromOpponentDiscard), and an enemy board must never be handed the other team's turn (final review 2026-11-20).
+    if (!SWUMayTakeTurnAction($board)) return;
+    SetTurnPlayer($board);
+}
+
+// ─── Always Two endings: a TEAM wins or loses, never one board (spec 2026-11-20, owner rulings) ────────────────────────────
+// No board is ever eliminated — a base at 0 HP stays in play and its board keeps acting — so every ending is decided here.
+// "Team Red" = the team of board 1.
+function _SWUAlwaysTwoTeamName(int $board): string {
+    return SWUTeamOf($board) === SWUTeamOf(1) ? 'Red' : 'Blue';
+}
+
+// The team of $board wins the game (both its boards are the winner set). $reason closes the log line and the overlay.
+function SWUAlwaysTwoTeamWins(int $board, string $reason): void {
+    if (SWUGetGameWinner() !== 0) return;
+    // 4P Always Two: no partner prompt may outlive the game — every Always Two ending passes here (a late Accept would play into it).
+    if (function_exists('SWUVoteWithdraw')) { SWUVoteWithdraw(0); SWUVoteWithdraw(1); }
+    $winners = array_values(array_filter(array_map('intval', GetSeatOrderArray()), fn($s) => SWUTeamOf($s) === SWUTeamOf($board)));
+    $GLOBALS['SWU_PGN_END_REASON'] = $reason;
+    SWUDeclareTwinSunsWinners($winners, "GAMEOVER:Team " . _SWUAlwaysTwoTeamName($board) . " wins! ({$reason})");
+}
+
+// The team of $board loses: the other team wins.
+function SWUAlwaysTwoTeamLoses(int $board, string $reason): void {
+    foreach (GetSeatOrderArray() as $s) {
+        if (SWUTeamOf(intval($s)) !== SWUTeamOf($board)) { SWUAlwaysTwoTeamWins(intval($s), $reason); return; }
+    }
+}
+
+// A team whose EVERY base is at 0 remaining HP loses; both teams at once is a draw (CR 6.3). One base at 0 decides nothing.
+function SWUAlwaysTwoCheckTeamDefeat(): void {
+    if (SWUGetGameWinner() !== 0) return;
+    $allDown = [];
+    $aBoard  = [];
+    foreach (GetSeatOrderArray() as $s) {
+        $s = intval($s);
+        $t = SWUTeamOf($s);
+        $allDown[$t] = ($allDown[$t] ?? true) && SWUBaseIsLethal($s);
+        $aBoard[$t]  = $aBoard[$t] ?? $s;
+    }
+    $lost = array_keys(array_filter($allDown));
+    if (count($lost) >= 2) {
+        SWUDeclareGameDraw("GAMEOVER:Every base was defeated at once — the game is a draw!", 'every base was defeated');
+    } elseif (count($lost) === 1) {
+        $b = $aBoard[$lost[0]];
+        SWUAlwaysTwoTeamLoses($b, "both Team " . _SWUAlwaysTwoTeamName($b) . " bases were defeated");
+    }
 }
 
 function SWUTeammatesOf(int $player): array {

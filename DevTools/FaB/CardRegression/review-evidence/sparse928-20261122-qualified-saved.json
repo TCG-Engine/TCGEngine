@@ -1,0 +1,149 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse928-20261122.json",
+  "source_spec_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+  "input_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-miraging-metamorph-red-four-live-sparse928-actual-unblocked-seven-without-phantasm-destruction-copy",
+      "card_id": "miraging_metamorph_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a1486864f3234bde96855d5ec62af4e92fa0f27355de9d037ece6852d44449b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2b4188bfd24d1934e319a05e2aebe7385cd687ed7d85cbc9d63701c234d3a92b",
+        "expected_final_gamestate.txt": "e9c2add5afe44e62a8ca4a365c54dd1d071854ff2b8565bd137d9f4c7f135528",
+        "meta.json": "1939130cf2bae357a5f922ebeb041e395821068d73e3a6fe5fc0290abc5f6669"
+      },
+      "fixture_sha256": "789b432fc56e1aa6fad295e57fb488684cb966085ed8f77a9384504053e56fba",
+      "actions": 28,
+      "native_assertions": 145,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse928-20261122.json",
+      "input_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-miraging-metamorph-red-four-live-sparse928-actual-unblocked-seven-without-phantasm-destruction-copy",
+        "fixture_slug": "card-miraging-metamorph-red-four-live-sparse928-actual-unblocked-seven-without-phantasm-destruction-copy",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+      "card_id": "bloodfrenzy_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b61e6f1412e2cf08ebf33469b2da1b069e12732e7b343ac1bb92ca834b1c0f68",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6cf60bb204fcf8fbc89d100e4b36fdb3d9562461ea78a5a48601e397c8318b7e",
+        "expected_final_gamestate.txt": "9c745f44783cfeb5a84ede6360570672f270adc1c89a6685012498c81cde423d",
+        "meta.json": "7c3f4eb0a90c4188db3bbfbc67860ffdc113f77b7c59e62b52bc1928ad76a9b4"
+      },
+      "fixture_sha256": "6dea8cdfca3fbdf8e2046a4a9241add28fed83f84f8a7ace8c7b7826f8a162e6",
+      "actions": 28,
+      "native_assertions": 145,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse928-20261122.json",
+      "input_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+        "fixture_slug": "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+      "card_id": "demonbound_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "29071eec323e224f1af58ae58376a77bbdda16de065a96b17c1d9a35e398782f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "b1764e6ba8ff9bd58c933b815ba9c1972cf859669577a747ab632b9c28d294e8",
+        "expected_final_gamestate.txt": "e1f690f10fbb41f97066a9d2c203689b3e44f337b310474718d7d6233f14048b",
+        "meta.json": "44a1c768560bb02ab01669c3891aea3637a5623c1a7bc609101f942cea2b03ab"
+      },
+      "fixture_sha256": "740c780538998ec3a462c7d465886a80174a88f910b3fca247cb763aa22080ee",
+      "actions": 27,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse928-20261122.json",
+      "input_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+        "fixture_slug": "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+      "card_id": "mutated_mass_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e84a9cc79b81bebe4c2f16f53622b023014b83220eb521887af5c4d4f3eea76",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e92142e8737987f91c55a4d9fe9804de332a6056bb75e6aef51dfdb5c70c81a6",
+        "expected_final_gamestate.txt": "5cad8f8adb78d09a707b55781d3c3a7133def90f51b6b0993a5dd970ac29aa71",
+        "meta.json": "ecf886f665d79cab68724192d17370773907186891e6140838e59270a5924c0b"
+      },
+      "fixture_sha256": "47701ee16b122d52012107611d563bd5bc509b0d51e521992eb7a7f68d936a3c",
+      "actions": 28,
+      "native_assertions": 145,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse928-20261122.json",
+      "input_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+        "fixture_slug": "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "20fe437a1f1bbf224d8cb538b167657139dac7abf263c02c4bb1a1da6ad1a47b",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Four legal natural20 main attacks: Illusionist Miraging Metamorph uses Prism; Shadow Runeblade Gloomblades and Shadow generic Mutated Mass use Chane. ActualHand5/adjacentHero4 before assets/physicalBlue6 for cost1/four-live manual combat/source5GY transport retained.",
+      "Miraging Metamorph printed1/base7 has no six-power defender and is not destroyed by normal chain closure. EVRCards322-325 routes its aura-copy ability only on Destroyed; no event or earned destruction layer occurs here. Real7damage/R2/AP0 is correct.",
+      "Usurp is not disabled merely by Hand origin. Both Gloomblade Prepare macros inspect FaBIARRunechants across all seats. All four Arenas are explicitly empty, so refs are empty, no MZCHOOSE is queued, and FaBIARUsurp with dash reference returnsfalse before destruction/+2. This is a no-Runechant branch only; no positive Usurp/effect-cost timing is certified.",
+      "Bloodfrenzy printed base3 deals actual3 to defendingHero4. DoDamage2427 records IARDAMAGE4 before later resolution; IARCards284 checks that live history for static go again. Therefore AP0 through DAMAGE and AP1 at RESOLUTION/final follows from actual damage without preseeded history or a new triggered ability.",
+      "Mutated Mass printed property-static power equals twice the count of distinct costs in actualPitch. Actual CriticalStrikeBlue UID6 has printedcost1, not0; one card yields one distinct cost, hence power2. MONCards267 computes that count and GameLogic2158 uses it as attack base, independent of separate defense helper. Actual2HP damage/R2/AP0 and same source inGY pin attack outcome; defense is untested.",
+      "Demonbound printed0/base3 has no Usurp candidate, no other gain or go again, so real3damage/AP0/R0 is correct. Blood Debt end phase is not reached. All named branches have real physical outcomes and no missing unconditional WHEN event."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Existing positive-Usurp selected-cost ordering concern remains held; this packet does not resolve, retest or substantiate that cost seam. Positive Usurp/Banish permission/BloodDebt/destruction copy, star-defense/multiple-costs, supporting identities, siblings and whole-card behavior receive no credit.",
+      "Original three ordinary Hit-banish cards remain preserved source-only/unrun and excluded; no hit-window repair or new native defect claim."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse928-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d6ed0581904e0f3275e4e699b2868dbc824a475c4529870755b1fa2151faef93"
+  },
+  "full_suite_run": false
+}

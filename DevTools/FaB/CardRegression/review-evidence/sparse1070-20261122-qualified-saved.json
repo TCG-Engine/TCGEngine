@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent source-spec review of breadth_review-authored1070",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1070-20261122.json",
+  "source_spec_sha256": "8777bf6b23faa9961279f08ecb9caf91c4e4347ac2d3e329b7eca8ee1934b80b",
+  "input_sha256": "8777bf6b23faa9961279f08ecb9caf91c4e4347ac2d3e329b7eca8ee1934b80b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-reinforce-steel-red-four-live-sparse1070-actual-red-guardian-offhand-selection-removes-one-existing-minus-defense-counter",
+      "card_id": "reinforce_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7c5312cb7cdacc2047baf32774e596968b6914453062e2d87de8da9b84dfc4bf",
+        "actions.json": "1dba6bce7886075fef763316c563ee31d8aa590647c36cc94aa1a4513c77f4bc",
+        "assertions.json": "b6425647c67b711b9aa9e0504b2ac7c8d62839cce57eaba39f23ddcd39ebe3b8",
+        "expected_final_gamestate.txt": "76f564a4890464a9bd04841e7d9fb2e0c7ccd97397b18cebf018ab246d502adb",
+        "meta.json": "348eb99c7f131697ddfea762169ce8b3801a6d4d4234d1f4e4808137a9562f69"
+      },
+      "fixture_sha256": "54cda72fde5d6112dc104f96691f1b190fb9c4be3dcab469dc97338762a1366e",
+      "actions": 7,
+      "native_assertions": 231,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1070-20261122.json",
+      "input_sha256": "8777bf6b23faa9961279f08ecb9caf91c4e4347ac2d3e329b7eca8ee1934b80b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1070-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-reinforce-steel-red-four-live-sparse1070-actual-red-guardian-offhand-selection-removes-one-existing-minus-defense-counter",
+        "fixture_slug": "card-reinforce-steel-red-four-live-sparse1070-actual-red-guardian-offhand-selection-removes-one-existing-minus-defense-counter",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "8777bf6b23faa9961279f08ecb9caf91c4e4347ac2d3e329b7eca8ee1934b80b",
+    "reviewer": "Root independent source-spec review of breadth_review-authored1070",
+    "basis": [
+      "Verified printedRed2/noGA, removes1counter from Guardianownedoffhand withbaseDEF<=3, noTarget declaration. ActualOldhim20/Seasoned7base3/DEFENSE2 satisfies currentDYNEquipment REPAIR3; DYNCounter subtracts positive1. Setup represents legitimate prior-equipped/worn state with no equip-trigger credit.",
+      "Full7input nativecost/response/choice sequence checked. Source5printed2 costs realBlue6/R1/AP0; allfourmanualresponses before resolutionchoice; sourceStack/GY0 untilEquipment7answer, finalsameUID/ownerEquipmentDEFENSE1/source5ownedGY/AP0/Pitch6.",
+      "Initial allseat/setup/zone/property guards consistent; donor Banish completely replaced withEquipment. No author-onlydiagnostics or invented portable schema. Source hashes unchanged."
+    ],
+    "limits": [
+      "Singlepositivecounterremoval branch; no nativeequip, extraeligiblechoices, negativefiltermatrix, zero-counter/destruction, sibling/support/hero/wholecard/oldhold credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1070-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a2a2b763bd16a43792c257e0ea8b7c03f401669b14ae6a32150bb6a487c81f99"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Restless Templar / actual damage to an owned Decay zombie is not death",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:53:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual young Hala, Dori, Dori and Malice at 20 health. Proper Shadow Necromancer Malice4 owns prior Templar5 and another real Decay Zombie Plowman6, both undamaged with printed three life. Actual Hala1 Wounding Blow Blue7 attacks the adjacent Plowman permanent, not its Hero. No card defends the Ally; real two damage leaves it alive with Damage2/one remaining life. Both Zombies persist through full Close, all Hero health remains20, and no Gate or Corrupted Corpse appears. Damage is not death, so neither Templar WHEN a controlled Decay Zombie dies nor Malice WHEN a Zombie dies has been earned. No Zombie attack/activation, Decay cost, Incarnate death or source-death LKI path is entered. The held positive Templar death-layer issue remains open; this is only the nonlethal event guard, not Gate implementation or whole-card coverage. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#restless_templar_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/ZoneClasses.php"
+}

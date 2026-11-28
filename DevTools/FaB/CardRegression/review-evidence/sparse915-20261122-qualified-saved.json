@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse915-20261122.json",
+  "source_spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+  "input_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+      "card_id": "photon_rush_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eb3d2f5f2e6035cafc3bd5a2fc555b62cd85e1faef7eae2920e40491fcba43a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "263c5a999c36a205fa7a5c20c540d54dc9d7a9d0c5c346100cd0409fb81fa15a",
+        "expected_final_gamestate.txt": "3334102e04b6b8aaa66b5ced4e5579c42b169ed76757724f7f5e1796ac443bca",
+        "meta.json": "def78f3b2456030a011c70245243b928fef85eebf3debb84dfcb34aef75a40ec"
+      },
+      "fixture_sha256": "4b8e5fd9613205a70c55085945b0f120bf103a2d029b85147a13878ae137719a",
+      "actions": 27,
+      "native_assertions": 124,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "input_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+        "fixture_slug": "card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+      "card_id": "lunar_mirage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17b275e90a3564ccc4cb9d06e41111eef801b3f7d881bdab9a6adad61f13609a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f8bdd0a39a71fb33562e2efdc31bc7dbcf21d7488a5a7d395e77fb36d0b6e33f",
+        "expected_final_gamestate.txt": "480c9aaf40ff4b838644b3b0708e2ad23a8c699c52e96821898cf2428d2f588b",
+        "meta.json": "d683ae3ca79d746d42228bd8e55054a9c7e7cf37eafd1a2eec3262446fad42ad"
+      },
+      "fixture_sha256": "b31e881a61ce11e483f83ed8233971b46bfa380a73b05f4a1cb34ceb8b4d7361",
+      "actions": 27,
+      "native_assertions": 124,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "input_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+        "fixture_slug": "card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+      "card_id": "vengeance_never_rests_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50a030b5f259a938d353e7d6327a840b4dbd111fb362d02da2235288ce7e2946",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5db3d852f0c3fb87db502e9fa48695f754ceffd65a9b802d077e37ee18d12965",
+        "expected_final_gamestate.txt": "4ff2061c186da3deb558afa541f5e8cc439cd6a826425579bb00c728b05a680e",
+        "meta.json": "e530379b46362dd5819792a6482974ca14a361fb58a6482103235ddb8a366ee9"
+      },
+      "fixture_sha256": "7f37878805cb3e2aec4c6d04321fc82dda6a84719aa4912487d68139c1fd54ef",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "input_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+        "fixture_slug": "card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+      "card_id": "winds_of_eternity_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "90271dbdc9c2ef6ac24fad3ee5ad1543a63410d9c7bb332769461c32dd1d3195",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "9a81c8202170ccc5b3e88c2de5912416f88f545af8979d314dbd8921fdbf03bf",
+        "expected_final_gamestate.txt": "12c5e73e2947d7fc01de410a45812adfaaa815c2276089107adf25e80040195a",
+        "meta.json": "d4124a4337cc814263ab582a9f85217d9a35d74dd0061c1534a577d3f9b1a5a3"
+      },
+      "fixture_sha256": "712c7886f6f4bd76643037640b0de57564280fee3c60666848f17019e97e4f68",
+      "actions": 27,
+      "native_assertions": 124,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse915-20261122.json",
+      "input_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+        "fixture_slug": "card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "791c2acbe02a4397cdad99614fbad7e09a9c2493f2ed62a1dc93073747bc507f",
+    "basis": [
+      "Four named new deltas over approved physical-AA frame checked against cache/source: costs0/0/1/0, powers3/3/3/2, legal natural20HP Aurora/Enigma/Fai; actual Blue6 only for Vengeance, R2 there/R0 others, physical5 owned Chain/GY and unblocked3/3/3/2 damage. Four manual live seats.",
+      "Photon itself is ElementalRuneblade, not Lightning, and no earlier card played; LightningFlow GA predicate false. Aurora manual hero ability unused, no relevant passive trigger.",
+      "Lunar Mirage has actual no defenders, so six-power-AA-defends trigger event never occurs and no copy is made. Enigma firstSpectralShield-attack discount irrelevant. Printed unconditionalGA gives AP1 only at resolution/final.",
+      "Both first-chain Combo predicates false, so their hit-trigger abilities are never granted. No prior EdgeOfAutumn/HundredWinds, no unearnedGA/power/banish/shuffle. Positive Combo producer behavior not certified."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named main packets and Lunar printedGA; no positive Lightning/Combo/Mirage copy, hit-shuffle, banish replay, siblings or support-group credit.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "672ec83286e3119ecedff8b2797681c2360ca3fb665da967b52f7d8f6abcec42"
+  },
+  "full_suite_run": false
+}

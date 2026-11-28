@@ -1,0 +1,7 @@
+{
+    "name": "Oldhim Grandfather of Eternity / actual Earth payment prevents real physical damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:15:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_OLDHIM40_TWO_LIVE_EARTH_ONLY_NATIVE_DUEL. NaturalDori40/OldhimGrandfather40; actualWounding3Hand1cost0autoHero2/AP0/all2responses\u2192real4powerattack. AtREACTION2actualHero2DefenseReaction3createsABI5sourceHero2, realEarthBlue4Hand2pitch3paysall3/AP2remains0. Bothfreshresponsesstartattacker1thenactor2, physicalabilityheld/noearlydamage. Earthpitchedtopayabilityearnsnext2physicalprevention(noIcepitched/notopdeckbranch). Actualunblocked4/defense0deals2/HP40to38, nothealingorblocking; sourceattack3ownedGY1/Earth4Pitch2/Hero2ready/APR0/UID5RNG0/emptyStackDQCC. NoYoung/four-live/Ice/mixedpitch/arcane/onceRepeat/otherHero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#oldhim_grandfather_of_eternity FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/GameLogic.php"
+}

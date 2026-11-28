@@ -1,0 +1,76 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact reaction-window delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1083-20261122.json",
+  "source_spec_sha256": "e0d681b279aaf9f6db6063f26dc149dfcd895d5ef453e4afb3838a883ba7cc8c",
+  "input_sha256": "d67424305f5a38590a2aacc49f3d12f0222fa56ee79d69171cbec6d1e9c9dd69",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+      "card_id": "electromagnetic_somersault_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "884b0c0f4d8821ee7732af002ad455589996a45b783a2433355a2158f2f345a7",
+        "actions.json": "81813b3130a5684a9f18a159b27898fd314dc0a138ea854c2ddeed1803b70e09",
+        "assertions.json": "72b15b30e896bf7cbfa5186ff46ab724a6fcdcdbb062fa3b6067d3ae0ef52e69",
+        "expected_final_gamestate.txt": "5562d2139ed82e4ddd31cbe806fe596bbc6bbb9b101e50f99ed185ba4e8b3f83",
+        "meta.json": "3e82152cee77def4f17d8c610da1b4ed0a1d3bbe3ec2c215e1dd6a44ef88ad1d"
+      },
+      "fixture_sha256": "a88e3b1853f6109e5fb22f1cf3c6a185852b8465a3d2bafecd6df74567779aab",
+      "actions": 34,
+      "native_assertions": 322,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1083-20261122.json",
+      "input_sha256": "e0d681b279aaf9f6db6063f26dc149dfcd895d5ef453e4afb3838a883ba7cc8c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1083-local-20261122\\reaction-window-corrected-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+        "fixture_slug": "card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e0d681b279aaf9f6db6063f26dc149dfcd895d5ef453e4afb3838a883ba7cc8c",
+    "reviewer": "breadth_review independent exact reaction-window delta review",
+    "original_independently_reviewed_spec_sha256": "d67424305f5a38590a2aacc49f3d12f0222fa56ee79d69171cbec6d1e9c9dd69",
+    "basis": [
+      "Exact comparison to preserved originally reviewed bytes shows only four PRIORITY\u2192REACTION strings: one post-Instant window oracle and three fresh manual response pass windows. Every actor, action, source/choice/cost/effect/damage/fate assertion and original semantic scope unchanged.",
+      "GameLogic1229-1239 restores in-combat Instant pending returnWindow/returnCombatStep and priority to caster, so REACTION is the correct native window while fresh priority responses still occur. Original Somersault failure was transport-oracle only before effect execution/no fixture; NoFear corrected before native. No gameplay defect or source change."
+    ],
+    "limits": [
+      "Original named branch scope retained. No new rules branch/trigger behavior/hero/support/sibling/full-card or held repair credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ],
+    "original_full_review": {
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "d67424305f5a38590a2aacc49f3d12f0222fa56ee79d69171cbec6d1e9c9dd69",
+      "reviewer": "breadth_review independent printed/current-source/spec review",
+      "basis": [
+        "Printed Lightning Instant0 chooses up to2 active-link AA with cost>=0, not formal targets. Legal Aurora20, actual Wounding6 cost0 and enemy CriticalRed7 cost1 both qualify. Native attack4/defense3 already in CC; source5 played at Reaction1/AP0, four fresh manual responses then legitimate MZMULTICHOOSE while source5 Stack/GY0.",
+        "Chosen two-owner cards stay physical ATTACK/DEFENSE on active link after source resolution and through Damage; printed4\u22123=1 deals1/HP19. ROS helper tags selected UIDs and link-resolution return hook moves them to their distinct owners, observed by Action Hand1 UID6/Hand4 UID7; source5 alone ownedGGY/AP0. No premature removal/prevention or GA."
+      ],
+      "limits": [
+        "Only Red/two-card/two-owner delayed return branch; no alternate count/minimum/multilink/hero/support/sibling/full-card or old-hold repair credit.",
+        "No author-only diagnostics. No native/PHP/T/source/Git/original/network actions by reviewer."
+      ]
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1083-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "67b13d1add79bd197fbc74ac5dedc486f1dc8178aaee57afed1ef9b1e947e8bd"
+  },
+  "full_suite_run": false
+}

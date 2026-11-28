@@ -1,0 +1,7 @@
+{
+    "name": "Take the Tempo / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:14:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, if you've hit 3 or more times this combat chain, banish the top card of your deck. If it's an attack action card, you may play it until the end of your next turn. Actualfreshfirstchain/previousempty, printedcost0or1/realBlue6if1/R0or2/AP0. RealNAA2defor2+2defexactlyblocksbase2/4/2 forDishonor/Mugenshi/Whirling, AA3+3block5others. Actual0damage/HP20/nohit/Stack0/sourceblockersownGY/all4manual. WhirlingprintedGAAP1atRESOLUTION, Irafirstattacknotsecond; KatsuheroWHENhitnotearned. ActualDeckmarkerretainedwheredeclared. Positivecombo/hit/multiplayer/draw/searchuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#take_the_tempo_red"
+}

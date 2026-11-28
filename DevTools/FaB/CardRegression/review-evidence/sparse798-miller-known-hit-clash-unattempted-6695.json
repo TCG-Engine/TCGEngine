@@ -1,0 +1,100 @@
+{
+  "status": "B798_MILLER_KNOWN_SHARED_DIRECT_WHEN_AWAIT_CONTRACT_SOURCE_ONLY_UNATTEMPTED_PLANNING_LIMIT",
+  "batch": 798,
+  "author": "/root/breadth787_author",
+  "created_utc": "2026-11-14T22:27:07.592862+00:00",
+  "card_id": "millers_grindstone",
+  "group_id": "identity:millers_grindstone",
+  "members": [
+    "millers_grindstone"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-firm-reservation.json",
+    "sha256": "3a7d1b4cbc539946ef728d5824c1e30f286bc55dbdb5a4aa502a69b8e3c3baad"
+  },
+  "full_family_printing_alias_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-selected-helper-preflight.json",
+    "sha256": "d3262b5704000f0e21c4801f62c446e6dd49f22697e33e9997b31fb449ee55ff"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "fixed_route": "Unchanged70c048: youngBetsyGuardian20, ownHammer1H, actualBlue3fundsWeaponAction3/AP1, real4hitHero4; earnedWHENclash ownRedAA4 versusopponentBlueAA2 then sameowned4topBlue destruction. No alternateprimary/support/producer or weapon-base-only fallback.",
+  "exact_source_facts": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "2038\u20132074;1230\u20131248;1269\u20131326",
+      "finding": "ActualDamage callsOnHit2066. Its WTR/expansionhooks run; selectedMiller proceedsordinaryHit macro1247. RunSourceMacro directly calls generatedability1322; only selected explicitHit exception is Kiss1319, notMiller. This is HIT caller, distinctfromDefendedcaller ofClashOfMight200."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "725\u2013771",
+      "finding": "WTRHit queues namedSnatch/CnC/puretoken/grantedtags; ordinaryMiller has none. QuietBetsy/noequipment/blanktops do not earnothernamedHero/listeners."
+    },
+    {
+      "path": "FaBSim/Custom/WTRAbilities.php",
+      "lines": "94\u2013118",
+      "finding": "PureTokenHitSpec enumeratedcardIDs excludesMiller; defaultnull immediatelyreturns beforeAddStack. ExistingcapturedHit infrastructure exists but does not wrapthisMiller."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "29414\u201329419;244431\u2013244573",
+      "finding": "SelectedMiller closure beginsawaitframe and immediatelyentersPC28\u219227, which runsactualClash. Quiet noSwitch/noVictor/noGold path goesretry0\u2192PC5ClashWon\u2192PC1DestroyRevealed\u2192FinishAwaitFrame, withoutseparateStacklayer. Generatedawaitstorage is not earnedresponseableWHEN capture."
+    },
+    {
+      "path": "DevTools/FaB/hvy_abilities.json",
+      "finding": "ImplementedHitbody exists and calls actualClash/ClashWon/DestroyRevealed; notmissingbody."
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "lines": "48\u201374;118",
+      "finding": "ActualClash revealsrealDeckUIDs, result/prize helpers exist; blankWoundingtopcards earnnoThunk/GoldenSon/Wallop revealedWHEN. These bodyfacts are SOURCEonly, notnative clash/destruction results."
+    }
+  ],
+  "known_contract_comparison": {
+    "exact_known_source_family": "DirectgeneratedWHEN callback/await executes selectedeffect before a separate capturedresponseablelayer. ClashOfMight200 established samecontract atDefendedcaller; Miller reachesit atactualHitcaller. ActualHellbound176 also records missingearnedHitWHENlayer incurrent6695, withoutimplyingsamephysicaleffect orapprovedrepair.",
+    "retained_rows": [
+      {
+        "file": "sparse-source-only-holds.json",
+        "json_path": ".holds[145]",
+        "card_id": "thunk_blue",
+        "row_sha256": "8ca2901489580f957d634ceb5b545f13061ff62347ef231b36f2a7b23b70afd0"
+      },
+      {
+        "file": "sparse-source-only-holds.json",
+        "json_path": ".holds[200]",
+        "card_id": "clash_of_might_blue",
+        "row_sha256": "dc37a82fea779068a7b88e5f9591e95d87678c152a4bdc71ee2ca78cb3aedc13"
+      }
+    ],
+    "actual_Hellbound_native_record": {
+      "id": "FAB-REG-176",
+      "row_sha256": "65fe9e1d0e714ccfc0c7d7b9d5c81495a8f5cbe094a55fde6d504f0466a3f134",
+      "classification": "missing_earned_hit_self_banish_layer",
+      "repair_status": "Deniedcombinedseven-sourceoperation remainsFROZEN/knownunexecuted. No repair/apply/retry/split/reroute authorized bythisnote."
+    },
+    "unearned_known_branches": "Thunk145 revealedWHEN absentbecausebothrevealedAAblank; ClashOfMightprimary/Defendedcaller absent; Victor/Gold/Switch/revealedprizesabsent. Those absences alone do not cureMilleractualHit contract."
+  },
+  "preimage_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch798-selected-helper-preflight.json",
+    "sha256": "d3262b5704000f0e21c4801f62c446e6dd49f22697e33e9997b31fb449ee55ff"
+  },
+  "additional_exact_helper_guard": {
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c"
+  },
+  "disposition": "Stop selectedMiller UNATTEMPTED/no executable or alternative support. Parent agrees knownsharedcontract classification conditionalonindependentpeerconfirmation; independentplanningreview requiredbeforeretaining. No newgameplaybug/root/cycle/siblingcredit.",
+  "native_attempted": false,
+  "executable_cases": 0,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "repair_proposal": false,
+  "source_fix": false,
+  "no_future_clash_or_deck_or_power_result_observed": true,
+  "scope": [
+    "OnlySourcefacts andknowncontractplanninglimit; noMillerNativefailure or unrunDeckdestructionclaim.",
+    "NoSourceabsencecatalogueaudit/fullsuite/replay/currentcorpusinvalidation; no newinput/probe/native.",
+    "Headliner independenthealthy packet isseparate andunaffected; noMillerbase4-only substitute.",
+    "Alluser/oldfixtures/B787repairartifacts frozen; RootsoleNative/Rwriter."
+  ],
+  "B787_denied_operation_untouched": true
+}

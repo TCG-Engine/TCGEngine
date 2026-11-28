@@ -1,0 +1,7 @@
+{
+    "name": "Teklovossen / intrinsic face-up banished Evo play at actual main-action cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:09:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play Evos from your banished zone.\n\n**Once per Turn Instant** - {r}{r}{r}: You may play your next Evo this turn as though it were an instant. When you do, draw a card. Primary Hero identity/intrinsic permission only. Natural young Teklovossen20 owns face-up banished EvoCommandCenter5 with generic PlayableFromBanish0, Blue6Hand and matching TekloBaseHead7 equipped. Actual p1Banish0 native play is admitted through printed inherent Evo-from-Banish permission, announces actual Action3, then real Blue6pitch3 pays3/R0/AP1to0 before all four manual source responses. The already-qualified CommandCenter transform body is the unchanged supporting donor: physicalEvo5 equips ready owned1 with SUBCARDS[teklo_base_head], physicalBase7 leaves equipped state without graveyard/export, funder6Pitch. OriginalHero1 stays ready owned1; no Hero Instant3 ability was activated. No new CommandCenter/Base group or transform-body credit, Instant-as-Evo/draw-when activation, under-material export/ownership, equipment activation/defense, alternate zone/color/cost, hero producer or whole-hero claim. Pending independent Root review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklovossen"
+}

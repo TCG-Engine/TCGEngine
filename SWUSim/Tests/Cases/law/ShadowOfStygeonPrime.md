@@ -94,8 +94,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095]
 ## WHEN
 - P1>PlayHand:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SEC_080

@@ -1,0 +1,233 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed. One identified hero-legality error corrected with a new independent source review, native rerecord and one targeted replay; unchanged siblings retain prior evidence.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse897-20261122.json",
+  "source_spec_sha256": "1f4317b9d717f296df86114ecde4ba566b06931a52bb18689e2e0c3646c12b58",
+  "input_sha256": "b1df3859312506c5faf3b23189b717dea431d073ae16f360eb9d02fa554fd2d1",
+  "recorded_input_scope": "Mixed current revisions: corrected Favorable Winds uses new one-case input; four other cases retain exact original per-row native inputs, files, independent source review and replay receipts. No rerun of those four.",
+  "fixtures": [
+    {
+      "slug": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+      "card_id": "favorable_winds_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f9789f374e0a176fd346dc38345ae0674057eed8ee77d608f7e7ad411bdd89ca",
+        "actions.json": "bf636207d12f2e8734ab2958747770f481b835d57382c5307ed8a8a68f918eab",
+        "assertions.json": "d384bcdeb137c2579b1f6126c61fd1e3a4ff2837e65a67ad1681e47a6eaa2d57",
+        "expected_final_gamestate.txt": "80d22d742d6cad8a030080016bd72b25b4091e97cfd8d937a959b17dae16bded",
+        "meta.json": "0a0ab83c22e291a0effee73427c1286a3338491cb19783880fc481ae4b3b03f4"
+      },
+      "fixture_sha256": "faa0ddc6f253faaf9db30a4bae8719adf9d7a4e5eecf5407abd73bd94640e265",
+      "actions": 15,
+      "native_assertions": 234,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse897-20261122.json",
+      "input_sha256": "b1df3859312506c5faf3b23189b717dea431d073ae16f360eb9d02fa554fd2d1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+        "fixture_slug": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+        "basis": "No slug change; only named fixture legally rerecorded through existing --rerecord-authored workflow."
+      }
+    },
+    {
+      "slug": "card-art-of-the-phoenix-war-red-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-instant-preserves-action-point",
+      "card_id": "art_of_the_phoenix_war_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e8aa5be6e34a4c5c57c0a23daee6f041f3490c34643c588d02a9d720d393249",
+        "actions.json": "26d8ce18158bc8d5bf209d3776caec01d03140108a568bad962624fc1a88277c",
+        "assertions.json": "fec036554ed32ee4789d786d859aa83451eda3f86b9fb3b04e2803c0cd046461",
+        "expected_final_gamestate.txt": "f9d78ced07f80b2c9b31dc1317219c5dfa2b5cd9a9f10805e93ba4685f62380d",
+        "meta.json": "3d584ac842fc037b027d3029315af1646f61b6a3b36535906ed0505638b6f7f0"
+      },
+      "fixture_sha256": "9ec5ef6dcba1e426f0307fee06070e4bb38135dc59fea9655dde0a0eb99b3d30",
+      "actions": 7,
+      "native_assertions": 104,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse897-20261122.json",
+      "input_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-art-of-the-phoenix-war-red-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-instant-preserves-action-point",
+        "fixture_slug": "card-art-of-the-phoenix-war-red-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-instant-preserves-action-point",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-perennial-aetherbloom-red-four-live-sparse897-actual-three-arcane-and-no-bottom-without-surge",
+      "card_id": "perennial_aetherbloom_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc1b6137f0c41c161b36b6dbb5474512121eb1ee35f1dfca7e15215bf9902e29",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "51db406402576ec121de547426c4da7387b1a95a86ede9347ed593ba61c7f597",
+        "expected_final_gamestate.txt": "9bc7ab041f459a823a43fee5ea5e8fc79b64ce2a97d915139a42a85a4ebbb72e",
+        "meta.json": "1a1101ca147d6d8a245c33d49c250f4087d03425520007b62936e75af4fe27f9"
+      },
+      "fixture_sha256": "de01790fab80bf4a9f8355aa4663f663d3fc9ba7942159619be398d51e9029cc",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse897-20261122.json",
+      "input_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-perennial-aetherbloom-red-four-live-sparse897-actual-three-arcane-and-no-bottom-without-surge",
+        "fixture_slug": "card-perennial-aetherbloom-red-four-live-sparse897-actual-three-arcane-and-no-bottom-without-surge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pop-the-bubble-red-four-live-sparse897-actual-three-arcane-and-no-aura-destruction-without-surge",
+      "card_id": "pop_the_bubble_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78ed1b38d3a3f0efb6e5a38bcd57e23010ffb5151186a1c08483707ac2168975",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "d7fb1d7dda5e5fa3ee9a7052f5518b647e86273ed3102dfe7e25732372aa92ec",
+        "expected_final_gamestate.txt": "25e115125b614569991f5575d65bb94a5ae956b01ca318967fb4222e47914188",
+        "meta.json": "e77dd095f473510c9fd8cbe12c6bc8810684137b68ad06dde7c2cd569730354b"
+      },
+      "fixture_sha256": "eeda3c88e6e6271b69013c46372cc96b3dd9404972b8ded8b58a06df8af382eb",
+      "actions": 6,
+      "native_assertions": 87,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse897-20261122.json",
+      "input_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pop-the-bubble-red-four-live-sparse897-actual-three-arcane-and-no-aura-destruction-without-surge",
+        "fixture_slug": "card-pop-the-bubble-red-four-live-sparse897-actual-three-arcane-and-no-aura-destruction-without-surge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-trailblazing-aether-red-four-live-sparse897-actual-three-arcane-and-no-go-again-without-surge",
+      "card_id": "trailblazing_aether_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b18f2178efe578b43666b7ed8325dfa7963c6c02c5094294949558abd93b297",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "940d0c9be604a5ed0ffb204dbd560c319141143d33e2cc79e449642e8aa711a8",
+        "expected_final_gamestate.txt": "eab0279c7b0bd37571cb95193d30d79edcfb876d251dbbc004e7369849200f96",
+        "meta.json": "7fb953a596e232725797be4307ee56b58e6043e1061789d8fc808b23fe7df066"
+      },
+      "fixture_sha256": "64acef3148d216b8eee11d6291ab2d683443b69ded7f151c90b6618db9fd6958",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse897-20261122.json",
+      "input_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-trailblazing-aether-red-four-live-sparse897-actual-three-arcane-and-no-go-again-without-surge",
+        "fixture_slug": "card-trailblazing-aether-red-four-live-sparse897-actual-three-arcane-and-no-go-again-without-surge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+    "reviewed": [
+      {
+        "cards": [
+          "favorable_winds_yellow",
+          "art_of_the_phoenix_war_red"
+        ],
+        "basis": "Printed mandatory named discard and cost1 are genuinely paid: actual Blue6 supplies3, residue2. Legal Pirate Puffin20/Draconic Fai20. Goldfin7 printed graveyard replacement removes it; Phoenix7 enters own GY. Only fourth manual response resolves two real Deck8/9 draws. Favorable Action spendsAP then GA restores1; Art Instant preservesAP1. Explicit canonical PrepareCard/FinishPreparedCard and ResolveCard producers checked."
+      },
+      {
+        "cards": [
+          "perennial_aetherbloom_red",
+          "pop_the_bubble_red",
+          "trailblazing_aether_red"
+        ],
+        "basis": "Printed0 Wizard Action legal for Kano15; explicit PrepareCard declares adjacent legal Hero4 before payment and fresh four-live responses. Real3 arcane leaves Health4=17 without seeded effects/prevention. Not more than3: Perennial staysGY/notbottom, Pop preserves existing opponent Might6 and causes no aura-selection decision, Trailblazing AP0/noGA. Canonical target+damage+conditional bodies checked against printed text."
+      }
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and one clean replay per passing fixture pending.",
+      "No positive Surge, Draconic attack-buff consumer, named-cost rejection, additional target or supporting-card credit.",
+      "No native games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\card-regression-sparse897-20261122-replay.json",
+    "sha256": "1df55747f388fe0d8b9ae00aeff9a40fbe239ae734da09aefbecbba8d38be0f7"
+  },
+  "full_suite_run": false,
+  "original_batch_basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "987ff6f019226e637859c5108ec4eb9c56a453609d2801873026350a594bf639",
+    "reviewed": [
+      {
+        "cards": [
+          "favorable_winds_yellow",
+          "art_of_the_phoenix_war_red"
+        ],
+        "basis": "Printed mandatory named discard and cost1 are genuinely paid: actual Blue6 supplies3, residue2. Legal Pirate Puffin20/Draconic Fai20. Goldfin7 printed graveyard replacement removes it; Phoenix7 enters own GY. Only fourth manual response resolves two real Deck8/9 draws. Favorable Action spendsAP then GA restores1; Art Instant preservesAP1. Explicit canonical PrepareCard/FinishPreparedCard and ResolveCard producers checked."
+      },
+      {
+        "cards": [
+          "perennial_aetherbloom_red",
+          "pop_the_bubble_red",
+          "trailblazing_aether_red"
+        ],
+        "basis": "Printed0 Wizard Action legal for Kano15; explicit PrepareCard declares adjacent legal Hero4 before payment and fresh four-live responses. Real3 arcane leaves Health4=17 without seeded effects/prevention. Not more than3: Perennial staysGY/notbottom, Pop preserves existing opponent Might6 and causes no aura-selection decision, Trailblazing AP0/noGA. Canonical target+damage+conditional bodies checked against printed text."
+      }
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and one clean replay per passing fixture pending.",
+      "No positive Surge, Draconic attack-buff consumer, named-cost rejection, additional target or supporting-card credit.",
+      "No native games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "correction_basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "b1df3859312506c5faf3b23189b717dea431d073ae16f360eb9d02fa554fd2d1",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Marlynn is legal Pirate/Ranger Young with natural health 20; Favorable Winds is Pirate/Ranger Action cost 1. Generic Blue pitch, real Goldfin additional discard replacement, two real draws and printed go again retain the original physical expectations.",
+      "SEARuntime.php:99 earns one seaMarlynn ability per actual draw. DoDrawCard moves both Deck cards before calling that hook with drawn=2. Stack2 after primary completion, then two separate four-live manual response rounds, is the correct narrow route.",
+      "GeneratedMacroCode.php:170782-170824 branches on seaMarlynn, computes Arrow Hand references, and skips MZMULTICHOOSE when they are empty. Both remaining Hand cards are non-Arrows; Goldfin was removed as an additional cost. No modal or multi-choice answer is required for either trigger.",
+      "Named seaMarlynn is excluded from managed ROS_ABILITY by GameLogic.php:1843-1854 and uses DoResolveCard named ROS fallback at 1951-1953. Each completion returns priority to the turn player, resets passes, and selects PRIORITY with one remaining layer or ACTION with none. Existing draft waits preserve both explicit rounds and assert final ACTION/no queues.",
+      "15 planned native inputs are consistent: primary click, named-discard answer, actual pitch click, four primary responses, and eight hero-layer responses. Drawn physical UIDs 8/9 remain in Hand, source UID5 moves to graveyard, pitch UID6 remains, resources 2 and action points 1 remain through both empty hero resolutions."
+    ],
+    "limits": [
+      "Source/spec review only. No native execution, replay, engine edits or T mutations performed by reviewer; parent must verify corrected recording and one focused replay.",
+      "Approves only the legal Marlynn no-Arrow named branch. Does not qualify positive Arrow placement, hero activated Gold destruction, pitch siblings or asset/additional-cost sequencing.",
+      "Original Puffin setup was illegal for Ranger Favorable Winds; this correction does not validate that historical execution."
+    ]
+  },
+  "fixture_legality_correction": {
+    "path": "review-evidence/favorable-winds-legality-20261122.json",
+    "sha256": "a1a9c6f7f4bb304bf03e8030ed8bfc85a18f4c2b3f59d604a6ae0c10f9455844"
+  }
+}

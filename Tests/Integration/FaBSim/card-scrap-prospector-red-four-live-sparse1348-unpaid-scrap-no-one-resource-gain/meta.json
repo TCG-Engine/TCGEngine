@@ -1,0 +1,7 @@
+{
+    "name": "Scrap Prospector / unpaid Scrap grant excluded",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:04:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGDASH20_THREEDORI20. EmptyGY/noeligibleItemEquipmentScrap/nooptionalobjectcostperformed/no099route; evoScrapfalseinterveningWHENnotearned. Prospectorrealcost0/R0/base3actualHerodamageHP17. Everypayment/attack/damage/fullcloseR0not1; noearnedoneResourcegrant/GA/refund. Primary5GY1/FDArsenalWounding6retained/allArena0/UID6RNG0. Allfourmanualresponses/AP1to0; actual0costArsenalconsumerresourceaffordablebutnativeclickrejectsAP0beforetarget/StackDQ/payment/movement, health/resources/physicalfatesretained. OnlyunpaidScrap/falsecondition/basecost/power/damage/noResourceorSteamgrant/noRefundguards. PositiveScrap/physicalcost/WHENtiming/targetchoice/ItementryCrankoractivation/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scrap_prospector_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

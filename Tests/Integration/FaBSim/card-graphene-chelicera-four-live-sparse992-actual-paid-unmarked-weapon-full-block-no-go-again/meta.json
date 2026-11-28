@@ -1,0 +1,7 @@
+{
+    "name": "Graphene Chelicera / sparse four-live paid weapon representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:57:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\n**Once per Turn Action** - {r}: **Attack**\n\nWhen this attacks a **marked** hero, the attack gets **go again**. Named paid weapon/fullblock branch only: actual_paid_unmarked_weapon_full_block_no_go_again. Actual legal natural20 uzuri owns ready sole Weapon5; real GenericBlue6 pitch3 pays cost1, leavesR2/AP0. Native adjacent Hero4 announced before assets; four manual source/combat response seats. Real Wounding7 HandAA defense3 blocks printedpower1, actual persisted attackPower1/defenseValue3/damage0/attackHitfalse/HP20. Only actual printed GA returnsAP0 at Resolution; physicalWeapon5 retained, proxy linked by WEAPON_UID5 not opaque UID/owner, Blue6Pitch and defender7ownedGGY4. No hit effect, Aegis, buff, positive marked target, hero activation, creation bookkeeping or sibling/support/full-card credit. Real preexisting token Weapon, not created here. Target4 Hero.Counters[] is unmarked, so printed WHEN attacks a marked hero event is absent/no earned layer. FAB-REG122 fixed creator bookkeeping for Fluid Motion is not exercised or counted as a repair. Sources: FaBSim/GeneratedCode/cardArrayCache.json#graphene_chelicera"
+}

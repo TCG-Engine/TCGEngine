@@ -105,8 +105,15 @@ function SWUSetupGame($lobby, $opts = []) {
     // orthogonal: SWUGameMode() answers "goldfish/hotseat/normal" and must keep returning '' here.
     // ⚠ Follows the format's CONFIGURATION ('teams' in AppCore/SWU/Formats.php), never the literal id: the old
     // `=== 'teamsuns'` would load every Team Suns Preview game as a four-player free-for-all (2026-09-16).
-    if (isset($lobby->format) && SWUFormatIsTeamFormat(strtolower((string)$lobby->format))) {
+    // Always Two (Doubles, spec 2026-11-20): four boards in two teams whatever the seat count. A 1v1 Always Two format has no
+    // 'teams' key (its 2-seat room draws no red/blue), so its team flag comes from the mode, not from SWUFormatIsTeamFormat.
+    $a2Mode = isset($lobby->format) ? SWUFormatAlwaysTwoMode(strtolower((string)$lobby->format)) : '';
+    if ((isset($lobby->format) && SWUFormatIsTeamFormat(strtolower((string)$lobby->format))) || $a2Mode !== '') {
         AddGlobalEffects(1, 'SWU_MODE_TEAMS');
+    }
+    if ($a2Mode !== '') {
+        AddGlobalEffects(1, 'SWU_MODE_ALWAYSTWO');
+        AddGlobalEffects(1, $a2Mode === '1v1' ? 'SWU_ALWAYSTWO_SHARED_SEAT' : 'SWU_ALWAYSTWO_VOTE');
     }
     // Every game records its card pool (docs/superpowers/specs/2026-09-16-swusim-format-menu-design.md §2): an Arenabot game
     // its chosen pool, Goldfish and Hotseat 'open', everything else its own format. Read through SWUGameCardPool().
@@ -144,6 +151,10 @@ function SWUSetupGame($lobby, $opts = []) {
     // ─── Step 1–2: Load decks (leader, base, main deck) for each player ───────────
     $playerCounter = 1;
     $deckLoadOk = true;
+    // 1v1 Always Two (spec 2026-11-20): one SEAT plays two BOARDS — seat i's first deck is board i, its second deck board i+2, so
+    // the boards alternate teams round the table (1 Red, 2 Blue, 3 Red, 4 Blue) exactly as Team Suns seats do.
+    $a2SharedSeat = ($a2Mode === '1v1');
+    $seatCountLobby = count($lobby->players);
     foreach ($lobby->players as $player) {
         $player->setGamePlayerID($playerCounter);
         $injected = $resolvedDecks[$playerCounter] ?? null;
@@ -152,7 +163,16 @@ function SWUSetupGame($lobby, $opts = []) {
             // the pregame (which is what left P1 unable to act). Every other failure still gates.
             if (!($mode === 'goldfish' && $playerCounter === 2)) $deckLoadOk = false;
         }
+        if ($a2SharedSeat) {
+            $board2 = $playerCounter + $seatCountLobby;
+            $deck2  = method_exists($player, 'getDeckLink2') ? $player->getDeckLink2() : '';
+            if (!LoadPlayerDeck($board2, $deck2, '', $resolvedDecks[$board2] ?? null)) $deckLoadOk = false;
+        }
         ++$playerCounter;
+    }
+    if ($a2SharedSeat) {
+        $playerCounter += $seatCountLobby;   // the second boards are seats too: four in all
+        $lobby->boardsPerSeat = 2;           // Core/GameAuth.php: each seat's key also opens its second board
     }
 
     // ─── Twin Suns: seed the seat order + live-seats from the lobby's player count ──
@@ -189,7 +209,12 @@ function SWUSetupGame($lobby, $opts = []) {
     $firstPlayer = &GetFirstPlayer();
     $seatArr = GetSeatOrderArray();
     $initiativeChoiceReason = '';   // '' = no choice; 'roll' = coin-flip winner; 'loser' = prior game's loser
-    if (in_array($forced, $seatArr, true)) {
+    if ($a2Mode !== '' && !in_array($forced, $seatArr, true)) {
+        // Always Two: the coin flip is between TEAMS. The winning team's first board (1 = Red, 2 = Blue) answers it, then the team that
+        // ends up with the initiative picks which of its boards holds it (InitiativeChoice → AlwaysTwoStartingBoard).
+        $firstPlayer = random_int(1, 2);   // the same sanctioned unseeded coin flip as below
+        $initiativeChoiceReason = 'roll';
+    } elseif (in_array($forced, $seatArr, true)) {
         $firstPlayer = $forced;
         if (!empty($opts['forcedFirstPlayerChooses']) && count($seatArr) === 2 && $mode !== 'goldfish') $initiativeChoiceReason = 'loser';
     } else {

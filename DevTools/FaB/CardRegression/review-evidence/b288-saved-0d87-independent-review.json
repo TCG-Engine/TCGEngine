@@ -1,0 +1,264 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_CORRECTEDSLUG_NEW_FOUR_LIVE_STANDALONE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T04:56:35.047722+00:00",
+  "source_spec": "card-regression-batch288.json",
+  "input_sha256": "5cb9b4d37b6c55bbfd13bb99f09fe2392682a99b0962148565a0415c102b2701",
+  "manifest_sha256": "0ac39a5fbdcae5ce6565e9631bbaa8e6652761ba0216f14b83d043f4ce002b3f",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch288-independent-source-review\\review-v2.json",
+    "sha256": "53ec6a54a33e06bf45d8864afd7db4f3c6bbb4a21ad8b67a9695676e4422f8c1"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch288-20261103T045154Z-6ae9686a9f2e9.json",
+    "sha256": "10a0d314e16e19fe1e444166c026e43d395b8768a4ae46c4a6a55a72e510837e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch288-native-r1\\receipt.json",
+    "sha256": "771953ea6a27e013592ee731a43649975a36281ee2362f3fdb67cc22ef113809"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch288-independent-saved-review\\audit_saved.py",
+    "sha256": "07284118ee2f72cafaadd8075f360ceaa696c40662ef24b97f19df43dc456974"
+  },
+  "review_method": "V2 exactslug/source printedmaterial approval reused. Every actual native input and normalized assertion mapped exactly with independent four-seat actor schedule; full strict schema endpoint snapshots/all physical UID/card/owner/controller/zone/economy/manual profiles; finalassertions evaluated/raw4raw5 stable. No native/PHP/replay/backend/R writes or old corpus review.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "bruised_leather",
+      "slug": "card-bruised-leather-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+      "source_spec": "card-regression-batch288.json",
+      "input_sha256": "5cb9b4d37b6c55bbfd13bb99f09fe2392682a99b0962148565a0415c102b2701",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-bruised-leather-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+      "fixture_sha256": "1b0771e316c6fec8dba9857ef4704c98637ca4f6870246a04cde6bb6780860f1",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4af81e82f3b3b022a4a19a466236cc281f86eb00000f06699201845c5ebbc20e",
+        "actions.json": "c83fe10ef4245e7a506ea5182010d22743acd2edfa06d9fa183e5875b207d3ce",
+        "assertions.json": "6c89d43847a5a2de64b93d063bc1fb0ac384af96c1ff97f64e2381467f0e2c77",
+        "expected_final_gamestate.txt": "b436d9596ec31838c252a6c47ab71569cbe123f65c0a11f2ac104e7a884f33d2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4af81e82f3b3b022a4a19a466236cc281f86eb00000f06699201845c5ebbc20e",
+        "actions.json": "c83fe10ef4245e7a506ea5182010d22743acd2edfa06d9fa183e5875b207d3ce",
+        "assertions.json": "6c89d43847a5a2de64b93d063bc1fb0ac384af96c1ff97f64e2381467f0e2c77",
+        "expected_final_gamestate.txt": "b436d9596ec31838c252a6c47ab71569cbe123f65c0a11f2ac104e7a884f33d2",
+        "meta.json": "ca9f5dd7a91efa982fe68cfb35f53e8cc85b1487d6639093598c23a96efff650"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4af81e82f3b3b022a4a19a466236cc281f86eb00000f06699201845c5ebbc20e",
+        "actions.json": "c83fe10ef4245e7a506ea5182010d22743acd2edfa06d9fa183e5875b207d3ce",
+        "assertions.json": "6c89d43847a5a2de64b93d063bc1fb0ac384af96c1ff97f64e2381467f0e2c77",
+        "expected_final_gamestate.txt": "b436d9596ec31838c252a6c47ab71569cbe123f65c0a11f2ac104e7a884f33d2",
+        "meta.json": "ca9f5dd7a91efa982fe68cfb35f53e8cc85b1487d6639093598c23a96efff650"
+      },
+      "actions": 64,
+      "native_assertions": 5421,
+      "actual_manual_passes": 57,
+      "actual_priority_response_passes": 55,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand"
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand"
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "bruised_leather",
+          "zone": "p4Equipment"
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero"
+        },
+        "6": {
+          "card_id": "harmonized_kodachi",
+          "zone": "p1Weapons"
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard"
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch"
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero"
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero"
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero"
+        },
+        "5": {
+          "card_id": "bruised_leather",
+          "zone": "p4Graveyard"
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 66,
+      "checkpoint_assertion_mapping_sha256": "801f3242b95f144494b15d3d91b7ef070992add0d6030c27b4107b94f530b788",
+      "native_action_mapping_sha256": "7d3014e1ccdacd805017b093ba14721fb4bc4eb59e0275e61847008fc992e6b4",
+      "native_assertion_mapping_sha256": "ddd06ff3d2449482b42ac725f1592f2cec876e5953b41af1f87fa056c92992df"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 64,
+  "total_native_assertions": 5421,
+  "total_manual_passes": 57,
+  "total_priority_response_passes": 55,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Actual legal FaiKodachi6 Weapon1/Blue7pitch3/AP1 leavesP1R2/AP0 and realconditionalGA frompitchedcardprintedcost0. Distinctactualproxy10 fullcombatdeals1/P4HP19, nativeCRU_DAMAGED1 historyearned. AttackGA restoresAP1 onlyatResolution, thenactualthreeResolutionpasses1/2/3giveP4priority.",
+    "ActualP4 BruisedLeather5 Instant0 atR0/AP0 destroysSAMEownedChest5toownpublicGY BEFORE actualfreshabilityresponses4,1,2,3. CapturedsourceCardID/KindABILITY/controller4/SourceEquipment5 retainedthroughfirstthree, virtualactualUID11 resolvesPREVENT1 andceases. HPstays19/P1assetsunchanged, nohealing/retroactiveprevention. Proxy10continuesfirstlinkuntilfreshfourResolutionpassesfullyclose; physicalKodachi6retainsusedStatus1/counterTurn2Attack1.",
+    "ActualnextRaging8freshP4targetcost3 usesrealR2 plussecondactualBlue9pitch3/spendsKodachiearnedAP1, leavesR2/AP0. Actual7packetminusprimarynextprevention1deals6/P4HP13; finaldamagehistory1,6/consumedROS_PREVENT andactualsingleactivation corroborateprintedability. Allfourmanualsecondcombat/Damage/Resolutionroundscomplete.",
+    "Strict completeendpointphysicalUIDs1-9allretained/unique: Chest5ownP4publicGY, Raging8ownP1publicGY, Pitch7,9ordered, sameKodachi6usedwithWEAPON_ATTACK_TURN2/WEAPON_ATTACKS1; actualproxy10/ability11absentallzones. FinalR2onlyP1/allAP0/otherHP20/StackChainsHandqueuesawaitframespaymentmanagedmarkersclean; raw4raw5/every64input5421checks57Pass exact."
+  ],
+  "identifier_history": {
+    "current_slug": "card-bruised-leather-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+    "strict_regex_pass": true,
+    "old_underscore_fixture_exists": false,
+    "V1_never_installed_or_game_started": "Parent prewrite/admission evidence retained in V2 source proof; not a gameplayfailure in this native run."
+  },
+  "limits": [
+    "Only one positive actualdamagedcondition/freeInstantdestroy/nextoneprevention versusphysical7 branch. No conditionfalse/rejection/arcane/unpreventable/multiplepackets/turnexpiry/block/hero/supportprimary/fullcard/control credit.",
+    "All intermediate material boundaries supported by completed native assertion enforcement and exact ledgers; endpoints alone do not snapshot every intermediate local. No synthetic native approval or output accommodation.",
+    "ExactV2 5cb9input/0ac3manifest/correcthyphenatedslug/current0d only; V1 invalididentifier remainshistoricaluninstalled. Root twofocusedcleanreplays andregistration remain separategates, not run here.",
+    "No deniedsourceapply retry/sourcefix/generator/native/PHP/backend/remote/fullsuite/historicalcorpuswork by reviewer."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "status": "NATIVE_CONFIRMED_PROGNOSTICATE_CRUCIBLE_CLASSIFIER_CALLER_UNFIXED",
+  "utc": "2026-11-03T02:49:31.531928+00:00",
+  "issue_id": "FAB-REG-065",
+  "related_existing_family": "FAB-REG-040",
+  "new_distinct_gameplay_root": false,
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_spec": "card-regression-batch275-prognosticate-material-correct-probe.json",
+  "input_sha256": "8412007de8e11e9da5a3e7a98c5a0f018d12c4012960a35d6257d692b894f073",
+  "archive": {
+    "path": "recording-runs/card-regression-batch275-prognosticate-material-correct-probe-20261103T023203Z-6ae947a33ea95.json",
+    "sha256": "5a2dd6aca5bc956206df022d4e799cb7d3d64130445ae415188063af2fd4f336"
+  },
+  "actual_native_inputs": 12,
+  "first_material_failure": "Expected p4Health to equal16, got17.",
+  "expected": "ActualpaidCrucible1 modifier applies tonextPrognosticateWizardcard: printed3+1=4arcane,targetHP16, earningSurgeOpt1.",
+  "observed": {
+    "health_p4": 17,
+    "actual_damage": 3,
+    "resources_p1": 2,
+    "AP_p1": 0,
+    "source5_zone": "Graveyard",
+    "Stack": [],
+    "Temp": [],
+    "Deck_uids": [
+      8,
+      9
+    ],
+    "still_unconsumed_modifier": {
+      "type": "ARC_NEXT_ARCANE",
+      "amount": 1
+    },
+    "no_Opt_earned": true
+  },
+  "before_observation": {
+    "method": "Existingprefix-onlyhelper exact12acceptednativeinputs inprivatehashmatched0dclone; no mutationkeys/passfixture",
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate275-material-failed-prefix\\receipt.json",
+    "receipt_sha256": "42ebec3488bd7c87991d99150aabf85b59fb6f536780b3c6f9c8be959257598e",
+    "snapshot_sha256": "7f9ac0c7fe003dbc60ca7940ab726da2642ceb561278eb29c1ce47cad54bd196",
+    "helper_sha256": "72739371849c7f7df742e28489003cd12238cfae3425a21d8fee0bd1f48f233c",
+    "active_R_written": false,
+    "older_clones_preserved": true
+  },
+  "source_trace": [
+    "ARCCards334 consumesARC_NEXT_ARCANE onlywhenFaBARCIsArcaneCard true; 399-400 listomitsPrognosticate.",
+    "Sameexisting040classifierfamily asQuickening; no genericArcaneformula change proposed.",
+    "CRUCards166 also usespredicate forMetacarpusNode eligibility; thiscallerpath untested."
+  ],
+  "lifetime_status": "UNVERIFIED: noOptwaslegitimatelyearnedafteractual3, so emptyStack/GY5 alone isnot separate lifetimebug evidence. Recheckonlyafter4damage/Surgemet.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "oracle_correction": "review-evidence/prognosticate275-material-oracle-correction.json"
+}

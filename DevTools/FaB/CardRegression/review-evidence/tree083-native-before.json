@@ -1,0 +1,331 @@
+{
+  "status": "NATIVE_CONFIRMED_TREE_ENTRY_WHEN_AMP_GRANTED_INLINE_WITHOUT_RESPONSEABLE_LAYER",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T21:05:25.462033+00:00",
+  "proposed_named_record": "FAB-REG-083_ROOT_TO_ASSIGN",
+  "classification": "existing043_missing_responseable_trigger_ChannelTheMillenniumTree_entry_WHEN_caller",
+  "related_prior_issue": "FAB-REG-043",
+  "secondary_related_issues": [
+    "FAB-REG-081",
+    "FAB-REG-082"
+  ],
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_count_limitation": "Only named native caller witness; no new global/shared-root or Core count inferred.",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371.json",
+  "input_sha256": "cabb55b4e1279343b8799d29ebb2313c4188aea3ef78fcb696c35feaff59744f",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-independent-source-review.json",
+    "sha256": "ebc3dcc250fd738a73537420212df40d76b8667881d52f42a0ec5b0b65ef805c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch371-native-bc14-r1\\receipt.json",
+    "sha256": "ede1a001882e44728a595228a4fd7174d12642c321e1cd989a386ffedda6054d"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch371-20261103T210155Z-6aea4bc3d8899.json",
+    "sha256": "c2d03b6dd5c3c1d8e9de5c220345497d63b7f417e85ed0012ff1c24c5140511b"
+  },
+  "last_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\last-recording-results.json",
+    "sha256": "212d5c833f3f5b8360fb323484d81c369e1fc5977d13efe064e8be404975deae",
+    "matches_archive_results": true
+  },
+  "per_spec_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371.recording-results.json",
+    "sha256": "212d5c833f3f5b8360fb323484d81c369e1fc5977d13efe064e8be404975deae"
+  },
+  "initial_snapshot_sha256": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "actual_native_inputs": 6,
+  "actual_manual_priority_inputs": 4,
+  "manual_pass_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "observed_error": "Expected Stack count 1, got 0.",
+  "exact_reached_boundary": {
+    "recipe_step": 12,
+    "action_ordinal": 6,
+    "last_action": "P4 fourth actual primary Aura source response",
+    "first_failed_assertion_zero_based": 23,
+    "passed_prior_checkpoint_assertions": 477,
+    "checks_before_failure_in_current_checkpoint": [
+      {
+        "type": "scalar_zone_equals",
+        "zone": "PriorityPlayer",
+        "value": 1
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "ConsecutivePasses",
+        "value": 0
+      },
+      {
+        "kind": "state",
+        "key": "combatOpen",
+        "value": false
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1ActionPoints",
+        "value": 1
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "1"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "2"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "3"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "4"
+      },
+      {
+        "kind": "state",
+        "key": "pendingPayment",
+        "value": null
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Deck",
+        "value": 0
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Temp",
+        "value": 0
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Equipment",
+        "value": 0
+      }
+    ],
+    "current_failed_assertion": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1
+    },
+    "completed_assertions_before_first_failure": 500,
+    "expected_stack_count": 1,
+    "observed_stack_count": 0
+  },
+  "actual_observed_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_AMP",
+          "amount": 3,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "channel_the_millennium_tree_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "penPitchTypes": [
+          "Generic",
+          "Action",
+          "Attack"
+        ],
+        "dynPitchAA": true,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarPermission": []
+      }
+    },
+    "arcActions": {
+      "1": 1
+    }
+  },
+  "actual_observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "actual_observed_hand_refs": {
+    "1": [
+      "p1Hand-0"
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "actual_early_AMP_record": {
+    "type": "MST_AMP",
+    "amount": 3,
+    "uses": 1
+  },
+  "evidence_bounds": [
+    "Native archive contains actual GameState/DQs/Handrefs and initial full snapshot; NOT a postfailure physical-zone snapshot. Stack count0 comes exact error; no observed raw Aura5 Arena identity/owner/Counters/Status or physical current Blue6/Pitch/Zap7 location is invented.",
+    "Completed firstsixinputs are primaryclick, realBluepitch, four1/2/3/4source responses. Prior complete checkpoints establish physical5Stack, paidBlue6/Pitch/AP0 and noAura beforefourth. At current failure, checks preceding Stack count passed including P1AP1/R0/allHP20/allDQs empty/pendingPaymentnull/Deck0/Temp0/Equipment0. Arena5/property/entryABI details follow Stack and were not reached.",
+    "Actual archived MST_AMP amount3/uses1 at this earliest boundary proves early grant while no responseable Stack layer is available. This is stronger than source-only inference; physical Aura position still requires separately captured raw prefix if needed.",
+    "No fresh entrytrigger responses/Zap play/arcane damage/AMP consumption/final cleanup executed for Tree. No Tree fixture/coverage. Healthy Seeds saved separately and does not imply Tree success."
+  ],
+  "causal_source_observation": {
+    "canonical_path": "DevTools/FaB/ros_abilities.json",
+    "canonical_file_sha256": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+    "canonical_ResolveCard_sha256": "1c9a364850c0f8add48bf25f36d117e3fb1a4dd50170a10bdea3cd4a72000c94",
+    "generated_path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "generated_file_sha256": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "generated_selected_body_sha256": "3fddd5e10668b43911263d811e6dba55cb0e62f4154136d412f7324f650b3ec3",
+    "finding": "Actual canonical and compiled Tree ResolveCard call FaBMSTAdd AMP3 directly with no queue. GameLogic persistent resolution invokes ResolveCard synchronously after movement and returns normal priority; archived GameState AMP3 plus Stack0 matches the missing responseable entry-WHEN path. Beginning-Actionphase/ChannelEarth future paths are not reached or newly classified."
+  },
+  "expected_rule_scope": [
+    "Printed WHEN this enters Arena creates triggered layer with actual Tree source5/controller1 before priority, fresh responses before AMP generation. Original Aura ownGA is independent and may have returned AP1.",
+    "Only resolving the earned entry layer grants AMP3. Later actualZap3+3=6 is original correct suffix, not reached in this failure."
+  ],
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_write": false,
+    "source_or_generation": false
+  },
+  "limits": [
+    "Classification restricted to actual earliest entry failure and archived earlyAMP record; no unsupported postfailure raw physical-zone claims.",
+    "No source repair proposal/application/generation or whole-suite execution by reviewer. Root alone retains ledger/controls/repairs.",
+    "Ten old070079 holds and SmashingItem remain untouched; no blanket startphase/ChannelEarth/rootcount credit."
+  ]
+}

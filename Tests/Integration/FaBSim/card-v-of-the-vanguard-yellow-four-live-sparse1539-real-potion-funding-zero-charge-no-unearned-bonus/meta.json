@@ -1,0 +1,7 @@
+{
+    "name": "V of the Vanguard / actual Potion funds card with no Hand charge and no unearned power or overpower",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:30:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual legal young20 Boltyn/Dori/Dori/Dori. InitialR0/AP1, primary6 is ONLY actorHand card; Potion5Arena prior realItem, no prior producer credit. NativePotionInstant destroys5asCOST/ABI9source5/freshfourresponses gainsactualR2 whileAP1. Primary6 thenplaystoStack/declaresadjacentHero4, nootherHandcardremains foroptionalcharge. Glaring skips emptyoptionalchooser; Vanguard MZMulti0|0| is nativelyautoanswered minus byCoreDQ before finishing declaredzerocharge. No physical Soul move/cost branch entered. Actualcost1/R2to1/AP1to0, realprimarypower3/noGA, zeroSoul/unchargedBoltyn. Vanguard has zeroLightcharge/noPowerbonus: actualunblockedbase3deals3/HP4=17; bothrealdefendingHandcards7/8remain. FullfourmanualclosePotion5andprimary6GY1/UID9/R1. Existingpositivecharge/039holdsremain, noenginechange. Coverage onlyzerochargecondition, notpositiveadditionalcost/payorder/lifetime/secondary/siblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#v_of_the_vanguard_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#v_of_the_vanguard_yellow:0:PrepareCard FaBSim/Custom/WTRAbilities.php#energy_potion_blue FaBSim/Custom/MONCards.php#FaBMONCharge FaBSim/Custom/GameLogic.php#FaBTryCompletePayment Core/DecisionQueueController.php#MZMULTICHOOSE_empty_choices"
+}

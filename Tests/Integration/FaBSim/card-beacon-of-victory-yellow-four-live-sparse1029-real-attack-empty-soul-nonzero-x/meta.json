@@ -1,0 +1,7 @@
+{
+    "name": "Beacon of Victory / real attack, mandatory nonzero Soul cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:25:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish X cards from your hero's soul. X can't be 0.\n\nTarget attack gets +X{p}.\n\nIf you've **charged** this turn, search your deck for an action card with cost X or less, reveal it, put it into your hand, then shuffle. LegalBoltyn20LightWarrior/currentDawnblade6AttackREACTION1/primary5Hand/R2fromBlue7payingactualweapon1. Targetavailable/freeprinted0resourcecostavailablebutSoul0cannotpayXnonzero;MONguardrejectsbeforeTarget/cost/Stack/choice. RealNAAWarriorsValor8DEF3notAAmeansnoBoltynbonus: Sword3fullyblocked/noHit/HP20/AP0/all4manual,5Hand6usedWeapon7Pitch8ownedGGY/Soul0. PositiveSoul/charge/search/Xbuff/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beacon_of_victory_yellow"
+}

@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch485.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T16:24:50.433627+00:00",
+  "fixtures": [
+    {
+      "slug": "card-beckon-applause-four-live-two-real-owned-token-conditions-give-two-defense-and-five-damage-open-damage",
+      "fixture_sha256": "2b6adff4b31d6707be5c0e17222aeb11781fdbdd05625d17f8c2f32bdaac5147",
+      "passed": true,
+      "result": "[PASS] beckon_applause / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-beckon-applause-four-live-two-real-owned-token-conditions-give-two-defense-and-five-damage-open-damage",
+      "returncode": 0,
+      "stdout": "[PASS] beckon_applause / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-adaptive-alpha-mold-four-live-correct-real-action-head-to-empty-chest-resolving-choice-and-owned-identity"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sharpened Senses / real produced weapon bonus crosses strict twice-base threshold",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:49:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PriorownedWarriorAura5+readyDawnblade6admitted, notentryproducer. YoungKassai20playsrealPlowRed7cost1paidBlue8pitch3/R2/AP0, allfourresponsesownGAreturnsAP1. ActualDawnblade6nativeattackcost1/R1/AP0,target4beforecost; noKassaidrawdiscountbecausenodrawever. No seededpower/GA: realPlow+3nextweaponproduced, primaryAura+1makesbase3+3+1=7>2*base3=6. Actualattackpower7/GAtrue, noHanddefenderssoplowdefendedWHENnotearned, real7damageHP13. SingleDawnbladehitdoesnotearnitssecondhitWHEN; Kassaiactivationnotused. ActualGAawardsAP1aftercombat, proxy9clears, physicalweapon6/Aura5/Pitch8retained, Plow7GY1/R1/noextraUID/RNG. Noexact-threshold/lowbranch/endphaseexpiry/Auraentry/otherweapon/primarywholecard/producerorHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sharpened_senses_yellow FaBSim/Custom/HNTRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

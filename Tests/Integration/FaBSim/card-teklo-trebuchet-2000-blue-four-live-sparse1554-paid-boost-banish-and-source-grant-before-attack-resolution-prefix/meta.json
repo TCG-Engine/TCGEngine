@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Trebuchet 2000 / paid Boost banish and granted go-again tag, before attack-layer resolution",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:12:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20Dash/Dori/Dori/Dori. Potion5Arena/primary6Hand/MechThrottle7Deck. ActualPotionInstantABI8source5Owner0/allfourresponses fundsR2/AP1. FormalHero4beforeactualBoostMZMODALyes0; sourceDeck7intact/AP1/R2atdeclaration. Fixedprintedcost0/AP1paid thenrealMech7faceupBanish, actualsource6StackgrantsGO_AGAIN tag/R2/AP0. Actualprimaryresponses1to2to3to4, stoppingbeforefourthpass/ConsecutivePasses3, physicalprimary6stillStack ATTACK SourceHand withHero4declared, allDQquiet/noCCobjects. PerCR7.2.2-3 sourcehasnotyetbecomeattacking, so primaryWhenattacks effect notearned. ThisdoesnotcertifyprivatecombatOpenflag or ruleschainopening(CR7.0.2a), and no suchflag isasserted. OnlyobservableBoostcostbanish+sourcegrant; noCCgoAgaincomputation/APrefund/actualattackdamage/Opt/nextattack/Closefates orsupport/sibling/wholecardcredit. Existingnativeprefixsave/replay, noengine/recorder/runnerchanges. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklo_trebuchet_2000_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#teklo_trebuchet_2000_blue:0:PrepareCard FaBSim/Custom/ARCAbilities.php#FaBARCBoost FaBSim/Custom/ARCCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

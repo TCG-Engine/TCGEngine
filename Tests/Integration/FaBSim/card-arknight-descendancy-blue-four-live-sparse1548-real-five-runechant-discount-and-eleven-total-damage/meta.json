@@ -1,0 +1,7 @@
+{
+    "name": "Arknight Descendancy / five actual Runechants reduce printed five to zero, real arcane plus attack damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:24:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual youngViseraiBetweenWorlds20/Dori20/Dori20/Dori20. Five owned real existingRunechants5..9Arena, primary10onlyHand/AP1/R0, no seeded permission/payment/history. Appropriate ShadowRuneblade ViseraiSpecialization. IARCost subtracts actual5fromprinted5 beforeplay; realAP0/R0/physicalHandSource10Stack. Runechants notspentascost: actualAAplay earns5separateRunechantTRIGGERproxies11..15/physicalSources5..9, allHero4targetsdeclaredbeforepriority. Freshmanual4rounds resolveactualarcane5/HP4=15 andceaseonlytokens. No Runechantcreatednow, so ViseraiBetweenWorlds creationWHEN unearned. ActualprimaryCC6/noGA thenfullmanualunblockedphysical6/HP4=9 andCloseGY10. Primaryneverbanishedsooldbanish-lifechoice/producerWHEN unearned; noendphaseBloodDebt. Noenginechange orsupport/sibling/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arknight_descendancy_blue FaBSim/Custom/IARCards.php#FaBIARCost FaBSim/Custom/IARRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

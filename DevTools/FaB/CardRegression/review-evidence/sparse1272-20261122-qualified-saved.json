@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1272-20261122.json",
+  "source_spec_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+  "input_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+      "card_id": "aurora_shooting_star",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38990bf045732eb7322fc8bb5fae5746039a876509b802602a1b24fdb802d024",
+        "actions.json": "eea29b31160bbdc25dd3c323a5271171e98fcb59b0074af76058e2456ec512db",
+        "assertions.json": "511186b316c32394f9b91fa1e98d4fc2dfde9ab70da3a05da7981f08e6358a82",
+        "expected_final_gamestate.txt": "051c5c8a76070ae123a47e86d9bc5eaa63ba0ec2f134a3287970835cb4500a09",
+        "meta.json": "3b44ff6016653688e169ccbcfafe12fe1e4a378fcde92233ee6388dd7257fda6"
+      },
+      "fixture_sha256": "6e4491e5c2672e949c740de89fac7cc5befc2117295dd4b8e26d7b08d482dbd5",
+      "actions": 7,
+      "native_assertions": 199,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1272-20261122.json",
+      "input_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1272-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+        "fixture_slug": "card-aurora-shooting-star-two-live-sparse1272-real-lightning-play-and-two-resource-instant-create-owned-embodiment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2ff34babe80d0ba8c56c37f0aca198fa0604957d59b2e7d748ba8d743904a96a",
+    "source_note_sha256": "2d8b74aa07d420dc128e7239a94e529d95a0d7390e30fcd15d85f60ce4c2032f",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 7,
+    "query_checks": 199,
+    "persistable_assertions": 199,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_AURORA_DUEL_LIGHTNING_PLAY_PAID_HERO_TOKEN_CREATION",
+    "basis": [
+      "Natural adult AuroraShootingStar40 ElementalRuneblade with EssenceLightning versus adultDorintheaIronsong40 in unchanged native legacy duel, omitted activeSeats/exact12/defaultgameModeempty/noPassives/both manual players. Cached BlinkBlue3 is LightningInstantcost0 and GenericBlue4 funds actual Hero ability. AP1/R0/no token/history/current-turn condition is seeded.",
+      "ActualBlink3 is played0 asInstant, remains ownedStack3 through nativePriority2 and realopponent2/actor1 passes, no earlyAP gain. Printed Gain1AP resolves to actualAP2 and physical3ownedGY while GenericBlue4 remainsHand. ROSPlayed records actualLightning play and ROSAbilityLegal reads Lightning count for exactAurora/aurora_shooting_star rows. Waiting for Blink to resolve is lawful and gives observableAP2; no synthetic condition flag is used.",
+      "Printed once-per-turn HeroInstant2 CreateEmbodiment is gated by having playedLightning. Current merged ARC/ROS row is Instant2 and current generated ResolveAbility creates one token via guarded HeroCreate/HVYToken. ActualHero1 click after realLightning play must require two resources, actualBlue4pitch3/pay2 leavesR1/AP2unchanged, ability5SourceHero1 heldStack/no earlyArena. NativePriority2 then real2and1 responses precede creation.",
+      "No creation blocker, replacement source or other token producer exists. Exactly one actual ownedEmbodiment6Arena, originalBlink3GY/Blue4Pitch, Hero40ready/AP2/R1/UID6/RNG0 and empty Stack/two queues/combat chains at originalACTION establish correct limited effect. Embodiment triggers on a later attack action; no such play occurs here, so no consumer trigger is earned.",
+      "Existing held AuroraEmissary ability is a different printed LightningFlow-destroy preparation/payment route. Selected ShootingStar ability has no such additional cost or interactive preparation. That hold stays untouched; no shared ordering route is reprobed. All199 native assertion/state checks persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native result, replay or coverage credit claimed.",
+      "Only positive actualLightning-play legality, realcost2 and response-delayed single token creation. No initial-false control, once-repeat/reset, token consumer, Essence construction, other Lightning or Aurora identity, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1272.py": "333055c0a1c428a178b3be03640f30fad6ddb92a8091e9b0632d4c8de415986f",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1272-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1f4542bf4fcf3054ce4b2170aec04b23d4b2eaac1ad60fcf12fced4a110d1445"
+  },
+  "full_suite_run": false
+}

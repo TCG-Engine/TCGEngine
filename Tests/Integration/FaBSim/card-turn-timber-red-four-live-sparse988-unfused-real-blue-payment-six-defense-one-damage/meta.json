@@ -1,0 +1,7 @@
+{
+    "name": "Turn Timber / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:43:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Earth Fusion**\n\nIf this was **fused**, it gets +2{d}. Named partial branch: unfused_real_blue_payment_six_defense_one_damage. Real defender4 oldhim natural20, owned source5 plays in actual Reaction. Printed cost2 paid by actual Blue6 if positive (residue1/AP0); no seeded resources or defense. Actual Generic Raging7/Blue8 paid3, no normal blocks. Four actual DR responses4,1,2,3 resolve same source5 as DEFENSE_REACTION, fresh1,2,3,4 yields persisted defenseValue6/damage1/HP19; source5/attack7 finish respective owned graveyards, attackerNAA9 retained. No author-only defense/can_play/can_activate diagnostics; persisted state/HP/card/role/fate/cost checks only. Only other defender Hand card Generic Blue6 is not Earth; no available fusion reveal, base6 rather than fused8. Positive fusion/reveal-cost ordering untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turn_timber_red"
+}

@@ -1,0 +1,40 @@
+{
+  "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+  "fixtures": [
+    {
+      "slug": "repair-ira-scarlet-revenger-two-live-20261126-real-first-four-second-five",
+      "passed": true,
+      "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-ira-scarlet-revenger-two-live-20261126-real-first-four-second-five",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ira221\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "40edb19b09d5189440d766ff605b4bc2d1477e18ee88f4e9070ee7947abe7478",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+      "passed": true,
+      "runtime": "34e0259fc72949acb3abe50292bbd2faca2944e385306f277d44c81790927177",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ira-crimson-haze-four-live-sparse-real-first-kodachi-then-other-kodachi-earns-second-attack-plus-one",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ira221\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "aeada63510bbcc087303695b281a1dad626e2fe255b7954172404f0c467fb163",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

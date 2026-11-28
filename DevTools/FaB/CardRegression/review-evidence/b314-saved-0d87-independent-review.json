@@ -1,0 +1,289 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_RUMBLE_EARNED_DISCARD_PREREQUISITE_NEXT_BRUTE_FOUR_THIRTEEN_DAMAGE_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T09:41:38.258600+00:00",
+  "source_spec": "card-regression-batch314.json",
+  "input_sha256": "12c249f8060de797e2e24392d2a596192b75e8addc7d1dca038ebdbb7ff33451",
+  "manifest_sha256": "7e81e18de5add4ca7e7227d5f3e521764bec273541f0db53be3abfeb81411b0c",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch314-independent-source-review\\review.json",
+    "sha256": "c3505763e7d75e03ea9f4a0ac197e28aeda3b8173ac4d6c0edae9a72d9d42d54"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch314-20261103T093739Z-6ae9ab633fb65.json",
+    "sha256": "fb851889ff489e207b1515f04c487492dcc7403ac90ba049dd4ddd8692ae2018"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch314-native-r1\\receipt.json",
+    "sha256": "a466f34dd180971082e1f37c344cd279162154d990d7618e19685cb1c460f773"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch314-independent-saved-review\\audit_saved.py",
+    "sha256": "d02d13358dcaedcfef1e7735c8048210d1b238455501fe3127a83b58d186ce62"
+  },
+  "review_method": "Reused independent printed/source model. Every actual input and persisted assertion exactly mapped with all33manualactors; strict complete schema snapshots, physical UID/card/zone/owner conservation, all48manualpreferences at each endpoint, allterminal assertions evaluated, exactmeta/raw4/raw5 and runtime stability. No reviewer native/PHP/R writes.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rumble_grunting_red",
+      "slug": "card-rumble-grunting-red-four-live-sparse-real-six-discard-earns-next-brute-plus-four-thirteen-damage",
+      "source_spec": "card-regression-batch314.json",
+      "input_sha256": "12c249f8060de797e2e24392d2a596192b75e8addc7d1dca038ebdbb7ff33451",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rumble-grunting-red-four-live-sparse-real-six-discard-earns-next-brute-plus-four-thirteen-damage",
+      "fixture_sha256": "dc96c766eeb2c069d779b4bcdacf4907fe8e9764ce75d36553b2274254dd4eb9",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6887145acfb116dbdddf22c07c15da2b8fdb047c073604b40d65570554bb4c9a",
+        "actions.json": "7ae7a2e15efe7e0b92780ae05ca9b92d41b40d6c2e2de21761a1681f16f25e1f",
+        "assertions.json": "618ce3948dc2a2159de5c5c4a7b641db093e5d0e413b3b382786892a02cb0982",
+        "expected_final_gamestate.txt": "83f4fbee5323e2ad4072e72e33711f790fa5284f1c7dcf3a8816941eaf0b88c1"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6887145acfb116dbdddf22c07c15da2b8fdb047c073604b40d65570554bb4c9a",
+        "actions.json": "7ae7a2e15efe7e0b92780ae05ca9b92d41b40d6c2e2de21761a1681f16f25e1f",
+        "assertions.json": "618ce3948dc2a2159de5c5c4a7b641db093e5d0e413b3b382786892a02cb0982",
+        "expected_final_gamestate.txt": "83f4fbee5323e2ad4072e72e33711f790fa5284f1c7dcf3a8816941eaf0b88c1",
+        "meta.json": "21bd0c5d26984b98af98add27eba42a1ede74f8fa61a39bc2b908cfea1b253aa"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6887145acfb116dbdddf22c07c15da2b8fdb047c073604b40d65570554bb4c9a",
+        "actions.json": "7ae7a2e15efe7e0b92780ae05ca9b92d41b40d6c2e2de21761a1681f16f25e1f",
+        "assertions.json": "618ce3948dc2a2159de5c5c4a7b641db093e5d0e413b3b382786892a02cb0982",
+        "expected_final_gamestate.txt": "83f4fbee5323e2ad4072e72e33711f790fa5284f1c7dcf3a8816941eaf0b88c1",
+        "meta.json": "21bd0c5d26984b98af98add27eba42a1ede74f8fa61a39bc2b908cfea1b253aa"
+      },
+      "actions": 38,
+      "native_assertions": 3211,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rumble_grunting_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "raging_onslaught_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "bloodrush_bellow_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rumble_grunting_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "smash_with_big_tree_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 40,
+      "checkpoint_assertion_mapping_sha256": "207e8de5e53824b31aca555d57476698d2064e214f0f8359c8fca16691f05458",
+      "native_action_mapping_sha256": "57f06222988b649eded65576c0e1b9be54dd0c2b5d4ebbd073149bc29e0fd54c",
+      "native_assertion_mapping_sha256": "19c8fb9dd6a257694eec3792d44385da0cc1c70d0332cee9972aba76048feb76"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 38,
+  "total_native_assertions": 3211,
+  "total_manual_passes": 33,
+  "total_priority_response_passes": 32,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Four legal living youngLevia20/threeDorinthea20 actualmanualUPF; primary5 initially protected facedownArsenal. Actual Blue7pitch3 paysBellow1/AP1, then soleeligible Hand8 printed6power goes ownpublicGY/R2AP0 before responses. No RNG/history/resources/buff seed. Singleton actualRandomCounter0 unchanged carries no random-distribution/control credit.",
+    "Bellow6 remains pending through firstthree responses; fourth actuallydraws SAME9Smash and10spare from Deck, Bellow+2Bruteturn and ownGAAP1. This reuses qualified support with no new Bellowprimary credit. Actual six-discard record earns the primary play condition.",
+    "Rumble5 actual0cost ArsenalAction spends returnedAP1 with R2; fresh four responses then same5GY, ownGAAP1 and nextBrute4. DrawnSmash9 freshP4 declaration keeps9Hand before answer; actual cost2 consumes earnedR2/AP1 and leaves spare10Hand. Actual nextBrute4 consumption plus Bellow2 and printed7 yield13/noAA-GA.",
+    "All real four-live combat windows and P4 defenderfinish execute; actual13damage/P4HP7, stillfourlive. Fullrawparsed endpoint ownpublicGY unordered UIDset5,6,8,9/Pitch7/Hand10, alloriginal1-10 conserved/no proxies/newobjects, allRAP0/heroesready, Stack/chains/queues/payment/await frames clear. Turn-durationBrute2 and earneddiscard records correctly remain; DYN_NEXT consumed."
+  ],
+  "limits": [
+    "Only Red actual6discard prerequisite/0costAction/ownGA/nextBrute4/13damage positive branch. No false-condition rejection, alternateRNG/pitch/secondattack/expiry/hero/support-primary/fullcard/sibling/control credit.",
+    "Intermediate events are established by exact completed native action/assertion ledger; endpoint files are not separate snapshots of each intermediate checkpoint.",
+    "Root performs two focused replay/registration gates separately. No R/native/PHP/sourcefix/gen/service/fullsuite/broadlegacy audit or authorization retry."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_STEED_REQUIRED_ORDINARY_HIT_CONTRACT_NOTE",
+  "phase": "PLANNING",
+  "batch": 846,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix_applied": false,
+  "new_issue": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-steed-required-known-hit-note-manifest.json",
+    "sha256": "0b95917adb4c1f8934a081895f5523a9e80c0ccccf407bf3c26a07008407eabf"
+  },
+  "manifest_sha256": "0b95917adb4c1f8934a081895f5523a9e80c0ccccf407bf3c26a07008407eabf",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-restless-steed-required-known-hit-when-unattempted-note.json",
+    "sha256": "b1bd5b2464e539538f2e9ca17918def9d0d7c3bb7a2bd6f3e09c55c2a0cbfa9d"
+  },
+  "independent_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-restless-steed-independent-known-hit-contract-preflight.json",
+    "sha256": "7973ffcfcb87a155aa3ae1131dcfda95de3253b11436b1778de31025f2c5f023"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-firm-reservation.json",
+    "sha256": "147dcf17069428017ebd28d1c4c0b1f904410438ab1793be128866dc13532fc6"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "all_current_source_guards_matched": true,
+  "source_guard_count": 15,
+  "holds": [
+    {
+      "card_id": "restless_steed_red",
+      "group_id": "identity:restless_steed_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_HIT_CONTRACT",
+      "classification": "KNOWN_ORDINARY_HIT_MACRO_APPLIES_GO_AGAIN_BEFORE_EARNED_RESPONSES",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch846-restless-steed-required-known-hit-when-unattempted-note.json",
+        "sha256": "b1bd5b2464e539538f2e9ca17918def9d0d7c3bb7a2bd6f3e09c55c2a0cbfa9d"
+      },
+      "known_contracts": [
+        {
+          "card_id": "pursuit_of_knowledge_blue",
+          "row": 285,
+          "independent_review": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "card_id": "stun_star_blue",
+          "row": 295,
+          "independent_review": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "reason": "Exact own printedHit canonical/emitted30181 directlytagsGO_AGAIN viaordinaryGameLogic1264 without earnedresponseablelayer; samePursuit285/Stun295 selectedordinaryHit contract. Namedinterceptions excludeSteed. No native outcome/failure/newroot inferred."
+    }
+  ],
+  "independent_findings": [
+    "Fullselectedidentity/support metadata and actualcallbacks exist. This is not missingAllysupport or blanketWHEN/optionalawaitclassification. Knowncontractmatchuses exactcommonordinaryHit dispatch+ownprintedHitbody, unlike withdrawnRocktop111overmatch.",
+    "FutureTurn5legitimatepreexistingPotion+equippedlegalVox underYoungMalice preserved. TimesnaprealActionAP1->0/destroysPotion/4responses->AP2; actuallyplayedSteed0paysAP2->1/fromHandentry, thenVoxgrantedresource1/tapattack/AP1->0 withactualBluepitch. No seededAP2/GoAgain or Voxgraveyard-entry shortcut.",
+    "Positivepower3proxy mustincludeMON_ARENA_POWER3 plusMON_ARENA_ATTACK1/MON_SOURCE_UID/WEAPON_UID. Actual3damage/HP17 earnsownHit; fourmanualresponses before attackGA thenResolutionAP1refund andphysicalcleanup remainmandatoryUNRUN.",
+    "Decay/endphase/death/MaliceZombie/graveyardentry/otherbranches/support/fullcard untested; no quietcast/basicattack/nodamage/fallback/probe or newissuerepaircredit."
+  ],
+  "limits": [
+    "Planningnote retentiononly, not executable/spec/Native/Save/fixture/coverage/canonicalcorrectness approval. Everycost/priority/entry/attack/hit/GA/APrefund/cleanupremainsunrun.",
+    "No PHP/native/Rwrites/sourcefix/fullsuite/Git/remote/newagents/Radiant189repair or denied188184B787 retry byreviewer."
+  ],
+  "created_utc": "2026-11-16T05:04:18.970227+00:00"
+}

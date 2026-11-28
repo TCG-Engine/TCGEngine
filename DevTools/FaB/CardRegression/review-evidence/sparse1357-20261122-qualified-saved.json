@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1357-20261122.json",
+  "source_spec_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+  "input_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+      "card_id": "scurv_stowaway",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc842f3be38d049bad9ad983e5ba67ac3322ea42b4e85e6453f6032a96465f16",
+        "actions.json": "bf72baf493944896a293e60ddc505c2907bdd04ba2d8bafd5e6fa832a17112c2",
+        "assertions.json": "886ea381e7a423fc0899a0dc4395ed17ae39be19e5e4e3219595a1457d892ce3",
+        "expected_final_gamestate.txt": "db47d5ea4057c359aa3477f3b9bf2e3bb930630f67faeb44bd7cbbdf70f0cdd9",
+        "meta.json": "399034d4c48d40b3244ffbedee1ae13d592be789a06d888e9fa712673ecec581"
+      },
+      "fixture_sha256": "54a70c69e261d58c790a22222504bccfcc722166a2745ae6367483d70b513353",
+      "actions": 28,
+      "native_assertions": 338,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1357-20261122.json",
+      "input_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1357-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+        "fixture_slug": "card-scurv-stowaway-four-live-sparse1357-opponent-gold-cannot-pay-hero-cost-no-tap-or-action-loss-real-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e012e0ae51ebc8c9a8388cebdfdc818f9fdbbaee3213f8446d3fb939df5a3003",
+    "source_note_sha256": "5c5cb8df831d0f347a2b9d6c0535f9c82cfe1fe8fb49344c75917fa584251fc3",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 28,
+    "query_checks": 338,
+    "persistable_assertions": 338,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_COST_CONTROLLER_FILTER_REJECTION_WITH_NATIVE_RETAINED_ACTION_CONSUMER",
+    "per_case": [
+      {
+        "card_id": "scurv_stowaway",
+        "group_id": "identity:scurv_stowaway",
+        "native_controls": 28,
+        "persistable_assertions": 338
+      }
+    ],
+    "basis": [
+      "Cached YoungScurvStowaway Pirate/Thief20 plus threeYoungDori20 is legal manual four-live UPF; primary identity unrepresented/unheld. HeroUID1 readyStatus2/AP1/R0/ownArena0, realGold5 ownedController2 inArena2 and GenericWounding6 ownHand. Source printed Action tap+destroy Gold you control has no resource cost; other timing/ready/AP conditions are satisfied.",
+      "SEARuntime6 registers Action0,30 tap cost,31 ownGold cost,37-40 rejects if FaBHVYGold(actor) empty. HVYCards7-10 searches only actor Arena/eligibleEquipment; no actor substitutes exist and foreignGold2 cannot pay. ARCAbilities64 integrates SEA legal guard before activation; WTRCards880/908 activation path preserves failed action. Source known 099 physical cost path is not performed. Actual Hero1click must leave readyHero/AP1/R0/Gold5/UID6/Stack/DQs/pendingPayment unchanged, no proxy/Rum.",
+      "Actual GenericWounding6 then declares adjacentHero4, pays0/spends preservedAP, all four manual source/combat responses, actual4power/4damageHP16/noGA. Source6GY1/allHands empty/onlyArena2 originalGold5 sameUID/OwnerController/Status2, all otherArena0/Heroes ready/APR0/UID6/RNG0/StackDQsCC quiet. This native followup witnesses retained action and no tap; all28 controls/338 assertions persist."
+    ],
+    "limits": [
+      "Only own-Gold controller filter and failed-activation atomicity through actual native attack consumer approved pending native save/replay. No native pass or qualified coverage credit claimed.",
+      "Positive ownGold payment/destruction/099 cost ordering/activation/Rum creation or activation/resource WHEN/timing/other Hero branches/adult/support/sibling/full-card coverage untested/uncredited. Existing holds untouched; no engine repair.",
+      "Only W receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1357.py": "5ed3abc23fbc5c804f5856613584b8e9f0b61bf05bdb0dfb01db485f525f445e",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_hero_activation_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1357-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ec8663619fc71b66a48d73d3a46dd0ff956e6c1d258e6b5c62ecfda1c040d438"
+  },
+  "full_suite_run": false
+}

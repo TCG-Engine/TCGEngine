@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse978-20261122.json",
+  "source_spec_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+  "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-drill-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "card_id": "drill_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1942525f6653ae6901d276f954a31573b1c3ca9aa7922015135488e121cfde02",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "00d2f0e825db37e7d9889720b2d5bef40f11c635121d43a3b097027e8abca578",
+        "expected_final_gamestate.txt": "0b7b97d0ddc5f3f5a2b9c748134672b87fd4a1d28b855a5d928eb30f293d79cd",
+        "meta.json": "89d4c2e9d6dc17350c5beecce56af0f07656644a7c83f1f81713b9b09cc1f2f2"
+      },
+      "fixture_sha256": "a0195b359efdd67ee8077d2d14706ace173d755019dca342c1c3d15339a3849b",
+      "actions": 29,
+      "native_assertions": 168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse978-20261122.json",
+      "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-drill-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "fixture_slug": "card-drill-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infecting-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "card_id": "infecting_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e16bd69896a13dbcf3b608606b14174188d3bdbfad20d3860eced6644f18478",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "6fe6e90bed4ca889e54d6b174b0fcd009244a70428260c45adb25a10df13127e",
+        "expected_final_gamestate.txt": "bd15c78b7b1f6db0e35e41795b5594bcf4b12f3494745b857d398f19e7b33a3d",
+        "meta.json": "59b71752f56dc6a5e5563dca17aac6b3441bf3b1d18ca03c2d919e23c5163a9a"
+      },
+      "fixture_sha256": "4ace07f00d2003b209ba742bf8ded5f735a8ae94835f8ca77175389913c1eff5",
+      "actions": 30,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse978-20261122.json",
+      "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infecting-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "fixture_slug": "card-infecting-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sedation-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "card_id": "sedation_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "756f5582aa8952519b777a06ea61e06e9f012b9b7ef7f58bf4e67b8dca05e194",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "f5df09fe9f159883b5c8e8d815b1643592badbb744dbb0dcb2e998b3376ad5d9",
+        "expected_final_gamestate.txt": "b78391afacaf735797e84268869c6763635a9c8f245a8f84007cc3f466510e9a",
+        "meta.json": "886e01a1aefb8cebe5c6efeebc70630e3b5be04b94ce7a4ef2f7e26c3350eaf5"
+      },
+      "fixture_sha256": "ffe3829304769f9d5299e2ef6b00e795e7adc669e90405ea7526a53a43ed6d56",
+      "actions": 30,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse978-20261122.json",
+      "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sedation-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "fixture_slug": "card-sedation-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-withering-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "card_id": "withering_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03b067606304bee77e6f062881a6c01146ced7f130df40fc3eff857713b7a74f",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "3444bd254a785ea440352be0c0c5c17f21603b0ac4183c7556d8ed241e70ba7c",
+        "expected_final_gamestate.txt": "a66f51a22a5bce1d482d767347d9a5c42303ec04207938ecf7f1662d9c1973a0",
+        "meta.json": "02e0c9caf6e759c207cc3053bc432dd6b7683c959e59bd8ac0653afd2d81b210"
+      },
+      "fixture_sha256": "73350c93eebda343b4da08e35df3552608fabb990c76eee2fbcf7ec9e5840c64",
+      "actions": 30,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse978-20261122.json",
+      "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-withering-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "fixture_slug": "card-withering-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-salvage-shot-red-four-live-sparse978-actual-full-block-goes-to-graveyard-and-retains-real-deck",
+      "card_id": "salvage_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ea789f32d8f7d3f2d01e9de40db5091887a936f031eaffadb16cd11f00a3b74",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "1bed4c4894d0ecf9fe77ac39ef7eb9efa282cc0815cc67918993232886964d37",
+        "expected_final_gamestate.txt": "75ba02257fe0538702a88cc1b7c0e667815dcc76f6267ef457031c5c387a2ebe",
+        "meta.json": "ba0c9aec40dab31429a1082a268831ef4bbaf7303c9d306cd2ff7f4f65d56b5c"
+      },
+      "fixture_sha256": "b8e0ff1002ca9a4f1314193bc513acc7d85cd11f9918fe8d6ee40752988c5a86",
+      "actions": 30,
+      "native_assertions": 198,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse978-20261122.json",
+      "input_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-salvage-shot-red-four-live-sparse978-actual-full-block-goes-to-graveyard-and-retains-real-deck",
+        "fixture_slug": "card-salvage-shot-red-four-live-sparse978-actual-full-block-goes-to-graveyard-and-retains-real-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "930d2614ab91dbfac7a7e2452a502294d2f5bc62bd57a2b6fa9d117f60e9c3bc",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached plain Ranger Arrows and natural Lexi20 Elemental Ranger with owned Shiver are legal. Physical Arsenal5 starts facedown with raw Counters[], so no aim; no Bow/Hero activation. Adjacent Hero4 declaration precedes assets, actual Blue6 pays1/R2 for four positive-cost cards, Drill0/R0, all AP0.",
+      "Exact legal Action defenses: Drill two NAA2+2 block4; Infecting/Sedation/Withering/Salvage actual Critical Strike AA3 plus Lead Charge NAA2 block5. Each raw CardID/UID/RoleDEFENSE is checked, shifted Hand0 clicks consistent, defenders end owner4 graveyard. Three toxin cards incorrectly gaining aim+1 would leak1 damage; no aim is otherwise seeded.",
+      "Actual0damage/HP20/attackHit=false/Stack0 means no hit layer/token/counter event is earned. Arena0 excludes unearned Bloodrot Pox/Inertia/Frailty without testing their creator ownership or future effects. Salvage source5 reaches owner1 graveyard rather than deck; actual own Deck10 marker remains CardID/UID/Owner/Deck1. Four manual live windows and initial count/UID checks agree with setup.",
+      "No generated PrepareCard/AttackDeclared/ResolveCard entries for the five; standard Arrow/default resolution flow is appropriate. No unconditional play/attack trigger omitted."
+    ],
+    "limits": [
+      "Named no-aim/main/payment/exact-full-block/physical fate only. Drill piercing or equipment-counter condition is not independently exercised with no Equipment defenders/marker. No positive aim/hit/poison/ownership/future/deck-return/hero or Bow behavior, siblings/support or whole-card certification. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "20b2ad93767fdf8f75589a7a1f946501de617622a5493a11ab266f54766c6385"
+  },
+  "full_suite_run": false
+}

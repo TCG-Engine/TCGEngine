@@ -1,0 +1,7 @@
+{
+    "name": "Lesson in Lava / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:33:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Kano Specialization**\n\nDeal 3 arcane damage to target opposing hero.\n\nIf this deals damage, you may search your deck for a Wizard card with cost less than or equal to the damage dealt by this, reveal it, then shuffle and put it on top. Representative only: three_damage_selects_real_eligible_middeck_wizard_to_top. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lesson_in_lava_yellow"
+}

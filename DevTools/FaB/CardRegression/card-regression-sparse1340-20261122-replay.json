@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d5d0f6616a2db721bff307f162f259bc94a80f4d550cec7a447b3b97bc4c057f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22e386e2584ae511186f2e05a152ac3fd7acf86e695b2acd7ef7c555e798c92f",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "dace57d0bd12b45a1d73bf5ad1a2e3bb8af43f71fe41c29f782f9aac2afee5c5",
+        "expected_final_gamestate.txt": "ed483ed9931cf9452c21e3a391dc828f4b2111d6ec905e5b96c5fcb6c2f29068",
+        "meta.json": "0d9e88e3cb9dea812550089d214bc068fa58bacfdbb20d94f9bba0074f1d90ed"
+      }
+    },
+    {
+      "slug": "card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1340-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "03c18e2dc37e4fe235f29a2fdad35aa0c163bef8fbcac3dbba133c7f73c04fa4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e583abf893072d23d1a98c3755bc984f060b385cca7fa79fef549dc29027452",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "45304fe9b1dc278fca423066f12fd6b00376831b0ab044ab954064f97f13f7c7",
+        "expected_final_gamestate.txt": "03eb47891c8ab295e09a6823b442cc7b2fc9c98d6a9e2ded4f0f291c1f2f557c",
+        "meta.json": "ee5a68fb583e085d24e73366da32de77f350c55026e496aa34bb31b911b3856c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

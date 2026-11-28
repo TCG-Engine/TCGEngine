@@ -1,0 +1,7 @@
+{
+    "name": "Visit Anvilheim / four-live paid X2 counter removal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:32:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Remove X -1{d} counters from a Guardian off-hand you have equipped. Named positive paid-X2 repair only. Natural Oldhim20 owns actual source5 Hand and Blue6 pitch3. Existing owned Seasoned Saviour7 Guardian Off-Hand baseDEF3 has DEFENSE2 in a legitimate prior equipping/wear state; no current equip trigger is claimed. Native play announces NUMBERCHOOSE2 before any pitch or asset payment. Real Blue6 then pays chosen X2, leaving R1/AP0 and physical source5 on Stack. Four live seats manually respond, then a non-Target resolution MZCHOOSE selects actual own offhand7 while source5 remains Stack/GY0 and counter2 remains. The chosen same offhand loses both -1defense counters: Counters[]/Equipment retained ready, source5 owned graveyard, R1/AP0/noGA/Pitch6. Zero counter serialization is key removal by FaBSetObjectCounter, not an inferred zero-valued key. No X matrix/over-removal, native equipment producer, Seasoned trigger/defense/keyword, combat, support identity, sibling/full-card or known-held branch credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visit_anvilheim_blue"
+}

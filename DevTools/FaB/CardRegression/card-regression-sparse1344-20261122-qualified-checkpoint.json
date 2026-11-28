@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T08:51:13.611628+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1344-20261122.json",
+  "source_spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 87,
+  "native_assertions": 1413,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5312,
+    "duels": 3103,
+    "four_live": 2209,
+    "recorded_primary_ids": 2460,
+    "identity_denominator": 5196,
+    "recorded_groups": 2334,
+    "group_denominator": 3324,
+    "four_live_groups": 2198,
+    "phase_qualified_scenarios_at_actual_contexts": 1949,
+    "phase_qualified_unique_groups": 1939,
+    "creation_replay_passes": 2691,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1110,
+  "scenarios": [
+    {
+      "card_id": "high_pitched_howl_red",
+      "group_id": "pitch-cycle:high_pitched_howl",
+      "scenario_id": "card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+      "effect_branches": [
+        "actual_three_power_card_pitched_below_six_threshold_no_vigor"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "source_spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "review_evidence": "review-evidence/sparse1344-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d944844ce6697a5b09265376b09f2281c7d3d5725b286e180822b8fc871154ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1344-20261122-replay.json",
+          "sha256": "343a4590abc7a686550c3992fae48e06ca4d72f4091059bc5ac7f95cd1862572",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pound_town_red",
+      "group_id": "pitch-cycle:pound_town",
+      "scenario_id": "card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+      "effect_branches": [
+        "no_six_power_discard_available_beat_chest_unpaid_no_might"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "source_spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "review_evidence": "review-evidence/sparse1344-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d944844ce6697a5b09265376b09f2281c7d3d5725b286e180822b8fc871154ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1344-20261122-replay.json",
+          "sha256": "343a4590abc7a686550c3992fae48e06ca4d72f4091059bc5ac7f95cd1862572",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rawhide_rumble_red",
+      "group_id": "pitch-cycle:rawhide_rumble",
+      "scenario_id": "card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+      "effect_branches": [
+        "no_six_power_discard_available_beat_chest_unpaid_real_victim_hand_not_intimidated"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "source_spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "review_evidence": "review-evidence/sparse1344-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d944844ce6697a5b09265376b09f2281c7d3d5725b286e180822b8fc871154ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1344-20261122-replay.json",
+          "sha256": "343a4590abc7a686550c3992fae48e06ca4d72f4091059bc5ac7f95cd1862572",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

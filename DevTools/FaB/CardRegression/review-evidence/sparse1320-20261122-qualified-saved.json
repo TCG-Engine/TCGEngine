@@ -1,0 +1,205 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1320-20261122.json",
+  "source_spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+  "input_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+      "card_id": "enflame_the_firebrand_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5256eb2a7c55d6c568404765df59c11f63f60dad7051312557323c29e41815aa",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "aa281fa3b2dfb11078732209eee0ec5cc462e9ba6f7a43938537589ca668776e",
+        "expected_final_gamestate.txt": "530d1a3d806a4d922615daf0132b457b91d89b9d64b63ab1826292590561297c",
+        "meta.json": "840f317e0d50e13e7cc5d742b769b9635a3b7d74ef9e0c6fcaedcbafa3f8a902"
+      },
+      "fixture_sha256": "bcfb25d16705ad87e023e705d69da8170c35113462f0269ef96e7dbdfcaba64a",
+      "actions": 28,
+      "native_assertions": 629,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "input_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+        "fixture_slug": "card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+      "card_id": "gold_hunter_lightsail_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "58e0d6c3b7642b60332e2297bf68d6d4e253a53421ff0e80b1f4ca4ef26a8a8e",
+        "actions.json": "03d8ba6664b359988a254b0b85136b29a95f48d60e969fe7103afff3ef5a7a2a",
+        "assertions.json": "b86746f9263d0aaf8f24fa640cbe8a41fdb07823139703582db688ad2b9b328c",
+        "expected_final_gamestate.txt": "64750ea623c6d841010dae6ef338e73b34912c27fa7e1ed38872b2d72c291095",
+        "meta.json": "1c23eb97aa7be810a7f64cf4e92cfc4744925b9e8ed43a591d28ccedeb90c5c0"
+      },
+      "fixture_sha256": "a02aeddd7a80058c2dcdeb176bc7c423c2302f2b7a628853afa1a69f5cdbf133",
+      "actions": 29,
+      "native_assertions": 656,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "input_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+        "fixture_slug": "card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+      "card_id": "clench_the_upper_hand_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "263ad08a9a267731b15957063abe891b5c5fc066ceec1b32dd23e87431e0e1cf",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "f3ac57b38aa9a14e53dbf88fc34da344ed8f4f8302b457af47255ce96fbcb57e",
+        "expected_final_gamestate.txt": "b6431380139f3e8703220cfb0f75b4101e21afdb058af4533d5924217dcc0434",
+        "meta.json": "0144fd7f3a045b554dd8ebaa7d40fff4420bc302b544030f790d37b3d83c845f"
+      },
+      "fixture_sha256": "3f17a36bf42c4662912856b17124e1f3ff9b4df349207f3909ae2a03eb26da03",
+      "actions": 28,
+      "native_assertions": 629,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "input_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+        "fixture_slug": "card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+    "source_note_sha256": "e403c0dac31c9ffc0fd51cdd6aaaa0407eeea471a2667a2ba9940bf841731ca7",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 85,
+    "query_checks": 1914,
+    "persistable_assertions": 1914,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NAMED_FALSE_ATTACK_CONDITION_WITH_REAL_DAMAGE_AND_UNEARNED_ACTION_REFUND_REJECTION",
+    "per_case": [
+      {
+        "card_id": "enflame_the_firebrand_red",
+        "group_id": "identity:enflame_the_firebrand_red",
+        "native_controls": 28,
+        "persistable_assertions": 629
+      },
+      {
+        "card_id": "gold_hunter_lightsail_yellow",
+        "group_id": "identity:gold_hunter_lightsail_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 656
+      },
+      {
+        "card_id": "clench_the_upper_hand_red",
+        "group_id": "pitch-cycle:clench_the_upper_hand",
+        "native_controls": 28,
+        "persistable_assertions": 629
+      }
+    ],
+    "basis": [
+      "Three unrepresented groups/no exact holds. Natural Young Fai20 legal Draconic Ninja, Gravy Bones20 legal Pirate, Reviled Kayo Strong Arm20 legal Reviled Clench; other seats Young Dorinthea20 and manual UPF. Fai optional startup declined/retrieval unused; Gravy tap-Gold action unused/no blue graveyard; Kayo has legal zero weapons and activated ability unused. Generic zero-defense Lens7/foreign Hand8/Arsenal9/own Deck10 controls retained with exact empty Counters[].",
+      "Enflame actual first Draconic attack creates link1, no departed/prior history. FaiCards3-10 counts actual live ATTACK links plus departed types; Generated AttackDeclared compares >=2 for GA,>=3 for chain type grant,>=4 for+2. None met. Cached conditional Go again is not own unconditional keyword under GameLogic parser. Correct printed2 damage/HP18/noGA has no earned threshold layer or Fai automatic hit producer.",
+      "Gold Hunter has actual zero Gold in all four Arenas, so source count is not less than any opponent. SEACards8 compares actual controlled Gold counts and compiled predicate guards GO_AGAIN tag. Actual cost1 Red6 pitch1 leavesR0/AP0; real zero-cost followup11 remains Hand. Printed4 Hero damage/HP16/noGA remain strict.",
+      "Clench all four natural20 and no Line Crossers makes printed more-than-each condition false; not earned at attack declaration or retroactively after damage. No Boo, so Kayo Boo Vigor trigger is not earned. Compiled predicate exists but its FaBSUPAllLife(true) direction is reversed relative to printed text (SUP24/PEN1136); both directions are false at equal life, so selected correct expectation remains sound while unequal-life positive semantics are explicitly not certified.",
+      "Cost0 cases remove only donor pitch step and retain actual Wounding6 Hand; Gold real source cost1 pays Red6 then followup11 occupies Hand0. Normal source payment/AP1to0 and four manual responses yield printed2/4/4 Hero damage. Full close returns own ACTION1 with AP0/R0/empty Stack decisions combat and retained actual zero-cost Generic Hand Action. Actual click must reject despite resource affordability, with exact same physical/final state and no new UID; supported ignored-click FSM plus this observable witness excludes unearned refund beyond a GA flag. Source5 GY/funder6 Pitch only Gold, control assets and UID10/11/RNG0/allArena0 coherent. All1914 assertions across85 controls persist."
+    ],
+    "limits": [
+      "Only new bindings/differences semantic review pending native save/replay; no native pass or coverage credit claimed.",
+      "Clench source-only unequal-life predicate direction concern recorded above is not native confirmed; selected equal-life negative cannot establish positive comparator behavior, no new issue allocation/repair.",
+      "Positive threshold/lessGold/Boo/Vigor/typegrant/power/Hero/support/sibling/full-card branches remain untested. Existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1320.py": "1a1bb0c4834d2062c2510f87bd6e01dab90af0b309911bd32c527574d8a2b795",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_conditional_effect_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1320-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6c1363714c549df6f554376953ba937b17f34b61c5a94828e3d0a12c4fa68776"
+  },
+  "full_suite_run": false
+}

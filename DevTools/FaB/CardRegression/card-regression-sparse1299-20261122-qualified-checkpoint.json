@@ -1,0 +1,213 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T03:21:47.430090+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1299-20261122.json",
+  "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+  "new_scenarios": 6,
+  "new_groups": 6,
+  "new_primary_ids": 6,
+  "actions": 168,
+  "native_assertions": 1970,
+  "manual_passes": 150,
+  "totals": {
+    "saved_registered_scenarios": 5223,
+    "duels": 3097,
+    "four_live": 2126,
+    "recorded_primary_ids": 2371,
+    "identity_denominator": 5196,
+    "recorded_groups": 2245,
+    "group_denominator": 3324,
+    "four_live_groups": 2115,
+    "phase_qualified_scenarios_at_actual_contexts": 1860,
+    "phase_qualified_unique_groups": 1850,
+    "creation_replay_passes": 2602,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1021,
+  "scenarios": [
+    {
+      "card_id": "big_bully_red",
+      "group_id": "identity:big_bully_red",
+      "scenario_id": "card-big-bully-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "effect_branches": [
+        "actual_equal_life_at_attack_does_not_trigger_crowd_or_its_conditioned_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-big-bully-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mocking_blow_red",
+      "group_id": "pitch-cycle:mocking_blow",
+      "scenario_id": "card-mocking-blow-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "effect_branches": [
+        "actual_equal_life_at_attack_does_not_trigger_crowd_or_its_conditioned_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mocking-blow-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cries_of_encore_red",
+      "group_id": "identity:cries_of_encore_red",
+      "scenario_id": "card-cries-of-encore-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus-rejects-unearned-graveyard-instant",
+      "effect_branches": [
+        "actual_equal_life_at_attack_does_not_trigger_crowd_or_its_conditioned_bonus_and_zero_cost_graveyard_instant_remains_unplayable_without_cheered_hit_permission"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cries-of-encore-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus-rejects-unearned-graveyard-instant",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "jaws_of_victory_red",
+      "group_id": "identity:jaws_of_victory_red",
+      "scenario_id": "card-jaws-of-victory-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "effect_branches": [
+        "actual_equal_life_at_attack_does_not_trigger_crowd_or_its_conditioned_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-jaws-of-victory-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "comeback_kid_red",
+      "group_id": "pitch-cycle:comeback_kid",
+      "scenario_id": "card-comeback-kid-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "effect_branches": [
+        "actual_equal_life_at_attack_does_not_trigger_crowd_or_its_conditioned_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-comeback-kid-red-four-live-sparse1299-equal-life-no-crowd-or-unearned-bonus",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tame_the_beastly_behavior_red",
+      "group_id": "identity:tame_the_beastly_behavior_red",
+      "scenario_id": "card-tame-the-beastly-behavior-red-four-live-sparse1299-non-reviled-hero-keeps-arsenal",
+      "effect_branches": [
+        "actual_non_reviled_hero_hit_gives_no_bonus_or_arsenal_bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tame-the-beastly-behavior-red-four-live-sparse1299-non-reviled-hero-keeps-arsenal",
+      "source_spec": "card-regression-sparse1299-20261122.json",
+      "source_spec_sha256": "0571fd6d1418b8643749a9f9336d9c3e4a1de8bf5ca2f9e27664223006426111",
+      "review_evidence": "review-evidence/sparse1299-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aad4f51e9e9f33e6e63a866648f9443963dbae84e8ba769422c1f68251ba4a54",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1299-20261122-replay.json",
+          "sha256": "4d46fd7f730dee2cfc90e86225e766f855f57f4c1a3468c5c58434986f89aa5d",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

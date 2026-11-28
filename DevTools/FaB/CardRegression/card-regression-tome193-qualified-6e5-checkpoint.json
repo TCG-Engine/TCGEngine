@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T17:46:24.081655+00:00",
+  "runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+  "source_spec": "card-regression-repair-tome193-after6e5.json",
+  "source_spec_sha256": "a51f77611498891aa84804c7c24e4d14d4569aafac6b30f0a8acd2f87bb6ce29",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 12,
+  "native_assertions": 1464,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4109,
+    "duels": 3074,
+    "four_live": 1035,
+    "recorded_primary_ids": 1262,
+    "identity_denominator": 5196,
+    "recorded_groups": 1136,
+    "group_denominator": 3324,
+    "four_live_groups": 1028,
+    "phase_qualified_scenarios_at_actual_contexts": 746,
+    "phase_qualified_unique_groups": 741,
+    "creation_replay_passes": 1487,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "tome_of_aeo_blue",
+      "group_id": "identity:tome_of_aeo_blue",
+      "scenario_id": "card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "effect_branches": [
+        "actualTurnAdvance-NoEndStartPriority-firstP2Action-AP1-earned4-destroy-realTopDraw"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "source_spec": "card-regression-repair-tome193-after6e5.json",
+      "source_spec_sha256": "a51f77611498891aa84804c7c24e4d14d4569aafac6b30f0a8acd2f87bb6ce29",
+      "review_evidence": "review-evidence/tome193-qualified-saved-6e5.json",
+      "review_evidence_sha256": "fd8950be7d27e79df00a7669f43d66f4c552c926a69294e58b8a3dd91622ed61",
+      "recorded_runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+      "qualification_runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-tome193-after6e5-replay.json",
+          "sha256": "59b0e328dedf68fcbc4f7af462a27722e29ca8757c269b24a12f5146e24a469b",
+          "runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

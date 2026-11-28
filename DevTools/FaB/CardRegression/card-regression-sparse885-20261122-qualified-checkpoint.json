@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T15:43:12.210624+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse885-20261122.json",
+  "source_spec_sha256": "1bb36c108b70fb7ba6f6bc0fabb19a9b0e8c677009ead98d52e8bd1d5e8b3b7e",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 14,
+  "native_assertions": 224,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4289,
+    "duels": 3075,
+    "four_live": 1214,
+    "recorded_primary_ids": 1437,
+    "identity_denominator": 5196,
+    "recorded_groups": 1311,
+    "group_denominator": 3324,
+    "four_live_groups": 1203,
+    "phase_qualified_scenarios_at_actual_contexts": 926,
+    "phase_qualified_unique_groups": 916,
+    "creation_replay_passes": 1667,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 87,
+  "scenarios": [
+    {
+      "card_id": "hadron_collider_red",
+      "group_id": "pitch-cycle:hadron_collider",
+      "scenario_id": "card-hadron-collider-red-four-live-sparse885-actual-four-steam-entry-then-positive-crank-removes-one-and-gains-action-point",
+      "effect_branches": [
+        "actual_four_steam_entry_then_positive_crank_removes_one_and_gains_action_point"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hadron-collider-red-four-live-sparse885-actual-four-steam-entry-then-positive-crank-removes-one-and-gains-action-point",
+      "source_spec": "card-regression-sparse885-20261122.json",
+      "source_spec_sha256": "1bb36c108b70fb7ba6f6bc0fabb19a9b0e8c677009ead98d52e8bd1d5e8b3b7e",
+      "review_evidence": "review-evidence/sparse885-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0162f15c8a77583b7bb8387d596d1f80ca7a7b4be82b7b10aa13907f3486abe7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse885-20261122-replay.json",
+          "sha256": "ee15064cb3e1d9b17f293412dfd5aa1a832b1e74510475fff590dbdd96caa0b5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mini_forcefield_red",
+      "group_id": "pitch-cycle:mini_forcefield",
+      "scenario_id": "card-mini-forcefield-red-four-live-sparse885-actual-four-steam-entry-declines-crank-and-preserves-all-counters",
+      "effect_branches": [
+        "actual_four_steam_entry_declines_crank_and_preserves_all_counters"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mini-forcefield-red-four-live-sparse885-actual-four-steam-entry-declines-crank-and-preserves-all-counters",
+      "source_spec": "card-regression-sparse885-20261122.json",
+      "source_spec_sha256": "1bb36c108b70fb7ba6f6bc0fabb19a9b0e8c677009ead98d52e8bd1d5e8b3b7e",
+      "review_evidence": "review-evidence/sparse885-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0162f15c8a77583b7bb8387d596d1f80ca7a7b4be82b7b10aa13907f3486abe7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse885-20261122-replay.json",
+          "sha256": "ee15064cb3e1d9b17f293412dfd5aa1a832b1e74510475fff590dbdd96caa0b5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

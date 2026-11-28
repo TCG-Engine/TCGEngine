@@ -1,0 +1,145 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-keyword/current-route review with exact unchanged three-case subset binding",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1171-20261122.json",
+  "source_spec_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+  "input_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-crackle-from-afar-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+      "card_id": "crackle_from_afar_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "520b370d6344d90c8b5d2c7ed6159c5acb89336ca7e3c9720b41051e2cbb7c82",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "3472ba38415a1155514e7f5814025a374d0913dd27a256a5f1966f11d3ebce9b",
+        "expected_final_gamestate.txt": "54740deffc05244c3d2a878c9e309112efe0593ff5f7d3d76bb08de507a3199d",
+        "meta.json": "5161419c28bcccc3c9480cb7821974556946e90dafdf22f4c822c01bc3a75bb1"
+      },
+      "fixture_sha256": "0ba612c108211d38e9055825629a4fceefe10a82a9415c05f0434e3c3c57f774",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1171-20261122.json",
+      "input_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1171-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crackle-from-afar-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "fixture_slug": "card-crackle-from-afar-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fleeing-starbreeze-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+      "card_id": "fleeing_starbreeze_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7f71ad109b3b30fce777d45bd9eb10945257d1dd19f2b1ced9ea80b7971f5da",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "908970ec70681a1e532fceb0f5d93b95600918f8a6ba0a230a5428b1801925b3",
+        "expected_final_gamestate.txt": "0c80867c73300ffdeeb624cdb099df155ce48d0a41b7dc2b03c235bb4cc06b64",
+        "meta.json": "de3f333d29cb2a840e1b610b616c420a9a52386e92b9f3ee3052aad53811365b"
+      },
+      "fixture_sha256": "2abf314f8137aac0cf59363f6e0a66f74ab3d89cc7587304d4b530ff73cea16a",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1171-20261122.json",
+      "input_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1171-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fleeing-starbreeze-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "fixture_slug": "card-fleeing-starbreeze-blue-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-auric-shards-red-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+      "card_id": "auric_shards_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3a858669ef4e3c38387dd9fe9783e872a2f9e40906e747ac2c4825f0830a429",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "379ae24ba12e019b3d32ab674a6f180a1481871aa92086f67bf88f56309621e5",
+        "expected_final_gamestate.txt": "61ed4cdba875e1b00fb36281d8aaedc51f99db90b1821bd04ba8a396a86c9a13",
+        "meta.json": "a64973b872a300436eb55eb611dc513c2642df91bc371da89c4a54a73d27e36b"
+      },
+      "fixture_sha256": "36a855eccbe86bd57e900919dc97fc97b456fd87a61aad474c6a54280d213be0",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1171-20261122.json",
+      "input_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1171-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-auric-shards-red-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "fixture_slug": "card-auric-shards-red-four-live-sparse1171-actual-ward-1-prevents-arcane-without-entry-ability-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "bf14c8571f6a385497fd011defef47a46730e41d1dc15e7483b538848263cacc",
+    "reviewer": "breadth_review independent printed-keyword/current-route review with exact unchanged three-case subset binding",
+    "basis": [
+      "Crackle from Afar Blue, Fleeing Starbreeze Blue and Auric Shards Red are distinct uncovered Lightning Illusionist Instant Aura groups, each with printed Ward1. Natural young Lightning Illusionist Zyggy20 is legal; his only printed hero ability is activated and unused. Prior ordinary non-holo Auras are admitted settled states, without reproducing or crediting their entry WHEN abilities.",
+      "None of these three primary printed texts has a leave-arena or destroyed trigger. No Holo counter or activated return ability is present. Thus real Ward destruction owes no extra primary layer; the omitted future/entry effects are not earned during the scenario.",
+      "Actual Verdance20 Zap6 declares Hero4 and pays Action0 before four manual responders. Full Zap DTD mandatory prevention enumerates sole actual Aura5 as p4Arena-0; victim4 answers that advertised MZCHOOSE while source6 remains held and HP20/Arena5 persist. DTD Ward payment destroys actual owned5 and prevents1 of3, giving actual HP18.",
+      "Final sourceZap6 ownedGY1/primaryAura5 ownedGY4, empty Arena4/Stack/queues, maxUID6/no new token/RNG and unchanged resources/AP pin the keyword-only outcome. Exact current canonical cases equal original first three byte-parsed case structures; no setup/action/assertion/oracle changes accompanied the fourth-case removal."
+    ],
+    "case_checks": [
+      {
+        "card": "crackle_from_afar_blue",
+        "controls": 7,
+        "normalized_assertions": 250,
+        "author_only_omissions": 0
+      },
+      {
+        "card": "fleeing_starbreeze_blue",
+        "controls": 7,
+        "normalized_assertions": 250,
+        "author_only_omissions": 0
+      },
+      {
+        "card": "auric_shards_red",
+        "controls": 7,
+        "normalized_assertions": 250,
+        "author_only_omissions": 0
+      }
+    ],
+    "removed_unrun_branch": {
+      "card": "essence_of_ancestry_body_red",
+      "original_spec_sha256": "138aed22ef7b4186919b2a973241b4eb0e7838a83a5c1d9eb2d65cd273050e36",
+      "reason": "Actual leave earns the initial WHEN; retained Genesis only makes the subsequent IF false. No rule exception establishing trigger suppression was supplied. Current MSTCards125 directly applies the condition/effect without an established responseable leave layer. Deferred under existing WHEN/IF timing category without native probe/new-root claim.",
+      "canonical_contains_removed_case": false
+    },
+    "limits": [
+      "Intrinsic Ward1 against one Zap3 only. Entry buffs/GA/Holo, Aura producers, other packets/multiple Ward/order, Zyggy activation, ancestry leave protection, hero/support/sibling or full-card correctness remain untested.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1171-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c612b4cd6cab0bb71ae4029310951e8bc6474bc180670740e1ffbc9978c55fb0"
+  },
+  "full_suite_run": false
+}

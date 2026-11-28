@@ -1,0 +1,7 @@
+{
+    "name": "Back Heel Kick / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:38:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Twin Twisters was the last attack this combat chain, while this is face-up in any zone and would gain {p}, instead it gains that much plus 1. Representative only: actual_three_without_combo_or_power_gain. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#back_heel_kick_red"
+}

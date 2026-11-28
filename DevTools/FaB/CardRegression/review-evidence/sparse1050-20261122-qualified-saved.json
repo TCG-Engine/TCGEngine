@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cachedtext/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1050-20261122.json",
+  "source_spec_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+  "input_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "gold-baited-hook-four-live-sparse1050-real-defense-battleworn-close",
+      "card_id": "gold_baited_hook",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "555e1c9709582a9e2b756846d3a930fa9db40de06248290ed765fa79d43ead72",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ee79f4c630091d90fb1c822fee8fd628449386e8603bcfcc8ed7a6bc3b4cef42",
+        "expected_final_gamestate.txt": "d4c2abdf1107f8972cbc61b191444548b4fe59dd05165dc6448265c7cf8876c6",
+        "meta.json": "03a96ecf2d8cbd3c5b7a0c12b2dcce5473c4cb828071578952148d0759b4c5fb"
+      },
+      "fixture_sha256": "74cbb6f8928b40497635550c216a641e6c3e07ebad8a8acb60413d00e8d28c94",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1050-20261122.json",
+      "input_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "gold-baited-hook-four-live-sparse1050-real-defense-battleworn-close",
+        "fixture_slug": "gold-baited-hook-four-live-sparse1050-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "graven-justaucorpse-four-live-sparse1050-real-defense-battleworn-close",
+      "card_id": "graven_justaucorpse",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "057a6fc06138bda5d80b31542a281e4090654e20891418ff6c5421583ea9c30d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ddbdab11054ce9ef2c80022d297a527d907e52b6a00281fbfa33e1db54e4d06d",
+        "expected_final_gamestate.txt": "3e49be448c1652747ad491fc8edf913df1759ae69c3f7a34b295b920d132d4a4",
+        "meta.json": "06b640da62747603673c4cc6e4c345dc304f7aeb92cd7f5f4697b05844215860"
+      },
+      "fixture_sha256": "ad3e40364fd780bd9935c8e73ea0ad01eb1aac6be1470f2c063ed024a2693965",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1050-20261122.json",
+      "input_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "graven-justaucorpse-four-live-sparse1050-real-defense-battleworn-close",
+        "fixture_slug": "graven-justaucorpse-four-live-sparse1050-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "shattering-grasp-four-live-sparse1050-real-defense-battleworn-close",
+      "card_id": "shattering_grasp",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae879d2d8e1bf82455c5be293fb6925207f27336ffb44a25a2b51b19397dac69",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ef406e4c5218b3b62b337645d3d20c212bd7fe0186418443542d6fd9ff6d4e5b",
+        "expected_final_gamestate.txt": "bb821bb85d3c0829b34e14aad7fb7d62663093a90e089d50148022172dfbc1be",
+        "meta.json": "0c73e8c2e82fece0176f474769e04a6490537039d2619986ee0af89dbceb2446"
+      },
+      "fixture_sha256": "8a6fe36ad472aee98359f93f201c1b4fce96d35e3a3a12c5c5f3377fb79e31c4",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1050-20261122.json",
+      "input_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "shattering-grasp-four-live-sparse1050-real-defense-battleworn-close",
+        "fixture_slug": "shattering-grasp-four-live-sparse1050-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "shock-frock-four-live-sparse1050-real-defense-battleworn-close",
+      "card_id": "shock_frock",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50d119a90dea219ce3452d6cb216cc0276f242ef042fa671bb455b6da2c6e968",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "6ea77c7505e76ecee771814d99693db8f2c85b4f6b6d27697d8316f9d135464c",
+        "expected_final_gamestate.txt": "1da90c571772cc0c8bd0064815da656932da20720c94abdde5a0402bc0441b77",
+        "meta.json": "a5333549548aead2512140e4248812649da88f043ff2f5cb6d1e33b6ec8c1dd4"
+      },
+      "fixture_sha256": "dd8a4cc0c818d1f04aa0fd1fb450dffbeb13c4d8fedd36e7a9e796a9f3842f6b",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1050-20261122.json",
+      "input_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "shock-frock-four-live-sparse1050-real-defense-battleworn-close",
+        "fixture_slug": "shock-frock-four-live-sparse1050-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9c7eea607d82d11adad7f229db1d87e82ddaaee6df910543af907172f0b4c455",
+    "reviewer": "breadth_review independent cachedtext/spec delta review",
+    "basis": [
+      "AllfourcachedDEF1/Battleworn, noWHENdefends: GoldHookPirate/GravenNecromancer legalGravy20, ShatteringIce legalOldhim20EssenceIce, ShockLightning legalAurora20EssenceLightning. Noactivation/Allyfreeze/Lightningplay/discard/BlueGY/Goldcreation/owner4endphase event occurs. GoldHookfutureendphase not reached; Gravenowner4GGYredLeadCharge+colorlessEquipmentnotblue.",
+      "Nativecontrols exactly match qualified1042equipment donor. ActualDoriSword3/Blue8cost1\u2192R2/AP0, realEq5+NAA6DEF2 exactDEF3/0damage/noHit/HP20/fourmanual. GLBattleworncounter1retainsEq5at0/owned4, actualHand6ownedGY4/weapon7used/Blue8Pitch; allrole/source/cost/HP/AP/fates/queuespersist, noauthor-onlydiagnostics."
+    ],
+    "limits": [
+      "Ordinarydefense/singleBattlewornclose only. Noactivated/triggeredbody/previousholdsfixed/Ally/Arcane/Gold/Lightningresource/Gravypermission/endphase/hero/support/sibling/fullcardcredit. No native/PHP/T/source/Git/original/network actions byreviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1050-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e7e8ce418d7c1af813fabffa4abf21709b091574c4a70d39df69c8dee6f71b14"
+  },
+  "full_suite_run": false
+}

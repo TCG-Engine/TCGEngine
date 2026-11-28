@@ -1,0 +1,7 @@
+{
+    "name": "Warmonger's Diplomacy / four real choices and next-turn War restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:53:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ALL4REALCHOICES+HERO2NEXTTURNWARONLY. FourmanualYoungDori20. RealWarmonger5Hand1, realNimblism6/Wounding7Hand2, fourrealGenericSigils8..11Deck1fornormaldraw. ActualAction0paysAP1to0beforefourresponses; resolutioneffect(notCardmodeannouncement)asksheroesleftorder2/3/4/1, choosingWar/Peace/War/Peace. Originalownedphysical5remainsStackthroughallforeignchoicesandlastcasterchoice, onlythenGY1/noGA/AP0. Nativeall4ACTIONandEND_PHASEpassesadvancefromTurn1Number2toTurn2Number3, drawupactualp1Deck4toHand4(noCardswithdrawtriggers). Existingnext-turneffectarmsWAR2; actualaffordableGenericNimblism0playattemptrejected/Handunchanged/AP1, actualWounding7cost0allowed/normaladjacentHero1target/AP0/fourfreshsourceandcombatrounds/real4damageHP1=16. Source5GY1/6Hand2/7GY2/8..11Hand1/UID11/RNG0/noArenaDeckStackDQs/APR0. NoAUra/Item/HeroStartorEndWHENearned; nofakephase/permissions/historyseed. Hero3/4/1choicesrecordedbuttheirfuturePeace/Warrestrictionsandexpiry/weaponabilities/offturnactionsnotcredited. DefaultSeatOrder1234only. NoHero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#warmongers_diplomacy_blue FaBSim/Custom/DTDCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

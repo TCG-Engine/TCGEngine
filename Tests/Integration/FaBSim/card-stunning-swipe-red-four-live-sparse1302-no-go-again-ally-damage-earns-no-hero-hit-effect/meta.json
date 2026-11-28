@@ -1,0 +1,7 @@
+{
+    "name": "Stunning Swipe / no go-again Quickstrike guard and Ally-not-Hero damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:55:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_BRIAR20_MANUAL_UPF_NO_GO_AGAIN_QUICKSTRIKE_AND_ALLY_NOT_HERO_GUARDS_ONLY. LegalLightningRuneblade5Hand/BriarEssenceLightning; printed0cost/R0/AP1to0/noGAorarcanehistoryseed. ActualDromai4Ashwing6withlegitimatepriorAshmaterial/controlHandBlue7/HeroStatus2. NativeadjacentAllytarget/fourresponses; noGAmeansQuickstrikeconditionfalse/no+1whereprinted/noarcanegrant. Actualprinted3physicaldamagekills1lifeTokenAlly/ceasesnoGY4/noHeroHPdamage. FirstdealsdamageHERO(orLightningHero)conditionfalse\u2192noearnedEmbodLightning/Ponder/LightningFlow/Discard/Taptrigger. BluecontrolHandstaysandHero4Status2/allArena0/noextraUID; BriarHeroDamageproducerfalse. Full5ownedGY1/funderPitchifany/allHero20/APR0/UID7RNG0/StackDQsCCclean. No positiveQuickstrike/GA/arcane/Hero-hitproducer/discard/tap/Briar/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stunning_swipe_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

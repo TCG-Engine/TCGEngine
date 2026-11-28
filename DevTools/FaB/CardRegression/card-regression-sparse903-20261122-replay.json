@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shield-beater-four-live-sparse903-real-two-blue-payment-and-weapon-tap-pay-four-then-actual-attack-deals-five",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse903-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse903-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "950d5717ad3b8f1eb7ba98adca66c3ab64d1d954805cf9883889c004f8b8c820",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c6eab5a65486247d2d01be07e96dd9bd87c8bd435fc2e3b7a9cedb1a42912e4",
+        "actions.json": "c7df17254164f38cfbbc422645516425a0f3ef16aefebae5c184fb506f50ee53",
+        "assertions.json": "d92b4ad71ae4b800e805747e8eea00398254a469d8350a601a4c04e4249bfb15",
+        "expected_final_gamestate.txt": "67196ec465b24ceec6d1cbef1aa505b60933198cc2d564a8ea21b71e7f1d5a1f",
+        "meta.json": "7274cd04429fff3de72521257f87634fe9b7fb7e6f41e8ecca49f2bdcbcbe82a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

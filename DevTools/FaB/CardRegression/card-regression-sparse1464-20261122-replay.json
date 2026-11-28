@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b74eda7ef0caff12e26a169590e4909481c5ff16752e90cffea36ed2318e498f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9abc0b7f8317ce09bced60b57600320dea96888e6af86abba43aa926bdefbf50",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "d1732ff568336da9fcc46e50d0f7a213bf515c0c2d2069131436bb6532089ee6",
+        "expected_final_gamestate.txt": "f01cf3cab559f258f9b9527145b6671d35cc728f387f320942c6251c5a4c7836",
+        "meta.json": "66878da0b897d7cb23a2ef5ff464bc78f5332fd92b8f6735050fda92f1d7fc61"
+      }
+    },
+    {
+      "slug": "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "61b88d02ce0634763b42625001629072d660037a2534fa0a6319f9b3b39dc859",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ac383698239c7dc2ef3b1c3242c17be5f0c54c900aa6637e7a88ba38fa33ceb",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "bc69abbbebff707fe9bdb01b09eaf21ef13de853e752767d5714cbbfc2b530ab",
+        "expected_final_gamestate.txt": "965114cb9aa697d32ccdc5624413befb641ed7f01fdef49caaa5436f85930713",
+        "meta.json": "c04b4e7a8e55d2fe2e88b910559f95344dc4cdd3bf2e2300c0e39dd1689f0ffd"
+      }
+    },
+    {
+      "slug": "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1464-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "50a9616a26172cb1fd789a914d3250768050f3515ba435761fbd4126a81a8ce3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d047f218523d3a4e1f842c13ec6a55957507f1d5715050782ab81cd37352de",
+        "actions.json": "b98dd282e93d38d3298d6b3caf279162f1e654bc6ed9e70eae550e41cf3b1f5e",
+        "assertions.json": "b26ee094802a68921e41234f98a1c9bddbe4405a8cad5e5ac10714a695db9d2b",
+        "expected_final_gamestate.txt": "6c77dd046af6354e8acab255d59afe3fac3e7595529cddd2eca11bf1c8529127",
+        "meta.json": "9bae53a4b0db35a0a8fd30574371dfa96e0596b6f7ccc2a609ee069339b16d01"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

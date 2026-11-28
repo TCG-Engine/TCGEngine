@@ -1,0 +1,284 @@
+{
+  "status": "MIXED_NATIVE_RESTRICTION_OBSERVATIONS_NO_PASSING_FIXTURES",
+  "issue_id": "FAB-REG-212",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse981-held-play-restrictions-20261122.json",
+  "source_spec_sha256": "4e965c69d7d54eb7e000950bbe2fe13e1b3325897eb58e826e0d612bad5377da",
+  "original_native_input_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+  "original_receipt_sha256": "78862f4bb6085a988a8ff27a2b42952ff3d74b8d1e73d6a9e715c5d761f4214c",
+  "observations": [
+    {
+      "card_id": "run_roughshod_blue",
+      "slug": "card-run-roughshod-blue-four-live-sparse981-reject-no-prior-discarded-six-power-card",
+      "classification": "TARGET_PREVIEW_GATING_DISCREPANCY_FULL_PLAY_UNVERIFIED",
+      "first_failure": "Expected decision queue for player 1 to be empty.",
+      "native_inputs": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "initial_gamestate_sha256": "dea2298326618d597baf583b481ae547dfb9e0c146916312ab4d1937c46acef2",
+      "observed_state": {
+        "window": "ACTION",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": null,
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": [],
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": []
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p2Hero-0&p4Hero-0",
+            "Block": 1,
+            "Tooltip": "Choose_attack_target",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "FAB_ATTACK_TARGET|5|PLAY",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [
+          "p1Hand-0",
+          "p1Hand-1"
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "independent_expected": "With no prior discard6, the approved app-entry regression expects ordinary Hand play to be rejected before presenting attack-target selection. The preview discrepancy alone is not classified as a completed illegal play.",
+      "independent_actual": "After one p1Hand-0 click, the empty-decision assertion failed. Observed player1 MZCHOOSE p2Hero-0&p4Hero-0 / Choose_attack_target, then CUSTOM FAB_ATTACK_TARGET|5|PLAY. Earlier rejection-checkpoint assertions passed: Hand2 with primary UID5/Owner1 and support6, Stack0/GY0/Pitch0/Arena0/Weapons0, AP1/R0, enemyHP20, ACTION and pendingPayment null. Observed turnEffects/cardsPlayed remain empty.",
+      "limits": "No target response; legal support follow-through and later assertions were not reached.",
+      "fixture_saved": false,
+      "qualified": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "rest_before_battle_yellow",
+      "slug": "card-rest-before-battle-yellow-four-live-sparse981-reject-no-prior-weapon-attack",
+      "classification": "CONFIRMED_FORBIDDEN_PLAY_ADMISSION",
+      "first_failure": "Expected p1Hand count 2, got 1.",
+      "native_inputs": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "initial_gamestate_sha256": "e16a6b39ed48dcc098d0d3b4c002df5438efff9467a8751cd4404a71f63f8096",
+      "observed_state": {
+        "window": "PRIORITY",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": null,
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": {
+          "1": [
+            {
+              "type": "PEN_AURAS",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_AURA",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_PLAYED",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_AURAS",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": {
+          "1": [
+            "rest_before_battle_yellow"
+          ]
+        },
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false,
+            "omnFirstDamage": false,
+            "iarPlayedFrom": "Hand",
+            "mstFree": false,
+            "rosLastLightning": false
+          }
+        },
+        "arcActions": {
+          "1": 1
+        }
+      },
+      "observed_decisions": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [
+          "p1Hand-1"
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "independent_expected": "With no prior weapon attack (including no equipped weapons), ordinary play must be rejected and both Hand cards retained.",
+      "independent_actual": "After one p1Hand-0 click, the first rejection assertion failed: Hand expected2 got1. Observed window PRIORITY and cardsPlayedThisTurn[1]=[rest_before_battle_yellow], with aura/played bookkeeping effects. Only support hand reference p1Hand-1 remains; no decisions are pending.",
+      "limits": "Post-click AP/resources/Stack/Arena assertions and legal support follow-through were not reached; no claims are made about their values.",
+      "fixture_saved": false,
+      "qualified": false,
+      "coverage_credit": false
+    }
+  ],
+  "confirmed_gameplay_card_ids": [
+    "rest_before_battle_yellow"
+  ],
+  "target_preview_only_card_ids": [
+    "run_roughshod_blue"
+  ],
+  "shared_root_established": false,
+  "independent_review": {
+    "result": "mixed_confirmed_admission_failure_and_target_preview_discrepancy_hold_no_fixture",
+    "issue_id": "FAB-REG-212",
+    "reviewer": "breadth_review independent receipt/printed-text/source review",
+    "spec_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+    "receipt_sha256": "78862f4bb6085a988a8ff27a2b42952ff3d74b8d1e73d6a9e715c5d761f4214c",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "grouping": "Two card-specific observations grouped under212 for tracking: Rest Before Battle is a confirmed prohibited-play admission; Run Roughshod is a target-preview/announcement-gating discrepancy only, with full play unrun. Do not count these as two confirmed completed-gameplay failures. A common implementation root is unproven; no new distinct shared-root claim.",
+    "common_setup": "Both initial snapshots are fresh ACTION UPF with four live seats, no combat, prior attacks, turnEffects or cardsPlayedThisTurn. Legal natural20 Rhinar/Dorinthea; owned primary UID5 plus Wounding Blow Red UID6. Run Roughshod printed cost1 is covered by real Red pitch1; Rest Before Battle costs0. Failed prerequisites cannot be masked by insufficient available pitch. Exactly one attempted native Hand0 click per failure; no target answer, pitch or repair was attempted.",
+    "observations": [
+      {
+        "card_id": "run_roughshod_blue",
+        "printed_text": "Play this only if you've discarded a card with 6 or more {p} this turn.",
+        "initial_gamestate_sha256": "dea2298326618d597baf583b481ae547dfb9e0c146916312ab4d1937c46acef2",
+        "expected": "With no prior discard6, the approved app-entry regression expects ordinary Hand play to be rejected before presenting attack-target selection. The preview discrepancy alone is not classified as a completed illegal play.",
+        "actual": "After one p1Hand-0 click, the empty-decision assertion failed. Observed player1 MZCHOOSE p2Hero-0&p4Hero-0 / Choose_attack_target, then CUSTOM FAB_ATTACK_TARGET|5|PLAY. Earlier rejection-checkpoint assertions passed: Hand2 with primary UID5/Owner1 and support6, Stack0/GY0/Pitch0/Arena0/Weapons0, AP1/R0, enemyHP20, ACTION and pendingPayment null. Observed turnEffects/cardsPlayed remain empty.",
+        "classification": "Observed target-preview/announcement-gating discrepancy against the approved rejection checkpoint. This is NOT proof that payment or full play would be accepted: full play, combat and resolution are unrun, and source remains in Hand. A later rejection/recheck after target has not been exercised or excluded.",
+        "not_executed": "No target response; legal support follow-through and later assertions were not reached."
+      },
+      {
+        "card_id": "rest_before_battle_yellow",
+        "printed_text": "Play this only if you've attacked with a weapon this turn.\n\nAt the start of your turn, destroy this and draw a card.",
+        "initial_gamestate_sha256": "e16a6b39ed48dcc098d0d3b4c002df5438efff9467a8751cd4404a71f63f8096",
+        "expected": "With no prior weapon attack (including no equipped weapons), ordinary play must be rejected and both Hand cards retained.",
+        "actual": "After one p1Hand-0 click, the first rejection assertion failed: Hand expected2 got1. Observed window PRIORITY and cardsPlayedThisTurn[1]=[rest_before_battle_yellow], with aura/played bookkeeping effects. Only support hand reference p1Hand-1 remains; no decisions are pending.",
+        "classification": "Confirmed prohibited card was admitted to play without its required prior weapon attack. Destination and resolution are NOT established by the reported checks.",
+        "not_executed": "Post-click AP/resources/Stack/Arena assertions and legal support follow-through were not reached; no claims are made about their values."
+      }
+    ],
+    "source_evidence": [
+      "Cached cardArrayCache printed texts independently confirm both restrictions, class, cost and the real support pitch.",
+      "Custom/GameLogic.php:969-1006 CanPlayCard is the ordinary legality gate; :1000-1001 delegates local set guards, :1002-1006 handles named restrictions and affordability. :1009-1011 calls this gate before execution. No dedicated Run Roughshod/Rest Before Battle restriction was found in the checked Custom exact-name search or central explicit restrictions. This is a source observation, not a proven shared generator/parser diagnosis.",
+      "Custom/GameLogic.php:1021-1026 requests a target after the initial CanPlayCard gate at:1011 returns true; :783-784 creates the observed MZCHOOSE and FAB_ATTACK_TARGET queue. This confirms the initial gate allowed target preview, not that a later target answer/payment would complete. No downstream rejection/recheck is excluded by this one-input observation.",
+      "Custom/GameLogic.php:1028-1048 proceeds from admitted ordinary play toward removal from the source zone and stack construction. Rest receipt proves admission/hand movement and played bookkeeping, without establishing its exact resulting stack/AP/Arena values."
+    ],
+    "passing_cases": "Receipt separately records Frightmare and Even Bigger Than That each recorded_semantically_checked with28 actions/153 assertions. This review neither changes those inputs/saved files nor certifies a replay; one clean replay remains Root-owned.",
+    "disposition": "Track Rest as confirmed forbidden-play admission and Run as preview/announcement discrepancy with downstream play unrun under212; both remain unsaved/unqualified/held. No failed-case fixture, replay, retry, engine change or repair was made by reviewer. Passing cases retain existing provenance unchanged.",
+    "scope": "Read-only T/cache/source and W receipts; only this W failure-review.json written. No native PHP/game/test, original checkout, network or Git operation."
+  },
+  "source_changed": false,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_claimed": false,
+  "full_suite_run": false
+}

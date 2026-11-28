@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-brainstorm-blue-four-live-sparse1385-native-three-cost-instant-then-graveyard-recycle-and-shuffle-not-draw-no-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-brainstorm-blue-four-live-sparse1385-native-three-cost-instant-then-graveyard-recycle-and-shuffle-not-draw-no-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1385-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1385-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d5653fa5befcd369b6e413a70d59dd53729d2f02ff6abea40c0002a8d6a24e09",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ae3ccc1fa5361ef669d62b022bffae3c4fe1e65ef85196c3b4b2279c646e7f5",
+        "actions.json": "433b642945935d24ab241e7be41f44547a4b1381198a8f0c43b8e426c2d9b0c3",
+        "assertions.json": "5e1d673f6ba5729358dbc78e5c0cb228ce86e77da2808739b6a4a97fde40ce7f",
+        "expected_final_gamestate.txt": "03f7b7b9329be7b062466887e6c6a2be84e25ded3f897c5aef9a4a332c8bd3cc",
+        "meta.json": "6e01e7264c7c373a2bc3ffc31f5633bd7b1bf2ddfebcccc0dfc40d61a7d22a24"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

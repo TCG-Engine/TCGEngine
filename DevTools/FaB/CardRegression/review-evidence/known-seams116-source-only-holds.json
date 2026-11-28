@@ -1,0 +1,333 @@
+{
+  "id": "FAB-REG-116",
+  "status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_TARGET_LIFECYCLE_OWNER_SEAMS",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "candidates": [
+    {
+      "source_note_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch461-astral-etchings-source-only-blocker.json",
+      "source_note_sha256": "0960d06b7f4c83cfafc1a3660d41d15f14f4184a86001109d6001a3acb5a8630",
+      "record": {
+        "status": "SOURCE_ONLY_UNATTEMPTED_BLOCKED_NO_EXECUTABLE_SPEC",
+        "author": "/root/nov2_metadata_review",
+        "created_utc": "2026-11-05T12:29:53.312693+00:00",
+        "card_id": "astral_etchings_blue",
+        "group_id": "pitch-cycle:astral_etchings",
+        "group_members": [
+          "astral_etchings_red",
+          "astral_etchings_yellow",
+          "astral_etchings_blue"
+        ],
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "source_guards": {
+          "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+          ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+          "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+          "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+          "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+          "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+          "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+          "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+          "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+          "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+          "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+          "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+          "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+          "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+          "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+          "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+          "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+          "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+          "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+          "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+          "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+          "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+          "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+          "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+          "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+          "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+          "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+          "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+          "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+          "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+          "FaBSim/Custom/SEARuntime.php": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+          "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+          "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+          "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+          "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+          "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+          "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+          "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+          "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+          "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+          "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+          "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+          "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+          "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+          "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+          "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+          "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+          "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+          "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+          "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+          "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+          "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+          "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+          "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+          "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+          "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+          "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+          "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+          "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+          "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+          "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+          "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+          "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+          "FaBSim/GeneratedCode/GeneratedMacroCount.js": "f1db3603aa11cba94afc1fec49609f217a1fcea27e57c66b010a54fd58fb0d4f",
+          "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+          "DevTools/FaB/ele_abilities.json": "9e0f27afa772225ec73488928f8e54ca2b2205fe9aafd59f2f97da4ba61cf4f3",
+          "FaBSim/Custom/BoltynCards.php": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+          "DevTools/FaB/boltyn_abilities.json": "8e1c2a7f773770928618a8392bda7d597b311a44ecd96c0a44ef5ddc6ba5e3b7"
+        },
+        "source_guard_count": 69,
+        "primary_current_rules": {
+          "current_card": "https://judge.fabtcg.com/cards/detail/2979/",
+          "stats": {
+            "types": [
+              "Illusionist",
+              "Action"
+            ],
+            "cost": 1,
+            "pitch": 3,
+            "defense": 3
+          },
+          "effect": "One+1POWERcounterontargetcontrolledAuraWITHWard; SpectralShieldconditionallowsplayasthoughInstant.",
+          "play_method": "CR5.1.3d explicitly gives AstralEtchings as example of declaring Instant method.",
+          "targets": "CR5.1.4a declares resolution-effect targets BEFORE checklegal/calculatepayassets5.1.5-7.",
+          "source_lifetime": "CR5.3.4-7 resolution effects precede clearing source.",
+          "rules_url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+        },
+        "actual_printed_faces_viewed": {
+          "astral_etchings_blue": {
+            "path": "FaBSim/WebpImages/astral_etchings_blue.webp",
+            "sha256": "f4f8774bda6bc612b30311b95181bf41602636105e9ca774177014c215a50989"
+          },
+          "spectral_shield": {
+            "path": "FaBSim/WebpImages/spectral_shield.webp",
+            "sha256": "693d438d1b0fc404fe42f82dc837cacda7fb17742074fe586ee981d49fa3cc79"
+          },
+          "enigma": {
+            "path": "FaBSim/WebpImages/enigma.webp",
+            "sha256": "49a0bcbd269b9dcabaffe5bc86474fb27b076d008f2bf0553f0ff1e6e6476555"
+          }
+        },
+        "supported_partial_route": {
+          "instant_permission": "MSTRuntime56 FaBMSTAsInstant recognizes actual controlledSpectralShield; ARCCards251 delegates to it; GL947-950 uses kindINSTANT, preserving cardActiontype/noAPcost.",
+          "legal_illustrative_setup": "P4youngEnigma20 MysticIllusionist. PriorlegitimateEnigmaChi3activationcouldcreateownedcontrolledSpectralShieldwithPOWER1; no expiry, no damage since. FutureAstralBluewouldtargetsamewardAuraandaddone\u2192POWER2; no fakeinitialPOWER0 assumedfromthiscreator.",
+          "not_frozen_or_executed": true
+        },
+        "blockers": [
+          {
+            "kind": "TARGET_DECLARATION_PROTOCOL_SOURCE_ONLY",
+            "observed_source": "Bluecanonical has ONLYResolveCard, and generatedPrepareCard hasZEROselectedwrappers. GeneratedMZCHOOSE plusCUSTOM astral_etchings_blue:0:ResolveCard-await exists only at resolution; selectedhandwrittenliteralquery found CanPlay(wardAuraexistence) andAsInstant only.",
+            "meaning": "Supported pre-payment target-announcement protocol was not established. Do not invent MZCHOOSE during play or bless its current late resolution selector.",
+            "canonical_entry": {
+              "cardId": "astral_etchings_blue",
+              "abilities": [
+                {
+                  "macroName": "ResolveCard",
+                  "abilityCode": "$chosen = \"-\";\n $refs = FaBMSTAuras($player, true);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Put_power_counters_on_aura\");\n \n}\nFaBMSTCounters($chosen, 1);\n",
+                  "isImplemented": true
+                }
+              ]
+            }
+          },
+          {
+            "kind": "KNOWN_UNMANAGED_RESOLVING_AWAIT_FAMILY_SOURCE_ONLY",
+            "observed_source": "FaBKnownPlainSpellLifecycleCard/FaBPlainSpellResolutionIsManaged lists excludeAstral. Its nonpersistent Action/Instant entersGL1781 else which moves physicalsource toGraveyard then1782FaBResolveRules runs awaitedchooser.",
+            "meaning": "Wouldrepeatknown096/104-style physicalsource-lifetime seam; no new nativeattempt/confirmedbug or new root count. No heldcohort workaround or sourcepatch."
+          }
+        ],
+        "bounded_source_evidence": {
+          "GameLogic": "947-950asInstantkind;990PrepareCardthenpayment;1540/1604admission;1763-1782unmanagedsourceclearbeforeresolvingawait.",
+          "MST": "MSTCards180CanPlayonlywardAuraexistence; MSTRuntime56conditionalAsInstant; mst_abilitiesBlueResolveCardMZChoose\u2192FaBMSTCounters(chosen,1).",
+          "generated": "Wrapper552/awaithelperaround40914; chooserMZCHOOSE+CUSTOMonlyResolveCard; no PrepareCard selectedwrapper."
+        },
+        "newness": {
+          "method": "Onlycurrentcombinedbase/additionsgroupIDs+selectedreviewmemberIDs+holdgroupmetadata; nofixturecrawl",
+          "base_sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+          "additions_sha256": "9304c35656437d854c7f6eb93b42d4a4e5d70a307256df1d3268bfd76c157136",
+          "review_sha256": "b16416acb0127bd6505c4399715a072a05014df2920618eb72cc464b548f15fe",
+          "holds_sha256": "335918930048a8fdc75cf6b1b1ca47507b68a324b596a0d34e09e741239c9ff1",
+          "selected_primary_uncovered": true,
+          "registered_through": "card-regression-sparse459-9e984-checkpoint.json"
+        },
+        "native": {
+          "attempted": false,
+          "fixture_saved": false,
+          "coverage_credit": false,
+          "confirmed_bug": false,
+          "source_fix": false
+        },
+        "outcome": "Boundedtaskstoppedwithoutfabricatedinput. No normalAction substitute, no late-targetapproval, noinventedchooser/permission/history/counter. Rootmayassign a future correct-probe scope; noneexecutedhere.",
+        "limits": [
+          "OnlyselectedBlueandnamedsourcecalls examined; notproofothercardsunimplemented.",
+          "IllustrativelegalpriorShieldcreatornotnativecreation/hero/token/Ward/attack/expiryqualification.",
+          "NoPHP/native/replay/R/source/remote/service/generation/fullsuite/stagecommitpushdeploy/denied089090094096retry orsource-applierprep."
+        ]
+      }
+    },
+    {
+      "source_note_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch462-arctic-incarceration-known-owner-gap-hold\\SOURCE_ONLY_UNATTEMPTED_HOLD.json",
+      "source_note_sha256": "0c8a4fb8422c4a9c0b535978bae12d163233c88f1956e9fa9b521bfdc8437565",
+      "record": {
+        "status": "SOURCE_ONLY_UNATTEMPTED_DIRECT_SAME_OWNER_ARGUMENT_GAP_AS_KNOWN_107",
+        "created_utc": "2026-11-05T12:30:51.526745+00:00",
+        "batch": 462,
+        "selected_id": "arctic_incarceration_red",
+        "group_id": "pitch-cycle:arctic_incarceration",
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "source_guards": {
+          "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+          ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+          "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+          "FaBSim/Custom/ELECards.php": "3e8c31c53540355b9618678a62ca24b04fcd98a5b13c1c45251ca9b00671bc82",
+          "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+          "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+          "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+          "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+          "DevTools/FaB/build_upr_abilities.py": "28027324a937a79ee19023d644620fa5af32461983024a6eeccd71872726458f",
+          "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+          "FaBSim/WebpImages/arctic_incarceration_red.webp": "d02b16287e6c9718179831cba9b726898d7821a3867813dd239767c802236304"
+        },
+        "primary": {
+          "types": [
+            "Ice",
+            "Action"
+          ],
+          "cost": 0,
+          "defense": 2,
+          "text": "Create 3 Frostbite tokens under target hero's control.",
+          "current_official": "https://judge.fabtcg.com/cards/detail/1644/",
+          "official_image": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/UPR144.webp",
+          "local_face_actually_viewed": "FaBSim/WebpImages/arctic_incarceration_red.webp"
+        },
+        "independent_rule": {
+          "rule": "CR1.3.1a",
+          "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+          "finding": "The player instructed to create a card owns it. Arctic Incarceration instructs its caster to create3Frostbites under target hero control; caster1/target4 therefore means Owner1/Controller4 for all three distinct physical tokens, not Owner4."
+        },
+        "intended_correct_model": {
+          "heroes": [
+            "oldhim",
+            "dorinthea",
+            "dorinthea",
+            "dorinthea"
+          ],
+          "legality": "YoungOldhim20 ElementalGuardian/EssenceEarthandIce legally includes IceAction; optional hero ability unactivated.",
+          "setup": "Four live/manual seats, HP20/RChi0/APonlyP1=1, physicalprimary5Hand1 only, no tokens/effects/history/permissions/resources seed.",
+          "announcement": "Declare actual targetP4 before payment/priority under current play rules; resource0 still pays actualActionPoint1 then freshfour manual source responses.",
+          "resolution": "CreateTHREE distinctFrostbites underP4control/Owner1 for instructedcreator1, sourcecard completes correctly; no target-tax, tokenexpiry, support/hero/sibling/fullcard credit."
+        },
+        "selected_source_chain": [
+          {
+            "path": "DevTools/FaB/upr_abilities.json",
+            "card_id": "arctic_incarceration_red",
+            "macro": "ResolveCard",
+            "ability_code": "$hero = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $hero = await $player.MZChoose($targets, \"Choose_hero\");\n \n}\n $target = FaBARCTargetSeat($player, $hero, false);\nFaBELEFrost($target, 3);\n",
+            "finding": "Only selectedmacro is ResolveCard: chooser then FaBELEFrost(target,3), no captured casterOwner argument."
+          },
+          {
+            "path": "DevTools/FaB/build_upr_abilities.py",
+            "line": 100,
+            "finding": "Selected builder emits target() plus FaBELEFrost(target,v); no owner threading."
+          },
+          {
+            "path": "FaBSim/Custom/ELECards.php",
+            "line": 21,
+            "function": "FaBELEFrost",
+            "finding": "Calls FaBWTRCreateArena(recipient,frostbite) without optional owner."
+          },
+          {
+            "path": "FaBSim/Custom/WTRCards.php",
+            "line": 791,
+            "function": "FaBWTRCreateArena",
+            "finding": "Token path forwards omitted/null owner to FaBHVYToken; raw AddArena explicitly sets Owner=owner??recipient and Controller=recipient."
+          },
+          {
+            "path": "FaBSim/Custom/HVYCards.php",
+            "line": 20,
+            "function": "FaBHVYToken",
+            "finding": "Optional seventh owner remains null; rawCreateArena receives nullowner. The effect-controller provenance argument is distinct from tokenOwner and does not repair omitted ownership."
+          }
+        ],
+        "same_known_finding": {
+          "issue_id": "FAB-REG-107",
+          "ledger_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+          "ledger_sha256": "679e16e4974f277f06415dba92332d02232d3f4a6756e8151df2a8f6a9fd3100",
+          "selected_issue_json_sha256": "094261413286ecc6c030c209e2613e78b76097149508d3851fce3190c68474df",
+          "status": "native_confirmed_unfixed_Frosthaven_token_owner_recipient_instead_of_instructed_creator",
+          "classification": "physical_token_creator_ownership_not_preserved",
+          "causal_source_reused": "CanonicalFrosthaven calls FaBHVYToken(victim1,frostbite,1,player4). Its4th argument is effect-controller provenance, not tokenOwner. Optional7thowner is omitted/null; helpercreator defaults to recipientp1 and rawCreateArena receivesnullowner. CreateArena constructs Owner=owner??recipient and Controller=recipient. Sourceexplains actualOwner1; no sharedfactory/globalmigration proposed here.",
+          "native_reproduced_card_ids": [
+            "frosthaven_sheath_red"
+          ],
+          "native_before_evidence_reference_only": {
+            "path": "review-evidence/frosthaven107-native-before.json",
+            "sha256": "d996af44fdfeaef89c643335248ea57edc1029e8a095d8c386065ba58f159f46"
+          },
+          "relationship": "Same optional-owner omitted/null -> recipient fallback in shared HVYToken/rawCreateArena route. This is a direct source-derived affected candidate, not another native reproduction or expanded qualification.",
+          "old_native_evidence_rerun_or_recertified": false
+        },
+        "target_protocol_limit": {
+          "status": "SOURCE_ONLY_UNATTEMPTED_ADDITIONAL_SELECTED_ROUTE_LIMIT",
+          "finding": "Selected canonical has no PrepareCard entry and MZChoose occurs inside ResolveCard. Proper early target announcement not established by this selected recipe. No future UI/answer protocol is invented and no passing late-target recipe is authored.",
+          "new_confirmed_bug": false
+        },
+        "blocker": {
+          "action": "Author/run a new positive Arctic Frostbite creation representative",
+          "target": "CasterP1 Oldhim -> targetheroP4, correct Frostbite Owner1/Ctl4",
+          "reason": "The selected existing creator chain demonstrably omits owner and reaches the exact known107 recipient-owner fallback. Parent instructed not to duplicate that native-failing route. Selected target declaration protocol is also not established early.",
+          "state": "UNATTEMPTED_SOURCE_ONLY_HOLD",
+          "denied": false,
+          "pending_approval": false,
+          "uncertain_execution": false
+        },
+        "metadata_newness": {
+          "selected_group_unrepresented": true,
+          "review_primary_ID_absent": true,
+          "effectbranches_empty": true,
+          "registered_through": "card-regression-sparse459-9e984-checkpoint.json",
+          "index_sha256": "9304c35656437d854c7f6eb93b42d4a4e5d70a307256df1d3268bfd76c157136",
+          "base_group_index_sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+          "primary_review_sha256": "b16416acb0127bd6505c4399715a072a05014df2920618eb72cc464b548f15fe",
+          "coverage_metadata_sha256": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94",
+          "holds_sha256": "335918930048a8fdc75cf6b1b1ca47507b68a324b596a0d34e09e741239c9ff1"
+        },
+        "limits": [
+          "Arctic itself UNATTEMPTED: no native observedOwner, token count/UID, controller, source completion, tax or expiry claim. The predicted Owner4/Ctl4 factory result is SOURCE-DERIVED only.",
+          "Known107 individually reproduces Frosthaven only. No new confirmed card bug/global root/issue count/repair proposal or scope expansion from this hold.",
+          "Only selected UPR producer/builder, ELE wrapper and shared factory owner path inspected, plus existing107 metadata reference. No corpus/fixture crawl/catalog migration/blanket implementation absence claim.",
+          "No gameplay packet, fake correct-owner expectation downgrade, owner property rewrite, token/cost/history seed or invented target UI.",
+          "No PHP/native/replay/R/source/service/generator/ACTIVE/fullsuite/stage/commit/push/deploy/remote writes or denied-operation retry/integration."
+        ],
+        "native_attempted": false,
+        "fixture_saved": false,
+        "coverage_credit": false,
+        "new_confirmed_bug": false,
+        "new_root": false,
+        "source_repair_proposed": false
+      }
+    }
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_confirmed_gameplay_bug": false,
+  "new_root_count": false,
+  "source_fix_applied": false,
+  "denied_repair_retried": false,
+  "scope": "Two selected previously unrepresented groups; no executable input, invented protocol, normal-action substitute, duplicate known failing native run, or catalogue-wide implementation-absence claim.",
+  "created_utc": "2026-11-05T12:45:04.360969+00:00"
+}

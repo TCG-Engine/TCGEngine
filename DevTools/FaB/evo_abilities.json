@@ -2073,7 +2073,7 @@
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$refs = FaBEVORefs($player, 'Hand', 'cheap', false);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Put_item_into_arena\");\n \n}\nFaBEVOPutItem($player, $chosen);\n",
+        "abilityCode": "$refs = FaBEVORefs($player, 'Hand', 'mechCheap', false);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Put_item_into_arena\");\n \n}\nFaBEVOPutItem($player, $chosen, 'Mechanologist');\n",
         "isImplemented": true
       }
     ]

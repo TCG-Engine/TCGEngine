@@ -1,0 +1,7 @@
+{
+    "name": "Pleiades / real suspense remove cost followed by actual counter addition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:21:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - {t}, remove a suspense counter from an aura you control: You may put a suspense counter on an aura of suspense you control.\n\nWhenever the crowd cheers you, create a Confidence token. Named nonzero suspense-cost and actual add-counter branch. Natural young ReveredGuardian Pleiades20 owns existing GuardianSuspenseAura5 with legitimate2counters; its entry/producer is unrecorded and uncredited. Native Instant0 activation has no resource/AP asset cost. Actual cost choice removes2to1 and Hero1 taps2to1 before four manual responses; middlecounter1 guards prevent a net-zero-only oracle. Managed virtualABI6 Owner0/Controller1/SourceHero1 stays Stack through current proper MZMULTICHOOSE0|1 nonTarget resolution choice. Choose sameAura5: actualcounter1to2, ABIclears/Hero stays tapped/AP1/R0/allHP20/sameUID5. Counter never reaches0 and Aura neverleaves; no last-counter destruction/leave effect or crowd-cheer event is earned. No Cheer/Confidence, Aura producer/leave/expiry, last-counter, alternate aura/decline branch, relative nonzero-asset cost ordering, hero/body/support or whole-card credit. Pending Root independent review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pleiades"
+}

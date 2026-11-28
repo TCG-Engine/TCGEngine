@@ -1,0 +1,7 @@
+{
+    "name": "Immobilizing Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:31:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has an aim counter, it gets \"When this hits a hero, they can't play more than 1 attack action card and 1 non-attack action card during their next action phase.\" ActualLexi20+plainunactivatedShiver, source5FaceDownArsenal/noAim, targetDorinthea20notRunebladeorWizard, printedpayment0or1/Blue6if1/R0or2/AP0, actualbase4or5HPdamage andsameownedsourceGY. No granted aim hit ability or typedMageHunter hit event; nopositiveaim/Instantprevention/Bowloading/sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#immobilizing_shot_red"
+}

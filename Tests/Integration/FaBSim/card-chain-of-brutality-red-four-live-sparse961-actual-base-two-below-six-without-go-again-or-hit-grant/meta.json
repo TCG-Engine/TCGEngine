@@ -1,0 +1,7 @@
+{
+    "name": "Chain of Brutality / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:00:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has 6 or more {p}, it gets **go again** and \"When this hits a hero, the next attack action card you play this turn has 6 base {p}.\" LegalReviledKayo20/ReviledGuardianLyath20/ReveredGuardianPleiades20, noHeroInstant/crowdevent. OwnArena0excludesconditional+1/GA. Actualexactdefense2/2/5fullyblocksbase2/ceil3div2/5; all0damage/nohit/notokens; ChainBrutalityactualunblocked2/AP0below6/staticnogrant. Actualprintedcost3Blue6onlyforPleiades, otherwise0; sourceblockersownedGY/all4manual. Positiveconditional/token/crowd/6power branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chain_of_brutality_red"
+}

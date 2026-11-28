@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch333.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T12:05:13.624386+00:00",
+  "fixtures": [
+    {
+      "slug": "card-fletch-a-blue-tail-blue-four-live-sparse-real-paid-next-arrow-plus-two-no-aim-full-block",
+      "fixture_sha256": "9fe23e2e26e0cfabc633106f72c89061bccec2e8f990d83b8eac3a4cc8859a63",
+      "passed": true,
+      "result": "[PASS] fletch_a_blue_tail_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fletch-a-blue-tail-blue-four-live-sparse-real-paid-next-arrow-plus-two-no-aim-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] fletch_a_blue_tail_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Cindra, Dracai of Retribution / actual printed non-marked Hero branch",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:09:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NATURAL_ADULT40_NATIVE_DUEL_ONLY, bothmanualplayersrespond. CindraNinjaownsactualtwoDraconicNinjaKunai3/4GraveyardandrealBlue5Hand/noDraconicchain/AP1/R0. ActualHeroInstant3ABI6requiresrealBlue5pitch3/R0withoutAPcost. BothmanualresponsesholdABI6anddaggersGY/notearlyWeapons. ResolutionrealupTo2MZMULTICHOOSE0|2|GY0&GY1isnonTargetprintedEquip; ABI6remainsStackthroughchoice. Actualanswerboth3/4equipsSAMEUIDsownedreadyWeapons, fund5Pitch/GY0/HP40/AP1/R0/UID6clean. Nochaincostdiscount/zero-one choice/markedhit/weaponattack/Kunaiendchaincost/support/Young/fourlivecredit. Noalternateidentity/wholeHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cindra_dracai_of_retribution FaBSim/Custom/HNTRuntime.php FaBSim/Custom/HNTCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

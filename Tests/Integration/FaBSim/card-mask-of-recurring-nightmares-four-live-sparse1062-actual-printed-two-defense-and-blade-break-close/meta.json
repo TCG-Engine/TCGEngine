@@ -1,0 +1,7 @@
+{
+    "name": "Mask of Recurring Nightmares / four-live ordinary defense and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:31:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Attack Reaction** - {c}{c}{c}: Target defending hero banishes a card from their hand.\n\n**Blade Break** Named ordinary DEF2/Blade Break close only. Legal natural20 nuu owns ready Equipment5 and real Generic LeadCharge6 DEF2. Actual attacker1 Rhinar Club7 power4, Blue8 pays2/R1/AP0. All four live seats manually respond. Primary5 then Hand6 enter CC RoleDEFENSE, exact totalDEF4 gives damage0/noHit/HP20. Normal close destroys own Equipment5 by Blade Break, then Hand6 enters owned graveyard: p4GGY[5,6]/Equipment0. Weapon7 used/retained and Blue8Pitch. Mask body unactivated, no opponent life gain for Vestige replacement, no owner4 attack/stealth/hit, no life loss/token/banish/search or endphase. No author-only diagnostics or positive body/hero/support/sibling/full-card/prior-hold credit. Root independent review/native/save/replay pending. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mask_of_recurring_nightmares"
+}

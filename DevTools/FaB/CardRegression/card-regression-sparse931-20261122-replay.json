@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cut-off-at-the-knees-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-off-at-the-knees-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0d3765ddd8fb8ea9306bde7731daf5b07346050154cea7e8a17a0a6b09c719f2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a255599227af2931224c0323377b7c0996270352b3d4370923156ef2fed7e6f",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7705c66ba219630f8b296ae204d418a532e0f4204ec2f4c7e52e714624782538",
+        "expected_final_gamestate.txt": "59e8be171bedc8e5ad17b62b49a2ba5891e8dede4b5eeb8211fdfe5ac755546b",
+        "meta.json": "d2e91c85baa5d67be3aa6c4b5b0979c571109e906540e04fb7bf8eaf7582bddb"
+      }
+    },
+    {
+      "slug": "card-cut-the-small-talk-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-the-small-talk-yellow-four-live-sparse931-actual-base-three-below-tower-keeps-real-enemy-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "91b10df96dc7b817d89dc7cf450e85121863b8a3dab5d108e5cef5738eb4e18b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7553d8072dc4eee42705a0ce8ae644786fa622f4580ba2d52984e47ce56f1f57",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "1d568f1420a0216f8b5091a3f286e93ce4c894158c35c21ffdbfdbaa357418e4",
+        "expected_final_gamestate.txt": "482f255abe206b32777c63f742edb5214eaffb04610e6e625475ce9071c4c8e3",
+        "meta.json": "5ab0b60bf0fcbd1cb14ea529ad9d6094c22f53b53a5cf183acafe37e14835183"
+      }
+    },
+    {
+      "slug": "card-no-tall-tales-yellow-four-live-sparse931-actual-base-three-without-tower-granted-hit-ability",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-no-tall-tales-yellow-four-live-sparse931-actual-base-three-without-tower-granted-hit-ability",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a38eec5a63c151352fa5b528f8648368176877560a2c085d8dd61ab610aabd69",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e88623398a9161546d5ef1042f8e7f14b02e876578ddbc49af1093d300babbc",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "58e75fecc4eb2bd6fc1690bb54184c5577fe39c53ff4f7588db3c63f0da54d80",
+        "expected_final_gamestate.txt": "665aad112e5f1648105328a536e1a91cfc6a98e33352e41ca0eb780c6f835451",
+        "meta.json": "24fb2ee0277293cfd775cb0d5d867b9565ab22da3567b249597d338914fda632"
+      }
+    },
+    {
+      "slug": "card-find-center-blue-four-live-sparse931-actual-first-attack-two-without-crane-dance-combo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-find-center-blue-four-live-sparse931-actual-first-attack-two-without-crane-dance-combo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9743ab81f034490027f8bcdef2f6eec3e05527fe96ddfb1acd908405415200bc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4ca10d1d41b5ee38ab15c58710a17eb81addb09e4db2d8840e803fc401dec08b",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "316a984eab760185ae8a5b68a42f5375a9309ddea93187ae2241e31907c8e159",
+        "expected_final_gamestate.txt": "7d7f80fbeb96a90d3e68e97a17583976e754b283cc3b5abbb49a74371dbbc7f3",
+        "meta.json": "7c0086d4190e81f66a05c96be1316fd44a3c313c50d3781d60a453f33fca5653"
+      }
+    },
+    {
+      "slug": "card-break-tide-yellow-four-live-sparse931-actual-first-attack-two-without-combo-keeps-real-own-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-break-tide-yellow-four-live-sparse931-actual-first-attack-two-without-combo-keeps-real-own-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse931-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "181ceceb3e067aadd35ea08a9157cde072e155bc5871401bbaed241f806e829f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "480442dd0714ff029ec682302d704716c0c3fd098ac2e0ec2b321e12efd59556",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4b9452528c3578c8a7366cd0826fdf1c22c54b2fb3e51a46d222a0f3c9a8dbe9",
+        "expected_final_gamestate.txt": "218ce1c638cc7bc8a72efbde70df9e672d26d5a80183446ddb5cb90d23037247",
+        "meta.json": "024716596484198695afd6f77cda4bb5cb22927a951f76c6fddabc28fb1b3dde"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

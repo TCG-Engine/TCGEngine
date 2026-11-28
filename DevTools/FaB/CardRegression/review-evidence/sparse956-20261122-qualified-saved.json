@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse956-20261122.json",
+  "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+  "input_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-devotion-never-dies-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "card_id": "devotion_never_dies_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "041fb9c71a92a0c52c9f61fcc86e1625bde4490619a5066287e161fc7bcdb4bc",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e5d033af9bdab7f48f56c47f8dc0079e78b4c59ce262f361fc9594fe9e736f16",
+        "expected_final_gamestate.txt": "383a8c15b599b34261b2c719d357dc8264226d7502f4a2b25eeccfe8a203e3eb",
+        "meta.json": "ca5f1c6de8b981a9e49cbb57a6a74688a690222b062c0ee276dbfa0fb2c8de21"
+      },
+      "fixture_sha256": "0569d1c8d02f14c950eb2be2d3c4cf30ddafb9c5b40744a7bfc3e5d6f088c9fa",
+      "actions": 30,
+      "native_assertions": 180,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "input_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse956-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-devotion-never-dies-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "fixture_slug": "card-devotion-never-dies-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rising-resentment-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "card_id": "rising_resentment_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95aeb1df9e9cb49ab9c5fbdf6c0399667bf526a7349d1992579931aa2005fd49",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "287a89c674a4c0802494fbadacf43d5e85cccd048b6f33a0cea30095f56ca36b",
+        "expected_final_gamestate.txt": "f5363cfb827908b86f899c25cc6413a3c1bb7a683d6903ed9085d2180c440f71",
+        "meta.json": "5834c6f421974c053b04d9d8cae688262fe7b79353225568a3e45cb94b7c399a"
+      },
+      "fixture_sha256": "9e98ed1e33cf662198301a9848736b2e7269c625bd7f35da95defd71f8a74978",
+      "actions": 29,
+      "native_assertions": 158,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "input_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse956-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rising-resentment-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "fixture_slug": "card-rising-resentment-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-soaring-strike-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "card_id": "soaring_strike_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f3803173d2b3bc72e83a849857ea9c32e64a8ad8812f4b436923fcd5e0915f7",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "c2433557470d5bdde7c7f82fb25fb8082e7a1bad0fcfcc0923010b12f7d99485",
+        "expected_final_gamestate.txt": "71456bfd8fb393f377bae390f4be0eb599b14e6d27d2fc754885cd3b1764d49e",
+        "meta.json": "cc3a69f796e9542ff626c0c910c3591f2d1705dabe90d182f599e7ce982786e7"
+      },
+      "fixture_sha256": "dbe8908c557a6f83341b157e2291a87f9a32156af3b7b18adcad8f103cb886ea",
+      "actions": 30,
+      "native_assertions": 180,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "input_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse956-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-soaring-strike-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "fixture_slug": "card-soaring-strike-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mounting-anger-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "card_id": "mounting_anger_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e115f8f1190efdef791b8b4af47b3fac774d4f04b32bf47473b6f2a6f81d610",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "aed1b9a9c140e0c9c46dff2f1189b8d4aabe74321835c6c3f5be80e919bf4398",
+        "expected_final_gamestate.txt": "537685783fa3bcf4477618a299801e4d18c52cabc78c1293eda56757f4150215",
+        "meta.json": "73ed9068ac60e38288489213f24eed5afa088c998c5e8735492fc0e11e631fc6"
+      },
+      "fixture_sha256": "e348ac330488af39fed1f3869f9ab30027518a2090151083add32c814bf1da6b",
+      "actions": 30,
+      "native_assertions": 180,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "input_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse956-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mounting-anger-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "fixture_slug": "card-mounting-anger-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached text confirms standalone go again on all four legal Fai20 Ninja/Draconic cards; no hero activation or unconditional attack/play trigger. Devotion self-banish requires actual hit; its later IF does not earn anything here because full block prevents the hit itself.",
+      "Actual two Hand AA eachdef3 fully block powers4/3/4/4. Natural HP20/zero damage/attackHit=false/Stack0, actual Blue6 pays cost1/R2 or cost0/R0, AP0 through DAMAGE then AP1 at RESOLUTION/final from printed go again. Four manual live seats in each window.",
+      "Real own Wounding Blow Red Hand9 or8 is cost0 and eligible below one Draconic link for Rising Resentment/Soaring Strike/Mounting Anger if their hit occurred. It remains same CardID/UID/Owner, Hand1/Banish0; no hit choice/effect is exercised. Devotion first chain has no prior Draconic attack. Physical source5 reaches own graveyard and blocker6/7 or7/8 owner4 graveyards; counts and shifted Hand references are consistent."
+    ],
+    "limits": [
+      "Only full-block/payment/source fate/retained eligible Hand/standalone go again. No exact unblocked power, positive hit banish/replay/discount/power/granted go again, other pitches or whole-card coverage. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse956-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bfcf4a06c911fba9ecc3af06f20b34d3790167d39e2357212056906deec40ffa"
+  },
+  "full_suite_run": false
+}

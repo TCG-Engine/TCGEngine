@@ -1,0 +1,7 @@
+{
+    "name": "Undercover Acquisition / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:48:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this hits a hero, **steal** an item they control. Representative only: actual_full_block_preserves_real_enemy_item_without_steal. Actual printed cost, two real Hand AA defenses totaling6, full four-live manual combat, zero damage/no hit, owned physical source and defenders in graveyards. No positive hit/steal/banish/creation/secondary damage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#undercover_acquisition_red"
+}

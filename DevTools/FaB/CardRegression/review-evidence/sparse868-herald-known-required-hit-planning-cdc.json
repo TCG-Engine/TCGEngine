@@ -1,0 +1,92 @@
+{
+  "status": "INDEPENDENT_APPROVED_HERALD_ERUDITION_SOURCE_ONLY_REQUIRED_ORDINARY_HIT285295_NOTE",
+  "phase": "PLANNING",
+  "batch": 868,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-herald-required-hit-note-manifest.json",
+    "sha256": "5dacb1b36a47759eff0aa572000ffda185bed1d49a6d3b51e599b597465f2d7f"
+  },
+  "manifest_sha256": "5dacb1b36a47759eff0aa572000ffda185bed1d49a6d3b51e599b597465f2d7f",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-firm-reservation.json",
+    "sha256": "0bbf34fa2f600891793840a644c2959747a3aa12990b05cfdaeca4d5f5a093aa"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-firm-reservation-support-admission.json",
+    "sha256": "c0bfccfacea0a28fd8c5dc6d42a87b3c873a38621c3f4c1ec94d897f9e88eadb"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 11,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "herald_of_erudition_yellow",
+      "group_id": "identity:herald_of_erudition_yellow",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN_ORDINARY_HIT_WHEN285295_BEFORE_SELF_SOUL_AND_DRAW_TWO",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-herald-erudition-required-hit285295-unattempted-note.json",
+        "sha256": "ad5605079e3d02e3526994f196a6ad72093aeeeb22652f540e244ef7938f0584"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "historical_reviewed_runtime": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_row": 295,
+          "card_id": "stun_star_blue",
+          "historical_reviewed_runtime": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+          "retained_planning_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Exact frozen note/manifest, Root firm and supportc0bf, all11 current CDC guards, current selected MON canonical Hit and emitted closure, printed identity/support closure and historical285/295 proof hashes independently match. Historical proofs retain their own runtime; no historical Native replay or current-runtime recertification is claimed.",
+    "Actual ordinary GL1258 invokes native MONHit290..300, which has existing tag/weapon/Eclipse behavior but no HeraldErudition earned interception. The current GL1264 source Hit dispatch therefore reaches the implemented emitted Herald body, which calls FaBMONToSoul then DoDrawCard2 directly when FaBFaiHeroHit holds. This required ordinary-Hit-before-effect response contract matches Pursuit285 and Stun295; implementation/body/Soul/Draw helper existence is acknowledged, with no missing-body or blanket Light/Illusionist hold.",
+    "Actual Young Prism20 is Light/Illusionist and legally admits the Yellow Herald cost2/base5. Full future real Blue3 pays2/R1/AP0, formal adjacent Hero4 target/native Source and combat rounds, actual5damageHP15 and a separate earned own-Hit source/controller layer with four fresh responses before selfmove/draw remain required. Prism activation is unused; no defenders enter Phantasm or a Dominate hand-limit failure.",
+    "Full future same physical Herald UID must reach owner1 Soul; physical top two distinct RedWound then BlueWound UID cards enter owner1 Hand and the remaining BrutalRed Deck/order stays intact, followed by physical Pitch/R1/AP0/Stack/DQ/chain cleanup. All these Native effects and responses are unattempted. Correct captured source/LKI/controller remains a future requirement when the physical Herald changes zone; no source or ownership waiver is introduced.",
+    "No executable, shortened attack-only route, empty target, seed, direct helper, alternative support resampling or Native case was authorized by this planning proof. Only the selected Yellow primary is represented in planning; Phantasm/Dominate failures, Prism/support, siblings and full-card coverage remain unqualified. Channel is an independent strict diagnostic and supplies no Herald coverage."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "herald_of_erudition_yellow",
+      "action": "Execute full own-Hit-earned same-source Soul transfer and actual Draw2/deck-order cleanup route",
+      "reason": "Exact ordinary Hit-WHEN285/295 before the direct Herald selfmove and draw body",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "No executable/Native/new issue/root/Core/Save/coverage/source-fix approval.",
+    "No PHP/Native/Rwrites/replays/newagents/fullsuite or deniedReincarnate199/188/184/B787 retry by reviewer."
+  ]
+}

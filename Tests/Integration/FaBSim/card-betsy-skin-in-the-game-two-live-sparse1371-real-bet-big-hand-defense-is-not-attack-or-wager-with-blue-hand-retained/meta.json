@@ -1,0 +1,7 @@
+{
+    "name": "Betsy Skin in the Game / defending with Bet Big is not attacking or wagering",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:59:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_DORI40_BETSY40. NativeGenericCriticalRed3cost1paidCriticalBlue4pitch3/R2/AP0/base5. ActualBetsyHandBetBigRed5defends3(roleDEFENSE/FromZoneHand), isNOTanattack/play/wager. ThusnoBetBigwagertrigger/noBetsyWHENattackwager/pay2/chooser/dominate/overpower/draw/discard/GolddespiterealBlue6Hand2potential3resources. Native5minus3=2damageHP2=38, noHeroaction/Tap/Random/Hand6movement. Bothmanualseatresponses/final3GY1/4Pitch1/defender5GY2/Blue6sameHand2owned2/Deck0/allArena0/UID6RNG0/ownHP40. Onlyadultdefend-vs-attack/wagerguard/nativeblock/damage/fates; positivewager/timing/pay2/bonuses/win/reward/support/fullcarduncredited. Existingwagerholdnotentered/reprobed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#betsy_skin_in_the_game FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,141 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B345_MOON_CHAKRA_REAL_ZERO_COST_INSTANT_PREVENTS_THREE_AND_FULLY_CONSUMED_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T14:23:19.406689+00:00",
+  "runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch345.json",
+  "input_sha256": "98d406e0f14aa81d9c2db6b8d5b9a6839a39707ca1de8d98e6fa4addb02e8be7",
+  "manifest_sha256": "b1d8a62abf55c6bf4651e0b54dd4c46626d2dcbef0680a7f2740a0f940168891",
+  "fixtures": [
+    {
+      "slug": "card-moon-chakra-red-four-live-sparse-real-zero-cost-instant-prevents-three-of-paid-seven-damage",
+      "card_id": "moon_chakra_red",
+      "group_id": "pitch-cycle:moon_chakra",
+      "fixture_sha256": "d942cb2ef21bea38597c71e6f99db5d006d33ef37b4e7847e336e81fab2e223e",
+      "behavior_sha256": "d942cb2ef21bea38597c71e6f99db5d006d33ef37b4e7847e336e81fab2e223e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e576701865306fc94ba3d7e9acd398214e48efe7391dd7b7c6692a26d69fb1ed",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "d74f82c4c445ef29679874cc66c8cbdc57e3cc0e92b2cfab90eb5af171c5635f",
+        "expected_final_gamestate.txt": "3198b9ba9b02d1d00a4073e4ef20e1de0b61c0687357d84c07c751041af11839",
+        "meta.json": "f8e86f381a9722e9aafd60f5b8babf816dea4951975ba5f1aea7b88976956b87"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e576701865306fc94ba3d7e9acd398214e48efe7391dd7b7c6692a26d69fb1ed",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "d74f82c4c445ef29679874cc66c8cbdc57e3cc0e92b2cfab90eb5af171c5635f",
+        "expected_final_gamestate.txt": "3198b9ba9b02d1d00a4073e4ef20e1de0b61c0687357d84c07c751041af11839",
+        "meta.json": "f8e86f381a9722e9aafd60f5b8babf816dea4951975ba5f1aea7b88976956b87"
+      },
+      "actions": 36,
+      "native_assertions": 2935,
+      "actual_manual_pass_inputs": 32,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_pass_inputs": 31,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uids": [
+        7
+      ],
+      "actual_positive_PREVENT_DAMAGE_residue": [],
+      "effect_indices_unpinned": true,
+      "initial_prevention_and_Transcend_seed_absent": true,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "P4 legal youngEnigma20 actually plays Moon5 Instant0/AP0 during Reaction; same5Stack/SourceHand/owned4 survives fresh responders4,1,2,3 firstthree, fourth same5publicownGY establishesnextprevention3. Source6printed7 realBlue7pays3/AP1 beforefour/combat. FreshReactionfour deal7minus3=4/P4HP16 atDAMAGE, not conditional5 orhealing; no block/Aura/ward/otherprevention. FullDAMAGE/Resolution noGA/APrefund. FinalGY4UID5/GY1UID6/Pitch7/UID1..7conserved/counter7/RNG0/allRChiAP0/allfourready/live/Stackqueuesframesclear. ActualrawturnEffects contains no positive PREVENT_DAMAGE residue for anyseat, no arbitraryeffectindexpin.",
+      "qualification": "OnlyRed/nonTranscended/Instant0/nextsingle7packet/prevent3/HP16/fullcleanup. NoTranscend/conditional5/cardtransform/otherpitch/arcane/unpreventable/multiplepacket/partialcarry/expiry/endphase/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch345-runtime9075-independent-source-review.json",
+    "sha256": "3eeb0eca87475fefa4de3ee559294e264d12f28a924a8a97b6378a2ad3fc8561",
+    "manifest_sha256": "b1d8a62abf55c6bf4651e0b54dd4c46626d2dcbef0680a7f2740a0f940168891"
+  },
+  "source_guards_verified": 18,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch345-20261103T142042Z-6ae9edba3d463.json",
+    "sha256": "cd9a62c43e11a55cf9eff6d13f49027320794676ba685d2f7534cf201c69c9ea"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch345.recording-results.json",
+    "sha256": "894daeddfe924d4ecfb49349b1e9e36c3bab32796e02dcb22aafb0c4a887f0cf"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch345-native-r1\\receipt.json",
+    "sha256": "1935d58497224f46e9f9fe46512494d94d5e5e8e5f2ad9b81a3f03fe23d5f08b"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "saved_fixture_review_tools_sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8",
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Hash-bound source/wrapper/archive/rawfive/meta/exactorderedactions/assertionequality; B345physical/economy/actualrawpreventionchecks explicit."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0 and exactfivefile match; reviewer pure read-onlyPython/noPHP/native.",
+    "Original source-approved98d406 input unchanged; every2935assertion and36action matched, rawfinalpositivePREVENT_DAMAGE absent.",
+    "No conditional5/Transcend/otherpacket/expiry/hero/supportprimary/control or Rootreplaycredit.",
+    "No R/source edits/repairproposal/generation/backend/service/fullsuite."
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T09:45:25.355374+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1354-20261122.json",
+  "source_spec_sha256": "a4b635ca87c8db2f65576de7cd9afc6b73fd659dac2c6533ba5030c31bc140b6",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 58,
+  "native_assertions": 942,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5329,
+    "duels": 3103,
+    "four_live": 2226,
+    "recorded_primary_ids": 2477,
+    "identity_denominator": 5196,
+    "recorded_groups": 2351,
+    "group_denominator": 3324,
+    "four_live_groups": 2215,
+    "phase_qualified_scenarios_at_actual_contexts": 1966,
+    "phase_qualified_unique_groups": 1956,
+    "creation_replay_passes": 2708,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1127,
+  "scenarios": [
+    {
+      "card_id": "massacre_red",
+      "group_id": "identity:massacre_red",
+      "scenario_id": "card-massacre-red-four-live-sparse1354-no-discard-six-no-plus-two-or-intimidate-actual-three-cost-six-damage",
+      "effect_branches": [
+        "no_discarded_six_history_massacre_played_not_discarded_base_six_not_eight_no_intimidate_with_real_victim_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-massacre-red-four-live-sparse1354-no-discard-six-no-plus-two-or-intimidate-actual-three-cost-six-damage",
+      "source_spec": "card-regression-sparse1354-20261122.json",
+      "source_spec_sha256": "a4b635ca87c8db2f65576de7cd9afc6b73fd659dac2c6533ba5030c31bc140b6",
+      "review_evidence": "review-evidence/sparse1354-20261122-qualified-saved.json",
+      "review_evidence_sha256": "e4fea4faa894e8b4bc5a5dc8ef03a8a0a8760004b4ffd81402ba8689aba7937d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1354-20261122-replay.json",
+          "sha256": "88b1518a09919bc8ebca795af075cf24132e6d15b004288facd0b6fb4d0321a6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rhinar",
+      "group_id": "identity:rhinar",
+      "scenario_id": "card-rhinar-four-live-sparse1354-actual-six-power-blue-pitch-is-not-discard-no-intimidate-real-victim-hand-retained",
+      "effect_branches": [
+        "real_six_power_blue_card_pitched_not_discarded_does_not_trigger_rhinar_intimidate"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rhinar-four-live-sparse1354-actual-six-power-blue-pitch-is-not-discard-no-intimidate-real-victim-hand-retained",
+      "source_spec": "card-regression-sparse1354-20261122.json",
+      "source_spec_sha256": "a4b635ca87c8db2f65576de7cd9afc6b73fd659dac2c6533ba5030c31bc140b6",
+      "review_evidence": "review-evidence/sparse1354-20261122-qualified-saved.json",
+      "review_evidence_sha256": "e4fea4faa894e8b4bc5a5dc8ef03a8a0a8760004b4ffd81402ba8689aba7937d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1354-20261122-replay.json",
+          "sha256": "88b1518a09919bc8ebca795af075cf24132e6d15b004288facd0b6fb4d0321a6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

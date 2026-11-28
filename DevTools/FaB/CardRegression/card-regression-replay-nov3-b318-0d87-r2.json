@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch318.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T10:12:04.498613+00:00",
+  "fixtures": [
+    {
+      "slug": "card-skycrest-keikoi-four-live-sparse-real-face-down-destroy-prevents-one-of-seven",
+      "fixture_sha256": "88ad3bc55fd1e86e7480e7113b8f93c14e88f13576a4399403c441b2c418090b",
+      "passed": true,
+      "result": "[PASS] skycrest_keikoi / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-skycrest-keikoi-four-live-sparse-real-face-down-destroy-prevents-one-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] skycrest_keikoi / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

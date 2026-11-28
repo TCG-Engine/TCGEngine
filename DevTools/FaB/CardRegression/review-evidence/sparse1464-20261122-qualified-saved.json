@@ -1,0 +1,17 @@
+{
+  "status": "HISTORICAL_BATCH_QUALIFICATION_PARTIALLY_REVOKED",
+  "approved": false,
+  "current_qualified_scenarios": [
+    "card-dam-the-shadowake-red-four-live-sparse1464-real-defense-without-qualifying-shadow-attacking-hero",
+    "card-stand-tall-yellow-four-live-sparse1464-real-defense-without-qualifying-actual-attacking-hero-reaction-play-or-activation"
+  ],
+  "withdrawn_scenarios": [
+    "card-unforgetting-unforgiving-red-two-live-sparse1464-real-defense-without-qualifying-attacker-equipment-has-minus-one-defense-counter"
+  ],
+  "historical_original_proof_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-trigger-quarantine-20261125\\repository-before\\review-evidence\\sparse1464-20261122-qualified-saved.json",
+  "historical_original_proof_sha256": "f80f29bd411e98a55a41142fc2cfc5e4914d252beffa0b374da15e80fec56ac8",
+  "historical_native_replay_result": "PASS, execution fact retained; wrong timing oracle is not semantic coverage.",
+  "current_retained_proof": "review-evidence/sparse1464-retained-after-trigger-review-20261125.json",
+  "withdrawal_evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+  "withdrawal_evidence_sha256": "649b64bf7ff93dad8b0a0fc54e75eb176bc02012e1d11769fd7938177e4a464d"
+}

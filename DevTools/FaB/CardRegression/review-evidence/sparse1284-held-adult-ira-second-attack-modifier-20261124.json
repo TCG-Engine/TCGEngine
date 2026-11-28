@@ -1,0 +1,712 @@
+{
+  "issue": "FAB-REG-221",
+  "status": "CONFIRMED_NATIVE_ADULT_IRA_SECOND_ATTACK_POWER_BONUS_MISSING_NO_PASSING_FIXTURE",
+  "card_id": "ira_scarlet_revenger",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "classification": "ADULT_HERO_IDENTITY_OMITTED_FROM_SECOND_ATTACK_MODIFIER_GATE",
+  "expected": "Ira Scarlet Revenger grants the second attack each turn plus one power. With two real printed4 Wounding Blows, first power/damage must be4 and second live power must be5.",
+  "native_inputs": 20,
+  "passed_prechecks": 140,
+  "unrun_checks_after_failure": 66,
+  "first_failure": {
+    "checkpoint": "real_second_attack_must_receive_primary_plus_one",
+    "check_number": 141,
+    "query": {
+      "kind": "power",
+      "value": 5
+    },
+    "error": "power  expected 5 got 4"
+  },
+  "direct_passed_facts": [
+    "NaturaladultIraScarlet40/Dori40duel, realPotion3Arena andtwoactualWounding4/5Hand/AP1/R0/noattackhistoryseed.",
+    "ActualPotion3destroycost/ABI6beforebothresponses resolvesactual2AP. FirstactualWounding4payAP2to1/bothresponses/printed4power/noGA/real4damageHP2=36 thenowned4GY; freshsecond5Hand andremainingAP1wereverified.",
+    "Actualsecond5playusesremainingAP1to0/R0, Stack5OwnerController1/KindATTACK/HP2=36verifiedbeforebothfreshresponses. Livepowerqueryafterbothresponsesfailedexpected5actual4.",
+    "ReceiptwindowATTACK/attackUID5, twoWoundingcard-playentriesandtwoCRU_ATTACKSamount1entriesremain. This is secondturnattackdespitefreshcombat-chainLink1."
+  ],
+  "source_inferences": [
+    "CRUCards.php FaBCRUPlayed addsCRU_ATTACKS forweaponorAA, but the plus-one gate calls FaBCRUHero(p,ira_crimson_haze). FaBCRUHero uses the exact/base ID filter; adult ira_scarlet_revenger does not match. This is consistent with actual two-attack history and missing bonus.",
+    "Only this adult identity and two ordinary attack-action route were reproduced. No broader Hero alias/root-family count is assigned."
+  ],
+  "limits": [
+    "All66 remaining checks, including second go-again/physicalCC/AP/HP queries after firstfailure, second damage5/finalHP31 and final cleanup were unrun. Do not report second finaldamage ortotal9damage as observed.",
+    "No thirdattack, reset, weapon, Young identity orfourlivecredit. No oldIra/Quicken/EnGarde fixture replay.",
+    "One independent correct-expectation semantic review preceded native; Root analyzed receipt and orderedchecks. No second independent native-failure audit claimed."
+  ],
+  "reproducer_case": {
+    "slug": "probe-fab-reg-221-adult-ira-real-second-attack-power",
+    "cardIDs": [
+      "ira_scarlet_revenger"
+    ],
+    "heroes": [
+      "ira_scarlet_revenger",
+      "dorinthea_ironsong"
+    ],
+    "health": [
+      40,
+      40
+    ],
+    "resources": [
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0
+    ],
+    "state": {
+      "passiveSeats": []
+    },
+    "zones": [
+      {
+        "cardID": "timesnap_potion_blue",
+        "zone": "Arena",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      },
+      {
+        "cardID": "wounding_blow_red",
+        "zone": "Hand",
+        "player": 1,
+        "properties": {}
+      }
+    ],
+    "diagnostic_only": true,
+    "qualification_permitted": false,
+    "steps": [
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Arena-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_DECLARE",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DEFEND_PRIORITY",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "REACTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "DAMAGE",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "RESOLUTION",
+          "priority": 2
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ACTION",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "click",
+        "player": 1,
+        "mzID": "p1Hand-0"
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "PRIORITY",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "pass_until",
+        "until": {
+          "window": "ATTACK",
+          "priority": 1
+        }
+      },
+      {
+        "kind": "checks",
+        "checks": [
+          {
+            "kind": "power",
+            "value": 5
+          }
+        ]
+      }
+    ]
+  },
+  "reproducer_instructions": "Write [reproducer_case] as one-element JSON to a fresh local path and use existing record_card_regressions.php <path> --probe-only. Extracted compact version was not separately run. Full207-check correct setup source and native receipt remain bound locally; this failed receipt has no raw initial-state text.",
+  "raw_initial_state_capture": {
+    "present_in_failed_receipt": false,
+    "limitation": "This failed native receipt/archive contains no raw initial-gamestate fields. No full raw initial snapshot or reconstructed recording is claimed; exact setup source and successful initial guards remain retained."
+  },
+  "attempted_native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Arena-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "observed_state": {
+    "window": "ATTACK",
+    "combatOpen": true,
+    "combatStep": "ATTACK",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 2,
+    "attackUID": 5,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 2,
+      "uid": 2,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "Wounding Blow",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_ACTIVATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_2",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "ROS_VALLEY_HIT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PHYSICAL",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_2",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_wounding_blow",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_DAMAGE_EVENT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": {
+      "1": [
+        4
+      ]
+    },
+    "cardsPlayedThisTurn": {
+      "1": [
+        "wounding_blow_red",
+        "wounding_blow_red"
+      ]
+    },
+    "mpgDurations": [],
+    "botProfiles": [],
+    "weaponHits": [],
+    "attackActionHits": {
+      "1": 1
+    },
+    "arcNames": [],
+    "arcaneDealt": [],
+    "arcCards": {
+      "3": {
+        "penFreezeSources": [],
+        "iarPermission": []
+      },
+      "4": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": true,
+        "dtdPrevention2": true,
+        "hntHitMarked2": false,
+        "hvyWagers": [],
+        "mstZeroDefense": false,
+        "penFreezeSources": []
+      },
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": false
+      }
+    },
+    "arcActions": {
+      "1": 3
+    },
+    "outPreviousNames": {
+      "1": []
+    },
+    "lastAttackCardID": "wounding_blow_red",
+    "attackTargets": [
+      {
+        "type": "HERO",
+        "player": 2,
+        "uid": 2,
+        "zone": "Hero"
+      }
+    ],
+    "defendIndex": 0,
+    "attackGoAgain": false
+  },
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "targeted_replay_run": false,
+  "source_fix_applied": false,
+  "full_suite_run": false,
+  "correct_probe_source_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1284-local-20261122\\proposed.json",
+  "correct_probe_sha256": "a65c9b46778f1761d47e90fdfdd9733048624a24c5d1b2a00dab162a49486162",
+  "native_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1284-local-20261122\\save\\receipt.json",
+  "native_receipt_sha256": "e68a3fc76ebe0c137ecec032efd12d02a080fb9a146d0917a8e6a4426a70546b",
+  "independent_semantic_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1284-local-20261122\\independent-review.json",
+  "independent_semantic_review_sha256": "d04fa55f6ae5bfe3c31533586d1251491d64759b574d160e1f3295a5ae4b5f70",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+  },
+  "repair_status": "Held for separate repair pass; strictsecondpower5 unchanged."
+}

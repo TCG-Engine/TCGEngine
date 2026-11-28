@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fools-gold-yellow-four-live-sparse1362-actual-pitch-funds-attack-not-discard-no-gold",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fools-gold-yellow-four-live-sparse1362-actual-pitch-funds-attack-not-discard-no-gold",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3ba084b44a84ba64f7eb31775acfe7d1ec929323771e0e08066b055fdae5fbcf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a9611989c49b99c4c80016e3310b08e1461be70d324a2e9ea13ee85be93d8d5",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "ec502750d5305665d3c59f30016a537d49072d1b338fe0934759cb9d70653536",
+        "expected_final_gamestate.txt": "b7d5fd5aecbd9c33f440bf8aed0479cd9129c16329dc17260934ca445b71c0ca",
+        "meta.json": "d84d45545e44ff8260198cd5891bf100288081e8baf548bed8a2844d378444c7"
+      }
+    },
+    {
+      "slug": "card-heart-of-fyendal-blue-four-live-sparse1362-actual-pitch-funds-attack-equal-health-no-unearned-heal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-heart-of-fyendal-blue-four-live-sparse1362-actual-pitch-funds-attack-equal-health-no-unearned-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a69a6f575dd17bc10397ad08fa15981856d8b4174b36ce542bcd912836345cab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a74fdfe9a2a17a43aeda113a85275f69a1ee4f35dbb46b552acca33d4471de7a",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "400e26f17301a4cfb7c5410af883be127b72849476133d5d33c055eadbcae90e",
+        "expected_final_gamestate.txt": "6fc4a1d280fa99f50ad4096ac9410b822f274b93a6c4aef289cb2c3775c9387f",
+        "meta.json": "b63a1c76df1f467dc7df17492eb59e74efac20cf6e0fc2b0f50b6c214ec8f899"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

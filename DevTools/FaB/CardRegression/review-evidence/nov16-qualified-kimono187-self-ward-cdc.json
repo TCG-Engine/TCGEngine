@@ -1,0 +1,144 @@
+{
+  "status": "QUALIFIED_NAMED_FOUR_LIVE_SELF_WARD_EARNED_RESOURCE_REPAIR_FOCUSED",
+  "issue": "FAB-REG-187",
+  "card_id": "celestial_kimono",
+  "slug": "card-celestial-kimono-four-live-real-self-ward-earned-resource",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "native_before_runtime": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "source_application_before_runtime": "9d6f6c4592a45778ac4deb2c5fa292747472a59a64f6a1d68b839caca788de55",
+  "native_before": {
+    "path": "review-evidence/kimono187-self-destroyed-resource-native-before-f12e.json",
+    "sha256": "ed1fe92e1745817903990f9a505ce12078b9281de8c4a1a83dbc9010a8195e9d"
+  },
+  "readonly_view_transition": {
+    "path": "review-evidence/nov15-readonly-state-effect-row-view-9d6.json",
+    "sha256": "5dfc8039b4e2562c15369050b4dfa32d929f38bb73b96e18bac6ff1307adf6c3"
+  },
+  "source_proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-kimono187-r3-physical-weapon-defender-two-file-unapplied-proposal\\manifest.json",
+    "sha256": "c0880efc03cfc4b858782c1a82ab34c2ab4bccb273ef0b073bdf945332e26ce4",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "code_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-kimono187-r3-independent-source-application-review.json",
+    "sha256": "f791a16274e93857e697de06bc02a86a7d9284e699d7829a65a54809be445c2e",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "actual_installed_scope": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-kimono187-r3-independent-actual-installed-scope-review.json",
+    "sha256": "0a95d435ecb5a237624536f17f469eb95914297dd025b8dddf877268754ab4a6",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-kimono187-r3-root-source-application\\receipt.json",
+    "sha256": "ae31ffea877b0a809f3f7d95b1038e802c46f0701bed724c82f832c81741914a",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-kimono187-r3-root-isolated-component-results\\receipt.json",
+    "sha256": "1f957ac7f2a1b5322818518498d1adc5f61edd5d2ca6e2365d57885d409277b5",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "isolated_candidate_checks": 76,
+  "isolated_before_expected_failures": 30,
+  "full_unchanged_no_save_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch836-kimono-after-cdc-independent-diagnostic-source-review.json",
+    "sha256": "8c63e3b47aabd111c264bb59629731b6fd7aacbf3c6aaef3309e6e2dcc7b5a76",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "full_unchanged_no_save": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b836-kimono-full-original-correct-unsaved-after-cdc\\receipt.json",
+    "sha256": "f18a8a0aa7f0e853cdc8ab6dd76ea25c30ff4ce77e7abaef0be0229bba1d86b3",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "independent_no_save": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch836-kimono-after-cdc-independent-actual-no-save-pass-review.json",
+    "sha256": "9036fbbecc449c684114b4018c4fcb2eff6c1ae5f310459fcb8f9c4c6e681e67",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "explicit_promotion": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b836-kimono-explicit-positive-promotion-after-cdc.json",
+    "sha256": "8a2af5030e27926f1d17ccd471dd97de528e8fcf1ae84874b2da954448988af9",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch836-kimono-cdc-independent-normal-positive-source-review.json",
+    "sha256": "6fa561550a229321f74afe7ab91dc9a28c6e8bc09e0b8e59eada89af4c05512f",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "positive_source": {
+    "path": "card-regression-batch836-kimono-positive-cdc.json",
+    "sha256": "77b1a7bc92998e25e7e26236999647d3a8ce79da32fabae2ce54d4a8f95011dc"
+  },
+  "normal_save": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b836-kimono-positive-native-save-cdc\\receipt.json",
+    "sha256": "ab50c59c0d8b5d76f6e7cc9192b55142319931743eb376c412f4b21ec8079ee2",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "Saved_review": {
+    "path": "review-evidence/sparse836-kimono-independent-saved-cdc.json",
+    "sha256": "ce93361e2f48fa91619734944d248b79b18bddc07c7e77e765e4d96ee832ec69"
+  },
+  "fixture_sha256": "61684a4ba2673c14086ac371b6932de8b072e97a0d492afe3616cc6aebb250f7",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "49c0a35bb678599115d66c7b211315eba3c5da32f5452abee167d1a783ab0d07",
+    "actions.json": "a7ee642e1f573c9c4dcc034bb7fa1bc5b85fb84cfe75ccd2e413f3c2a962560b",
+    "assertions.json": "bc43b0a0716754ad99c760cb6821c9dd822b93815b726e38a39e812b2339c9ae",
+    "expected_final_gamestate.txt": "336dfa7be5d19318f015a3cd69d830969b7693ed7d3bafa463aa31eb95d2e13e",
+    "meta.json": "b030c8389ad58fc437c56e19b1a9425eca525de80d5990b37a6017291261db60"
+  },
+  "actions": 32,
+  "assertions": 3634,
+  "manual_passes": 29,
+  "manual_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "two_own_clean_replays": [
+    {
+      "path": "card-regression-replay-nov16-b836-kimono-cdc-clean1.json",
+      "sha256": "3ff7bce1aca82d4e2731826eb1fc50cdaa9988ef359e4ca00333d8e4fd910619"
+    },
+    {
+      "path": "card-regression-replay-nov16-b836-kimono-cdc-clean2.json",
+      "sha256": "86151b2d02ea2b155793606a5467b48a70a7b0a7c35b0df05071b59096d91e03"
+    }
+  ],
+  "two_direct_compatibility_replays": [
+    {
+      "path": "card-regression-replay-nov16-kimono187-phantom-cdc-compat.json",
+      "sha256": "e6b3d8a017b5c317230f665bc073603637ea716d1bd16e7e1f292b77e8130560"
+    },
+    {
+      "path": "card-regression-replay-nov16-kimono187-miragai-cdc-compat.json",
+      "sha256": "f581f559ae5baaf7ff9ccd6f1a87d0de831de0f0fd4ae328688e44a6e571044b"
+    }
+  ],
+  "assertions_weakened": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "repository_Core_changes": false,
+  "generated_changes": false,
+  "native_fault_credit": 0,
+  "global_distinct_root_allocation": "unchanged/unallocated",
+  "held184_B787_untouched": true,
+  "Flutter188_remains_separate_unfixed": true,
+  "limits": [
+    "Only named Kimono real self-Ward/earned resource/full cleanup Native route qualified. Other-source/second-once/suppression/control/reentry/physical Weapon defender cases have isolated/source evidence only.",
+    "Original before evidence stays f12; applied source transition is9d6->cdc. No legacy recorded evidence is relabeled or globally requalified.",
+    "Two direct compatibility cases were replayed, with raw fixtures unchanged. Broader suite remains user-owned; no new helper/global-root credit."
+  ]
+}

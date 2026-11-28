@@ -1,0 +1,108 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1287-20261122.json",
+  "source_spec_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+  "input_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+      "card_id": "battered_beaten_and_broken_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83356dbc314369427127a6fe5f6ef300e4e32b09661430186eb62b04f5361734",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "d144dfbf19c2e3acac62f019969ea73d1075bd42309de88a764667f7cf150cb5",
+        "expected_final_gamestate.txt": "31f2c98e28cddae2fc9b056d3b0acb420a83f4be36a9a7c1a5a5e95425ac413c",
+        "meta.json": "f0eaf051603497bb23d4069494382220695ee7f0e9d00de0f9a86b8d950e86cd"
+      },
+      "fixture_sha256": "06e8227bf3a9bbfd3649bac1d895acac8c0dca0df8786102191a4a5b11037ffa",
+      "actions": 27,
+      "native_assertions": 415,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1287-20261122.json",
+      "input_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1287-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+        "fixture_slug": "card-battered-beaten-and-broken-yellow-four-live-sparse1287-real-three-auras-plus-three-versus-ally-no-hero-intimidate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e6b66ee1ae78a16425ffe1c4b91e9597830487f3ee91285d46f52ce46f0cc2dc",
+    "source_note_sha256": "1cb8f9f644d92eadb195792400ad5275d6674f0312cc531ecd40cd190d5ef0eb",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 27,
+    "query_checks": 415,
+    "persistable_assertions": 415,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_THREE_AURA_STATIC_BONUS_AND_ALLY_NOT_HERO_GUARDS_ONLY",
+    "hero_intimidate_credit": false,
+    "hero_hit_destruction_credit": false,
+    "basis": [
+      "Standalone unrepresented Yellow primary is ReviledAAcost0/base1 and is legal under natural ReviledYoungKayoStrongArm20, versus YoungDorinthea20/20 and YoungDromai20, explicit four live manualUPF/exact1234/no passives. Real primary5Hand, Might6/Vigor7/Agility8Arena, adjacentDromai4 owned Ashwing9Arena with admitted priorAsh material, and actualGenericResourceBlue10Hand allocate correct UIDs5..10.",
+      "Printed three-or-more-Auras condition gives +3power continuously, independent of Hero attack target. Prior realAura tokens6..8 meet threshold; none activates or reaches its start-of-turn destruction, so no Might power, Agility go-again or Vigor resource effect is earned. No Kayo tap ability, Boo or six-base modifier is used. SUPPower98 directly checks actual count>=3 and adds3, so live base1+3=4/noGA is the correct positive expectation.",
+      "Actual target answer selects adjacent enemy Ally9, not Hero4. Generated AttackDeclared handler checks FaBFaiHeroHit, which reads attackTarget typeHERO; its Hero-only Intimidate branch is false. Existing real10Hand makes untouched Hand/Banish0/RNG0 observable. Conditional granted Hero-hit destruction is also false for Ally hit, so no choice/layer/destruction of a Hand card is earned.",
+      "Actualfour source responses leave physical5 attacking and all three realAuras intact; supported power check must4. Native non-Hero attack target cannot be defended by cards: empty declaration/priority windows are merely passed. Ashwing has1life/no physical prevention;4unblocked physical damage is not capped at remaininglife1. UPRDeal records all4 damage, destroys Ally when damage>=health and returns4; token ceases rather than exporting a graveyard card. No damage spills into Hero4, so allHeroHP20 is correct.",
+      "After full link, actualprimary5GY1, unchangedthreeAuras6..8, originalcontrol10Hand4, noAlly9/Arena4/GY4/Banish4, APR0/UID10/RNG0 and cleanStack/queues/combat demonstrate selected scope. No Phantasm defender, Ward, spell/arcane or Hero hit occurs. All415 query/state/power/go_again checks persist across27 single native controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending native save and targeted replay; no native pass, replay or coverage credit claimed.",
+      "Only positive three-Aura power bonus versus Ally and Hero-only-effect negative guards. No actual Hero Intimidate or intimidated-card destruction, below-threshold, Aura production/start-phase effects, alternate pitch, Kayo/Dromai support abilities or full-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1287.py": "7847f860db35913290aae60d8d910ffd2365712be3d7b8f8db294a5dbf4f8258",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1287-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5f4f3c3bde8f60683df4a0c537bdf88cd7d18d056ce503470006c5be2707c774"
+  },
+  "full_suite_run": false
+}

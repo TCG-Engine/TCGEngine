@@ -1,0 +1,23 @@
+{
+  "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+  "fixtures": [
+    {
+      "slug": "repair-glory-plate-four-live-20261126-real-token-leave-observed",
+      "passed": true,
+      "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-glory-plate-four-live-20261126-real-token-leave-observed",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\arena-exit215-224\\glory_plate\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "5b0c33fadf5281ea8510e6a066d85ac067dde63dcb8a961a893c34a1ccbdef7e",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

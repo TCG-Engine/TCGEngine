@@ -1,0 +1,7 @@
+{
+    "name": "Tiger Swipe / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:02:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Crouching Tiger was the last attack this combat chain, this gets +2{p}, **go again**, and \"When this hits, create X Crouching Tigers in your banished zone, where X is the number of Crouching Tigers you control. You may play them this turn.\" Representative only: actual_first_chain_two_without_crouching_tiger_combo. Actual printed payment, four live manual seats/full unblocked combat, real HP loss, no granted go again/hit ability, owned original source in graveyard. Positive Combo/control thresholds and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tiger_swipe_red"
+}

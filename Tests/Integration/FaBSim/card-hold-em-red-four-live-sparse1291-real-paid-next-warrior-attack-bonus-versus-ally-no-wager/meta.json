@@ -1,0 +1,7 @@
+{
+    "name": "Hold 'em / real paid next Warrior attack bonus against an Ally",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:35:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_NEXT_WARRIOR_ATTACK_PLUS_THREE_VS_ALLY_ONLY. YoungKassai20/threeotherYoung20/fourmanualUPF. Actualprimary5Handcost1/Blue6pitch3pays1leaves2R/AP1to0. Fourresponsewindows source5Stack/physicalSword7untapped/actualDromai4Ashwing8withadmittedAshmaterial/controlHand9unchanged. Actualsourcecompletes5GY andprintedGAearnsAP1. RealSword7activationdeclaresALLY8notHero4/pay1Rleaves1/AP1to0/proxy10. NoactualdrawssoKassaiSworddiscountfalse; noHeroGoldabilityactivated. Fourfreshattackresponsesbeforeactualbase2+primary3=5power/noGA. Granted WHEN attacksHERO conditionfalseforAlly soNOearnedwagertrigger/choice; noWager/payout/rollorGold. Actual5damagekills1lifeTokenAlly8/ceasesnoGY/noHeroHPchange; primary5GY1/Blue6Pitch/Sword7tappedWeapons/control9Hand4/R1AP0/UID10RNG0/StackDQsCCclean. NoHeroWager/bonusconsumptionnegative/secondWarriorattack/otherpitch/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hold_em_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/HVYCards.php FaBSim/Custom/HVYRuntime.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

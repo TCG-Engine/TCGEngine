@@ -1,0 +1,171 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1259-20261122.json",
+  "source_spec_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+  "input_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-thespian-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+      "card_id": "thespian_charm_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3acbe2a31885aa74198c3cad3f368f4269d762c1e4cf68985db1c13cdec7835",
+        "actions.json": "edf121f520381418dc3ec685f250e6ad0661ab94088cf0f94b4b5f43f50dc854",
+        "assertions.json": "55c03480f569addec79fd62526494a4afe5080a2f6d68f35cb3de03da27dc38f",
+        "expected_final_gamestate.txt": "749288560ddf52b85fac52d4805468fa15b6b9d77c9a56aac03326573f6204a3",
+        "meta.json": "65c250379dca99911a2ef4662de680725341ccfb186b1baa4b60ada083151405"
+      },
+      "fixture_sha256": "31b11de0d94d90098d56ba83ada9abd8eee3fbadab76d8166c65fe2b724153b3",
+      "actions": 7,
+      "native_assertions": 279,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1259-20261122.json",
+      "input_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-thespian-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "fixture_slug": "card-thespian-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-numbskull-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+      "card_id": "numbskull_charm_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3653b9e398cdda64a4d2cabf88505d6b5caa44509c4562d1f032405478d69b5c",
+        "actions.json": "edf121f520381418dc3ec685f250e6ad0661ab94088cf0f94b4b5f43f50dc854",
+        "assertions.json": "64494b595289b70e6d38eff63d32baf5ea75542318ede9026ac9b98e4f902969",
+        "expected_final_gamestate.txt": "863fb1221c1d8ffc2afa17e449084298bd3f66271d8624c6aeacd4506a7937ac",
+        "meta.json": "17fc7628d5fd824b2809207684c294c7166f6ce8fcdcaf6e60a4c33c4867c368"
+      },
+      "fixture_sha256": "09bb0275cdfdaf1529f9dffb7431bba572a98018697f5bdca19f6d0c1418dac8",
+      "actions": 7,
+      "native_assertions": 279,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1259-20261122.json",
+      "input_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-numbskull-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "fixture_slug": "card-numbskull-charm-yellow-four-live-sparse1259-actual-single-destroy-mode-removes-real-owned-aura-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-liars-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+      "card_id": "liars_charm_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd6c10af96568c3c0ac1ee9e7b7838224262f13034bb4f56efe0c8ddaa839bd4",
+        "actions.json": "791f24acc01a4af882f557f7f6b33bff52f86b3de329d59411801035b58c9d30",
+        "assertions.json": "2ccc6060060f9f9c08e1a427f2f1e1e5165cf36ee0c1c27bb27acaae1c9cd601",
+        "expected_final_gamestate.txt": "88fd503850f7f2fd5c415576cc8f72a389fc4bdd4d7ff92417bd7aac98db581d",
+        "meta.json": "ae0a0d18027dfba0f6b282db30a6ff952fe70eb7324b30f8e8d38892e6acc564"
+      },
+      "fixture_sha256": "89ef5ae7f13dc853f7371985294cc187bd1deb584b28ea191de373bfd1e2376a",
+      "actions": 7,
+      "native_assertions": 284,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1259-20261122.json",
+      "input_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-liars-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "fixture_slug": "card-liars-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cheaters-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+      "card_id": "cheaters_charm_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5af83732f1582c569abb918625517fa528a1f62a98e0ff9da756841754a2d0cd",
+        "actions.json": "791f24acc01a4af882f557f7f6b33bff52f86b3de329d59411801035b58c9d30",
+        "assertions.json": "663a31a2447d4f6e0b8660f502b323b4687eed5457dacd69a376c646219748af",
+        "expected_final_gamestate.txt": "da0552da31ad922b16cffe20962fa86107082f7f149573b503ae92d5a8015a7e",
+        "meta.json": "4df388256fe77d62d93484ee72922154c257d457e7e77d4ab5a5c6cd26ed9d35"
+      },
+      "fixture_sha256": "b68f0e6a5bda282212eb85eea05462f436c18d95f9eea0325d7c289e5088e99d",
+      "actions": 7,
+      "native_assertions": 284,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1259-20261122.json",
+      "input_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cheaters-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "fixture_slug": "card-cheaters-charm-yellow-four-live-sparse1259-actual-single-steal-mode-keeps-foreign-owner-and-changes-token-controller",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "48fbcd1e6abaa72d181aa7f901c46433cc61cf52eb0337c33a2b708005e0f651",
+    "source_note_sha256": "46160a82b3e2e0f9f34c9c21fc097e9153a86c60392c672cbafbb3d8faa81450",
+    "case_count": 4,
+    "native_controls": 28,
+    "query_checks": 1126,
+    "persistable_assertions": 1126,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_FIRST_NON_TARGET_CHARM_MODE_DESTROY_OR_STEAL_PHYSICAL_TOKEN",
+    "basis": [
+      "All four primary Charms are printed zero-cost Yellow Instants and distinct groups. Exact owner1 hero bindings are natural young Pleiades20/ReveredGuardian for Thespian, Tuffnut20/ReveredBrute for Numbskull, LyathGoldmane20/ReviledGuardian for Liar, and KayoStrongArm20/ReviledBrute for Cheater. Each other seat is Young Dorinthea20. These satisfy four-live Young admission, matching card talents/classes, four manual seats and no passive players.",
+      "Selected first modes have no target phrase: Thespian destroys Might or Vigor; Numbskull destroys Confidence or Might; Liar steals Toughness or Vigor; Cheater steals Confidence or Toughness. Actual respective real Might6/Confidence6/Toughness6/Toughness6 are legitimate available objects. Non-target choices for these selected effects belong at resolution. This approval says nothing about when a target in an unselected mode must be declared; known FAB-REG-150 target-mode timing remains held and untested.",
+      "Actual primary5 is played from Hand for0/AP1retained/R0, survives all four fresh manual responses on Stack while exact token6 stays untouched. Only after final response does real MZMODAL allow any number of modes, answer0 selects only first mode, then real non-target MZCHOOSE offers the exact qualifying token. Physical primary5 remains ownedStack/GYempty throughout both choices, and no effect moves token before the object choice answer.",
+      "Destroy cases call DYNDestroyChoice then MONDestroy; Token movement out of Arena ceases to exist rather than exporting a physical graveyard card. Final primary5 aloneGY1, all Arena/GYother/Banish/Hand counts and unchangedUID6 prove no duplicate or token export. No start-turn token ability, destruction observer or replacement source is present.",
+      "Steal cases choose actual foreign controller4 Arena token6. SUPSteal calls MPGStealAura using sourceObject and then assigns controller1; correct expected result is samephysicalUID6, Owner4 preserved, Controller1 and Arena1, oldArena4empty, readyStatus2. This is control transfer, not new token creation or ownership transfer. No start-turn ability, return or subsequent destruction is exercised.",
+      "No chosen mode invokes crowd cheer/boo, so matching hero observers do not generate a token and Lyath power/defense halving has no relevant object here. Final AP1/R0, allHP20, source5GY1, UID6/RNG0, original turn2ACTION and empty Stack/four queues/combat chains match selected effects. All1126 checks are native assertion/state checks and persist; seven controls per case."
+    ],
+    "limits": [
+      "Semantic/spec approval only pending actual native recording and each targeted replay; no native passing result or coverage credit claimed.",
+      "Only first non-target mode and one admitted real token per Charm. No other modes, crowd mood, targeted hero/damage/discard, return-aura or pitch-top effect, combinations, alternate token choice, producer, hero/support/sibling or whole-card credit. Targeted modes remain under known hold.",
+      "Only W review receipt written. No native/test execution, T/source/repository edits, auth/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1259-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "56c3052adbddea5db4e8ec8f55cafd369b5fb56d42eb8b930d5a7bcf0ef524c6"
+  },
+  "full_suite_run": false
+}

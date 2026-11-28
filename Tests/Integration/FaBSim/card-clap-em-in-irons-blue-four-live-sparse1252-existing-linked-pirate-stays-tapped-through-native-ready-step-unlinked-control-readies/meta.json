@@ -1,0 +1,7 @@
+{
+    "name": "Clap em in Irons / actual ready step keeps only the linked Pirate tapped",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:23:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_SOURCE_BOUND_UNTAP_LOCK_ONLY. NaturalYoungDori20/GravyBones20/Dori20/Dori20 allmanual. MidP1ACTIONAP0; priorrealClap5Arena1andtwoactualPirateNecromancerAllies6/7Arena2bothStatus1. StoredarcCards5seaIrons6isnormalpersistenttargetlinkfrompriorresolution, notcurrentturnhistory/permission/instantorbonusflag; entryandactualtappinguncredited. Sourceowner1andtargetcontroller2adjacentlegal; initialtwoidenticalYellowcopieslegalunderYoungPirateNecromancer2. AllfourACTIONpassesthenallfourP1END_PHASEpasses, actualturnadvances2/3andnativeStartOfTurnPhaseattemptstountapHero/Weapons/Equipment/Arena. FaBSEACanUntapmustpreventonlysource-linkedUID6fromreadyingwhileItem5stillArena1; exactsameunlinkedUID7mustreallyreadyStatus2. Hero2ready/AP1provesactualnewactionphase; HP20/noRNG/newUID/draw/StackDQ. Itemowner1own-startdestructionnotearnedatotherhero2start. NoentryWHEN/targetchoice/tap/fromHand/goagain/ownstartdestroy/sourceleave/othercontroller/Allyactivation/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clap_em_in_irons_blue FaBSim/Custom/SEACards.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

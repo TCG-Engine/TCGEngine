@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch351.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T17:09:40.186610+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "fixture_sha256": "8de730f30ee375b7c5fd2b363ed8ff728e71b778d993d155eb471a58ab57a6bc",
+      "passed": true,
+      "result": "[PASS] tear_limb_from_limb_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "returncode": 0,
+      "stdout": "[PASS] tear_limb_from_limb_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

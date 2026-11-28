@@ -1,0 +1,214 @@
+{
+  "status": "TWO_EXISTING_PROTOCOL_MIGRATIONS_QUALIFIED",
+  "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-unmovable-blue-hand-paid-blue-three",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "756613443704cb2f961a388fb4728e079f483072273c05654b284aec50d20515",
+        "actions.json": "5f1a750a6b4bc1eb6d5c5dd151451ce104869ce2d26cc278a02a382e436c7a8d",
+        "assertions.json": "371728e9fb0e3206d7a95c25895ed7130bf82e117984dba946f2f9ee221df47f",
+        "expected_final_gamestate.txt": "35990ad8102de26b6bd3414004017821cc3ea126ab50f7c03abef048ca007e96",
+        "meta.json": "7b7bee83e314bf439599e446becb16ea5c915361c4a143c22e7c5ff07293392a"
+      },
+      "fixture_sha256": "b9e0fd8f61891d87f2169c2981a5948d4044b75765f1bb262ccefea4b41d9b21",
+      "actions": 21,
+      "native_assertions": 16,
+      "native_game_state_fields": 1,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 11,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 11,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 21,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 11,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        },
+        {
+          "checkpoint": null,
+          "step": 15,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        }
+      ],
+      "all_original_assertions_preserved": true,
+      "newly_persisted_source_defined_assertions": [
+        "{\"mzId\":\"p1CombatChain-0\",\"type\":\"computed_power_equals\",\"value\":9,\"viewerPlayerID\":1}",
+        "{\"comparison\":\"equals\",\"path\":[\"window\"],\"rootName\":\"FaBSim\",\"type\":\"game_state_field\",\"valueJson\":\"\\\"PITCH\\\"\",\"viewerPlayerID\":1}"
+      ],
+      "original_initial_raw_bytes_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "endpoint": "RESOLUTION_PARTIAL",
+      "source_spec": "card-regression-repair-unmovable-two-protocol-20261125.json",
+      "input_sha256": "961a0a491e19fde02db3fb41aa6e78f854d32246c50246748cbe8638a89a7deb",
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+    },
+    {
+      "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+      "semantically_approved": true,
+      "file_sha256": {
+        "initial_gamestate.txt": "51cc6f474acf4eee97f4c5f25627f9143ef329799ec48ac1c8f620b49ae2474b",
+        "actions.json": "57d510329f1b5f86d5d1d0cd71aa8c225bd83cc73d18e2e70b9c1007d65d8333",
+        "assertions.json": "cd284272bcc831e37696f37273ad6bf07ac6a82a31d7894654107617c1150751",
+        "expected_final_gamestate.txt": "5ea23394213d6fa56ccb9aba8755e0dcd53dbf9526e3f38fbf3508d8dbdfb0ef",
+        "meta.json": "2b0f76e3bb104fb4a4675e0a6de6020a9f91901ca3a953dc961f7599f5fcebb7"
+      },
+      "fixture_sha256": "d211bee027bd01d3ef03a04b8fecdae6eec39f960fb516c3c4810e359db03104",
+      "actions": 22,
+      "native_assertions": 19,
+      "native_game_state_fields": 2,
+      "checkpoints": [
+        {
+          "checkpoint": null,
+          "step": 11,
+          "native_assertions": 4
+        },
+        {
+          "checkpoint": null,
+          "step": 11,
+          "native_assertions": 0
+        },
+        {
+          "checkpoint": null,
+          "step": 12,
+          "native_assertions": 1
+        },
+        {
+          "checkpoint": null,
+          "step": 13,
+          "native_assertions": 3
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "native_assertions": 7
+        },
+        {
+          "checkpoint": null,
+          "step": 22,
+          "native_assertions": 4
+        }
+      ],
+      "author_only_checks": [
+        {
+          "checkpoint": null,
+          "step": 11,
+          "check": {
+            "kind": "can_play",
+            "value": true,
+            "player": 2,
+            "mzID": "p2Hand-0"
+          }
+        },
+        {
+          "checkpoint": null,
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        }
+      ],
+      "all_original_assertions_preserved": true,
+      "newly_persisted_source_defined_assertions": [
+        "{\"mzId\":\"p1CombatChain-0\",\"type\":\"computed_power_equals\",\"value\":9,\"viewerPlayerID\":1}",
+        "{\"comparison\":\"equals\",\"path\":[\"window\"],\"rootName\":\"FaBSim\",\"type\":\"game_state_field\",\"valueJson\":\"\\\"PITCH\\\"\",\"viewerPlayerID\":1}",
+        "{\"comparison\":\"equals\",\"path\":[\"window\"],\"rootName\":\"FaBSim\",\"type\":\"game_state_field\",\"valueJson\":\"\\\"PITCH\\\"\",\"viewerPlayerID\":1}"
+      ],
+      "original_initial_raw_bytes_preserved": true,
+      "original_actions_ordered_subsequence": true,
+      "extra_actual_pass_actions": 2,
+      "endpoint": "RESOLUTION_PARTIAL",
+      "source_spec": "card-regression-repair-unmovable-two-protocol-20261125.json",
+      "input_sha256": "961a0a491e19fde02db3fb41aa6e78f854d32246c50246748cbe8638a89a7deb",
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+    }
+  ],
+  "replays": [
+    {
+      "slug": "card-unmovable-blue-hand-paid-blue-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unmovable-blue-hand-paid-blue-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unmovable-two\\replay426.log"
+      ],
+      "complete_log_sha256": "ba3316b121b9f9dca3504b2b9d525071a15f76b1212559e704037018e20feb8e"
+    },
+    {
+      "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unmovable-blue-hand-paid-red-one-yellow-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unmovable-two\\replay427.log"
+      ],
+      "complete_log_sha256": "a73b58fe597b6e6eb72a83bb8bafa734c6dd7e4cd3875e124aee025ad6cdc274"
+    }
+  ],
+  "full_suite_run": false,
+  "new_scenarios_or_groups": 0,
+  "before_raw5": {
+    "card-unmovable-blue-hand-paid-blue-three": {
+      "initial_gamestate.txt": "756613443704cb2f961a388fb4728e079f483072273c05654b284aec50d20515",
+      "actions.json": "443dee083ef87115d087ca8a141b3b542b67814f9f9af61318db9fe0dfa679c3",
+      "assertions.json": "128faae6f64e23c521299dfffeb9938f9021aaee93043ed09ed744ef8925c10b",
+      "expected_final_gamestate.txt": "bbf11eeaaef77b2345455adf3cdd071054c63c06dbd36f0d9835dca5fe3c35d2",
+      "meta.json": "318a0377fa9fc5bfcd3dccaa88b05f0a63ab8cf3989ee76188965ee397030bfd"
+    },
+    "card-unmovable-blue-hand-paid-red-one-yellow-two": {
+      "initial_gamestate.txt": "51cc6f474acf4eee97f4c5f25627f9143ef329799ec48ac1c8f620b49ae2474b",
+      "actions.json": "c5e0c1f1ac3c93e67bccf60f23e73bf74f65198cc730c34f1773fa1b420792c9",
+      "assertions.json": "3e989a1cfeaa1f591049a9be511ce8b346819a6faf85734c90ece31035cd9b4c",
+      "expected_final_gamestate.txt": "02193d3dc3b0f77056d1ff4f011bf86b3135b60627177cefca40c6fa5e25cf22",
+      "meta.json": "71db15d6c8f4bf5c0a00a171d3465efb0f736a76689aeb0da37841da0dddbbdf"
+    }
+  },
+  "approved": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_independent": true,
+  "review_scope": "Exact Batch07 steps/check arrays unchanged. WTRCards843to865 actual9minus5=4 earns Disable Crush despite emptyArsenal; capturedvictim route responseable. Original actions retained plus2realPass(actor1then2) and initialrawbytes. PartialResolution endpoint. Source current recorder additionally persists two existing source-defined checks (power9/PITCH); no old assertion removed. Root exactsaved review and one normal strict replay each; reviewer no games/writes."
+}

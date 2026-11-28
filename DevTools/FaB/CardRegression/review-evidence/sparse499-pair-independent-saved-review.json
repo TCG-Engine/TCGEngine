@@ -1,0 +1,529 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B499_EQUIPMENT_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T18:33:08.429481+00:00",
+  "source_spec": "card-regression-batch499.json",
+  "input_sha256": "32be437d504c3b00b4ff2c92b9165862d2266acc8dd79b0f72e081fb7ede0dd1",
+  "manifest_sha256": "5a3a01bc7c8a8a98b1d380db6fda7d9e057ae7aa6ca87bdea6254093ee1b911a",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch499-independent-source-review.json",
+    "sha256": "7fdbb73b0882f9891b335650ac4e673350e78c1b080e1f11c6d34b82466f0a21",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch499-20261105T182903Z-6aeccaef8a91b.json",
+    "sha256": "e58b2f057d9d9d42f3e28515d198733ae9c77c170649c4d3a02ca7bee901b5cc"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch499.recording-results.json",
+    "sha256": "1ddcf29f25d78ab3bd337a5872dcb0301fa34dcc6d752c41daf16273df981960"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch499-native-r1-9e984\\receipt.json",
+    "sha256": "92d9e8f12dab50d9bfb3c5665f8c18f9760236e19b1553021ce3a9351f1d5d79"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "burnished_bunkerplate",
+      "group_id": "identity:burnished_bunkerplate",
+      "slug": "card-burnished-bunkerplate-four-live-real-destroy-dr-adds-owned-arsenal-action-defender-four-damage",
+      "source_spec": "card-regression-batch499.json",
+      "input_sha256": "32be437d504c3b00b4ff2c92b9165862d2266acc8dd79b0f72e081fb7ede0dd1",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SELECTED_EQUIPMENT_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-burnished-bunkerplate-four-live-real-destroy-dr-adds-owned-arsenal-action-defender-four-damage",
+      "fixture_sha256": "2249faed62e84a3adb735cf67e689e5e876ffe4f2875f2d937421acb99455edf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1aa9c7612ed9376888e746f9e8570a91baf12c491f18e81daca95f8bfb78e895",
+        "actions.json": "06e2e831e97615adfa26feb2e7534590ec92fa38db61e3db07a12a69713913cb",
+        "assertions.json": "87bf0d9cd95dc98551a9c21349407fa90a76b05d2a338fda2d75adb8a0753518",
+        "expected_final_gamestate.txt": "e4631894101e148c52ef0e21098dafc744161d7123c49eb5197afcb83bee6e32"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1aa9c7612ed9376888e746f9e8570a91baf12c491f18e81daca95f8bfb78e895",
+        "actions.json": "06e2e831e97615adfa26feb2e7534590ec92fa38db61e3db07a12a69713913cb",
+        "assertions.json": "87bf0d9cd95dc98551a9c21349407fa90a76b05d2a338fda2d75adb8a0753518",
+        "expected_final_gamestate.txt": "e4631894101e148c52ef0e21098dafc744161d7123c49eb5197afcb83bee6e32",
+        "meta.json": "9b0179c35d674b0326eab1090d6020bb51dba29e543dea77c22618be52eb37b0"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1aa9c7612ed9376888e746f9e8570a91baf12c491f18e81daca95f8bfb78e895",
+        "actions.json": "06e2e831e97615adfa26feb2e7534590ec92fa38db61e3db07a12a69713913cb",
+        "assertions.json": "87bf0d9cd95dc98551a9c21349407fa90a76b05d2a338fda2d75adb8a0753518",
+        "expected_final_gamestate.txt": "e4631894101e148c52ef0e21098dafc744161d7123c49eb5197afcb83bee6e32",
+        "meta.json": "9b0179c35d674b0326eab1090d6020bb51dba29e543dea77c22618be52eb37b0"
+      },
+      "actions": 37,
+      "native_assertions": 3336,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 1067,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Arsenal",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "burnished_bunkerplate",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "burnished_bunkerplate",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "8cc788d58de64382261b40ac63019528e24f737b3fb630e96b4e305251bcec2b",
+      "native_action_mapping_sha256": "300be3af414133843e97692f64d630260719c7ee34752c413dd1d339142655c6",
+      "native_assertion_mapping_sha256": "ae49a87731015204aa9f71c47fd0af83be5d0f6ade9327e698ed1d1450258c59"
+    },
+    {
+      "index": 1,
+      "card_id": "cloak_of_darkness",
+      "group_id": "identity:cloak_of_darkness",
+      "slug": "card-cloak-of-darkness-four-live-real-optional-banish-prevents-two-of-seven-physical-five-damage",
+      "source_spec": "card-regression-batch499.json",
+      "input_sha256": "32be437d504c3b00b4ff2c92b9165862d2266acc8dd79b0f72e081fb7ede0dd1",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_SELECTED_EQUIPMENT_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-cloak-of-darkness-four-live-real-optional-banish-prevents-two-of-seven-physical-five-damage",
+      "fixture_sha256": "34f58ce8f4473bb1c786dc657ceb6a07623505c8fb78b9ea338f8a2d7b80a932",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0c5ae8c8b8ac5c745dba5a5df7dfff94561068aa33f777580dcef2a8038cec45",
+        "actions.json": "b055b02875a5f2739a872ca8589db01f1dcbecfd9ff9a75864800a385af829c2",
+        "assertions.json": "964cd2a814203e90b6497be7b9ef8e39452696cbda44b9a0741d0b2ebd26852c",
+        "expected_final_gamestate.txt": "38d29cd1e2062ffb5c94f964d98df5b1a826e413f43d14f518db6b0d35e5f31e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c5ae8c8b8ac5c745dba5a5df7dfff94561068aa33f777580dcef2a8038cec45",
+        "actions.json": "b055b02875a5f2739a872ca8589db01f1dcbecfd9ff9a75864800a385af829c2",
+        "assertions.json": "964cd2a814203e90b6497be7b9ef8e39452696cbda44b9a0741d0b2ebd26852c",
+        "expected_final_gamestate.txt": "38d29cd1e2062ffb5c94f964d98df5b1a826e413f43d14f518db6b0d35e5f31e",
+        "meta.json": "9717a894f9bd0ffe9bd6119c9ef64e820b2067117c7f51262535bc92bdbdf975"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0c5ae8c8b8ac5c745dba5a5df7dfff94561068aa33f777580dcef2a8038cec45",
+        "actions.json": "b055b02875a5f2739a872ca8589db01f1dcbecfd9ff9a75864800a385af829c2",
+        "assertions.json": "964cd2a814203e90b6497be7b9ef8e39452696cbda44b9a0741d0b2ebd26852c",
+        "expected_final_gamestate.txt": "38d29cd1e2062ffb5c94f964d98df5b1a826e413f43d14f518db6b0d35e5f31e",
+        "meta.json": "9717a894f9bd0ffe9bd6119c9ef64e820b2067117c7f51262535bc92bdbdf975"
+      },
+      "actions": 29,
+      "native_assertions": 2486,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 677,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "cloak_of_darkness",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "levia",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "cloak_of_darkness",
+          "zone": "p4Banish",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "a9a33840511c9abb6c4970f8528c2903574aa3d314dc1c1ef7dd9a947ef1adf4",
+      "native_action_mapping_sha256": "f063ccd0fbaa8f344a7bc5c02f9086675381fc4967134d5320fbde0855caebc2",
+      "native_assertion_mapping_sha256": "e220f2db9948e9d7caca73230d0e47616218a454f79e729a9ec6ff24fe05f969"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 66,
+  "total_native_assertions": 5822,
+  "total_manual_passes": 57,
+  "total_priority_response_passes": 55,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1744,
+  "material_findings": [
+    "All ten saved files,66 native action envelopes/5822 ordered persisted checks/1744 card properties/57 manual inputs independently equal approved original32be input. Four live seats and all48 raw manual preference values at each endpoint verified. Actual70 guard context remains9; no helper/game/replay execution by reviewer.",
+    "Bunker: actual Blue7 pays Raging6 cost3/AP1; P4 actual DefenseReaction destroy5 occurs before captured ABI9 fresh4,1,2,3. SameABI9 remains Stack and sameArsenal8 facedown until resolving optional MZMULTICHOOSE0|1|Arsenal8. Actual answer moves same8 DEFENSE/FromArsenal/link1; fresh reactionfour computesDEF3/physical4/P4HP16. Final own public GY4 EXACT uid/cardset{5:Bunker destroyed source,8:Wounding added defender}, separately verified beyond authored unordered CardID/count checks. Physical6GY1/7Pitch1; virtual9ceased/Counter9/no newphysicalcard.",
+    "Cloak: fourth Reaction response reaches optional static prevention choice with same5 still Equipment, Stack0/no added layer/no allocation. Actual answer5 banishes same5 publicly and prevents2of7; actual physical5/P4HP15. Final BanishUID5OwnerCtl4/FaceDown0/Playable0/no ReturnAtEndTurn, source6GY1/Blue7Pitch1/Counter7. No six-power Levia condition, new ABI/token or extra AP/refund.",
+    "Both four Heroes and Blue7 whole raw unchanged; all original physical UIDsets conserved/owned/controllercorrect. Final allRAPChi0/quiet Stack/Chains/DQs/awaits/payment/combat and no next-turn effect. Opaque undo Versions hash-bound but excluded from current physical inventory; stale DQvariables are not active choices."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/compendium-of-rathe/",
+      "finding": "Fresh official indexed snippet confirms Arsenal Action selection when activated ability resolves; full release not claimed retrieved."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/PEN316.webp",
+      "finding": "Issuer card face matches independently viewed local PEN316."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/DTD166.webp",
+      "finding": "Issuer face matches independently viewed local DTD166; current catalog same selected prevention2/BloodDebt contract."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.2",
+        "5.3.4",
+        "5.3.4a",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Activation costs before priority; resolution choices before leaving/clearing layer."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.32",
+        "8.3.11"
+      ],
+      "finding": "Add is moving a card as defender, not playing; BloodDebt only at owner endphase."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.10"
+      ],
+      "finding": "Damage prevention is replacement, not an extra triggered layer."
+    }
+  ],
+  "limits": [
+    "ExactlyTWOdistinctstandalonepositiveEquipmentbranches; no primarypitchsiblings/matrix/fullcard/supportprimaryinheritance.",
+    "BunkeractualDRdestroy/addArsenalActionDEF3/4damage; nooptionaldecline/noneeligible/otherdefenderrestriction/foreigncontrol/normalEquipmentDEF0block/Arsenalplay/Heroability.",
+    "CloakactualoptionalBanish/prevent2physical5damage; noPASS/otherdamagepacket/arcane/unpreventable/normalblock/ownerendphaseBloodDebt/Levia6+banish/permission/foreigncontrol/fullcardbranches.",
+    "Baseline69guards plusselectedDTDcanonicalphysicalpreventionhandler=70; allactualsource9, no speculativecontextpin. Raw48manualprefs/fullUIDendpointsaresubsequentactualSavedgate.",
+    "W-onlyJSON/schemaQA; noR/PHP/native/source/gen/service/fullsuite/git/remote/denied089090094096retry/integration. Rootsolegamestatewriter, separatepeerandnative/Saved/replaysrequired.",
+    "Review approves correct strict expectations and supported transport, not current engine behavior, native success, coverage, any source repair or a new bug/root. All original held source/lifetime assertions remain strict.",
+    "Bunker no optional decline/other Action/normal Equipment defense/wear/foreign control/full-card credit. Cloak no decline/arcane/unpreventable/future endphase/Levia condition/normal block/full-card credit.",
+    "Actual saved qualification is restricted to the selected positive branches. Bunker no decline/other Action/restriction/normal Equipment defend/wear/foreign control credit. Cloak no decline/arcane/unpreventable/owner endphase/BloodDebt loss/Levia condition/normal block credit. No support-primary/full-card/sibling/native-control credit.",
+    "Intermediate facts are actual completed native assertions; exact current endpoints/raw5 independently inspected. No claim for uninstrumented internal callback ordering or all framework branches. Root replay and registration evidence is separate and not claimed here."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch499_saved_readonly.py",
+    "sha256": "3b915b80318ab95ff722758d89bf9c5387c59e2c30ff8b845c32368f07ca1199"
+  }
+}

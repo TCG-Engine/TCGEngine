@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1413-20261122.json",
+  "source_spec_sha256": "8e735b3931d3d97067e228804b0a684ecc9b27df82fceaab42c390ea0bdcc1f5",
+  "input_sha256": "8e735b3931d3d97067e228804b0a684ecc9b27df82fceaab42c390ea0bdcc1f5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-nucleus-aetherbolt-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+      "card_id": "nucleus_aetherbolt_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68389eb9b7c3027485eedb7f51cacf18cf01e758c118e0f17b2ea6016e28137a",
+        "actions.json": "bb0e15318a5491f44882392aef4862f83a785e64bfc07d83c77a9aa27fb97acc",
+        "assertions.json": "2f3bee0f33b775b3f430414c029cd086c124980613cad4132e65805ca33e8461",
+        "expected_final_gamestate.txt": "d3eec65286ba56f1fe9821bb89b330d61388a9db7f06862c2945417d18f11151",
+        "meta.json": "2d714d34aa160d2fb5508890a4e31ab5b87262ea510a92205307ae3089443e20"
+      },
+      "fixture_sha256": "bad5f41268285690ea8193c0882d9a11b6871c1e52e4d28186229f37710ee724",
+      "actions": 6,
+      "native_assertions": 193,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1413-20261122.json",
+      "input_sha256": "8e735b3931d3d97067e228804b0a684ecc9b27df82fceaab42c390ea0bdcc1f5",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nucleus-aetherbolt-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "fixture_slug": "card-nucleus-aetherbolt-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tap-lessons-past-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+      "card_id": "tap_lessons_past_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5305b1f764a77b574c7e1d5c7a2565b75f02d4e09fe702c00f0edc29e2eadfa",
+        "actions.json": "6463df8483b7dfbc4cd79af362f94ccfd349ce08e9ce74b8f2ac3308843c7675",
+        "assertions.json": "7e36efaaa9d612830bfcba0ed16df12f3e2967ea1efb56f0f8942cfcf400f345",
+        "expected_final_gamestate.txt": "0e7e73fb6f3e5cc38792e3d47d24f7b9d5a5b774cc2c63b723d88b26ccb26e89",
+        "meta.json": "12decb35e67716fa7eac3c2e5e51677c803ac1605cf199e7e7761dd0a30ebcb3"
+      },
+      "fixture_sha256": "0426a0eebf1b0eaecca7049b96b118d176f19fce2a3c6cac138b19b101b98970",
+      "actions": 7,
+      "native_assertions": 226,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1413-20261122.json",
+      "input_sha256": "8e735b3931d3d97067e228804b0a684ecc9b27df82fceaab42c390ea0bdcc1f5",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tap-lessons-past-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "fixture_slug": "card-tap-lessons-past-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "8e735b3931d3d97067e228804b0a684ecc9b27df82fceaab42c390ea0bdcc1f5",
+    "source_note_sha256": "3800d2e8d1ac584492db2526dbbe11b8e8fe1ebd547b1f69751f66c4bf199bdd",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 13,
+    "query_checks": 419,
+    "persistable_assertions": 419,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_DAMAGE_AND_OPTIONAL_HERO_TAP_FOLLOWUP_TWO_ADULT_SINGLE_OPPONENT_DEFAULT",
+    "per_case": [
+      {
+        "card_id": "nucleus_aetherbolt_red",
+        "group_id": "identity:nucleus_aetherbolt_red",
+        "native_controls": 6,
+        "persistable_assertions": 193
+      },
+      {
+        "card_id": "tap_lessons_past_red",
+        "group_id": "pitch-cycle:tap_lessons_past",
+        "native_controls": 7,
+        "persistable_assertions": 226
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld groups: NucleusAetherboltRed WizardAction0 and TapLessonsPastRed LightningWizardAction1, cached CC-legal/notbanned under adultOscilioConstella36 EssenceLightning vs adultDoriIronsong40. Two physical/manual seats, activeSeats omitted/defaultgameMode empty. No UPF/secondaryHeroidentity credit. ActualHerostatus2; no prevention/other response cards or assets can alter targets.",
+      "Official TRP5.14 default decision for an omitted damage-effect target applies to the sole opposingHero2, separately for every printed any-target instance. Each scenario is explicitly precommitted toHero2 from announcement; all laterUIanswers repeat exactly2 without using revealed information or retargeting. Nucleus separate any-target phrases can use sameHero for each instance. This covers this fixed normal default-compatible line, not implementation of target binding/persistence or any alternate-target/two-player-to-UPF generalization.",
+      "Bothactual Actions spend1AP and remain physical3Stack through both manual responses (defaultPR2, responder2->PR1, thenresponder1). Nucleus actual0cost initial packet3 reducesHP2 40->37 before optionalHeroTap; generated76182+ guards dealt>0/HeroReady, actualtap viaOMNCards119-127 setsHero1Status1, then generated76458 rebinds damage source toHeroUID1 for separate1arcane packet to defaultHero2, finalHP36. No earlytap, earlybonusdamage, newallocation or extraAP expected.",
+      "TapLessons actualBlue4pitch3 pays1/R2/AP0, actualfirst4arcaneHP2 40->36 before tap. Generated105556-105582 actualtap then non-targeted InstantGY selection; printed text has no target phrase for return, so choosing actualSigil5 at resolution is correct. Samephysical5 moves fromGY onto DeckBOTTOM after originalWounding6; originalprimary3 stillStack through pendingchoices thensole3GY. NoSigilplay/heal or extraarcane claimed.",
+      "Exact three-field pre-native UI correction independently reversed to original packet: TapLessons posttap Type MZMULTICHOOSE, Param0|1|p1Graveyard-0, answerTypeMZMULTICHOOSE; chosenvalue5 unchanged. Nucleus entirecase byte-equivalent semantic object, and all HP/AP/damage/tap/source/deck/fate assertions unchanged. Source offers zero-card decline but mandatory printed return is actually chosen; that invalid decline branch is explicitly untested/uncredited.",
+      "Final eachsource3GY/Hero1tapped/Hero2ready/ownHP36/oppHP36/AP0/R0or2/Deckoriginal4or6 plusreturned5 only forTap/Pitch4 onlyTap/UID4or6/RNG0/StackDQquiet, with6+7controls and193+226persistableassertions coherent."
+    ],
+    "limits": [
+      "Only fixed two-player published-default-compatible damage and optionalHeroTap follow-up: actual Nucleus3+Hero1damage1 or Tap4+sameInstantbottomreturn. No positive target-binding/persistence/retargeting/UPF credit, mandatory-return decline, untapped/unready/declinetap/prevention variants, priorposition provenance, support/secondaryHero identities/siblings/whole-card credit.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. The three corrected UI fields are pre-native authoring repair; no prior game or passing replay repeated."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1413.py": "907980f3c4884bd3fbd58b4dc812fe1d1fd1ab8d395826bbfae9f1c6676f9286",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1411.py": "8407f8c30675bf3460eb57cc0fd2d41c27df69bfb50ce0d76fc8ecf87e87f487",
+      "sparse1413-local-20261122/pre-native-ui-oracle/proposed.json": "b3028a3e11a09bff096e1e069e98a8e872f95f2ada7c318441db77d89bd580c4",
+      "sparse1413-local-20261122/pre-native-ui-oracle/author_breadth1413.py": "728de5a86e23b32dea1e47cfdc60a01c9d610eae59a33f209fe5743b49278fe2",
+      "sparse1413-local-20261122/pre-native-ui-oracle/source-note.json": "e293734f19a383adcc7b5fe9a01ce3193990837b2d38a609a279170d8d26892f"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "four_player_target_declaration_credit": false,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14 Default Decisions",
+        "retrieval_scope": "Official public content retrieved during B1410 review: omitted effect-damage target defaults to opposingHero if soleopponent; with multipleopponents no default. Fixed sameHero2 choices here use that default, not delayed target-selection license."
+      }
+    ],
+    "target_persistence_or_retargeting_credit": false,
+    "positive_damage_and_optional_tap_scope": true,
+    "zero_card_return_decline_credit": false,
+    "pre_native_ui_only_three_field_correction_verified": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "83c58ab28d0f0b4f599440c59e75818dff9af0f05af07d1f62a7771c9bdec2d1"
+  },
+  "full_suite_run": false
+}

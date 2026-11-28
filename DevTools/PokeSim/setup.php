@@ -22,12 +22,21 @@ $authored = array_replace($authored, require 'PokeSim/CardCode/DragapultAbilitie
 $authored = array_replace($authored, require 'PokeSim/CardCode/DragapultSupportAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/LucarioAbilities.php');
 $authored = array_replace($authored, require 'PokeSim/CardCode/DarkraiAbilities.php');
+$authored = array_replace($authored, require 'PokeSim/CardCode/DeltaReignAbilities.php');
+$authored = array_replace($authored, require 'PokeSim/CardCode/FestivalAbilities.php');
+$authored = array_replace($authored, require 'PokeSim/CardCode/AegislashAbilities.php');
 foreach ($authored as $id => $abilities) {
     $repository->replaceCardAbilities($rootName, $id, $abilities, true, $repository->revisionForCard($rootName, $id));
 }
 $repository->close();
 putenv('DEVENV=true');
-$generators = in_array('--macros-only', $argv, true) ? ['zzGameCodeGenerator.php','zzTurnGenerator.php'] : ['zzCardCodeGenerator.php','zzGameCodeGenerator.php','zzTurnGenerator.php'];
+$macrosOnly = in_array('--macros-only', $argv, true);
+if (!$macrosOnly && is_file('PokeSim/GeneratedCode/cardArrayCache.json')) {
+    require_once 'PokeSim/Import/TCGdex.php';
+    // Apply current import corrections to cached cards before generating dictionaries.
+    PokeTCGdexImport(false, [], false);
+}
+$generators = $macrosOnly ? ['zzGameCodeGenerator.php','zzTurnGenerator.php'] : ['zzCardCodeGenerator.php','zzGameCodeGenerator.php','zzTurnGenerator.php'];
 foreach ($generators as $generator) {
     passthru('"'.PHP_BINARY.'" '.$generator.' rootName=PokeSim downloadImages=0', $status);
     if ($status) throw new RuntimeException("$generator failed ($status)");

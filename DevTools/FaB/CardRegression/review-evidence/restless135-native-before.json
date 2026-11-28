@@ -1,0 +1,219 @@
+{
+  "id": "FAB-REG-135",
+  "status": "NATIVE_CONFIRMED_UNPRINTED_EXHAUST_FROM_RESTLESS_PREFIX_COLLISION_ORIGINAL_ORACLE_CORRECT",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch519-independent-native-before-classification.json",
+  "independent_review_sha256": "98b3793050a99c129a459f60bfa0b4b9e20116b48ee00dd4832e4548fe33150b",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch519.json",
+  "input_sha256": "ede2e6a7b216f11865cb261f0493478df23e7bc0fb0fed070b240b8283d52a4d",
+  "scenario_id": "card-restless-coalescence-yellow-four-live-real-power-counter-cost-creates-one-owned-spectral-shield",
+  "first_failure": {
+    "source_step_index0": 2,
+    "checkpoint": "PRIMARYactualonlyArenaARC0_InstantZERO_removeONEPOWERascost_beforefreshfour_same5POWER0_onceMarkerTurn2_AP1R0_onlyABI6_noShieldyet",
+    "action_boundary": 1,
+    "checkpoint_check_index0": 42,
+    "checkpoint_check_ordinal1": 43,
+    "global_check_index0": 160,
+    "global_check_ordinal1": 161,
+    "native_assertion": {
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "Status",
+      "value": "2",
+      "viewerPlayerID": 1
+    },
+    "expected": "2",
+    "actual": "1",
+    "meaning": "Ready/untapped Aura incorrectly changed to exhausted/tapped; no tap cost/effect is printed."
+  },
+  "actual_native_prefix": {
+    "accepted_supported_inputs": 1,
+    "attempted_actions": [
+      {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "p1Arena-0!FSM",
+        "chkInput": [],
+        "inputText": ""
+      }
+    ],
+    "actual_manual_passes": 0,
+    "actual_pass_actors": [],
+    "initial_native_assertions_passed": 118,
+    "after_click_native_assertions_passed": 42,
+    "total_native_assertions_passed_before_failure": 160,
+    "initial_manual_preference_values_verified": 48,
+    "all_four_live_and_manual_configured": true,
+    "initial_gamestate_sha256": "8b89457bd673a1da9a7fb1f49e149cfac46c59c080f1b06594aec47e8ea6c1a4",
+    "passed_check_bundle": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch519-independent-native-before-evidence\\ordered-passed-and-first-failed-checks.json",
+      "sha256": "a00b88dbdb3a97f4d084b1d8ddaf641e9f3a2e0c8406e501b4aa926002afc34e"
+    },
+    "directly_proven": [
+      "PriorityPlayer1/ConsecutivePasses0/PRIORITY and pendingPaymentnull after supported soleArena click.",
+      "AllHeroHP20/allR0/P1AP1 and otherAP0; all4 queues empty.",
+      "Stackcount1/ABI6 CardIDRestless Owner0 Controller1 KindABILITY SourceArenaUID5.",
+      "P1Arena count1 and sameRestless5 OwnerController1; its direct Status property is1 instead ofcorrect2. No new Shield is in that one-object Arena at this boundary."
+    ],
+    "raw_observed_state": {
+      "window": "PRIORITY",
+      "combatOpen": false,
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "attacker": 0,
+      "defender": 0,
+      "attackUID": 0,
+      "attackTarget": null,
+      "pendingAttackTarget": null,
+      "previousAttackCardID": "",
+      "handBlockUIDs": [],
+      "intimidated": [],
+      "pendingPayment": null,
+      "lastAttackName": "",
+      "attackHit": false,
+      "attackPower": 0,
+      "defenseValue": 0,
+      "damageDealt": 0,
+      "declaredBlockUIDs": [],
+      "passiveSeats": [],
+      "gameMode": "UPF",
+      "turnEffects": {
+        "1": [
+          {
+            "type": "EVR_ACTIVATED",
+            "amount": 1,
+            "uses": 1
+          }
+        ]
+      },
+      "nextTurnEffects": [],
+      "hitsThisTurn": [],
+      "cardsPlayedThisTurn": [],
+      "arcCards": {
+        "6": {
+          "steam": 0
+        }
+      }
+    },
+    "raw_observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "raw_observed_hand_refs": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "classification": "GAMEPLAY_STATE_DEFECT_NOT_ORACLE_OR_PROTOCOL_ERROR",
+  "expected": "The printed once-per-turn Instant costs one +1 POWER counter, without tapping/exhausting the Aura. The same physical source5 must remain ready Status2 while its captured ability waits for four live responses. Counter and once-use queries remain mandatory but were after the first failure.",
+  "observed": "One supported Aura activation ran, with 118 initial plus42 post-click checks passed. First failure161 reads same own Aura5 Status1 (exhausted) instead of correct2. Captured ABI6/sourceArena5/controller1, AP1/R0/allHP20 and pending/queues were queried. POWER deduction, ARC_USED_0, all four manual responses, Shield creation and cleanup were unrun; no fixture saved.",
+  "source_evidence": {
+    "files": {
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+      "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    },
+    "anchors": [
+      {
+        "path": "FaBSim/Custom/IARRuntime.php",
+        "line": 48,
+        "role": "Overbroad restless_ paidhook exhaust assignment"
+      },
+      {
+        "path": "FaBSim/Custom/ARCAbilities.php",
+        "line": 171,
+        "role": "All ARCpayments invoke FaBIARAbilityPaid"
+      },
+      {
+        "path": "FaBSim/Custom/WTRAbilities.php",
+        "line": 82,
+        "role": "Dispatches actual arcSpec payment"
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "line": 1154,
+        "role": "Actual ability payment entry"
+      },
+      {
+        "path": "Schemas/FaBSim/GameSchema.txt",
+        "line": 107,
+        "role": "Status1 exhausted UI overlay"
+      },
+      {
+        "path": "FaBSim/Custom/SEACards.php",
+        "line": 15,
+        "role": "Tap=Status1/untap23=Status2"
+      },
+      {
+        "path": "Core/RegressionTestFramework.php",
+        "line": 1098,
+        "role": "Direct property getter and fail-fast ordered evaluation"
+      }
+    ],
+    "culprit_line": "if(in_array($id,['malice','malice_domina_of_the_dead'],true)||str_starts_with($id,'restless_'))$o->Status=1;",
+    "callback_execution_instrumented": false
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch519.recording-results.json",
+      "sha256": "5f7ca970635bf43757d498f941dd4fe115b0da3da6b7213c726f02eabb73cdec"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch519-20261105T202429Z-6aece5fd2e552.json",
+      "sha256": "dc4332e891b9f958e8501050dbcc07feee71e6d5b5fc366ffb4d655135648476"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch519-independent-source-review.json",
+    "sha256": "a7a14df451a358c4d0d67737df89b534ccc22d5b862c1ef049940c767581d632"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3111/",
+      "finding": "Current activation removes a counter; no tap cost/effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.1",
+        "5.2.1a",
+        "5.2.1c",
+        "5.2.1d"
+      ],
+      "finding": "OncePerTurnlimit separate from stated cost and resolution effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.5.55"
+      ],
+      "finding": "Tap is separate discrete statechange; no ruleaddsittothisactivation."
+    }
+  ],
+  "limits": [
+    "One actualwrongexhaust state mutation on unrelated RestlessAura activation only. No newroot/Core/globalbug count allocation byreviewer. NoStatusoracle correction/no sourcefix/no countercost or tokencreation success claim.",
+    "W-only staticread/preservation; noPHP/native/replay/R/source/service/gen/fullsuite/git/remote/denied retry. Rootsource unchanged9."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T20:36:23.185298+00:00"
+}

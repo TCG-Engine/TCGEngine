@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch840-touch-full-real-x2-ward-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T02:59:37.276959+00:00",
+  "fixtures": [
+    {
+      "slug": "card-touch-of-reality-four-live-real-x-two-blue-payment-tap-and-ward-consumption",
+      "fixture_sha256": "57d8ac7521d3a11f6ffa076b0a41397a16c3e031052448fbd20bb188f999aa2c",
+      "passed": true,
+      "result": "[PASS] Touch of Reality / real X2 payment and Ward2 consumption"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-touch-of-reality-four-live-real-x-two-blue-payment-tap-and-ward-consumption",
+      "returncode": 0,
+      "stdout": "[PASS] Touch of Reality / real X2 payment and Ward2 consumption\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

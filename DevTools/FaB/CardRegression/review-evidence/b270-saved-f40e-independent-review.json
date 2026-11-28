@@ -1,0 +1,194 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T00:44:55.119625+00:00",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch270.json",
+  "input_sha256": "3d2732c737f01df49ac333c6a2807a281420273c67ecb525ae94126283efaac1",
+  "fixtures": [
+    {
+      "slug": "card-flying-kick-red-four-live-sparse-real-two-head-jabs-earn-third-link-seven-power-kick",
+      "card_id": "flying_kick_red",
+      "group_id": "pitch-cycle:flying_kick",
+      "fixture_sha256": "ec082e9e0f15bca47362ddbefdc76cc3322bf8475f345a6855ee5fa2fa4f80ff",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "19ca6f0e6deebea6d75f0476b91e6690774f343df8c615322826c49797fd19fc",
+        "actions.json": "a554ce4c1f19c79770d7cb47aee0234496138f58bcf006e2472242ab75146855",
+        "assertions.json": "ec98d1374c06bd92c9528aeba940b3e549983dae633895a4c6352570fa52931b",
+        "expected_final_gamestate.txt": "3983f98c83e527572b1b5c2ad36f5794aba4a4533ca8afac7a6b76e3252b4f67",
+        "meta.json": "1c1fe6953bca67e87b35e4822da2678b282345730441ce816224a23945f362b3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "19ca6f0e6deebea6d75f0476b91e6690774f343df8c615322826c49797fd19fc",
+        "actions.json": "a554ce4c1f19c79770d7cb47aee0234496138f58bcf006e2472242ab75146855",
+        "assertions.json": "ec98d1374c06bd92c9528aeba940b3e549983dae633895a4c6352570fa52931b",
+        "expected_final_gamestate.txt": "3983f98c83e527572b1b5c2ad36f5794aba4a4533ca8afac7a6b76e3252b4f67",
+        "meta.json": "1c1fe6953bca67e87b35e4822da2678b282345730441ce816224a23945f362b3"
+      },
+      "actions": 72,
+      "native_assertions": 5559,
+      "actual_manual_passes": 67,
+      "manual_passes": 67,
+      "manual_pass_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        8
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "All original physical identities preserved; final own public GY unordered UIDset{5,6,7}, Pitch8/R1/AP0, P4HP8. Actual retained links1/2/3 with current-attack assertions on chain indices0/1/2 establish printed damage3+2+(5+2)=12; no early chain close or fabricated AP/history.",
+      "qualification": "One actual third-link FlyingKick bonus after two real HeadJab attacks/earnedGA. No other chain counts/predecessors/defenses, Fai/Draconic/PhoenixFlame, support-primary/siblings/full-card credit."
+    },
+    {
+      "slug": "card-overpower-red-four-live-sparse-real-hand-block-earns-paid-six-power-reprise-and-five-weapon-damage",
+      "card_id": "overpower_red",
+      "group_id": "pitch-cycle:overpower",
+      "fixture_sha256": "a9b1a763d0e795a358c21e3402e51902d62b9c1af14935923d0831d05c04c1ae",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d9653e305dec5213deb2421a8f3244b9964cad327c595213ae08314100a06513",
+        "actions.json": "e12b6e63129fa5745f0f82599786e85bcdffb1e8d2631cdfdc167c33c290b547",
+        "assertions.json": "aa78cdd153bc1a8219c03624db57aadda75413fafd44f4980617833239577e27",
+        "expected_final_gamestate.txt": "2b204c18dd16217f82086f4be724a1759a1ab7e16ac68fc89cde9176935bd8e8",
+        "meta.json": "26ed1bdcce8ac800d1ffe63f2d99af514f3fc4e76ac690bbfb2f115597fa1fcd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d9653e305dec5213deb2421a8f3244b9964cad327c595213ae08314100a06513",
+        "actions.json": "e12b6e63129fa5745f0f82599786e85bcdffb1e8d2631cdfdc167c33c290b547",
+        "assertions.json": "aa78cdd153bc1a8219c03624db57aadda75413fafd44f4980617833239577e27",
+        "expected_final_gamestate.txt": "2b204c18dd16217f82086f4be724a1759a1ab7e16ac68fc89cde9176935bd8e8",
+        "meta.json": "26ed1bdcce8ac800d1ffe63f2d99af514f3fc4e76ac690bbfb2f115597fa1fcd"
+      },
+      "actions": 35,
+      "native_assertions": 3087,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          9
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "All original physical identities preserved; virtual weapon10 ceases. Exact own GY1{Overpower5}/GY4{HandNAA9}, Pitch7/8, used physicalSword6 with turn2/attacks1, P4HP15/R1/AP0. Actual weapon2+printed4+earnedReprise2 minus real3defense deals5; no AA-defended Saber or Boltyn charge bonus.",
+      "qualification": "One actual Hand-NAA defense earns paid Overpower Reprise and retained-reaction source resolves before clearing. No Reprise-false/target change/weapon repeat/armor/Saber-AA trigger/Boltyn charge/Soul/ability/support/siblings/full-card credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch270-independent-source-review.json",
+    "sha256": "ef0b6d4772fbd2903a198b22b2e6b20c6613e93984b8dcd3024b88426d99ea8d",
+    "manifest_sha256": "615dd23e8fc9917e85e4257cb8a0c7d65febe4107f229f8b7bf471b026f24f72"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch270-20261103T003741Z-6ae92cd55e0c4.json",
+    "sha256": "a32f416472beaf71915c0f133a08e91d931b9b93223a54b0a7e5c407ada71f37"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch270.recording-results.json",
+    "sha256": "76546aaf95fb355d58b85ff3ae4c3aa7f758aadd11cc4fffecf8fdc402e60029"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch270-native-r1\\receipt.json",
+    "sha256": "8097a29f9980c1806f735693bae40be88ad86d4afb7c1a4ced9c1833212e81f0",
+    "stdout_sha256": "53f22fcf49462cd0dde9597d08c009f77c5883445a3eceeb436deb3088eb17c8",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "runtime_after": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7"
+  },
+  "review_parser_utility": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch269_saved_readonly.py",
+    "sha256": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "execution": "Only six pure parser/snapshot helper function definitions reused; no old fixture/input loop executed."
+  },
+  "method": "Independent read-only raw five-file review. Parsed full schema-backed initial/final snapshots; every actual actor/mode/payload and every persisted assertion/order/step matches approved input. Current-attack computed assertions are matched to actual chain indices0/1/2 by physical UID. No author model/PHP/native/replay/R/backend execution.",
+  "semantic_findings": [
+    "FlyingKick: source recording physically retains HeadJab5 link1 and HeadJab6 link2, each with actual printedGA refunds after own completed damage. Current attack switches to actual FlyingKick7 link3 only after its real Blue8 pays2/AP1. All source/attack/defend/reaction/DAMAGE response actor states and computed current-attack values pin3/2/7damage and actualP4HP8. Only final full Resolution closes all three.",
+    "Overpower: actualBlue7 funds firstSword1, realHand NAA9 supplies3defense/earnsReprise without Saber AA trigger. ActualPrimary5 cost3 waits Yellow8 because onlyR2 floats. Physical5 remains Stack through three real reaction responders while weapon stays2; fourth applies+4+2 before exactsourceGY5. Actualweapon8 minus3defense yields5damage. Original physicalSword6 remains used, virtual10 clears.",
+    "Every pass_until maps to exactly one actual manual mode10001 by the prior checkpoint priority actor; all107 native actions and8646 assertions map exactly, including dynamic current-attack indices and final physical UID sets."
+  ],
+  "limits": [
+    "Saved native recording review only; root creation replays are separate evidence and not claimed here. Reviewer ran no game/replay or PHP and wrote no R/backend files.",
+    "107 saved actions/8646 assertions/96 actual manual passes, two red positive representatives only; no sibling/full-card or new isolated fault credit.",
+    "Original f40e/input/source-approval contexts retained. No legacy/full-suite scans, old replays or unrelated source audit."
+  ]
+}

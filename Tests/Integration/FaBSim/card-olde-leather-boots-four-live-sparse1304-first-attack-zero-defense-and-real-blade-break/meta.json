@@ -1,0 +1,7 @@
+{
+    "name": "Olde Leather Boots / first attack no bonus; actual Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:07:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_DORI20_ALL_SEATS. Priorlegalequippedolde_leather_boots6ownedcontroller4; GenericEquipmentnoWeaponconflict. ActualforeignWoundingBlow5Handcost0/AP1to0declaresadjacentHero4andfourfreshpriority/combatrounds. Noattackhistoryseed/turneffects/previousattack; actualchainlink1firstattackofturn. Printedbase0defense; conditional2ormoreattacksnotmet, so no+2. Nativeequipment6reallydeclaresdefense/movesCC/RoleDEFENSE/FromEquipment; unblocked4physicaldamageHP16(not18)independentlypins0defense. PrintedBladeBreakdestroysactualsameowned6GY4onclose; attacker5ownGY1/APR0/UID6RNG0/StackDQsCCclean. NoSecondAttack/two-attack+2positive/multipleturn/otherEquipment/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#olde_leather_boots FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "United We Stand / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:07:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Unity** - When this defends together with a card from hand, if Boltyn is in your party, create a Courage token under his control. Then repeat for Bravo and Seismic Surge, Briar and Embodiment of Earth, Dorinthea and Courage, Lexi and Embodiment of Lightning, Oldhim and Spellbane Aegis, Prism and Spectral Shield, and Shiyana and Eloquence. Representative only: actual_attack_role_not_unity_defense_event. Physical Hand5 source/actual Blue6 pays printed1/2/3/R2/1/0/AP0, full four-live manual combat, owned source graveyard. Static grants/events not earned under these actual conditions; retained physical markers. No positive Hit/banished-source/Unity/clash/return or created ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#united_we_stand_yellow"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-massacre-red-four-live-sparse1354-no-discard-six-no-plus-two-or-intimidate-actual-three-cost-six-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-massacre-red-four-live-sparse1354-no-discard-six-no-plus-two-or-intimidate-actual-three-cost-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1354-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1354-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8437e958283efd0de992fcfec07d140df7d83b66c4d389a15fc3e923fc85576a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a2fbf7e5abcac9e267c66b15d0a27df3b630838842d220d38fe11886e91d98a4",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "50dddf185c762e6c93fe871c1588992a5b4008cf70f0c59cf7b9eb6c2e43ced6",
+        "expected_final_gamestate.txt": "d9192759a0f9f24dbbdf678e46f1d523e1a537089c7264ada1a543c7ba035a71",
+        "meta.json": "8fbfa161bd4890001e004a89f802b72d623ab4c0e3620e87da98d7c96d223d8b"
+      }
+    },
+    {
+      "slug": "card-rhinar-four-live-sparse1354-actual-six-power-blue-pitch-is-not-discard-no-intimidate-real-victim-hand-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rhinar-four-live-sparse1354-actual-six-power-blue-pitch-is-not-discard-no-intimidate-real-victim-hand-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1354-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1354-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "49bd1c5d3fc9574d42d93926e4b40d7fb7fe52f2f48d1c2eefabc0f86e1aadf5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b693b7fbc692ad844acfe435fa0f17631ecd46a80884cdc9b9be4e0710fb9fc3",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "9cf185a663cd1f40667fb345e0e31c8adefaaf774d61a31d942336593f492255",
+        "expected_final_gamestate.txt": "28370cff081875c56e1bf93afe93be29911b1f01964f51ac5e52977099194df1",
+        "meta.json": "9261d6ecdd496bf3af7234f9970ceac8a8539aa68f693ab7c3d3a996989ada73"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

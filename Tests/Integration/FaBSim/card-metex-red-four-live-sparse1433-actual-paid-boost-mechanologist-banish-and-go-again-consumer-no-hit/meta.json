@@ -1,0 +1,7 @@
+{
+    "name": "MetEx / real Boost cost and earned action with full defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T19:15:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_YOUNGDASH20_THREEDORI20/UPF. Realprimary5Hand/Blue6Hand/Item7Hand/Mech8Deck/realdefenders9Blue10RedHand4. FormalattackHero4beforeBoostmodal; choose0Boostbeforecost. Printedcost1 actualBlue6pitch3/R2/AP0 thenrealMech8topDeckBanishpublicearnsGOwithoutprivateflagseeds. All4freshresponses/actualpower4/GOTRUE. Twoactual3DEFcards9/10defend, actual6DEF/0damage/HP4=20/noHIT so printedonhitabilityNOTearnedanduncredited(noHitTimingclaim). Fullclose5GY1/9then10GY4/AP1fromactualBoostGAindependentofHit. RealPotionLuck7Action0actuallyspendsearnedAP/freshall4responses/7Arena1; finalAP0/R2/Mech8Banish/Blue6Pitch/UID10RNG0/StackDQCCquiet. PositiveprintedBoost+resource/APcosts/physicalfatesonly; onHitability/nonMech/noBoost/Deckempty/otherpitches/Hero/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#metex_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

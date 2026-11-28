@@ -1,0 +1,7 @@
+{
+    "name": "Goremass Summoning / four-live old Banish is not turn history",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:28:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've banished a card with 6 or more {p} this turn, create a Blasmophet, the Insatiable Hunger token.\n\n**Go again** Legalnatural20LeviaShadowBrute. ActualoldownedfaceupBrutalAssault7power6startsBanishbutno cardhasbeenbanishedthisturn; initialturnEffects/historyempty. Actualprimary5cost2paidbyrealBlue6/R1/AP0, allfourmanualsourcepriority. PrintedplainresolutionIF false: noBlasmophet/tokenArena/uniquenesschooser; source5ownedGGY/printedGAAP1 andBlue6Pitch/marker7Banishretained. Thisisnot a WHEN/thenIF eventnegative. No positivebanishhistory/tokencreation/uniquechoice/LeviaBloodDebt/endphase/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goremass_summoning_blue"
+}

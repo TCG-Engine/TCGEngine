@@ -1,0 +1,7 @@
+{
+    "name": "Burn Up // Shock / actual left-half go again and separate four-arcane hit trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T16:42:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanuallegalYoungAurora20(notBriaravoidsunrelatedAAhitWHEN)/threeDori20. ActualBurn5leftActionmode0cost0spendsAP1to0beforefourresponses; resolvesgrantthenownGoAgainreturnsAP1/physical5GY1/noearlydamage. RealWounding6cost0targetsHero4/paysAP1to0/fourresponses andfullcombatbeforeactual4physicaldamageHP16. ROSnextHitqueuesseparateBurnABI7Source5/controller1/toThemHero4; windowPRIORITY/combatStepDAMAGE. No4arcanebeforefresh1/2/3/4responses. Resolve7actual4arcaneHP12, returnDAMAGE1/Stack0; noWard/AB/preventionawaitbranchneeded. Freshdamage/resolutionpassesclose6toGY1, AP0(noinherited/duplicateGoAgain)/R0/UID7/noStackDQs/otherzones. NoShock/right/both/secondHit/expiry/blockedHit/otherSource/defensechoice/Hero/support/pitchsibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burn_up_shock_red FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

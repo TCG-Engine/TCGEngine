@@ -1,0 +1,103 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FULL_TOUCH_X2_PAYMENT_AND_WARD_CONSUMPTION_REVIEW",
+  "phase": "SAVED",
+  "batch": 840,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch840-touch-full-real-x2-ward-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-touch-full-real-x2-blue-ward-consumption-positive-author\\touch-real-x-two-blue-payment-tap-and-ward-consumption.json",
+    "sha256": "265bc15d9e48ed18689d35cce04567f1fecdb9fbafa826b31c5e70b93662108d"
+  },
+  "input_sha256": "265bc15d9e48ed18689d35cce04567f1fecdb9fbafa826b31c5e70b93662108d",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-touch-full-real-x2-blue-ward-consumption-positive-author\\manifest.json",
+    "sha256": "c3f59ee9f246dd787ce69cd01ada429e3c1cd2bd5469d142f27bf333599d7279"
+  },
+  "manifest_sha256": "c3f59ee9f246dd787ce69cd01ada429e3c1cd2bd5469d142f27bf333599d7279",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch840-touch-independent-normal-positive-source-review.json",
+    "sha256": "dbad0c5d8487e78ad65401bcbcdaab5a51345d17df842c73398819c928a50928"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b840-touch-positive-native-save-cdc\\receipt.json",
+    "sha256": "06bdb8d2f025615e9c90895b581598b87becbf53e9ce9d99adc5cb18af3c08dd"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b840-touch-positive-native-save-cdc\\actual-result.json",
+    "sha256": "40211eb5c5162fc3bacf23d8ec0bbbff39cd8da319dac394004f16850ffa5c2f"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch840-touch-full-real-x2-ward-positive-20261116T025828Z-6afa7154692ee.json",
+    "sha256": "bc6548db84a74f2c31292f7208fa5c6f5b1d30b2583150c7b156b173b87e2f49"
+  },
+  "fixtures": [
+    {
+      "card_id": "touch_of_reality",
+      "slug": "card-touch-of-reality-four-live-real-x-two-blue-payment-tap-and-ward-consumption",
+      "actions": 38,
+      "native_assertions": 4558,
+      "manual_passes": 32,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4913576eeb86b53b59d30fbcabe63a80fb703538ac0a344aa83447dbce7d53da",
+        "actions.json": "506cc8afb76274e834cf5338452f575e5b189ce36e15f5f577b369962ed16874",
+        "assertions.json": "43aa5fe2f4cfc3f3d2812c250ae19bee5be89f92c86b0772ed70be9fafd42554",
+        "expected_final_gamestate.txt": "c34eb1a6d238e9b3db90b3cfc64ab9ce4ae6247d088deba41c07649452de460b",
+        "meta.json": "a9fcf412e182b60affaf3c18cf6c1588161436a6c773e8ce2ae29d2a7496f285"
+      },
+      "fixture_sha256": "57d8ac7521d3a11f6ffa076b0a41397a16c3e031052448fbd20bb188f999aa2c",
+      "behaviorfixture_sha256": "57d8ac7521d3a11f6ffa076b0a41397a16c3e031052448fbd20bb188f999aa2c",
+      "input_sha256": "265bc15d9e48ed18689d35cce04567f1fecdb9fbafa826b31c5e70b93662108d",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 132,
+      "terminal_endpoint_queries_independently_evaluated": 230
+    }
+  ],
+  "actions": 38,
+  "native_assertions": 4558,
+  "manual_passes": 32,
+  "actual_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8
+  },
+  "actual_expected_envelope_mapping_sha256": "f095fc2a6a1a3e8da8c3787189e282199a78e074ed5218185d6c0eb8d08f3fe9",
+  "actual_ordered_query_mapping_sha256": "6e0b525b80638072d041cbd5427cab9d1e5e49b9a9aeba1af455dcf0a0d6d43e",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_semantics": [
+    "All38 actual Native envelopes and4558 persisted successful queries exactly match approved Source and ordered boundaries; no dropped/additional assertion or action.32 genuine manual inputs eight per seat include one formal finish-defense input; no shortcuts/bots/passive seats in either raw snapshot.",
+    "Actual declared X2: NumberChoose0|3\u21922, pending cost2 while ready; real UID6Blue pitch3 pays2/R1, physical Touch7 taps before response priority/AP0 unchanged. Actual four paid ABI responses4/1/2/3 precede the first dynamic Ward2 query at control25, all earlier Ward keys absent.",
+    "Fresh four reaction responses reach mandatory Ward chooser of actual Equipment7. Actual incoming2 fully prevented, same physical7 owner4GY, all four HP20 and no hit; native actual UID5 attackGY1,UID6Pitch4/R1, allAP0, unused Young Heroes and Stack/payment/attack/decision/await/chain cleanup verified.",
+    "Both raw snapshots parsed completely against schema, fresh48manualcontrols verified separately at each endpoint.132initial and230terminal semantic queries independently evaluated directly against raw snapshots; no inherited raw-final certificate."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Two own targeted clean replays and Root guarded registration/index update."
+  ],
+  "limits": [
+    "Only positiveX2 paid/tap/actualWard2 consumption branch. Alternate survival-until-endphase destruction, otherX/repeatedactivation/suppression/otherprevention and all Hero/support/fullcard coverage remain untested.",
+    "Saved approval does not itself assert replay success or full-suite validation. No PHP/native/Rwrites or denied188/184/B787 action by reviewer."
+  ],
+  "created_utc": "2026-11-16T03:02:52.520709+00:00"
+}

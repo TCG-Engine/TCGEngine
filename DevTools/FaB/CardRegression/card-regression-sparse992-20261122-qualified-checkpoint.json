@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:57:30.232990+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse992-20261122.json",
+  "source_spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 87,
+  "native_assertions": 513,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 4696,
+    "duels": 3075,
+    "four_live": 1621,
+    "recorded_primary_ids": 1844,
+    "identity_denominator": 5196,
+    "recorded_groups": 1718,
+    "group_denominator": 3324,
+    "four_live_groups": 1610,
+    "phase_qualified_scenarios_at_actual_contexts": 1333,
+    "phase_qualified_unique_groups": 1323,
+    "creation_replay_passes": 2075,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 494,
+  "scenarios": [
+    {
+      "card_id": "graphene_chelicera",
+      "group_id": "identity:graphene_chelicera",
+      "scenario_id": "card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+      "effect_branches": [
+        "actual_paid_unmarked_weapon_full_block_no_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-graphene-chelicera-four-live-sparse992-actual-paid-unmarked-weapon-full-block-no-go-again",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "source_spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "review_evidence": "review-evidence/sparse992-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a9d1cef1012993ddbac387140b33804bc28cc336e8e71b49bf3f032ca686584a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse992-20261122-replay.json",
+          "sha256": "9847413d71fed00e6330608116075e87d48fa97b6b1452af1568776f79de9046",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "beckoning_mistblade",
+      "group_id": "identity:beckoning_mistblade",
+      "scenario_id": "card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+      "effect_branches": [
+        "actual_paid_nonstealth_weapon_full_block_printed_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-beckoning-mistblade-four-live-sparse992-actual-paid-nonstealth-weapon-full-block-printed-go-again",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "source_spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "review_evidence": "review-evidence/sparse992-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a9d1cef1012993ddbac387140b33804bc28cc336e8e71b49bf3f032ca686584a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse992-20261122-replay.json",
+          "sha256": "9847413d71fed00e6330608116075e87d48fa97b6b1452af1568776f79de9046",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "jubeel_spellbane",
+      "group_id": "identity:jubeel_spellbane",
+      "scenario_id": "card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+      "effect_branches": [
+        "actual_paid_weapon_exact_full_block_no_aegis"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-jubeel-spellbane-four-live-sparse992-actual-paid-weapon-exact-full-block-no-aegis",
+      "source_spec": "card-regression-sparse992-20261122.json",
+      "source_spec_sha256": "f4f3d735b5c5e79754e2169ba027583cc2b0165ac08cc30d79b3634aa2aaa0cc",
+      "review_evidence": "review-evidence/sparse992-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a9d1cef1012993ddbac387140b33804bc28cc336e8e71b49bf3f032ca686584a",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse992-20261122-replay.json",
+          "sha256": "9847413d71fed00e6330608116075e87d48fa97b6b1452af1568776f79de9046",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

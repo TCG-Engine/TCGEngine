@@ -1,0 +1,51 @@
+{
+  "status": "DISABLE119_ORIGINAL33_2941_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root exact Saved review, independent of original468 recipe author; Root-authored patch separately reviewed by b820",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+  "input_sha256": "b6da3e5539a932769c4672f642147c1f8cb2bb81f7d5bea7f47e96bd26e853f4",
+  "source_spec": "card-regression-repair-disable119-crush-response.json",
+  "fixtures": [
+    {
+      "slug": "card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+      "card_id": "disable_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "330ec44c9001ac9c972592a89d6747fee52582e2136991a3458b42e078dfb791",
+        "actions.json": "7321dc7d32d25727b1692e0b12ace764473e83bfbf9621efe7815874adb48e54",
+        "assertions.json": "028757253282b11e97f0d3d41bdfef14230d40e9709a843c7699a18859beeed9",
+        "expected_final_gamestate.txt": "d0ab869a8d0c35a2e231c6b9f2fc71d9ee79f8124be6cc6afdb05f5871240ac1",
+        "meta.json": "12b0f0ad68b9fb323e17aea87a1005c8648587cc8ead15b16959d8e10562dd7c"
+      },
+      "fixture_sha256": "7a710cb0a636f5f36edd15ad21f9aa730b215961b6891b274802e2b7d997dfea",
+      "actions": 33,
+      "native_assertions": 2941,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+      "runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+      "source_spec": "card-regression-repair-disable119-crush-response.json",
+      "input_sha256": "b6da3e5539a932769c4672f642147c1f8cb2bb81f7d5bea7f47e96bd26e853f4"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-disable119-replay.json",
+    "sha256": "0e558fa3e1593f79c3db547ed19d68fa01d05fdd1606d195ca0b4a1ea297dba5",
+    "passed": true
+  },
+  "source_review_sha256": "c091232b7d856a363165eb14bca7444762eab2f46693decb27b82661a7b23431",
+  "components": 22,
+  "component_receipt_sha256": "62a2af001b4ba11de71acee280e6d7f54256c23484ff4c6ef8ed5eba2868a726",
+  "basis": "All original33actions2941queries/setup unchanged. Actual5cost paid by twoBlue6/7 pitches, real9power unprevented hit/HP4=11; fresh earned DisableCrush has capturedsource5/controller1 while same physicalArsenal8 remains throughout all four live responses. Fourth response moves sole8 to actualOwner4DeckBOTTOM after original9, then true Damage/Resolution cleanup. Full final same5ownGY, 6/7Pitch, R1/AP0, all48manualpreferences and virtual/payment/await cleanup independently matched to Source and raw5. No current defender/source-survival dependence in earned resolver.",
+  "official_sources": [
+    "https://judge.fabtcg.com/cards/detail/161/",
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "Exact Red sole-Arsenal owned-victim route only. Existing multiple-Arsenal first-entry policy remains unfixed/unqualified; no general selector or completecard endorsement.",
+    "22 actual-function isolated controls cover capture/response route, mutable victim/source changes, current Arsenal/owner destination and invalid contexts; they do not certify Native alternate branches, threshold4, foreign ownership, sibling or allCrush behavior.",
+    "OtherCrush branches/094/generation/Core unchanged. Bounded registry/name lookup found no earlier Disable fixture; no unlabeled secondary corpus audit or fullsuite/historical replay."
+  ]
+}

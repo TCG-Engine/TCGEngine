@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch375.json",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T18:05:56.269552+00:00",
+  "fixtures": [
+    {
+      "slug": "card-bubble-to-the-surface-red-four-live-sparse-real-paid-reveal-first-red-and-use-banish-play-permission",
+      "fixture_sha256": "fb053932096f7706243849b272b0e638ed9b2b33a2b920af3757f0e2225bd3c0",
+      "passed": true,
+      "result": "[PASS] bubble_to_the_surface_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+      "fixture_sha256": "fb5c318e9c7ee4c4f93ea3ea9000abb0d744fa594b4e32a99ff5457a54121b3c",
+      "passed": true,
+      "result": "[PASS] orb_weaver_spinneret_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-bubble-to-the-surface-red-four-live-sparse-real-paid-reveal-first-red-and-use-banish-play-permission",
+      "returncode": 0,
+      "stdout": "[PASS] bubble_to_the_surface_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+      "returncode": 0,
+      "stdout": "[PASS] orb_weaver_spinneret_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

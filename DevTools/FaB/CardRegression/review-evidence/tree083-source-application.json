@@ -1,0 +1,106 @@
+{
+  "status": "APPLIED_SINGLE_EMISSION_SCOPE_SYNTAX_PASSED_BODY_REVIEW_NATIVE_PENDING",
+  "started_utc": "2026-11-03T21:39:21.355584+00:00",
+  "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "projected_sources_runtime": "a7dd44cd03059cbe0da041e3aec42b54fa6360fbffa83046032b465b66c781a6",
+  "evidence": {
+    "nov2_codegen_scope.py": "c10d003e689ffc4e4fb0e8fd0ea94633f2eec834aac0211159873d03d4d412b4",
+    "nov3_tree083_codegen_scope.py": "2bf86191344553a2f00628000536aeef6cf7d6cdcf01ed013896f7546184e6dd",
+    "nov3-tree083-entry-queue-proposed/manifest.json": "392440e0d22e55d18449e02f393e64b72bd06d6c664db70c87194784ee4b4c83",
+    "nov3-tree083-independent-source-review.json": "3dcfdfca531e2c86f6deb2847ee38b9c2820ebbee21cbc703b9d72cb7942a972",
+    "nov3-tree083-remote-read-preflight.json": "901b52e11ea533ead7c8188847a531a84c42e17e96f6ab2f0237f040e191b0ff",
+    "nov3-tree083-root-read-preflight.php": "aecdb9272475f931562caf586c7b14969f22b9c7da6384ce53c0309bc1386c46",
+    "nov3-tree083-root-scope-controls.json": "8805039f74a7b7225f5c47aa29aa70ca8d60a17cf69ddf60bb8dda6230f3ba2c"
+  },
+  "actual_component_receipt_sha256": "fd740198b35347ea7d3fa148471684b9acec537f47da55e2f2616a45352bd9c9",
+  "source_files": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+      "after_sha256": "41dc8057b503c1eb33417e93515ec1e86d89197115391c64c18f195f794848b5",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\Custom\\ROSCards.php"
+    },
+    {
+      "path": "DevTools/FaB/ros_abilities.json",
+      "before_sha256": "b123b36f73a7bb45210eee6dcd4ce2326e2be071ef5366444376c9484e4ed229",
+      "after_sha256": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\DevTools\\FaB\\ros_abilities.json"
+    },
+    {
+      "path": "DevTools/FaB/build_ros_abilities.py",
+      "before_sha256": "772cf758cb896edc2925f79a44d5f5c4bb2cf0c88ad673429527c15722550a36",
+      "after_sha256": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\DevTools\\FaB\\build_ros_abilities.py"
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "95907fd9ae6b679d115c29af526352e95668f49528d82ef639ed5be0db478ce5",
+      "after_sha256": "944fa1506535116e40ca1c5f0f0ed7566795fe683540eb8923eb3e805612500d",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\Custom\\CodeGeneration.php"
+    }
+  ],
+  "generated_before": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "760ab242a13d1e53e08f6bcd92240f3838f81ce7d1062477652d0d9a57a61132",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\before\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "command_argv": [
+    "C:\\xampp\\php\\php.exe",
+    "zzGameCodeGenerator.php",
+    "rootName=FaBSim",
+    "only=MacroCode",
+    "expectedSHA=d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "expectedCountSHA=760ab242a13d1e53e08f6bcd92240f3838f81ce7d1062477652d0d9a57a61132"
+  ],
+  "emitter_invocations": 1,
+  "fixture_count_before": 3667,
+  "PHP_native_games_run": 0,
+  "remote_authoring_writes": false,
+  "manual_generated_edits": false,
+  "full_suite_run": false,
+  "generator_exit_code": 0,
+  "captured_emission": [
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "sha256": "1adb9203e51af18ef76111dbcab7a01f15a337a8324b2b18bc182cc5696a99d6",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+      "sha256": "5d67c0778ebcb4467b21afb983fdb5a375fa7485615f414c7acee727815ad8fe",
+      "captured": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tree083-guarded-application-generation\\emitted\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+    }
+  ],
+  "actual_R_lints": [
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php\n",
+      "stderr": ""
+    }
+  ],
+  "runtime_after": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "generated_scope_sha256": "07036f54390a7120920bd67ee69084ffeb73348a19dc0cd43e85ffffba8c6268",
+  "fixture_count_after": 3667,
+  "all_unrelated_watched_bytes_preserved": true,
+  "completed_utc": "2026-11-03T21:39:31.305318+00:00"
+}

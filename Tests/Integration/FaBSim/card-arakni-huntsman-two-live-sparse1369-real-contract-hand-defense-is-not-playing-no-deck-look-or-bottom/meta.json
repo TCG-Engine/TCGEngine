@@ -1,0 +1,7 @@
+{
+    "name": "Arakni Huntsman / actual Contract defense is not play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:52:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_DORI40_ARAKNIHUNTSMAN40. NativeCriticalRed3cost1paidCriticalBlue4pitch3/R2/base5. ActualArakni2HandPlunderPoorRed5trueContractdefends3(roleDEFENSE/FromZoneHand), notPLAYED: HeroWHENplayContractunearned/noabilitylayer/decklook/chooser/putbottom/Shuffle/RNG. RealopponentDeckWounding6eligibleforHeroLOOKremainsonecard/sameownedUID/orderthroughblock/fullclose; native2damageHP2=38. Original3GY1/4Pitch1/defender5GY2/Deck6same/allArena0/UID6RNG0/ownHP40/AP0; allmanualbothseatresponses. OnlyadultContractdefend-vs-playguard/nativeblock/damage/fates; positiveContractplay/targettiming/decklook/bottom/Contractbanish/Silver/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_huntsman FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

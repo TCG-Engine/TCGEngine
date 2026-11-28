@@ -1,0 +1,295 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1194-20261122.json",
+  "source_spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+  "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_envy_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e4271b557ea7a32c9b622a6c2f30f5fe3a5669b0e9562d86999d3d48c31798b8",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "6380b524292af3571bc7964f0454f244d1e791bf01b279f6db912629956d9361",
+        "expected_final_gamestate.txt": "6e69235cb490ac449781d66303e13b7f4c9d2ebc81b52013e18ecea4ec68a899",
+        "meta.json": "933bdf7656b7aa576eb5e84eb577ebe2ac2a1a093db1af3f384a354d1a1c26b3"
+      },
+      "fixture_sha256": "8b75c7c5648425265e344244be8a63ef7053bd3bd32b1bcaaf050c93ae44bd86",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_gluttony_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f02835f520582b738553af586d80490bf7991f3627b27a51936671ae03693c71",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "bf08f0ac5512c1ea66cc255fd2bb9a262c4825c8dbf8444dcc1bffb8bc437b8b",
+        "expected_final_gamestate.txt": "7c9c4b87e68e0177057eb18f8cff71f3aede84af033901d48efc8e44d2d34266",
+        "meta.json": "9f21c81a28b7206bf99b555b07ce99cd741d37229b7f97a1fb67c52f0ce544c9"
+      },
+      "fixture_sha256": "c584f8e4721654747402eb445cc648357bb2c1c76e4e7b5b810a7d726cd67673",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_greed_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccd22296ee7027a6ccf5a59deec89a8f264740bb19eb20c8e2493b9b03a4554a",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "d2f1b3526a1ea578a8ca633c4a1a55a6b67d39c88667c5b0dfca226efc852bf2",
+        "expected_final_gamestate.txt": "c570c055b428f13810f29a27ee963261edc01d15c1c29bd1744c3cf0e11fb63f",
+        "meta.json": "f7211ee7a8c0d26689211358be3af17799a5e1cecf1b10a81852caf5bae3f2a3"
+      },
+      "fixture_sha256": "fa5e23c0c2c84ad590da9a05151d25d2d983651e3c5dcf4ff2ad643764218ba9",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_lust_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f7ebe8da7d64df39da9b3546ba5eaae75e8f2cde6a0e535e23e485294f94386",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "6d6aef118e59da21148a8df47db436f7362fd8a7a8dd0cdb460e072e82ae5712",
+        "expected_final_gamestate.txt": "33757e8f0891af804c09a10d0c379b003922db1d913cc5e90a3fbbf43edb7c4a",
+        "meta.json": "ff3abf6efee1eb1c76aba97258032a7f9a83765d583c4950128ede3f888aac01"
+      },
+      "fixture_sha256": "dbd0c87ec89dbfda720fbd1c81c5d39e01430dc8b81ebb99635b1623feb61aa1",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_pride_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b08db20b33b62fed0324eb20a9906bbe7c4b7a64f798709d484aa0210feff67",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "fe406a20cfbc319999ca046b3afb7b0aaa28284b50806d16a15eb5e645ee463c",
+        "expected_final_gamestate.txt": "4e0dff3f14dbd3287c03f130ca79fcaaaab849f447eb22e33a21b4f0f09d8937",
+        "meta.json": "4e2bcda82211704273cc3c8d21a3009d02062b07945a3dea049943460300a9e5"
+      },
+      "fixture_sha256": "f04f84307e78cd7d3def5bf92caa928ce7e44ab04f02fd558b145c9ec1ebe827",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_sloth_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd187ee1e1eeb78c39fb37c3108470373c324f8a1deb2fc5532eaa70d26bb382",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "bb325781f7d6631a086ce747b9b03bc4f4d519c97fc94a5f128f4bdf46627c10",
+        "expected_final_gamestate.txt": "a54a2930b700c741f68b85773a5bd7bb850ad384a66c21f997aef17f238bf670",
+        "meta.json": "a33392fc580e4cab789a511b936532fa0b7ad84a6e1599805fb6ea363a19dd41"
+      },
+      "fixture_sha256": "eac716d3afb3dd3e8f0583a268b6f544a59edab6d78590a25546d754c72202b3",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "card_id": "runechant_of_wrath_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69d329442165f93c4c02a722e4bf4389f8ec3e2f62c30103a9d9230aeb925da9",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "151d615055d7712d28146b85a66232d608db09dbd5d99049bec3961a48dfa429",
+        "expected_final_gamestate.txt": "2cd065a1b16960ec50193091aa0b2dfc507512caf65ae6b48fb18f8f48544049",
+        "meta.json": "514eb7532194dfa901c350afc94954cb2df70c2a372305be5d041c8aa15ab44a"
+      },
+      "fixture_sha256": "442a44a225b96493c7f314a99fea2ce7c66ebf25792acdb7f855f4864013ef4a",
+      "actions": 11,
+      "native_assertions": 368,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1194-20261122.json",
+      "input_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "fixture_slug": "card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "f3b126a1af4e9f061b0a194b6d2fba10082a2af2820b15ce4cfff981acc1d056",
+    "case_count": 7,
+    "native_controls": 77,
+    "persistable_assertions": 2576,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "runechant_of_envy_yellow",
+        "group_id": "identity:runechant_of_envy_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_gluttony_yellow",
+        "group_id": "identity:runechant_of_gluttony_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_greed_yellow",
+        "group_id": "identity:runechant_of_greed_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_lust_yellow",
+        "group_id": "identity:runechant_of_lust_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_pride_yellow",
+        "group_id": "identity:runechant_of_pride_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_sloth_yellow",
+        "group_id": "identity:runechant_of_sloth_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      },
+      {
+        "card_id": "runechant_of_wrath_yellow",
+        "group_id": "identity:runechant_of_wrath_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 368
+      }
+    ],
+    "actual_destroy_hook": [
+      {
+        "path": "FaBSim/Custom/MONCards.php",
+        "line": 306,
+        "source": "if(!empty(FaBObjectCounters($o)['EVO_HERO_UID']))FaBEliminateSeat($p);FaBEVODestroyed($p,$o,$f['zone']);FaBHVYDestroyed($p,$o);FaBDTDDestroyed($p,$o);FaBEVRDestroyed($p,$o);FaBUPRDestroyed($p,$o);FaBDYNDestroyed($p,$o);FaBROSDestroyed($p,$o,$f['zone']);FaBPENDestroyed($p,$o);FaBOMNDestroyed($p,$o);FaBIARDestroyed($p,$o);if($f['zone']==='Arena')FaBIARZombieDied($p,$o);"
+      }
+    ],
+    "basis": [
+      "Seven distinct unrepresented standalone identities, not a pitch matrix. All seven cached cards are cost0 nonToken Runeblade Instant Auras with an unconditional printed When this is destroyed create a Runechant token. Legal young Chane20 owns primary5 at seat4; young Briar20 casts carrier6. Exact steps/checks for all seven are identical after only primary-ID substitution, with correct natural HP, own controller/Owner fates and no contradictory checkpoint values.",
+      "Reuse independently reviewed1188 actual opposing Vaporize-left0 carrier and source lifecycle. Actual MZMULTICHOOSE0|1|p4Arena-0 positively destroys the real cost0 permanent; printed counts-as-Runechant does not make it a Token. Carrier6 remains held through its resolution choice, then finishes in GY1 while destroyed primary5 is in GY4. No Shock/right-half/positiveX or token-destruction fallback is involved.",
+      "Actual destroy hook reaches IARCards287-288, which queues controller4/source5 rosEvent=iarDestroy as separate ability7. All four fresh response seats1,2,3,4 occur with no reward yet. IARRuntime108-110 handles iarDestroy by creating exactly one Runechant and returning before all iarUsurp-specific branches.",
+      "All seven exact Generated ResolveAbility bindings17179-17213 were verified to pass their matching base identity and captured rosEvent to the shared helper. New token8 has actual Owner4/Controller4 and CardIDrunechant; physical primary5/card6 remain in their separate owned Graveyards and final maxUID8/Stack0/DQs empty/AP1caster/R0/allHP20 are correct.",
+      "The distinct usurp clauses are not earned: no attack or usurp occurs. Owner4 plays no attack action card, and no phase transition occurs, so neither other destruction event is earned or skipped. Chane has no triggered Runechant-creation Hero ability; its activated ability is unused. Token8 is created after earlier Instant play and has no retroactive attack trigger.",
+      "Both current ledgers and exact group coverage were checked. All2576 source checks normalize to saved assertions with no author-only diagnostics. Only this actual destruction-to-responseable-token route is approved, not the untested entry/start/usurp/attack-play routes."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "e10b2adf5048c026dcc75985c95b06c6c70f736bdaa7fa11665689cd4b27ce43",
+    "limits": [
+      "Pending Root native recording, stored-assertion mapping and one targeted replay per case. No native success claimed here.",
+      "Named When-destroyed Runechant creation only. No usurp bonuses, beginning-action timing, owner attack-action-play destruction, Runechant count/synergy, entry producer, token use, Hero/secondary-group or whole-card credit.",
+      "No engine/framework changes or repaired/waived timing/ownership/material/cost holds. Existing known holds remain unrun and unrepaired."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "021644628994cb05b91dd67449f8ebf52d4006a3543cb39e13c70fcebab3e450"
+  },
+  "full_suite_run": false
+}

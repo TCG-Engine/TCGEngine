@@ -40,6 +40,7 @@ function FaBIARAbilityLegal(int $p, array $f): bool {
 }
 function FaBIARAbilityPaid(int $p, object $o): void {
     $id=$o->CardID;$uid=intval($o->UniqueID);
+    if(!isset(FaBIARAbilityRows()[$id]))return;
     if(in_array($id,FaBIARHandAbilities(),true)) {
         $f=FaBFindUID($uid);if(!$f)return;
         if(str_starts_with($id,'runic_')||in_array($id,['apex_buster_yellow','hoodwink_blue','deadly_spinneret_red','cogwerx_prong_bot_yellow'],true))FaBDiscardChoice($p,$f['mzID']);else FaBMoveUID($uid,'Banish',$p);
@@ -114,6 +115,7 @@ function FaBIARRuneTrigger(int $p, string $base, int $attack, string $event): vo
     foreach(['runechant_of_pride'=>'WTR_POWER:1','runechant_of_sloth'=>'GO_AGAIN','runechant_of_wrath'=>'OVERPOWER'] as $b=>$tag)if($base===$b)FaBTagUID($attack,$tag);
 }
 function FaBIARAfterMove(int $p, object $o, string $from, string $to): void {
+    FaBAdvanceCapturedSourceEpochs($o,$from,$to,['iarMaliceDeathEpoch']);
     if($from==='Arena'&&$to!=='Arena')foreach(FaBIARBoundMarks(intval($o->UniqueID),true) as $r)FaBMONDestroy(FaBPENUID($r));
     if($from!==$to)FaBARCSetCard(intval($o->UniqueID),'iarPermission',[]);
     if($to==='Banish'&&empty($o->FaceDown)){
@@ -161,17 +163,73 @@ function FaBIARBeforeDeath(int $uid): bool {
     foreach(FaBIARBoundMarks($uid) as $r)FaBMONDestroy(FaBPENUID($r));
     return true;
 }
+/** Eligibility belongs to the actual pre-move Zombie death, not later Hero presence. */
+function FaBIARCaptureMaliceDeath(object $host,int $zonePlayer,string $from,string $to): array {
+    $uid=intval($host->UniqueID??0);
+    if($from!=='Arena'||$to!=='Graveyard'||$uid<1||!FaBHasType($host,'Zombie'))return [];
+    $controller=intval($host->Controller??0);if($controller<1)$controller=$zonePlayer;
+    if(!FaBSeatIsLive($controller))return [];
+    $heroes=[];
+    foreach(FaBChoiceRefs($controller,'Hero') as $ref){
+        $f=FaBIdentityFromMZ($ref);$hero=$f['object']??null;
+        if(!$f||$f['zone']!=='Hero'||intval($f['player'])!==$controller||!is_object($hero)
+            ||!empty($hero->removed)||intval($hero->UniqueID??0)<1||HasNoAbilities($hero)
+            ||!in_array((string)$hero->CardID,['malice','malice_domina_of_the_dead'],true))continue;
+        $heroController=intval($hero->Controller??0);if($heroController<1)$heroController=intval($f['player']);
+        if($heroController!==$controller)continue;
+        $heroes[intval($hero->UniqueID)]=(string)$hero->CardID;
+    }
+    if(!$heroes)return [];
+    $owner=intval($host->Owner??0);if($owner<1)$owner=$zonePlayer;
+    $token=FaBHasType($host,'Token');
+    // Only an eligible death arms the existing all-move entry epoch.
+    $entry=$token?0:FaBArmCapturedSourceEpoch($uid,'iarMaliceDeathEpoch')+1;
+    return ['hostUID'=>$uid,'hostOwner'=>$owner,'hostEntry'=>$entry,'token'=>$token,
+        'controller'=>$controller,'heroes'=>$heroes];
+}
+/** Queue before other move callbacks; token cessation still earns the independent Corpse. */
+function FaBIARQueueMaliceDeath(array $event,?object $moved=null,bool $ceasedToken=false): void {
+    if(!$event)return;
+    $uid=intval($event['hostUID']??0);$p=intval($event['controller']??0);
+    if($uid<1||!FaBSeatIsLive($p))return;
+    if(!empty($event['token'])){if(!$ceasedToken)return;}
+    else {
+        $f=FaBFindUID($uid);
+        if(!$moved||!$f||$f['zone']!=='Graveyard'||$f['object']!==$moved
+            ||intval($moved->UniqueID??0)!==$uid||intval($event['hostEntry']??0)<2)return;
+    }
+    foreach((array)$event['heroes'] as $heroUID=>$cardID)
+        FaBROSQueue($p,(string)$cardID,intval($heroUID),['rosEvent'=>'iarMaliceZombieDied',
+            'iarMaliceHostUID'=>$uid,'iarMaliceHostOwner'=>intval($event['hostOwner']),
+            'iarMaliceHostEntry'=>intval($event['hostEntry']),'iarMaliceToken'=>(bool)$event['token']]);
+}
+function FaBIARResolveMaliceDeath(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];
+    $uid=intval($params['iarMaliceHostUID']??0);$owner=intval($params['iarMaliceHostOwner']??0);
+    $entry=intval($params['iarMaliceHostEntry']??0);$token=($params['iarMaliceToken']??false)===true;
+    if(($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)
+        ||!in_array((string)($layer->CardID??''),['malice','malice_domina_of_the_dead'],true)
+        ||intval($layer->SourceUniqueID??0)<1||($params['rosTrigger']??false)!==true
+        ||($params['rosEvent']??'')!=='iarMaliceZombieDied'||!empty($params['iarMaliceDone'])
+        ||$uid<1||!in_array($owner,FaBSeatOrder(),true)||(!$token&&$entry<2)||($token&&$entry!==0))return;
+    $layer->Params['iarMaliceDone']=true;
+    $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+    try {
+        $f=FaBFindUID($uid);
+        if(!$token&&$f&&$f['zone']==='Graveyard'
+            &&intval(FaBARCCard($uid,'iarMaliceDeathEpoch',0))===$entry){
+            $f['object']->FaceDown=1;$f['object']->PlayableFromBanish=0;
+            FaBMoveUID($uid,'Banish',$owner);
+        }
+        // Printed "and", not "if you do": later departure cannot cancel creation.
+        FaBIARCorpse($p);
+    } finally {$GLOBALS['fabEffectController']=$previous;}
+}
+
 function FaBIARZombieDied(int $p, object $o): void {
     if(!FaBHasType($o,'Zombie'))return;
     if(!HasNoAbilities($o)&&FaBHasKeyword($o,'Decay'))foreach(FaBMONArena($p,'restless_templar') as $r)FaBWTRCreateArena($p,'gate_to_iarathael');
     if(!HasNoAbilities($o)&&$o->CardID==='restless_outlaw_red')FaBIARCorpse($p);
-    if(FaBMONHero($p,'malice')||FaBMONHero($p,'malice_domina_of_the_dead')){
-        $f=FaBFindUID(intval($o->UniqueID));if($f&&$f['zone']==='Graveyard'){
-            $f['object']->FaceDown=1;$f['object']->PlayableFromBanish=0;
-            FaBMoveUID(intval($o->UniqueID),'Banish',intval($o->Owner?:$p));
-        }
-        FaBIARCorpse($p);
-    }
 }
 
 function FaBIARPayZombies(int $p, string $refs): int {
@@ -222,7 +280,19 @@ function FaBIARGustoHit(int $uid,int $victim): void {
 }
 function FaBIARAllyTargets(int $p): string {return implode('&',array_filter(explode('&',FaBPENTargets($p)),fn($r)=>($f=FaBIdentityFromMZ($r))&&FaBHasType($f['object'],'Ally')));}
 function FaBIARConsecrate(int $uid): void {$f=FaBFindUID($uid);if($f&&$f['zone']==='Arena'&&FaBHasType($f['object'],'Ally'))FaBARCSetCard($uid,'iarConsecrate',intval(GetTurnNumber()));}
-function FaBIARConsecrateDamage(int $source,int $amount): int {
+function FaBIARConsecrateDamage(int $source,int $amount,string $sourceRef=''): int {
+    if(str_starts_with($sourceRef,'@BurnDamage:')||str_starts_with($sourceRef,'@PoxDamage:')){
+        $f=FaBDamageSourceView($sourceRef,$source);if(!$f||$amount<1)return $amount;
+        $uid=intval(FaBObjectCounters($f['object'])['MON_SOURCE_UID']??$source);
+        if(intval(FaBDamageSourceMetadata($sourceRef,$uid,'iarConsecrate',-1))!==intval(GetTurnNumber()))return $amount;
+        $live=FaBDamageSourceLiveRef($sourceRef);
+        if($uid===$source&&$live!==''){
+            $ally=FaBIdentityFromMZ($live);
+            if($ally&&FaBHasType($ally['object'],'Shadow')){$o=FaBMoveUID($uid,'Banish',intval($ally['object']->Owner));if($o)$o->FaceDown=1;}
+        }
+        return 0;
+    }
+
     $f=FaBFindUID($source);if(!$f||$amount<1)return $amount;
     $uid=intval(FaBObjectCounters($f['object'])['MON_SOURCE_UID']??$source);
     if(intval(FaBARCCard($uid,'iarConsecrate',-1))!==intval(GetTurnNumber()))return $amount;
@@ -236,7 +306,7 @@ function FaBIARDanse(int $source,int $ally): void {
     $f['object']->Status=1;FaBARCSetCard($ally,'iarDanse',intval(GetTurnNumber()));FaBARCSetCard($ally,'iarDanseGo',true);
 }
 function FaBIARTagged(int $uid,string $tag): bool {$f=FaBFindUID($uid);return $f&&in_array($tag,(array)$f['object']->TurnEffects,true);}
-function FaBIARSharpenDaggers(int $p): void {foreach(FaBChoiceRefs($p,'Weapons',['type'=>'Dagger']) as $r)FaBBoltynSharpen($p,$r);}
+function FaBIARSharpenDaggers(int $p): void {foreach(FaBChoiceRefs($p,'Weapons',['type'=>'Dagger']) as $r){$f=FaBIdentityFromMZ($r);if(!$f||$f['player']!==$p||!FaBHasType($f['object'],'Dagger'))continue;$o=$f['object'];FaBSetObjectCounter($o,'POWER',intval(FaBObjectCounters($o)['POWER']??0)+1);FaBSetObjectCounter($o,'BOLTYN_SHARPEN',1);}}
 function FaBIARForgeMark(int $p,int $uid,int $victim): void {
     $a=FaBFindUID($uid);if(!$a)return;$w=FaBFindUID(intval(FaBObjectCounters($a['object'])['WEAPON_UID']??$uid));if(!$w)return;
     $n=intval(FaBObjectCounters($w['object'])['POWER']??0);if($n<1)return;FaBSetObjectCounter($w['object'],'POWER',$n-1);FaBHNTMark($victim);
@@ -343,13 +413,13 @@ function FaBIAREnd(int $p): void {
     }
 }
 
-function FaBIARShadowResistRefs(int $p,int $source): array {
-    $f=FaBFindUID($source);$actor=$f?intval($f['object']->Controller??$f['player']):intval(FaBGetState()['attacker']);
+function FaBIARShadowResistRefs(int $p,int $source,string $sourceRef=''): array {
+    $f=FaBDamageSourceView($sourceRef,$source);$actor=$f?intval($f['object']->Controller??$f['player']):intval(FaBGetState()['attacker']);
     if(!$actor||!isset(GetHero($actor)[0])||!FaBHasType(GetHero($actor)[0],'Shadow'))return [];
     $refs=[];foreach(['Equipment','CombatChain','Arena'] as $zone)foreach(FaBChoiceRefs($p,$zone) as $r){$o=FaBIdentityFromMZ($r)['object'];if(HasNoAbilities($o))continue;if(FaBHasKeyword($o,'Shadow Resist 1'))$refs[]=$r;}return $refs;
 }
-function FaBIARShadowResistPay(int $p,string $r,int $source): int {
-    if(!in_array($r,FaBIARShadowResistRefs($p,$source),true))return 0;FaBMONDestroy(FaBPENUID($r));return 1;
+function FaBIARShadowResistPay(int $p,string $r,int $source,string $sourceRef=''): int {
+    if(!in_array($r,FaBIARShadowResistRefs($p,$source,$sourceRef),true))return 0;FaBMONDestroy(FaBPENUID($r));return 1;
 }
 function FaBIARWindLock(int $p): void {
     $s=FaBGetState();$s['iarWind'][$p]=['after'=>intval(GetTurnNumber()),'active'=>-1];FaBSetState($s);

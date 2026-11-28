@@ -1,0 +1,7 @@
+{
+    "name": "Public Bounty / actual four-live mark effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:13:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Mark** target opposing hero.\n\nThe next time you attack a **marked** hero this turn, the attack gets +3{p}.\n\n**Go again** Named actual branch only. Natural young Fai20, four live UPFmanualresponses, no preseeded effects/history/marks. Formal adjacent opposingHero4 choice before cost/priority. Real Blue6 pays1/R2/AP0; markhero4 onlyafterfourresponses, source5ownedGY1 andGAAP1. Actualzero-costWoundingBlowRed7spendsAP1, formalmarkedtarget4, fourfreshsource/combat responses, printed4+3=7power/deals7toHP13; correctsource/consumerownedGY/funderPitch1/R2/AP0. No alternatehero/negativecondition/pitchsibling/secondconsumer/expiry/supporthero/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#public_bounty_red"
+}

@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/cost/oracle review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse993-20261122.json",
+  "source_spec_sha256": "e2a167ab49cb7df38b08159f743adc5cbe43850ae1953c0b5a32fe9a4c411f80",
+  "input_sha256": "e2a167ab49cb7df38b08159f743adc5cbe43850ae1953c0b5a32fe9a4c411f80",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-flail-of-agony-four-live-sparse993-actual-life-cost-full-block-no-runechant",
+      "card_id": "flail_of_agony",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbd365508b82750c9dc077dc32b4121db80ae6454200c6b7b0e45b6100660662",
+        "actions.json": "15c4c78e5d4eda9a9552f0f48f8ec670b15e0110617e3adae1c8329bce165ecf",
+        "assertions.json": "c1d7f8ce3eddabfa185ccedd600edf68aa7f2da8fa9132d7bb3e2c2a66cacb3b",
+        "expected_final_gamestate.txt": "2c80ff57c07e44cb263efd1f8cb9807e36791c238fee05c73da88d439819508f",
+        "meta.json": "2d632c209c25c94d0c4124561fb0d719250ced2e8137212206d91548bdac18e0"
+      },
+      "fixture_sha256": "699880f3366b8ddea7e800ae92b5411507542dd77756751e45bdeb5d9ef328fa",
+      "actions": 28,
+      "native_assertions": 166,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse993-20261122.json",
+      "input_sha256": "e2a167ab49cb7df38b08159f743adc5cbe43850ae1953c0b5a32fe9a4c411f80",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flail-of-agony-four-live-sparse993-actual-life-cost-full-block-no-runechant",
+        "fixture_slug": "card-flail-of-agony-four-live-sparse993-actual-life-cost-full-block-no-runechant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hanabi-blaster-four-live-sparse993-actual-two-steam-cost-one-aa-block",
+      "card_id": "hanabi_blaster",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48b3c39d1dac8a9be188380a7f11903ad91f916b37e3098549eec46f97b8004f",
+        "actions.json": "15c4c78e5d4eda9a9552f0f48f8ec670b15e0110617e3adae1c8329bce165ecf",
+        "assertions.json": "42780e4799d24f7d079d8723f6be0c3659fdfab3c5643c1b7a49324de5bd1093",
+        "expected_final_gamestate.txt": "a642e65f4581fbae71276b3bc32a4006eddeeb11bf031caf2521b6ac55de8f24",
+        "meta.json": "f958a4e152286376ae8240c1599f1b5228b714014abfff9d157d49d326001cd5"
+      },
+      "fixture_sha256": "623ceba2d1a64b5efc7cdb513d15ee349bed1e4e7f1fe3d2b763e323bf2b3c84",
+      "actions": 28,
+      "native_assertions": 166,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse993-20261122.json",
+      "input_sha256": "e2a167ab49cb7df38b08159f743adc5cbe43850ae1953c0b5a32fe9a4c411f80",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hanabi-blaster-four-live-sparse993-actual-two-steam-cost-one-aa-block",
+        "fixture_slug": "card-hanabi-blaster-four-live-sparse993-actual-two-steam-cost-one-aa-block",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e2a167ab49cb7df38b08159f743adc5cbe43850ae1953c0b5a32fe9a4c411f80",
+    "reviewer": "breadth_review independent printed-text/source/cost/oracle review",
+    "basis": [
+      "Actual cached Flail of Agony is ShadowRuneblade1H/Vynnset Specialization, power1 and pay1life attack cost. Actual young Vynnset20 is legal; freshACTION no Hand/start-step action or ShadowNAA play, so hero abilities do not earn effects. DYNRuntime25-44 supports resource0 weapon activation; DTDRuntime59 pays1life before priority. Target declared before assets; actual HP20\u219219/AP0/resources0 is pinned, one actualWounding6 HandAAdef3 fully blocks power1/noHit/targetHP20/allArena0/noRunechant.",
+      "Actual cached Hanabi Blaster is Mechanologist2HGun/power5, remove2Steam attack cost and Overpower. Dash20 legal, real starting Steam2 is an input cost asset, not generatedBoost credit. DYN CanAttack requires2; GameLogic1223 UseWeapon then1228 FaBARCSteam(-2) pays before priority. One real HandAA is legal under Overpower and defends3, producing actual2damage/targetHP18/attackHittrue/AP0; no thirdBoost event or card-specific hit ability is earned.",
+      "Corrected zero-key oracle independently verified: ARCAbilities202 FaBARCSteam uses FaBSetObjectCounter; GameLogic373 unsets keys on0. CRUCards408 UseWeapon records WEAPON_ATTACK_TURN2/WEAPON_ATTACKS1 and Status1. Thus initial Hanabi Counter STEAM2 is correct; postcost counter JSON contains only turn2/attacks1, no STEAM:0. Old unexecuted incorrect oracle was corrected before native; no source/game fix or expectation weakening.",
+      "Both setups own only physicalWeapon5 and actual defenderWounding6. Removing old Blue funding asset/payment click shifted blocker to UID6, which is consistently guarded on Hand/RoleDEFENSE/ownedGGY4. Actual weapon proxy CardID/RoleATTACK/WEAPON_UID5 is pinned, not opaque UID/owner. Resource0/AP costs, physical source retained, Damage attackPower/defenseValue/damageDealt/HP, queues/fates and four manual source/combat seats persist. Each has28 controls/no author-only defense/legality diagnostics.",
+      "Both current groups independently unrepresented; recorded source/runtime classes/targets/costs agree. No positive Flail hit/Runechant, Boost-generated steam/overpower exclusion admission, source creator ownership or hero action branch is implied."
+    ],
+    "limits": [
+      "Only named life/Steam payment and actual blocked-damage branches. No healing/prevention/life replacement, positivehit/creator ownership, steam generation, thirdBoost, multiple-block Overpower admission, repeated activation, hero ability, support/sibling/full-card credit.",
+      "Native/store/one clean replay pending Root; any mismatch remains unsaved/unqualified rather than weakened/repaired.",
+      "Reviewer ran no PHP/native/test/game and changed no T/source/original/Git/network/auth/engine; only W review receipt written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse993-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7a8acd9ee28da39a8388e21215de8bdec55008aa76a5b7b826d7da02f1ce20ac"
+  },
+  "full_suite_run": false
+}

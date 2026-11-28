@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ring-of-roses-yellow-four-live-sparse1376-real-first-physical-damage-not-arcane-no-unearned-heal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ring-of-roses-yellow-four-live-sparse1376-real-first-physical-damage-not-arcane-no-unearned-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1376-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1376-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4a73cb62dd3a484574854ddbbfa290aa073bb5e20ae47de9a564517ab505ac82",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ba6c03d6eb182ad978bdc76148321e8612f0ecce7e175d43ce36a568b566332",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "7430569388fd566e1e2c30cc722b1a9891c67e2d5651a0693dfdece32d0fb3b1",
+        "expected_final_gamestate.txt": "c6591bdf5c04cc2642573aec5122ec5ba27bf46849a95e9c2ac64285f3975432",
+        "meta.json": "4dc07d75e201e79c3eddeb606502bdd0d7d117dd4843dca64c6c2f06acce1b63"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

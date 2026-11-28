@@ -1,0 +1,295 @@
+{
+  "status": "APPROVED_EXACT_SAVED_ONE_CASE_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-05T01:21:14.246779+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch406.json",
+  "input_sha256": "f4f5722cc64d3c32d0639738e71ff02e6f4017511749c5c29a8442fdc93c4f16",
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-sanctuary-blue-four-live-sparse-real-arcane-shelter-choice-and-responseable-leave-earth-token",
+      "card_id": "sigil_of_sanctuary_blue",
+      "group_id": "identity:sigil_of_sanctuary_blue",
+      "fixture_sha256": "3d18111bbc31752af77a058e47e70f1d43007846fef89617b8ef15ea66472402",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7d55eea450aa4bd27b170d992e7cec17acc109edc6e6be3aef6975941f508f0",
+        "actions.json": "fdc8a120be3253a85d73a1f92b059ff5bb6b8494acc4190b73db3d220cd6bbd8",
+        "assertions.json": "ff6f0e7eee401b37f45c52a9087ebd20e057c22c690a784549ab50b024d6aac3",
+        "expected_final_gamestate.txt": "08e67216875c1f5786a40967f362737dbc60b0477b106d6efa1af41e4b5cb56d",
+        "meta.json": "d1fc3d2ac3678d8ae1d6ac9eb74cb55044a0aa3efe5131cb72b779e4933b566e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b7d55eea450aa4bd27b170d992e7cec17acc109edc6e6be3aef6975941f508f0",
+        "actions.json": "fdc8a120be3253a85d73a1f92b059ff5bb6b8494acc4190b73db3d220cd6bbd8",
+        "assertions.json": "ff6f0e7eee401b37f45c52a9087ebd20e057c22c690a784549ab50b024d6aac3",
+        "expected_final_gamestate.txt": "08e67216875c1f5786a40967f362737dbc60b0477b106d6efa1af41e4b5cb56d",
+        "meta.json": "d1fc3d2ac3678d8ae1d6ac9eb74cb55044a0aa3efe5131cb72b779e4933b566e"
+      },
+      "actions": 11,
+      "native_assertions": 962,
+      "actual_manual_passes": 8,
+      "manual_passes": 8,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all48_manual_settings_raw_initial_and_final_verified": true,
+      "manual_profiles": {
+        "1": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "2": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "3": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        },
+        "4": {
+          "version": 1,
+          "holdPriority": true,
+          "windows": {
+            "BLOCK": false,
+            "ATTACK_REACTION": false,
+            "DEFENSE_REACTION": false,
+            "ACTION_PRIORITY": false,
+            "INSTANT_PRIORITY": false,
+            "ATTACK_PRIORITY": false,
+            "DEFEND_PRIORITY": false,
+            "OTHER_REACTION": false,
+            "DAMAGE_PRIORITY": false,
+            "RESOLUTION_PRIORITY": false,
+            "END_PHASE": false
+          }
+        }
+      },
+      "all_original_physical_UIDs_and_owners_preserved": true,
+      "final_standalone_UIDs": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        8
+      ],
+      "created_UIDs": [
+        8
+      ],
+      "ceased_virtual_UIDs": [
+        7
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_earth_token": {
+        "CardID": "embodiment_of_earth",
+        "Status": 2,
+        "Owner": 4,
+        "Controller": 4,
+        "Damage": 0,
+        "UniqueID": 8,
+        "TurnEffects": [],
+        "Counters": []
+      },
+      "positive_prevention_residue": [],
+      "physical_findings": "Actual Zap6 normal Hero4 target and Action0/AP1 cost; four1/2/3/4 source responses stop at the required P4 Shelter choice with SAME6 Stack/SourceHandUID6, Sigil5 ownArena and HP20. Answer p4Arena-0 destroys SAME5, prevents1 of3, finishes6 to ownGY and deals2 to HP18; the separate captured Sigil ABI/controller4/source5 is still pending with Arena0. Four fresh1/2/3/4 responses retain both graveyard sources/no Earth through firstthree; only fourth creates exact owned ready Earth8 with Damage0/empty Counters, virtual7 gone/full cleanup. All original UID1..6 conserved with original ownership.",
+      "qualification": "Only selected prior-Aura ArcaneShelter1 prevention and responseable leave-arena Earth creation. No prior cast/entry, activated Shelter, other damage/prevention, hero activation, future Earth defense or expiry, sibling/support-primary/full-card credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch406-independent-source-review.json",
+    "sha256": "b2e30ba41dc64ab96673a5aee9ad02e4034878b715603f0e0b5cf8d52621f5ff",
+    "manifest_sha256": "6bed328ac269aed5db1d50470afbff8587289c830820b9d579a8f17c20cf982b"
+  },
+  "source_protocol_binding": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch406-sigil-sanctuary-author\\source-protocol-read-binding.json",
+    "sha256": "36b62e0e5db8fd526d285af778544ace255aabd214376b0c382a26b73c377b06",
+    "reviewed_framing": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch406-sigil-sanctuary-author\\source-protocol-read-binding.json",
+      "sha256": "36b62e0e5db8fd526d285af778544ace255aabd214376b0c382a26b73c377b06",
+      "generated_whole_file_sha256": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+      "selected_helper": "__RunAwait_89c1a36539b323399572",
+      "span_includes_custom_handler_until_next_function": true,
+      "author_helper_span_sha256_framing": "Python universal-newline text, not raw bytes",
+      "universal_newline_span_sha256": "3efaba4c446f314ad9b09013fe1fd87bb3e44c56354f91ec0fd59afde35ef4ae",
+      "raw_span_sha256": "d01f2e82c4eca30eb6c083e3bfa07e09643ab87fa9a1347cb79d896231816a16",
+      "existing_FCRReady_decision_stop_and_answer_supported": true
+    }
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch406-20261105T011717Z-6aebd91d2e434.json",
+    "sha256": "eddbf7ea234604e8d48404821a01a82cce038b19eb0bd0bb8039a0c94766a047"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch406.recording-results.json",
+    "sha256": "2fbc38623837667330451646c725d36f56f1ee7c9312ce69544bd9549885804c"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b406-native-9e984-r1\\receipt.json",
+    "sha256": "4a300428830974ab13b59ec69950a44ac841469b0cb64516bb7b769b41cb6958",
+    "stdout_sha256": "7c90cb662acc4f0836d2058c0810b360840d8ba59ccd1bf1e2df5f0beab2698c",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+    "runtime_after": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+  },
+  "source_guards_verified": 56,
+  "total_actions": 11,
+  "total_native_assertions": 962,
+  "total_manual_pass_inputs": 8,
+  "native_checkpoints": [
+    {
+      "step": 0,
+      "checkpoint": "full_four_live_youngVerdance20_WizardZap6_P4youngBriar20_EarthEssence_prior_ownedSigil5_ready_no_preventionflag_token_or_assets_seed",
+      "assertions": 120
+    },
+    {
+      "step": 1,
+      "checkpoint": "actual_Zap6_target_announcement_adjacentP4_BEFORE_ActionAPpayment_Sigil5stillArena_HP20",
+      "assertions": 61
+    },
+    {
+      "step": 2,
+      "checkpoint": "actual_Zap6_printedZERO_paysAP1to0_source6Stack_P4target_beforefreshfour_Sigil5stillready_noDamage_or_token",
+      "assertions": 65
+    },
+    {
+      "step": 3,
+      "checkpoint": "actual_Zap6_source_response_1_same6Stack_Sigil5Arena_HP20_before_packet",
+      "assertions": 65
+    },
+    {
+      "step": 4,
+      "checkpoint": "actual_Zap6_source_response_2_same6Stack_Sigil5Arena_HP20_before_packet",
+      "assertions": 65
+    },
+    {
+      "step": 5,
+      "checkpoint": "actual_Zap6_source_response_3_same6Stack_Sigil5Arena_HP20_before_packet",
+      "assertions": 65
+    },
+    {
+      "step": 6,
+      "checkpoint": "actual_fourth_Zap6_response_MANDATORY_ArcaneShelter_prevention_choice_P4_SIGIL5_only_source6RETAINED_5stillArena_HP20_NOEarthtoken",
+      "assertions": 61
+    },
+    {
+      "step": 7,
+      "checkpoint": "actual_Sigil5_destroyed_as_STATICprevention_preventsONE_ZapTHREE_dealsTWO_HP18_Zap6completionGY_then_EARNED_leaveWHEN_Source5_Controller4_StackONE_ArenaZERO_noPrematureEarth",
+      "assertions": 66
+    },
+    {
+      "step": 8,
+      "checkpoint": "actual_fresh_SigilLEAVE_trigger_response_1_source5GY_6GY_HP18_Stackcaptured5_Controller4_ArenaZERO_AP0",
+      "assertions": 66
+    },
+    {
+      "step": 9,
+      "checkpoint": "actual_fresh_SigilLEAVE_trigger_response_2_source5GY_6GY_HP18_Stackcaptured5_Controller4_ArenaZERO_AP0",
+      "assertions": 66
+    },
+    {
+      "step": 10,
+      "checkpoint": "actual_fresh_SigilLEAVE_trigger_response_3_source5GY_6GY_HP18_Stackcaptured5_Controller4_ArenaZERO_AP0",
+      "assertions": 66
+    },
+    {
+      "step": 11,
+      "checkpoint": "actual_fourth_fresh_SigilLEAVE_trigger_response_ONLY_NOW_owned_ready_EmbodimentEarth8_P4Arena_source5andZap6GY_AP0_HP18_no_extraDamage",
+      "assertions": 69
+    },
+    {
+      "step": 11,
+      "checkpoint": "full_final_four_living_physical_ownership_economy_queues_and_cleanup",
+      "assertions": 127
+    }
+  ],
+  "all_terminal_assertions_checked_against_raw_final": 196,
+  "reused_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Exact rawfive hashes/behavior digest and complete native action/assertion equality to the approved immutable recipe. Schema-backed full endpoint parsing; raw48 manual settings at both endpoints; actual source/cost/choice/captured-layer/created-token UID ownership, economy and no positive prevention residue. Intermediate evidence is the actual persisted native checks, not invented raw snapshots.",
+  "limits": [
+    "Source6 Hand origin and physical5 Arena-to-ownGY lifetime are native-pinned. Captured ABI CardID/controller/sourceUID are pinned; no unasserted ABI SourceZone/Owner, event Params, frame PC or intermediate raw state is claimed.",
+    "Existing protocol binding distinguishes universal-newline helper span from raw-byte span, with the unchanged whole generated-file guard; no protocol correction or engine-bug credit is inferred.",
+    "Root focused replays and registration are separate; reviewer ran no PHP/native/replay/R/source/service/generation/ACTIVE/fullsuite or old-fixture crawl.",
+    "Denied089/090 operations remain held; no retry/reroute or operational rewrite."
+  ]
+}

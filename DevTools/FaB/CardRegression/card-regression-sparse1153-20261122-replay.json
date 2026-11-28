@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1153-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1153-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e3e975b39477ddbc85f7c135304087bb1c18e87c31379d70786282e27140d7bc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0f0829a47b2df4bcaa49150d803819ed2f67a6234e01defad24fc403c34bdb4f",
+        "actions.json": "a611ce94829b5a349a7dcd3852245ddeb9a39247da3530a9b6bda00e91a88a4f",
+        "assertions.json": "75fb038dd964ccf1449e3eeb1a6196ef3f1e42a3484a1a62803ed631e17f6026",
+        "expected_final_gamestate.txt": "5889264be118f5c4aaeecbaeb27894ef28debbe4a2e41832551ce1f20aaf73a9",
+        "meta.json": "c6fb80d5d1e17393ddddd6d8b0db3df6789d3d3f54c0ca85bf0d3ede5413e4e1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

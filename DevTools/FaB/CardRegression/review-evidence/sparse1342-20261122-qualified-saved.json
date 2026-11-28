@@ -1,0 +1,251 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1342-20261122.json",
+  "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+  "input_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-second-strike-red-four-live-sparse1342-first-attack-no-prior-damage-no-power-or-go-again-grant-or-retroactive-refund",
+      "card_id": "second_strike_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e49feec3cd8ecf82a3658e620d59b2bdd0e495ab1ceaec47c5e720011d4f2cd6",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "edfa0e3f6018606231aa70e7518c3a07b5bd4c1d3f8b3d287336e7d54e46db09",
+        "expected_final_gamestate.txt": "80a93e5d32f6c1bcf8e39c288e8185554c3775a335d1158eb9fc1453c5c88eac",
+        "meta.json": "0dcb1bd33de0983e862f5dc158e75d0ca6d9acb48bece125a64cf6aa24e2f64f"
+      },
+      "fixture_sha256": "fcc3298398d05b2a04f5322037ae3c4d05133d37c9ea76204814532a258849e1",
+      "actions": 28,
+      "native_assertions": 389,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "input_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1342-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-second-strike-red-four-live-sparse1342-first-attack-no-prior-damage-no-power-or-go-again-grant-or-retroactive-refund",
+        "fixture_slug": "card-second-strike-red-four-live-sparse1342-first-attack-no-prior-damage-no-power-or-go-again-grant-or-retroactive-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hunt-the-hunter-red-four-live-sparse1342-first-played-red-does-not-count-as-another-red-unplayed-red-arsenal-retained-no-mark",
+      "card_id": "hunt_the_hunter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3fdfe40b65a9dc4c584e0d379f9a059141468f19c76bae76c1c3e1f41e45c8b0",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "bd0c352bf06eb7020a40ddf6f1f7cbef12b2bb10fa40522db034d8fbf7a320b4",
+        "expected_final_gamestate.txt": "01c6ef3b632c21d7ed3f714efff9daa27df3d3da01db30ee75291068c69655fd",
+        "meta.json": "e4120d1bedd9f7db80a06c335fce3e19df326f6c1026f18d445673c20c6cb444"
+      },
+      "fixture_sha256": "6bb9306bd972e99e9a46f9684b0c1bfbf7fb4041ac2b0bbb9eb38e1165eac99d",
+      "actions": 29,
+      "native_assertions": 415,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "input_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1342-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hunt-the-hunter-red-four-live-sparse1342-first-played-red-does-not-count-as-another-red-unplayed-red-arsenal-retained-no-mark",
+        "fixture_slug": "card-hunt-the-hunter-red-four-live-sparse1342-first-played-red-does-not-count-as-another-red-unplayed-red-arsenal-retained-no-mark",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-scrap-hopper-red-four-live-sparse1342-no-eligible-scrap-unpaid-no-quicken-creation-or-automatic-action-refund",
+      "card_id": "scrap_hopper_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e55373a49a8323e0dcdcad32893ff7c8144343d292d1187375a3dd23acf6dcb",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "37ea1e8b584c26781ec82462396e2f3c16a30d7276d66a499a8fa698d0ccb343",
+        "expected_final_gamestate.txt": "30ff463e45ef6fe2a4ec4005a0405b94d926a28245b042a548c99f0503a8727d",
+        "meta.json": "dbbd3087e6e2e447476ae8df7c441cc6507b838dbc175ce6224c25577bcbe89d"
+      },
+      "fixture_sha256": "b08ff3d478224af7cfb9e3d65ddc01ddfaced69d8f41b46056d6032e5e1601b7",
+      "actions": 28,
+      "native_assertions": 389,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "input_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1342-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scrap-hopper-red-four-live-sparse1342-no-eligible-scrap-unpaid-no-quicken-creation-or-automatic-action-refund",
+        "fixture_slug": "card-scrap-hopper-red-four-live-sparse1342-no-eligible-scrap-unpaid-no-quicken-creation-or-automatic-action-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+      "card_id": "unbound_by_shadow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "09ce8572ac41ee020d262671b4b3538174a357e8a47025fc01244b9fe9bf1ce7",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "08f45a096a9f77e3804d32135969f107209ebb5ea6fdb885dc8fb505d2e4845e",
+        "expected_final_gamestate.txt": "4ddffbddcc3e1be7524b8affc3c3b663d81c67ca2fbd8e2316d62c25185595f5",
+        "meta.json": "8778ca1ea229dcae7714f7627621e26533c2b22858e5b35aa74580d61e745492"
+      },
+      "fixture_sha256": "8432c3a5cdfd25f6307528923cea58dbdf85ba44f38aafc4a4825d9b178b5de2",
+      "actions": 28,
+      "native_assertions": 389,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "input_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1342-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+        "fixture_slug": "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+    "source_note_sha256": "4ca9c5f9f9c01f57b65310f0f811803f25ada3591c4bd1092c1c51a4f69b9e69",
+    "case_count": 4,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 113,
+    "query_checks": 1582,
+    "persistable_assertions": 1582,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_ATTACK_GRANT_WITH_REAL_BASE_DAMAGE_AND_NATIVE_ACTION_CONSUMER_REJECTION",
+    "per_case": [
+      {
+        "card_id": "second_strike_red",
+        "group_id": "pitch-cycle:second_strike",
+        "native_controls": 28,
+        "persistable_assertions": 389
+      },
+      {
+        "card_id": "hunt_the_hunter_red",
+        "group_id": "identity:hunt_the_hunter_red",
+        "native_controls": 29,
+        "persistable_assertions": 415
+      },
+      {
+        "card_id": "scrap_hopper_red",
+        "group_id": "pitch-cycle:scrap_hopper",
+        "native_controls": 28,
+        "persistable_assertions": 389
+      },
+      {
+        "card_id": "unbound_by_shadow_red",
+        "group_id": "identity:unbound_by_shadow_red",
+        "native_controls": 28,
+        "persistable_assertions": 389
+      }
+    ],
+    "basis": [
+      "Four cached distinct groups unrepresented/unheld, legal natural YoungAurora20 LightningEssence, Fai20 Draconic, Dash20 Mechanologist and Chane20 Shadow, each plus three YoungDori20 and four manual UPF seats. Correct cost/power0/3,1/5,0/3,0/4 and physical HeroUID1..4/primary5/faceDownArsenalWounding6(orHunt7)/Blue6fundingHunt checked. No history/permissions/Arenas/Banish seeded; Hero activations/startup unused. Source-list-only preflight removed nonexistent PENRuntime.php; current listed files all exist and receipt binds corrected spec/note/author, unchanged113 controls/1582 assertions.",
+      "SecondStrike AttackDeclared23576 uses ROSCount DAMAGE at attack event. Initial no damage and no prior actions means false: no earned+1/GA, actual3 not4 power and3damageHP17. ROSCards111 records subsequent actual damage, which must not retroactively create attack-time grant/refund. Actual finalDamage/Resolution AP0 and native0costArsenal rejection observe that absence after its own damage. Aurora conditional activation is unused; no automatic Hero token producer.",
+      "Hunt AttackDeclared22177 restricts to Hero attack and count of actual red cards in ARCPlayed >1. Only own red primary is played; real otherRed Arsenal unplayed, actualBlue6pitch3 pays1/R2 and is not played. Thus mark IF false. Initial and ATTACK p4Hero Counters[] checked before damage/hit could clear a mark, HNTCards6-7 actual HNT_MARKED representation. Actual5power/5damageHP15/noGA/refund; no Fai activation/other automatic producer.",
+      "ScrapHopper Prepare142754-142791 gets empty eligibleGY, skips chooser, EVOScrap61 records0 without object movement; generated AttackDeclared23501 guards Quicken with evoScrap, false. Actual3damageHP17/allArena0/noUID/RNG change and noGA. This does not exercise or retry physical099 cost path. Unbound generated AttackDeclared24406 checks monFromBanish; MONCards180 sets marker only for actual Banish play. Current actual source Hand/StackSourceZoneHand and Banish0 mean false, no Gate or newUID; actual4damageHP16/noGA. Endphase/BloodDebt not reached and Chane Hero unused.",
+      "All cases preserve fresh four-response source/combat rounds and actual base damage, then fullclose original5GY/funderPitch if any/retained realFDArsenal. Resources2 or0 suffice actualWounding0, AP0 specifically prevents normal Action click before target/movement via GameLogic995/DoPlay1011. Native ignored click supported; exact same physicalUID/FaceDown/health/resources/Stack/queues/pendingPayment/UID/RNG0 before-after pins no unearned action refund. 28/389,29/415,28/389,28/389 total113/1582 persistable."
+    ],
+    "limits": [
+      "Only named false intervening conditions, actual base attacks/damage, no token/mark/power grants and native affordable consumer rejection approved pending native save/replay. No native pass/coverage credit claimed.",
+      "All positive conditions/attack-trigger timing/+1/GA/mark/Quicken/Gate creation, paid Scrap/physical-cost timing, BloodDebt/endphase, Hero activations, variants/targets/support/siblings/full-card behavior untested/uncredited. Existing holds untouched.",
+      "Only W receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1342.py": "aec4e337e6050f3ad141d9baada02292b21b3eac307daeb401be3f2067dd5928",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1342-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2492d080aeee3d57e163f45a7699df991c39636b55d3fc9e27cda1c54db8b04b"
+  },
+  "full_suite_run": false
+}

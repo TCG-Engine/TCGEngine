@@ -1,0 +1,7 @@
+{
+    "name": "Lord of Wind / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:49:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Katsu Specialization**\n\n**Combo** - If Mugenshi: RELEASE was the last attack this combat chain, as an additional cost to play this, you may pay {x}.\n\nWhen the additional cost is paid, shuffle X target cards named Surging Strike, Whelming Gustwave, and/or Mugenshi: RELEASE from your graveyard into your deck, then this gets +X{p}. Named main-path representative only: first_link_exact_full_block_no_mugenshi_additional_cost. Real owned Hand5/cost0/AP0, adjacent Hero4 declared before assets, all four live seats respond manually. Source5 finishes in its owner graveyard. Positive hit/marked-target/additional-cost/transform/shuffle/token branches are untested. Fresh chain0/previousAttack empty means Combo false despite real eligible Surging Strike7 GY0 and available Blue8 pitch3. Marker7 remains GY0, unpitched Blue8 remains Hand0, source5 appends GY1, and no X prompt/payment or shuffle is credited. Actual nonattack Action Lead the Charge6 defends2 exactly against base2; Katsu hit trigger is not earned. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lord_of_wind_blue"
+}

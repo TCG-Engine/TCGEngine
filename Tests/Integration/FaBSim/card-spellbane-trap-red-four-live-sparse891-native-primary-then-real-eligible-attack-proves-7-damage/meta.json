@@ -1,0 +1,7 @@
+{
+    "name": "Spellbane Trap / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:29:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next arrow attack this turn gets +3{p}.\n\n**Go again**\n\nWhen this defends and the attacking hero has dealt arcane damage this turn, create a Spellbane Aegis token. Representative only: native_primary_then_real_eligible_attack_proves_7_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spellbane_trap_red"
+}

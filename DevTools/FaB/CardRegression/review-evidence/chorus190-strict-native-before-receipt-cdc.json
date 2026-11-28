@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T05:04:03.777684+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "bb65fd3f48a61f04845bf65d59d7a5fd24ad655c6a4f1f003e998ccbfba889eb",
+  "source_review_sha256": "dba42d44ea4dc94ecb59099e240671ffd322326681ed422e0491372da1c09c74",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch846-chorus-first-empty-hand-earned-hit-draw-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4098,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 10276,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p1Hand count 0, got 1.",
+  "result_sha256": "369eb4a255962679204d776f6583c6af812f85dd33400a78825416300c9657fb",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4098,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 25,
+  "completed_utc": "2026-11-16T05:04:48.779443+00:00"
+}

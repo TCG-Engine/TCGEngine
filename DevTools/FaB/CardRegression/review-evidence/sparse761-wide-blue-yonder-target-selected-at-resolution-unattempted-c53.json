@@ -1,0 +1,116 @@
+{
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:03:18.287684+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\manifest.json",
+    "sha256": "09b7db2a5866591349833f61188eb93741cff8d8e907ebb1b4bddf5ce591457e"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\frozen-author-QA.json",
+    "sha256": "036cdcfc28ff326576e2d447ab5dfae0515b6e65a73318414db8ff4374b8e86d"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "0624bf0cec913bf85562ea0b4d89ece53c4f9abe40de41f36677bc59cbd816fa"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\batch761-two-source-only-planning-input.json",
+  "input_sha256": "173fab2fc1d893af8e8b36778bd43bbfc96badc30511764bee293591a176801b",
+  "source_is_recorder_input": false,
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-firm-reservation.json",
+    "sha256": "c54e443b8fc5f0a3bbde0d6277988ba1fc3d3d8307c88c94406221759088164a"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-nonpermanent-reaction-preferred-metadata-pool.json",
+    "sha256": "eb1ca7a48235584d9c9d9aa9fba7d7a4aaa1d3077f372377034fc4b465cdf68a"
+  },
+  "source_guard_count": 72,
+  "source_guards_verified": true,
+  "source_guards_sha256": "e292d4d94528c147900839b3f84220a5544683256899a077b30dd0781f2d5558",
+  "source_guards_binding": "Exact72-path map in pinned manifest; every current path hash independently matched.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "reaction_source_retention_healthy": true,
+  "engine_implementation_concern": true,
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch761_planning_readonly.py",
+    "sha256": "19011957174eb4ba2b76ac2c6cfe76049c2b203e826f257a24401fa01b2eddc8"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "status": "SOURCE_ONLY_UNATTEMPTED_TARGET_DECLARED_AT_RESOLUTION_PLANNING_LIMIT",
+  "card_id": "wide_blue_yonder_blue",
+  "group_id": "identity:wide_blue_yonder_blue",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\batch761-wide-blue-yonder-declared-target-source-only-plan.json",
+    "sha256": "b14238e2a6ce861688ae18f5485650b6d86b696326d9b2cac26d84b8b34ff0c5"
+  },
+  "independent_findings": [
+    "Viewed the local publisher face: a cost0 Mystic attack reaction gives its target attack+1 per actually pitched blue. The selected canonical ability list contains a real ResolveCard body and no PrepareCard body.",
+    "The compiled ResolveCard asks MZCHOOSE Choose_attack only after entering resolution, then applies WTR_POWER using the blue-pitched count. No earlier target declaration is bound by this selected path.",
+    "The central declaration-target seam explicitly covers only Nip at the Heels blue and Shred cycle; Wide is excluded, and source dispatch intercepts only that whitelist. CR5.1.4a requires the printed target to be declared during play before payment/completion and opponent responses.",
+    "The ATTACK_REACTION managed lifecycle keeps the original source through its await and clears on completion. That retention is healthy; the independent concern is solely late target selection, not source clearing or missing implementation."
+  ],
+  "source_evidence": {
+    "paths": [
+      "DevTools/FaB/mst_abilities.json:wide_blue_yonder_blue ResolveCard",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:8834-8838,113812-113855",
+      "FaBSim/Custom/CardChoices.php:3-20",
+      "FaBSim/Custom/GameLogic.php:1264-1296,1720-1738",
+      "FaBSim/Custom/MSTCards.php:21,53-56"
+    ],
+    "canonical_selected_row_sha256": "01873119d2a3a913ff8c7b125e5f7f31266dd7f5f4f6f88de3b2481cc24e4e76"
+  },
+  "primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\wide_blue_yonder_blue.webp",
+    "sha256": "92b30fcd8b9b9fdda3fdde7311d04e5ea1d36f7fab9f253cd2e74eafccbaec72",
+    "actually_viewed": true
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.1.4",
+        "5.1.4a",
+        "5.1.7",
+        "5.1.10"
+      ],
+      "actually_retrieved": true
+    }
+  ],
+  "limits": [
+    "Only selected Wide Blue Yonder target-declaration route; no full-card qualification.",
+    "Static Source planning review only. No recorder-compatible spec, native game, cost/effect/target/damage outcome, fixture, replay, actual four-seat interaction, Hero/support/producer or coverage credit.",
+    "Original positive conditions retained unattempted. No replacement primary/producer hunt, false-condition/blank-play workaround, private/history/RNG flags, resource prefloat, code repair or denied-operation retry."
+  ]
+}

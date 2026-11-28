@@ -1,0 +1,7 @@
+{
+    "name": "Glyph Destruction Nodes / actual Sigil enables one three-arcane target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T17:01:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_OSCILIO36_DORI40. ActualSigilForethought3Instant0Handwaitsbothresponses\u2192ownedArena3/AP1; nofakepriorAura/history/currentstartproblem. ItentersDURINGactionphase, beginningofphasealreadyhappened; noentryWHENprinted, noleave/startrewardearned. ActualGlyph4NAA0/AP0holdsStackallbothresponses. OneactualSigilAuraenablesX1; atannouncementprecommitoneHero2/defaultTRP5.14singleopponent, laterMZMulti0|1Hero1&Hero2repeats2(noearlybinding/UPFcredit). Actual3arcaneHP2=37, samephysical3Arena/notdestroyed/noPonder/noextraUID, 4GY/Decksame5/HP1=36/HeroReady/AP0/R0/UID5RNG0/StackDQquiet. PositiveactualAuraentry/countandreal3arcane; zero/multiSigil/Ally/targetbinding/futureSigilstartleave/secondary/pitches/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#glyph_destruction_nodes_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/PENCards.php FaBSim/Custom/ROSCards.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

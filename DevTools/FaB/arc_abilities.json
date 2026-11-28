@@ -1033,7 +1033,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "FaBARCToDeck($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), false);",
+        "abilityCode": "FaBARCQueueOverLoopHit($player, $mzID, intval($amount));",
         "isImplemented": true
       },
       {
@@ -1048,7 +1048,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "FaBARCToDeck($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), false);",
+        "abilityCode": "FaBARCQueueOverLoopHit($player, $mzID, intval($amount));",
         "isImplemented": true
       },
       {
@@ -1063,7 +1063,7 @@
     "abilities": [
       {
         "macroName": "Hit",
-        "abilityCode": "FaBARCToDeck($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), false);",
+        "abilityCode": "FaBARCQueueOverLoopHit($player, $mzID, intval($amount));",
         "isImplemented": true
       },
       {

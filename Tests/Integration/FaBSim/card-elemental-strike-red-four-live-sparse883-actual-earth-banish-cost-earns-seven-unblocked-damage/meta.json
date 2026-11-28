@@ -1,0 +1,7 @@
+{
+    "name": "Elemental Strike / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:23:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish a card from your hand. If it's Earth, this gets +2{p}. Lightning, this gets **go again**. Ice, this gets **dominate**. Representative only: actual_earth_banish_cost_earns_seven_unblocked_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#elemental_strike_red"
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch782-tectonic-full.json",
+  "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T04:13:39.095036+00:00",
+  "fixtures": [
+    {
+      "slug": "card-tectonic-instability-blue-four-live-all-four-real-choices-and-earned-go-again-actual-blank-consumer",
+      "fixture_sha256": "de90ed09bb621736dead54e230f781c27b8f21e37114c43b64bc1704ba562038",
+      "passed": true,
+      "result": "[PASS] Tectonic Instability / four real seat choices and earned action-point consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tectonic-instability-blue-four-live-all-four-real-choices-and-earned-go-again-actual-blank-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Tectonic Instability / four real seat choices and earned action-point consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

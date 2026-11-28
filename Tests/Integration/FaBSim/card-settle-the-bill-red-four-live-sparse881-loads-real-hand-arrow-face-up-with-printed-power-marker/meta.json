@@ -1,0 +1,7 @@
+{
+    "name": "Settle the Bill / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may put an arrow from your hand face-up into your arsenal. If you do, until end of turn it gets +3{p} and \"When this hits a hero, destroy a card in their arsenal.\"\n\n**Go again** Representative only: loads_real_hand_arrow_face_up_with_printed_power_marker. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#settle_the_bill_red"
+}

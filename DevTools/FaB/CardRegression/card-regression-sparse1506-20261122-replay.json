@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-shadowrealm-horror-red-four-live-sparse1506-only-two-real-graveyard-cards-cannot-pay-required-three-random-banish-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shadowrealm-horror-red-four-live-sparse1506-only-two-real-graveyard-cards-cannot-pay-required-three-random-banish-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1506-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1506-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f49c196cd854dfc87cdba7000e4c9c279eb234b0b4bae9406fb78e50113db5e5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6855c7e1159f10856727eb4aba0961cb023b00fe1fa6f29c28fd1bc4b4de9280",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "9ba1409b2ee424112853dfeefdfdafe850203ffa7fa0c9be5f9c9ac11fc10335",
+        "expected_final_gamestate.txt": "02604b11a4b6556b19adb28815145be1452b225f3a46c320aa917a0bd6627cca",
+        "meta.json": "697b6d10796a3d5ff51db418d88b34d8a36e598940258b959add81dddeba2d83"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

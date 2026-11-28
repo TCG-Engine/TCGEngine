@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-defang-the-dragon-red-four-live-sparse922-actual-three-against-unmarked-dorinthea-no-named-contract",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-defang-the-dragon-red-four-live-sparse922-actual-three-against-unmarked-dorinthea-no-named-contract",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1d5d1e09b7d48404860c072568512cf8ad09f208a36b0aa061f994f294afafb0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "37267cfac15d1421025b3369c95748532b40c243e6751946fd6a2ef2d02e8c8c",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f814e6ef9a1332502e197792098d0cf0d45898409b93d45d13f59bc4e4589370",
+        "expected_final_gamestate.txt": "04ee7e222579d4680b8937dd0413fdbfff3b81bb2167546d92c1bf3af138b5b6",
+        "meta.json": "994670b59dce419cd7b22757aef5ea4623ce8929bdccfe5d04c11da19527b9f7"
+      }
+    },
+    {
+      "slug": "card-extinguish-the-flames-red-four-live-sparse922-actual-three-against-unmarked-dorinthea-no-named-contract",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-extinguish-the-flames-red-four-live-sparse922-actual-three-against-unmarked-dorinthea-no-named-contract",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9d510e11e8b495480da0df0bf6d3475f96747bc266bf635ca1e4767004bf7e53",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3011c0ac342bd5815cb53c648c5a492bca4b4aa064877e6989f35c37fec31a7",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7a66c104b995705ccfc1d7fcab2fc0302695baaa9d9c4308fa9eb6c87363c6ed",
+        "expected_final_gamestate.txt": "0a2f9af8ec2c450b464ad380494a45b6b82667734e60410752bcb57faff771cf",
+        "meta.json": "de66193e06d1443ac1d62baf68ccce6e0cc2aa8f41857f2cd001b56bbab14fea"
+      }
+    },
+    {
+      "slug": "card-tigrine-reflex-red-four-live-sparse922-first-attack-without-crouching-tiger-combo-or-discard-reaction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tigrine-reflex-red-four-live-sparse922-first-attack-without-crouching-tiger-combo-or-discard-reaction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "44112fe1aae38de6e2e188be5ebd2a7dc334d18d91e9964e1248cf782e4b87b1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d33d3460d13dc183f7f1864e7acfe09a861501e6192c4ef435c061adda7b7678",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "17bd08915233539827956d2919a1b4d8bb1518d256d1bf4cf7d348f68361113e",
+        "expected_final_gamestate.txt": "53acd8076c05ad8f780a041def2b814ce0cde043a2a7f6151812cc41fb6bcd5e",
+        "meta.json": "fd63f7b49fea466840a5881a3a4d4fc91441a52ceb4aee6bd192f7916eb596cd"
+      }
+    },
+    {
+      "slug": "card-spire-sniping-red-four-live-sparse922-actual-facedown-arsenal-five-without-faceup-entry-rearrange",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spire-sniping-red-four-live-sparse922-actual-facedown-arsenal-five-without-faceup-entry-rearrange",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse922-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "054933137877c4f12290e09adb6aa483f5f10b083eacb13aa99b6e418a4b1666",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d990df028962388f0c8ce58494461fb583838fc6929382c6263a884ce393ae1",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "66a21fa66183afcbfcec40b04f77ac26c7dab7bf4a7f2029257e739f9ce4f2b4",
+        "expected_final_gamestate.txt": "637be28fe25ef14ff6a93a8a580cde1b0fa1d71a62bce1280fd874b93bd9b529",
+        "meta.json": "ee6b40f119bf0309fa82a32d537f146f6146766b51a59e4d113d60a3307d693d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-glyph-destruction-nodes-yellow-two-live-sparse1417-actual-sigil-play-one-aura-one-default-opponent-three-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glyph-destruction-nodes-yellow-two-live-sparse1417-actual-sigil-play-one-aura-one-default-opponent-three-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1417-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1417-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eabd50e3f78a5a28887b2899daa171ace0c49592912b087e63397d148926b218",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e3a1f30ecc209cb03434753bf64385f7829b8f454e3b9cab863d23cd0f6bd02",
+        "actions.json": "0955e5ab8643dcccb62684e61e53d1c3424c299db377ed690506c8cdbb85f6dd",
+        "assertions.json": "502769186f8efea644e9695c4cf25b1a7437bc23b6c0064e7583a756d1d62d7a",
+        "expected_final_gamestate.txt": "f87aca773cdaf3de8972ec3b4f3bf53496a33f334ee54aee2c716b5985120462",
+        "meta.json": "7d1d1d3296ee4b39a937af3866e8c153dbb5d4ed648c8abf2aad0092bb4d4f0b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

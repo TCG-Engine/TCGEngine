@@ -1,0 +1,85 @@
+{
+  "status": "STATIC_REVIEW_AND_BOOKKEEPING_REJECTION_CONTROLS_PASSED_NATIVE_DUELS_QUALIFIED_SEPARATELY",
+  "native_engine_or_recorder_changed": false,
+  "scope": "Three workspace-only qualification/index tools admit existing native two-seat omission mode. No bypass of four-live Young-hero admission. All new cases explicitly bind seats12/default mode/manual responses and report two_live_manual.",
+  "files": {
+    "nov16_saved_repair_review_common.py": {
+      "before_sha256": "c3acd204397562fda7c6d259fd33496a458626f387a45c31cf3dc328cb30ab98",
+      "after_sha256": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c"
+    },
+    "breadth_batch.py": {
+      "before_sha256": "620f702bbcefdc2da9953644703133f83c5cb6523202fde3974d3b358dba164a",
+      "after_sha256": "ef8664b2438e328674a69c6f739f749706dcc358be63c8df88547746c648564f"
+    },
+    "sparse874-local-20261122/append_sparse_batch_index.py": {
+      "before_sha256": "692a632726df4440bbb92b1f97fce5bf1f4cbdf9e6ec1656e519db50ffb490b4",
+      "after_sha256": "4f84fd8831aebf5f3d65df57e771da8a1215638fbce05f2450e59efc2a756c39"
+    }
+  },
+  "independent_review_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\live-mode-tools-before1261\\independent-review.json",
+  "independent_review_sha256": "b3f2af367d85f98a8dc963f67892f3a8369f76aa6e4cd63c1b738df4cb3bb69d",
+  "reversible_backups_manifest_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\live-mode-tools-before1261\\manifest.json",
+  "manifest_sha256": "35ac9440abf8eece7ac7980efdf108f5d0c3d98442fc3c8e33134f688b419dd1",
+  "review_findings": [
+    "Mode contract matches recorder: absence of activeSeats selects legacy seats1,2; otherwise only exact1,2,3,4 is accepted. Explicit1,2 or any other array is rejected in common review and appender.",
+    "Four-seat checks are retained: exact pass-player set1,2,3,4; each pass belongs to configured seats; initial and final SeatOrder/LiveSeats1234, UPF, passiveSeats[]; strict holdPriority isTrue; exact shortcut window keys and allvalues isFalse. Duel checks require exact12/passplayers1,2 and missing-or-strictFalse holdPriority with the same disabled windows.",
+    "Existing exact actions/query mapping, pass-control accounting, physical initial hero/health/resource/AP/assets, terminal Stack/DQ/combat-chain/await cleanup and five-file hash binding remain. Only loops derive the admitted live seats; special historical four-seat endpoints are unchanged.",
+    "Proof rows now carry active_seats and players. Appender requires exact spec-derived row mode when either field exists, requires explicit fields for duels and permits historical missing fields only for four-seat proofs. This prevents a duel proof from being labeled four_live_manual.",
+    "Appender increments scenario total once, four_live only by exact four-seat cases and duels by remaining cases. Fresh four_live_groups only increases for new groups with four-seat representatives. Current first-representation scope makes that correct; no broader extension semantics are approved. Summary reports new_two_live/new_four_live and progress title is mode-neutral Sparse breadth progress."
+  ],
+  "prior_syntax_result": "All three modified workspace Python tools compiled successfully before use. No native framework syntax or gameplay changed.",
+  "negative_controls": {
+    "status": "PASS",
+    "controls": [
+      {
+        "control": "false_four_live_claim",
+        "rejected": true,
+        "error_type": "AssertionError",
+        "guard_line": 26
+      },
+      {
+        "control": "unsupported_explicit_two_active_seats",
+        "rejected": true,
+        "error_type": "AssertionError",
+        "guard_line": 7
+      }
+    ],
+    "source": "card-regression-sparse1261-20261122.json",
+    "source_sha256": "2fb3efa45981917d8eea4fd9b9960094d306cfe0a0237da77d28bab67f565ebd",
+    "unchanged_raw5_sha256": {
+      "initial_gamestate.txt": "e8566194287ec8f130d253c7a17a49cee293005831e27174f28a2534fd807e21",
+      "actions.json": "f0024c55a4ae1cc22540b280165290364e3f0e697ccd127e7ac606b4fe597ee8",
+      "assertions.json": "8393522f3fbebf769ee6e552c403673585e3f18b303939102412ffaa1339a95a",
+      "expected_final_gamestate.txt": "0ffb6d5059156c707e2f2e6debf5e8928f8bc82db61378a11abfba0a86ebadf8",
+      "meta.json": "4777e099e9031891af138f563f9c8ae094255dce3faabbfcf60f2d03cbce8e90"
+    },
+    "native_actions_executed": 0,
+    "replays_executed": 0,
+    "native_fault_control_credit": 0,
+    "classification": "BOOKKEEPING_ONLY_REJECTION_CONTROLS_ON_NEW_DUEL_FIXTURE_NOT_GAMEPLAY_TESTS"
+  },
+  "negative_controls_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\live-mode-tools-before1261\\negative-mode-controls.json",
+  "negative_controls_sha256": "c0909d81539035a4a7111846d0296e7e203706c4b46106a8970222028bf6d6d7",
+  "limits": [
+    "No blanket/full-suite testing, old-fixture replay, engine/native framework modification or new coverage credit is approved or claimed.",
+    "No T/repository/original-checkout edits or access, auth/network or Git operation performed. Only this W receipt written.",
+    "Do not reuse first-representation arithmetic for a first-four-seat extension of an already duel-represented group without separately correcting its four_live_groups accounting."
+  ],
+  "qualified_duel_source_specs": [
+    "card-regression-sparse1261-20261122.json",
+    "card-regression-sparse1262-20261122.json",
+    "card-regression-sparse1263-20261122.json",
+    "card-regression-sparse1264-20261122.json",
+    "card-regression-sparse1264-20261122.json",
+    "card-regression-sparse1265-20261122.json",
+    "card-regression-sparse1266-20261122.json",
+    "card-regression-sparse1268-20261122.json",
+    "card-regression-sparse1271-20261122.json",
+    "card-regression-sparse1272-20261122.json",
+    "card-regression-sparse1273-20261122.json",
+    "card-regression-sparse1274-20261122.json"
+  ],
+  "new_native_fault_control_credit": 0,
+  "old_four_live_fixtures_replayed": false,
+  "original_checkout_access": false
+}

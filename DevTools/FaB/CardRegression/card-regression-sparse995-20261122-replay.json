@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "38f3707872e9beb2735dfecb0a783a5fb73e619e42afc236f724b765de15ede8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3ff2207ba8da05096d17fa64c2b546286d1722bfb52aeefb323e34a88cb1d4b",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "a4ce1a89a3128b3e4056ff686c9e5a0f7fe55058c87ca51fb476923253acd7d2",
+        "expected_final_gamestate.txt": "c1539d69213cf6d0200d631f13f325e819252a81268bb3aa8bfd520a613b62d0",
+        "meta.json": "38c6c6272b2c9201fb379775cc64507fcaffc8ca47ed453fa31032d4ad7b455b"
+      }
+    },
+    {
+      "slug": "card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fe9f12a14e7bce5897dc314b8960a9ef18f6dfe7a0bf85df59dd82f24cbd2745",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec91bc37299f4d65389172241fb8ed9092a9acaf8662d1db41f8315a461184f9",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "dc72d61f6dd65adf17f5edb5f931e49054d25e3842979e2431dc1883b3c8132b",
+        "expected_final_gamestate.txt": "1438e2214065b43207cb57880a3038c9fd04e8464aa48eab48f14ff7f33768b3",
+        "meta.json": "4d0eb2b4a98f8c54df204fcce5a45018c1e4da0ba7256e0b3c49da75a1ab0d68"
+      }
+    },
+    {
+      "slug": "card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7ca832290bed21b15e140ae0f814f72e65b388a8bd74ccb0ea226bc56f8a04f4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1de809bbbbef5d1047f13ee812edfe395d98d2a2f13791d11452b72e2c677300",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "86641264256828d2fab78231e12f0ecfbfb9cb9cb02d39b1efade23958ab3183",
+        "expected_final_gamestate.txt": "3cbad762f12321095bc874bcfa1e7ed9ce582ffec00c2000960507bd61112c79",
+        "meta.json": "a5a8a912a135f26f69d5adaed249ae53c67572a1bb8cdcaeb5f3e590eecb333c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,131 @@
+{
+  "status": "DIRECT_READONLY_IMPACT_LOOKUP_COMPLETE_NO_SAVED_PRODUCER_OR_CONSUMER_MARKER_REFS",
+  "started_utc": "2026-11-03T18:25:06.101902+00:00",
+  "completed_utc": "2026-11-03T18:25:12.338038+00:00",
+  "reviewer": "/root/nov2_next_author",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "runtime_unchanged_through_lookup": true,
+  "source_search": {
+    "scope": "Current67CustomPHPmodules+33canonicalabilityregistries+actualGeneratedMacroCode+existingMSTbuilder only; token substringDRAW_ATTACK includes MST_DRAW_ATTACK.",
+    "files_searched": 102,
+    "source_literal_occurrences": 4,
+    "literal_hits": [
+      {
+        "path": "FaBSim/Custom/MSTCards.php",
+        "line": 127,
+        "text": " $uid=intval($o->UniqueID);FaBARCSetCard($uid,'mstReactions',0);FaBARCSetCard($uid,'mstBanished',[]);foreach((array)$o->TurnEffects as $t)if($t==='MST_DRAW_ATTACK')DoDrawCard($p,1);"
+      },
+      {
+        "path": "DevTools/FaB/mst_abilities.json",
+        "line": 740,
+        "text": "        \"abilityCode\": \"FaBMSTNext($player, 0, 'blue', 'MST_DRAW_ATTACK');\\n\","
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 2954,
+        "text": "  FaBMSTNext($player, 0, 'blue', 'MST_DRAW_ATTACK');"
+      },
+      {
+        "path": "DevTools/FaB/build_mst_abilities.py",
+        "line": 71,
+        "text": " if b.startswith('first_tenet_of_chi_'):add('ResolveCard',{'first_tenet_of_chi_moon':\"FaBMSTNext($player, 0, 'blue', 'MST_DRAW_ATTACK');\",'first_tenet_of_chi_tide':\"FaBMSTNext($player, 2, 'blue');\",'first_tenet_of_chi_wind':\"FaBMSTAdd($player, 'BLUE_GO');\"}[b])"
+      }
+    ],
+    "source_sha256": {
+      "DevTools/FaB/build_mst_abilities.py": "9253387d000f3b763f7d7e7692b2778b58ddd61a470b9b38c353bef2c2d28832",
+      "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+      "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "FaBSim/Custom/MSTCards.php": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df"
+    }
+  },
+  "actual_producers": [
+    {
+      "card_id": "first_tenet_of_chi_moon_blue",
+      "macro": "ResolveCard",
+      "implemented": true,
+      "ability_code": "FaBMSTNext($player, 0, 'blue', 'MST_DRAW_ATTACK');"
+    }
+  ],
+  "actual_consumer": {
+    "path": "FaBSim/Custom/MSTCards.php",
+    "function": "FaBMSTDeclared",
+    "line": 127,
+    "selected_predicate": "TurnEffects tag === 'MST_DRAW_ATTACK'",
+    "current_operation": "DoDrawCard($p,1) inline at OnAttackDeclared; timing/classification/fix proposal owned by Sparse, not this lookup."
+  },
+  "helper_path": [
+    {
+      "path": "FaBSim/Custom/MSTRuntime.php",
+      "line": 38,
+      "function": "FaBMSTNext",
+      "role": "Generic storage as MST_NEXT with kind/tag; no additional literal producer."
+    },
+    {
+      "path": "FaBSim/Custom/MSTRuntime.php",
+      "line": 32,
+      "function": "FaBMSTPlayed",
+      "role": "Generic actual next matching blue attack consumes MST_NEXT and tags that physical attack; marker remains on source attack."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "line": 1191,
+      "function": "OnAttackDeclared",
+      "role": "Calls FaBMSTDeclared on actual physical attacking object after entering Chain."
+    }
+  ],
+  "producer_identity": {
+    "group_id": "identity:first_tenet_of_chi_moon_blue",
+    "group_members": [
+      "first_tenet_of_chi_moon_blue"
+    ],
+    "other_tenet_ids_not_producers": [
+      "first_tenet_of_chi_tide_blue",
+      "first_tenet_of_chi_wind_blue"
+    ]
+  },
+  "saved_fixture_scan": {
+    "canonical_fixture_count": 3649,
+    "file_names": [
+      "initial_gamestate.txt",
+      "actions.json",
+      "assertions.json",
+      "expected_final_gamestate.txt",
+      "meta.json"
+    ],
+    "files_read": 18245,
+    "raw_terms": [
+      "first_tenet_of_chi_moon_blue",
+      "MST_DRAW_ATTACK",
+      "DRAW_ATTACK"
+    ],
+    "single_base64_TurnEffects_marker_interior_alignments": 3,
+    "matching_file_references": [],
+    "matching_fixture_count": 0,
+    "actual_producer_plays": 0,
+    "unused_setup_or_pitch_only_mentions": 0,
+    "consumer_marker_seed_references": 0,
+    "actual_action_ledgers_needing_followup": 0,
+    "minimal_affected_legacy_candidates": []
+  },
+  "live_index_context": {
+    "reviewed_scenarios": 3649,
+    "incremental_registered_through": "card-regression-sparse360-c90a-checkpoint.json",
+    "incremental_index_sha256": "d6965f9fb659dd787314a0c54095331bf79a7a3605d1cb366a662eb71f6b1ef5"
+  },
+  "finding": "No existing saved fixture references the sole current producer or the shared marker in selected raw/encoded search scope; no direct legacy compatibility replay candidate identified. The newly authored B359 correct probe is not a saved fixture and is not coverage. These changed earned-producer/consumer timing paths were not previously evidenced by the saved fixtures searched.",
+  "new_probe": {
+    "input_path": "DevTools/FaB/CardRegression/card-regression-batch359-correct-trigger-probe.json",
+    "input_sha256": "e2b9f56abdc973063166684c519eaabdd77529aca249aa1d6dad6fd9410951cb",
+    "fixture_saved": false,
+    "existing_unqualified_probe_not_legacy_case": true
+  },
+  "independence": "Root delegated only impact lookup. Sparse owns native-before classification/proposal; Meta owns candidate review. No duplicate source proposal or independent qualification claim.",
+  "limits": [
+    "Only the named marker and its current sole producer/current helper chain; no broad timing audit, legal-deck audit, old-scenario semantic requalification or replay.",
+    "Raw exact IDs/tags and three stable single-base64 tag alignments cover current ordinary serialized marker representations; arbitrary dynamically constructed aliases, externally supplied code and multiply encoded opaque undo payloads are not exhaustively interpreted. No evidence of another active producer was found in searched actual sources.",
+    "Zero references means no affected saved candidate found within stated scope, not every possible rules branch proven or global roots counted. Known070079/SmashingItem holds untouched.",
+    "No PHP/native/games/replay/R/source/generation/backend/remote writes; one compact W proof only."
+  ]
+}

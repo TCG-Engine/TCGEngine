@@ -1,0 +1,7 @@
+{
+    "name": "Oscilio, Scion of the Third Age / opponent Lightning Flow cannot pay your cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:58:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNG_OSCILIO_SCION_OF_THE_THIRD_AGE_NATURAL_HP19. NativeGenericCriticalAAcost1paidactualBlue3/R2/AP0/base5, realextraGenericBlueHandretainedaseligibleDiscard/potentialresourcecontrol. ActualopponentLightningFlowArena9(or7duel)butOWNARENA0/noFlow. AtownREACTIONnativeHeroInstantclickwithfullyaffordable1(Oscilio)or2(Aurora)ordinaryresourcesandreadyHero rejectsnoownedFlow beforetap/payment/Destroy/choice/Discard/PonderorEmbodiment/newUID. HeroStatus2/R2/HandBlue/foreignFlowownedopponentreadyCountersEffectsunchanged/priority1/livesourcepower5. Allconfiguredmanualseatresponses/actual5physicaldamage/HPtarget15(or35duel), finalsourceGY/fundPitch/extraHand/Arsenal/foreignFlowexactretained andactual0ArsenalconsumerrejectAP0. Onlyownershiplegalityguard/nativefunding/damage/fates; positiveownFlowpayment/tap/Destroy/Discard/permission/Embodiment/Ponder/paidcosttiming/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#oscilio_scion_of_the_third_age FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php"
+}

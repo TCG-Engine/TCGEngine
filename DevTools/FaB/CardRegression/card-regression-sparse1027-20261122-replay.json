@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-invert-existence-blue-four-live-sparse1027-real-mixed-opponent-graveyard-banish-two-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-invert-existence-blue-four-live-sparse1027-real-mixed-opponent-graveyard-banish-two-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1027-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1027-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9d9beec0d039f1223891f683b0bb7ffe7dd02dc664a11fba359cee20ca7cae0f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bb92e1ab8cf68230f18842431d31d852a2b512c3dc00cce68e74df50d5df813",
+        "actions.json": "f52c9f33c35bd900652d31f022fd2cca73bd66bd01486f5f2a07d91926eb3729",
+        "assertions.json": "77e682a10fb307d9913c3ee61ff53262b6f84328171c6d34bc8d27fc00aaa89b",
+        "expected_final_gamestate.txt": "ddeca05a8be1b246288979d834d5ed93efa4be7803febd809e887ad7bc8c711c",
+        "meta.json": "fcb3beb2195809e8b71b84c19f80e8235cb488259eb013847ccaa8f0a7f84f87"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

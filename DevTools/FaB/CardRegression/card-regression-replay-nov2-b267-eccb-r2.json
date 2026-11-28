@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch267.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T23:49:50.748134+00:00",
+  "fixtures": [
+    {
+      "slug": "card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+      "fixture_sha256": "749ad4a8624e35efe395a58b2892489c03ae8267e658028bb10d6d8fde280331",
+      "passed": true,
+      "result": "[PASS] pack_hunt_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-mechanical-strength-red-four-live-sparse-two-physical-equipped-evos-make-real-seven-power-attack",
+      "fixture_sha256": "ec243639170a437ceeefeb0a16d23d53c349eaec184d5b26812eaf0c90533820",
+      "passed": true,
+      "result": "[PASS] mechanical_strength_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-pack-hunt-red-four-live-sparse-real-captured-intimidate-trigger-banishes-single-hand-card-then-six-damage",
+      "returncode": 0,
+      "stdout": "[PASS] pack_hunt_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-mechanical-strength-red-four-live-sparse-two-physical-equipped-evos-make-real-seven-power-attack",
+      "returncode": 0,
+      "stdout": "[PASS] mechanical_strength_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Baalghor / intrinsic real banished-attack power bonus without a pitch event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:59:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever you pitch a card, banish it.\n\nAttack action cards played from your banished zone get +3{p}. Namedintrinsicbanish-AA+3 only. NaturalyoungDemonBaalghor33 ownsactualfaceupGhostlyVisitRed5Banish andvalidalreadyfloatingR1/AP1; resourceproducerunrecorded/uncredited. GhostlyVisitselfpermitsBanishplay(nofakePlayableflag). FormaladjacentHero4targetbeforeactualcost1/AP1\u21920/R1\u21920, NOcardspitchedsoprintedHeroPitchWHENNOTearned. Fourmanualsource/combatresponses. IARPlayed sourceFromZoneBanish onrealAA givesprinted4+3=7actualpower/deals7HP4=13. Samephysical5owner1GY/nostack/hand/pitch/otherassets; Hero1retainsUID1/current33. NoHeroPitch/blooddebt/endphase/otherorigin/otherAA/intrinsicpermissionbyHero/fullhero/supportidentitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#baalghor_omen_of_the_end"
+}

@@ -1,0 +1,534 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B384_SANDSCOUR_LOOK_HAND_LOAD_AND_PREDATORY_PLATING_RESOURCE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T20:08:33.525822+00:00",
+  "source_spec": "card-regression-batch384.json",
+  "input_sha256": "1bf37e9e2b8eea8962fb191b5039f45c73a07103061a18c464f86077ed3fa20f",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch384-bow-and-plating-author\\manifest.json",
+  "manifest_sha256": "1db10de1aea81434c1bb78cb6141ae136d651d78ba46ac13ccc3ca98fc204ec4",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 37,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch384-independent-source-review.json",
+    "sha256": "840d0165f27cd51e713a7d840ac2c660a053626b1030288203c28ee3c81ff6f4",
+    "reviewer": "/root/b105_semantic_review",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch384-20261104T200435Z-6aeb8fd3dab14.json",
+    "sha256": "ecde8faead1f212b4e9aa43a38f51d6fe8444f12b77c554f7961944a37fe94db"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b384-native-527c-r1\\receipt.json",
+    "sha256": "4307a8d8d013650bcec4657cef8520d1e1f1a48b1a71af55d38241e5016819ca"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch384_saved_readonly.py",
+    "sha256": "e8e176b7608e713012ed31daf4a46c152b440cf756ca3aeb79bed0c993fca9f7"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sandscour_greatbow",
+      "group_id": "identity:sandscour_greatbow",
+      "slug": "card-sandscour-greatbow-four-live-sparse-real-paid-top-look-hand-arrow-load-and-paid-arsenal-play",
+      "source_spec": "card-regression-batch384.json",
+      "input_sha256": "1bf37e9e2b8eea8962fb191b5039f45c73a07103061a18c464f86077ed3fa20f",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_SELECTED_LOOK_LOAD_OR_CONTROL_RESOURCE_EFFECT",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sandscour-greatbow-four-live-sparse-real-paid-top-look-hand-arrow-load-and-paid-arsenal-play",
+      "fixture_sha256": "4b69b57aa93e5cfab002b0b34b190acfb88c8bfbd578ef24b591d0abfba7e73f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "20743b0227acfe31c49e0b0b702e837a8220826ded3676350538ccd7351b23c2",
+        "actions.json": "30528f27d894ec1923b3fe5056be226528fcfbc85d09806fdc13ab2b4b303958",
+        "assertions.json": "ff6f65ed5fe50fbcb48cfec3847cc4d96cf3e2728de9b4c1c9666e703f95644c",
+        "expected_final_gamestate.txt": "428cf16827821f5f1d77230a372ebe606ad9b148fd8fd52006707000f0acb310"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "20743b0227acfe31c49e0b0b702e837a8220826ded3676350538ccd7351b23c2",
+        "actions.json": "30528f27d894ec1923b3fe5056be226528fcfbc85d09806fdc13ab2b4b303958",
+        "assertions.json": "ff6f65ed5fe50fbcb48cfec3847cc4d96cf3e2728de9b4c1c9666e703f95644c",
+        "expected_final_gamestate.txt": "428cf16827821f5f1d77230a372ebe606ad9b148fd8fd52006707000f0acb310",
+        "meta.json": "950e6746002c6201d1525258ceeb4ff69a893c742e69d7dc8f695f54ae46c814"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "20743b0227acfe31c49e0b0b702e837a8220826ded3676350538ccd7351b23c2",
+        "actions.json": "30528f27d894ec1923b3fe5056be226528fcfbc85d09806fdc13ab2b4b303958",
+        "assertions.json": "ff6f65ed5fe50fbcb48cfec3847cc4d96cf3e2728de9b4c1c9666e703f95644c",
+        "expected_final_gamestate.txt": "428cf16827821f5f1d77230a372ebe606ad9b148fd8fd52006707000f0acb310",
+        "meta.json": "950e6746002c6201d1525258ceeb4ff69a893c742e69d7dc8f695f54ae46c814"
+      },
+      "actions": 36,
+      "native_assertions": 3260,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "sleep_dart_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sandscour_greatbow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sandscour_greatbow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {
+            "ELE_USE_TURN": 2,
+            "ELE_USES_0": 1,
+            "ARC_USED_0": 2
+          }
+        },
+        "6": {
+          "card_id": "sleep_dart_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "actual_damage_checkpoint": {
+        "step": 28,
+        "power": 3,
+        "defense": 3,
+        "damage": 0,
+        "hit": false,
+        "hero4health": 20
+      },
+      "checkpoint_assertion_mapping_sha256": "13de7a1cd0c08a13b843bea1338bda901b179db23995b06daae912611969faa6",
+      "native_action_mapping_sha256": "be26dc792b7b854d04bf81dafbd69140dc1a659ba2d7df4e9e4ffbd4b7c47317",
+      "native_assertion_mapping_sha256": "cfabba87940ba770ba5632bfde9f70ba1e94fa4795a618a311d02eeceaf5f3bc"
+    },
+    {
+      "index": 1,
+      "card_id": "predatory_plating",
+      "group_id": "identity:predatory_plating",
+      "slug": "card-predatory-plating-four-live-sparse-real-controlled-seven-power-attack-earns-destroy-instant-resource",
+      "source_spec": "card-regression-batch384.json",
+      "input_sha256": "1bf37e9e2b8eea8962fb191b5039f45c73a07103061a18c464f86077ed3fa20f",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_SELECTED_LOOK_LOAD_OR_CONTROL_RESOURCE_EFFECT",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-predatory-plating-four-live-sparse-real-controlled-seven-power-attack-earns-destroy-instant-resource",
+      "fixture_sha256": "6054224ff34254b84c5d4e54e1131d610c0ac18e28816b8218582b19d3fa8ed3",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "654c483253969db892fc9671d9c293d74ecadae605b04fefb17b7f841e91651e",
+        "actions.json": "b48488783ab187c1c5ef416aee3f74ce8def1b2579b21c7b4d9e675dd6ad86a7",
+        "assertions.json": "06afc8e3ed03502424e3eb7ff94ee61999c089b315abc3daa688af394db93ba3",
+        "expected_final_gamestate.txt": "3b58d7f7ea575115fbf0363301ebd08e9b0b781288f90134ee485806f2a92b48"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "654c483253969db892fc9671d9c293d74ecadae605b04fefb17b7f841e91651e",
+        "actions.json": "b48488783ab187c1c5ef416aee3f74ce8def1b2579b21c7b4d9e675dd6ad86a7",
+        "assertions.json": "06afc8e3ed03502424e3eb7ff94ee61999c089b315abc3daa688af394db93ba3",
+        "expected_final_gamestate.txt": "3b58d7f7ea575115fbf0363301ebd08e9b0b781288f90134ee485806f2a92b48",
+        "meta.json": "24391dde9ecb42bb2b39db7dc6824293f5be581ee99295fb69f4806b9a28bcfa"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "654c483253969db892fc9671d9c293d74ecadae605b04fefb17b7f841e91651e",
+        "actions.json": "b48488783ab187c1c5ef416aee3f74ce8def1b2579b21c7b4d9e675dd6ad86a7",
+        "assertions.json": "06afc8e3ed03502424e3eb7ff94ee61999c089b315abc3daa688af394db93ba3",
+        "expected_final_gamestate.txt": "3b58d7f7ea575115fbf0363301ebd08e9b0b781288f90134ee485806f2a92b48",
+        "meta.json": "24391dde9ecb42bb2b39db7dc6824293f5be581ee99295fb69f4806b9a28bcfa"
+      },
+      "actions": 33,
+      "native_assertions": 2725,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "predatory_plating",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "damage": 0,
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "predatory_plating",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "actual_damage_checkpoint": {
+        "step": 25,
+        "power": 7,
+        "defense": 0,
+        "damage": 7,
+        "hit": true,
+        "hero4health": 13
+      },
+      "checkpoint_assertion_mapping_sha256": "ad6f68c8452f4749f794ad4867d15154a2f3527770ecd9e03917788fa5e365bb",
+      "native_action_mapping_sha256": "71670d2d90402b13a703eb857e406c61913c24f0365d0b0247cb2678dc7bcfcb",
+      "native_assertion_mapping_sha256": "f791a546b602eadf7d3c2eea9e738158ceb458dbef7bc408b526248383d97aad"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 69,
+  "total_native_assertions": 5985,
+  "total_manual_passes": 58,
+  "total_priority_response_passes": 56,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_end_phase_inputs": 0,
+  "material_findings": [
+    "Sandscour5 realAction1/Blue7pitch3 paysbeforefourresponses R2AP0. FourthstagesrealDeck8Temp andkeepsvirtual10SourceWeapons5throughactualMZMULTICHOOSE0..0 acknowledgement thenMZMAYCHOOSEonlyHandArrow6. OriginalHand6actuallyloadsfaceupArsenal/originallooked8restorestopDeck/Tempempty; onlycompletionAP1andvirtual10ceases. RealpaidArrow1fromR2\u2192R1AP0/same6power3/fullblockrealP4Blue9DEF3/nohit/allHP20/fullcloseGY6/Pitch7/Deck8/weapon5ready.",
+    "Plating5 activation followsrealRaging6controlledChain/base7/R0AP0. ActualInstantdestroycostputsphysical5publicownGYbeforefourfreshresponses, virtual8SourceEquipment5heldthroughfirstthree/R0, onlyfourthactualR1/AP0/proxyceased. FreshReactionrounddealsreal7/P4HP13/fullcloseGY1UIDset5,6/Pitch7/R1AP0/Equipmentempty; virtual8notghostGY.",
+    "Allraw10/69orderednativeenvelopes5985persistedoracles58manual/fullinitial-finalphysicalUIDownership/economy/12guardprofiles/48manualprefsateachendpoint verified. Intermediate outcomes are passednativechecks, not separatelycapturedfullstates."
+  ],
+  "limits": [
+    "One selected positive branch each only, no fullcard/sibling/supportprimary/hero/native-control credit.",
+    "Sandscour choseHANDload; Deck-origin Aim WHEN and SleepDart hit are unearned/uncredited, no decline/secondactivation/alternate-card/Bowattack/visibility-feed proof.",
+    "Plating neverdefends; Guardwell/armorwear/uncontrolled-Handcondition rejection/powerchange/reentry or resourceconsumer are unexecuted/uncredited.",
+    "Existing sourcegate reused; no legacy/source/rule recertification. Root targetedreplays/registration remain separate gates; no reviewerPHP/native/R/service/generation/fullsuite/optionalmodel."
+  ]
+}

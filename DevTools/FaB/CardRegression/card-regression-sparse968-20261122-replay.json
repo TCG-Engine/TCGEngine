@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-persuasive-prognosis-blue-four-live-sparse968-actual-full-block-retains-matching-color-deck-and-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-persuasive-prognosis-blue-four-live-sparse968-actual-full-block-retains-matching-color-deck-and-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "aaa9362666ba664b3b9dc31599b73629397b59616c3ad7b8e95b0da1f62bd5be",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88581dc373543b606ba42a06d69defc00ff845dad24fb83d30266d1b67a4eb7d",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "692555d278d4d9da7e8020c8e4d450e2d6f360e8dc021e5242975b898242799e",
+        "expected_final_gamestate.txt": "0a516b05f8e6974d5ed5208a26b5f2d06fdae2f83801e79a62cfae89cb2b556b",
+        "meta.json": "6bad0db8ebcfec9b2c5aaeaca927b782539172ba2523e721805019e38aecd19a"
+      }
+    },
+    {
+      "slug": "card-remember-the-mists-blue-four-live-sparse968-actual-hand-origin-exact-four-defense-retains-enemy-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-remember-the-mists-blue-four-live-sparse968-actual-hand-origin-exact-four-defense-retains-enemy-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "be9b39bf67a85a6b3443d5638fed7d976750e909fd1d30d0c0f17e71e1f0f4e5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d8ba70b4c6a2e8596226e06a7dae9c922f014ae84ee1ad8c4bffe6804cd8212f",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "0aae7b32cd0b87b4cff8ab05efe77f0ed34d0751c42dd6dc64302d40ced9bf9d",
+        "expected_final_gamestate.txt": "6bdb3cf3c1398fe2ff38d7072bf1b38d0fa06cca8dd41a5094a580d8756ef945",
+        "meta.json": "8f1b75e327d01ae2e55c2b7e492d39c7693b4c3b0585eed47e3a750546e279c6"
+      }
+    },
+    {
+      "slug": "card-mark-the-prey-red-four-live-sparse968-actual-full-block-leaves-real-defender-unmarked",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mark-the-prey-red-four-live-sparse968-actual-full-block-leaves-real-defender-unmarked",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "858911c1fb110fa34f9a4403c7cc604ca7c3181b4d1f6f0e12a98e94f3ae0cdf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e804695968c45f0f2b55ce98cd30591d2200bf3c296464791b15f78c88efd4f",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "faedfc950795dfaf8da6d9150b6a48b10cbb9a96924a1136f645a33d2085005a",
+        "expected_final_gamestate.txt": "6d01f72e32030b8826ae6d4161d1826b740b23e899b47d72291b638b16ea076b",
+        "meta.json": "d0512505a22e564f156f79ff30d0fc3a979d76567f36cc090a71b0d3e0c58bca"
+      }
+    },
+    {
+      "slug": "card-stab-wound-blue-four-live-sparse968-actual-exact-two-defense-with-unactivated-real-dagger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stab-wound-blue-four-live-sparse968-actual-exact-two-defense-with-unactivated-real-dagger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse968-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "28f45e89aa0d2dc4af2dfb648c087d11b2eca631d216971a8aadc7e982d2df79",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "670470f4065095ba48d9ea1efd3ede1bfc28ee252bb041e3409a0f0de2262859",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "972a81b08e82106c2686b6a3b03f2ca31b3b0ffba61595784a6d13fe55b6e07b",
+        "expected_final_gamestate.txt": "6210d8c5cdc92883e9818ec3a4f5fa50a8b3bc973dc9c26c531252c88df7b9be",
+        "meta.json": "e2bc3ea300eda98f6282a21153853a3d067303ac0af45d2eeeeba18816d418ce"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

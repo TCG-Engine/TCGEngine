@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fe367966fe538be8e94b7c1cc47926d040694f613f0dc474a7b1df06e4ee1ab9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a1c63f0a72e72e83c62c649aaf0ff9ab6138e1e7272c31203cc40a6ee19674",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "1f8b78a11550c85c38af4f0f0c1c4aaeaea8f9326118b19fb8e401ffc15c2465",
+        "expected_final_gamestate.txt": "ff52f585676936321c5a5fe8ce03fa2b5917d30bdcc80ea19740802942fa15bd",
+        "meta.json": "9f034d8300bf05b52c5e0998d09452f8e6b1646ac07f45b904f82c7ca50c59b0"
+      }
+    },
+    {
+      "slug": "card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7e93cf442409878a84842366470f999da04aabd61ba5dc8c3c6e97024324dbb2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "57c4bab7f6f6fd529a8ae2a8534e2d38249705593e4498b059d1fc4dcca3e603",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "b75ab2079c23ed534d1ac20ffcb9d71cbeb7944c9f2659eed663edffad2c6312",
+        "expected_final_gamestate.txt": "949e8c6a801e121fa699610fc6e29c63184e1b1c6024f0096e7ab458fd550b60",
+        "meta.json": "55fdc2a9738f591721681191f805a63480072c93c56fe556db7d6ef603d26fee"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\clean-replay.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\clean-replay.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b8e31b8cc675ca5b7b9d8d000a14a5d200eb6443fd32048ca437a168c02f135b",
+      "raw5_sha256": {
+        "actions.json": "bf636207d12f2e8734ab2958747770f481b835d57382c5307ed8a8a68f918eab",
+        "assertions.json": "d384bcdeb137c2579b1f6126c61fd1e3a4ff2837e65a67ad1681e47a6eaa2d57",
+        "expected_final_gamestate.txt": "80d22d742d6cad8a030080016bd72b25b4091e97cfd8d937a959b17dae16bded",
+        "initial_gamestate.txt": "f9789f374e0a176fd346dc38345ae0674057eed8ee77d608f7e7ad411bdd89ca",
+        "meta.json": "0a0ab83c22e291a0effee73427c1286a3338491cb19783880fc481ae4b3b03f4"
+      },
+      "full_suite_run": false,
+      "new_group_credit": false
+    },
+    {
+      "slug": "card-art-of-the-phoenix-war-red-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-instant-preserves-action-point",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-art-of-the-phoenix-war-red-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-instant-preserves-action-point",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cfe65045ed2544759eaaa6979dd57a09a177ce84e0ea40782c79aef71685a0d8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e8aa5be6e34a4c5c57c0a23daee6f041f3490c34643c588d02a9d720d393249",
+        "actions.json": "26d8ce18158bc8d5bf209d3776caec01d03140108a568bad962624fc1a88277c",
+        "assertions.json": "fec036554ed32ee4789d786d859aa83451eda3f86b9fb3b04e2803c0cd046461",
+        "expected_final_gamestate.txt": "f9d78ced07f80b2c9b31dc1317219c5dfa2b5cd9a9f10805e93ba4685f62380d",
+        "meta.json": "3d584ac842fc037b027d3029315af1646f61b6a3b36535906ed0505638b6f7f0"
+      }
+    },
+    {
+      "slug": "card-perennial-aetherbloom-red-four-live-sparse897-actual-three-arcane-and-no-bottom-without-surge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-perennial-aetherbloom-red-four-live-sparse897-actual-three-arcane-and-no-bottom-without-surge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "93046cb438f807f0abf93f1a1463858c51ca30f4685ca3c7e1228eafe88f8082",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc1b6137f0c41c161b36b6dbb5474512121eb1ee35f1dfca7e15215bf9902e29",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "51db406402576ec121de547426c4da7387b1a95a86ede9347ed593ba61c7f597",
+        "expected_final_gamestate.txt": "9bc7ab041f459a823a43fee5ea5e8fc79b64ce2a97d915139a42a85a4ebbb72e",
+        "meta.json": "1a1101ca147d6d8a245c33d49c250f4087d03425520007b62936e75af4fe27f9"
+      }
+    },
+    {
+      "slug": "card-pop-the-bubble-red-four-live-sparse897-actual-three-arcane-and-no-aura-destruction-without-surge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pop-the-bubble-red-four-live-sparse897-actual-three-arcane-and-no-aura-destruction-without-surge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2cbd54f0ddca745e1549465f0fd421b35c535268350eaf0ef4c581718b834c83",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78ed1b38d3a3f0efb6e5a38bcd57e23010ffb5151186a1c08483707ac2168975",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "d7fb1d7dda5e5fa3ee9a7052f5518b647e86273ed3102dfe7e25732372aa92ec",
+        "expected_final_gamestate.txt": "25e115125b614569991f5575d65bb94a5ae956b01ca318967fb4222e47914188",
+        "meta.json": "e77dd095f473510c9fd8cbe12c6bc8810684137b68ad06dde7c2cd569730354b"
+      }
+    },
+    {
+      "slug": "card-trailblazing-aether-red-four-live-sparse897-actual-three-arcane-and-no-go-again-without-surge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-trailblazing-aether-red-four-live-sparse897-actual-three-arcane-and-no-go-again-without-surge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse897-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2954eec4b405a41a767a800b958f80e767ce0a6815f8331811a647df86fc0628",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b18f2178efe578b43666b7ed8325dfa7963c6c02c5094294949558abd93b297",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "940d0c9be604a5ed0ffb204dbd560c319141143d33e2cc79e449642e8aa711a8",
+        "expected_final_gamestate.txt": "eab0279c7b0bd37571cb95193d30d79edcfb876d251dbbc004e7369849200f96",
+        "meta.json": "7fb953a596e232725797be4307ee56b58e6043e1061789d8fc808b23fe7df066"
+      }
+    }
+  ],
+  "raw5_unchanged": true,
+  "fixture_revision_note": "Only Favorable Winds legally rerecorded and replayed; four other byte-identical fixtures retain their original successful commands/logs. No batch rerun."
+}

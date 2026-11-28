@@ -1,0 +1,171 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1066-20261122.json",
+  "source_spec_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+  "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "leap-frog-gloves-four-live-sparse1066-real-defense-blade-break-close",
+      "card_id": "leap_frog_gloves",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9060e65ca07dc896eefc0c3c0607451dcd905bdd9e065fcdeeb2021b91e8c5f1",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "e85bac41498ab1d74d845b5b4d2f2c567d0ab2eeda3c9fd798eaf736eb9310aa",
+        "expected_final_gamestate.txt": "72752427b11ef98ac2c36b15a2585cbeafd43583b7a1023381e0464b18c88f90",
+        "meta.json": "b98c5a1c49d70896bb9acce5cb6c6a5cf6010542bfb3714e5872b57a9e48a9f0"
+      },
+      "fixture_sha256": "baa7f3c10b5105b458d8303d5a161692e64f34274b032c4202ed588c9fbbba3c",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1066-20261122.json",
+      "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "leap-frog-gloves-four-live-sparse1066-real-defense-blade-break-close",
+        "fixture_slug": "leap-frog-gloves-four-live-sparse1066-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "leap-frog-leggings-four-live-sparse1066-real-defense-blade-break-close",
+      "card_id": "leap_frog_leggings",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7eb5601da7501a7d0450efa479065413a759f42a70491bc7efcf6626c43eb99d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "544d4b51a6067f51e13577236144080524f1c33df11c81ad25eb140504df4e4a",
+        "expected_final_gamestate.txt": "e2cda2a675e317f32817bb2c8b595cca561af0075bb926c7d8df45773aa4260d",
+        "meta.json": "b43c0dabd1974f6f82982e40abcdbc88912dfff4c0caf5bf8fa23d6eb1d278fd"
+      },
+      "fixture_sha256": "bfb9c0e7cd1df386d5f0af590b8105931aec93db2b03606d4108af16ca370733",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1066-20261122.json",
+      "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "leap-frog-leggings-four-live-sparse1066-real-defense-blade-break-close",
+        "fixture_slug": "leap-frog-leggings-four-live-sparse1066-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "leap-frog-slime-skin-four-live-sparse1066-real-defense-blade-break-close",
+      "card_id": "leap_frog_slime_skin",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17dce6b65b1654e746be21439a08023979b1d3f81503099178cd2683aee1b7f4",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "eb63949a52c9235ea2a2e633dfe72ebc2ae124921a3f4b847af387826744d74a",
+        "expected_final_gamestate.txt": "6cd7948f1b5e8c49a86f5a8312c5d5aa3518be77e89c089a0571ab6538fd3253",
+        "meta.json": "b8140ecb8a93134c7aafbe6c37379d01e75296120fab535d0244fb69d0db1fe5"
+      },
+      "fixture_sha256": "073dc836192f3eb210aad0bd042841c5a30eb9ba341a5467dc1751ad320502a7",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1066-20261122.json",
+      "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "leap-frog-slime-skin-four-live-sparse1066-real-defense-blade-break-close",
+        "fixture_slug": "leap-frog-slime-skin-four-live-sparse1066-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "leap-frog-vocal-sac-four-live-sparse1066-real-defense-blade-break-close",
+      "card_id": "leap_frog_vocal_sac",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f0db270698ad05c37bb62213f27764a3bf7d52bdc4f48740454dbd208e7bdb9d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "5299069bcf05b786e7ca0e027e4128ecabce3bc7d377ab23b8061e24789b920d",
+        "expected_final_gamestate.txt": "9a6e814a90c84f000165e3cc23611f30e6a5efdf56b90ca18434fdebfd8ce294",
+        "meta.json": "d619d04b4de382b3454959359920126541842a65d1f00facdcbc88ebbff30596"
+      },
+      "fixture_sha256": "1ac574144403bab0114079f15d7314cfc1c5627a30d73eac380944245e75f15a",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1066-20261122.json",
+      "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "leap-frog-vocal-sac-four-live-sparse1066-real-defense-blade-break-close",
+        "fixture_slug": "leap-frog-vocal-sac-four-live-sparse1066-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "solray-plating-four-live-sparse1066-real-defense-blade-break-close",
+      "card_id": "solray_plating",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "411b782e6eea056fa71a581c39105700a4810b00b95033faf61a0413dd8972de",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "5158aa76c6ff5bcfcb3e97bb47f3fef8e2048ca6f729c0d6cdb9b48feb108f29",
+        "expected_final_gamestate.txt": "9dd5594b8daf66764b823edb7d6980e90749cb696b3dc37db1422b4ffa6f5bf1",
+        "meta.json": "4d4f0316ea2e3b0b271b715cec2ccbf41b9259b8514290a2e3f302c0ee842fcd"
+      },
+      "fixture_sha256": "36f9733f0263ddd3c63c0704c3bbf2fd213497fdf6f733a6320a4860955a05e1",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1066-20261122.json",
+      "input_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "solray-plating-four-live-sparse1066-real-defense-blade-break-close",
+        "fixture_slug": "solray-plating-four-live-sparse1066-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "cf40856d77ee0e80556e24d59d9e7d36aef4537f132b8e0462a94fbbc3088cd9",
+    "reviewer": "breadth_review independent printed/spec delta review",
+    "basis": [
+      "All four Leap Frog pieces are Assassin/Ninja Equipment DEF1/Blade Break, legal Arakni20. Printed WHEN opponent plays/activates attack reaction grants an extra optional defending-card admission; it does not prohibit normal defense. No attack reaction played/activated by any opponent, so that event earns no layer. Actual Dori weapon action/payment and Hand NAA declaration are not attack reactions.",
+      "Solray is Light Equipment DEF1/Blade Break, legal Boltyn20. Actual full block yields zero would-be damage and Soul0, so no prevention payment/replacement or delayed EOT destruction is earned; normal Blade Break destruction is still required. No charge/owned attack or hero activation occurs.",
+      "Exact qualified1040 Vestige controls and persisted queries after only primaryID/hero4/descriptive changes: real Eq5 DEF1+NAA6 DEF2 versus Sword7 power3, actual Blue8 pays1/R2/AP0, four live manual seats, zero damage/noHit/HP20. Normal close gives owned GGY[5,6]/Equipment0; weapon7 used/Blue8 Pitch, no author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary defense and first Blade Break close only. No late Leap Frog admission/attack-reaction event timing, Solray positive prevention/Soul cost/EOT, activated body/hero/support/sibling/full-card or prior-hold repair credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1066-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6a928f685fbe4b979e3c48a0c0349282881fdc12bb6bdf4cfc2b7666026ba773"
+  },
+  "full_suite_run": false
+}

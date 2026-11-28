@@ -1,0 +1,7 @@
+{
+    "name": "Voltbound Duality / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:11:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - {r}, discard this: Deal 1 arcane damage to target hero. Create a Lightning Flow token. Representative only: actual_four_attack_not_instant_discard_arcane_token_ability Sources: FaBSim/GeneratedCode/cardArrayCache.json#voltbound_duality_red"
+}

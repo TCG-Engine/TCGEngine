@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sack-the-shifty-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-base-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sack-the-shifty-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-base-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "317290a0be923c032ae7f11ffb07c977d52fa4f19664d2cf8d9e4b5465fc4833",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "55f079dab89bea9e3f251d33dbb92d2f33e7c36996024ba845a24c5170634ccb",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "fe2b3bbbac18d014900483c0aa0847f59c00dc88521ebaa2871296ad6282080a",
+        "expected_final_gamestate.txt": "66653573a40d794f0ad11fef909e4d44a22386598cc3b3a951b16ddd783196fc",
+        "meta.json": "001930cddd0d35dd4fc9e32266ecf70100ab38497688f5455f2c8c4e6de9215e"
+      }
+    },
+    {
+      "slug": "card-nix-the-nimble-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-reaction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nix-the-nimble-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-reaction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "af0c95a0f2809cd3d5faf0e9d2599f99c903d0e4c7aab56a61c5a58bfde4552b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11d13e3004eb2dfdf23fe2c38cc8eadf41bd57247589bd60266258abcf074631",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1d6315902e25ccac15d6677023595f2c8fe398492cb1048b5432efd6bd1dde5b",
+        "expected_final_gamestate.txt": "208bf4045ab9619c3f22880cfc15e94c8ddcb4646bb62c20fb1d6a8351c329e4",
+        "meta.json": "59070e2ef05b20385a7a845c232c686f1f9fe2497204d3f6e250dac82ca51bd1"
+      }
+    },
+    {
+      "slug": "card-excessive-bloodloss-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-red",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-excessive-bloodloss-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-red",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "87d641578323feb49a7d7b0cb7187d096ccf043af473b72bb994d88b371994da",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe1cbac858fd6f2699258340f540a14d57b43e002ace707fc4b6404365828847",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "400659a2c00213b8f1ecd911f7d70849c1419016dc4f49c526e6aec4384b1d42",
+        "expected_final_gamestate.txt": "b16b930605e566d61831436163bbac9d7b7522238cfd5a8f6c4c6e7e9584aff8",
+        "meta.json": "3e9db4aa700f64a1f23d54ba1c4768091154905c9f39aef1e899ce5ef455ba38"
+      }
+    },
+    {
+      "slug": "card-impulsive-desire-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-instant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-impulsive-desire-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-instant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bf825c07a995b5c2d28e030e91529a79458ad63a3262d586355094e8554c4732",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a98f95918fe911971f9ccf895c8473dcc69a4e021047d23ee0f93fca4b94958a",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3fcb7794c2f32dac31b3f2e1041eb84cce8659c8b6ae6e2bf90e98f561b59e25",
+        "expected_final_gamestate.txt": "3f5ab89fb67b55ac76d475e1651f7f10b5a00c6dba834a4f4b4b8504140cb7f5",
+        "meta.json": "1e9536454da779c11133694cb0e2014f3752cac298aa85a8a8f81034b737d171"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

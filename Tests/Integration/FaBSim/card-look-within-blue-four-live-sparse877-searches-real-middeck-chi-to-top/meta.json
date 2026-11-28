@@ -1,0 +1,7 @@
+{
+    "name": "Look Within / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:33:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Search your deck for a Chi, reveal it, shuffle, then put it on top.\n\n**Go again** Representative only: searches_real_middeck_chi_to_top. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#look_within_blue"
+}

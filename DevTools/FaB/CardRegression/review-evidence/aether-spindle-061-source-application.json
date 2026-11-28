@@ -1,0 +1,31 @@
+{
+  "status": "APPLIED_EXACT_THREE_LINES_NATIVE_QUALIFICATION_PENDING",
+  "utc_start": "2026-11-02T23:51:22.572968+00:00",
+  "source_path": "FaBSim/Custom/GameLogic.php",
+  "before_sha256": "00ed8abbfeb17986e4fcb0e84d74547c6a51705b84b5a6d3a8c29b31ee05b9d3",
+  "after_sha256": "255dd2159c666828d78c6e5b5f63f03658a31e4dfc539eaffa92a33067387b53",
+  "base_runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "projected_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether061-source-application\\GameLogic.before.php",
+  "manifest_sha256": "077c55759de30735cbfe37a6fa93692b489a5f9586e586d6edadd288c9307c7e",
+  "independent_source_review": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-aether-spindle-061-independent-source-review.json",
+  "independent_source_review_sha256": "405c99d0994e9bd9b263f4915acce45adb9107f2dc41d568fee806593ba44e63",
+  "component_validation_sha256": "ab22674663ce1dbd445627ae8f41a6c822c87a6efa9f8145ec9a508256c5bc93",
+  "component_contracts_before": 33,
+  "component_contracts_after": 33,
+  "existing_family": "021",
+  "new_shared_roots": 0,
+  "generator_run": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "fixture_count_before": 3547,
+  "actual_R_php_lint": {
+    "exit_code": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+    "stderr": ""
+  },
+  "actual_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "fixture_count_after": 3547,
+  "all_other_runtime_sources_preserved": true,
+  "utc_end": "2026-11-02T23:51:23.142553+00:00"
+}

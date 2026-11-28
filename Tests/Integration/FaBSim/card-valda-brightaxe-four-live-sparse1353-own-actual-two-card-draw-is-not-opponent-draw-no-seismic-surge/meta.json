@@ -1,0 +1,7 @@
+{
+    "name": "Valda / own actual draw is not an opponent draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:38:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGVALDA21_THREEDORI20. ActualTomeFyendal5HANDNAAcost1/realBlue6pitch3pays1R2/AP1to0; ownDeckComeFight8thenWounding9initialexactUID/order. AfterallfourresponsesrealTomeDRAW2moves8+9toownHandbehindexistingPotion7, Deck0/source5GY1/fund6Pitch1. Drawer1isValda1herself/NOTopponent, soHeroWHENnotearned/noSeismic/abilitylayer/extraUID/allArena0/UID9RNG0. HandplayedTomenoArsenalhealgate/ownHP21others20. Actuallegal0costPotion7HandresourceaffordablebutnativeattemptrejectsAP0beforetarget/payment/movement; exact3ownedHandcards/fatesunchanged/allStackDQquiet. Onlyown-drawopponentfilter/nativecost/orderedDraw2/noSurge/noRefundguard. PositiveopponentDraw/SeismiccreationWHEN/timing/startturn3SurgeDominate/Heroadult/TomeArsenalheal/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#valda_brightaxe FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

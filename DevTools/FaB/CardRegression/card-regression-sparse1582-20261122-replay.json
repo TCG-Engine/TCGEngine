@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-jarl-vetreidi-two-live-sparse1582-real-ice-play-earns-layer-no-exposed-equipment-slot",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-jarl-vetreidi-two-live-sparse1582-real-ice-play-earns-layer-no-exposed-equipment-slot",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1582-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1582-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bdb7b6f8ec1256de650671dd52207d3f4bdc88fb85716d09ded02865fb01c2a6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0440e19f437028155c3cf2f1daccd570830b66ba24ea0159b1a60aa7bf1e2afe",
+        "actions.json": "9e06220433fc219eb61623b440ffed19643f6ea2954128d1f79dae70b6d104b6",
+        "assertions.json": "4cf8b0ff446c65d10720f0d946daa017cccc3bbb553b3fdc5b17e02d1054d4f7",
+        "expected_final_gamestate.txt": "aed43fd23bb0447b07a4d67e6f6363436e61caacfb0cb82424b314c28b6f5904",
+        "meta.json": "e0b5e9c51a2da947943c2dbf72f2e87e95f562dc78d1463ccb29053c55f88f24"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

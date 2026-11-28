@@ -1,0 +1,28 @@
+{
+  "status": "APPLIED_NATIVE_PENDING",
+  "base_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "projected_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "source_review_sha256": "603e308bae27e380c4b49fb175fc0eb4727e50ac7480f79328bfb3d4e3855152",
+  "component_sha256": "803a9106b5e498cbb16f301c41421134b1cf32cfd25ffdd56e0a26f1e3e934bf",
+  "utc_start": "2026-11-03T14:45:20.627452+00:00",
+  "files": [
+    {
+      "target": "FaBSim/Custom/GameLogic.php",
+      "before_sha256": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+      "after_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-065069-lifecycle-source-application\\GameLogic.before.php"
+    }
+  ],
+  "generator_run": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "actual_R_lint": {
+    "exit_code": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+    "stderr": ""
+  },
+  "actual_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "all_other_runtime_sources_preserved": true,
+  "fixture_count_after": 3625,
+  "utc_end": "2026-11-03T14:45:21.247380+00:00"
+}

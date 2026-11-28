@@ -1,0 +1,119 @@
+{
+  "status": "APPROVED_EXACT_SAVED_BREAK_OF_DAWN_REAL_SHADOW_FOUR_PACKET_PREVENTED_TO_ZERO_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T10:42:16.275799+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch323.json",
+  "input_sha256": "2644ccc81fc1c09ed41644c6b0084e8763355e65e60398832db8cf6ccbc536e4",
+  "fixtures": [
+    {
+      "slug": "card-break-of-dawn-red-four-live-sparse-real-light-instant-prevents-four-from-actual-shadow-attack",
+      "card_id": "break_of_dawn_red",
+      "group_id": "pitch-cycle:break_of_dawn",
+      "fixture_sha256": "7320b67800852c0ca619839f047003fdf6605dd106ade158c1d919d228518cce",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8446300111ab97ace589490aff91b528e666ed9889dc7a5b17f9ae7bdae6640e",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "53c20f363db142cdfa3f3210d29e214cbbe7c60d19bb417d39c79f19aa1c751b",
+        "expected_final_gamestate.txt": "8971d484e699258ec623e0c076d66e06a33122d7d2561a56b122c33cce4879e9",
+        "meta.json": "c52e401198bb62cbcad9851bafd27d03c1a7eb11755ed7edd6d97efdddd49cb4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8446300111ab97ace589490aff91b528e666ed9889dc7a5b17f9ae7bdae6640e",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "53c20f363db142cdfa3f3210d29e214cbbe7c60d19bb417d39c79f19aa1c751b",
+        "expected_final_gamestate.txt": "8971d484e699258ec623e0c076d66e06a33122d7d2561a56b122c33cce4879e9",
+        "meta.json": "c52e401198bb62cbcad9851bafd27d03c1a7eb11755ed7edd6d97efdddd49cb4"
+      },
+      "actions": 36,
+      "native_assertions": 2803,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualyoungLevia20P1/Boltyn20LightP4/twootherlegalmanualheroes; originalprimary5P4Hand/ShadowGhostly6+Blue7P1Hand/noassets/prevention/historyseeds. ActualadjacentP4attacktargetbeforemovement, Blue7pitch3paysGhost1/AP1\u2192R2AP0/Pitch7. FourfreshsourceactualShadow6Chainpower4/noGA; fullAttack/actualemptyP4finish/DefendPriority/threeReactionpassesputP4priority. SamephysicalLightInstant5cost0movesP4HandtoStack/OwnerController4/KindINSTANT/SourceHandUID5, noAPresources; retainedthroughactual4,1,2 firstthree freshresponses, fourthP3responseownpublicGY5/Stackempty/ReactionP1. FourfreshReaction1,2,3,4 actualShadow4packet prevented4\u2192damage0/nohit/allHP20; no triggerlayer/newresponse round introduced. FullDamage/ResolutioncloseactualGhost6P1GY/primary5P4GY/Pitch7/R2AP0/allotherRAP0/UniqueIDCounter7/Random0/originalUID1-7ownershipconserved/no virtuals/StackChainsqueuesawaitframesclear/heroesreadyalllive/all11manualwindowsfalse. Every36nativeaction/2803orderedassertionexactlymatchesapprovedinput; actual32manualactors8each verified.",
+      "qualification": "OnlyRedpositiveoffturnInstant0/globalnextShadow-sourcefixed4prevention/oneactual4packet/fullcleanup. No nonShadow/otherrecipient/overflow/multiplepacket/unpreventable/secondcopy/expiry/Banishpermission/charge/BloodDebtEndPhase/hero/supportprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch323-independent-source-review.json",
+    "sha256": "a44dd50b89eb33c182ef31c87209e32a7b0f30c1c1b3393f2e04b3e78de264bf",
+    "manifest_sha256": "4e214d35f6b9ea8f27957416d7ae0f324a72ef7f0f9f9b40a549d9e2ff2a5ee2"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch323-20261103T104055Z-6ae9ba378b522.json",
+    "sha256": "5d921b508acc20c0e36db0cbe8efbd4ac2d905eb2a43668c34ab86001aae3cec"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch323.recording-results.json",
+    "sha256": "1207e279e327288d31e356440659c82bdd9a829479f31b9788ed9b19671c52f8"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch323-native-r1\\receipt.json",
+    "sha256": "464a04657a96bf56e39ab7d06e2b54162e802c572819843cb20c0711323635da",
+    "stdout_sha256": "56ae206c4b50532317b0806d9dec15588464d45fcf3ccbd59be8ae542a39e380",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparserprefix exactB323bindings only; unrelatedoldsemanticsection neverexecuted."
+  },
+  "method": "Independentread-only actualsavedraw5review: all36actualactor/mode/payload+2803orderednativeassertions equalapprovedfrozeninput; fullschema initial/finalownership/profiles/economy/actualphysicalInstant5Stack\u2192ownGY andearnednextShadow4prevention\u2192zero/nohit/fullphysicalUIDcleanupverified. NoPHP/native/replay/Rwrites byreviewer.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplaysseparateevidence, not executed by reviewer.",
+    "OnlyRedpositiveoffturnInstant0/globalnextShadow-sourcefixed4prevention/oneactual4packet/fullcleanup. No nonShadow/otherrecipient/overflow/multiplepacket/unpreventable/secondcopy/expiry/Banishpermission/charge/BloodDebtEndPhase/hero/supportprimary/fullcard/controlcredit.",
+    "Current0dcontextretained; no sourceapplication/runtime migration/oldcorpus audit or deniedrepairretry."
+  ]
+}

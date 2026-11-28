@@ -1,0 +1,7 @@
+{
+    "name": "Talisman of Balance / equal Arsenals earn no load at actual end phase",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:42:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_FOURDORI20. ActualTalisman5Action0/AP1to0/all4responses\u2192sameItem5ArenaandprintedGAAP1. AllfourArsenals0equal, ownactualDeckWoundingBlue6nonempty/ownHand0. FouractualActionpasses\u2192END_PHASE1; nooppArsenalgreater, strictfewerpredicateFALSE, so noearnedWHEN/Destroy/load; 5Arena/6Deck/Arsenalall0. FouractualEndpassesfinishnormalHand0Arsenalplacement(nochoice), Drawupdrawssingle6fromDecktoHand, thennativeTurn2/TurnID3/AP2=1. NormaldrawnotTalismanload. Realnextseat2Wounding7AA0toadjacentP1/allfourmanualwindows/base4/noGA/actual4damageP1HP16/fullclose. Primary5sameownedreadyArena,6Hand1/7GY2/Deckall0/Arsenalall0/UID7RNG0/APall0/Rall0/quietStackDQ. Onlystrictfewer-arsenalfalseguard/nativeproduction/GA/Endtransition/normaldraw/nextseatattack; positiveinequality/load/itsWHENtiming/opponentquantifier/othermode/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#talisman_of_balance_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/EVRCards.php FaBSim/Custom/WTRCards.php"
+}

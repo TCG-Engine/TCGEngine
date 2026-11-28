@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8b69f7fa810d7433bf12f7c5be925ac60aea6ccf10a02c9f2c49c0e8fec759b1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4a52f07976b6b9c2734805eabce4b170fbe076bc3eea34f9f6a6ca381640ab9",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "09cbad32bd885b6d9fcc9e841a2af2430ea0d5a56ac2072b5aa0c1e99b268e38",
+        "expected_final_gamestate.txt": "b28148abff76d2182df8a10de5689d9fdcc9f37f06a3f37ae0c72f1d1cf1ac4b",
+        "meta.json": "b64162b8c827fc25a79c509c16e92e9c1fdef0f7b98687edd842e6fdec45c85a"
+      }
+    },
+    {
+      "slug": "card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c04ee64a90f858c90bca42f040ba5d06c1b4117b0ce0a86134d161f2eff7a8e8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07975190365ec77a7e876f6709d4e764d798c371d5a514d00bfad5001562f725",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "a9c531a9d23e9a59226ab1804e257175feff4b0d407dc08a1572270867485f3f",
+        "expected_final_gamestate.txt": "40350749ec7098d8a7645ef28b57b9ca48b62bf505098291863558b26eb70924",
+        "meta.json": "2e32fa5ae606b6a9e49f80d790a21683c33f99d58e13b486ea5a05593b69c6a6"
+      }
+    },
+    {
+      "slug": "card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "536896cdceb75bc8cf1846f228af7ffd664bd6f26e7662dd7160f2b4dab592aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ee652ffa3919ab9a0e1fedb1c6fd880015db587323c6ee28c19c346033a22f2",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "4a0af7652dd11cf2a16c3969cd60ec608b154ea8dbf1e4e2926200757a0c61eb",
+        "expected_final_gamestate.txt": "929a7c82375bcccc5e2b5ecbdf7249d1d6419d8232a7bfad7ab4c9a67a6423c1",
+        "meta.json": "1fcf045e329cfc4355aef6167c978e2d8bc59c32e4cdee30e59c630cd250a61f"
+      }
+    },
+    {
+      "slug": "card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9e42136180cdf0689b56c0a10164eb63bc0447465fefeb801996e71cb722ab9c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bc58aa0444420145e94d938055bf4813c3d1c1503452b3ab1f897dd2e26cf20",
+        "actions.json": "f2f9cae5fadbf65cb74c0fadc85adf641287c2b79c3a25e85d868684b170fa46",
+        "assertions.json": "e031917dfdbdab26177caa2fc5d6c355403864e36ea209abacaaaa8598c21c9e",
+        "expected_final_gamestate.txt": "bbaee673b2c8c074245498d0657fc6bf375ddff61721c10063b98af9f70c09ca",
+        "meta.json": "01ee2305bc49bf1ce64d51e4727cb9218cb5cf501905e1620dcc9e5d5e4e12f2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

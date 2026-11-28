@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spew-shadow-red-four-live-sparse1071-real-banish-permission-and-light-hero-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spew-shadow-red-four-live-sparse1071-real-banish-permission-and-light-hero-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1071-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1071-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "601286a0623c1ef63ede45d7ce37c69cd44b103b11d136677b54b6f0e4ec5bc5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6029b52e6bfa304b2b2933c40796cf88bb6a642e7e0d499bb6aa70cb57765884",
+        "actions.json": "1ae5dfc264f43a4e6815ae1f52371147ff6b6b94091dfb20b02fa9490fdbffdd",
+        "assertions.json": "1d53b2193a7aab961458bb516c6b72d8723011f637e48bb1c07b8cfb76d00d54",
+        "expected_final_gamestate.txt": "7f905bac7be7862ed160b9c64ab82467fa081379dc8a4d3411d46306cc245ab9",
+        "meta.json": "1d57c173bfe38a85f709046a5bc8c983cedce09929160a58ddcbfa19ac20996c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

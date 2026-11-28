@@ -1,0 +1,128 @@
+{
+  "status": "INDEPENDENT_NATIVE_CONFIRMED_UNFIXED_NO_FIXTURE",
+  "reviewer": "/root/nov2_next_author",
+  "reviewed_utc": "2026-11-03T06:56:21.450264+00:00",
+  "classification_approved": true,
+  "native_confirmed": true,
+  "suggested_issue_id_reserved_by_root": "FAB-REG-073",
+  "classification": "duplicate conditional intrinsic power through generated Monarch callback and unconditional iArathael power aggregation",
+  "root_cause_group": "duplicate_reprint_intrinsic_modifier_aggregation",
+  "new_distinct_gameplay_defect_group": true,
+  "card_ids_individually_reproduced": [
+    "tremor_of_iarathael_red"
+  ],
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch300.json",
+  "source_sha256": "320e694b41a0dd18f82eaf5b531d2fb3ef21573b16db6dd97424a7053fe70281",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-author\\manifest.json",
+  "manifest_sha256": "7c44f94883718b71f3b6463cf0cfde4a30cf6cf84da6fb0dfd6b002aa59e5d16",
+  "source_approval": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-independent-source-review.json",
+  "source_approval_sha256": "d88f9ba66bcb22ba02080d1d864e23cd1ff2b8e6e5a8e12f1807c3867994200c",
+  "archive": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch300-20261103T064544Z-6ae983183756e.json",
+  "archive_sha256": "c5581b5e1fbabf9b03781045adca009deaccfd30df6d052c3665dff1efa6e816",
+  "native_error": "power  expected 6 got 8",
+  "actual_native_inputs": 40,
+  "last_four_source_responses": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "prefix_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-tremor300-failed-prefix\\receipt.json",
+  "prefix_receipt_sha256": "a6d0195a9c9fc678b20a1c621c25b993faa94cd04ff0d91ff94f43ac4cd0091a",
+  "prefix_snapshot": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-tremor300-failed-prefix\\initial_gamestate.txt",
+  "prefix_snapshot_sha256": "bb8a692943831f93ef9af818cff30c985ec41ac093a718f61da1d87a7a3121f0",
+  "printed_face_actually_viewed": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\tremor_of_iarathael_red.webp",
+    "sha256": "f7e2d46294d70fdec166705fb226ffcce8738fa48f940fb4bdc5bc67e3b057ae",
+    "printed_power": 4,
+    "conditional_bonus": 2,
+    "resource_cost": 1
+  },
+  "correct_expectation": "The real same-turn banish earns the single printed +2, so Tremor power is 4+2=6. Nimblism was consumed on preceding Nimble Strike; Tremor has no card TurnEffects.",
+  "native_observation": {
+    "power": 8,
+    "physical_attack": {
+      "CardID": "tremor_of_iarathael_red",
+      "Status": "2",
+      "Owner": "1",
+      "Controller": "1",
+      "Damage": "0",
+      "UniqueID": "8",
+      "TurnEffects": "-",
+      "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0=",
+      "Role": "ATTACK",
+      "ChainLink": "1",
+      "FromZone": "Hand"
+    },
+    "P1_Banish": [
+      {
+        "CardID": "nimblism_red",
+        "UniqueID": "5",
+        "FaceDown": "0",
+        "ReturnAtEndTurn": "0",
+        "PlayableFromBanish": "0",
+        "PlayableChainLink": "0",
+        "Counters": "-",
+        "TurnEffects": "-",
+        "Owner": "1",
+        "Controller": "1"
+      }
+    ],
+    "P1_Graveyard": [
+      {
+        "CardID": "nimble_strike_red",
+        "UniqueID": "6",
+        "Owner": "1",
+        "Controller": "1",
+        "FaceDown": "0"
+      }
+    ],
+    "P1_Pitch": [
+      {
+        "CardID": "wounding_blow_blue",
+        "UniqueID": "7",
+        "Owner": "1",
+        "Controller": "1"
+      }
+    ],
+    "resources": 1,
+    "AP": 0,
+    "P4_HP": 12,
+    "Stack": [],
+    "LiveSeats": "1234"
+  },
+  "bounded_cause": [
+    "GameLogic.php:1867 EvaluateAttackPowerModifier invokes the sole compiled TremorRed:0 callback (GeneratedMacroCode.php:31913-31915), which calls FaBMONOwnPower.",
+    "MONCards.php:124 returns +2 for Tremor with actual MON_BANISHED history.",
+    "GameLogic.php:1878 then adds FaBIARPower; IARCards.php:223 adds the same conditional +2 again. All Arena zones empty: FaBIARBoundMarks has no mark contribution.",
+    "Observed 4+2+2=8 is a duplicate runtime aggregation, not duplicate compiled callback count or an incorrect 6-power oracle."
+  ],
+  "source_path_hashes": {
+    "FaBSim/Custom/GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim/Custom/MONCards.php": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+    "FaBSim/Custom/IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6"
+  },
+  "dedup": {
+    "ledger": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "a2bc71bdae7423adf35ff908d33b098514e485b8b4827b116e36dc67e2d8fd56",
+    "entries": 72,
+    "named_path_matches": [],
+    "distinct_from": {
+      "FAB-REG-020": "Suppression/dynamic intrinsic eligibility for Burgeoning/Power Play, not duplicate unsuppressed modifier aggregation.",
+      "FAB-REG-040": "Missing arcane-card eligibility caller, not a doubled physical intrinsic modifier."
+    }
+  },
+  "fixture_saved": false,
+  "passing_fixture": null,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_fix_proposed": false,
+  "limits": [
+    "P4 HP12 is preceding Nimble Strike damage8. Tremor damage and its remaining21 inputs were not executed.",
+    "Red representative only; no sibling, other reprint or suppression branch credit.",
+    "Independent read-only source/snapshot/archive review only; no PHP, native execution, R writes, generation or source fix."
+  ]
+}

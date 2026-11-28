@@ -1,0 +1,213 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T18:10:01.000489+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse912-20261122.json",
+  "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+  "new_scenarios": 6,
+  "new_groups": 6,
+  "new_primary_ids": 6,
+  "actions": 167,
+  "native_assertions": 844,
+  "manual_passes": 150,
+  "totals": {
+    "saved_registered_scenarios": 4362,
+    "duels": 3075,
+    "four_live": 1287,
+    "recorded_primary_ids": 1510,
+    "identity_denominator": 5196,
+    "recorded_groups": 1384,
+    "group_denominator": 3324,
+    "four_live_groups": 1276,
+    "phase_qualified_scenarios_at_actual_contexts": 999,
+    "phase_qualified_unique_groups": 989,
+    "creation_replay_passes": 1740,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 160,
+  "scenarios": [
+    {
+      "card_id": "cryptic_crossing_yellow",
+      "group_id": "identity:cryptic_crossing_yellow",
+      "scenario_id": "card-cryptic-crossing-yellow-four-live-sparse912-one-actual-attack-action-pitch-without-mixed-type-draw-discard",
+      "effect_branches": [
+        "one_actual_attack_action_pitch_without_mixed_type_draw_discard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cryptic-crossing-yellow-four-live-sparse912-one-actual-attack-action-pitch-without-mixed-type-draw-discard",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "brothers_in_arms_red",
+      "group_id": "pitch-cycle:brothers_in_arms",
+      "scenario_id": "card-brothers-in-arms-red-four-live-sparse912-actual-six-attack-without-defending-payment-branch",
+      "effect_branches": [
+        "actual_six_attack_without_defending_payment_branch"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-brothers-in-arms-red-four-live-sparse912-actual-six-attack-without-defending-payment-branch",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "skull_crack_red",
+      "group_id": "identity:skull_crack_red",
+      "scenario_id": "card-skull-crack-red-four-live-sparse912-actual-six-attack-without-random-discard-resource-event",
+      "effect_branches": [
+        "actual_six_attack_without_random_discard_resource_event"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-skull-crack-red-four-live-sparse912-actual-six-attack-without-random-discard-resource-event",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "whispers_within_red",
+      "group_id": "pitch-cycle:whispers_within",
+      "scenario_id": "card-whispers-within-red-four-live-sparse912-actual-seven-attack-without-defending-opt",
+      "effect_branches": [
+        "actual_seven_attack_without_defending_opt"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-whispers-within-red-four-live-sparse912-actual-seven-attack-without-defending-opt",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "defender_of_daybreak_red",
+      "group_id": "pitch-cycle:defender_of_daybreak",
+      "scenario_id": "card-defender-of-daybreak-red-four-live-sparse911-actual-four-attack-without-defending-shadow-trigger",
+      "effect_branches": [
+        "actual_four_attack_without_defending_shadow_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-defender-of-daybreak-red-four-live-sparse911-actual-four-attack-without-defending-shadow-trigger",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "alpha_instinct_blue",
+      "group_id": "identity:alpha_instinct_blue",
+      "scenario_id": "card-alpha-instinct-blue-four-live-sparse912-legal-rhinar-attack-without-beat-chest-discard-event",
+      "effect_branches": [
+        "legal_rhinar_attack_without_beat_chest_discard_event"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-alpha-instinct-blue-four-live-sparse912-legal-rhinar-attack-without-beat-chest-discard-event",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "review_evidence": "review-evidence/sparse912-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9caf8027fb2a492291849f2d327978bfe4f41dd4e748fbb564b8129b24bf7ba3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse912-20261122-replay.json",
+          "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

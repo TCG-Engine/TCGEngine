@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1349-20261122.json",
+  "source_spec_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+  "input_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+      "card_id": "aftershock_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "455b186178e0e2962296e8dd7720a989934fc09d6d79f8e19d969b3eb263d1fe",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "af33402defe99015367362bb315b573a538f60aafb377c6962b683c2b113cddb",
+        "expected_final_gamestate.txt": "313b11305cb1837dd6a1dd01d642ad8d00be5aca582fa3553f930376e15b6d74",
+        "meta.json": "0127416aac3dcf92a4b5e21201e8cc2e2cc2694832f76a084428b3089fd7b369"
+      },
+      "fixture_sha256": "43f172d566d958dc9f8197401f066751fb0adff5cc1e13f83371a8a896750794",
+      "actions": 31,
+      "native_assertions": 375,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1349-20261122.json",
+      "input_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1349-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+        "fixture_slug": "card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "989a6fcfe32ac024bb1d69bd6d82fa02849e8283ecbec997fd0fd31e034fe894",
+    "source_note_sha256": "26b9b8e11f0b27640ab5cd8450eb7f64fecbe8838565f5a8a85f11d5008bd6e8",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 31,
+    "query_checks": 375,
+    "persistable_assertions": 375,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_NO_SEISMIC_HISTORY_WITH_ACTUAL_FOUR_COST_AND_BLOCK_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "aftershock_red",
+        "group_id": "pitch-cycle:aftershock",
+        "native_controls": 31,
+        "persistable_assertions": 375
+      }
+    ],
+    "basis": [
+      "Cached AftershockRed GuardianAA4/base8 legal under naturalYoungBravo20 withthreeYoungDori20/manual4UPF; distinct cycle unrepresented/unheld. Initial no controlledSeismic history/effects/earlierplay/allArena0, so selected intervening attack condition false. No optionalobjectcosts/Bravoactivation/Clash/wager/Crush event performed. Physical HeroUID1..4/primary5/BlueCritical6+RedCritical7Hand1/twoSharpenSteelBlue8and9Hand4 correct.",
+      "Generated AttackDeclared20039 checks MPGSurges(player)>0 OR ARCEffect MPG_CONTROLLED_SURGE>0 before creatingSeismic. MPGCards3 counts actual controlledArenaSurges; actorArena0 and emptyturneffects/history mean bothfalse, no earned creationWHEN. Printed condition checks priorcontrol, not merely presentSurge; selected absence of bothcurrent/historical control is sound withoutcertifyingpositivehistorytracking.",
+      "ActualBlue6pitch3 is insufficient printed4: realPITCH/R3/AP1 afterfirstpitch, Red7pitch1 completescost4/R0/AP0. Exactsource5Stack/CC actualpower8/nofalsebuff/noGA retained through allfourfresh source/combat responses. ActualtwolegalNAAHandSharpenSteelBlue3defenders move original8then9 toownCC4 RoleDEFENSE/FromZoneHand and give6defense; actual8-6=2HeroDamageHP18/attackHittrue. No primaryhitability printed or Doriweaponhit earned by GenericHand defenders/GuardianAA.",
+      "Fullclose actualprimary5GY1, originalfunders6then7Pitch1, defenders8then9GY4, allHand/Arena/Stack/queues/CC empty, UID9/RNG0/APR0 andreadyHeroes pin physical fates/noSurge. Parent correctedpre-native proseonly Yellow9\u2192actualBlue9 and source list toincludeactualMPGCards; gameplay/assertions unchanged. Currentcorrected spec/note/author hashesbound, all31controls/375assertionspersist."
+    ],
+    "limits": [
+      "Only no-prior-Seismic-control false condition, actual4resourcepayment/base8power/tworealHandblocks/2damage/noSurgeguard approvedpendingnative save/replay. No nativepass/qualifiedcoverage credit claimed.",
+      "PositivecontrolledSeismic/history/discount/tokencreation/WHENtiming, Heroactivation, otherpitches/targets/support/siblings/wholecarduntested/uncredited. No separatefollowupActionconsumer is included in this narrowcase. Existingholdsunchanged/noenginerepair.",
+      "Only W receipt written; no nativegame/test/replay, T/source/engineedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1349.py": "401f3f8425f82bf21f766d2e4113842db6c3cac7eff9003535eb645922797a8c",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_seismic_trigger_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1349-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e188682df16022594b00cc6a51850d12c0e3d4cceb7b60970bcd4f9d04b8270b"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,83 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen activation/prevention-trigger packet review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1185-20261122.json",
+  "source_spec_sha256": "6cd1d36865ac9ebc5a2f0393f5cee81cd0782e7502f4e82c51994270345b2c67",
+  "input_sha256": "6cd1d36865ac9ebc5a2f0393f5cee81cd0782e7502f4e82c51994270345b2c67",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-mental-block-blue-four-live-sparse1185-real-discard-cost-prevents-two-and-separate-trigger-creates-owned-ponder",
+      "card_id": "mental_block_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e4c3aee41bceef93db7703fc61502e843ce77e0c23e780b16584c35ada31bde4",
+        "actions.json": "9b7fe90f3151bdc47e829536d64b9148dddb62938c384551321a3ee6ef4ac18c",
+        "assertions.json": "864313b72570e5a83af183473dca6902749bf410cbaf2d3a8d9a3651819f110f",
+        "expected_final_gamestate.txt": "5dfc103b5d4e3e66e10a0eb5ffa12455376c00ca5a68be61a95b1cc180209b2d",
+        "meta.json": "6bb257c16b48050566e4cf4d179c9661d6f12c582d6d3ba8695af18dec58c018"
+      },
+      "fixture_sha256": "363a8dbd797a0600c98bee910110ff35d30917b5d175e0559d309ce4a2813e75",
+      "actions": 18,
+      "native_assertions": 473,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1185-20261122.json",
+      "input_sha256": "6cd1d36865ac9ebc5a2f0393f5cee81cd0782e7502f4e82c51994270345b2c67",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1185-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mental-block-blue-four-live-sparse1185-real-discard-cost-prevents-two-and-separate-trigger-creates-owned-ponder",
+        "fixture_slug": "card-mental-block-blue-four-live-sparse1185-real-discard-cost-prevents-two-and-separate-trigger-creates-owned-ponder",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen activation/prevention-trigger packet review",
+    "spec_sha256": "6cd1d36865ac9ebc5a2f0393f5cee81cd0782e7502f4e82c51994270345b2c67",
+    "case_count": 1,
+    "native_controls": 18,
+    "persistable_assertions": 473,
+    "author_only_checks_omitted": 0,
+    "card_id": "mental_block_blue",
+    "group_id": "identity:mental_block_blue",
+    "basis": [
+      "Exact standalone Mental Block Blue group uncovered/no exact named current hold. Card is Wizard Block, not an Instant card: printed Hand Instant discard-this ability is used. Both young Verdance20 actors1/4 and two Dorinthea20 are legal; no Earth banish/life gain/Verdance activation, prevention equipment or other observer in setup.",
+      "ROSRuntime8/10/11 explicitly establishes one Instant0 Hand ability; paid hook12 discards physical5 after payment and before responses. ARC legal routing permits this Hand discard ability. At actual PRIORITY4, pitch/block/play/arsenal are unavailable and only ARC_0 remains; ActionMap2824 executes that sole legal action directly, so no unsupported menu assumption or omitted decision.",
+      "Actual Zap6 prepares Hero4 before AP payment/source responses. At victim4 priority the native Mental click discards same owned5 to p4GY, creates independent upper ABI7/KindABILITY/Controller4/SourceUID5 above held Zap6, spends no R or AP, and pins no Ponder/HP20 before all four fresh upper responders4,1,2,3.",
+      "Mental generated ResolveAbility calls ROSAdd PREVENT2 with ponder. ROSCards188-198 captures the currently resolving managed ARC_ABILITY7 source/controller4/physicalUID5; it does not require discarded5 to remain in Hand. Upper ability clears before resumed lower Zap; UID7/heldZap6/HP20/Arena0 pin no early token.",
+      "Four fresh lower source responders1,2,3,4 resolve real Zap3. ROSPrevent163-183 applies2 prevention, consumes first-prevention marker before callbacks and queues separate rosPreventionToken from captured source. Frozen checkpoint requires actualHP19, Zap6ownedGY1, Mental5ownedGY4 and earnedABI8/Controller4/SourceUID5 with no Ponder/UID8.",
+      "Four separate child responders1,2,3,4 precede captured handler ROSResolvePreventedToken209-216; only then factory creates Ponder9owned/controller4. It uses captured origin rather than mutable foreign DQ/source assumptions. No async choice or early inline token is expected.",
+      "Both source layers and earned layer have exact identities, order and priority/stack-count boundaries. Final Ponder9Arena4, source5GY4/source6GY1, HP4=19/others20/R0/AP0/UID9/Random0, no Stack/DQ/pending state or other zones match rules.",
+      "All473 declared checks persist; no author-only diagnostic or contradictory checkpoint oracle. Existing source-managed upper ABI and synchronous captured child handler are reused without engine or framework changes."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, saved-query review and targeted clean replay; reviewer made no native/T/source change.",
+      "One real packet/first-prevention delayed-token branch only. No second packet/marker reuse, expiry, Block defense/normal card play, Ponder draw/endphase, life loss vs prevention, other Heroes/support/sibling/full-card or general virtual-frame/lifetime correctness claim."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1185-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "20c325a8fdeff3a4f2beedbe450797340555489c7d0f592a924bd4552334a3f9"
+  },
+  "full_suite_run": false
+}

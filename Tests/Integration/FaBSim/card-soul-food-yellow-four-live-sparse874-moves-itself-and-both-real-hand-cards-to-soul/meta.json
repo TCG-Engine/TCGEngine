@@ -1,0 +1,7 @@
+{
+    "name": "Soul Food / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Put this and all cards in your hand into your soul. Representative only: moves_itself_and_both_real_hand_cards_to_soul. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#soul_food_yellow"
+}

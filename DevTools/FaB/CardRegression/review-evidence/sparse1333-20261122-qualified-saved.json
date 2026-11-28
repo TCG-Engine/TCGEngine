@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1333-20261122.json",
+  "source_spec_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+  "input_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+      "card_id": "courageous_steelhand_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b87aa7fc5186ba61f201645167d51e026d3c01582666a54a56791dbded70f5e5",
+        "actions.json": "04ec7b0d1f667a55258d123e3e9302e3c2ae3142df18e909a451d2081749768d",
+        "assertions.json": "ea7dc739f765e6ac6aa71f12c07ca93ab91bf9a6a3143b9261e888db373f8739",
+        "expected_final_gamestate.txt": "7eb3146695576b7a37c256b8f7d8e48f622400da0f8c89e1eeb6622b969722db",
+        "meta.json": "069ee2427d6e5c91fcd361692f7e7788f7d7abfab389c72c428ddecbc4483d54"
+      },
+      "fixture_sha256": "438657ab808603b9142659e28d60f07417d142d9e7edebc6eb5a0b5dddd34e1d",
+      "actions": 32,
+      "native_assertions": 362,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1333-20261122.json",
+      "input_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1333-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+        "fixture_slug": "card-courageous-steelhand-red-four-live-sparse1333-real-uncharged-reaction-does-not-gain-three-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "abe474084087947c3f438123f597dfcc81fcbce365f7502e3c477faeb81d0de7",
+    "source_note_sha256": "d157df2e288117a83148ce2adcf7aa24c3907b2e3ab5df62dbf56a484f724788",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 32,
+    "query_checks": 362,
+    "persistable_assertions": 362,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_UNCHARGED_REAL_REACTION_NO_POWER_GAIN_OBSERVABLE_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "courageous_steelhand_red",
+        "group_id": "pitch-cycle:courageous_steelhand",
+        "native_controls": 32,
+        "persistable_assertions": 362
+      }
+    ],
+    "basis": [
+      "Fresh unrepresented pitch cycle/no group hold. Actual primary Light Warrior Attack Reaction0 legal under natural Young Boltyn20 versus three Young Dori20/manual UPF. Four HeroUID1..4 then real Generic Wounding5/primary6 Hand1. Fresh empty Soul/Banish/Pitch/effects/history and only actual zero-cost Generic attack before reaction establish no charge event; no producer/cost or private flag seed. Light card play itself is not charge.",
+      "Printed if-charged controls the resolution buff; it is not play-only-if charged. WTRCanPlay467+ verifies attacker current active attack; named Courageous exception480 permits this sole own active Generic AA rather than default weapon-only restriction. Correct legal AttackReaction0 at own REACTION1/AP0/R0 therefore requires no rejection or cost/target-resolving choice. Only this unchanged singleton current attack is exercised, not alternate/changed targets.",
+      "GameLogic1035\u20131038 uses physical KindATTACK_REACTION/windowREACTION. Four-live holdPriority keeps actor1, explicit response1\u21922\u21923\u21924 retains original6Stack and attack4/noGA; final pass4 with stackEmpty true resolves source6 to ownGY before further reaction passes. Actual compiled ResolveCard1725\u20131731 checks MON CHARGED before tagging current attack WTR_POWER3. Fresh count0 is false, so no power gain or other resolving effect is earned; no charged additional-cost099 or positive producer timing dependency.",
+      "Strict real attackPower4/defense0/damage4/HP16 rather than7/HP13 witnesses false conditional through game outcome. No own Boltyn charged passive or Hero reaction, opposing Dori weapon-hit ability or blank Generic on-hit event is earned. Full close actual primary6 then attack5 ownGY0/1, all other zones empty/Heroes ready/APR0/UID6/RNG0/Stack decisions combat quiet. All362 assertions across32 controls persist."
+    ],
+    "limits": [
+      "Only current uncharged negative resolution semantic/source review pending native save/replay; no native pass or coverage credit claimed.",
+      "No positive charged buff/charge producer/sibling/target variation or response mutation/fizzle/Hero/support/full-card credit. Existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1333.py": "e75d84ddcffad471802b0dadbabec03f262b44911ab3ee0b7de8bd6e1fbed666",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_charged_effect_credit": false,
+    "whole_card_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1333-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "eec4d7c19a7e230034dbdc699fa8e17b0ea56a8f4cd0974289dd05bc6c5ca2d2"
+  },
+  "full_suite_run": false
+}

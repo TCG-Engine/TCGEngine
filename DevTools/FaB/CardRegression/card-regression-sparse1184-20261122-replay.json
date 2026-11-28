@@ -1,0 +1,194 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aegis-archangel-of-protection-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a5d8cbe2221cf16b23e02e2be3ddb99d63c34c5f78f86b21d2ccf3ecf5f9eaf3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95a0941cfacf17e382019417c95327bbb4a3a9b438835ffe90139c65372554f8",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "eb9691f7107d57e284224d8bd0d6113f9be44322f8efb4472978fa29b70c87c5",
+        "expected_final_gamestate.txt": "8b665951d4358c5cad1f76d8c915b00d1ab5877e12d3066c8eedf5a64ce67a24",
+        "meta.json": "3c92df620f5dc16135eedfbe72ce02f3c669d994a9404541239e06b1949161ac"
+      }
+    },
+    {
+      "slug": "card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-avalon-archangel-of-rebirth-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "250973f090cdce1b6408e91f36a4f6c5a2506fe2e6f3e51b51508414efe25796",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc016ca934ef7b00ebc66beaffb7d6625056d5f6a3eecc27be66686911531d2d",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "068d99d0d683a5035ecf4829c24efa8715ed3c445721ecda5b05fc34dc092c0c",
+        "expected_final_gamestate.txt": "ae50ac0e717fd818ea588ba1e6d6ff235ba8a4fb07bbfa65edf3d9aefa17db41",
+        "meta.json": "573e598c02a551176668e162a17e7c829e57fda213743137409f2bd327ef6108"
+      }
+    },
+    {
+      "slug": "card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bellona-archangel-of-war-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "671ed3a4188d9fd9b5da913e68ce3be246beb2617302ecac439421f252130503",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b74574a88433fdd91fe77c2c2a978eeca2098d51656d6b21f22136b9a093abbc",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "2725d8ef84424883aabe65f2bf7810d62d2e55dbdf9d22cd2f52e37ba0e593bc",
+        "expected_final_gamestate.txt": "2d7af47bc78df608214bd7f8036e33d7faeba74b39f0ea92cb3bbcb879d32a99",
+        "meta.json": "f87a127fa31f8968e0870da11bf05a55af2a7d056eb5c0a647bca52f23459421"
+      }
+    },
+    {
+      "slug": "card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-metis-archangel-of-tenacity-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cde7e34bf2bb3b2e6d2096369dbac6457b061680cfaf5e052299c23ad068d68e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88b30589ebcb119a7a77ae5d719bbe11a050c3b081c2e391c7a9a16b4b19139a",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "36ae2620b016285f302af649d41b5d8d36d8c5fcddb687be9a89ef3c19ae5949",
+        "expected_final_gamestate.txt": "3d90243254c15991eb6b4a2150ba16518d9924c32a95f6f35de156f843d626fe",
+        "meta.json": "af7066af788c4e7116168b550ec473e2ebe63a5ca4d407e565794e164eedb279"
+      }
+    },
+    {
+      "slug": "card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sekem-archangel-of-ravages-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "95f58b864d714fe7e8822f85b9036488f4d52e2bafcef393167f32bd66322904",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "541fce24c26888633751521a848353f31047a559a450ca8b15f496e2fd3eca88",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "8db5c0e991f0b84e3d3bc0f80b21f73ff70c8afbed1bc1d95a66eb3f148e1a71",
+        "expected_final_gamestate.txt": "5b5b88b96b9abdd655d9237498f9fa1a2a3af49f7eb02efabe4259957aff407f",
+        "meta.json": "c0c08426e4d7be88a360c2854bb33e36ec70fb4431f1058830fb048ea9308a79"
+      }
+    },
+    {
+      "slug": "card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-suraya-archangel-of-erudition-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eb9709f6364cc670070e20455ab92373c7c5b4649c8f650f8cd4c4e1067be33f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fec9ba8b895f7e136db4a193c4477c9ba3aee34fa24afa24468bad67076be878",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "ecbf9651d75e1443c47dbaf20c930c79a515535fa110738c2335fb747a3c73e5",
+        "expected_final_gamestate.txt": "d0b834ff81cf95d45a01731742432ca6369d5a348a94b6cfbbc5e5e308065cf0",
+        "meta.json": "6cde2760f88e1f25643cad8f268900add2f83508b83fbe740ec7edd40b12d3fa"
+      }
+    },
+    {
+      "slug": "card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-themis-archangel-of-judgment-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6bbfb65700169cad1ac9430ec68daab0ca3bd760df4f78f7bbd675ac888a3118",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd04f180fd5478bab6df856b1ee14aa50103d90db202eb7c00ba4ac6302903ba",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "a71b35648c2942a88ad46bebd12216590e90ca67a44e658a472c1ad2c12b9dbd",
+        "expected_final_gamestate.txt": "9c161880c4d3b4a90e0889af47a91be42e0f10e4cf4eba565e09a8c3ed3e89b0",
+        "meta.json": "6eae3ea7e56ef8479eb28dd7e9967c6bd14a3bbeb02deca6dcbfcb4f26452ee3"
+      }
+    },
+    {
+      "slug": "card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-victoria-archangel-of-triumph-four-live-sparse1184-ally-ward-four-prevents-three-and-dies-front-face",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\07.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1184-local-20261122\\clean-replays\\07.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3b8ad3631f51d32f796f25ad2d76207b3059944dfcb37f69eac471bf3aaa33d1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8c7236eb3cedf1becb128868f3ec0128c9e819d5fbd39b7b7b78a4e7ad856b28",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "bb5d9bd4b0def34d5f54a6be55bc1c386f9781a2a830a6c85ed6a8dd4505e750",
+        "expected_final_gamestate.txt": "d51e1c14f70c8f52c4e7f433114dc30882348efe68bd260cabdccaba7e9898d8",
+        "meta.json": "9ac3a2a66dc56d1209fda1d0126ed3e73ba6b93d13dba0bc8a7a9e454b4600a9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

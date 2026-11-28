@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1231-20261122.json",
+  "source_spec_sha256": "f8926ea3adb0bfcea9cb8816bc8300d55d810ac47963f351daa64509e1a3de4d",
+  "input_sha256": "5619c202888b2fb9298ca9bef27e286d594f417cdb359fc011576f82ea372265",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-viserai-between-worlds-four-live-sparse1231-real-single-runechant-earns-hero-top-banish-before-traverse-threshold",
+      "card_id": "viserai_between_worlds",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fb83ea4b5edc7c8397a08c8cd0c5cb3b0bbc67eaa5f3dd97bc0d620810a1741",
+        "actions.json": "f3e77449fd4ff1d41c7037b53b69fbdd8caf39b45b2c7ad3a240a10c062ff792",
+        "assertions.json": "17d048d5400fbd5541ea970786964eadc4f51c4d3242bfd031669008dc3e8f1c",
+        "expected_final_gamestate.txt": "33d48711a97a475d4f3996e9ffe2c6885ceace3ae956885b7cd77b062539aa96",
+        "meta.json": "225e9bf48b198ba605466901266f77e38c2be2ba59114db9cd602ff40de574ca"
+      },
+      "fixture_sha256": "19f6063504a90475b40aba8f0360ff418f6f4545866c37233fa971e3091b0c94",
+      "actions": 9,
+      "native_assertions": 227,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1231-20261122.json",
+      "input_sha256": "5619c202888b2fb9298ca9bef27e286d594f417cdb359fc011576f82ea372265",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-viserai-between-worlds-four-live-sparse1231-real-single-runechant-earns-hero-top-banish-before-traverse-threshold",
+        "fixture_slug": "card-viserai-between-worlds-four-live-sparse1231-real-single-runechant-earns-hero-top-banish-before-traverse-threshold",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "f8926ea3adb0bfcea9cb8816bc8300d55d810ac47963f351daa64509e1a3de4d",
+    "source_note_sha256": "3ff3ad94be568c37dfc23957ce79a1e66f883f7de30c110f38faa06c2ce541b3",
+    "case_count": 1,
+    "native_controls": 9,
+    "query_checks": 227,
+    "persistable_assertions": 227,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "cases": [
+      {
+        "card_id": "viserai_between_worlds",
+        "coverage_category": "POSITIVE_SINGLE_RUNECHANT_HERO_TRIGGER_NO_TRAVERSE",
+        "native_controls": 9,
+        "query_checks": 227,
+        "persistable_assertions": 227
+      }
+    ],
+    "basis": [
+      "The Viserai-only subset is byte-semantically identical to the original approved first case in save/selected.json; no fixture setup, control or assertion was changed. It contains 9 native controls and 227 persistable queries with no author-only omissions. The original two-case proposal, review, native receipt and held Marlynn case remain preserved.",
+      "Viserai case: actual Read the Runes Blue5 is a legal Runeblade cost0 Action and has no go again. After four source responses it creates exactly one owned Runechant7. HVYToken28 calls IARCreatedRunes135-137 for the actual batch; the source increments RUNES_CREATED once and queues Hero8 from UID1. Legacy ARC creation399 admits only exact viserai/viserai_rune_blood, so it cannot create an additional token here.",
+      "Viserai layer8 has the typed Params rosTrigger=true/rosEvent=iarRune, gets four fresh manual responses, and only then executes generated ResolveAbility18418 to banish actual Deck Wounding6 face-up. Created count1 is below3, so Traverse is not performed and primary Hero identity remains unchanged. Read5 is owned GY, Runechant7 remains owned Arena, AP0/UID8/RNG0 and unchanged other assets fit the branch.",
+      "The existing native receipt reports the exact Viserai slug as recorded_semantically_checked. This subset review authorizes qualification and targeted replay of that existing fixture; the reviewer did not re-record or run it. No Marlynn success or coverage credit is included."
+    ],
+    "limits": [
+      "Only Viserai single-Runechant creation triggering real top-card banishment below the Traverse threshold. No adult peer, three-Rune/Traverse, multiple batches, Runechant attack trigger, support or full-Hero credit.",
+      "The original Marlynn case is held with its correct Stack2 assertion unchanged; no positive Marlynn load or completed replay credit is given.",
+      "Existing Viserai native recording passed according to the preserved receipt; targeted replay and qualification remain for parent. The reviewer performed no native actions or tests.",
+      "Only the W review receipt was updated. No T/source/framework changes, Git, original-checkout access, network or authentication."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+    },
+    "subset_review": {
+      "original_spec_sha256": "5619c202888b2fb9298ca9bef27e286d594f417cdb359fc011576f82ea372265",
+      "original_review_sha256": "c9e2880e7a784c819abe03712e1701999df03da31c291847585ff595c0735025",
+      "retained_case": "unchanged original first case",
+      "native_receipt_sha256": "5e11920c6f7ed4368340485c0b7a35beae519461d9adf0bcaee3c002b3d8aa6d",
+      "native_status": "recorded_semantically_checked",
+      "rerecording_performed": false,
+      "excluded_marlynn_sha256": "00def65a19e272c5a841c23b09795eee97492969a5dac3b6f8747da58d327566"
+    },
+    "excluded_case_analysis": {
+      "issue": "FAB-REG-214",
+      "family": "FAB-REG-094 continuation/layer-lifetime family; no distinct shared-root closure claimed",
+      "classification": "Observed engine continuation failure, not a chooser API or expected-outcome correction.",
+      "evidence": {
+        "native_inputs_before_stop": 10,
+        "expected_stack_count": 2,
+        "observed_stack_count": 1,
+        "decision_type": "MZMULTICHOOSE",
+        "decision_param": "0|1|p1Hand-0",
+        "pending_callback": "marlynn:0:ResolveAbility-await|marlynn:0:ResolveAbility#1|1|chosen",
+        "resolvingReaction": null,
+        "fixture_saved": false
+      },
+      "bounded_source_explanation": "The named seaMarlynn layer is not an ownedCardMacro and is excluded by the managed ROS_ABILITY guard, which accepts only empty/ability rosEvent values. DoResolveCard therefore reaches GameLogic1951-1953, marks the resolving layer removed before FaBROSResolveTrigger invokes generated f1cd142eda1db4dc8abf. That generated body yields the real optional arrow choice, leaving its await callback pending without an owning live layer or resolvingReaction marker. This source path explains the observed missing top layer while the lower earned layer remains.",
+      "scope_limit": "No arrow-choice answer was attempted after the failure, so wrong placement, duplicate resolution or later priority consequences are not established. Preserve Stack2, hold the case outside the runnable corpus, and defer repair under the standing no-engine-change scope."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1231-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4874920ea122eb148436ed33b089bb9760b9d6e449f1c0d9fd446c5235686d94"
+  },
+  "full_suite_run": false
+}

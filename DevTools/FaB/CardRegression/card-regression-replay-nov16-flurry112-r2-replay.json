@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-flurry112-after-native-helper.json",
+  "runtime_sha256": "5cee40953e7fa6beb0cdf199d5436dbb5c85a971a897d1a55f278367dc5f63e9",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T19:14:21.971457+00:00",
+  "fixtures": [
+    {
+      "slug": "card-flurry-foot-dance-yellow-four-live-real-persistent-flurry-earns-four-defense-and-three-damage",
+      "fixture_sha256": "e41129d64c7a352e029df1f736c2949f97150cb45f61c1c51adf0658333b0950",
+      "passed": true,
+      "result": "[PASS] flurry_foot_dance_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-flurry-foot-dance-yellow-four-live-real-persistent-flurry-earns-four-defense-and-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] flurry_foot_dance_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,1792 @@
+{
+  "status": "EXACT_SOURCE_DERIVED_FINAL_ORACLE_CORRECTIONS",
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "fixtures": [
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+      "number": 1,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r01.log"
+      ],
+      "complete_log_sha256": "9df7085d560fdd469601faa46fee66c8dec0fd4c356030982a2678365bca084d",
+      "before_expected_sha256": "7b28b5f1427bae2226635f6df6c259c49329b9369fe7503faa0d8a55c62d74b5",
+      "expected_sha256": "91291c2d27630c86879ed6ed4aec7a07f6870174274f669481b97178ced7cb1d",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+      "number": 2,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r02.log"
+      ],
+      "complete_log_sha256": "6ec4dabc057f28091013ff82ba1de6bee8722cbd72f19d960daa8c46349abd7b",
+      "before_expected_sha256": "4201db4b4c2c39f55f11dd8574adda5fbbfa01fd86af65ae14dc9b1f39c0074d",
+      "expected_sha256": "19052f51d2874201a46c41d496bb3a5218d4b86da822e6ab16dff8a656e6a4ac",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+      "number": 3,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r03.log"
+      ],
+      "complete_log_sha256": "bced9819cdb73a740a9a6b412ea9ed78b61bad14984677b7faacccc6eb73173e",
+      "before_expected_sha256": "80f86dffbac952a080a8360f98ef9d51a181f952f75391779f9f5359b071e7fe",
+      "expected_sha256": "bba928e1c4fc1ff6f35039f15ea0fdd3943db8228407a83978b3c9be25f5c0a0",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+      "number": 4,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r04.log"
+      ],
+      "complete_log_sha256": "7c9e894dc73da5ae5fe8142b23043430a78073e6a81dc42bbf52aee1e2839249",
+      "before_expected_sha256": "4429165bb88af265915f3fcd5e98db32d31cd6a13c1215e126be067a099bfe22",
+      "expected_sha256": "b605e6771ffa58c2ff543fcfdb22cea7c6264b4c40283c2a446a62780e18ffeb",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+      "number": 7,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r07.log"
+      ],
+      "complete_log_sha256": "6f81ce9e1c6138d9f5f62add18e3de0156b2714f47535f3e23831cca317403a2",
+      "before_expected_sha256": "39bade77f084f923ecaee62fdc608970ce1dc2183463fc78c7d6ab9d53a54ede",
+      "expected_sha256": "b306e7f13b330c8d814aa9bc97c6060c3b2b806ee5525574d470c1e3f481b7f7",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+      "number": 8,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r08.log"
+      ],
+      "complete_log_sha256": "8c30717fd95b360aea7a3c18033a63c0c08cb7e9279f9037a2e881f73d26c50b",
+      "before_expected_sha256": "2ec1e0d3bde72f272eedabb278c166b730d792de6f7f59179bd8a699739935b2",
+      "expected_sha256": "037073e915affb79b2b3781cd8cb1f0cb7ec75ef5cee8263ebf53d7fe0286c05",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+      "number": 9,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r09.log"
+      ],
+      "complete_log_sha256": "f733e11aa64a863049afa12502dc2673275c87369ae102bd79991ee6206abadd",
+      "before_expected_sha256": "3ce64a3e4582407efd71573433641a18441bcb658afbc983ac801be9a8b5d957",
+      "expected_sha256": "68bbeedaee1e66bc4129b8cea04801da791be513b440cf4944e9645302f1c09b",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+      "number": 11,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r11.log"
+      ],
+      "complete_log_sha256": "03f42a0a1656350000d09f3a81b89a076ce26e6784e4ec58bf4316f022b40ec0",
+      "before_expected_sha256": "2438ecaa9d9c38ce338ce2bdaa963c5ee4af9589c9d452b61de0368bfaab0802",
+      "expected_sha256": "c10066b97af71081a6f0f6b14e9084f3a732bdde4f93cac21ccea1725be16b64",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+      "number": 12,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r12.log"
+      ],
+      "complete_log_sha256": "88b3639a4f70ee9ce80d67dd79f2b410011945bb1fee2b5c64c2541df40caa47",
+      "before_expected_sha256": "d0d1abc5ef8423f35af72b701910d8ce37a9aacb16e1eee17da7704bbef0e51b",
+      "expected_sha256": "fc6180c141562cc21868424db14104253254c6f0448292b850df807abf8818f2",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+      "number": 14,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r14.log"
+      ],
+      "complete_log_sha256": "fcfd6a5d0eef468c37328a9f34dcc25b77b0e7acde2d2380e57aff08997e8396",
+      "before_expected_sha256": "1e31d7f707687233bf304c6d37083606d4d47e2aca715d498963018626b86f9a",
+      "expected_sha256": "8b5f6c8f4df8325c71d93a1b9170dde33c1a8cde6a9acc6f183f6063818ffd45",
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line106",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-3",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+      "number": 16,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r16.log"
+      ],
+      "complete_log_sha256": "11cf02f4c1be58a23164eca15cb3be79e85212e4c3c28f1ebbbada2c11c17057",
+      "before_expected_sha256": "3438776677be4f85c811ff1784cb296433d6c0e438df546d291abe948de8cf19",
+      "expected_sha256": "4ff837955fedc78bd66a47dade4ed9272c48b59c77ec1f1ee160214c8aeaae08",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "SEA_BLUE_GRAVE",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-2",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_blue"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+      "number": 17,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r17.log"
+      ],
+      "complete_log_sha256": "48f1e3226bbdec6233ac7ceff994a78faaffc592a05b54aedb38e20c9781d525",
+      "before_expected_sha256": "31339d9d4bd73f1d5691cf6df9387adde4e7f9fce7e5cc46ece60d8c6f68c593",
+      "expected_sha256": "7c6d2d610fce378c55480f1e1ff24744dd4ba7bbaba75eb148c3550d80030daa",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+      "number": 18,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r18.log"
+      ],
+      "complete_log_sha256": "9935b5634943c0d2184cd21722c27fbaa401f3faebed3dbb0cf3ad63ad5e313b",
+      "before_expected_sha256": "9acc9a2a6b271bbaa5993fffa476df1e72ac73ae82774667d5528a2aa1d94c35",
+      "expected_sha256": "9d8bb149aafcf795bf09cc2c48a3aa11a21af0376734fd17b06d7bbb79478fc9",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+      "number": 21,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r21.log"
+      ],
+      "complete_log_sha256": "8071676d8a8300bf331c3d42c529e5deea99d8d75b19b4e397b55961a31c062a",
+      "before_expected_sha256": "a7a121a444a37c74fcf4ffcdad1cbd481a58c295b405030302087f9d9e4d8572",
+      "expected_sha256": "86294244bbfa6109f8a60396773114b68a64421c514cc7f752964eeb6b38e71e",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+      "number": 22,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r22.log"
+      ],
+      "complete_log_sha256": "fa93eb4ac13950fad66bea18ad2d62396cff941202d792ebda75b4751fed56ac",
+      "before_expected_sha256": "e68ed542da739807e9ed886d25a5553cc3183c6a1612ab0fa9d53a7936730ec2",
+      "expected_sha256": "ebf103ddcb4eb52686a758b9ac232b98d498e3dc00130dd500e7ff6080a30ba2",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 4,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+      "number": 23,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r23.log"
+      ],
+      "complete_log_sha256": "b2609bec3bffb08f0dab684946cf3d7527228af0133272bb979505d52d3db323",
+      "before_expected_sha256": "d805f7e5fa98607b6093be8ae0ce00423da4b0606685581da2fcb41336c8c303",
+      "expected_sha256": "0db334b625c8fdb49ff5910502600661f14909ad3ee6a1931638c1eca8199f6d",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+      "number": 25,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r25.log"
+      ],
+      "complete_log_sha256": "75911e523da883031cb599d4683731bd1ba73595f4a9be83528e7e6f9323d201",
+      "before_expected_sha256": "fa50c1b8828d0d8e12b148a2240258e54f1ec93bfc6d37d56cc08289d47bbc83",
+      "expected_sha256": "58b88391ef26b1560276a288f5e56abf519e766e8ebc7bd0b279b65a36e41960",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+      "number": 26,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r26.log"
+      ],
+      "complete_log_sha256": "490e0f46ce239580c90364825d0da2c511634db1ede86b543aa8e7a7be3ae505",
+      "before_expected_sha256": "64fa9ccd69fe6db3d9fb695d42ba9952d6237e021c43c5e40dc0a241a8ef586e",
+      "expected_sha256": "c2b2a084bdc21ffb8022828297b792b2c6f30acdbd94de92b2726441186082c2",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+      "number": 28,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r28.log"
+      ],
+      "complete_log_sha256": "820842dbde99fdffaa18da346591e92d2253355760829bef12646151f15e4390",
+      "before_expected_sha256": "71a49ce4361a63b190c3023d65899c97abfb7512a4704a67e94fc9d6632d74c7",
+      "expected_sha256": "1f33118a6578752d30d8ee17d6f79f3bd3ba79e510c5b864a34d4552aeee7a35",
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 6,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 6,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line106",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-3",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+      "number": 30,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r30.log"
+      ],
+      "complete_log_sha256": "d3cec64d4a3f9673fd0bdb7e608c1747b5bf2020595bbc534c74d09f841cc415",
+      "before_expected_sha256": "73ca07111d0d51efa107f18134068fa2aa33b71eacad31e84c6ec85a5eacc09b",
+      "expected_sha256": "8268616bc3c8508987e612ee2592dab2b02096b2c5d042bb3335b10d5099c58e",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-2",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_red"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+      "number": 31,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r31.log"
+      ],
+      "complete_log_sha256": "b6ec5202674c6241a89fd9e3ef21b9f92ac69fb21ad549761065f66a08a30a97",
+      "before_expected_sha256": "0b0e182c0149e4ee62ef09693aa3496b88686c72833137ecb763a03f289b991d",
+      "expected_sha256": "0f70da7026ab87e046c1a29b979189a50b63b72171a4d082272e2cc9de8efb8f",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+      "number": 32,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r32.log"
+      ],
+      "complete_log_sha256": "d09fdc07fcf13211fd0c9ccc1567ff14b75eebf939cc0358556e7f3be451a416",
+      "before_expected_sha256": "085d75048454bf85880bc672bf5ab285bed99ba0f9d7237a29124469f4c29590",
+      "expected_sha256": "66182c062d2b83c4dfe615422917311adb7d7f56aa9419ecadc5a6510f8b0fa6",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+      "number": 35,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r35.log"
+      ],
+      "complete_log_sha256": "e4c0a203c6d3a7d3c48938d3d334fbc73f0ac9fbc02efee74e8fbc36f8b9a66f",
+      "before_expected_sha256": "5c9d51de12291f627b020cff855075a2f6c5ba5c817456e856322a9845d73232",
+      "expected_sha256": "a8c2afe4195c56492d47ab072fdeddaf815e1a2f33e090cba0a58d6bef59b5a1",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+      "number": 36,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r36.log"
+      ],
+      "complete_log_sha256": "08e701b7a2b73725121ddb9b348d873305073d58e5fb4fd1775cb3744ad078c8",
+      "before_expected_sha256": "42e46474b70aa121ced4c5465cfa566fd7de929648b33a7aa663c7e4d762c368",
+      "expected_sha256": "90f403e2db7a70707272d29e79dcb08771bc6ad5f3e62e4c07ebaad95f7f1715",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 3,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-1",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+      "number": 37,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r37.log"
+      ],
+      "complete_log_sha256": "85610b03e40d5a1958e8a3e831ab3d91270b3d59b87a11428c75acddbd4ef8f0",
+      "before_expected_sha256": "433f4d51874b69d3e4d6587e8b74dbb9e9cbf0e5f67e78dad0345d46ddbe29a4",
+      "expected_sha256": "8f6f3f11d5b6b0442200b5c1a0e4a7895e1040a983f4af7a5fea57494946528f",
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line104",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+      "number": 39,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r39.log"
+      ],
+      "complete_log_sha256": "ac2a078a24d32df3ca1e07725d439643ee747a61f7b32e75941746d783171e34",
+      "before_expected_sha256": "1b7d658d22a7bb6ea2beb1cd922e7d8d5259fa03fb93df559a8e42791d5a704c",
+      "expected_sha256": "93f5b748329b7293ab9aa2e0799ff5207c685ac2c944e16eacc69bcc40dac7f4",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+      "number": 40,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r40.log"
+      ],
+      "complete_log_sha256": "ed557c049f24157abf5f852c279946fd707d1b4cd2455aaf33f544a8f3818409",
+      "before_expected_sha256": "ac14f451c6394c60aff704faa1ac6fcbf3b19a6d212ff07820401b7671254c77",
+      "expected_sha256": "6d766236312b387aee7f6d6f84d24693b2f89c3915708ce3deaf4f3473c0a221",
+      "edits": [
+        {
+          "location": "line85",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line103",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-0",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+      "number": 42,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r42.log"
+      ],
+      "complete_log_sha256": "74f88d523ff92f967bb47a9c34f3c352d5da8b5d07361836caa44e7474204fbb",
+      "before_expected_sha256": "11a706bf0bf4dbc0b3a2604420d5749707ded81189c50703e769d4c3c61157cf",
+      "expected_sha256": "f5f02650d4f9c05d334b8427a6569ae9e63bf9a1aca050111d209e86fe58b94b",
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 5,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 5,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line106",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-3",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+      "number": 44,
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cyb-finals\\r44.log"
+      ],
+      "complete_log_sha256": "049946f05f131f079e42f92cf1709d01469aebbb42d8b3c826129b006de2d632",
+      "before_expected_sha256": "3a38eb8b61a6e4d069ebac546b85111b9efccb603b41bc35cd7ce8346c6a1818",
+      "expected_sha256": "e56f255c931f111afb7034a21393ac8e1bbb6a64155515b1ba2c0768c74c5052",
+      "edits": [
+        {
+          "location": "line87",
+          "kind": "printed_life_before_source_grave",
+          "before_rows": [
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            },
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            }
+          ],
+          "after_rows": [
+            {
+              "type": "ROS_LIFE",
+              "amount": 2,
+              "uses": 1
+            },
+            {
+              "type": "EVR_GRAVEYARD",
+              "amount": 1,
+              "uses": 1
+            }
+          ]
+        },
+        {
+          "location": "line105",
+          "kind": "captured_resolution_source",
+          "from": "p1Graveyard-2",
+          "to": "Stack-0",
+          "cardID": "count_your_blessings_yellow"
+        }
+      ],
+      "other_four_files_unchanged": true
+    }
+  ],
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "status": "APPROVED_EXACT_29_ONLY",
+    "proposal_sha256": "b7c3307329aa2828b26887ccb5085fcc219187aff9cdbcf6e7a7f2b38d2b3cdd",
+    "approved_numbers": [
+      1,
+      2,
+      3,
+      4,
+      7,
+      8,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      18,
+      21,
+      22,
+      23,
+      25,
+      26,
+      28,
+      30,
+      31,
+      32,
+      35,
+      36,
+      37,
+      39,
+      40,
+      42,
+      44
+    ],
+    "manifest_sha256": "0ebfebe2d8b79cc18ed376d6a81d543105aeecf3ebad708517877343ec4e3252",
+    "scope": "Exact29deltas, source proof and printedbase+actualownGY, strict final quiet/no pending context,58unchangedundoGameStates containnoLife, all4companionfilesunchanged. Other15notapproved, no independent native games."
+  },
+  "engine_or_comparison_changes": false,
+  "preserved": "All original gameplay assertions, actions, initial snapshots and metadata; all final numeric values and modifiers. Only exact life-before-source-grave ordering and captured resolution mzID.",
+  "held_without_credit": 15,
+  "new_scenarios_or_groups": 0,
+  "full_suite_run": false
+}

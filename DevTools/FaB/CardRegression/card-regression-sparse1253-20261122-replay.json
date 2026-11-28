@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cosmic-suture-red-four-live-sparse1253-real-blue-payment-prevents-four-incoming-physical-without-starfall",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cosmic-suture-red-four-live-sparse1253-real-blue-payment-prevents-four-incoming-physical-without-starfall",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1253-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1253-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "59f0154db1b2d9b0d6cbfb8afd48110e6355d0c824118447b67cd3ff92048003",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "979de404a5882a679fa5fddbc2e7c541e6e44e5bac65b3f7f176b3a693289411",
+        "actions.json": "203ad6a99f59cb2839b74ea2192ea2ba0a4f88951fb2b19d0f849528833f65b1",
+        "assertions.json": "1dfcfcc8f1b6e7ec3489d012a61dd86132833237885c6035a707e0809369afce",
+        "expected_final_gamestate.txt": "88db1cc69149aef1c85f85a9a56a9602d6d323131ede6b9b1d221a8739f80405",
+        "meta.json": "a39f1ad238e6b7aa7860d7eac9e54deee7c0bc3c7d6d32fc306040c321870af4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

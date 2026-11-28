@@ -1,0 +1,111 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1585-20261122.json",
+  "source_spec_sha256": "df0966d5ffa379d3586c3a1aa82e3a8697d11a35646a1f634c1139c99ac374e9",
+  "input_sha256": "df0966d5ffa379d3586c3a1aa82e3a8697d11a35646a1f634c1139c99ac374e9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-shimmering-specter-red-four-live-sparse1585-mirage-excludes-actual-illusionist-seven-power-damage-boundary",
+      "card_id": "shimmering_specter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98340039327bb37ce4eef32f48b825ba3aee337fdc650cccc7ce8ae9be3b090f",
+        "actions.json": "6fc31b359b52bbf3bc8d7e20cbb79487320f40765488b508f88ceaa01e875f46",
+        "assertions.json": "324428a60ab6370a80563025ccccb8fccc0d535f66ee1c9b522a639e42b41c4c",
+        "expected_final_gamestate.txt": "9b6a0006ccb2a03571167c467acc956c0577c6b1bc63dd3c8f5e90faeea65e51",
+        "meta.json": "4f18846d448ada2d1703ec73889a618564b502bb8d110ab8b803a4a5361bfacd"
+      },
+      "fixture_sha256": "cc40141755bdec927b0ce2336def5407fe023f71f646afad97c439c2407632f7",
+      "actions": 27,
+      "native_assertions": 431,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 21,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1585-20261122.json",
+      "input_sha256": "df0966d5ffa379d3586c3a1aa82e3a8697d11a35646a1f634c1139c99ac374e9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "qualification_endpoint": "MIRAGE_ILLUSIONIST_EXCLUSION_DAMAGE_BOUNDARY",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1585-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shimmering-specter-red-four-live-sparse1585-mirage-excludes-actual-illusionist-seven-power-damage-boundary",
+        "fixture_slug": "card-shimmering-specter-red-four-live-sparse1585-mirage-excludes-actual-illusionist-seven-power-damage-boundary",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1585,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T16:42:16.219582+00:00",
+    "spec_sha256": "df0966d5ffa379d3586c3a1aa82e3a8697d11a35646a1f634c1139c99ac374e9",
+    "source_note_sha256": "1195d401628b9d513a8a85a1ffaf29be7d88e31901d331154ab3be14cd2b0f21",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "workspace_source_sha256": {
+      "nov25_mirage_damage_prefix_review1585.py": "856bfc005be37b760a48ed49ca2cd6b151d626214695b862e5042a7fa9a22781"
+    },
+    "reviewed_workspace_driver_sha256": "8321b835728029a806b06269b216a83d890ed57289ba739318b88446c3c4e319",
+    "endpoint_binding": {
+      "endpoint": "MIRAGE_ILLUSIONIST_EXCLUSION_DAMAGE_BOUNDARY",
+      "source_spec_sha256": "df0966d5ffa379d3586c3a1aa82e3a8697d11a35646a1f634c1139c99ac374e9",
+      "adapter_path": "nov25_mirage_damage_prefix_review1585.py",
+      "adapter_sha256": "856bfc005be37b760a48ed49ca2cd6b151d626214695b862e5042a7fa9a22781",
+      "base_common_sha256": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "workspace_driver_sha256": "8321b835728029a806b06269b216a83d890ed57289ba739318b88446c3c4e319",
+      "driver_before_sha256": "41b7fd5ac4d0caa40cf30db49d81431d29e04d420a22d715466ccd65b16225eb",
+      "scope": "Workspace-only exact prefix proof, not engine/framework change. Reuses complete source/action/assertion/manual-seat/raw5 mapping and adds one named terminal-state branch; default COMPLETE and all historical branches unchanged. No native/test/replay in preparation."
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact27control/431check source/spec review: Potion8/ABI10, actualownedHerald9 sevenpower/R0AP0, Specter5+Wounds6/7 defense8/actual0damage/allhealth20. Both Mirage and Phantasm events genuinelyunearned.",
+      "Mirage requires non-Illusionist attack power6orhigher; realIllusionist7 provesclass-exclusion. Primaryremainsphysicaldefender5 throughDamage. Noleaveeventoccurs; positiveShield/Close remainsunentered.",
+      "Strictnamedendpoint adapter preservesraw5/actions/assertions/manualseatmapping and adds onlyDamage7power/8defense/0damage/allphysicalUIDroles/noResolutionClose guards. Driveradds only1585 endpointdispatch and hashbinding; historical/defaultpathsunchanged."
+    ],
+    "rules_basis": {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rule": "8.3.25",
+      "paraphrase": "Mirage requires a non-Illusionist attack with power six or greater."
+    },
+    "limits": [
+      "Source/spec and workspaceproofadapter review only; native/save/replay pending.",
+      "positive_Mirage_destruction_and_response_layers",
+      "primary_leave_arena_trigger_Shield_creation_and_timing",
+      "Resolution_Close_and_post_combat_physical_fates",
+      "primary_attack_play_costs_and_other_pitch_siblings",
+      "support_identity_or_wholecard_credit"
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1585-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a889aa1a4c3d20d1028f7fd2d27365e1ef6d3d4eb013a86faf047004d368b296"
+  },
+  "full_suite_run": false
+}

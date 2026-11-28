@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:24:04.206893+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1317-20261122.json",
+  "source_spec_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 481,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5261,
+    "duels": 3097,
+    "four_live": 2164,
+    "recorded_primary_ids": 2409,
+    "identity_denominator": 5196,
+    "recorded_groups": 2283,
+    "group_denominator": 3324,
+    "four_live_groups": 2153,
+    "phase_qualified_scenarios_at_actual_contexts": 1898,
+    "phase_qualified_unique_groups": 1888,
+    "creation_replay_passes": 2640,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1059,
+  "scenarios": [
+    {
+      "card_id": "isenhowl_weathervane_red",
+      "group_id": "pitch-cycle:isenhowl_weathervane",
+      "scenario_id": "card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+      "effect_branches": [
+        "normal_one_payment_and_go_again_funds_real_generic_non_fusion_attack_without_earning_delayed_ice_fuse_token_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+      "source_spec": "card-regression-sparse1317-20261122.json",
+      "source_spec_sha256": "2528c09d153a53b1df724e900561890630960e50de254ad7a1e1040d2cea46e0",
+      "review_evidence": "review-evidence/sparse1317-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5a8b59cb10363e3b6f86d3b28980549866062ed1e3117b4dbc8fa87648cde079",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1317-20261122-replay.json",
+          "sha256": "b5eb999e9663ef838adced0e4d7299f9f44df40293d023346edad760dc5412c6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Rattle Bones / actual asset fails required target class",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:56:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Viserai20 legalRuneblade; real owned GenericAA8 in Graveyard is not Runeblade. ActualSigil6 plays and resolves through allfour seats\u2192HP21/AP1/Action1, with actualBlue3Hand7 covering primary printed2. Primary5click rejects necessary target class before payment/announcement/movement/effects; same assetUID8/primary5/funding7 unchanged. Old selected positive target-timing holds remain open; no empty-zone substitute or positive ability credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rattle_bones_red FaBSim/Custom/CRUCards.php#FaBCRUCanPlay FaBSim/Custom/ARCCards.php#FaBARCSelect FaBSim/Custom/DYNRuntime.php#FaBDYNCanPlay FaBSim/Custom/DYNCards.php#FaBDYNEquipment"
+}

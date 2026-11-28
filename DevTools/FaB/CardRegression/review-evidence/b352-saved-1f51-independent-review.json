@@ -1,0 +1,228 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B352_TWO_DYNASTY_EFFECTS_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T17:21:45.684192+00:00",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch352.json",
+  "input_sha256": "246baae01a31cf00e2379f0d131ba6254af0f400f504fa816619a4fea90dc9af",
+  "fixtures": [
+    {
+      "slug": "card-cleave-red-four-live-sparse-real-paid-next-axe-plus-four-full-block-no-hit",
+      "card_id": "cleave_red",
+      "group_id": "identity:cleave_red",
+      "fixture_sha256": "53bfb943e72a0b8ec2350505675c0b1832477fe2d21d9a362ca9e83e375a4143",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dfbb5c72b37c5879c3f0065c1060898bca44d3afa054fe58479afe163886bf2f",
+        "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+        "assertions.json": "1b9896e89d7b656cded9372f4818aa36ee01a4c109bed835bfeba09d76ac3d82",
+        "expected_final_gamestate.txt": "858fb400411ea07fec5ec40e85c4d27def6e0293f1ea0837499675b8883183e2",
+        "meta.json": "bd0516555160e260cfcb2fccba3e3dcf9af795ac374d23bc45e976030cb2eeae"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "dfbb5c72b37c5879c3f0065c1060898bca44d3afa054fe58479afe163886bf2f",
+        "actions.json": "61fb93699972b6a8043fb3e32dcd2e28aa924acd00042d81d53b137bc08db94b",
+        "assertions.json": "1b9896e89d7b656cded9372f4818aa36ee01a4c109bed835bfeba09d76ac3d82",
+        "expected_final_gamestate.txt": "858fb400411ea07fec5ec40e85c4d27def6e0293f1ea0837499675b8883183e2",
+        "meta.json": "bd0516555160e260cfcb2fccba3e3dcf9af795ac374d23bc45e976030cb2eeae"
+      },
+      "actions": 35,
+      "native_assertions": 3312,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          8,
+          9
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "physical_findings": "RealCleave5Action1 fundedbyBlue7pitch3/AP1\u2192R2AP0; first3sourceholds5/fourthownGY+ownGAAP1. RealHatchet6activation1paidfromR2\u2192R1AP0/oneuse/proxy10Source6 withactualWTR_POWER4+DYN_CLEAVE; actualAxe2+4=6/noGA. RealP4originalDrivingBlue8,9bothdef3/normalHandDEFENSE/fullblock6\u21920/allHP20/nohit/noearnedCleavehitlayer. FullcloseexactpublicGY1{5}/GY4{8,9}/Pitch7/physicalusedownedAxe6retained/nopowercounter/proxy10ceased/UID1-9conserved/counter10RNG0/R1AP0; consumedDYN_NEXTAXEabsent.",
+      "qualification": "OnlyCleaveactualnextAxe+4/fullblock. Nohit/extraAllydamage/HatchetMind/oldKassaiSworddiscount/EndPhaseCopper/hero/supportprimary/sibling/fullcard/controlcredit."
+    },
+    {
+      "slug": "card-madcap-charger-red-four-live-sparse-real-paid-six-discard-earns-five-power-go-again",
+      "card_id": "madcap_charger_red",
+      "group_id": "pitch-cycle:madcap_charger",
+      "fixture_sha256": "ff671e69ab73fab517b8d80298c880eaa2a5bd0da650e6df39fad9b928b65c08",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f539042db1dd2e27bb9d5591b2467d2da140eacb960385e2fb2b670496e1213",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "133a3010be58f924449e1010de30603485a878651b41a2e0d0ceb8828a0b5a02",
+        "expected_final_gamestate.txt": "701bd03fc46f11e5b5bbefbb7926f54f2c52799d4c2caad3d00aea2b496339ac",
+        "meta.json": "057b7b6e31d0a829fcb1e31420a4464b3a2d1affbe6dfb0e4fa2110b167be184"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9f539042db1dd2e27bb9d5591b2467d2da140eacb960385e2fb2b670496e1213",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "133a3010be58f924449e1010de30603485a878651b41a2e0d0ceb8828a0b5a02",
+        "expected_final_gamestate.txt": "701bd03fc46f11e5b5bbefbb7926f54f2c52799d4c2caad3d00aea2b496339ac",
+        "meta.json": "057b7b6e31d0a829fcb1e31420a4464b3a2d1affbe6dfb0e4fa2110b167be184"
+      },
+      "actions": 28,
+      "native_assertions": 2271,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "priority_response_passes": 24,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "physical_findings": "RealnormalP4declaration thenMadcap5cost1pending withBlue6+Six7stillHand. ActualBlue6pitch3pays1/AP thenmandatorysoleSix7power6discardbeforepriority; nativecapturedsource5discardedPower6. First3freshsource1,2,3retain5Stack/7GY; fourthactual5Chainbase5/GO_AGAIN fromtruecondition. RealfivephysicaldamageHP15; AP0throughfirst3DAMAGEpasses, AP1onlyfourthRES. FullcloseexactGY5,7/Pitch6/R2AP1/allUID1-7conserved/counter7RNG0/noproxy, all4live/manual/queuesclear; noRhinartrigger orseed.",
+      "qualification": "OnlyactualsixdiscardconditionalGA/base5positiveMadcapbranch. Nofalsecondition/otherdiscard/RNGdistribution/secondplay/hero/endphase/supportprimary/sibling/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch352-independent-source-review.json",
+    "sha256": "cbc56dd188ef04de332d41b3748f609b5e57c462a63de99d2663e81f4ac83fe1",
+    "manifest_sha256": "be620bf2b89f1eccece710c81c931a6009aa9be09fb113ad4a8230d461f38847",
+    "current_source_guards_verified": 18
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch352-20261103T172019Z-6aea17d3dfc86.json",
+    "sha256": "9418419787e8f4b8ed4d0bf1a497b6a78603254273cb4d0d79589af1b6b6e2b5"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch352.recording-results.json",
+    "sha256": "c0700ee88fb3c09497f0a441cdc21ea368242263d6df3e821490dc159c961ef5"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch352-native-r1\\receipt.json",
+    "sha256": "6e6b2730faf4650c4f015a5f2ad220aecaf6f13bb8d4d8cb71994572b03e9079",
+    "stdout_sha256": "20814b71329a0ac75d4cfd03d0feb4b3f1b0d3b3c2875cc5bef130473aa7b8eb",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+    "runtime_after": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80"
+  },
+  "method": "Independent exact raw-five review: all63nativeactor/mode/payloads and5583orderedpersistedassertions equalapprovedfrozeninput; fullparsedendpointUIDidentity/ownership/economy/HP/Chi/manualprofiles and queue/awaitcleanup. RawconsumedCleaveeffect andactualMadcapdiscardedPower6 checked. Pureparser/normalizer/action functions reused withoutoldcases/native/PHP/replay/R/source execution.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplaysseparate, notexecutedorclaimedbyreviewer.",
+    "No recorder-only hooks in either selectedcase; all5583authoredchecks persisted.",
+    "CleaveonlynextAxe+4/fullblock/nohit; MadcaponlyactualsixdiscardGA/base5. Nohero/supportprimary/sibling/fullcard/controlcredit; unrelatedholdsuntouched."
+  ]
+}

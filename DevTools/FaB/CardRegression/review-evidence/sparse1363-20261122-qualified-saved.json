@@ -1,0 +1,175 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1363-20261122.json",
+  "source_spec_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+  "input_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+      "card_id": "danger_digits",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe6926c6f2df9f95f817666a4a6127edb7c186626e2db03d386df4d5d6fbf98d",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "3c44f13a8702f94a5b0065468d85b7e8acf1d2a5c1ce851350dd3a751c232b1b",
+        "expected_final_gamestate.txt": "c19ac32f8f1f406f0192ce29ed49352b3e7f594fc2e2cb672e228d287297d1f2",
+        "meta.json": "8b49ed260633938f1b800f02c9b408d3d6493be34863d8f10b1b4ce6e70d5cf6"
+      },
+      "fixture_sha256": "fc2302bc8e467adfb678d4178a7779d8be7732a46654ff7a16d2524bdc53c349",
+      "actions": 30,
+      "native_assertions": 629,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1363-20261122.json",
+      "input_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+        "fixture_slug": "card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+      "card_id": "fingers_of_fragmentation",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4e275f41842a194ba0449ceb39c2111cff3e9648841566b7c1c67e3c0ef5ac7",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "15fe78453717c2955ff7fa0f1596103a7dccc6aa166aa80dc37d69de166f9a64",
+        "expected_final_gamestate.txt": "4e2f31c3efad85b8a2902f5226b63aee7661121cbca3d08749fb4bf2f47fec5a",
+        "meta.json": "1877c69417cce62666a78ec111e5d193f5fc582162704fd67c407cc9b869796b"
+      },
+      "fixture_sha256": "db07998536115e64f1263129a2ad6e5a302b235dfb4adcd17443eb41d01be215",
+      "actions": 30,
+      "native_assertions": 547,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1363-20261122.json",
+      "input_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+        "fixture_slug": "card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "59dc6b3cee212b04e6d1e9b7eb4d82be305deb167decbb3a5dc51bde17ef5952",
+    "source_note_sha256": "6dec6c31136e6b1a5050c7f75ad50853aa1b76fcfd4e2f60faecdf24138a102f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 60,
+    "query_checks": 1176,
+    "persistable_assertions": 1176,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NATIVE_NO_LEGAL_ABILITY_TARGET_GUARD_WITH_REAL_ACTIVE_ATTACK",
+    "per_case": [
+      {
+        "card_id": "danger_digits",
+        "group_id": "identity:danger_digits",
+        "native_controls": 30,
+        "persistable_assertions": 629
+      },
+      {
+        "card_id": "fingers_of_fragmentation",
+        "group_id": "identity:fingers_of_fragmentation",
+        "native_controls": 30,
+        "persistable_assertions": 547
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld standaloneEquipment groups under class-legal naturalYoung20 heroes/manual4UPF: AssassinArakni equips AssassinNinjaArms DangerDigits, IllusionistPrism equips IllusionistArms Fingers. OpponentArakni4 legally owns AssassinNerveScalpel9. Localcached upf_banned=false only, no externalcurrentpolicy claim. PhysicalassetsCriticalRed5, Blue6, FDArsenal7, equippedprimary8, foreignDagger9 onlyDanger; exactUIDs/initialcounts/readyStatus2/Counters[]/TurnEffects[] consistent.",
+      "Danger printedAttackReaction destroys itself as cost but requires targetDagger YOUCONTROL not on activechain. ArakniCards4/9-12 exposesREACTION0 destroy ability and requires nonemptyFaBArakniDaggers. ArakniCards23-26 derives from HNTCards58 actor-scopedWeapons/Arena/CC Dagger refs, excludingactiveweapon. OwnWeapons/Arena0 and GenericAA5 notDagger means no controlledDagger, despite realforeignreadyDagger9OwnerController4. ARCAbilities63 performs prerequisite early; noDestroy/abilitylayer/target/payment is earned. Only no-controlled-target gate selected, not ownactiveDagger exclusion.",
+      "Fingers printedInstant2 destroy targetsattackAction that HASfragmented. OMNCards205-206 rowINSTANT2destroy,226-232 legality requiresFaBOMNAttackRefs(fragmented);86-94 currentattackUID5/combatOpen ownlegalAA, filter91 requires existingomnFragmented. ActualplainGenericCriticalRed5 firstattack has neverfragmented/noFragmenthistory/effects. R2 is fullyaffordable after cost1attack/Blue3pitch; missingfragmentedtarget is decisive, noAPcost needed forInstant. ARCAbilities56 rejects before payment/destruction; no positiveFragment process oractivation is approved.",
+      "Both equipmentclicks occur at ownREACTIONpriority1 with attackUID5/chainLink1/Stack0. Exactlive kind=power5 evaluator now used before/afterclick, not stale cachedstateattackPower; recorder42/62-65 evaluatesFaBAttackPower and persistscomputed_power_equals onactualsource5. SameEquipment8/foreignDagger9/fates/resources/AP/priority checks and allrealfiveDamageexpectations unchanged. Corrected fourqueries only (two percase), allothercontent byte-equivalent after JSON normalization to originalinput; originalfirstattempts stoppedon cachedfield beforeequipmentclick, nofixture/replay/coverage/enginefinding."
+    ],
+    "limits": [
+      "Only named no-legal-target activation gates, realfundedactiveattack/basepower/damage/retainedfates and no-actionconsumer approved pending nativeexecution. No gamepass orcoverage claimed.",
+      "No ownactiveDagger exclusion matrix, positiveactivation/targets/costpayment/destruction/throw/pseudohit/+2/fragment/timing/Hero/support/sibling/fullcardcredit. No physicaladditionalcost executed; existing holds untouched.",
+      "Only W review receipt written; no native game/test/replay, engine/repository edit, auth/network, originalcheckout access, fullsuite or Gitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1363.py": "f91e8b64d37afcad18cf28bca1a7671c4cc05994e0359b18d59ff87dbe0a48bc",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_ability_credit": false,
+    "oracle_correction_provenance": {
+      "original_spec_sha256": "fe4fa1cf224de36f0196a60a8f09e78904019e6061d0de9473b4ee932a9614f2",
+      "original_review_sha256": "af9f7e71dc579ad50355a4d95620e334fd582e77e718152e75d147fe42d4e19d",
+      "failed_native_receipt_sha256": "9b0e56380c994495d44b9ac0632be612432ad1507be70ccd553775e54cc4e5c1",
+      "exact_delta": "Four checks only: state attackPower=5 to live kind=power=5 at steps22 and24 eachcase; full reversecomparison equal original",
+      "observed_first_failure": "state attackPower expected 5 got 0",
+      "equipment_click_in_original_attempt": "UNRUN",
+      "native_replay_or_coverage_credit": false
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3f90aa799923d5a3261c821fb605a6ddc8e5554de140af3ba350885951e9a8f6"
+  },
+  "full_suite_run": false
+}

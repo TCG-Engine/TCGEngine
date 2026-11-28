@@ -1,0 +1,7 @@
+{
+    "name": "Grandstand Legplates / all three higher-life opponents and actual three defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-14T23:13:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourlive/manual naturalBetsy20/20/20/Kano15. RealRed5Hand1/ownLegplates6Legs4/RChi0/AP1only1; noHP/defense/effect/comparison/outcome/counterseed. ActualRed5cost0attackadjacentHero4spendsAP1to0. Afterrealfoursource/Attackresponses P4actuallyselectsTHENformallydeclaresSAMEownedLegplates6astheONLYdefender. ALLTHREEopponents20aregreaterthannaturalKano15, soprintedvariabledefense3\u2014notjustadjacenttwocount. FullnormalDefendPriority/Reactionfour actual4minus3=1physical HP4_14; samephysicalLegsblock+actual1damage aregroundtruth, cacheddefense3ispostdamagecorroborationonly. FourDamage/Resolutionresponses trueCloseBladeBreak destroysSAMELegplates6GY4, Red5GY1/allChainStackqueuesempty/RChiAP0/otherHP20. NoKanoability, lifelossproducer, rawvirtualOwner0, initialdamage orcounterseed; nootherdynamicdefense/set/sibling/BladeBreakalternativecertificate. AuthornotNative/saved/qualified; otherSource/Rootnative/twonewtargetedreplaysrequired. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

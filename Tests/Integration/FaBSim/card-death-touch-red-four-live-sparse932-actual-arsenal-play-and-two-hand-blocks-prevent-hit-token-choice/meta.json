@@ -1,0 +1,7 @@
+{
+    "name": "Death Touch / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:31:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This can't be played from hand.\n\nWhen this hits a hero, create a Frailty, Inertia, or Bloodrot Pox token under their control. Representative only: actual_arsenal_play_and_two_hand_blocks_prevent_hit_token_choice. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#death_touch_red"
+}

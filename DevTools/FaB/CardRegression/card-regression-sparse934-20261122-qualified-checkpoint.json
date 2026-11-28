@@ -1,0 +1,271 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T19:43:32.891884+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse934-20261122.json",
+  "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+  "new_scenarios": 8,
+  "new_groups": 8,
+  "new_primary_ids": 8,
+  "actions": 255,
+  "native_assertions": 1329,
+  "manual_passes": 200,
+  "totals": {
+    "saved_registered_scenarios": 4468,
+    "duels": 3075,
+    "four_live": 1393,
+    "recorded_primary_ids": 1616,
+    "identity_denominator": 5196,
+    "recorded_groups": 1490,
+    "group_denominator": 3324,
+    "four_live_groups": 1382,
+    "phase_qualified_scenarios_at_actual_contexts": 1105,
+    "phase_qualified_unique_groups": 1095,
+    "creation_replay_passes": 1847,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 266,
+  "scenarios": [
+    {
+      "card_id": "chokeslam_red",
+      "group_id": "pitch-cycle:chokeslam",
+      "scenario_id": "card-chokeslam-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chokeslam-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "debilitate_red",
+      "group_id": "pitch-cycle:debilitate",
+      "scenario_id": "card-debilitate-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-debilitate-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spinal_crush_red",
+      "group_id": "identity:spinal_crush_red",
+      "scenario_id": "card-spinal-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spinal-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crippling_crush_red",
+      "group_id": "identity:crippling_crush_red",
+      "scenario_id": "card-crippling-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crippling-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mangle_red",
+      "group_id": "identity:mangle_red",
+      "scenario_id": "card-mangle-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mangle-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cartilage_crush_red",
+      "group_id": "pitch-cycle:cartilage_crush",
+      "scenario_id": "card-cartilage-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cartilage-crush-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "renounce_grandeur_red",
+      "group_id": "identity:renounce_grandeur_red",
+      "scenario_id": "card-renounce-grandeur-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-renounce-grandeur-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fault_line_red",
+      "group_id": "identity:fault_line_red",
+      "scenario_id": "card-fault-line-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "effect_branches": [
+        "actual_multi_blue_payment_and_multi_hand_full_block_no_crush"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fault-line-red-four-live-sparse934-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "source_spec": "card-regression-sparse934-20261122.json",
+      "source_spec_sha256": "4c83fa0b6d006801e214dd6182c487e2adcafaeaea5c99c9823b390b68696810",
+      "review_evidence": "review-evidence/sparse934-20261122-qualified-saved.json",
+      "review_evidence_sha256": "70ba5fd467f6c569d42da80e602f08938b0f08c070595afa37ef1286e3da2713",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse934-20261122-replay.json",
+          "sha256": "462b148b67ee3f9876f513056f93f5acd9ba96587bb64c37f9f17ce2582f1bed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

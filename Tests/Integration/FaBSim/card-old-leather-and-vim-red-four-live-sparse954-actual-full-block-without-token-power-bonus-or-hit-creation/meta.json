@@ -1,0 +1,7 @@
+{
+    "name": "Old Leather and Vim / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:48:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control a Toughness or Vigor token, this gets +1{p}.\n\nWhen this hits a hero, create a Toughness and a Vigor token. Representative only: actual_full_block_without_token_power_bonus_or_hit_creation. Actual printed cost, two real Hand AA defenses totaling6, full four-live manual combat, zero damage/no hit, owned physical source and defenders in graveyards. No positive hit/steal/banish/creation/secondary damage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#old_leather_and_vim_red"
+}

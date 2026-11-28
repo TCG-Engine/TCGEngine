@@ -1,0 +1,270 @@
+{
+  "status": "NATIVE_CONFIRMED_SCALE_FIRST_HIT_WHEN_LAYER_MISSING_UNSAVED",
+  "phase": "ACTUAL_BEFORE",
+  "batch": 800,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T23:04:32.343716+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "input_sha256": "76a54364d731088be0ce3d38152bfcf1848210629493392648fa64ecd23dcc7d",
+  "manifest_sha256": "fc1a1c96caf53b316bf07d22642550d2032c6ba5083694417dee57c9b59f5383",
+  "source_spec": "card-regression-batch800-scale-strict-probe.json",
+  "source_suggested_native_name": "card-regression-batch800-scale-peeler-strict-probe-r2.json",
+  "source_filename_alias": "Actual Root command/archive uses scale-strict-probe; suggested name was scale-peeler-strict-probe. Exact R2 bytes76a543 are identical and bind all gates; no Source/action/query change.",
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch800-scale-independent-strict-diagnostic-source-review-r2.json",
+    "sha256": "3d1d61920b39596dcfa6a0143ff77a2501de13f744e2061b8b707aef90e1c146"
+  },
+  "root_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b800-scale-original-correct-native-before\\receipt.json",
+    "sha256": "42b3fcf6ebbddbe08dc29eefa1cbedf388850bd3487fcc3b9d6bce96ab19c62a"
+  },
+  "native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch800-scale-strict-probe.recording-results.json",
+    "sha256": "45dba0848e8fee8ea1f6b2901821798e1e278668f55508d4f27f2c0c462e41ac"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch800-scale-strict-probe-20261114T230121Z-6af8e841b8efd.json",
+    "sha256": "5c471eaa1a58b540cc2e087afbb116c2ce16a9113e1937221e6ac686a7749197"
+  },
+  "actual_native_inputs": 21,
+  "actual_actions_exact": true,
+  "actual_manual_passes": 17,
+  "native_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "native_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "final_actual_control": {
+    "playerID": 4,
+    "action": "Pass",
+    "meaning": "Fourth Reaction response, exactly one native pass from pinnedP4/consecutive3 to activeP1. Priority-only R2 guard does not consume captured-trigger responses."
+  },
+  "persisted_prior_successful_queries": 1382,
+  "persisted_prefix_exact": true,
+  "successful_initial_queries": 140,
+  "successful_first_post_hit_HP_query": {
+    "step": 21,
+    "type": "scalar_zone_equals",
+    "viewerPlayerID": 1,
+    "zone": "p4Health",
+    "value": 19
+  },
+  "failed_ordered_query_ordinal": 1383,
+  "failed_query": {
+    "step": 21,
+    "type": "zone_count",
+    "zone": "Stack",
+    "value": 1,
+    "viewerPlayerID": 1
+  },
+  "first_failed_observation": "Expected Stack count 1, got 0.",
+  "direct_observed_Stack_count": 0,
+  "unexecuted_queries_after_first_failure": 152,
+  "all_remaining_post_hit_physical_queries_unrun": true,
+  "actual_initial_raw_sha256": "8a31081807975f979a0cc7504ca7efa317bfd759e2b17f4bcfc673e6c4d78cf5",
+  "actual_initial_manual_booleans_checked": 48,
+  "actual_initial_queries_independently_evaluated": 140,
+  "actual_initial_physical_uid_locations": {
+    "1": {
+      "card_id": "arakni_solitary_confinement",
+      "zone": "p1Hero",
+      "owner": 1,
+      "controller": 1
+    },
+    "5": {
+      "card_id": "wounding_blow_blue",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "6": {
+      "card_id": "wounding_blow_red",
+      "zone": "p1Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "7": {
+      "card_id": "scale_peeler",
+      "zone": "p1Weapons",
+      "owner": 1,
+      "controller": 1
+    },
+    "2": {
+      "card_id": "betsy",
+      "zone": "p2Hero",
+      "owner": 2,
+      "controller": 2
+    },
+    "3": {
+      "card_id": "betsy",
+      "zone": "p3Hero",
+      "owner": 3,
+      "controller": 3
+    },
+    "4": {
+      "card_id": "betsy",
+      "zone": "p4Hero",
+      "owner": 4,
+      "controller": 4
+    },
+    "8": {
+      "card_id": "ironrot_legs",
+      "zone": "p4Equipment",
+      "owner": 4,
+      "controller": 4
+    },
+    "9": {
+      "card_id": "ironrot_helm",
+      "zone": "p4Equipment",
+      "owner": 4,
+      "controller": 4
+    }
+  },
+  "direct_successful_prefix_facts": {
+    "physical_source_UID": 7,
+    "proxy_UID": 10,
+    "proxy_SourceUniqueID": 7,
+    "early_adjacent_target_options": "p2Hero-0&p4Hero-0",
+    "actual_target": "p4Hero-0",
+    "actual_Blue_pitch_UID": 5,
+    "Resources_after_cost": 1,
+    "ActionPoints_after_cost": 0,
+    "sole_equipment_block_UID": 8,
+    "intrinsic_base_power": 1,
+    "power_with_Piercing": 2,
+    "physical_HP4_after_hit": 19
+  },
+  "separate_direct_normalized_state_observations": {
+    "window": "DAMAGE",
+    "combatOpen": true,
+    "combatStep": "DAMAGE",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 10,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "pendingPayment": null,
+    "declaredBlockUIDs": [
+      8
+    ],
+    "handBlockUIDs": [],
+    "attackPower": 2,
+    "defenseValue": 1,
+    "damageDealt": 1,
+    "attackHit": true
+  },
+  "separate_direct_queue_diagnostic": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_P4_turnEffects": [
+    {
+      "type": "SEA_ATTACKED_HERO",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "DTD_DAMAGE_EVENT",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "CRU_DAMAGED",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "HNT_DAMAGED_BY",
+      "amount": 1,
+      "uses": 1,
+      "uid": 1
+    },
+    {
+      "type": "MON_PHYSICAL",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "DTD_LOST",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "ELE_DAMAGED",
+      "amount": 1,
+      "uses": 1
+    },
+    {
+      "type": "OUT_DAGGER_EQUIPMENT",
+      "amount": 1,
+      "uses": 1
+    }
+  ],
+  "premature_modifier_presence_natively_verified": true,
+  "direct_observed_premature_modifier_entry": {
+    "type": "OUT_DAGGER_EQUIPMENT",
+    "amount": 1,
+    "uses": 1
+  },
+  "modifier_consumption_or_next_defense_natively_verified": false,
+  "raw_post_hit_physical_snapshot_available": false,
+  "source_context": "Prior bounded Source trace GLOnHit→OUTHit→OUTDaggerHit directly installs this entry. Actual normalized captured state independently contains OUT_DAGGER_EQUIPMENT1 while requiredStack is0. This certifies observed premature modifier presence only; no future application/consumption/defense0/damage outcome is inferred.",
+  "existing_family": "Existing043 missing responseable trigger/native built-in hit callback extension; no new distinct root-cause group allocation.",
+  "prospective_named_reproducer": "181 subject to Root ledger retention; no metadata write by reviewer.",
+  "native_confirmed_correct_expectation_failure": true,
+  "diagnostic_only": true,
+  "fixture_count_before": 4065,
+  "fixture_count_after": 4065,
+  "fixture_inventory_unchanged": true,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "repair_proposal": false,
+  "source_application_approved": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "All21 actual envelopes/17 real manual passes and1382 successful queries match frozen approved R2. Failed1383 directly measuresStack0 after actualHP19, not a predicted failure.",
+    "The152 later queries did not execute. Full post-hit physical zones/owner properties/final preferences are not raw observed; only actual prior successful prefix and normalized captured state are certified.",
+    "Observed OUT_DAGGER_EQUIPMENT1 is present prematurely in captured normalized effects. No second-link consumption, futureequipmentdefense reduction, APrefund/GA consumer, secondattack/finalHP15/BladeBreak/cleanup/full-card credit.",
+    "Normal physical source7ownership and derived proxy10/source7 are actual successful prefix; virtual Owner storage semantics are not rules oracles.",
+    "All48 actual initial manual values and140 raw initial queries independently checked. No repeated probe/engine/harness/sourcefix/R/PHP/replay/Git/repair/B787 action by reviewer."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch800_scale_actual_before.py",
+    "sha256": "bf0a5702e966bebfbe5ae126c3db004d0f2e7e4bc01e828938736d5a92971561"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "blockers": []
+}

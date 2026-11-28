@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent review of breadth_review-authored1136",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1136-20261122.json",
+  "source_spec_sha256": "f5bbba241317d510cd7956ac27ce4bc38f5cd4f17ce6a9abb467f72b616d0221",
+  "input_sha256": "f5bbba241317d510cd7956ac27ce4bc38f5cd4f17ce6a9abb467f72b616d0221",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-web-of-deceit-four-live-sparse1136-real-mark-producer-and-blocked-stealth-static-power",
+      "card_id": "arakni_web_of_deceit",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "747d3b24a6f8dd3f5e36046e500ebef0c083bd7e66b9572f12d3aff02039d24c",
+        "actions.json": "b7626f17cf19868579e6dae92f016e2fa309d14d67905a5a1f6d318b159712da",
+        "assertions.json": "a21b4edb4cb8791fbb6bb12123b9352d3a739bb1667b3ddbdca9f1908f74552b",
+        "expected_final_gamestate.txt": "2b36126878c306816629a7b1ac17c8bb115296164172139f994d87ae6d58d7d0",
+        "meta.json": "3deb415abe1c9479203dc92756270bcb05bc535349fc8510662cc8f91476a4dd"
+      },
+      "fixture_sha256": "273a9319fbfb65f3bccf74618ba3ab230133686962aab3782cd5f2771ed93468",
+      "actions": 37,
+      "native_assertions": 325,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1136-20261122.json",
+      "input_sha256": "f5bbba241317d510cd7956ac27ce4bc38f5cd4f17ce6a9abb467f72b616d0221",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1136-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-web-of-deceit-four-live-sparse1136-real-mark-producer-and-blocked-stealth-static-power",
+        "fixture_slug": "card-arakni-web-of-deceit-four-live-sparse1136-real-mark-producer-and-blocked-stealth-static-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f5bbba241317d510cd7956ac27ce4bc38f5cd4f17ce6a9abb467f72b616d0221",
+    "reviewer": "Root independent review of breadth_review-authored1136",
+    "basis": [
+      "Printed Web text grants +1 on an actual Stealth attack at marked hero and hit-only go again. Actual Public Bounty marks chosen4 and grants next attack3. SedateRed base3 therefore7. Neither delayed hit nor endphase is earned by fully blocked damage0, no endphase.",
+      "Three distinct legal Generic nonattack Hand cards have defense3, are actually declared and retained as physical defense cards, and paired with finaldamage0/HP20. This does not rely solely on cached defenseValue. Four manual source/combat rotations and owned GYs establish live controls and finalfates.",
+      "Actual PublicBounty printed1 paid byBlue3/R2, restoresGAAP1; actualSedate0 consumesAP1, no naturalGA. Correct physical UID ownership and final maxUID10/no newtoken, no RNG."
+    ],
+    "limits": [
+      "Hero marked-Stealth static bonus only, no hit-GA, Inertia, endphase/randomAgent, Hero/fullcard/support/sibling credit.",
+      "Save and one clean targeted replay pending. No engine change."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1136-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "38d85d4cc806e398559afd1731f3d4d81a0c1d88b7d611c54c62e2d3a332ceb2"
+  },
+  "full_suite_run": false
+}

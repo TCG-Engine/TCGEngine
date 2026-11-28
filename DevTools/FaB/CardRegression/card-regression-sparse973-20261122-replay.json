@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-smelting-of-the-old-ones-red-four-live-sparse973-actual-ten-damage-to-non-guardian-without-typed-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smelting-of-the-old-ones-red-four-live-sparse973-actual-ten-damage-to-non-guardian-without-typed-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "22f28650c72b842d458216ea26358d73731ca25d898c4b61d20e500b151e0f3c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1984fb08e51700efd270d9823467aa15aacd09ce58a9f3fa938ca4a7064de795",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "ff662ea1e6f563c2b8d2f2fa92063bd9e5ea56921904fbc0021058b69ed74376",
+        "expected_final_gamestate.txt": "168f63499d0074c85716603ea4a1ea121dd4cee8b7d8909f8fc67c059e2d9417",
+        "meta.json": "fa1aa9dd4b3db33bd6c52ea28a7bea60848cdc63039234eb8e6dcbe02be00c51"
+      }
+    },
+    {
+      "slug": "card-smack-of-reality-red-four-live-sparse973-actual-nine-below-tower-retains-real-aura-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-smack-of-reality-red-four-live-sparse973-actual-nine-below-tower-retains-real-aura-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e75369f46bcc539cfa87ff66454f13de29ca44debaf88d2ed20c473d9fd5328b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ca75e693c71ba3751f81a24846d4b291ccdfa6c263fabd0d978c9e01f8fb637",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "11088f6cb13f72c952af293574ceedf6300a272237ded014f1241f55edab9b05",
+        "expected_final_gamestate.txt": "b5f040ba27c509aaad707ce656f89643d6fbb936ab8a56a57ead1c5e16a50a61",
+        "meta.json": "1427d61848489fc0ede4fb6e7e07db65685611c48417ac0148a9ae2fa074fc0b"
+      }
+    },
+    {
+      "slug": "card-thump-red-four-live-sparse973-actual-unmodified-six-retains-real-enemy-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-thump-red-four-live-sparse973-actual-unmodified-six-retains-real-enemy-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7dc0e58e575a9062ea54f6134f7a62d7f86a8f62f076e74ae83a429cbf3ec5fd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94785ab5adf1a00a515b84fbd9a0f852cd85b84f70d9832cee2f2318b5696c64",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "7efceffee7134492def85741f32444eaa52e493888ea7e4d66ba123b10d225bb",
+        "expected_final_gamestate.txt": "30c7ce5c0e585c9883fe42e0aef64a954dc808c2251c7d7bbb3e1ecb5970ba70",
+        "meta.json": "f9cc951613dd47c4161c6d27176168913c49d19c7540ed25bcd94397b8df109e"
+      }
+    },
+    {
+      "slug": "card-standing-ovation-blue-four-live-sparse973-actual-eight-main-play-without-suspense-history-credit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-standing-ovation-blue-four-live-sparse973-actual-eight-main-play-without-suspense-history-credit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4f454c07c9bd71b80813cc2bc53e50935e0d4ea9a516c19d6a4b8c07ee879ed6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78fe84cc69b7a2883d1e574384cc0119a82c2da3e93b5fea40942f4d3e95f3dc",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "c0443ed57b3162fb641cf12f11242a0f5dedf946255c8054a44a3623a3af5b32",
+        "expected_final_gamestate.txt": "2f89f52394c2cf6b390148223820bfba9b554087a1e61009a5ffc7a9a9be30a7",
+        "meta.json": "632f3729e34a3e7f28fc7d7cd01e496b3c343d5cae4af5ac05124ab1aec3d347"
+      }
+    },
+    {
+      "slug": "card-put-em-in-their-place-red-four-live-sparse973-actual-full-block-retains-real-enemy-hand-and-draw-markers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-put-em-in-their-place-red-four-live-sparse973-actual-full-block-retains-real-enemy-hand-and-draw-markers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eae0538bbfc834b1eb1c34159d7e6c3245b00f1f900431f066ae8ea3f3c373ae",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "896c33cc78467c0129f48aa88a80a2edfe68f8f3fe07cc8ba4b221234ccb3044",
+        "actions.json": "b13a5c6357eefee8545eef3d84ffc45ae2693a805a3c988fca0b32df9c890957",
+        "assertions.json": "18dc22f6f8b95b2a93f899168354448e62fecdf729713e6a399be76e054afba8",
+        "expected_final_gamestate.txt": "51273fb9a3d40c52ef0c0345ca28c6a12d756df61c680e86ee9488408bfc699b",
+        "meta.json": "5f26742c7f418d9dd1e53df70d9c1f42d28d717c35852766fb0a280d25df76d4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

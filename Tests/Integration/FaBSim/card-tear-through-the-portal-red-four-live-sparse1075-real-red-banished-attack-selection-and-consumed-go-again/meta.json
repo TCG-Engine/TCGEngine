@@ -1,0 +1,7 @@
+{
+    "name": "Tear Through the Portal / four-live actual selected attack go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:08:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Choose a red action card in your banished zone. It gets **go again** until end of turn.\n\n**Go again** NamedpositiveRedbanishedcardGAgrantonly. NaturalChane20 source5Hand cost0/AP0, actualGhostlyVisitRed7Banish/faceup/intrinsicprintedbanishpermission/TurnEffects[]/noGA. Allfourmanualresponses before legitimate nonTargetresolutionchoice heldsource5Stack/GY0. Choose7\u2192GO_AGAINtag/source5ownedGY/AP1, nootherseededbuff. ActualBanish7play cost1 reallypaidBlue6/R2/AP0, actualadjacentDori4 target/allfourmanualcombat/noBlock; base4 actualpower/damage4/HP4=16, onlygrantedgoagainproducesAP1atResolution. Normalclose ownedGY[5,7]/Pitch6/R2/AP1/Banish0. No intrinsicpermissionproducer/expiry/BloodDebt/endphase/otherpitch/multiplechoices/hero/support/wholecard/oldfixcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tear_through_the_portal_red"
+}

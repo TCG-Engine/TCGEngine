@@ -1,0 +1,300 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T14:47:25.951636+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse880-20261122.json",
+  "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+  "new_scenarios": 9,
+  "new_groups": 9,
+  "new_primary_ids": 9,
+  "actions": 56,
+  "native_assertions": 752,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 4269,
+    "duels": 3075,
+    "four_live": 1194,
+    "recorded_primary_ids": 1417,
+    "identity_denominator": 5196,
+    "recorded_groups": 1291,
+    "group_denominator": 3324,
+    "four_live_groups": 1183,
+    "phase_qualified_scenarios_at_actual_contexts": 906,
+    "phase_qualified_unique_groups": 896,
+    "creation_replay_passes": 1647,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 67,
+  "scenarios": [
+    {
+      "card_id": "sea_floor_salvage_blue",
+      "group_id": "identity:sea_floor_salvage_blue",
+      "scenario_id": "card-sea-floor-salvage-blue-four-live-sparse880-turns-real-opponent-yellow-graveyard-card-face-down-and-creates-gold",
+      "effect_branches": [
+        "turns_real_opponent_yellow_graveyard_card_face_down_and_creates_gold"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sea-floor-salvage-blue-four-live-sparse880-turns-real-opponent-yellow-graveyard-card-face-down-and-creates-gold",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shadowrealm_solace_blue",
+      "group_id": "identity:shadowrealm_solace_blue",
+      "scenario_id": "card-shadowrealm-solace-blue-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "effect_branches": [
+        "returns_real_face_up_banished_zombie_to_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shadowrealm-solace-blue-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shadowrealm_strength_red",
+      "group_id": "identity:shadowrealm_strength_red",
+      "scenario_id": "card-shadowrealm-strength-red-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "effect_branches": [
+        "returns_real_face_up_banished_zombie_to_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shadowrealm-strength-red-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shadowrealm_swiftness_yellow",
+      "group_id": "identity:shadowrealm_swiftness_yellow",
+      "scenario_id": "card-shadowrealm-swiftness-yellow-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "effect_branches": [
+        "returns_real_face_up_banished_zombie_to_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shadowrealm-swiftness-yellow-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sinker_blue",
+      "group_id": "identity:sinker_blue",
+      "scenario_id": "card-sinker-blue-four-live-sparse880-loads-real-top-arrow-face-up-with-printed-overpower-tag",
+      "effect_branches": [
+        "loads_real_top_arrow_face_up_with_printed_overpower_tag"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sinker-blue-four-live-sparse880-loads-real-top-arrow-face-up-with-printed-overpower-tag",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "song_of_sinew_yellow",
+      "group_id": "identity:song_of_sinew_yellow",
+      "scenario_id": "card-song-of-sinew-yellow-four-live-sparse880-reorders-all-four-real-revealed-cards",
+      "effect_branches": [
+        "reorders_all_four_real_revealed_cards"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-song-of-sinew-yellow-four-live-sparse880-reorders-all-four-real-revealed-cards",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "starlight_road_blue",
+      "group_id": "identity:starlight_road_blue",
+      "scenario_id": "card-starlight-road-blue-four-live-sparse880-chooses-lightning-flow-and-creates-owned-token",
+      "effect_branches": [
+        "chooses_lightning_flow_and_creates_owned_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-starlight-road-blue-four-live-sparse880-chooses-lightning-flow-and-creates-owned-token",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "strategic_planning_red",
+      "group_id": "pitch-cycle:strategic_planning",
+      "scenario_id": "card-strategic-planning-red-four-live-sparse880-puts-real-opponent-graveyard-action-on-owners-deck-bottom-without-early-draw",
+      "effect_branches": [
+        "puts_real_opponent_graveyard_action_on_owners_deck_bottom_without_early_draw"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-strategic-planning-red-four-live-sparse880-puts-real-opponent-graveyard-action-on-owners-deck-bottom-without-early-draw",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sutcliffes_research_notes_red",
+      "group_id": "pitch-cycle:sutcliffes_research_notes",
+      "scenario_id": "card-sutcliffes-research-notes-red-four-live-sparse880-counts-only-real-runeblade-attack-and-orders-three-revealed-cards",
+      "effect_branches": [
+        "counts_only_real_runeblade_attack_and_orders_three_revealed_cards"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sutcliffes-research-notes-red-four-live-sparse880-counts-only-real-runeblade-attack-and-orders-three-revealed-cards",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+      "review_evidence": "review-evidence/sparse880-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c13cb4aba102042a5846d395911a38baf57fabda33d8332f2de9870c3f908b91",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse880-20261122-replay.json",
+          "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

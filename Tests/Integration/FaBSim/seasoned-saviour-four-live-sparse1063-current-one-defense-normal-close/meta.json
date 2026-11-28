@@ -1,0 +1,7 @@
+{
+    "name": "Seasoned Saviour / four-live current defense and close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:31:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is equipped, put two -1{d} counters on it.\n\n**Battleworn** Legalnatural20OldhimownsEq5. PreexistingDEFENSE2isexplicitpost-equippingstateperprintedmandatorycounterability, notearned/testedequiptrigger. Printedbase3minus2=currentDEF1. ActualBattlewornCloseaddsone=>3/current0andretainsEquipment. ActualGenericNAA6DEF2pluscurrentEquipment1blocksrealDoriDawnblade7power3/Blue8pay1/R2/AP0/0damage/noHit/HP20/allfourmanual; physicalEq5/Hand6RoleDEFENSE/currentnumericDEF3/ownedfatesguarded. Noequiptriggerexecution/returnfromGY/positiveSurgethreshold/futurephase/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#seasoned_saviour"
+}

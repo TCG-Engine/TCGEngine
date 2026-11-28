@@ -1,0 +1,19 @@
+{
+  "status": "HELD_UNRUN_MULTICARD_REMAINDER_STRONG_SHUFFLE_BOUNDARY",
+  "utc": "2026-11-24T16:28:23.774158+00:00",
+  "card_id": "sonata_arcanix_red",
+  "source_spec_sha256": "74bfbc80c8c2d8852ae709f8d7d301fe9fefe2fade158e5924bcd2b7640c1b64",
+  "reviewer": "/root/breadth_review1252",
+  "reason": "FaBFinishSearch calls FaBShuffleDeck\u2192EngineShuffle(deck,true). Core deterministic RNG uses random_int for strong=true rather than deterministic stream. No recorder/root-loader override found. A two-card shuffle remainder is not source-supported deterministic replay, and the proposed RandomCounter1 was unsupported. No native game, fixture or new confirmed native defect.",
+  "source_sha256": {
+    "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+  },
+  "alternative_scope": "A separate two-card short Deck with one NAA and one AA can reveal available2, return1, leave singleton shuffle with zero iterations/RNG0. It would cover only short-Deck branch, not normal3/remainder2/randomized shuffle.",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "repair_attempted": false,
+  "new_distinct_gameplay_root_credit": 0
+}

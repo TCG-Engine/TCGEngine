@@ -1,0 +1,7 @@
+{
+    "name": "Mark with Magma / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:32:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control 2 or more Draconic chain links, this gets **go again** and \"When this hits a hero, **mark** them.\" Firstactualchainlink only, noprerequisiteGustwave/priorDraconicchainlink: conditional grant absent, no earned attacks/hits-granted event. Actualprintedcost/payment/baseHPdamage/AP0/source5ownGY. Arena/Banish/Deckstayempty. Onlynegativegrant/mainbranch, notpositiveFealty/mark/discount/Combo/search/sibling. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mark_with_magma_red"
+}

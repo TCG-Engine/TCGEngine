@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:31:14.094741+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1062-20261122.json",
+  "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1076,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4890,
+    "duels": 3075,
+    "four_live": 1815,
+    "recorded_primary_ids": 2038,
+    "identity_denominator": 5196,
+    "recorded_groups": 1912,
+    "group_denominator": 3324,
+    "four_live_groups": 1804,
+    "phase_qualified_scenarios_at_actual_contexts": 1527,
+    "phase_qualified_unique_groups": 1517,
+    "creation_replay_passes": 2269,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 688,
+  "scenarios": [
+    {
+      "card_id": "mask_of_recurring_nightmares",
+      "group_id": "identity:mask_of_recurring_nightmares",
+      "scenario_id": "card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mask-of-recurring-nightmares-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "review_evidence": "review-evidence/sparse1062-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1f027dd6614510f77d32c9664e11158648fe570fdad79a2ab42df025ee9e99a4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1062-20261122-replay.json",
+          "sha256": "31b04bd5f6c5a09d996cb0e7d89101e7fbbd2bcb10855d169bc11f7707c905c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "vestige_of_flagellation",
+      "group_id": "identity:vestige_of_flagellation",
+      "scenario_id": "card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vestige-of-flagellation-four-live-sparse1062-actual-printed-two-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "review_evidence": "review-evidence/sparse1062-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1f027dd6614510f77d32c9664e11158648fe570fdad79a2ab42df025ee9e99a4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1062-20261122-replay.json",
+          "sha256": "31b04bd5f6c5a09d996cb0e7d89101e7fbbd2bcb10855d169bc11f7707c905c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "red_alert_boots",
+      "group_id": "identity:red_alert_boots",
+      "scenario_id": "card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-red-alert-boots-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "review_evidence": "review-evidence/sparse1062-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1f027dd6614510f77d32c9664e11158648fe570fdad79a2ab42df025ee9e99a4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1062-20261122-replay.json",
+          "sha256": "31b04bd5f6c5a09d996cb0e7d89101e7fbbd2bcb10855d169bc11f7707c905c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "red_alert_vest",
+      "group_id": "identity:red_alert_vest",
+      "scenario_id": "card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-red-alert-vest-four-live-sparse1062-actual-printed-one-defense-and-blade-break-close",
+      "source_spec": "card-regression-sparse1062-20261122.json",
+      "source_spec_sha256": "3b6306f400ab75c67c2b86d9b10a4b80e0958db834e24dd0e0a3b518f420da3e",
+      "review_evidence": "review-evidence/sparse1062-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1f027dd6614510f77d32c9664e11158648fe570fdad79a2ab42df025ee9e99a4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1062-20261122-replay.json",
+          "sha256": "31b04bd5f6c5a09d996cb0e7d89101e7fbbd2bcb10855d169bc11f7707c905c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

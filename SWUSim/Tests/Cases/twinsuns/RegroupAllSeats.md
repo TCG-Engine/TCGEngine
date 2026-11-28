@@ -24,6 +24,8 @@ P3HANDCOUNT:2
 #// Twin Suns (3 seats): the regroup RESOURCE step must offer a resource prompt to EVERY live seat. After the
 #// action phase ends, seat 3 has a pending "resource up to 1 card" decision. (Regression: ResourcePhase only
 #// queued for firstPlayer/secondPlayer, so seats 3+ were never offered a resource.)
+#// The prompts are SEQUENTIAL (CR 5.4.c, core/RegroupResource_InitiativeHolderFirst.md), so seats 1 and 2 answer
+#// first; seat 3's prompt only appears after them.
 ## GIVEN
 CommonSetup: grw/ggk
 WithSeatOrder: 123
@@ -36,6 +38,8 @@ WithP3Deck: SOR_095
 - P1>Pass
 - P2>Pass
 - P3>Pass
+- P1>AnswerDecision:-
+- P2>AnswerDecision:-
 ## EXPECT
 SEATCOUNT:3
 P3HASDECISION

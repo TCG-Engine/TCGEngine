@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1331-20261122.json",
+  "source_spec_sha256": "998b6e6a5ef881a57c1f48c80c33dd7304a660250d1eb82260a932541669e26f",
+  "input_sha256": "998b6e6a5ef881a57c1f48c80c33dd7304a660250d1eb82260a932541669e26f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-boltyn-four-live-sparse1331-banish-real-soul-to-grant-empowered-attack-go-again-and-fund-followup",
+      "card_id": "boltyn",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45ab70d540f72ee2acba9ebd56d5609a1b3add397ccdc9679fe37b86e5e1a04d",
+        "actions.json": "b8ee89fd20d62e6298a793186de00c32ad1d622358b446f2da34be5b954e8e16",
+        "assertions.json": "6057900de29766474b4c3b6c5e0dc0ed6c77c5ba363f5a0d771aff94ae6834a7",
+        "expected_final_gamestate.txt": "8cbdfaf41f7a8212cb3dca992a0da05b5cff16a590e13379196b008a7444707a",
+        "meta.json": "3ea8742b9059e5a6bd81e1fddbc70621542dd78c11127d3017a1eaf5aa1f2918"
+      },
+      "fixture_sha256": "381d3b6509d7269315737787c6ea4a0c49140deaa7a2b58d097366b1358e2585",
+      "actions": 65,
+      "native_assertions": 464,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 58,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1331-20261122.json",
+      "input_sha256": "998b6e6a5ef881a57c1f48c80c33dd7304a660250d1eb82260a932541669e26f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1331-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-boltyn-four-live-sparse1331-banish-real-soul-to-grant-empowered-attack-go-again-and-fund-followup",
+        "fixture_slug": "card-boltyn-four-live-sparse1331-banish-real-soul-to-grant-empowered-attack-go-again-and-fund-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "998b6e6a5ef881a57c1f48c80c33dd7304a660250d1eb82260a932541669e26f",
+    "source_note_sha256": "bf4e98335104ceb3c121c11b345c356b408111615c2990940f5e88773c8132ee",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 65,
+    "query_checks": 464,
+    "persistable_assertions": 464,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_ZERO_ASSET_REACTION_COST_AND_GO_AGAIN_WITH_REAL_FOLLOWUP",
+    "per_case": [
+      {
+        "card_id": "boltyn",
+        "group_id": "identity:boltyn",
+        "native_controls": 65,
+        "persistable_assertions": 464
+      }
+    ],
+    "basis": [
+      "Fresh standalone Young Light Warrior Boltyn20 unrepresented/no group holds, versus three natural Young Dori20/manual UPF. Generic Nimblism0 legal and real native four-response resolution refunds exactly oneAP, then actual first zero-cost Wounding6 gets printed Nimblism3 so currentpower7 exceeds printedbase4. No charge history or result/power/GA seed; no defending attack-action card, charged passive outside scope. HeroUID1..4, Nimblism5/Wounding6/Wounding7 and real legal Light Warrior BoltCourage8Soul allocate max8.",
+      "Printed Attack Reaction banishes real Soul card as cost and grants target attack with greater-than-base power go again. Current attack6 is the sole unchanged eligible active attack throughout pass-only responses; MONAbilities5/30\u201331 confirms REACTION0/no other assets and actual7>4/Soul eligibility. ARCAbilities151 invokes actual Prepare; Generated119164+ awaits MZCHOOSE Soul8,119177 actual Soul\u2192Banish then119179 FinishPrepared. Zero resource/AP Reaction does not depend on known099 nonzero-asset ordering. No formal target-choice alternatives, target change or removal behavior is certified.",
+      "Soul schema147/152 serializes only CardID/UID, so unsupported initial Soul Owner/Controller queries are correctly absent, not assumed. Actual FaBMoveChoice215 targets own player1; MoveUID target fallback and AddToZone812\u2013815 give new Banish Owner/Controller1 when Soul source lacks those fields. Same UID8 publicFaceDown0/physical owner and Soul0 are valid required outcomes. Virtual ABI9 SourceHero1/Controller1 has no invented Owner claim; Hero remains ready.",
+      "Corrected before any native attempt: four-live recorder258 sets holdPrioritytrue, normal GameLogic1259\u20131260 keeps paid actor1 reaction priority1. Then explicit pass1to2/pass2to3/pass3to4 all retain ABI9 and GAfalse; final pass4 resolves with REACTIONpriority1/stackEmptytrue. Current generated ResolveAbility tags active attack GO_AGAIN only at body resolution. AP stays0 until real7damage/HP13 and last Damage pass leads to refund1; no early grant/refund or omitted manual seat is blessed.",
+      "Full first-link close then actual second Wounding7 native play spends earnedAP1, fresh four response/combat rounds give printed4/noGA/HP9 and no second refund. This eleven actual damage plus actual second Action verifies granted GA and one-shot Nimblism consumption, not only metadata flags. Final actual5/6/7 ownGY0/1/2 and Soul8 ownBanish, all other zones empty/allHeroReady/APR0/UID9/RNG0/Stack decisions combat quiet. All464 assertions across65 controls persist."
+    ],
+    "limits": [
+      "Only corrected current packet semantic/source review pending native save/replay; no native pass or coverage credit claimed. Original duel-style reaction priority was corrected pre-native.",
+      "Only Hero reaction/Soul cost/sole unchanged current attack grant and actual funded followup. No charged passive/invalid threshold/target variation or retargeting/other Hero/adult sibling/support identity/full-Hero coverage; existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1331.py": "26aed918da490f04ed1d0e0c44fed771cee20407ac7f4acd7e9c070bd4fa228b",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "charged_power_credit": false,
+    "whole_hero_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1331-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "526104f325aa082a80aefbd1c1a380172c30178dbfb74bf9ada0c1ff0c0ab1f6"
+  },
+  "full_suite_run": false
+}

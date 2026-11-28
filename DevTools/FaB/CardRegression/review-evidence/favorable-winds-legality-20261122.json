@@ -1,0 +1,76 @@
+{
+  "status": "CORRECTED_EXISTING_FIXTURE_NATIVE_AND_TARGETED_REPLAY_PASS",
+  "card_id": "favorable_winds_yellow",
+  "scenario_id": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "new_groups": 0,
+  "new_scenarios": 0,
+  "hero_before": "puffin",
+  "hero_after": "marlynn",
+  "reason": "Pirate Ranger card requires Pirate Ranger hero, not Pirate Mechanologist. Two earned Marlynn draw triggers explicitly receive eight fresh manual responses.",
+  "actions": 15,
+  "native_assertions": 234,
+  "actual_manual_pass_inputs": 12,
+  "fixture_sha256": "faa0ddc6f253faaf9db30a4bae8719adf9d7a4e5eecf5407abd73bd94640e265",
+  "raw5_sha256": {
+    "initial_gamestate.txt": "f9789f374e0a176fd346dc38345ae0674057eed8ee77d608f7e7ad411bdd89ca",
+    "actions.json": "bf636207d12f2e8734ab2958747770f481b835d57382c5307ed8a8a68f918eab",
+    "assertions.json": "d384bcdeb137c2579b1f6126c61fd1e3a4ff2837e65a67ad1681e47a6eaa2d57",
+    "expected_final_gamestate.txt": "80d22d742d6cad8a030080016bd72b25b4091e97cfd8d937a959b17dae16bded",
+    "meta.json": "0a0ab83c22e291a0effee73427c1286a3338491cb19783880fc481ae4b3b03f4"
+  },
+  "independent_review": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "b1df3859312506c5faf3b23189b717dea431d073ae16f360eb9d02fa554fd2d1",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Marlynn is legal Pirate/Ranger Young with natural health 20; Favorable Winds is Pirate/Ranger Action cost 1. Generic Blue pitch, real Goldfin additional discard replacement, two real draws and printed go again retain the original physical expectations.",
+      "SEARuntime.php:99 earns one seaMarlynn ability per actual draw. DoDrawCard moves both Deck cards before calling that hook with drawn=2. Stack2 after primary completion, then two separate four-live manual response rounds, is the correct narrow route.",
+      "GeneratedMacroCode.php:170782-170824 branches on seaMarlynn, computes Arrow Hand references, and skips MZMULTICHOOSE when they are empty. Both remaining Hand cards are non-Arrows; Goldfin was removed as an additional cost. No modal or multi-choice answer is required for either trigger.",
+      "Named seaMarlynn is excluded from managed ROS_ABILITY by GameLogic.php:1843-1854 and uses DoResolveCard named ROS fallback at 1951-1953. Each completion returns priority to the turn player, resets passes, and selects PRIORITY with one remaining layer or ACTION with none. Existing draft waits preserve both explicit rounds and assert final ACTION/no queues.",
+      "15 planned native inputs are consistent: primary click, named-discard answer, actual pitch click, four primary responses, and eight hero-layer responses. Drawn physical UIDs 8/9 remain in Hand, source UID5 moves to graveyard, pitch UID6 remains, resources 2 and action points 1 remain through both empty hero resolutions."
+    ],
+    "limits": [
+      "Source/spec review only. No native execution, replay, engine edits or T mutations performed by reviewer; parent must verify corrected recording and one focused replay.",
+      "Approves only the legal Marlynn no-Arrow named branch. Does not qualify positive Arrow placement, hero activated Gold destruction, pitch siblings or asset/additional-cost sequencing.",
+      "Original Puffin setup was illegal for Ranger Favorable Winds; this correction does not validate that historical execution."
+    ]
+  },
+  "native_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\selected.json",
+  "native_input_sha256": "b1df3859312506c5faf3b23189b717dea431d073ae16f360eb9d02fa554fd2d1",
+  "backup_manifest_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\backup\\manifest.json",
+  "backup_manifest_sha256": "d969ff85a56af7176d22c7ae9baa40f6a26eb44cffe046f96f8bc32b07c444e8",
+  "old_fixture_sha256": "035f641a65f67f822a802e8ba2e30c87ea5ecfdafdc98b998f9ed373644720ca",
+  "replay": {
+    "slug": "card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+    "passed": true,
+    "returncode": 0,
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "DevTools/RunIntegrationTests.php",
+      "--root=FaBSim",
+      "--test=card-favorable-winds-yellow-four-live-sparse897-actual-named-discard-and-blue-pitch-then-two-real-draws-and-go-again",
+      "--max-failures=1",
+      "--compact",
+      "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\clean-replay.complete.log"
+    ],
+    "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\favorable-legality-20261122\\clean-replay.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+    "complete_log_sha256": "b8e31b8cc675ca5b7b9d8d000a14a5d200eb6443fd32048ca437a168c02f135b",
+    "raw5_sha256": {
+      "actions.json": "bf636207d12f2e8734ab2958747770f481b835d57382c5307ed8a8a68f918eab",
+      "assertions.json": "d384bcdeb137c2579b1f6126c61fd1e3a4ff2837e65a67ad1681e47a6eaa2d57",
+      "expected_final_gamestate.txt": "80d22d742d6cad8a030080016bd72b25b4091e97cfd8d937a959b17dae16bded",
+      "initial_gamestate.txt": "f9789f374e0a176fd346dc38345ae0674057eed8ee77d608f7e7ad411bdd89ca",
+      "meta.json": "0a0ab83c22e291a0effee73427c1286a3338491cb19783880fc481ae4b3b03f4"
+    },
+    "full_suite_run": false,
+    "new_group_credit": false
+  },
+  "unchanged_other_batch_fixtures": 4,
+  "old_illegal_revision_qualification": "SUPERSEDED_NOT_USED_AS_VALID_CURRENT_COVERAGE",
+  "limits": [
+    "No new group, supporting hero or sibling credit.",
+    "Original named discard/resource/draw/go-again expectations preserved; payment-order caveat unchanged.",
+    "No engine/framework/full-suite or unrelated fixture changes."
+  ]
+}

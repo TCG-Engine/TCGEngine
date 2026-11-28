@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a1f9b1165aacf497db79395be60e10ed7807e31d6b420f75fbeff6f798fc6761",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c12bf99ffa27cbbb34871be3ea8a14a751841df61cdf88d4a3177e6ae4dd25b",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "625cc23148fdf2be2a364f94d430abb5b4362a7ce75f2a3ab2e3582943a62691",
+        "expected_final_gamestate.txt": "c7314d4ef2cd2cb08bbc85a4ded1f9cd0c539a1be0304293ebc2f7732db46a0b",
+        "meta.json": "2456345591e99b4ad162a27271a74dcd79c903f93ae032919d40acfa4833896a"
+      }
+    },
+    {
+      "slug": "card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b726888ab1dd2fa6aa8d74cb490a90b0fcc9b8abffbc35f64a2e4a368e1a887c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "31fb4336a6f76fcb9d3a6b7e2ed9afbd49325ca2bf2369b62da3bf354df371e3",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "b122340b328ea85942a416c98c579b325d7fc135320e72b543aab8cd8148e113",
+        "expected_final_gamestate.txt": "6931894be7e35e795acd8b11e525e2ad792cb59fdfd13c005c13be4459beca77",
+        "meta.json": "09f58b643640541231c874433f0c38e4846e3d2d2ffa7fc5b48f9f25298f135f"
+      }
+    },
+    {
+      "slug": "card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b1c2031747f30f34d175cfc273ad85fbdcb93578c61488f9954073008ac3814",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b72edcdc49b383ffd75f02cda71794f018042a32ae0db7bd78995e5ea37cea9",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c179867a2b3441204293af777085b62b2972911851cb88eda62c9872ee5d5446",
+        "expected_final_gamestate.txt": "c1a87379609e829ce1d854cf7ef07653e656d5d845d530e60868aba9a38eb166",
+        "meta.json": "9a29cd98cad1d0ab52cf49ac942c794895a20fbe408b3a6a89985a2cabe1f0aa"
+      }
+    },
+    {
+      "slug": "card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1044-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9756d74ba1deae315ca9d5411e5fce30661b7b3f91097e2c8bcc4f21c777512e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "84761bb2194c4ef881f49d270d869f5e9b314b090f85f34b1cf7e2295b468517",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "040b5b6f50d3b8a3c5c1b2e599609fdcaa7a276504d413452b3e2983b88feca9",
+        "expected_final_gamestate.txt": "b26199d7a2310c6100d600420b64a63eb6fbc2443fa0a5fa04125a9018e93134",
+        "meta.json": "dae33610c71e110091343f431eb185f20558c6c573843b37082c35dd54847eb6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

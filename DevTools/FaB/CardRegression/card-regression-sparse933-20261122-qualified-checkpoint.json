@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T19:41:06.751496+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse933-20261122.json",
+  "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 139,
+  "native_assertions": 684,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4460,
+    "duels": 3075,
+    "four_live": 1385,
+    "recorded_primary_ids": 1608,
+    "identity_denominator": 5196,
+    "recorded_groups": 1482,
+    "group_denominator": 3324,
+    "four_live_groups": 1374,
+    "phase_qualified_scenarios_at_actual_contexts": 1097,
+    "phase_qualified_unique_groups": 1087,
+    "creation_replay_passes": 1839,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 258,
+  "scenarios": [
+    {
+      "card_id": "fight_fair_red",
+      "group_id": "identity:fight_fair_red",
+      "scenario_id": "card-fight-fair-red-four-live-sparse933-actual-six-against-non-reviled-hero-returns-to-graveyard",
+      "effect_branches": [
+        "actual_six_against_non_reviled_hero_returns_to_graveyard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fight-fair-red-four-live-sparse933-actual-six-against-non-reviled-hero-returns-to-graveyard",
+      "source_spec": "card-regression-sparse933-20261122.json",
+      "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+      "review_evidence": "review-evidence/sparse933-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29294cd10c47a9803beb7a1f6bfe8a2446a8c641c8b22d8cfb85dabf10bf47fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse933-20261122-replay.json",
+          "sha256": "84050c191ddebb759147b93fdc9f729f7ae8d124d1069db69445605805b8ae79",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fight_dirty_red",
+      "group_id": "identity:fight_dirty_red",
+      "scenario_id": "card-fight-dirty-red-four-live-sparse933-lyath-base-four-against-non-revered-hero-keeps-real-deck",
+      "effect_branches": [
+        "lyath_base_four_against_non_revered_hero_keeps_real_deck"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fight-dirty-red-four-live-sparse933-lyath-base-four-against-non-revered-hero-keeps-real-deck",
+      "source_spec": "card-regression-sparse933-20261122.json",
+      "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+      "review_evidence": "review-evidence/sparse933-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29294cd10c47a9803beb7a1f6bfe8a2446a8c641c8b22d8cfb85dabf10bf47fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse933-20261122-replay.json",
+          "sha256": "84050c191ddebb759147b93fdc9f729f7ae8d124d1069db69445605805b8ae79",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "disturb_the_peace_red",
+      "group_id": "identity:disturb_the_peace_red",
+      "scenario_id": "card-disturb-the-peace-red-four-live-sparse933-actual-six-against-non-guardian-hero-keeps-real-aura",
+      "effect_branches": [
+        "actual_six_against_non_guardian_hero_keeps_real_aura"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disturb-the-peace-red-four-live-sparse933-actual-six-against-non-guardian-hero-keeps-real-aura",
+      "source_spec": "card-regression-sparse933-20261122.json",
+      "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+      "review_evidence": "review-evidence/sparse933-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29294cd10c47a9803beb7a1f6bfe8a2446a8c641c8b22d8cfb85dabf10bf47fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse933-20261122-replay.json",
+          "sha256": "84050c191ddebb759147b93fdc9f729f7ae8d124d1069db69445605805b8ae79",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "enact_vengeance_red",
+      "group_id": "identity:enact_vengeance_red",
+      "scenario_id": "card-enact-vengeance-red-four-live-sparse933-actual-first-chain-six-without-combo-keeps-real-arsenal",
+      "effect_branches": [
+        "actual_first_chain_six_without_combo_keeps_real_arsenal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-enact-vengeance-red-four-live-sparse933-actual-first-chain-six-without-combo-keeps-real-arsenal",
+      "source_spec": "card-regression-sparse933-20261122.json",
+      "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+      "review_evidence": "review-evidence/sparse933-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29294cd10c47a9803beb7a1f6bfe8a2446a8c641c8b22d8cfb85dabf10bf47fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse933-20261122-replay.json",
+          "sha256": "84050c191ddebb759147b93fdc9f729f7ae8d124d1069db69445605805b8ae79",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "burning_blade_dance_red",
+      "group_id": "identity:burning_blade_dance_red",
+      "scenario_id": "card-burning-blade-dance-red-four-live-sparse933-actual-first-draconic-link-three-without-granted-go-again",
+      "effect_branches": [
+        "actual_first_draconic_link_three_without_granted_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-burning-blade-dance-red-four-live-sparse933-actual-first-draconic-link-three-without-granted-go-again",
+      "source_spec": "card-regression-sparse933-20261122.json",
+      "source_spec_sha256": "db39e78d6d0103a96e9acd611121a64c4d93138bd7338410b148fba453787523",
+      "review_evidence": "review-evidence/sparse933-20261122-qualified-saved.json",
+      "review_evidence_sha256": "29294cd10c47a9803beb7a1f6bfe8a2446a8c641c8b22d8cfb85dabf10bf47fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse933-20261122-replay.json",
+          "sha256": "84050c191ddebb759147b93fdc9f729f7ae8d124d1069db69445605805b8ae79",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

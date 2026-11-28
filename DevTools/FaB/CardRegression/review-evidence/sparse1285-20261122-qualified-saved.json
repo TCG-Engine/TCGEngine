@@ -1,0 +1,97 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1285-20261122.json",
+  "source_spec_sha256": "6f7b5c31432860218c52641c907b1eff9cc67047b6a1b1287e3cb154efe9a502",
+  "input_sha256": "6f7b5c31432860218c52641c907b1eff9cc67047b6a1b1287e3cb154efe9a502",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-lyath-goldmane-vile-savant-two-live-sparse1285-real-printed-three-defense-halves-rounded-up-to-two",
+      "card_id": "lyath_goldmane_vile_savant",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1be2dfefe2700d169aa1c6cc02a9e0692b2eca6ee2f8aa13ce45f839de133363",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "397c5aeeb31e18fce027ce1f3370e69b623ddd2feea68c6a9e0941c0bdc48f87",
+        "expected_final_gamestate.txt": "2b0854c5f7a674f998106300a7af381cd04b66228f87961e01673271b36679b1",
+        "meta.json": "d5b2ccfade8c68bcaacc9b5c22c168fed83adf7a6550680cedd94bbf02763a2d"
+      },
+      "fixture_sha256": "3b1bc6c24c236d5436246d8193659f1229d9dcbdbb756b69b8e55e3f5a68da25",
+      "actions": 15,
+      "native_assertions": 150,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 13,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1285-20261122.json",
+      "input_sha256": "6f7b5c31432860218c52641c907b1eff9cc67047b6a1b1287e3cb154efe9a502",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1285-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lyath-goldmane-vile-savant-two-live-sparse1285-real-printed-three-defense-halves-rounded-up-to-two",
+        "fixture_slug": "card-lyath-goldmane-vile-savant-two-live-sparse1285-real-printed-three-defense-halves-rounded-up-to-two",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "6f7b5c31432860218c52641c907b1eff9cc67047b6a1b1287e3cb154efe9a502",
+    "source_note_sha256": "172445702642dbd7b965483f079b8f7d997a7812d30299c9758194086cf425a0",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 15,
+    "query_checks": 150,
+    "persistable_assertions": 150,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_LYATH_DUEL_ODD_BASE_DEFENSE_HALVED_ROUNDED_UP",
+    "basis": [
+      "Natural adultLyathGoldmaneVileSavant40 Hero2 versus adultDorintheaIronsong40 activeHero1; omitted activeSeats legacy native duel/exact12/default empty mode/no passives/both manual. Two identical real Generic WoundingBlowRed assets allocate3Hand1 and4Hand2, printedcost0/power4/defense3. No modifiers, extra defender, equipment or health effect seeded; adult identity absent from both coverage indexes.",
+      "Printed continuous text halves base power and defense of cards controlled by Lyath, rounded up. Actualforeign4power attack3 belongs to/controller1, so it stays4. Actualsame defender4 is declared from Hand2 into CombatChain2 RoleDEFENSE/owner2/controller2 without AP/resource cost. Base3 defense must become ceil(3/2)=2, not1; incoming4 minus actual2 gives2damage and LyathHP38.",
+      "SUPBase recognizes active adult lyath_goldmane prefix and uses ceil(base/2); GameLogic defense calculation invokes it for defender player with power=false before later bonuses. Attack calculation uses attacker1, preserving foreign attack4. No Boo ability used and no crowd-boos event occurs, so no +1 defense or Might token can explain selected result.",
+      "Actualsource responses priority2then1, both attack passes, real defender2 click, fresh both defense/reaction/damage/resolution passes and final ownphysical3GY1/4GY2 substantiate selected native flow. Final APR0/UID4/RNG0 and clean Stack/queues/combat match scope. All150 query/state/power/go_again assertions persist across15 single native controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending native save and targeted replay; no native pass, replay or coverage credit claimed.",
+      "Only controlled odd3 base-defense halving and foreign attack unchanged. No ownpower halving, even values, equipment, Boo/Might abilities, young/four-live, secondary/support or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1285.py": "77ddfb1684f4d8b41f9d1e0f153bcca15f3c97b13afb49ce0bf04278d04dba52",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1285-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "823b8b9f1fcf6c0cc1f8d25e33dbc3bfbb7d6021b9014c2063ac7948ffac88e2"
+  },
+  "full_suite_run": false
+}

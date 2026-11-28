@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch475.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T14:32:13.265727+00:00",
+  "fixtures": [
+    {
+      "slug": "card-consuming-strength-yellow-four-live-real-hand-instant-banish-cost-and-next-attack-plus-two-six-damage",
+      "fixture_sha256": "842e2c68de0e23d20b518b121bf182a7ace8549ebf1eee32814ac16b6519cfeb",
+      "passed": true,
+      "result": "[PASS] consuming_strength_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-consuming-strength-yellow-four-live-real-hand-instant-banish-cost-and-next-attack-plus-two-six-damage",
+      "returncode": 0,
+      "stdout": "[PASS] consuming_strength_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

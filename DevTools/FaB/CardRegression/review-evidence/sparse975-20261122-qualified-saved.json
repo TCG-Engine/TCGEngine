@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse975-20261122.json",
+  "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+  "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+      "card_id": "static_shock_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2344855c8c10481ea3ab9bd410c73e7e0c336116348f54ac1a212abb9b940a62",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "1acec88669a89c48834da3ce33ae7c6833d1c7be5bdce71e9623fb0114414cbd",
+        "expected_final_gamestate.txt": "69a31587b2bde977074ea8882286a7e6fd1330b8ea0e7e298a809372f62f5791",
+        "meta.json": "c9d8f041cb9dad2bec05b2683bc3076df3bd61e41dddf65289157f909c8691da"
+      },
+      "fixture_sha256": "5a99d3bb41c08580e2814617841e880d98af2ae9e02b862bd57d49d52f56117c",
+      "actions": 29,
+      "native_assertions": 155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+        "fixture_slug": "card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+      "card_id": "runic_reclamation_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "595ae70853684157b165a1f412cc27e23380e494d05834a4c24bd229a5b5e65e",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "694c63b798540e9c8b4aeff34fc66f9010a85eacd84a8e609630435a2cfb0127",
+        "expected_final_gamestate.txt": "97db4ddb86e80b46c99906dfe71ddf77d9124ef3de357d8aacd713569f646b3f",
+        "meta.json": "cfada0b13a4f756c58ed31d05fd86bf524c4b70cca927ba8ce9957c806d8f93a"
+      },
+      "fixture_sha256": "b3fc864a5d76e730cd935e6339a843cc7d1ee7e73292c50ba0cb38cb99fac138",
+      "actions": 31,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+        "fixture_slug": "card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+      "card_id": "annihilate_the_armed_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0592d2a4e086db58d4ba104543919f1913f04b10a4eb7d98bb247dc0f35da998",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "c60ded68d479da4887a78219e0f79e5467fe164ff8910eceebf352702d17850c",
+        "expected_final_gamestate.txt": "e3d5cdf54923e82da721db0bf9609cd7328b9dc1b48abcde108d7b3334db99c6",
+        "meta.json": "51abb355639844e5651d470439c573adf5f0e3d4fa3987eb3e4149f17b43df53"
+      },
+      "fixture_sha256": "2e203c11ab548eeb0fca1856cae5e3968bfda1ab1939403b752e9a9625e60a00",
+      "actions": 30,
+      "native_assertions": 191,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+        "fixture_slug": "card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+      "card_id": "plunder_the_poor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eefdd3ef2e5587ab38692a8b981ad757d6c945d12518983b16485920b3785789",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "1664096731b7b8392ee3af1d84a95b2b511b70a59bbb30a85c8978aa7ad9ae2b",
+        "expected_final_gamestate.txt": "acda9f31174c6dc780089694b0803cc41ef486e012c877ab42de843d62ca493e",
+        "meta.json": "f7a9bdf42ee479a5ff9b7ce45fd1d50c349f0f1c416254db9d8e6c6cc9f34ca6"
+      },
+      "fixture_sha256": "c7da207833c9409451d16ca08875d0548b6b95bcb829e2e8ffbf05808079b775",
+      "actions": 29,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+        "fixture_slug": "card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+      "card_id": "slay_the_scholars_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "533c0d9ebe304dc9db7625543a24c0820a187921be928b7a43f7411d04e06f29",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "ce5b6b9433245d10ae3a344e176343884ab56bc671a3a11c749da24a4ae5cb78",
+        "expected_final_gamestate.txt": "d7fa3acb7750fa66a122062df8588306af6d3fe4aafb2fcf8f008306c1e1cd17",
+        "meta.json": "3bb4eecbc9ab87f57766b8493b6d9700c7e3a07ad19e2e6fcd76507429f78b2f"
+      },
+      "fixture_sha256": "d1b5d4c09aa03058ea51e9761b437183e031d189da47af313510b8e33c448d23",
+      "actions": 29,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "input_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+        "fixture_slug": "card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Final Static Shock is actually fully blocked by two AA defenses6, damage0/HP20/attackHit=false/Stack0, so WHEN hit never occurs and no earned hit layer is omitted. Aurora20 is legal Elemental Runeblade. No prior-Lightning/extra-arcane predicate isolation is claimed; the unblocked draft was excluded before native execution.",
+      "Final Runic Reclamation actor is Chane20, a legal plain Runeblade with no passive play-trigger. All Hero guards changed; no Viserai remains. This avoids the earlier unexecuted first-play WHEN/IF omission. Actual Blue6 pays3/R0/AP0, three physical AA defenses9 block7, target real Quicken11 and extra Hand10 retained, ownArena0/no Runechant. Its aura target belongs to the never-earned hit trigger, not ordinary spell play.",
+      "Uzuri20 Contract cases: Armed1/5 Blue6/R2 and two AA6 defense; Plunder0/4 and Slay0/4 likewise fully blocked. Eligible actual enemy Deck9 or8 retained CardID/UID/Owner4/Deck1: Armed AA Critical Strike, Plunder0-cost NAA Lead Charge, Slay NAA Lead Charge. No banish/Contract completion/Silver; own Arena and both Banish zones0.",
+      "All five naturalHP20/ordinary Hand5 source, adjacent Hero4 before assets, AP0, physical source5 owner1 graveyard and actual blockers owner4 graveyards, four manual live response windows. Initial counts/UIDs and shifted block references agree with setup. No generated PrepareCard entry for these five; no other activation or known cost route entered."
+    ],
+    "limits": [
+      "Named normal play/full-block/payment/source fate/eligible physical retention only. No exact unblocked power, positive hit/target/destruction/banish/Contract/Silver/Runechant/ownership, Static Lightning-history or arcane-denial isolation, hero abilities, siblings or whole-card certification. Previous unexecuted draft concerns are not native findings. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48"
+  },
+  "full_suite_run": false
+}

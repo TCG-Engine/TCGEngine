@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse999-20261122.json",
+  "source_spec_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+  "input_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+      "card_id": "amulet_of_echoes_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66036c4062e1bfb25284a12c4b83d3cd73df18bfc46f22c818d972500040846b",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "e17d54c1cb5862b9de815d9db7a6251c407d53867966884fc3eee103d72e7fa3",
+        "expected_final_gamestate.txt": "15e7700f2a52354c6f611f6d0c562251ae0079e81634ba0efa9267e223f0b430",
+        "meta.json": "3aa64cc1cbdff2fdb32a6284771acb26ab985de0ed054cb8d7d558f141c75842"
+      },
+      "fixture_sha256": "e72a8cb066c021528d9ccd310f1468eb1a09eeb3db7b7a96c2282084240415d1",
+      "actions": 28,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse999-20261122.json",
+      "input_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+        "fixture_slug": "card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+      "card_id": "amulet_of_oblation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a6995140ffa10c031e63bd819b1a57346794371b0cee9b389454d1247cf958f1",
+        "actions.json": "28239c88b64affb3a6e6e9939aaa74baf5f12dbab24237908125f76fd12a86eb",
+        "assertions.json": "c1b8a7c4c00bb3ec3018f3e72eedccc1b9cdfe6497a4f1b406e863276eddcd1d",
+        "expected_final_gamestate.txt": "291aa18730c21015a57488cefd078b804cf8424e84e8e9d9f78741e02f551e12",
+        "meta.json": "ba21415a0cbd56fb10be769c0f3ad6f64b7248a62d2ddea5f1362ef1bbfff012"
+      },
+      "fixture_sha256": "758d72b0d99dc386d7f7132100cfc1a9e70d64c58976df97d2b09080e1819499",
+      "actions": 28,
+      "native_assertions": 187,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse999-20261122.json",
+      "input_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+        "fixture_slug": "card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Both cached cards are Generic Items, legal natural20 Dorinthea actors. Supported EVRAbilities.php:19/:23 indexed Instant0/destroy rows; :31 Echoes requires nonempty eligibleHero choices and:35 Oblation requires actual turn GRAVEYARD history plus AAcombat choices. Real owned ready Arena5 is the entire physical destroy cost, no resource/tap/additional asset needed. Printed GoAgain applies to playing the Item card, not this failed Instant attempt.",
+      "Echoes printed target must have played at leasttwo cards ofsameName thisturn. Fresh initial history acrossallfourheroes provides no such qualifying target, as EVRCards.php:112 inspects per-seat cardsPlayedThisTurn. Actual opposingHandNAA7 makes discard nonempty, but doesnot create the required history; rejectbeforetarget/destroy/layer is correct. Real supportAA6 afterward deals4/HP16/all4manual/AP0/ownedGGY whileItem5+victimHand7 retained.",
+      "Oblation is attempted at actual ATTACK priority1 withStack0/currentowned AA6 WoundingBlow/RoleATTACK/currentlink, so Instant activation is legal even though AP0. ELECards.php:221-231 AA selection accepts actual currentlink attack-action cards, including this ownAA6; no missing target/missing AP masks false history. Initial old ownGGY7 is an input asset from beforeturn, not a thisturnentry. Fresh initial turnEffects/history empty and actual6 movesHand\u2192Stack\u2192CC withoutanycard enteringgraveyard beforeattempt, so required turn GRAVEYARDhistory remainsfalse despite nonemptyGGY.",
+      "Post-click Oblation guard pins same Arena5ready/Owner1/Controller1, actualCC6/RoleATTACK/owner1 and oldGGY7 retained, noLayer/decision/payment/resource mutation atATTACK. Actual4damage/HP16 and normalclose append6 toownGGYindex1 while old7 remainsindex0 andDeck0. This directly excludes accidental granted bottom-deck replacement in the selected branch.",
+      "Everycase28actualcontrols/fourmanual source+combat seats, natural20/alllive, persistentcard/role/HP/damage/cost/fate checks. Both groups currentlyunrepresented/currentexactledger0; no author-only defense/legality diagnostics."
+    ],
+    "limits": [
+      "Only failed-history activation with legitimate assets/targets and actual support progression. No positive two-same-name target/discard, positive graveyard-entry prerequisite/replacement, formal target-declaration timing, hero ability, created ownership, source/sibling/support/fullcard credit.",
+      "Native rejection/input retention/fixture qualification/one clean replay pending Root; any mismatch remains held rather than weakened/repaired.",
+      "Reviewer ran no PHP/native/game/test and changed no T/source/engine/original/Git/network/auth. Only W review receipt written; no further authoring."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "01382944038bd4a543a687111a37ef709cc81812a48709ff17ca285f57bc69fe"
+  },
+  "full_suite_run": false
+}

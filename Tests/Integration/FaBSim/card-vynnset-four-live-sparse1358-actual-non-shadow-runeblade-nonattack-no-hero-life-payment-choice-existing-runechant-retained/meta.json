@@ -1,0 +1,7 @@
+{
+    "name": "Vynnset / non-Shadow Runeblade non-attack earns no life-payment ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:07:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGVYNNSET20_THREEDORI20. ExistingownedBanishCriticalBlue7faceupandRunechant8Arena1areinitialpositiononly(noStartTurnexecution/provenancecredit). ActualReadRunesRed5RUNEBLADE_NAAisNOTSHADOW; HeroShadowclasstraitdoesnotturneveryRunebladecardShadow. ThusVynnsetWHENplayShadowNAAconditionfalse/noHerooptionalLife1paymentorchooser/abilitylayer/HPchange/preventiongrant. Actual0NAA/AP1to0/beforefourresponsesonlyoldRune8/U8; spellresolvescreateexactthreeRunechants9/10/11afterold8(total4), source5GY1/HP20/R0/nochoice/allothersHP20/UID11RNG0/Banish7same. NAAdoesnottriggerexistingRunechantattackcondition; allfouroriginal+newownedRunechantsretained. Actual0Potion6HandconsumerrejectsAP0/noextraCardorRunechant/noLifechange. OnlynonShadowtypefilter/nativeNAA/countdelta/physicalfates/consumerGuard. PositiveShadowNAA/payLife/triggerTiming/unpreventableRunechantdamage/StartTurnbanishcreation/Heroadult/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vynnset FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DTDCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

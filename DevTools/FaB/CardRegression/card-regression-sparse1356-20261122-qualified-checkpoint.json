@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T09:53:18.609111+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1356-20261122.json",
+  "source_spec_sha256": "6d62bd7d679b3d0090513c5221c05752ee5c4597c9eb0d1236bccd1af1ac7dca",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 480,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5331,
+    "duels": 3103,
+    "four_live": 2228,
+    "recorded_primary_ids": 2479,
+    "identity_denominator": 5196,
+    "recorded_groups": 2353,
+    "group_denominator": 3324,
+    "four_live_groups": 2217,
+    "phase_qualified_scenarios_at_actual_contexts": 1968,
+    "phase_qualified_unique_groups": 1958,
+    "creation_replay_passes": 2710,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1129,
+  "scenarios": [
+    {
+      "card_id": "katsu",
+      "group_id": "identity:katsu",
+      "scenario_id": "card-katsu-four-live-sparse1356-actual-fully-blocked-ninja-attack-no-hit-despite-eligible-zero-cost-hand-and-combo-deck-card",
+      "effect_branches": [
+        "actual_two_power_ninja_attack_blocked_by_real_three_defense_no_hit_no_katsu_discard_or_combo_search_with_eligible_zero_cost_hand_and_combo_deck"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-katsu-four-live-sparse1356-actual-fully-blocked-ninja-attack-no-hit-despite-eligible-zero-cost-hand-and-combo-deck-card",
+      "source_spec": "card-regression-sparse1356-20261122.json",
+      "source_spec_sha256": "6d62bd7d679b3d0090513c5221c05752ee5c4597c9eb0d1236bccd1af1ac7dca",
+      "review_evidence": "review-evidence/sparse1356-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32a40f17e3121e4fdc86114e532e066b587409c0ab7ec3f2dac9560425ff31de",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1356-20261122-replay.json",
+          "sha256": "f3a8486da01ab2c1c712fb93fa99244b337b98c7c8d476f1371e64c77e222dfe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

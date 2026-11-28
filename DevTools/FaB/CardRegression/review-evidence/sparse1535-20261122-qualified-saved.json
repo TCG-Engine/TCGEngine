@@ -1,0 +1,156 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1535-20261122.json",
+  "source_spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+  "input_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "card_id": "dracona_optimai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63cc95ce37d25a2eb98a8e4ef094af95344582ad17a6ccff245d9fcc21162a56",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "b3ee529070bc96b7e913666cf8657f9f735428ac03a9bbd6184a7558972be0de",
+        "expected_final_gamestate.txt": "eabff0940c7f1780deaba56af9b6e09feb6cf9ca105ca17590be595d3968bf40",
+        "meta.json": "be8c361af2e86e6a04bc242af1d58c5c59d3807f33782e2d901bf265fae98259"
+      },
+      "fixture_sha256": "ef4b08360350616a92d0693ff91e1be86d0cb4e1afe0a8d7f313ab81e05abcca",
+      "actions": 27,
+      "native_assertions": 464,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "input_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "fixture_slug": "card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "card_id": "tomeltai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63038dfab14aea5f6465fe6f2ddc32f3754134eef68b13452d060ab37f101775",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "8e182d5113a785c1e9110ddb853b41f19cb15ba4df492425e34d4a61d39b38a9",
+        "expected_final_gamestate.txt": "06715ab995987cfe62619f9ea57df7ee99d0807f1a36dff05aa8a24a076f8bfa",
+        "meta.json": "059e667bfd571bebeb5ce5b39ff88b45fb1df7ea5f03aad8b8b7446cae1faf2a"
+      },
+      "fixture_sha256": "b812906648005d723cf564699cf35e733f5c00bd5e5e054812514aeade86b988",
+      "actions": 27,
+      "native_assertions": 464,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "input_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "fixture_slug": "card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "card_id": "dominia",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f6567af57207585739a0cb4b6ba5b2ce0267de21451b3c33b69c27ef97366513",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "41059ace5cf07130a3a8983aec6a8e24e875cc65a8fbbcc8e97db943376ce744",
+        "expected_final_gamestate.txt": "ce1673118817576a6c848beabeaf7637826171879f6b1561ddc936b4aa72aef6",
+        "meta.json": "18c667f212d1fedb751a29f5c643cd2b2d565a91484d0af4f33ecd93e68c5e73"
+      },
+      "fixture_sha256": "704bc7471cd2203ee0b1003481bb2a01322b49629210e898b1901775904d4824",
+      "actions": 27,
+      "native_assertions": 464,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "input_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "fixture_slug": "card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1535,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T10:57:21.063409+00:00",
+    "spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+    "source_note_sha256": "0c2eefebbdce4dba4f365ca3527e47878a2e5f5227c487fd9560d60a40ca8338",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 3,
+    "findings": [
+      "Each printed event attacks a HERO; actual PERMANENT Ally10 does not earn it. UPR target type HERO guards precede RevealRed/private Hand access: Dominia cases8/7 before6, Tomeltai8/7 before6, Dracona58/57 before56.",
+      "Canonical prior invoked fronts/Ash; legal Dromai/Storm; printed6/5/4 power; AP0/tap6/proxy13 and real red Deck, opposing Hand and Helmet controls. Full physical Ally death and four manual close."
+    ],
+    "limits": [
+      "Ally-attack event exclusions only. No positive Hero trigger payload/reveal/choice lifetime/producer or whole-card credit. Reviewer source/spec only; no native execution or writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1535-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fc2d6bd2326f2254adffb58b41c6381acc6807d88317586da2b461bc6cca9c06"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Phoenix Form / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:02:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control 1 or more Phoenix Flames, this gets **go again**. 2 or more, this gets +2{p}. 3 or more, this gets \"When this hits a hero, draw 3 cards.\" Representative only: actual_three_with_no_phoenix_flame_keeps_real_own_deck. Actual printed payment, four live manual seats/full unblocked combat, real HP loss, no granted go again/hit ability, owned original source in graveyard. Positive Combo/control thresholds and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#phoenix_form_red"
+}

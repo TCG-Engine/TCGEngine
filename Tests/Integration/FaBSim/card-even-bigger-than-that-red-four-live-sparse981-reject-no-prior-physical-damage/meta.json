@@ -1,0 +1,7 @@
+{
+    "name": "Even Bigger Than That! / sparse four-live legality representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:32:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play this only if you've dealt {p} damage this turn.\n\n**Opt 3**, then reveal the top card of your deck. If it has {p} greater than the total damage you've dealt this turn, create a Quicken token and draw a card. Named failure-condition representative only: legal natural20 hero, freshACTIONturn2/zero history/Hand5 primary+plainGenericWounding6. First attempted forbidden play must leave source5/Hand2/AP1/R0/Stack0/Arena0/emptyallqueues, no target/assets. Then support6 physically plays cost0/targetsHero4 and dealsactual4 through allfourmanual seats/AP0/source6GY; primary5 remainsHand. This verifies a real rejection with same-seat legal follow-through, not a frozen no-op. No positive prerequisite/primary resolution/card abilities or sibling/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#even_bigger_than_that_red"
+}

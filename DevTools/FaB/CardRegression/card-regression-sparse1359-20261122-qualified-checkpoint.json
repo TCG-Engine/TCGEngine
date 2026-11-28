@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:12:35.725766+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1359-20261122.json",
+  "source_spec_sha256": "d7a2beec96c7eb032d4782d4ddd595d52337cd25b68342d5e2f1e7256cce1b52",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 88,
+  "native_assertions": 1152,
+  "manual_passes": 79,
+  "totals": {
+    "saved_registered_scenarios": 5336,
+    "duels": 3103,
+    "four_live": 2233,
+    "recorded_primary_ids": 2484,
+    "identity_denominator": 5196,
+    "recorded_groups": 2358,
+    "group_denominator": 3324,
+    "four_live_groups": 2222,
+    "phase_qualified_scenarios_at_actual_contexts": 1973,
+    "phase_qualified_unique_groups": 1963,
+    "creation_replay_passes": 2715,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1134,
+  "scenarios": [
+    {
+      "card_id": "concealed_nerve_gas",
+      "group_id": "identity:concealed_nerve_gas",
+      "scenario_id": "card-concealed-nerve-gas-four-live-sparse1359-real-no-go-again-hit-does-not-destroy-cloaked-trap-or-create-frailty",
+      "effect_branches": [
+        "real_no_go_again_hit_does_not_destroy_cloaked_trap_or_create_frailty"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-concealed-nerve-gas-four-live-sparse1359-real-no-go-again-hit-does-not-destroy-cloaked-trap-or-create-frailty",
+      "source_spec": "card-regression-sparse1359-20261122.json",
+      "source_spec_sha256": "d7a2beec96c7eb032d4782d4ddd595d52337cd25b68342d5e2f1e7256cce1b52",
+      "review_evidence": "review-evidence/sparse1359-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8627fb0b9729d15a1d5af5b1857df47e15a0d3a07cac6f66799f5e54218c3e78",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1359-20261122-replay.json",
+          "sha256": "0e1b0b46bb916491f161a05fafe4a8f73de8c892291e56564a9bab5943365a29",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "concealed_sedative",
+      "group_id": "identity:concealed_sedative",
+      "scenario_id": "card-concealed-sedative-four-live-sparse1359-real-equal-base-four-power-hit-not-greater-does-not-create-inertia",
+      "effect_branches": [
+        "real_equal_base_four_power_hit_not_greater_does_not_create_inertia"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-concealed-sedative-four-live-sparse1359-real-equal-base-four-power-hit-not-greater-does-not-create-inertia",
+      "source_spec": "card-regression-sparse1359-20261122.json",
+      "source_spec_sha256": "d7a2beec96c7eb032d4782d4ddd595d52337cd25b68342d5e2f1e7256cce1b52",
+      "review_evidence": "review-evidence/sparse1359-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8627fb0b9729d15a1d5af5b1857df47e15a0d3a07cac6f66799f5e54218c3e78",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1359-20261122-replay.json",
+          "sha256": "0e1b0b46bb916491f161a05fafe4a8f73de8c892291e56564a9bab5943365a29",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "concealed_pathogen",
+      "group_id": "identity:concealed_pathogen",
+      "scenario_id": "card-concealed-pathogen-four-live-sparse1359-real-instant-played-in-reaction-is-not-attack-reaction-no-bloodrot-pox",
+      "effect_branches": [
+        "real_instant_played_in_reaction_is_not_attack_reaction_no_bloodrot_pox"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-concealed-pathogen-four-live-sparse1359-real-instant-played-in-reaction-is-not-attack-reaction-no-bloodrot-pox",
+      "source_spec": "card-regression-sparse1359-20261122.json",
+      "source_spec_sha256": "d7a2beec96c7eb032d4782d4ddd595d52337cd25b68342d5e2f1e7256cce1b52",
+      "review_evidence": "review-evidence/sparse1359-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8627fb0b9729d15a1d5af5b1857df47e15a0d3a07cac6f66799f5e54218c3e78",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1359-20261122-replay.json",
+          "sha256": "0e1b0b46bb916491f161a05fafe4a8f73de8c892291e56564a9bab5943365a29",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

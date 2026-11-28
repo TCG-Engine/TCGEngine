@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-regrowth-shock-blue-four-live-sparse1205-real-one-arcane-returns-owned-cheaper-attack-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-regrowth-shock-blue-four-live-sparse1205-real-one-arcane-returns-owned-cheaper-attack-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1205-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1205-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a422aa3121ec9ae33bdeb9d8b94f517a3f1189a0e6ee2191cbe1d73809b761ce",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c980b654a5b92306f9636a0336633a6755a889fb7b8d2e5a504c5f523339f212",
+        "actions.json": "906979c5c49a54dcb1297fbd5d51bab56da329d8521e547e91f8bd97b249c921",
+        "assertions.json": "193b3616f48a765c36979f7555996ca259c880d6f0cc24a5ec832a8b4eea9021",
+        "expected_final_gamestate.txt": "642890fa7d93e085cd24305c87373fc40ffc92466bdc48c198605fc7ebda6193",
+        "meta.json": "3d2b2c3fd3170da2df1b91f6246a2b25d9ed268b698bfc2c8b579cbf97d15910"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

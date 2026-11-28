@@ -1,0 +1,162 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent one-expression source + exact one-array bookkeeping correction; all38actions/263persistedassertions, all real seat response rounds, physical7damage/GA/quiet fates and3strict raw5-preserving receipts reviewed. Reviewer no tests/games/writes.",
+  "runtime_sha256": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+  "source_spec": "card-regression-repair-kayo-current-power-rouse-20261125.json",
+  "input_sha256": "dee6a4d757a9e571bc707a6061dd1d969021794afa26725ee9af976e17837dd6",
+  "fixtures": [
+    {
+      "slug": "repair-kayo-four-live-20261125-current-hand-thirteen-reveal-paid-rouse-seven-damage",
+      "card_id": "kayo",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6fd86073fc5a6ff33f73ad78dfb74467be724e022ccb5452f4e1585feace3aae",
+        "actions.json": "cc6f2b925dbf772456ff373980951ab6febce10c38e4702e9b8036d85f67c480",
+        "assertions.json": "2e437ebf7812b1abce72f5febd53ebf1e247fa1bc8e77ec2e7257262b58cbf56",
+        "expected_final_gamestate.txt": "aafad69f4dfd906bf14d8b502c5d21d0d9df325d8fd1b8b942def47051b32188",
+        "meta.json": "2f8fd7e131063017e7bc4eb3780942b9b81e3a6108e3f24378440ef5ba30b384"
+      },
+      "fixture_sha256": "eb06793f118d8e57c0f5e6a5e7d014278470c58017d9acc09fbfecf00a409e42",
+      "actions": 38,
+      "native_assertions": 263,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+      "runtime_sha256": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+      "source_spec": "card-regression-repair-kayo-current-power-rouse-20261125.json",
+      "input_sha256": "dee6a4d757a9e571bc707a6061dd1d969021794afa26725ee9af976e17837dd6",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "PROPOSED_NOT_APPLIED",
+    "path": "FaBSim/Custom/MONCards.php",
+    "before_sha256": "b0ccbb392338d0033c55c8d2fa888cf857ecf35d4006d746a72dce32ae1fd68d",
+    "candidate_sha256": "826fc9c257da2fab995d6876582f72b0248948e8d4af091fd1ddad580e47fd0b",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\MONCards.candidate.php",
+    "scope": "Only FaBMONRevealPower producer; two existing additional-reveal declaration/payment gates reuse current non-chain owned-power evaluator instead of raw printed power. No generated change, no cost/caller/threshold/printed expectation change.",
+    "rules": "https://rules.fabtcg.com/en/cr/02-object-properties/#2.9.3",
+    "observed": "Original correct-expectation13input native probe re-fails at a3 runtime: R4 instead of R1 after choosing legal modified6+7 Handcards. No fixture."
+  },
+  "source_review": {
+    "approved": true,
+    "reviewer": "/root/breadth_review1457",
+    "proposal_sha256": "597675ecda39b70283c86c68fb438abcefcad314f833f1afed5c23354740b48a",
+    "spec_sha256": "764be8aaea1bdfd300033ef3488b524dd9ae8edf171e1e00c27f1e29ca68929e",
+    "no_reviewer_games_or_writes": true,
+    "scope": "Exact one expression approved: only two Rouse declaration/post-asset gates consume producer; unchanged identity/Hand/owner/assets/threshold and existing shared evaluator. All original22step217check probe prefix preserved; full native7power/7damage/GA completion legal with no Might trigger. No blanket power-API claim.",
+    "rules_url": "https://rules.fabtcg.com/en/cr/02-object-properties/#2.9.3",
+    "native_qualification": false
+  },
+  "oracle_correction": {
+    "status": "ONE_BOOKKEEPING_EXPECTATION_CORRECTED_NATIVE_COMBAT_ORACLES_UNCHANGED",
+    "old_spec_sha256": "764be8aaea1bdfd300033ef3488b524dd9ae8edf171e1e00c27f1e29ca68929e",
+    "new_spec_sha256": "dee6a4d757a9e571bc707a6061dd1d969021794afa26725ee9af976e17837dd6",
+    "original_diagnostic_bytes_retained": "269d9262b24a1ddecb776684edc5edb8a2fc65f7f77c157aae4fa47301ec8c16",
+    "original_probe_after_fix_error": "Expected Stack-0.TurnEffects to equal '[\"WTR_POWER:7\",\"GO_AGAIN\"]', got '[\"WTR_POWER:7\",\"CRU_SUPPRESS_POWER:7\",\"GO_AGAIN\"]'.",
+    "expected_power_and_damage_remain": 7,
+    "source_basis": [
+      "FaBSim/Custom/CardChoices.php:753 calls unchanged FaBCRUSelfTagUID on successful Rouse cost",
+      "FaBSim/Custom/CRUCards.php:22-25 appends CRU_SUPPRESS_POWER whenever positive WTR_POWER is self-granted",
+      "FaBSim/Custom/CRUCards.php:280-282 reads that tag only under Snag; no active Snag here."
+    ],
+    "no_comparator_or_gameplay_assertion_weakened": true
+  },
+  "oracle_review": {
+    "approved": true,
+    "reviewer": "/root/breadth_review1457",
+    "source_only_no_games_or_writes": true,
+    "approved_spec_sha256": "dee6a4d757a9e571bc707a6061dd1d969021794afa26725ee9af976e17837dd6",
+    "scope": "Independent exact parsed diff is one strict TurnEffects array adding existing CRU_SUPPRESS_POWER:7; unchanged CardChoices753/CRUCards22-26/280-282 substantiate source provenance with no active Snag; all gameplay/control/physical expectations preserved."
+  },
+  "targeted_replays": {
+    "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+    "fixtures": [
+      {
+        "slug": "repair-kayo-four-live-20261125-current-hand-thirteen-reveal-paid-rouse-seven-damage",
+        "passed": true,
+        "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-kayo-four-live-20261125-current-hand-thirteen-reveal-paid-rouse-seven-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "645445984c6531e3b9aab49ab81d148347a14c00d92b6a754d22585c1c6a458f",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "passed": true,
+        "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "ae56931c7555dc61a05b5e5ec03566810693edf832a94ce65a04f71c08879bcd",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+        "passed": true,
+        "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "379450160b1083705b84db64688106b6909694e508262012f288ce8e2ebdbf53",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "original_probe_corrected_prefix": {
+    "receipt_sha256": "baca9e39d378f803a91dce521e6476cb78e820f435720797b1478bad3afe287f",
+    "actions": 13,
+    "assertions": 217,
+    "saved_fixture": false
+  },
+  "component": {
+    "actual_function_pass": 10,
+    "path": "tests/kayo_reveal_power_test.php",
+    "sha256": "e17690e4ab3f8eae6b507342c322d9caa593d5554dd243285eed7c5fe63d9702",
+    "isolated_card_state_io": true
+  },
+  "rules_url": "https://rules.fabtcg.com/en/cr/02-object-properties/#2.9.3",
+  "limits": [
+    "One previously represented young Kayo group; no new identity/group/sibling/support-card credit.",
+    "Native own Hand+1 current-power cost and exclusion on combat-chain proven through7damage; no discard/Might/one-weapon-setup/general power API closure.",
+    "One never-reached strict provenance-array oracle corrected from independent existing self-tag/Snag source; all other original217 checks preserved.",
+    "Original13input diagnostic retained; separately corrected-prefix13/217 probe PASS saves no fixture.",
+    "Three focused strict passes at stated final runtime, not full-suite evidence; earlier actual epochs retained."
+  ]
+}

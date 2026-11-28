@@ -1,0 +1,585 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B395_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "created_utc": "2026-11-04T22:27:02.993301+00:00",
+  "source_spec": "card-regression-batch395.json",
+  "input_sha256": "b9f0a7fa6044bc1f0059c13ed7f1244a718e23631198d73ac21a349d3e4d87a5",
+  "manifest_sha256": "55fc53030c421875d59d67620fab2ada828d1ff7a95f89a189470fdcd269e6ce",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 23,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch395-independent-source-review.json",
+    "sha256": "4be044092199d41b7a8236546b4a2c0bb68930b1079d204c2670a3e118669c0c",
+    "unchanged_exact_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch395-20261104T222351Z-6aebb077073f8.json",
+    "sha256": "aecba8d6060c14f3446b013384313295b4f5d275c175f6d80306510aac423bff"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b395-native-527c-r1\\receipt.json",
+    "sha256": "7a7b07a38b12824588212b01735583d1e795c22dbec9cb41378b596f920cb1e7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch395_saved_readonly.py",
+    "sha256": "dc20ffb37d4896aee604006a8b3dc28ebd12eebf335304a867096f989b692cf4"
+  },
+  "reviewer_independence": "Reviewer authored neither B395 scenario nor implementation/native recording; independent exact source model reused.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rise_from_the_ashes_red",
+      "group_id": "pitch-cycle:rise_from_the_ashes",
+      "slug": "card-rise-from-the-ashes-red-four-live-sparse-real-ninja-buff-adds-three-to-paid-surging-strike",
+      "source_spec": "card-regression-batch395.json",
+      "input_sha256": "b9f0a7fa6044bc1f0059c13ed7f1244a718e23631198d73ac21a349d3e4d87a5",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rise-from-the-ashes-red-four-live-sparse-real-ninja-buff-adds-three-to-paid-surging-strike",
+      "fixture_sha256": "af12275351798ace927342c6f5f898101c3b5dbcfb43dcaf0fe2aa4c9faeaa13",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "0bdf5d1231cb232ea3d92013305475b23d9de47a35fe6c47a4e9be6e5751affe",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "a2e52b37ca9b99eabec7d794197f94002be931df0d85b9b801c0bc8ad593799f",
+        "expected_final_gamestate.txt": "2a6a36e615145a19a8da96aee21fe2d0c8afd5123bcc141151930506c2523d04"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bdf5d1231cb232ea3d92013305475b23d9de47a35fe6c47a4e9be6e5751affe",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "a2e52b37ca9b99eabec7d794197f94002be931df0d85b9b801c0bc8ad593799f",
+        "expected_final_gamestate.txt": "2a6a36e615145a19a8da96aee21fe2d0c8afd5123bcc141151930506c2523d04",
+        "meta.json": "ffb03749989e6a8a10202c39505466a40e3a5d7271b31d7fb6df7f2b1285b28b"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0bdf5d1231cb232ea3d92013305475b23d9de47a35fe6c47a4e9be6e5751affe",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "a2e52b37ca9b99eabec7d794197f94002be931df0d85b9b801c0bc8ad593799f",
+        "expected_final_gamestate.txt": "2a6a36e615145a19a8da96aee21fe2d0c8afd5123bcc141151930506c2523d04",
+        "meta.json": "ffb03749989e6a8a10202c39505466a40e3a5d7271b31d7fb6df7f2b1285b28b"
+      },
+      "actions": 33,
+      "native_assertions": 2745,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rise_from_the_ashes_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "rise_from_the_ashes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_initial_physical_counters": {},
+      "actual_final_physical_counters": {},
+      "actual_raw_flags": {
+        "FAI_RISE_positive_remaining": [],
+        "actual_attackActionHits": {
+          "1": 1
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "e0153707e8ccd7e877ffe27feaeffff8ae5b60964555becee439f5f87f2cbc83",
+      "native_action_mapping_sha256": "3df7fb3e7c95a09c851f2a1ba97298892e6838302c05e978081b0e6076a5d4be",
+      "native_assertion_mapping_sha256": "049f70b1df94d601d32b06776d6eb317d1e06116ee50acae70e6abc4156757d9"
+    },
+    {
+      "index": 1,
+      "card_id": "shield_wall_red",
+      "group_id": "pitch-cycle:shield_wall",
+      "slug": "card-shield-wall-red-four-live-sparse-two-real-blue-pitches-and-guardian-offhand-add-exact-four-defense",
+      "source_spec": "card-regression-batch395.json",
+      "input_sha256": "b9f0a7fa6044bc1f0059c13ed7f1244a718e23631198d73ac21a349d3e4d87a5",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-shield-wall-red-four-live-sparse-two-real-blue-pitches-and-guardian-offhand-add-exact-four-defense",
+      "fixture_sha256": "0869b2ab248eda4ac1b96ab3f50954ca2f7c0031cc8d8dbeebeec216cbfdcfb1",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3f0269ada4c60f51b122f737d36b6eb42924864cabcda3ac78e345036523afdb",
+        "actions.json": "21299dac303ae437c628d1d13aa0e2901633969f6b227bed27672ddc4e1365ff",
+        "assertions.json": "0ab41230c928422a52bc97b1aac7139dbe4e01ddd27cfd3420e4a736352d458f",
+        "expected_final_gamestate.txt": "589533919cffea7ff981463efda9aa590252c50b27a6711716b601ad89c1cf2b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f0269ada4c60f51b122f737d36b6eb42924864cabcda3ac78e345036523afdb",
+        "actions.json": "21299dac303ae437c628d1d13aa0e2901633969f6b227bed27672ddc4e1365ff",
+        "assertions.json": "0ab41230c928422a52bc97b1aac7139dbe4e01ddd27cfd3420e4a736352d458f",
+        "expected_final_gamestate.txt": "589533919cffea7ff981463efda9aa590252c50b27a6711716b601ad89c1cf2b",
+        "meta.json": "a5bd5d8fbca22ee85f464943d45c44923624c909126ca144554209a4ac360387"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3f0269ada4c60f51b122f737d36b6eb42924864cabcda3ac78e345036523afdb",
+        "actions.json": "21299dac303ae437c628d1d13aa0e2901633969f6b227bed27672ddc4e1365ff",
+        "assertions.json": "0ab41230c928422a52bc97b1aac7139dbe4e01ddd27cfd3420e4a736352d458f",
+        "expected_final_gamestate.txt": "589533919cffea7ff981463efda9aa590252c50b27a6711716b601ad89c1cf2b",
+        "meta.json": "a5bd5d8fbca22ee85f464943d45c44923624c909126ca144554209a4ac360387"
+      },
+      "actions": 44,
+      "native_assertions": 4636,
+      "actual_manual_passes": 36,
+      "actual_priority_response_passes": 35,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "9": {
+          "card_id": "sloggism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "shield_wall_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "rampart_of_the_rams_head",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "9": {
+          "card_id": "sloggism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "11": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "12": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "bravo",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "rampart_of_the_rams_head",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "shield_wall_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_initial_physical_counters": {
+        "6": {}
+      },
+      "actual_final_physical_counters": {
+        "6": {}
+      },
+      "actual_raw_flags": {
+        "NEXT_AA_HIGH_positive_remaining": [],
+        "Rampart6_raw_Counters": {},
+        "Rampart6_raw_Damage": 0,
+        "Rampart6_raw_TurnEffects": [],
+        "actual_attackActionHits": {
+          "1": 1
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "final_UniqueIDCounter": 12,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "6355f01ac909c1205af1989736637579ecc62ff6eb729f798a5df1d2d11acbda",
+      "native_action_mapping_sha256": "97a1498c75f380c37cd71f5c72170cb2d7a76bcfaeb44a0e7cf385539b75a665",
+      "native_assertion_mapping_sha256": "59b1946e43bc72737938910907a7bc52bafb3ed2207c56c7df0cffb91b395df2"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 77,
+  "total_native_assertions": 7381,
+  "total_manual_passes": 65,
+  "total_priority_response_passes": 63,
+  "total_defender_declaration_finish_inputs": 2,
+  "material_findings": [
+    "Rise actual33 actions/2745 checks/29 manual. Realprimary5NAA0 spendsAP before four source responses; onlyfourth ownGY/ownGAAP1. No Phoenix available/returned/created. ActualSurging6 targetsP4 thenBlue7 pays2+AP/R1AP0; same6 exactWTR_POWER3 onStack/Chain, printed5+3=8/actual8damageHP12, intrinsicSurgingGA refund onlyfourthDAMAGE/AP1. Raw FAI_RISE consumed, onlyoriginalUID1..7/ownGY5,6/Pitch7/counter7/RNG0/fullcleanup.",
+    "Shield actual44 actions/4636 checks/36 manual. RealSloggism3/Blue10 earns6 for actualRaging3/Blue12 =>13/noGA. RealP4ShieldWall5cost6 firstBlue7 yieldsR3/insufficient/pending6/sourceStack/Blue8Hand, secondBlue8 funds6/R0AP0 before fresh4,1,2,3. Same5 heldStackuntilfourth thenphysicalDR; ownedGuardianOffHand6 remainsEquipment throughout. ActualDEF7+4=11 onlypostDamagecached11 and13-11=2/P4HP18. WholeRampart6 identical endpoints/ready/Damage0/Countersempty/no defendtrigger. OwnGY1{9,11}/GY4{5}/Pitch1[10,12]/Pitch4[7,8]/alloriginal1..12/counter12/RNG0/noGA/fullcleanup.",
+    "All raw10/behavior hashes, exact77 native envelopes/7381 persisted assertions/65 manual inputs (63priority+twoP4declarationfinish), actual full initial/final UID ownership/economy and all48 manual preferences per endpoint verified against independent approved expectations. Current527c/all23 sourceguards unchanged. Incidental retained DQ variables/history do not represent active pending/await work."
+  ],
+  "limits": [
+    "One Red representative per cycle; no sibling/control/fullcard/support-primary credit.",
+    "Rise no positive Phoenix return/Faihero/Draconic-only or secondrecipient/expiry branch. AttackGA is printed SurgingGA, separate from primary ownGA.",
+    "Shield no Rampartdefend/pay1/Temper/Battleworn/loss/falsecondition/suppression/foreigncontrol/otherpitches. No Boost or hero ability credit.",
+    "Intermediate material facts are exact passed native assertions/completed record; full raw snapshots only at endpoints. Root focused replays/registration separate; no reviewer game execution.",
+    "No PHP/native/R/source/service/generator/fullsuite/089retry or rerouting by reviewer. Denied089 remains knownunexecuted; tenoldholds/SmashItem preserved."
+  ]
+}

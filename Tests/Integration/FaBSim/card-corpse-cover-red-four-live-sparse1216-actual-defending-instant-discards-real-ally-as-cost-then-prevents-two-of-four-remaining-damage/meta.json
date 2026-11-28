@@ -1,0 +1,7 @@
+{
+    "name": "Corpse Cover / real defending Instant discards an Ally and prevents two damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T18:42:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual live young heroes: three Dorinthea20 plus GravyBones20 defender4. CorpseCover5Hand4 and real yellow Chum8Hand4; real Generic RagingOnslaught6Hand1 and Blue7Hand1. Normal formalHero4 target, actualBlue3 pays3/AP1to0, allfour source and combat priorities. Actual5 defends for printed3 against7, leaves4 damage. At DEFEND_PRIORITY4 native click on actual defending5 activates Instant0; real mandatory discard chooser selects Chum8 Hand to owned public GY4 as cost. From-Hand WateryGrave is not earned; yellow never arms Gravy blue-graveyard permission. ABI9Source5 gets fresh four-seat responses4/1/2/3 before resolving, primary stays actual defender. Zero-resource/AP Instant has no unpaid asset-cost ordering099 branch. Resolve grants next2 prevention; real combat7minus3minus2=2/HP4=18, otherhealth20, AP/R0. No other prevention or battle trigger. Final6GY1/7Pitch1/8then5GY4, UID9/noStackDQsCC. Only one actual discard-cost prevention activation; no destroy-cost, once-per-turn rejection, Watery, expiry, Hero/support/sibling/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#corpse_cover_red FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

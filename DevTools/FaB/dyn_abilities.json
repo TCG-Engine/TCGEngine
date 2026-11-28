@@ -176,7 +176,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBDYNAdd($player, 'BIOS_POWER');\n FaBDYNAdd($player, 'BIOS_ITEM');\n",
+        "abilityCode": "FaBDYNAdd($player, 'BIOS_POWER');\n FaBDYNArmBIOSItem($player, $mzID);\n",
         "isImplemented": true
       }
     ]
@@ -1131,8 +1131,9 @@
     "abilities": [
       {
         "macroName": "StartTurn",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBMONDestroy($uid);\n AddHand($player, CardID:'crouching_tiger');\n",
-        "isImplemented": true
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nFaBMONDestroy($uid);\n AddHand($player, CardID:'crouching_tiger', Owner:$player, Controller:$player);\n",
+        "isImplemented": true,
+        "previousCodeHash": "ca9117740402e4d9d75765d1cde070c50e12cde33025df3713ffa2ff125d1bf5"
       }
     ]
   },

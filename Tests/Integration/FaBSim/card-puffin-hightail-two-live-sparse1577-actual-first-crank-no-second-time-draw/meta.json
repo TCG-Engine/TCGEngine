@@ -1,0 +1,7 @@
+{
+    "name": "Puffin Hightail / first actual Crank earns no second-time draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:37:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two genuine manual adult Puffin Hightail and Dorinthea Ironsong at 40 health in CC. Actual Dissolving Shield3 Hand play costs zero resources and one AP, then enters with three steam counters and its normal play-order marker. The real optional Crank choice removes one steam and restores one AP. This is the first actual Crank, so the Hero second-time draw event is unearned; a real Throttle4 in Deck makes absence of draw nonvacuous. Hand stays empty and Deck4 remains. No seeded Crank history, Gold cost, Hero activation or second Crank; those held and untested branches receive no credit. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#puffin_hightail FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/EVOCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php"
+}

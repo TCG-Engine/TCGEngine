@@ -1,0 +1,7 @@
+{
+    "name": "Good Natured Brutality / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:20:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, if you have no cards in hand, it gets +6{d} and **the crowd cheers** you. Representative only: actual_six_attack_not_defending_or_crowd_cheering. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#good_natured_brutality_yellow"
+}

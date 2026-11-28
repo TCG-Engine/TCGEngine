@@ -1,0 +1,7 @@
+{
+    "name": "Manifestation of Miragai Blue / real no-Chi two counters and Ward prevents two",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T18:59:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One positive fixed no-Chi Blue representative, not a fixture or coverage until independently qualified. Four live manual Young heroes Rhinar1/Betsy2/Betsy3/Enigma4 all20. EnigmaYoung actual text only firstShielddiscount plus3ChiShieldcreation, neither used. Native Wounding5cost0/AP1to0 formallytargets adjacentHero4. After first3sourcepasses P4nativecasts actualAura6Instantcost3, funds with actualGenericBlue7pitch3 notChi, RChiAP4remain0. Four actualSource responses4,1,2,3 precede same6Arenaentry. It enters with exactTWO POWER counters; no invented WHEN window or Aura computedPower/weapon grant. Fourfreshsourcepasses putWounding5onchain and actualAttack/zeroDefend/DefendPriority/Reaction windows includeeveryseat. Beforeincoming4 applies native mandatoryWard chooser holds sameactual6Arena POWER2. Choose actualAura6, Warddestroysit toownGY4 and prevents2; actualHero4HP18(other3HP20). No cached damageDealt/defenseValue as oracle. Damage/Resolutionfourresponses and realClose yield5GY1/6GY4/7Pitch4/emptyArenaHandsStackqueueschains/AP0/all4alive. No presetAura/counters/Ward/prevention/resources/HP, noChi4-counterbranch, Auraattack, other counter amount, Enigmaactivation/adulttext, support fullcard or generalWard certificate. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

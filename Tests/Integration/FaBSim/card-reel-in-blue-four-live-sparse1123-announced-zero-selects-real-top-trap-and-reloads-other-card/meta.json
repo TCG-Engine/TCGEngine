@@ -1,0 +1,7 @@
+{
+    "name": "Reel In / actual top trap to hand and different card Reload at X0",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:49:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Look at the top X+1 cards of your deck. Choose up to 4 traps, reveal them, put them into your hand, then shuffle.\n\n**Reload** Named X0/top-one Trap and different-card Reload branch. Young Lexi20 is legal Ranger without a Hand-play hero trigger. Actual primary5 announces X0 in Prepare before four manual responses, costs0 as Instant/AP1/R0 unchanged. Actual topTrap6 is staged Temp and shown through native MZREARRANGE Cards=tripwire_trap_red; that one-card display does not claim reorder. Select actual6 into Hand; real marker7 is the sole Deck remainder when shuffle is called, so EngineShuffle count1 starts i0 and performs no strong/random/deterministic RNG iteration. Actual different initial Hand8 is then chosen for Reload into facedown Arsenal, while chosenTrap6 stays Hand. Physicalsource5 stays Stack until both actual selection and Reload finish, then owner1graveyard; allHP20/AP1/R0/Random0 and sameUIDs/fates pinned. No Xpaid matrix, shuffle algorithm/distribution, multi-card ordering, reveal-log assertion, trap play/defend, hero/Bow ability, support identity, alternate pitch or whole-card credit. Pending independent Root review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reel_in_blue"
+}

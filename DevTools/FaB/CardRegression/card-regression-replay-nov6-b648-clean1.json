@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch648.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T21:52:05.397111+00:00",
+  "fixtures": [
+    {
+      "slug": "card-reach-beyond-the-grave-four-live-real-ally-return-discard-and-paid-hand-consumer",
+      "fixture_sha256": "9fcc4c30557163370a3757091f73a6cb5179669d381a795cf453affc146766dd",
+      "passed": true,
+      "result": "[PASS] reach_beyond_the_grave / four live distinctive effect"
+    },
+    {
+      "slug": "card-double-cross-strap-four-live-real-two-chain-hits-resource-and-paid-five-damage-consumer",
+      "fixture_sha256": "9800ae71dd7e5e7da67d89f1569194748c1ea98bd64b58e92264b60ec6ca71ec",
+      "passed": true,
+      "result": "[PASS] double_cross_strap / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-reach-beyond-the-grave-four-live-real-ally-return-discard-and-paid-hand-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] reach_beyond_the_grave / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-double-cross-strap-four-live-real-two-chain-hits-resource-and-paid-five-damage-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] double_cross_strap / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

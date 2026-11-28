@@ -1,0 +1,7 @@
+{
+    "name": "Right Behind You / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:20:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends together with another card from hand, this gets +1{d} and look at the top card of your deck. You may put it on the bottom. Representative only: actual_seven_attack_not_defending_together_for_power_or_look. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#right_behind_you_red"
+}

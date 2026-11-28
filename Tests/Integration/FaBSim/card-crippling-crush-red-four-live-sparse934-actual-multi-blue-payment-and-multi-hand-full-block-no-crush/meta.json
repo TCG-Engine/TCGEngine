@@ -1,0 +1,7 @@
+{
+    "name": "Crippling Crush / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:43:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Bravo Specialization**\n\n**Crush** - When this deals 4 or more damage to a hero, they discard 2 random cards. Representative only: actual_multi_blue_payment_and_multi_hand_full_block_no_crush. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crippling_crush_red"
+}

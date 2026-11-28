@@ -1,0 +1,7 @@
+{
+    "name": "Anka, Drag Under / printed main Ally attack only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T18:25:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungGravyBones20/3Dori20. ActualpriorownedAlly5Arena1ready/Damage0/realGenericBlue6Hand1. OnlyprintedMAINActionAttack exercised. NoWGHand, soAnkaalternateInstantineligible; KelpiecannotfundOTHERAction1. NativeAllyclickhasoneattackaction/formalHero4beforepayment; realBlue3pays1R2/AP1to0/physical5paysprintedtapStatus1beforefourresponses; proxy7source5. All4sourceandfullcombatwindows, printedpower5/GAfalse, realunblocked5damage/HP4=15. Noattack/hitWHENprintedonselectedmainbody. MainattackdoesNOTinheritGAfromKelpieotherAction1. Physical5staysArena1aliveDamage0/tapped, proxyretireswithoutGY/WGevent; noGravyBlueGYconditionfrompitch. FinalAP0/R2/UID7/noHandDeckGYStackDQsCC. ORDINARYMAINATTACKONLY; nottheotheractivatedabilities, delayeddraw/discard094, targettap/GA, WG/arrival, producer/Hero/support/fullcard. ExistingAnka841holdunchanged/uncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#anka_drag_under_yellow FaBSim/Custom/MONAbilities.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/GameLogic.php"
+}

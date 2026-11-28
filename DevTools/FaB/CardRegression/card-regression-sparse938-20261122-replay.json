@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5e19612bed6d98efa7baa9ed0f0ac637dfe836c721e51f8914a0bcec4045bdcb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b2ff254c97052c13a0536afb282489f82b281425f3b1649585afa24c14afee81",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "702f2a87dc9988abe5bf3bfaa605531711ab2ab1dfc57c7ad98b2f44f5bac69b",
+        "expected_final_gamestate.txt": "e42e0506ae18bddee3fa473a80ad1729bd5b1a54f8c6c2b8ddd480216eb1cf32",
+        "meta.json": "55a62f96452ae79adf6d48f3a9fa41ede7f6a408d61563041dcadf260e89b569"
+      }
+    },
+    {
+      "slug": "card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a9ec1bc417eaab2e0626fad715c3d15cde40b5669803945d37ebf6909a1d8f44",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b9f3368970dbc46e9ee65c07bedc021d252e98e11a6d3019a40bb506c500ed8",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "f7a9703f76a67a860dadb2c8d7f0b3aad9f2b9f911c0ef2425d3cc7e15be0e0f",
+        "expected_final_gamestate.txt": "1c8c64b0013aedebdb3eebe777d897f55ee0233adf96a6834cc6de346c801cd0",
+        "meta.json": "820cbb055ebe165456ae57b55da6f0694dbdc51f6b17ff3ca85884a69337c8cb"
+      }
+    },
+    {
+      "slug": "card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9711be036662c10c7c10863510836ed81a669fd9c0f79774d177e9bf627b347e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e64d7a65152eb6dc82143731973d358a3789ff390e995e2dd27f3d533f6dbf87",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "d389da6ee2f48abef52638e19225463fbaa79d0c18dce3b6333c9bd756df0638",
+        "expected_final_gamestate.txt": "a48531cb31823c828c9a22cfdbd5bbf611b7761c4ff3e40fac3d92c02230f663",
+        "meta.json": "fd7483d09eda7a395988e4f704cc25d4d96770092e9272945398ea6cb014d339"
+      }
+    },
+    {
+      "slug": "card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse938-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "82125c350537a765482c3fbf128a03a6ac8be1ab8331c7ea0b3d9c5edb343ff4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7c5f81a439f334687f995f0264442ba68c308b0893dfefc3a9727b9b83c9a24",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "2cc3f074900c40323294d28317f234401418ec68a5a222dbfaab43188c7a2f7a",
+        "expected_final_gamestate.txt": "6d83e04ea9a16c272879d30dcf3d374c9946fe86049bf5651db6c3f7aa8fcc3e",
+        "meta.json": "759d6430656216f8632538d4af4504f5177b2199ccf34b86659c699a7d3d0501"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

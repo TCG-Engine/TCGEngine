@@ -1,0 +1,7 @@
+{
+    "name": "Pound Town / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:51:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_RHINAR20_THREEDORI20. Primary5StackremovedfromHandbeforepreparation/onlyfunderCriticalBlue6basepower3notenoughBeatChest6. Noeligibleoptionaldiscard/noobjectcostperformed/noRhinarDiscardtrigger/noBEAThistory; MightinterveningIFfalse. Cost3/base7. ActualBlue6Pitch1/realvictimHand8unchanged. Allfourmanualsourceandcombatresponses/nativeactualbasepower7/damage7/HP4=13/AP1to0/R0. Originalprimary5GY1/fund6Pitch1/legalFDGenericWounding7Arsenal1/sameUIDandFaceDown/victim4HandCriticalRed8same/otherzonesempty/UID8/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pound_town_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HVYCards.php FaBSim/Custom/HVYRuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

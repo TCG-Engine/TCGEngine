@@ -47,6 +47,9 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:myResources-1
 
 ## EXPECT
@@ -98,6 +101,9 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:myResources-0
 
 ## EXPECT
@@ -123,6 +129,9 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 
 ## EXPECT
 P1SELECTABLEEXACT:myResources-0&myResources-1&myResources-2
@@ -221,6 +230,9 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 - P1>SimulateRequestBoundary
 - P1>AnswerDecision:myResources-1
 
@@ -249,6 +261,9 @@ WithP1Deck: SOR_095
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:myResources-0
 
 ## EXPECT
@@ -273,6 +288,9 @@ WithP1Resources: 1:SOR_046:1,1:SOR_179:1
 
 ## WHEN
 - P1>UseLeaderAbility
+#// P-36: a ready resource shares a name with a friendly unique unit, so Hunter asks which ready resource pays — the first, as the
+#// automatic payment always did, keeping this section's original outcome.
+- P1>AnswerDecision:myResources-0
 - P1>AnswerDecision:myResources-1
 
 ## EXPECT
@@ -280,3 +298,71 @@ P1HANDCOUNT:1
 P1HANDCARD:0:SOR_179
 P1RESCOUNT:1
 P1DECKCOUNT:0
+
+---
+
+# Hunter_Front_PayWithTheResourceYouWillReturn_ReportersLine
+#// Bug report P-36 (game 7888): "When using Hunter's ability you aren't able to choose the resource you exhaust … I'd like to
+#// exhaust R2 to then bring R2 to my hand and play them, but it exhausts Luke". Paying a resource cost exhausts ready resources
+#// of the PAYER's choosing (CR "the player must exhaust ready resources they control"), and here the choice decides the line:
+#// pay with the R2-D2 resource, reveal it (an exhausted resource can be revealed), and it returns to hand with BOTH Lukes still
+#// ready to replay it. The engine used to pay with the first ready resource (a Luke). Owner ruling 2026-11-22: ask, for Hunter
+#// only, whenever a ready resource shares a name with a friendly unique unit and there is more than one ready resource.
+## GIVEN
+CommonSetup: yyk/yyk/{myLeader:SHD_009}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: IC27_151:1:0
+WithP1Resources: 1:IC27_165:1,1:SOR_051:1,1:TWI_193:1
+WithP1Deck: SOR_095
+## WHEN
+- P1>UseLeaderAbility
+#// Which ready resource pays the [1 resource]: the R2-D2.
+- P1>AnswerDecision:myResources-2
+#// Reveal it: it shares a name with the friendly unique R2-D2 unit → back to hand, top card of the deck in as a resource.
+- P1>AnswerDecision:myResources-2
+## EXPECT
+P1NODECISION
+P1LEADER:EXHAUSTED
+P1HANDCOUNT:1
+P1HANDCARD:0:TWI_193
+P1RESCOUNT:3
+P1RESAVAILABLE:2
+P1DECKCOUNT:0
+
+---
+
+# Hunter_Front_PayChoice_OffersOnlyTheReadyResources
+#// The pay question (P-36) offers the READY resources only — an exhausted one cannot pay — and says what it is for.
+## GIVEN
+CommonSetup: yyk/yyk/{myLeader:SHD_009}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: IC27_151:1:0
+WithP1Resources: 1:IC27_165:1,1:SOR_051:0,1:TWI_193:1
+WithP1Deck: SOR_095
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1DECISIONTOOLTIP:Choose_a_resource_to_exhaust_(cost)
+P1SELECTABLEEXACT:myResources-0&myResources-2
+P1RESAVAILABLE:2
+
+---
+
+# Hunter_Front_NoReadyResourceSharesAName_PaysWithoutAsking
+#// The choice only matters when a READY resource could be the one returned. Here the matching R2-D2 resource is already
+#// exhausted (it can still be revealed, but it cannot pay), so which ready resource pays makes no difference: no question, the
+#// cost is paid and the reveal comes straight up — as before the P-36 change.
+## GIVEN
+CommonSetup: yyk/yyk/{myLeader:SHD_009}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1GroundArena: IC27_151:1:0
+WithP1Resources: 1:SOR_095:1,1:SOR_095:1,1:TWI_193:0
+WithP1Deck: SOR_095
+## WHEN
+- P1>UseLeaderAbility
+## EXPECT
+P1DECISIONTOOLTIP:Reveal_a_resource_you_control
+P1RESAVAILABLE:1

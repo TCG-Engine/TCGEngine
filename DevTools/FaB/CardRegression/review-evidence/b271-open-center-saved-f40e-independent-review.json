@@ -1,0 +1,133 @@
+{
+  "status": "APPROVED_EXACT_SAVED_HEALTHY_SUBSET_FAILED_NIMBLE_EXCLUDED",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T00:50:35.784553+00:00",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch271.json",
+  "input_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521",
+  "fixtures": [
+    {
+      "slug": "card-open-the-center-red-four-live-sparse-real-head-jab-same-chain-combo-six-go-again-followthrough",
+      "card_id": "open_the_center_red",
+      "group_id": "pitch-cycle:open_the_center",
+      "fixture_sha256": "eae07ded7a9b33da4c08b80d48f29494c246cb5373208f9daea8d4bce84dddcb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56d35d723587973a6f37e69074c494940b30707d487f30a873a28b18612f1a80",
+        "actions.json": "965253ebb3ea4dc852c74fcf8d0e3915d38eca8f31de79c153c8805739889961",
+        "assertions.json": "9503e80a3a3497e90ee739983ea9a48373c4fed4373b9e45ce0591836a62ae3a",
+        "expected_final_gamestate.txt": "5bac941e75c232d0c485ed4d3cb7b47e831763d941ef34ab7aa2ba394faaf6bc",
+        "meta.json": "9f113477616f1117fe0bb1f13861ca2457193c47d9b6b7bf1bd30c68026a90b8"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "56d35d723587973a6f37e69074c494940b30707d487f30a873a28b18612f1a80",
+        "actions.json": "965253ebb3ea4dc852c74fcf8d0e3915d38eca8f31de79c153c8805739889961",
+        "assertions.json": "9503e80a3a3497e90ee739983ea9a48373c4fed4373b9e45ce0591836a62ae3a",
+        "expected_final_gamestate.txt": "5bac941e75c232d0c485ed4d3cb7b47e831763d941ef34ab7aa2ba394faaf6bc",
+        "meta.json": "9f113477616f1117fe0bb1f13861ca2457193c47d9b6b7bf1bd30c68026a90b8"
+      },
+      "actions": 77,
+      "native_assertions": 5897,
+      "actual_manual_passes": 71,
+      "manual_passes": 71,
+      "manual_pass_actor_counts": {
+        "1": 17,
+        "2": 17,
+        "3": 17,
+        "4": 20
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "All physical identities/owners/controllers preserved. HeadJab5 actual3/GA then same-chain primary6 link2 actual5+1=6/GA; no invented second target answer. ActualBlue7 pays2 from3/R1/AP0. Real earned primaryGA funds new-chain Wounding8 Action0, actual4/noGA. Actual3+6+4=13 givesP4HP7; exact public ownGY UIDset{5,6,8}, Pitch7/R1/AP0, emptyHands/Stack/Chains/queues.",
+      "qualification": "Only earned actual HeadJab Combo+1/GA and material followthrough. Printed Dominate grant has no hand-block/rejection enforcement credit. No nonCombo, other predecessor, Fai/Draconic/PhoenixFlame, siblings/support/full-card or isolatedcontrol credit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "card_id": "nimble_strike_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "blocked_or_incorrect",
+      "error": "Expected p1Banish count 0, got 1.",
+      "actual_attempted_actions": 8,
+      "source_expectation_retained": true,
+      "coverage_credit": false,
+      "physical_mismatch": "Original strict probe expected ownBanish0 while resource1/Action1 remain unpaid; actual failure count1 after sameGY choice, before any actualBlue payment. Actual pendingPayment cost1/uid6/windowPITCH retained. Only Nimblism is in actualplayed history. No later damage/GA/suffix is certified.",
+      "evidence_paths_sha256": {
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch271-20261103T004746Z-6ae92f3288eaf.json": "b9d5028b2a86af05ad83acb24ed896d8e0c743e4379ba3aa6df711228ba4e697",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch271.recording-results.json": "56033fac6f3f27d26f867f244b62d77f9e30050c351899592cfdaa26e80b3f96",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-native-r1\\receipt.json": "89be4fbbb8d196e1f66fde9b6aca469902fbd65132d3e531fcfe93934f0325bd",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-native-r1\\stdout.log": "ea8d4913a3f7b09d2dcec7b0e4ffc657e5037f3cec26f36b5f1827f2814b0d80",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-native-r1\\stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "failed_initial_snapshot_sha256": "03bab339b745d453adef99bcf8ae1524f60e8c85af86765b38cbcc6297d959d5"
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-independent-source-review.json",
+    "sha256": "44fdf3c7ad807f844e3ff67a917ae6c9510bb946b52e77142b5b4dd1a6d969db",
+    "manifest_sha256": "7f88b3cdfc1f4280f5bc126e25428816c28859c5b10e544493208b07f7f43f29"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch271-20261103T004746Z-6ae92f3288eaf.json",
+    "sha256": "b9d5028b2a86af05ad83acb24ed896d8e0c743e4379ba3aa6df711228ba4e697"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch271.recording-results.json",
+    "sha256": "56033fac6f3f27d26f867f244b62d77f9e30050c351899592cfdaa26e80b3f96"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch271-native-r1\\receipt.json",
+    "sha256": "89be4fbbb8d196e1f66fde9b6aca469902fbd65132d3e531fcfe93934f0325bd",
+    "stdout_sha256": "ea8d4913a3f7b09d2dcec7b0e4ffc657e5037f3cec26f36b5f1827f2814b0d80",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "runtime_before": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "runtime_after": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7"
+  },
+  "method": "Independent read-only saved five-file review; six pure prior parser helpers and one assertion normalizer reused without executing any prior fixture loop or author builder. Exact all77actors/modes/payloads and5897persisted assertions/order/step equal approved input. Currentattack assertions matched to actual physicalUID/chain index; complete initial/final snapshots parsed. Actual failed Nimble prefix independently matched and evidence bound, with no fixture or passing credit.",
+  "limits": [
+    "Saved creation review only; two focused replays by root remain separate evidence. Reviewer ran no PHP/native/replay/backend and wrote no R files.",
+    "Only OpenCenter included in fixtures and approved. Nimble has original correct expectation failure and no saved fixture; preserve originalbefore evidence, no later suffix or passing corpus credit.",
+    "No legacy/source audit/fullsuite/old replays, no expectation/source edits; exact f40e context retained."
+  ]
+}

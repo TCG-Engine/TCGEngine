@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch832-phantom-positive-f12e.json",
+  "runtime_sha256": "f12eb9daa29ed523fa63dd2432755205503f4a7a341c00e56728faf03741a6c0",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T23:02:30.368857+00:00",
+  "fixtures": [
+    {
+      "slug": "card-phantom-tidemaw-blue-four-live-shield-ward-earned-destroyed-counter",
+      "fixture_sha256": "af5b2fc30015badae9e3e9ac12fc9b9ee4b22d09a69294fd39b537aec720b834",
+      "passed": true,
+      "result": "[PASS] Phantom Tidemaw Blue / strict Shield Ward then responseable destroyed counter"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-phantom-tidemaw-blue-four-live-shield-ward-earned-destroyed-counter",
+      "returncode": 0,
+      "stdout": "[PASS] Phantom Tidemaw Blue / strict Shield Ward then responseable destroyed counter\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

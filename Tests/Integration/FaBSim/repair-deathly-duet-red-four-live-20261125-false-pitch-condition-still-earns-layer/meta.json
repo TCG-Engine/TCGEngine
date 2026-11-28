@@ -1,0 +1,7 @@
+{
+    "name": "Repair Deathly Duet / false resource-pitch condition still earns response layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T20:28:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Existing quarantined Resource-pitch gameplay expectations retained, now with one real conditional WHEN layer/allfour responses before the no-op result. NoAAorNAApitched=>no buff/runes, actual4damage. Exact extra virtual UID accounted. No breadth credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deathly_duet_red FaBSim/Custom/DYNCards.php#FaBDYNPitched FaBSim/Custom/DYNCards.php#FaBDYNRecordPitch FaBSim/Custom/GameLogic.php https://legacy.fabtcg.com/en/resources/rules-and-policy-center/comprehensive-rules/change-log-comprehensive-rules/"
+}

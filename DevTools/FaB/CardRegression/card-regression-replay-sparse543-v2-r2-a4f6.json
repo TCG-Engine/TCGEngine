@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch543-v2.json",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T00:33:39.142102+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dyadic-carapace-four-live-real-single-arcane-barrier-two-payment-and-prevention",
+      "fixture_sha256": "a1949753fd9421dc8e91e13fbea2355d40bd7bec85164b8260a9f21ae2b6e9a6",
+      "passed": true,
+      "result": "[PASS] dyadic_carapace / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dyadic-carapace-four-live-real-single-arcane-barrier-two-payment-and-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] dyadic_carapace / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

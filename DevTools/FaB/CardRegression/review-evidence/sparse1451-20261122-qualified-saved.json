@@ -1,0 +1,82 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1451-20261122.json",
+  "source_spec_sha256": "8877f1ccec193688e4463be3107cfa07e5cd183d32007c2d5124ffad70667d77",
+  "input_sha256": "8877f1ccec193688e4463be3107cfa07e5cd183d32007c2d5124ffad70667d77",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+      "card_id": "submerge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c611d87dbf9f43fd88d06bfc1d105b01a888f861d39bb1729dd0f6275c43282d",
+        "actions.json": "27972d29d0f2a8d579029a99843e6aa62b855e50778965e846e43bdd2a3b411a",
+        "assertions.json": "45d82ff79bd268a844262ccbae03b87ace0cef75d1880b533d2984832c1efbba",
+        "expected_final_gamestate.txt": "64ec3a36fcf099c2ca26f61599f8d34a481faf1f231bb5607d16d3a8cdbf887b",
+        "meta.json": "a71ab889f3040a8f3dd69d6fc5c3a2b69a6a77e81f258ac7a9b028380ebe9a7a"
+      },
+      "fixture_sha256": "8d076f5858296eb78d96e6ba5b0ef5e35d5238464235b23f480b9fb1da2479c7",
+      "actions": 29,
+      "native_assertions": 485,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1451-20261122.json",
+      "input_sha256": "8877f1ccec193688e4463be3107cfa07e5cd183d32007c2d5124ffad70667d77",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1451-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+        "fixture_slug": "card-submerge-red-four-live-sparse1451-arsenal-source-real-additional-hand-card-fifth-deck-cost-before-priority-six-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "8877f1ccec193688e4463be3107cfa07e5cd183d32007c2d5124ffad70667d77",
+    "reviewer": "/root/breadth_review1449 independent read-only source-spec semantic review",
+    "review_scope": "Independent legal Arsenal-source SubmergeRed branch: actual prior face-downArsenal5, real remaining Hand6/7cost choice and fifthDeck placement beforepriority, all4manualUPFresponses, actual6damage and no-APconsumer. Hand-source229remainsheld and isnotfixedorqualified.",
+    "basis": [
+      "Printedattack canlegallyplayfromArsenal; mandatoryadditionalcost stillrequiresphysicalHandcard, notanArsenalcard. NativeinitialID/UID/Owner/Controller/FaceDown1 pinned beforeplay. SourceZoneArsenal andCCFromZoneArsenal guarded afterrealplay.",
+      "No Hand slot is removed by source departure, so capturedHand0/1 stillnamephysicalBlue6/Red7. CorrectHand-costchoice Blue6 mustactuallyleaveHand andlandfifthDeck beforeanyresponse, preservingpriorDeck8..11topfourand12last. This avoidsenteringknownHand-sourcecompaction withoutrepairingitormutatingqueuedrefs.",
+      "All reviewed1450card-text/younglegalUPFseats/actualsixpowerdamage/otherHeroHP/noGA/finaldeckandphysicalcleanup/AP0realconsumer expectationsremain. No primaryWHENorearnedPuffinHeroeffectbypassed."
+    ],
+    "pre_native_correction": "Added1explicitinitialFaceDown1assertionto bind claimedpriorArsenalposition beforeanynativegame.",
+    "limits": [
+      "Hand_source_stale_Prepare_chooser_FAB_REG_229_unfixed_uncredited",
+      "no_remaining_hand_card_mandatory_cost_failure",
+      "decks_shorter_than_four_cards",
+      "pitch_siblings",
+      "nonadjacent_or_ally_targets",
+      "support_card_or_Hero_abilities"
+    ],
+    "whole_card_credit": false,
+    "native_execution": "PENDING",
+    "independent_saved_file_review": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1451-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bf99f67818b6e27bf31ec80cd14aba1ffc229f6562248d3ac663a837997c2940"
+  },
+  "full_suite_run": false
+}

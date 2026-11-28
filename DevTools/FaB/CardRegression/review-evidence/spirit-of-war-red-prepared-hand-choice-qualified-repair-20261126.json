@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "source_spec": "card-regression-repair-spirit-of-war-red-hand-choice-20261126.json",
+  "input_sha256": "0a1e2a82afc4a5f6da1dabf2423b235f0a8c56c5837032d93dc2efd96161d6d7",
+  "fixtures": [
+    {
+      "slug": "repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "card_id": "spirit_of_war_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65c95e30e03f9f80701ec1c721f09b855d41d11b789e9ddbded4471d9f1d344d",
+        "actions.json": "138fd9aa76d5c9b7199fdc8760f28ed4ba07e4eebfdd8992f5d255935103eb4e",
+        "assertions.json": "4c3ac4c216b568dadf31fa3a6dcc02afb107385b4fdf02288607552be927bcab",
+        "expected_final_gamestate.txt": "9483fa7515bbb435c476d03650d4d2e803607830a344c7aecf5c80a331419c28",
+        "meta.json": "04cb3c790539504d60308a107ddd6349668e9d20c8d5d251bb84da17b63c8a6a"
+      },
+      "fixture_sha256": "4dd8830c94156238a451e7b3290451767dd9894be9b508b5590492e12d15f8f8",
+      "actions": 7,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "source_spec": "card-regression-repair-spirit-of-war-red-hand-choice-20261126.json",
+      "input_sha256": "0a1e2a82afc4a5f6da1dabf2423b235f0a8c56c5837032d93dc2efd96161d6d7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_CALLER_QUALIFICATION",
+    "runtime_before": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "path": "FaBSim/Custom/WTRCards.php",
+    "before_sha256": "34e00bac47d38444c032807f47429ac257c2a94bd1c07336464bca186b6defe3",
+    "candidate_sha256": "24bd9d8cc2db7bd88c324a4ed06f12b420518341581eefa2629aa3fdd952ea73",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\candidate\\WTRCards.php",
+    "scope": "One shared writer-coordinate mapper, exact five owned generated Prepare profiles. Clone only the matching decision; preserve live Hand/frame/callback/eligible identity sets and all RNG/material. No generated/Core changes.",
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5"
+  },
+  "targeted_replays": {
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+    "fixtures": [
+      {
+        "slug": "repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\spirit_of_war_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "41fab54b393219b39b294f2d5c60d6b100b48da1ffe71d30b107b5b557e7f768",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "No sibling-pitch or whole-card credit.",
+    "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+    "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+    "Primary-agent semantic/saved review only; no separate-agent approval.",
+    "Default strict comparator unchanged; full suite not yet run."
+  ],
+  "scope": "Shared save-coordinate mapper retains original offered physical identities for five exact owned Prepare continuations after source-Hand removal; live Hand, generated continuation locals, eligibility and RNG untouched. This witness verifies the named caller, not unknown callers or untested branches.",
+  "additional_validation": {
+    "component_checks": 22,
+    "original_correct_reference_probes_pass": 5,
+    "unsaved_positive_Fusion_identity_control_pass": true,
+    "missing_mapper_causal_fault_control_pass": true,
+    "source_operation": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\apply-operation.json"
+  }
+}

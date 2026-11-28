@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:43:04.088825+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1112-20261122.json",
+  "source_spec_sha256": "b9b2ea8f0e1b622a5cb0b7299821bbeb7553176c2679d1ed4e03eac12343043d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 5,
+  "native_assertions": 232,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 4986,
+    "duels": 3075,
+    "four_live": 1911,
+    "recorded_primary_ids": 2134,
+    "identity_denominator": 5196,
+    "recorded_groups": 2008,
+    "group_denominator": 3324,
+    "four_live_groups": 1900,
+    "phase_qualified_scenarios_at_actual_contexts": 1623,
+    "phase_qualified_unique_groups": 1613,
+    "creation_replay_passes": 2365,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 784,
+  "scenarios": [
+    {
+      "card_id": "crazy_brew_blue",
+      "group_id": "identity:crazy_brew_blue",
+      "scenario_id": "crazy-brew-four-live-sparse1112-native-destroy-cost-roll-four-life-and-go-again",
+      "effect_branches": [
+        "actual_destroy_cost_accepted_roll_four_gain_two_life_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/crazy-brew-four-live-sparse1112-native-destroy-cost-roll-four-life-and-go-again",
+      "source_spec": "card-regression-sparse1112-20261122.json",
+      "source_spec_sha256": "b9b2ea8f0e1b622a5cb0b7299821bbeb7553176c2679d1ed4e03eac12343043d",
+      "review_evidence": "review-evidence/sparse1112-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ae2ad87f3f2696f63232e98a163232885583a8e82551643ee1f9689d2275c512",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1112-20261122-replay.json",
+          "sha256": "28dc1da1d3b3fa4986e09aba813e720c76d3691bd7d2520e0beec6a1576b3ae3",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

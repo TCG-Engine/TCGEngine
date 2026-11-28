@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent two-Evo transform delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1108-20261122.json",
+  "source_spec_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+  "input_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-evo-battery-pack-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "card_id": "evo_battery_pack_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c26eebef887cc19bfc399679d17acf3934f3a4592eff0fd4fc110620a68fea9e",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "be87b82af455166e8def5015386c69ddaaaf37b08f3e16fd91045bfad92dda57",
+        "expected_final_gamestate.txt": "dc67330dc912da1e3b76186da274dc2de697fc657a48c3b4ffdc4290a25bca81",
+        "meta.json": "b36a654d68e9afe430d3c7f179a5f0cbdb0f511727a2f9d4a1b8a7b6a8dd30b1"
+      },
+      "fixture_sha256": "eef987dc7a9a0302df4d3d98f26fc248c3a8186d4292894575a605f9ad779912",
+      "actions": 5,
+      "native_assertions": 191,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1108-20261122.json",
+      "input_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1108-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-battery-pack-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "fixture_slug": "card-evo-battery-pack-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-command-center-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "card_id": "evo_command_center_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9d96992efda849e4e57e84e931181c1cdba7c87f57d18d49c9613fbac8d46c7",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "5d25fe0bf3aa152852d0f6c44eceb54e65a67dcbc3b90f3c48591e27e932bfc6",
+        "expected_final_gamestate.txt": "20b551e071787cf8aa6d2c64a0d49be61212bfc94bad8241a03ca5f3b6793b6a",
+        "meta.json": "740c03092508254be9c2e1bbddebb12d3dd26ff0f98676e14851d25ad57ee45e"
+      },
+      "fixture_sha256": "34a9030d966a3d34ce99ab8ad7d7d658dae84ae7962f9e5d004b11b279682b64",
+      "actions": 6,
+      "native_assertions": 216,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1108-20261122.json",
+      "input_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1108-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-command-center-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "fixture_slug": "card-evo-command-center-yellow-four-live-sparse1108-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "63b78cfbb8bd4e5fd2a6177de73cb9c835ab9482c52fa74e6c8193fe4078617e",
+    "reviewer": "breadth_review independent two-Evo transform delta review",
+    "basis": [
+      "Evo Battery Pack Yellow is Mechanologist Evo Chest/cost0; Command Center Yellow is Evo Head/cost3. Both are legal on natural young Teklovossen20 and have actual owned ready Teklo Base chest/head respectively. Initial and final physical identity guards correctly rebind both source and base.",
+      "Exact1099 transform transport is reused: Battery Pack0 needs no pitch; Command Center3 uses real Critical Blue6 pitch3/R0. AP1 becomes0, and all four live players manually respond before normal resolution.",
+      "Both current generated ResolveCard bodies directly call FaBEVOTransform. Matching base is removed, same source5 becomes ready owner1/controller1 Equipment, exact SUBCARDS contains the correct prior base and no graveyard card results.",
+      "These identities are not Steel Soul or the specific equip-trigger list in EVOCards.php. Their printed Instant bodies are unused; no Crank/steam mutation, weapon attack, granted hit/draw or under-material removal/export event occurs. Teklovossen Instant producer is also unused. All costs and physical outcomes use persisted checks."
+    ],
+    "limits": [
+      "Transform/equip only. No ability activation, Crank/steam, weapon-hit draw, BladeBreak/defense, hero/source support/whole-card or under-card-export-owner integration credit.",
+      "Known positive body/material export holds remain unrun/unrepaired; exact native recording and clean replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1108-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1e524ff681a629aeec2ec7559ac0e90cfb475485c97c3aa692ce35c3da48390a"
+  },
+  "full_suite_run": false
+}

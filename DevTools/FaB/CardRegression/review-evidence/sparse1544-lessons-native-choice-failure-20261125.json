@@ -1,0 +1,65 @@
+{
+  "status": "CONFIRMED_NAMED_NATIVE_OPTIONAL_RESOLUTION_CHOICE_MISSING_DIAGNOSTIC_ONLY",
+  "batch": 1544,
+  "issue": "FAB-REG-236",
+  "card_id": "lessons_learned_blue",
+  "scenario_id": "card-lessons-learned-blue-four-live-sparse1544-diagnostic-real-distinct-reactions-need-optional-resolution-choice",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source": "card-regression-sparse1544-held-lessons-20261125.json",
+  "source_sha256": "b120ccbc45ecf1f01449d922ee6ccb9a11e030ff9c56a1f788e2aee4cd0388b7",
+  "original_spec_sha256": "b120ccbc45ecf1f01449d922ee6ccb9a11e030ff9c56a1f788e2aee4cd0388b7",
+  "original_receipt_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1544-local-20261122\\receipt.json",
+  "original_receipt_sha256": "1c253f0534bd5e2bd5cdb4af31ff54a70208a2169cd99370db2b08243b9e4912",
+  "initial_gamestate_sha256": "d98e6fe1fe423facf0a95027a9def9a9ded74072e0f34ab5ced0bdd28ff9743d",
+  "native_runs": 1,
+  "submitted_native_inputs": 5,
+  "probe_only": true,
+  "error": "Expected Stack count 1, got 0.",
+  "observed_state": {
+    "window": "ACTION",
+    "combatOpen": false,
+    "pendingPayment": null,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "lessons_learned_blue"
+      ]
+    }
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_hand_refs": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "expected": "After actualInstant0/allfourmanualresponses, controllingplayer mustbeofferedoptionalnontargetedselectionamongthreeeligibleARdifferentnames. Source mustremainresolvingwhilechoicepending; noautomateddeclinewasrequested.",
+  "observed": "Firstpostresponsecheck Stackexpected1observed0; sourceplayed, ACTION/allDQempty/Handempty, nooptionalchoicewasoffered. LaterGY/Deck/shuffle/source-destinationchecksneverran.",
+  "source_support": "BoundedexactMacro/CustomsearchesfindnoLessonsResolveCardbody; supportsimplementation/registrationgap butdoesnotproveasharedroot. ManagedordinaryInstantlifecycleGL1915 applies.",
+  "source_sha256_bindings": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+  },
+  "independent_review": {
+    "reviewer": "/root/breadth_review1457",
+    "result": "Confirmednamedmissingoptionalresolutionchoice, notprivatewindow/schemaoracle",
+    "review_scope": "Read-only source/spec/receipt. No repeat native/test/write by reviewer."
+  },
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "replay_run": false,
+  "engine_repaired": false,
+  "new_distinct_shared_root_credit": 0,
+  "limits": [
+    "Do not infer post-resolutionGY/Deckcontents/shuffleresult/physicalsource-destination: firstStackcheckfailedbeforethosechecks.",
+    "Nochosen3shuffleorcompleteeffecttest; thiswasdiagnosticprefixonly, neverqualifiedevenifprefixpassed.",
+    "Noenginefix/duplicateprobe/fullsuite."
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T11:52:17.957542+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1170-20261122.json",
+  "source_spec_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 8,
+  "native_assertions": 294,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5040,
+    "duels": 3075,
+    "four_live": 1965,
+    "recorded_primary_ids": 2188,
+    "identity_denominator": 5196,
+    "recorded_groups": 2062,
+    "group_denominator": 3324,
+    "four_live_groups": 1954,
+    "phase_qualified_scenarios_at_actual_contexts": 1677,
+    "phase_qualified_unique_groups": 1667,
+    "creation_replay_passes": 2419,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 838,
+  "scenarios": [
+    {
+      "card_id": "thunderous_retort_red",
+      "group_id": "pitch-cycle:thunderous_retort",
+      "scenario_id": "card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+      "effect_branches": [
+        "existing_aura_arcane_barrier_three_actual_blue_payment_prevents_all_three_without_destroying_aura"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-thunderous-retort-red-four-live-sparse1170-real-aura-barrier-three-pays-blue-three-prevents-three",
+      "source_spec": "card-regression-sparse1170-20261122.json",
+      "source_spec_sha256": "9713001d28035b45df82989a95a734ab468194bd378730edadd887f880ddca3c",
+      "review_evidence": "review-evidence/sparse1170-20261122-qualified-saved.json",
+      "review_evidence_sha256": "297aaf2ed68616d2b44563a8b5beeded94b2a9abdeb447ae6ceed45cc8c36bd9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1170-20261122-replay.json",
+          "sha256": "ea85d943c126b5cc6f4ea8f29f8a6afcad2d727d1159622b8fa6ed433763b5e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

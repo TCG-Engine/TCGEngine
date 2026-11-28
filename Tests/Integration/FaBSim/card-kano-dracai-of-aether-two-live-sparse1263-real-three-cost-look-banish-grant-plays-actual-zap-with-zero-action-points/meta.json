@@ -1,0 +1,7 @@
+{
+    "name": "Kano Dracai of Aether / paid look and Banish grant permits actual Action at zero AP",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:06:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_KANO30_TWO_LIVE_NATIVE_DUEL_ONLY. NaturalKano30/DoriIronsong40/seats12/defaultemptygameMode/bothmanual. InitialAP0/R0/nohistory/permissionseed, realBlue3HandandZap4Deck. ActualHeroInstant3createsABI5, actualBlue3pitches3pays3/AP0, defaultduelpriority2\u2192manual2pass1\u2192manual1passresolution. ActualsameZap4Deck\u2192TempoptionalMZMay, ABI5muststayStackthroughchoice. Actualchoose4banishesfaceup/PlayableFromBanish, abilitycompletesnoAPgrant. Actual4BanishclickAP0succeedsasInstant(notnormalAction), declaresHero2beforezeroCost, bothresponsesthenactual3arcaneHP40to37. OwnedZap4GY/Blue3Pitch/Hero1Kano30ready/APR0/UID5RNG0/emptyStackDQCCHandDeckTempBanish. NoYoungKano/nonNAA/decline/expiry/out-of-turn/otherTarget/discount/tax/AB/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kano_dracai_of_aether FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php"
+}

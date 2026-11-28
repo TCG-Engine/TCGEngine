@@ -1,0 +1,96 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1454 independent read-only source-spec semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1454-20261122.json",
+  "source_spec_sha256": "c70ece2b00f82988c4807770255c3433a6f47397ecb1386ed6f984a0017ea09b",
+  "input_sha256": "c70ece2b00f82988c4807770255c3433a6f47397ecb1386ed6f984a0017ea09b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-singe-red-two-live-sparse1454-single-opponent-default-real-one-arcane-with-no-ally-targets",
+      "card_id": "singe_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6bc6a63705d3fae8806e56a54302b8c872b3c5172377ce1aff7ee3a14c542dc",
+        "actions.json": "446c47c7857c9d1372b605159b36778523ad625db57db0ba7c5a5cc7c8933423",
+        "assertions.json": "5964385d2c307da8622a36e2d2f5fe9d349a2459d9be39313df550b031f42a32",
+        "expected_final_gamestate.txt": "c95c2f05661e36478b2f4c16f89505fc28b8a3cb7ce1cae62939b2431e9b1ea6",
+        "meta.json": "b631fdb76c6635330327b116385ac09c535cd386fb9c23eced3e7a07e6a9e9f5"
+      },
+      "fixture_sha256": "998030c2e2b7617acf51fa3c9e0003058fe8b6b3f3c0251c5792fa13806fdde1",
+      "actions": 6,
+      "native_assertions": 264,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1454-20261122.json",
+      "input_sha256": "c70ece2b00f82988c4807770255c3433a6f47397ecb1386ed6f984a0017ea09b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1454-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-singe-red-two-live-sparse1454-single-opponent-default-real-one-arcane-with-no-ally-targets",
+        "fixture_slug": "card-singe-red-two-live-sparse1454-single-opponent-default-real-one-arcane-with-no-ally-targets",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c70ece2b00f82988c4807770255c3433a6f47397ecb1386ed6f984a0017ea09b",
+    "source_note_sha256": "6af73279bfbd5e084747113606fbc4de4dfb1852118c9baaf789cada17b59cb5",
+    "reviewer": "/root/breadth_review1454 independent read-only source-spec semantic review",
+    "reviewed_utc": "2026-11-25T00:14:20.457232+00:00",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "persistable_assertions": 264,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "review_scope": "Exact six-control two-live adult positive damage branch: real one-cost Singe paid by actual Blue3; both manual responses; later UI only repeats published sole-opponent damage default; no opposing allies; actual1arcane and retained physical spell/pitch/Hand fates; zero-action real followup rejected. Native execution/save mapping/replay remain root gates.",
+    "basis": [
+      "Official TRP5.14 verified publicly: undeclared damage-effect target defaults to sole opposing Hero; no multiple-opponent default. Same target is fixed by scope at announcement and repeated in native UI without new information/retargeting.",
+      "Singe has no WHEN/optional Hero effect. No opposing allies exist, so zero optional ally targets is forced by the available set. Generated Resolve61\u2192Hero chooser\u2192ally maximum0\u2192one native arcane packet. No early binding or ally-selection behavior credited.",
+      "Natural Oscilio36 and Dori40 are cache CC-legal; auxiliary BaubleBlue pitches3, WoundingRed0 is legal Wizard generic followup. Source/mana/AP and outcome assertions match printed1arcane/noGoAgain."
+    ],
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14",
+        "verified": "Public official rule text; no authentication."
+      }
+    ],
+    "limits": [
+      "one_to_three_ally_targets_or_multiple_target_order",
+      "four_live_target_declaration",
+      "target_revalidation_or_retargeting",
+      "arcane_prevention",
+      "pitch_siblings_or_support_abilities"
+    ],
+    "positive_primary_ability_credit": true,
+    "whole_card_credit": false,
+    "independent_saved_file_review": false,
+    "native_execution": "PENDING"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1454-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "dd801f8f50427979d87b2539b77a7d3edb691ce6968de5df3d3ab974600eb551"
+  },
+  "full_suite_run": false
+}

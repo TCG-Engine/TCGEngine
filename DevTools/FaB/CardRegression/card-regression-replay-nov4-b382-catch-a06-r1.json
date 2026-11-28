@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch382.json",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T19:27:25.801918+00:00",
+  "fixtures": [
+    {
+      "slug": "card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "fixture_sha256": "b4418269a7a7c866ac0167ba8d2500bf59a1ffb030a4aa5b399ede0a8ee3e58b",
+      "passed": true,
+      "result": "[PASS] catch_of_the_day_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "returncode": 0,
+      "stdout": "[PASS] catch_of_the_day_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-cull-red-four-live-original-correct-probe-real-banish-play-four-owned-hand-choices-retains-source"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

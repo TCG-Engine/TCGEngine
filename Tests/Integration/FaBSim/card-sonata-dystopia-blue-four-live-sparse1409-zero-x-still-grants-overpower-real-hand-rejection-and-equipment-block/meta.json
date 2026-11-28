@@ -1,0 +1,7 @@
+{
+    "name": "Sonata Dystopia / zero X still grants real Overpower",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:14:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_VISERAI20_THREEDORI20. RealSonata5NAA/XcostwithzeroRunechantsandresources makes0onlylegalX; Preparemax0skipsRunechantchoiceanddestroysnone(nofabricatedX/effectflag). ActualplayAP0/all4responses\u21925GY/printedGAAP1. RealnextWounding6AA0targets4/base4/noGO. PrintedOVERPOWERunconditionalatX0, unlikepower/costamount0. ActualfirstHandWounding7Actiondef3allowed; secondHandCritical8Actiondef3attemptmustREJECTandretain8Hand, physicalfirstblockunchanged. ActualIronrot9Equipmentdef1isNOTActionandmustbeallowed, total4defense; actual4attackdeals0/allHP20. NoRunechantbecauseactualnoHit, sozero-hitWHENnotearnedandpositivetiminguncredited. ViseraiSonatafirstNAAhasnopriorNAA(otherthanSonataitself), genericAAdoesnotearnHeroRunechant. PrefixendsDAMAGEbeforeIronrotBladeBreakchainclose, sofuturecleanupuncredited. PairspositiveOverpoweradmission/rejection/Equipmentcontrolwithactualdamage; nofullcard/nonzeroX/hit/sibling/supportcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sonata_dystopia_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/IARCards.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/WTRCards.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

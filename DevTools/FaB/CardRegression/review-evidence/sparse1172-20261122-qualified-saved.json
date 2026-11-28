@@ -1,0 +1,71 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent single-participant recovery/discard and explicit-creator token review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1172-20261122.json",
+  "source_spec_sha256": "57b93ccc5e8152f2434183b5867a105cc1a6135c77902f2830b53cfbed2abc85",
+  "input_sha256": "57b93ccc5e8152f2434183b5867a105cc1a6135c77902f2830b53cfbed2abc85",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-codex-of-frailty-yellow-four-live-sparse1172-caster-choice-real-arsenal-and-caster-owned-foreign-tokens",
+      "card_id": "codex_of_frailty_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6f5cdaf22e1616b948f3c0c00d6d9d79ba06e08c2a49bc93f1233d2067db9356",
+        "actions.json": "2f771ea29be978833f5ba562ab7fa05c74ef1a52bea047125a5b6da144a88cce",
+        "assertions.json": "f39131026c4b0b1c1d43c07112b7f2344bbbbddf4a9c7f040d91b32ea567b421",
+        "expected_final_gamestate.txt": "d2a9af79ac6146d64645abd844c2024cfe20c8529d17d2d8a7b987438843a1e3",
+        "meta.json": "366bf8d0d2a7a3e85e066e74f1d8a287c1ef293d1000845fb9ddcf07d061a717"
+      },
+      "fixture_sha256": "3db67f386c82d7f818e0f2fbdc8cc8e60eb44a0eac9ae58f35fca46ab837ebc3",
+      "actions": 7,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1172-20261122.json",
+      "input_sha256": "57b93ccc5e8152f2434183b5867a105cc1a6135c77902f2830b53cfbed2abc85",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1172-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-codex-of-frailty-yellow-four-live-sparse1172-caster-choice-real-arsenal-and-caster-owned-foreign-tokens",
+        "fixture_slug": "card-codex-of-frailty-yellow-four-live-sparse1172-caster-choice-real-arsenal-and-caster-owned-foreign-tokens",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "57b93ccc5e8152f2434183b5867a105cc1a6135c77902f2830b53cfbed2abc85",
+    "reviewer": "breadth_review independent single-participant recovery/discard and explicit-creator token review",
+    "basis": [
+      "Exactly one Codex of Frailty Yellow case, legal under young Ranger Azalea20 with three natural Dorinthea20 opponents. Printed each-hero recovery is an untargeted resolution choice, so the real GY7 choice properly occurs after Action0/AP0 and all four source responses. No announcement-mode/formal-target declaration is omitted.",
+      "Generated await f0a6d... hydrates seats/i/seat/loaded/refs/chosen. Only original caster1 has an eligible GYAA and every actual callback remains player1; other heroes have empty GY but real Hand8/9/10 retained, correctly proving they do not discard when they cannot load. This legitimate partial branch does not enter the known foreign-callback/caster-loss path.",
+      "Actual advertised p1Graveyard-0 moves owned Wounding7 into empty Arsenal face-down via OUTCodexLoad76-80, with real source5 still held. Advertised p1Hand-0 then discards actual Titanium6, not pitches it; no Resource effect or added mana is inferred. Original physical source stays Stack through both choices and finally ownedGY1 after the discarded card.",
+      "OUTCodexTokens100 passes original caster1 explicitly as owner: Ponder11 controller1/owner1, Frailty12/13/14 controllers2/3/4 but all owner1. This matches instructed creator ownership, not the recipient-owner failure in209. Exact physical/fate/owner/controller/UID checks plus final AP1 printedGA, R0/HP20/noRNG and empty Stack/queues establish the named recovery/discard/token effects."
+    ],
+    "persisted_check_review": {
+      "controls": 7,
+      "normalized_assertions": 318,
+      "author_only_omissions": 0
+    },
+    "limits": [
+      "Only caster1 recovery/discard callbacks; foreign eligible-GY callbacks and their source-context issue remain unrun/uncredited. No full each-player-choice claim, token endphase abilities, multiple/occupied Arsenal, refusal/failure cases, hero/support/sibling or full-card correctness.",
+      "Bloodrot is absent from the canonical packet and not approved; the stale Bloodrot-await sentence in source-note is unexecuted provenance, not evidence or coverage. Initial203 guard exclusion remains in force.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1172-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c4eb3ba25848d4112cd631bcb447b43f14e2ceee76e2576533dea7bae99fcb0f"
+  },
+  "full_suite_run": false
+}

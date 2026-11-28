@@ -1,0 +1,7 @@
+{
+    "name": "Evo Beta Base Legs / four-live post-transform actual defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:05:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base legs equipped, **transform** it into this, then equip this.\n\nEvo legs cost you {r} less to play.\n\n**Battleworn** Named preexisting properly transformed equipment defense/Battleworn only. NaturalDash20 ownsEquipment5 baseDEF1 explicitlySUBCARDS[proto_base_legs] exactly as after prior resolved native transformation; no nativeplay/transform/equip/costdiscount credit. ActualDori1Sword7/Blue8realcost1/R2/AP0, actualEquipment5DEF1+NAA6DEF2 blocksSword3/0damage/noHit/HP20. Allfourmanualresponse/combat windows. Close sameowned5 retainedEquipment with sameunder-base andDEFENSE1 evencurrentDEF0; actualHand6ownedGY, physicalSword7retainedused/Blue8Pitch. No undercarddestroy/transform/activation/discount/hero/support/siblings/fullcard/heldfix credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_beta_base_legs_blue"
+}

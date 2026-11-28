@@ -1,0 +1,7 @@
+{
+    "name": "Cross the Line / basic attack with optional charge explicitly declined",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:38:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may **charge** your hero's soul. BASIC_ATTACK_ONLY; positiveChargeabilityNOTqualified. NaturalBoltyn20 ownsrealprimary5/Blue6/Genericmarker7Hand; optionalchargeisofferedandEXPLICITLYdeclinedPASS, so nochargeeffect-costismadeandknown099positivecost-orderbranchnotentered. Actualprintedcost1 paidrealBlue3/R2. AP1to0beforeallfourmanualsource/combatresponses. NoSoul/Arena/historyseed/ChargeorHeroBonus. Actualprintedpower5/unblocked5damageHP4=15/noGA/finalAP0. Sameprimary5ownedGY; exactunchargedcardsretained/Pitchfundingpinned. NoChargepositive/negativepaymenttiming/Crosscostalternative/heroability/untestedbody/fullcardorvariantscredit; existing099positiveholdpreserved. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cross_the_line_red"
+}

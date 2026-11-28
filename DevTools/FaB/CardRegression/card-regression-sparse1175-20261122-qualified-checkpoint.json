@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T12:42:41.424091+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1175-20261122.json",
+  "source_spec_sha256": "f29ecc75bbc4356df9395a701b8f2bc008754af7a0801ae969bd9a24ad220a00",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 34,
+  "native_assertions": 387,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5047,
+    "duels": 3075,
+    "four_live": 1972,
+    "recorded_primary_ids": 2195,
+    "identity_denominator": 5196,
+    "recorded_groups": 2069,
+    "group_denominator": 3324,
+    "four_live_groups": 1961,
+    "phase_qualified_scenarios_at_actual_contexts": 1684,
+    "phase_qualified_unique_groups": 1674,
+    "creation_replay_passes": 2426,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 845,
+  "scenarios": [
+    {
+      "card_id": "cosmic_duality_red",
+      "group_id": "pitch-cycle:cosmic_duality",
+      "scenario_id": "card-cosmic-duality-red-four-live-sparse1175-normal-play-fragment-separate-layer-reduces-real-damage",
+      "effect_branches": [
+        "normal_attack_play_intrinsic_fragment_from_real_three_defense_block_reduces_seven_to_five_for_two_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cosmic-duality-red-four-live-sparse1175-normal-play-fragment-separate-layer-reduces-real-damage",
+      "source_spec": "card-regression-sparse1175-20261122.json",
+      "source_spec_sha256": "f29ecc75bbc4356df9395a701b8f2bc008754af7a0801ae969bd9a24ad220a00",
+      "review_evidence": "review-evidence/sparse1175-20261122-qualified-saved.json",
+      "review_evidence_sha256": "92fabc16f032e33d22a83c98aabd63ef0759231ebd7eaed22d2c2e4e8c53b1a2",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1175-20261122-replay.json",
+          "sha256": "9a14e6d892e641f1b6b509aafcbd16da97f6295523ff88acc27127f1a44978e9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

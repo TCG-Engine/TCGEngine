@@ -1,0 +1,136 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent exact three-line source and coherent legal recipe, all43 saved actions/all106 persisted assertions, actual manual response rounds, actual4damage and physical false-to-true admission reviewed. Root two strict raw5-preserving replays verified separately. Reviewer no games/tests/writes.",
+  "runtime_sha256": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+  "source_spec": "card-regression-repair-rest-before-battle-play-prerequisite-20261125.json",
+  "input_sha256": "6c8ed42f300b3b2789d940995dfd153faf5a26636f8cd056e2d866cec3f61888",
+  "fixtures": [
+    {
+      "slug": "repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+      "card_id": "rest_before_battle_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4ffd30663727c12f1fd9822662479d787c45d92cca6d753d32730f50ca296009",
+        "actions.json": "5903e4dc9f2a1392a8a32c2d188f1743e52efc77510d3a80aaa226b3b58b9700",
+        "assertions.json": "b45b9925738b7e7d5adef520bd304c00648fda045d13398b2ac673a4fdf9a689",
+        "expected_final_gamestate.txt": "52a76d1b473346d481fbf681b0551c5f6de515d422d972d230269f8812200e7e",
+        "meta.json": "0c21ec21d6df1964798b803ed6e08291d3d1a27152571e93ac18ce65b5d0bbea"
+      },
+      "fixture_sha256": "d57cb78b3df9d8a911bcbb3bd447ae400f34e61277e2c7f7f6a542c3e92ab758",
+      "actions": 43,
+      "native_assertions": 106,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 37,
+      "recorded_runtime_sha256": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+      "runtime_sha256": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+      "source_spec": "card-regression-repair-rest-before-battle-play-prerequisite-20261125.json",
+      "input_sha256": "6c8ed42f300b3b2789d940995dfd153faf5a26636f8cd056e2d866cec3f61888",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "PROPOSED_NOT_APPLIED",
+    "path": "FaBSim/Custom/WTRCards.php",
+    "before_sha256": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "candidate_sha256": "968f6e1bdbcfc098f8e30258fcc6e44df8dd10fdcb3b9ab49dfc87eab48cfd0d",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\rest-before-battle223\\WTRCards.candidate.php",
+    "scope": "Exact Rest Before Battle play prerequisite in existing normal CanPlay legality gate. Reuse existing per-player per-turn WEAPON_ATTACKED producer from actual weapon attack declaration; preserve blank/suppressed ability semantics. No event/payload/generated/code-cache changes.",
+    "card_text": "Play this only if you've attacked with a weapon this turn.",
+    "expected": "No prior weapon attack: affordable card remainsHand/AP1; after actual legal weapon attack this turn, may play Aura normally.",
+    "other_ability_not_repaired": "At start of own turn destroy/draw remains untested by this repair."
+  },
+  "source_review": {
+    "approved": true,
+    "reviewer": "/root/breadth_review1457",
+    "proposal_sha256": "41234474c5cee5401cd4fd6f1b782257f224cb31a44f8830c4a574246d4fdbd6",
+    "spec_sha256": "6c8ed42f300b3b2789d940995dfd153faf5a26636f8cd056e2d866cec3f61888",
+    "no_reviewer_games_or_writes": true,
+    "scope": "Exact three-line active-ability play guard. Existing HVYAttackDeclared records actual attacking player, normal per-seat turnEffects cleared for every seat at GL3122-3127. Sixteen-control106-check legal youngBoltyn/GenericTalishar route coherent; no omitted conditional WHEN. No broader start-turn/expiry-native/suppression/whole-card claim.",
+    "native_qualification": false
+  },
+  "targeted_replays": {
+    "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+    "fixtures": [
+      {
+        "slug": "repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+        "passed": true,
+        "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\rest-before-battle223\\clean1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "93c5b1bc631f273b0d366fadc5c119ed693b26455a755ae67185d3822c90aeb4",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+        "passed": true,
+        "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\rest-before-battle223\\clean2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "dea5562ba139cad1bc4fa9313edd0e91fa8989a2fb82225fcc0f1ceee02d8983",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "original_correct_probe": {
+    "receipt_sha256": "b0a82afe0d94f5a237744aeb3b3478a64defe2dc1ab9ca60ffc1e757c89afef4",
+    "returncode": 0,
+    "results": [
+      {
+        "slug": "card-rest-before-battle-yellow-four-live-sparse1311-no-weapon-attack-rejects-affordable-aura-keeps-action-for-real-attack",
+        "status": "diagnostic_assertions_passed_unsaved",
+        "actions": 28,
+        "assertions": 344
+      }
+    ],
+    "saved_fixture": false
+  },
+  "syntax": {
+    "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "-l",
+      "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\FaBSim\\Custom\\WTRCards.php"
+    ],
+    "returncode": 0,
+    "stdout": "No syntax errors detected in C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\FaBSim\\Custom\\WTRCards.php\n",
+    "stderr": ""
+  },
+  "limits": [
+    "One necessary existing-failure repair representative; no breadth batch, siblings or support-card identity credit.",
+    "Positive play-prerequisite condition is proven through real prior weapon damage and physical Aura resolution; start-turn destroy/draw, suppression and next-turn history-expiry native branches remain unqualified.",
+    "Producer uses actual attacker and source-reviewed normal all-seat turn expiry; no new history/state seeding.",
+    "Original correct-expectation diagnostic and Wounding control pass unchanged without saving a duplicate fixture.",
+    "Two focused strict passes at stated final runtime, not full-suite evidence; previous actual epochs retained."
+  ]
+}

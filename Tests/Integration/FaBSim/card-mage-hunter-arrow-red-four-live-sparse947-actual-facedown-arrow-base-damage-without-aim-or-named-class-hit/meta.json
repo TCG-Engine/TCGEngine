@@ -1,0 +1,7 @@
+{
+    "name": "Mage Hunter Arrow / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:31:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - Destroy this: The next time you would be dealt arcane damage this turn, prevent 3 of that damage. Activate this only while this is face-up in your arsenal.\n\nWhen this hits a Runeblade or Wizard hero, you may destroy an aura they control. ActualLexi20+plainunactivatedShiver, source5FaceDownArsenal/noAim, targetDorinthea20notRunebladeorWizard, printedpayment0or1/Blue6if1/R0or2/AP0, actualbase4or5HPdamage andsameownedsourceGY. No granted aim hit ability or typedMageHunter hit event; nopositiveaim/Instantprevention/Bowloading/sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mage_hunter_arrow_red"
+}

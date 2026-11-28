@@ -1,0 +1,7 @@
+{
+    "name": "Regrowth // Shock / actual one arcane returns a real cheaper attack and go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:01:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanuallegalYoungBriar20/threeDori20. RealRegrowth5Hand1/priorownedWounding6cost0GY1/actualVaporizeShock7Hand1. Actual7rightInstantmode1formalHero4targetbeforefourresponsesdealsreal1arcaneHP19/preservesAP1; physical7GY1. NoAAcarddamage/noNAAplayedfromthisallInstantcard, soBriarobserversnotearned. Main5leftAction0spendsAP1to0beforefourresponses; realmandatoryMZCHOOSEownGY0Wounding6cost0<actualARCANE_OPP1, source5heldStackthroughchoice. ActualUID6returnsownedHand1, ownleftGoAgainreturnsAP1; physical5GY1after7. FinalHP4=19(noPrimaryShock)/R0/AP1caster/UID7/noArenaStackDQs/otherzones. OnlyoneNAAcardplayed5. No seededArc/AP, nofakeignoredHeroobserver, noemptyreturn. NootherX/modes/foreigncard/secondNAA/producer/Hero/support/futureHandplay/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#regrowth_shock_blue FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

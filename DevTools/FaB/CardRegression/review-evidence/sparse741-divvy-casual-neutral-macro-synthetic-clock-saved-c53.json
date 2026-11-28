@@ -1,0 +1,290 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B741_R2_CASUAL_MACRO_SYNTHETIC_CLOCK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T20:24:55.514662+00:00",
+  "source_spec": "card-regression-batch741.json",
+  "input_sha256": "48fc92b08fcb9c40d0df7123b7b335747da74a8a6c3eb337a782a4238e758611",
+  "manifest_sha256": "9c370c200b55133f4964ff8b6c07ff256401d9043fa9d2236b8f82fbdb10adfb",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch741-divvy-r2-independent-source-review.json",
+    "sha256": "4a77dab2c065622dfabb24975ce76456b9fa69b5f246bfa63d973850dee37c27",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch741-20261108T202239Z-6af0da0f9cd69.json",
+    "sha256": "2a77c750c207190e0075f7b54f44ff95dd7476e3864d26a14c247f1b7a493d71"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch741.recording-results.json",
+    "sha256": "d19a535b4e274fb8fa3c03b7403013fb919cb7eeab5e9ccd840684d7c97099c9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b741-divvy-r2-native-recording\\receipt.json",
+    "sha256": "8d47eb867c26771c71aa9eb79023be7f662e9a15a0029c9009ed8e5b5b06e8b4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "divvy_up_blue",
+      "group_id": "identity:divvy_up_blue",
+      "slug": "card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "source_spec": "card-regression-batch741.json",
+      "input_sha256": "48fc92b08fcb9c40d0df7123b7b335747da74a8a6c3eb337a782a4238e758611",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_CASUAL_MACRO_VARIANT_SYNTHETIC_CLOCK_DIVVY",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "fixture_sha256": "d0bfe98277086304343bc9df38614575fbede7a5071ad196b7d25aa1d430c61f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6503505bb74da06d93f856b9b22216867090f4919aa7079914b97950f28d55eb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6d3aa6ec0bf94a4b973cfa252d1052d6e70c5578eb3d1dbc1ce94ff5e07c8ce3",
+        "expected_final_gamestate.txt": "02f3a5cf49bc20a1c9a59a63a7a1a6f4f1c48b43485ab727fe8fab9467ca8581"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6503505bb74da06d93f856b9b22216867090f4919aa7079914b97950f28d55eb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6d3aa6ec0bf94a4b973cfa252d1052d6e70c5578eb3d1dbc1ce94ff5e07c8ce3",
+        "expected_final_gamestate.txt": "02f3a5cf49bc20a1c9a59a63a7a1a6f4f1c48b43485ab727fe8fab9467ca8581",
+        "meta.json": "f204911de49b2c6e0003a7d87dd92aaa4c8ccf77a074a0117b2fa3c8ba9008b3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6503505bb74da06d93f856b9b22216867090f4919aa7079914b97950f28d55eb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6d3aa6ec0bf94a4b973cfa252d1052d6e70c5578eb3d1dbc1ce94ff5e07c8ce3",
+        "expected_final_gamestate.txt": "02f3a5cf49bc20a1c9a59a63a7a1a6f4f1c48b43485ab727fe8fab9467ca8581",
+        "meta.json": "f204911de49b2c6e0003a7d87dd92aaa4c8ccf77a074a0117b2fa3c8ba9008b3"
+      },
+      "actions": 5,
+      "native_assertions": 622,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 175,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "puffin",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "divvy_up_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "treasure_island",
+          "zone": "p1Arena",
+          "owner": 0,
+          "controller": 0
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "puffin",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "treasure_island",
+          "zone": "p1Arena",
+          "owner": 0,
+          "controller": 0
+        },
+        "7": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "gold",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "divvy_up_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "actual_primary_resources_paid": 0,
+      "actual_primary_AP_paid": 1,
+      "actual_removed_gold_counters": 2,
+      "initial_public_SEA_GOLD": 3,
+      "final_public_SEA_GOLD": 1,
+      "actual_created_Gold_UIDs": [
+        7,
+        8
+      ],
+      "actual_created_Gold_owner": 1,
+      "actual_created_Gold_controller": 1,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "52fbc583581b32eaac17dbb9fc6c1bd74d94678ce8830a245cf0cfad3ff726ec",
+      "native_assertion_mapping_sha256": "6672498a851719bbaad483fede26709ce8064962a74a5bea80e6c9890b42c2e1",
+      "fixture_variant": "EXPLICIT_CASUAL_FOUR_LIVE_TREASURE_ISLAND_MACRO_VARIANT_WITH_SYNTHETIC_FIXTURE_CLOCK",
+      "synthetic_fixture_clock_not_literal_chronology": true,
+      "default_or_sanctioned_UPF_claim": false,
+      "official_four_player_High_Seas_limited_claim": false,
+      "macro_start_trigger_history_or_whole_format_credit": false,
+      "initial_public_SEA_GOLD3_is_agreed_board_premise": true,
+      "neutral_macro_UID": 6,
+      "neutral_macro_storage": "p1Arena-0",
+      "raw_macro_Owner": 0,
+      "raw_macro_Controller": 0
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 5,
+  "total_native_assertions": 622,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 175,
+  "fixture_variant": "EXPLICIT_CASUAL_FOUR_LIVE_TREASURE_ISLAND_MACRO_VARIANT_WITH_SYNTHETIC_FIXTURE_CLOCK",
+  "synthetic_fixture_clock_not_literal_chronology": true,
+  "default_or_sanctioned_UPF_claim": false,
+  "official_four_player_High_Seas_limited_claim": false,
+  "macro_start_trigger_history_or_whole_format_credit": false,
+  "initial_public_SEA_GOLD3_is_agreed_board_premise": true,
+  "neutral_macro_UID": 6,
+  "neutral_macro_storage": "p1Arena-0",
+  "raw_macro_Owner": 0,
+  "raw_macro_Controller": 0,
+  "material_findings": [
+    "Exact rawfive/behavior/all5 controls622 ordered persisted queries/four living manual1each/all48 preferences each endpoint match approved R2 Source4a77. COMPLETE0/stderr0/current70c53ab33 receipt/results/archive bound.",
+    "Actual source5 ActionAP1->0 remains Stack through firstthree responses. Fourth resolves SAME neutral non-card Macro6 Owner0/Controller0 publicSEA_GOLD3->1 and TWO distinct Gold7/8OwnerCtl1, source5GY1/noGA. Full original1..6 plus7,8/HP20/RAPChi0/counter8/RNG0/queuesStackChainsquiet independently parsed.",
+    "Native title, branch and exact meta/oracle limits explicitly preserve CASUAL four-live Treasure Island Macro variant and synthetic nonchronological fixture clock. Macro p1Arena is storage, not control. No default/sanctioned UPF, official four-player limited, actual Macro-start/trigger/priorhistory/Thief/wholeMacro certification."
+  ],
+  "limits": [
+    "Explicit CASUAL four-live Treasure Island macro VARIANT only; no default/sanctioned UPF or official four-player High Seas limited-format correctness claim.",
+    "Macro is non-card, neutral/no owner/no controller; p1Arena is storage, raw Owner0/Controller0 is absence not player0 ownership.",
+    "Initial public SEA_GOLD3 is the expressly agreed casual midgame board premise. TurnNumber2 is synthetic fixture transport clock, not literal prior-game chronology; no prior attacks/counter-accumulation/Macro-start/trigger/native-history/format credit.",
+    "Only actual nonThief ceilhalf3to1 plus twoGold main effect; noThief branch/Gold futureactivation/otherMacro readers/siblings/support/Hero/fullcard credit.",
+    "Independent Source/Rootnative/exactSaved48prefs/twoNEW focusedreplays required before any qualification.",
+    "Root explicitly authorizes this casual Macro initial board and nonchronological synthetic fixture clock. No default/sanctioned UPF, official four-player limited, actual Macro past/setup/start/attack/damage-trigger/other ownership-reader correctness claim. No three first-attacked Heroes in one prior turn provenance claim.",
+    "Only nonThief Divvy positive three-to-one public counters and two physical Gold. No Thief branch, Gold futureactivation, Macro target/movement/trigger, priorproducer/UIDtrace, support/sibling/Hero/wholecard credit. Ordinary internal synchronous preclear ordering is unqualified.",
+    "Source approval is separate from native execution, exact Saved raw5/all48preferences/two focused replays/Root registration. Saved scope must preserve both casual variant and synthetic-clock caveats plus strict neutral Macro exception. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "This actual Saved card-specific casual-variant outcome does not execute or credit Macro origin/counter accumulation/earlier attacks/turn chronology. TurnNumber2 remains synthetic transport clock only. R1 unexecuted; only exact R2 fixture reviewed.",
+    "Root two new-only replays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch741_divvy_r2_saved_readonly.py",
+    "sha256": "4c57224f265b5cd9631cf82ebd9266f954a29f5eecb9b2f2d6d96abc6188fada"
+  }
+}

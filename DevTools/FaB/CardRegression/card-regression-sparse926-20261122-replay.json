@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b1c65ed08c3b8e4353b9610329031fb10a00ea73854bc300d0d0c81e38b9ac2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ca0bb2ada3113089cb68cea7331971f5cb893ca1695757ead5193862566c460",
+        "actions.json": "8df3b5f29ae6367544ab75c908df457f9fef4a285dc235e90f8fed778486cef3",
+        "assertions.json": "d25f45886855e7bdd954273aee54daf15df147aedb25444d9728128e1f6c9db5",
+        "expected_final_gamestate.txt": "5e9cffe6692fa3a3c84f44b89c136338f72670be6276762a96f02ee3fc8054da",
+        "meta.json": "85fc92c303acf73e85b3c1b7ac56a83c3fd7e170cf68b45eab242065aa7b1899"
+      }
+    },
+    {
+      "slug": "card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "714fa17aa27cf169a7ab202ebcdbc89ac92740c85315c690b95822a80800c8bc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18a927f0c98f0164b7cd35baec062ee10b2ce975f913aa77c3d0464de42a9ca6",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "d0e6624ee2cbea8087f33c70fe21e7c0e9012e15d4745d65c3364416c046edd5",
+        "expected_final_gamestate.txt": "0835f5b907f5c46c53953ddf3bd5fc4f13d48626815a53fa54fa45fa7ead66da",
+        "meta.json": "11862df5faaeb41121566a591ef67f2a16401e4afab491d8f852d0f01d38958e"
+      }
+    },
+    {
+      "slug": "card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f296c2d9a3755a5afd4ff52cecca21d59aacf39632a6258e5350e5c10ff6deb7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3235dece83166a13be41a620d00825f558129c6845115bc5b2821e793053b350",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "03075146c573d9dbdce0be5cc6b3f813d48ece2d8f8194abc4aa0330d90e98e0",
+        "expected_final_gamestate.txt": "b77e4c0a0e71d912b05a433281f6579e48dd657d643e3a7e843b0705395d29e7",
+        "meta.json": "f2bbd791da355b84a7f183dc893597e828e8b9b0ab8a5513f918b4f7e603e89c"
+      }
+    },
+    {
+      "slug": "card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse926-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e7b5338d55d6d359aa54ad7f7894e0fd23c13529b676a9e3f72a32557ed948c0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "675d951218611cc95211c50622249ff4b4835157f08e3cc3a5bbb8cb40aa8bc4",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "031c8bda23648d931a4a72e03675fe362107086a43389ee0d7b07642391ca902",
+        "expected_final_gamestate.txt": "1ee74deb62a753f0561b0fde0025053be369beaa11af619d8fe99be49cf176ab",
+        "meta.json": "3f236e408e85639ccd364c84fc7c35936861dbaae29db95f154129f3d463813b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

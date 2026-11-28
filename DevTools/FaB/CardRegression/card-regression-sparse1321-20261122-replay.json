@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bb57545bd47b5e3679242212796d04c564bcee7ae684744fceb6ef419892fde8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "579bd0704f6370ca8fe6d93763bf6be1905131cc0b1ad9d6f42d5004ad1f4169",
+        "actions.json": "224557ac6db568204b267e48c21c9f98a80cef02f8ddca96566d5a74a6f29c05",
+        "assertions.json": "a6cec92271c6effa016fefb792e1252e9c22634e3d6e16826cb61055bada552f",
+        "expected_final_gamestate.txt": "4a0f07df56e7acccad696c86e1f629088019550cdc7d69909b8c4815a7122871",
+        "meta.json": "a58c5d7a93ba058f899a8d14b0265c68f8a51682b33a5fa38a7d07967a4f3fc1"
+      }
+    },
+    {
+      "slug": "card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ea78fddb082d85d6e5395d5c5eeb03783e0a2bf24acdbfb5b75da1489e50803a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86eafa5dd5a92391c7058704ddd81902ea253b539c7195f754c1385eaf357338",
+        "actions.json": "6023459f14d526b8325940b6ebaf643ec41aa7b4872c9961bbec6ba25208dc84",
+        "assertions.json": "9c584300da5bf0daf26b57729cfd0e3c2c0bfb9588a3405c3036f72cd0b7bfa6",
+        "expected_final_gamestate.txt": "efa3be7a96f6ba5a9a261f6caa6425023b0402ba73077f285a76f11574e42f36",
+        "meta.json": "5cd79d74e78649edae469f43e72bc7446fddecd01cb08ad8ba33a3be683676aa"
+      }
+    },
+    {
+      "slug": "card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9da0933cbd6d81e69da7ba4deacab8db6a020ed95f4a3928ac22e7077fd3203a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22f2091f31d79ac88705253cc0305ee010878d7212b0875d76609cecba61f942",
+        "actions.json": "17d866117046358636ba878a4395f3f4672044dece0f7bda3c32fa7f332244f1",
+        "assertions.json": "faba703144f710edb0fb3e3dcfa7a4f44467e231f88f931a5c2d3707a4c50e63",
+        "expected_final_gamestate.txt": "06a552b298b0c6a9d7db6527fcc656c06fa7062e1604e8c00d71187727455170",
+        "meta.json": "232703656319199ddd59c0f3dd55b7190cebadd2eb46c351cd6c9db3e9726b80"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Favorable Winds / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:34:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, discard a Goldfin Harpoon.\n\nDraw 2 cards.\n\n**Go again** Representative only: actual_named_discard_and_blue_pitch_then_two_real_draws_and_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Corrected legal Pirate/Ranger hero Marlynn20; two real draws earn two hero layers. Each receives four explicit manual responses. No arrows remain in hand, so no optional Arsenal placement. Original cost/discard/draw/GA expectations retained; no payment-order credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#favorable_winds_yellow"
+}

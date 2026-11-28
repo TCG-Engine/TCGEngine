@@ -1,0 +1,1219 @@
+{
+  "status": "RETAINED_UNATTEMPTED_SOURCE_AND_TEST_PLANNING_HOLDS_NO_NATIVE_CREDIT",
+  "retained_utc": "2026-11-05T14:38:55.637405+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "prepared_by": "/root/nov2_next_author",
+  "prepared_utc": "2026-11-05T14:29:46.960760+00:00",
+  "external_preparation_record": {
+    "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-continuation-unattempted-planning-holds-retention-v2.json",
+    "sha256": "b0a61bdeb9632dffbdc21c4c0f531bdfc682e09be3150c98f07c1d61e8184ae8"
+  },
+  "holds": [
+    {
+      "card_id": "bad_beats_red",
+      "group_id": "pitch-cycle:bad_beats",
+      "classification": "TEST_PREREQUISITE_UNRESOLVED_NOT_ENGINE_DEFECT",
+      "original_note_status": "UNATTEMPTED_AUTHORING_PREREQUISITE_HOLD_NOT_SOURCE_BUG_OR_IMPLEMENTATION_ABSENCE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch473-two-first-ready-mapped-label-v2\\bad-beats-unattempted-prerequisite-hold.json",
+        "sha256": "d32ac6b366083bc6efd62a96a430bd19d49b6ab5cdae881c417877a9edd1dfd7",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch473-two-first-ready-mapped-label-v2\\manifest.json",
+          "sha256": "8e1b8f6b445bb18d41237cf1831631622e16068ac3c2e7bc1e2075e1fb7cc6f3"
+        },
+        "author_QA": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch473-two-first-ready-mapped-label-v2\\frozen-author-QA.json",
+          "sha256": "0677490701dd5fba6ac031f3354ece40370df62e3c12e7282f7e1ef2388fbd57"
+        },
+        "retained_runnable_input": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch473-two-first-ready-mapped-label-v2\\batch473-good-clean-fight-and-colors-of-aria-two-real-suppression-and-faceup-talent-groups.json",
+          "sha256": "5354e530f2fe5f7209beef137fb4af7dca5f3a1fd7560d3d93c4534f209919ac",
+          "primary_card_ids": [
+            "a_good_clean_fight_red",
+            "colors_of_aria_red"
+          ],
+          "contains_this_held_card_as_primary": false
+        },
+        "manifest_note_hash_binding_verified": true,
+        "selected_note_source_hashes_verified": 3,
+        "repository_runnable_input": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch473.json",
+          "sha256": "5354e530f2fe5f7209beef137fb4af7dca5f3a1fd7560d3d93c4534f209919ac",
+          "meaning": "Other prepared primary cases, not a runnable case or execution evidence for this held card"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "A positive 4/5/6 die outcome for the concrete prospective fixture was not independently derived from the full serialized runtime snapshot. No supported native die choice was established.",
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/1290/"
+      ],
+      "source_refs": [
+        "DevTools/FaB/evr_abilities.json: bad_beats_red/ResolveCard, actual roll>=4 grants NEXT_BRUTE5",
+        "FaBSim/Custom/EVRCards.php:8-13 FaBEVRRoll -> EngineRandomInt(1,6)",
+        "Core/DeterministicRNG.php: EngineSnapshotState/EngineDeterministicHashMaterial/EngineDeterministicBytes"
+      ],
+      "limits": "Authoring prerequisite only; neither an engine defect nor implementation absence. Do not seed die/HIGH_ROLL/NEXT_BRUTE/history or force a bonus. No concrete runnable Bad Beats case retained."
+    },
+    {
+      "card_id": "chart_a_course_red",
+      "group_id": "pitch-cycle:chart_a_course",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_PLAIN_SPELL_COMPLETION_SEAM",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_PLAIN_SPELL_COMPLETION_SEAM_NOT_NEW_NATIVE_BUG",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-erode-authority-first-ready-author\\chart-a-course-known-plain-await-source-only-hold.json",
+        "sha256": "1a4943cb2e17607beebdce594fd38143eb023e71ddc3e21b61c102d58e5fb35d",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-erode-authority-first-ready-author\\manifest.json",
+          "sha256": "62b3d2675a435b1ce65815ec2d171baa22eaeef681eb35f282449695b7b3c880"
+        },
+        "author_QA": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-erode-authority-first-ready-author\\frozen-author-QA.json",
+          "sha256": "db109312ea18de70c288667c663e0fad0f4b8e8051d173000714b6be8048fcad"
+        },
+        "retained_runnable_input": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch476-erode-authority-first-ready-author\\batch476-erode-authority-one-real-dominate-and-responseable-fragment-group.json",
+          "sha256": "c60b03c2c73006de5125184e6a3d071345c2ce854ca61019aa9eb41f7d0f3e22",
+          "primary_card_ids": [
+            "erode_authority_red"
+          ],
+          "contains_this_held_card_as_primary": false
+        },
+        "manifest_note_hash_binding_verified": true,
+        "selected_note_source_hashes_verified": 3,
+        "repository_runnable_input": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch476.json",
+          "sha256": "c60b03c2c73006de5125184e6a3d071345c2ce854ca61019aa9eb41f7d0f3e22",
+          "meaning": "Other prepared primary cases, not a runnable case or execution evidence for this held card"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected canonical ResolveCard always awaits Decline/Add_gold_counter, even without Treasure Island. Its ordinary Action path is outside the managed plain-spell cohort and can clear source/refund go again while the resolving modal is pending.",
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/3779/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+      ],
+      "source_refs": [
+        "DevTools/FaB/sea_abilities.json: chart_a_course_red/ResolveCard unconditional resolving modal after first-attack+3 producer",
+        "FaBSim/Custom/GameLogic.php:1541-1542,1604 managed cohort;1781-1785 ordinary completion"
+      ],
+      "limits": "Same known held 096/104 completion seam, not a new native failure or allocated issue. Resolving optional choice is not an announcement mode. Do not omit choice/source-Stack/AP0 guards or treat no Island as noninteractive."
+    },
+    {
+      "card_id": "reinforce_steel_red",
+      "group_id": "pitch-cycle:reinforce_steel",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_PROPER_WEAPONS_ZONE_ADMISSION_SELECTOR",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_BLOCKED_CANDIDATE_NO_EXECUTABLE_CASE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch475-banish-and-created-card-author\\reinforce-steel-source-only-unattempted-hold.json",
+        "sha256": "e8cd0236d74261baf39dd6f8bdc538386e275a4a2f8662f5738e8ebb38632628",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch475-banish-and-created-card-author\\manifest.json",
+          "sha256": "ac965f38bef9d3596105dad368644a259b922833c94412e8c399da7fa0a32fb1"
+        },
+        "author_QA": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch475-banish-and-created-card-author\\frozen-author-QA.json",
+          "sha256": "40f22dd1e8e853189ac04115f6d1d9740ad53ccbce5733496e6736163f9486e9"
+        },
+        "retained_runnable_input": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch475-banish-and-created-card-author\\batch475-consuming-strength-and-fluid-motion-two-real-banish-and-created-card-groups.json",
+          "sha256": "9516254300f98094ab26329f3d375f5ec6417cedd7f8e7af584620d30dea88b0",
+          "primary_card_ids": [
+            "consuming_strength_yellow",
+            "fluid_motion_blue"
+          ],
+          "contains_this_held_card_as_primary": false
+        },
+        "manifest_note_hash_binding_verified": true,
+        "selected_note_source_hashes_verified": 4,
+        "repository_runnable_input": {
+          "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch475.json",
+          "sha256": "9516254300f98094ab26329f3d375f5ec6417cedd7f8e7af584620d30dea88b0",
+          "meaning": "Other prepared primary cases, not a runnable case or execution evidence for this held card"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Proper Guardian off-hand Steelbraid Buckler is in Weapons with one legitimate prior Temper -1DEF counter (baseDEF2/currentDEF1). Selected REPAIR3 admission/selector scans Equipment and Equipment CombatChain, excluding that legal Weapons object.",
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/08-keywords/ (CR8.2.10a off-hand zone, as retained in original note)"
+      ],
+      "source_refs": [
+        "FaBSim/Custom/DYNCards.php:18 FaBDYNEquipment Equipment/EquipmentCombatChain selector",
+        "FaBSim/Custom/DYNRuntime.php:56 CanPlay requires nonempty REPAIR3",
+        "DevTools/FaB/dyn_abilities.json: reinforce_steel_red later resolving MZChoose"
+      ],
+      "limits": "Bounded selected proper-zone board only, not proof every caller/board is unsupported. Do not relocate the off-hand into Equipment. Later known unmanaged choice lifecycle is source-only context, not another native failure."
+    },
+    {
+      "card_id": "ram_raider_red",
+      "group_id": "pitch-cycle:ram_raider",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_ADDITIONAL_COST_ORDER",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_BLOCKED_CANDIDATE_NO_EXECUTABLE_CASE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch477-searing-shot-correct-hit-probe\\ram-raider-source-only-unattempted-cost-order-hold.json",
+        "sha256": "100473741156d3ca10f5d81656dd2454c1156106b72e7440a184c40cc8351034",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch477-searing-shot-correct-hit-probe\\manifest.json",
+          "sha256": "e1fbda3a74faacd89dcc6d12f874a54e2b1f040ced3a5df253acba5df896a4c4"
+        },
+        "author_QA": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch477-searing-shot-correct-hit-probe\\frozen-author-QA.json",
+          "sha256": "e1239be15ebcba9874b6afbccc1aebbd568207a01c873fc65a3b50c57e37aa3f"
+        },
+        "retained_runnable_input": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch477-searing-shot-correct-hit-probe\\batch477-searing-shot-one-real-hero-hit-life-loss-correct-probe.json",
+          "sha256": "913e96a45d302869d6f5b4e80d15041abcf5c153f50208a3ae84c0ca2df5cb66",
+          "primary_card_ids": [
+            "searing_shot_red"
+          ],
+          "contains_this_held_card_as_primary": false
+        },
+        "manifest_note_hash_binding_verified": true,
+        "selected_note_source_hashes_verified": 5
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "The selected Prepare route can pitch a card/add resources but then performs the mandatory random Hand banish before FinishPreparedCard completes fixed resource/AP payment. Pitch selection/resource generation is not fixed-asset payment; the actual additional effect cost is paid too early.",
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ (CR5.1.7 asset costs before CR5.1.9 effect costs, per frozen note)"
+      ],
+      "source_refs": [
+        "DevTools/FaB/dtd_abilities.json: ram_raider_red/PrepareCard, Pitch-before-banish -> HandBanish -> FinishPreparedCard",
+        "FaBSim/Custom/ARCCards.php:63-75 FaBARCPitchForEffect generates resources, not completed resource/AP payment",
+        "FaBSim/Custom/DTDCards.php:27-28 FaBDTDHandBanish performs actual random Hand-to-Banish move",
+        "FaBSim/Custom/CardChoices.php:217-233 FaBFinishPreparedCard -> FaBTryCompletePayment",
+        "FaBSim/Custom/GameLogic.php: fixed pending resource/AP payment"
+      ],
+      "limits": "Same bounded known cost-order cohort; no new native proof, issue allocation or confirmed engine-defect count. No runnable Ram Raider case, fabricated resources/history, alternate host or source fix. The intended sole-Six random choice was unattempted, with no randomness/entropy credit."
+    },
+    {
+      "card_id": "battlefield_blitz_red",
+      "group_id": "pitch-cycle:battlefield_blitz",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_CHARGE_SUPPORT_COST_ORDER",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_SUPPORT_BLOCKER_NO_CASE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch479-battlefield-breaker-author\\battlefield-blitz-source-only-selected-charge-cost-hold.json",
+        "sha256": "29863e29da8b133e70f7a377e614ee0b04dbd73b88fae0b8ec843e62a5af7926",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "manifest": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch479-battlefield-breaker-author\\manifest.json",
+          "sha256": "1a7515a069ee6bc1879414b32ff86ea79a53f0947db24fe3e728be79660bfa00"
+        },
+        "author_QA": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch479-battlefield-breaker-author\\frozen-author-QA.json",
+          "sha256": "e3222fa718a3a56e50775466004b7bc8ab5bef4ea43992fe8dd95cc0114e9989"
+        },
+        "retained_runnable_input": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch479-battlefield-breaker-author\\batch479-battlefield-breaker-one-real-six-power-banish-conditional-group.json",
+          "sha256": "d3c873a7738f40fd010e8e75ab4a0a37f39dd27eb6a94d7dc782e0ed64486222",
+          "primary_card_ids": [
+            "battlefield_breaker_red"
+          ],
+          "contains_this_held_card_as_primary": false
+        },
+        "manifest_note_hash_binding_verified": true,
+        "selected_note_source_hashes_verified": 4,
+        "selected_note_source_guard_map_sha256": "31471180fb4949e8316521e2e5fcee4668a828acf996ac292a339087c08b4845",
+        "original_note_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected Take Flight additional-cost route performs the actual Hand-to-Soul Charge before FinishPreparedCard completes resource/AP asset payment. Choosing the card is not itself paying the Charge effect cost; the immediate Soul move is. This blocks the proposed real-Charge prerequisite for Battlefield Blitz.",
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/784/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+      ],
+      "source_refs": [
+        "DevTools/FaB/mon_abilities.json: take_flight_red/PrepareCard MZMAYCHOOSE -> FaBMONCharge -> FaBFinishPreparedCard",
+        "FaBSim/Custom/MONCards.php:16-20 actual Hand-to-Soul move and CHARGED; generic go-again condition at183 supports Battlefield Blitz",
+        "FaBSim/Custom/CardChoices.php:217-233 FinishPreparedCard -> FaBTryCompletePayment",
+        "FaBSim/Custom/GameLogic.php: pending resource/AP asset payment"
+      ],
+      "limits": "Selected support route only, not whole-card or all-Charge-caller absence. No CHARGED/resources/Soul/permission seeds, alternate host, executable Blitz case, new native failure/issue or repair. Other retained input is Battlefield Breaker only."
+    },
+    {
+      "card_id": "rubble_raiser_red",
+      "group_id": "pitch-cycle:rubble_raiser",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_HEAVE_HIDDEN_ELECTION_AND_BEGINNING_END_ROUTE_UNESTABLISHED",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_HEAVE_HIDDEN_ELECTION_PUBLICITY_AND_PHASE_ROUTE_UNESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch478-rubble-raiser-heave-source-only-hold\\SOURCE_ONLY_UNATTEMPTED_HOLD.json",
+        "sha256": "24740c30f6a7ca4e39072a17f68ab3ad573425eec13956010aad6ed22a1c1ffd",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "independent_hold_review": {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch478-independent-source-hold-review.json",
+          "sha256": "e189df4c038761124426398ead0327f9ecad91b869682d96d32e3c2f072513a5",
+          "reviewer": "/root/nov2_sparse_author",
+          "source_hold_review_approved": true,
+          "scenario_approved": false
+        },
+        "no_executable_input": true,
+        "selected_note_source_hashes_verified": 6,
+        "selected_note_source_guard_map_sha256": "f46c6c9b3e8ebbd0deef852bc2da22604d64f795031b5389bfb4e767e23dcae8",
+        "original_note_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "The selected current dynamic Heave 2 resolver, election/pitch choices, payment, face-up Arsenal placement and two-Seismic body exist. The supported hidden-trigger owner election/public-source contract and exact beginning-end automatic admission route were not established in the bounded read; this is not missing payment/body or a confirmed phase defect.",
+      "rules": [
+        "https://judge.fabtcg.com/cards/detail/4106/",
+        "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "https://rules.fabtcg.com/en/cr/04-game-structure/",
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+      ],
+      "source_refs": [
+        "FaBSim/Custom/GameLogic.php:2161-2166 private END_PHASE route;2430-2449 FaBEndTurn/selected end hooks",
+        "FaBSim/Custom/EVRCards.php:128-130 existing Heave dispatch using actual Hand source; literal Blue implementation reuse is not itself wrong-source evidence",
+        "FaBSim/Custom/MPGCards.php:86-87 actual printed Heave value and affordable choice enumeration",
+        "DevTools/FaB/mpg_abilities.json / GeneratedMacroCode.php: current dynamic2 MZMULTICHOOSE0..1 -> pitch MZCHOOSE -> subtract2 -> face-up Arsenal -> create2 Seismic",
+        "Schemas/FaBSim/GameSchema.txt: selected Hand schema has no explicit reveal flag"
+      ],
+      "current_rule_nuance": "CR4.4.1/4.4.2 gives NO player priority in End Phase; beginning-end layers resolve automatically as if all pass, so no manual response-four is owed. CR5.4.7b makes a hidden source public when its owner elects to trigger, before resolving payment; the physical source can remain Hand until placement and need not be a physical Stack card. Instructed creator/recipient is player1; this is not casting/playing Rubble Raiser.",
+      "limits": "No invented chooser/visibility flag/phase/history/manual End-Phase priority, categorical global-visibility absence, native bug, ordinary Hand-attack/base8 substitute, future Seismic consumer, sibling/full-card credit or source fix. Source body-local lack of explicit RevealCard is not proof every publicity route is absent."
+    },
+    {
+      "card_id": "potion_of_seeing_blue",
+      "group_id": "identity:potion_of_seeing_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_TARGET_DECLARATION_BEFORE_DESTROY_COST",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_FORMAL_TARGET_DECLARATION_BEFORE_DESTROY_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch482-earthlore-real-action-draw-correct-probe\\potion-of-seeing-unattempted-target-declaration-hold.json",
+        "sha256": "d89493579ce616667f8e0e8497e94c0af6dd0e7d41c3d2c6ebd4c1f48428100f",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch482.json",
+        "held_primary_has_no_executable_case": true
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "EVRAbilities17 INSTANT0/destroy -> WTRActivate827-828 ARCActivate97..163 (nospecificearlyhero-targetcaptureselected) ->PayAbility164..destroy ->canonicalEVRResolveAbility MZChooseChoose_hero ONLYwhenbodyresolves, thenprivatehandviewchoice/forget.",
+      "rules": {
+        "current_official": "https://judge.fabtcg.com/cards/detail/1456/",
+        "current_text": "Instant - Destroy this: Look at target hero's hand.",
+        "expected_rule": "PrintedTARGETheroisdeclaredandlegalbeforepayingdestroycost/responders, perCR5.2; resolvinglook/view islater. No fabricatedearlychooserormovingdestructionafterresponse toforcegreen."
+      },
+      "source_refs": {
+        "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca"
+      },
+      "limits": "Onlyselectedcaller/bodyroute; notcategoricalallpossiblecallersunsupported. No runnablePotioncase/native/peek/fixture/coverage/newissue/sourcefix; no wronglate-targetgreen/alternateUI/setup workaround."
+    },
+    {
+      "card_id": "a_drop_in_the_ocean_blue",
+      "group_id": "identity:a_drop_in_the_ocean_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_LIFECYCLE_SEAM_NO_EXECUTABLE_CASE",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_KNOWN_LIFECYCLE_SEAM_NO_EXECUTABLE_CASE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-blade-beckoner-boots-first-ready-author\\drop-in-the-ocean-known-lifecycle-source-only-unattempted-hold.json",
+        "sha256": "873f980d916c118d1593cfa54cefdea83ac3c1d74b791e2ee556e704949f3f14",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch490.json",
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-independent-source-review.json",
+        "sha256": "6fb8f779f376fbdf90a93ac3ae3f235471406f9fc96a024b51fc9895bd55206f",
+        "scope": "Other-primary approved source/spec gate and separately labeled unattempted plan, not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected resolving-choice ordinary-spell lifetime and target-declaration contract not established; known seam, no native probe.",
+      "limits": "Only the selected bounded route; no categorical implementation-absence or confirmed gameplay bug claim."
+    },
+    {
+      "card_id": "nasreth_the_soul_harrower",
+      "group_id": "identity:nasreth_the_soul_harrower",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_ALLY_HIT_TRIGGER_AND_CHOICE_SOURCE_LIFETIME_NOT_ESTABLISHED",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_ALLY_HIT_TRIGGER_AND_CHOICE_SOURCE_LIFETIME_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch491-data-doll-correct-boost-item-trigger-probe\\nasreth-unattempted-ally-hit-source-lifetime-hold.json",
+        "sha256": "cf8ced5343037eefaf8ad1076dd89c695cdedd5756d06ac9184bb3877e4850a4",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch491.json",
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch491-independent-source-review.json",
+        "sha256": "43976635f57290625ddd944c60004ffec166c09ac138e23d230bde2bb628f842",
+        "scope": "Other-primary approved source/spec gate and separately labeled unattempted plan, not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected responseable Ally-hit physical-source versus attack-proxy/choice-lifetime contract not established; no fabricated queue transport or native probe.",
+      "limits": "Bounded selectedroute not established as correct responseable physicalAlly/proxy source/choice lifetime. No categorical allcallersabsence or confirmed gameplaybug. Legal priorNasreth viaOblivion requires exactly6controlledRunechants; ObliviondoesNOTsacrificethem. No runnableNasreth input, fixture, native attempt, coverage, issue allocation or source fix; no replacementhunt."
+    },
+    {
+      "card_id": "short_and_sharp_red",
+      "group_id": "pitch-cycle:short_and_sharp",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_NOT_NATIVE_BUG_OR_COVERAGE",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_NOT_NATIVE_BUG_OR_COVERAGE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch492-steadfast-source-choice-correct-probe-author\\short-and-sharp-source-only-hold.json",
+        "sha256": "26682fb26d229a64a15b1b0c1486a6ae1a0a12560bce0797ae543fe526f93d2c",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch492.json",
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch492-independent-source-review.json",
+        "sha256": "057d2b8f029c2d9b7b6eae85a457996d44c21dd07150a6cdf79d5665f38f9a83",
+        "scope": "Other-primary approved source/spec gate and separately labeled unattempted plan, not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected printed Choose1 mode/target declaration before costs not established; resolving canonical choices are not blessed as early declarations; no native probe.",
+      "limits": "Boundedselectedrouteconcern only, not totalabsence/unimplemented/globalroot claim."
+    },
+    {
+      "card_id": "hurricane_technique_yellow",
+      "group_id": "identity:hurricane_technique_yellow",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_HIT_MOVEMENT_LIFETIME_CONCERN",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_HIT_MOVEMENT_LIFETIME_CONCERN",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch494-redback-real-reaction-discount-author\\hurricane-technique-unattempted-hit-movement-lifetime-hold.json",
+        "sha256": "37f2054654babba9c81c46794d0f491c0f4533bd64feaea4288f2bebd0baf1db",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch494.json",
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch494-independent-source-review.json",
+        "sha256": "8060c65e81e3d389eade2d86b8763ef8fca3925f86b5993e5772026e035803c8",
+        "scope": "Other-primary source gate plus separately labeled unattempted note, not native correctness approval for the held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected main hit-WHEN movement is represented by WTR_RETURN_HAND late graveyard replacement in the bounded route. Known held lifetime concern; no native probe, fake Combo history, or blocked substitute case was created.",
+      "rules": {
+        "current_official": "https://judge.fabtcg.com/cards/detail/197/",
+        "current_text": "Combo - If Rising Knee Thrust was the last attack this combat chain, this gets +1{p}, go again, and \"When this hits, put it into your hand.\"",
+        "expected": "RealRisingKneeThrustpreviousattackinthesamechain earns+1/GA/WHENhitreturnTHISHand; actualHitrequiresresponseableearnedmovementlayerbeforereturn, notlateGraveyardreplacement."
+      },
+      "limits": "Boundedselectedpathmatchesknownheldhit-movementlifetimeconcern; nocategoricalallimplementationabsenceclaim/newnativebug. No fakepreviousattack, nofullyblockedsubstitute toavoidmainWHEN, no runnableinput/native/fixture/coverage/issueallocation/sourcefix; healthyRedbackreleasedindependently/no replacementhunt."
+    },
+    {
+      "card_id": "glacial_footsteps_red",
+      "group_id": "pitch-cycle:glacial_footsteps",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ADDITIONAL_EFFECT_COST_BEFORE_ASSETS_ROUTE",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_ADDITIONAL_EFFECT_COST_BEFORE_ASSETS_ROUTE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch495-pound-correct-conditional-play-trigger-probe\\glacial-footsteps-unattempted-fusion-cost-order-hold.json",
+        "sha256": "b2acf80ebcdaf47ba59ce5932383d9822c75c22fa2fc9c210d3560fdf4d4fdb4",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch495.json",
+        "held_primary_has_no_approved_repository_case": true,
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch495-independent-source-review.json",
+        "sha256": "0517a8f3821e8a2ccca37da73ded7457aa8309120a27afb2f719d9e57afe9461",
+        "scope": "Other-primary approved source gate and separately labeled unattempted held route, not native correctness approval for this card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected positive Fusion declaration/reveal/asset-cost contract is held after bounded source inspection; no native attempt or all-Fusion/caller verdict.",
+      "limits": "OnlyselectedGlacialpositiveFusionpath; noallFusion/callerabsenceornewconfirmedbugclaim. Noalternativeunfusedcasttoleaveonlyprintedconditionuntested, norfakeIce/reveal/permission/costflag. Noexecutableinput/native/fixture/coverage/issueallocation/sourcefix; no replacementhunt."
+    },
+    {
+      "card_id": "barraging_beatdown_red",
+      "group_id": "pitch-cycle:barraging_beatdown",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_PLANNING_HOLD_NO_NATIVE_OR_ISSUE_CREDIT",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_PLANNING_HOLD_NO_NATIVE_OR_ISSUE_CREDIT",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch497-reunion-ward-first-ready-author\\barraging-beatdown-source-only-unattempted-hold.json",
+        "sha256": "4548b9644faa895bf2744d66d98f992a1fe2b1e50bc8099f326d906ed641b117",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch497.json",
+        "held_primary_has_no_approved_repository_case": true,
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch497-independent-source-review.json",
+        "sha256": "de011b091bc40966b8d0d24279e3c1bfba5f9506333b7c7a8baf1a6d0c292fdd",
+        "scope": "Other-primary approved source gate and separately labeled unattempted held route, not native correctness approval for this card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected Intimidate declaration and unmanaged resolving-choice source-lifetime route not established as correct; known source/protocol seam, no native or new issue.",
+      "limits": "Only selected bounded route; no categorical implementation-absence or native gameplay bug claim."
+    },
+    {
+      "card_id": "bloodied_gauntlet",
+      "group_id": "identity:bloodied_gauntlet",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_PLANNING_HOLD_NO_NATIVE_OR_ISSUE_CREDIT",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_PLANNING_HOLD_NO_NATIVE_OR_ISSUE_CREDIT",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-burn-rubber-first-ready-author\\bloodied-gauntlet-event-route-unattempted-hold.json",
+        "sha256": "4c053670d5f256e7acb65d792c92717aa5f31a26625f14e7e5c5f37a20528bf1",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch498.json",
+        "held_primary_has_no_approved_repository_case": true,
+        "held_primary_has_no_executable_case": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-independent-source-review.json",
+        "sha256": "86c3a1fe36bf5f911e668543c453cff34850b143b49344a69bd201204a23618a",
+        "scope": "Other-primary approved source gate and separately labeled unattempted held route, not native correctness approval for this card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Event Equipment equip/provenance/native Event Deck return contract is unestablished in ordinary UPF; no invented permission, ordinary-GY replacement, or native claim.",
+      "limits": "ExactCID canonical abilities/custom literal admission notestablished by boundedlookup; no totalimplementationabsence or gameplaybugclaim."
+    },
+    {
+      "card_id": "burn_away_red",
+      "group_id": "identity:burn_away_red",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ROUTE_HOLD",
+      "original_note_status": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ROUTE_HOLD",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-burn-source-only-cost-order-hold.json",
+        "sha256": "0ab1aa78e6d1285906a4990e213c3770ae27ac5e3fca053ab7acc0290cb4c017",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "other_primary_runnable_input": "card-regression-batch500-deep-only.json",
+        "held_primary_has_no_approved_repository_case": true,
+        "unapproved_W_draft_authored_and_retained": true
+      },
+      "related_other_primary_source_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-deep-only-independent-source-review.json",
+        "sha256": "fdc89859f58ea6abad5cc2b54cb64b98fe9ef980dfc324f211ee155a69128665",
+        "scope": "Other-primary approved source gate and separately labeled unattempted held route, not native correctness approval for this card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected compiled positive route moves the Phoenix effect-cost before Action asset payment; source-only order concern, no native trace or gameplay issue allocation. Original authored W-only case0 remains unapproved/uninstalled/unrun.",
+      "limits": [
+        "Only selected positive additional-cost route/source concern; no native/fixture/bug/global-root/fix credit, no declined branch assertion or repair.",
+        "Current1595 IF supersedes old When-you-do face; no missing reflexiveWHEN allegation.",
+        "Deep case1 reviewed separately and released by exact mechanical slice; no Burn case installed or approved."
+      ],
+      "external_unapproved_W_case": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-banish-cost-and-earned-permission-author\\batch500-burn-away-and-deep-rooted-evil-two-real-graveyard-cost-and-earned-banish-permission-groups.json",
+        "sha256": "d16e02ba32217369d9bb7b8ac9354a5c39ee83c66e1fd59d12290071d4b5e1a7",
+        "case_index": 0,
+        "status": "AUTHORED_UNAPPROVED_UNINSTALLED_UNRUN"
+      }
+    },
+    {
+      "card_id": "fisticuffs",
+      "group_id": "identity:fisticuffs",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_TARGET_DECLARATION_ROUTE_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-selected-route-unattempted-holds\\planning-holds.json",
+        "sha256": "167f397c711b3c0f2ffb77a7646580d8a99ce38a65f06d57f25aba10338ff82d",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC",
+        "record_card_id": "fisticuffs"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-independent-planning-hold-review.json",
+        "sha256": "b3dd758daa80c9371de8b2d2769509dab08510ade630c64ede9c91bbc9da7c28",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected formal attack-target declaration before paying2/destroy is unestablished; body recomputes attack refs and chooses at resolution, not a proven announced-target consumer. No native probe.",
+      "limits": "Boundedcaller/bodyevidenceonly; samekindofsource-onlylate-targetconcernasparkedFleetFoot/InTheSwing, notglobalimplementationabsenceorconfirmednativefailure. No inventedearlyMZCHOOSE, no latechoosertogreen, no extraattack/depth/supportworkaround."
+    },
+    {
+      "card_id": "golden_gait",
+      "group_id": "identity:golden_gait",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_EQUIPPED_GOLD_CASH_IN_ADMISSION_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-selected-route-unattempted-holds\\planning-holds.json",
+        "sha256": "167f397c711b3c0f2ffb77a7646580d8a99ce38a65f06d57f25aba10338ff82d",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC",
+        "record_card_id": "golden_gait"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-independent-planning-hold-review.json",
+        "sha256": "b3dd758daa80c9371de8b2d2769509dab08510ade630c64ede9c91bbc9da7c28",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected Cash In admission/payment only considers base tokens in Arena, excluding properly equipped Golden Gait. Other SUP Gold-Equipment recognition exists, so no global counts-as/implementation-absence claim.",
+      "limits": "OnlyselectedCashInconsumer/Equipmentzoneadmissionunestablished; noallGold/cardimplementationabsenceorconfirmednativebugclaim. NoordinaryArenaGoldsubstitution/wrongslot/permissionflag/unsupportedalternativepaymentchooser, andnoDEF2baselineleavingcounts-asclauseuntested."
+    },
+    {
+      "card_id": "blade_flash_blue",
+      "group_id": "identity:blade_flash_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ROUTE_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-rushing-river-first-ready-author\\blade-flash-unattempted-dispatch-unestablished.json",
+        "sha256": "d8f289ad0f4e2db613ecc62c54f89e10d0d26e8ba291689be2f98838fa8dd06c",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true,
+        "other_primary_runnable_input": "card-regression-batch502.json"
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-independent-source-review.json",
+        "sha256": "ca4fb3c8b7114e42b0189cc69671c366e3d1b0248a03673e1a0b152f885aa7a2",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected runtime effect/target route remains unestablished after bounded lookup; registry or literal absence does not prove implementation absence.",
+      "limits": "Unattempted route-establishment hold only, not known source implementation absence/repair/issue allocation. Does not block independent healthy Rushing release."
+    },
+    {
+      "card_id": "earthlore_empowerment_red",
+      "group_id": "pitch-cycle:earthlore_empowerment",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_START_TURN_BUFF_DISPATCH_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-herald-phantasm-first-ready-author\\earthlore-empowerment-unattempted-start-turn-dispatch-hold.json",
+        "sha256": "4616ca7742ff2f32cc859d23283ae39a0ccd41b00a402299e0e5238499554cb1",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true,
+        "other_primary_runnable_input": "card-regression-batch503.json"
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-independent-source-review.json",
+        "sha256": "e560cb8e8e7852c51f02fec64efd7a74e89e1daca48761b8ffe9783facb83f3c",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected start-turn dispatch route not established. Current StartPhase is automatic without priority, so no false missing response-layer allegation or seeded start buff.",
+      "limits": "Unattempted selected dispatch planning hold only, not confirmed defect/implementation-absence statement. No executable recipe/normal-play substitute/native/fixture/coverage/new issue/source fix. No replacement hunt."
+    },
+    {
+      "card_id": "t_bone_red",
+      "group_id": "pitch-cycle:t_bone",
+      "classification": "UNATTEMPTED_SUPPORTED_ENFORCEMENT_WITNESS_TRANSPORT_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch504-sprocket-first-ready-author\\t-bone-unattempted-enforcement-pass-transport-hold.json",
+        "sha256": "bc292c6266c171a031152dd48e3197e6d29339658e06ab00ab65aeb7588fe849",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true,
+        "other_primary_runnable_input": "card-regression-batch504.json"
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch504-independent-source-review.json",
+        "sha256": "8245699273db069bf09cc86cb341ef694f6fd4a45f03e26d3cda70fad64a3243",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "The Equipment enforcement exists, but a supported one-failed-Pass recording witness is unestablished: pass_until cannot send exactly one rejected finish and strict expected-rejection is mode100 only. No voluntary-block substitute or engine bug claim.",
+      "limits": "Bounded authortransporthold only; not a Tbone enginefailure, no issue/globalroot allocation, no knownwear reprobe. ReleaseindependenthealthySprocket."
+    },
+    {
+      "card_id": "oasis_respite_red",
+      "group_id": "pitch-cycle:oasis_respite",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_TARGET_DECLARATION_FAMILY_HOLD",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-selected-target-declaration-source-holds\\oasis_respite_red-unattempted-source-hold.json",
+        "sha256": "56cdf794999bb5002e511eb9d7648d4e57eca10893d3ea9b90060f489591a909",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-independent-planning-limit-review.json",
+        "sha256": "3f4efbeb9ca80e5457c3313506da4ed9409a1e8a2385cad4d620ee237ccfda4e",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected formal hero target is first chosen at resolution; choosing a damage SOURCE during resolution is legitimate and is not the held problem. No native recipe or claim.",
+      "limits": [
+        "Bounded selected canonical/commonentry observation only, not exhaustive absence of all possible overrides or a catalog-wide implementation verdict.",
+        "No PHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedrepairretry. No sourcefix or private target/effect seeds.",
+        "Do not install a passing late-target prototype, infer a native failure, allocate an issue, or count card/group coverage. This is author planning evidence requiring independent review before any future strict probe."
+      ]
+    },
+    {
+      "card_id": "scour_blue",
+      "group_id": "identity:scour_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_TARGET_DECLARATION_FAMILY_HOLD",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-selected-target-declaration-source-holds\\scour_blue-unattempted-source-hold.json",
+        "sha256": "5082a91dc14cb335bed9328350b8a97342a2d537b026121527a4b724ffedeb38",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-independent-planning-limit-review.json",
+        "sha256": "3f4efbeb9ca80e5457c3313506da4ed9409a1e8a2385cad4d620ee237ccfda4e",
+        "scope": "Independent source/planning-limits preflight; not native correctness approval for this held card."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Prepare X declaration/payment alone does not establish the formal hero and Aura targets; selected body asks those at resolution. No native recipe or global absence claim.",
+      "limits": [
+        "Bounded selected canonical/commonentry observation only, not exhaustive absence of all possible overrides or a catalog-wide implementation verdict.",
+        "No PHP/native/replay/R/source/service/gen/fullsuite/git/remote/deniedrepairretry. No sourcefix or private target/effect seeds.",
+        "Do not install a passing late-target prototype, infer a native failure, allocate an issue, or count card/group coverage. This is author planning evidence requiring independent review before any future strict probe."
+      ]
+    },
+    {
+      "card_id": "photon_rush_red",
+      "group_id": "pitch-cycle:photon_rush",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_LIGHTNING_FLOW_GA_DISPATCH_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch507-dumpster-first-ready-author\\photon-rush-unattempted-lightning-flow-dispatch-hold.json",
+        "sha256": "648bc9fa3794d69e3833d41a71f0ec0129f6b61a8b0550f6eabd1df3e28ac105",
+        "record_card_id": "photon_rush_red",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch507-independent-source-review.json",
+        "sha256": "e1c8e1f8729f238562e36dd785b2d1d2018f4c150da5507bf4f1537991e8d684",
+        "scope": "Independent selected planning/source limits only; no native correctness approval for the held primary."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "One exactselectedCID/basename lookup in currentcanonicalabilityrows andCustomPHP didnotestablish Photonproducer. ActualGL429-450 attackGAgetter delegates toexistinghelpers; selectedELEGoAgain61-64 andROSRuntime24 donotestablish thiscardLightningFlowroute. Othergeneric/compiled dispatch remainsunestablished, notproofofglobalabsence/unimplementedcard.",
+      "limits": [
+        "Unattemptedselecteddispatchplanningholdonly, notconfirmedbug or new native repro of Crackling. Noexecutablecase/fakeGAorLightninghistory/fusedWeavesubstitute/fixture/coverage/issueallocation/sourcefix. No replacementhunt."
+      ]
+    },
+    {
+      "card_id": "ironhide_gauntlet",
+      "group_id": "identity:ironhide_gauntlet",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_DEFEND_WHEN_INLINE_CHOOSER_ROUTE",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch508-selected-defend-and-target-planning-holds\\planning-holds.json",
+        "sha256": "ba99af277fe209615f4d418ea008cb390f41e1cacdbb62457a9282221bdeaff9",
+        "record_card_id": "ironhide_gauntlet",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch508-independent-planning-limits-review.json",
+        "sha256": "cfd0d7165769b442676b9e2ad10293d0d3bf687197db0f9c6ffbb8069025bec8",
+        "scope": "Independent selected planning/source limits only; no native correctness approval for the held primary."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Source-only selected inline-chooser versus printed responseable WHEN concern, within known held trigger lifecycle family. No native event trace, observed early chooser, whole-family absence, bug/issue allocation, duplicate known-family repro or missing Close response claim.",
+      "limits": [
+        "Source-only selected inline-chooser versus printed responseable WHEN concern, within known held trigger lifecycle family. No native event trace, observed early chooser, whole-family absence, bug/issue allocation, duplicate known-family repro or missing Close response claim.",
+        "Selected source observation only; no native timing trace or global implementation-absence finding."
+      ]
+    },
+    {
+      "card_id": "amulet_of_echoes_blue",
+      "group_id": "identity:amulet_of_echoes_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_FORMAL_HERO_TARGET_DECLARATION_ROUTE_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch508-selected-defend-and-target-planning-holds\\planning-holds.json",
+        "sha256": "ba99af277fe209615f4d418ea008cb390f41e1cacdbb62457a9282221bdeaff9",
+        "record_card_id": "amulet_of_echoes_blue",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch508-independent-planning-limits-review.json",
+        "sha256": "cfd0d7165769b442676b9e2ad10293d0d3bf687197db0f9c6ffbb8069025bec8",
+        "scope": "Independent selected planning/source limits only; no native correctness approval for the held primary."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Only this selected activation/target timing route is held, reusing the known declaration-family planning limit. No global implementation/API absence, native observation, failure issue, rule change, helper patch or extra target matrix; all actual history/cost/effect routes remain unattempted.",
+      "limits": [
+        "Only this selected activation/target timing route is held, reusing the known declaration-family planning limit. No global implementation/API absence, native observation, failure issue, rule change, helper patch or extra target matrix; all actual history/cost/effect routes remain unattempted.",
+        "Selected source observation only; no native timing trace or global implementation-absence finding."
+      ]
+    },
+    {
+      "card_id": "popped_collar_polo",
+      "group_id": "identity:popped_collar_polo",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ACTIVATION_DISPATCH_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch510-selected-equipment-unattempted-holds\\planning-holds.json",
+        "sha256": "c73d9cc5957422cb93ccd4a6abf3b0018a228bcb3052fcc0f81a6c9caaba9227",
+        "record_card_id": "popped_collar_polo",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch510-independent-planning-limit-review.json",
+        "sha256": "b2d8d19d194c2fd1964d412c6ffbd01a4074c2d9160bdfc900f49a08da4b1b9c",
+        "scope": "Independent selected planning/source limits only; no native correctness approval for the held primary."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "No supported selected activation dispatch established, so no native ActionMap click/ability chooser/ABI/source lifetime or resolution outcome fabricated.",
+      "limits": [
+        "ONE exactselectedCID lookup in currentCustomPHP and canonical *_abilities rows didnotestablish activation spec/producer; ONE exactCID lookup in currentGeneratedMacroCode had0occurrences. These bounded name lookups doNOT ruleout generic/dynamic dispatch or proveabsence/unimplementedbehavior.",
+        "Unattemptedplanninglimitonly. No runnable/prototype source or Nbasename; no normalDEF0block/play-only substitute. No gameplay/native/fixture/coverage/confirmedbug/issueallocation/fix approval. No new route investigation/replacementhunt."
+      ]
+    },
+    {
+      "card_id": "nom_de_plume",
+      "group_id": "identity:nom_de_plume",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_ACTIVATION_DISPATCH_NOT_ESTABLISHED",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch510-selected-equipment-unattempted-holds\\planning-holds.json",
+        "sha256": "c73d9cc5957422cb93ccd4a6abf3b0018a228bcb3052fcc0f81a6c9caaba9227",
+        "record_card_id": "nom_de_plume",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch510-independent-planning-limit-review.json",
+        "sha256": "b2d8d19d194c2fd1964d412c6ffbd01a4074c2d9160bdfc900f49a08da4b1b9c",
+        "scope": "Independent selected planning/source limits only; no native correctness approval for the held primary."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "No supported selected activation dispatch established, so no native ActionMap click/ability chooser/ABI/source lifetime or resolution outcome fabricated.",
+      "limits": [
+        "ONE exactselectedCID lookup in currentCustomPHP and canonical *_abilities rows didnotestablish activation spec/producer; ONE exactCID lookup in currentGeneratedMacroCode had0occurrences. These bounded name lookups doNOT ruleout generic/dynamic dispatch or proveabsence/unimplementedbehavior.",
+        "Unattemptedplanninglimitonly. No runnable/prototype source or Nbasename; no normalDEF0block/play-only substitute. No gameplay/native/fixture/coverage/confirmedbug/issueallocation/fix approval. No new route investigation/replacementhunt."
+      ]
+    },
+    {
+      "card_id": "stir_the_pot_blue",
+      "group_id": "identity:stir_the_pot_blue",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_UNMANAGED_PHYSICAL_SPELL_LIFETIME",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch515-stir-pot-selected-lifetime-planning-hold\\planning-hold.json",
+        "sha256": "8e61e23467a169a58e680186b80851ea05dd06f598a7c9c919aba7fdeea0fd3e",
+        "record_card_id": "stir_the_pot_blue",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch515-independent-planning-limit-review.json",
+        "sha256": "7fe502ff0efb47e924da829a17cb6d5ab5076b54547905e9f77acbc414ce11cc",
+        "scope": "Independent selected planning-limits review only, not native correctness or repair approval."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Canonical shuffle/other-blue/transcend and MST helper exist. The selected GL caller excludes this spell from its managed cohorts and moves its physical source before executing the body. Source-derived ordering concern only; no native observation of Graveyard or transformed Hand.",
+      "limits": [
+        "Bounded source-derived caller/body concern within the known unmanaged physical-spell lifetime family. No prototype, current native input, observed Graveyard checkpoint or transformed Hand/Chi/payment outcome exists. No whole-card/global implementation absence, new engine bug/root/issue, automatic held-fix coverage, gameplay repair or source-applier preparation. Proposed SigilBlue prerequisite/resource consumer remains unattempted and is not certified as a complete runnable scenario.",
+        "No duplicate known-family native probe, issue allocation, global implementation-absence claim, repair preparation, or coverage credit."
+      ]
+    },
+    {
+      "card_id": "withstand_red",
+      "group_id": "pitch-cycle:withstand",
+      "classification": "SOURCE_ONLY_UNATTEMPTED_KNOWN_FORMAL_TARGET_DECLARATION_SEAM",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch525-withstand-selected-target-planning-hold\\planning-hold.json",
+        "sha256": "58ff95c086ac8b44d22f26fc6d548404fba899994fad40f9571c08e55b90d8cc",
+        "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "held_primary_has_no_executable_case": true,
+        "held_primary_has_no_approved_repository_case": true
+      },
+      "related_source_or_planning_preflight": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch525-independent-planning-limits-review.json",
+        "sha256": "4a02838c5bdd7738cc1bfbf4cb92a73ae2cdde1a570ca4ba4bdacdd1bdf7c21d",
+        "scope": "Independent planning-limits review only, not gameplay/native/repair approval."
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected implemented Withstand resolving chooser does not establish the printed Guardian off-hand target before payment. Existing body/defense consumers remain acknowledged; bounded source-only observation, not native failure or global implementation absence.",
+      "limits": [
+        "Bounded selected caller/canonical/compiled/helper evidence only, not a global target audit or proof of every possible engine path.",
+        "No native attempt, observed target/Stack/Graveyard movement, payment, defense, damage, cleanup or fixture outcome exists for B525.",
+        "No gameplay bug/issue/root allocation, implementation-total-absence conclusion, source fix/proposal, generated output, denied repair retry or coverage/full-card/sibling credit. No repair-dependent work.",
+        "All four-manual schema preferences/UID/economy/native consumer checks would be mandatory for any later independently reviewed executable packet; no dummy case is supplied here."
+      ]
+    },
+    {
+      "card_id": "valiant_thrust_blue",
+      "group_id": "pitch-cycle:valiant_thrust",
+      "classification": "REJECTED_DRAFT_ORACLE_UNATTEMPTED_SELECTED_CHARGE_ROUTE_HOLD",
+      "external_W_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-independent-source-review-hold.json",
+        "sha256": "38047df6fe66b180e74a7e6ce44a004255308f71195e893c35192fb22d5abcfb",
+        "kind": "INDEPENDENT_REJECTED_DRAFT_REVIEW_NOT_APPROVED_EXECUTABLE_CASE"
+      },
+      "retained_review": {
+        "path": "review-evidence/sparse537-valiant-draft-hold-9e984.json",
+        "sha256": "38047df6fe66b180e74a7e6ce44a004255308f71195e893c35192fb22d5abcfb"
+      },
+      "context": {
+        "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+        "authored_draft_exists": true,
+        "authored_draft_semantically_approved": false,
+        "approved_repository_case_exists": false,
+        "other_charge_producers_not_surveyed": true
+      },
+      "bounded_followup": {
+        "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch537-held-cost-order-followup-recommendation.json",
+        "sha256": "b109d20066d7f28b1a8a50e551ccb5540830fa278e24157a7d2df8aff702269c"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "source_fix": false,
+      "reason": "Selected real-Charge Valiant draft was rejected before native: it expects physical Soul payment while AP/resource assets remain unpaid. Current CR5.1.7-9/8.5.29 require assets first; stable Hand references do not legalize the oracle. Original draft stays unapproved/uninstalled/unrun. Selected Take Flight cost-order concern is not newly natively confirmed, and other charge producers are not surveyed.",
+      "limits": [
+        "Rejected test-oracle/preparation hold, not a passing executable scenario or a confirmed new gameplay bug.",
+        "Existing cost-order entries099/100 remain source-only/unattempted; fixed062/064 are historical named precedents, not proof for current TakeFlightBlue.",
+        "Bounded follow-up found no retained exact Blue native evidence in inspected issue metadata; no global archive-absence claim.",
+        "No V2, native retry, fixture, coverage/full-card/sibling credit, source proposal/fix or denied operation is supplied."
+      ]
+    }
+  ],
+  "scope": "29 bounded unattempted planning limits; per-entry scope applies. No native failure, fixture, issue or coverage credit is allocated.",
+  "verification_limit": "Preparer verified the pinned selected source references at preparation. Root verified the frozen note hashes, the exact original-three prefix, and current gameplay runtime9; historical source metadata is not requalified.",
+  "root_operations": {
+    "local_metadata_retained": true,
+    "gameplay_or_source_changed": false,
+    "native_attempted": false,
+    "coverage_awarded": false,
+    "issue_rows_allocated_for_these_four_holds": 0
+  },
+  "original_prepared_scope": "Consolidation of FOUR existing immutable planning notes only; V1 three entries are unchanged and one frozen Ram Raider source-only additional-cost-order note is appended. No new investigation, candidate, issue allocation, gameplay or fix. External-W note digests identify non-runnable evidence; linked runnable specs cover other named primaries and provide no execution/fixture/coverage for these held cards.",
+  "appended_preparation_records": [
+    {
+      "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-continuation-unattempted-planning-holds-appendix-charge-heave.json",
+      "sha256": "cd46f3c739c20271d3a8bed86751d97e65e0ce86a372acc949698b5a22c1f7fe",
+      "prepared_by": "/root/nov2_metadata_review",
+      "prepared_utc": "2026-11-05T15:00:50.840002+00:00",
+      "retained_utc": "2026-11-05T15:05:11.040662+00:00",
+      "cards": [
+        "battlefield_blitz_red",
+        "rubble_raiser_red"
+      ]
+    },
+    {
+      "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch482-earthlore-real-action-draw-correct-probe\\potion-of-seeing-unattempted-target-declaration-hold.json",
+      "sha256": "d89493579ce616667f8e0e8497e94c0af6dd0e7d41c3d2c6ebd4c1f48428100f",
+      "retained_utc": "2026-11-05T16:03:44.475103+00:00",
+      "cards": [
+        "potion_of_seeing_blue"
+      ]
+    },
+    {
+      "retained_utc": "2026-11-05T17:20:01.613763+00:00",
+      "cards": [
+        "a_drop_in_the_ocean_blue",
+        "nasreth_the_soul_harrower",
+        "short_and_sharp_red"
+      ],
+      "external_notes": [
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-blade-beckoner-boots-first-ready-author\\drop-in-the-ocean-known-lifecycle-source-only-unattempted-hold.json",
+          "sha256": "873f980d916c118d1593cfa54cefdea83ac3c1d74b791e2ee556e704949f3f14",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch491-data-doll-correct-boost-item-trigger-probe\\nasreth-unattempted-ally-hit-source-lifetime-hold.json",
+          "sha256": "cf8ced5343037eefaf8ad1076dd89c695cdedd5756d06ac9184bb3877e4850a4",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch492-steadfast-source-choice-correct-probe-author\\short-and-sharp-source-only-hold.json",
+          "sha256": "26682fb26d229a64a15b1b0c1486a6ae1a0a12560bce0797ae543fe526f93d2c",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        }
+      ]
+    },
+    {
+      "retained_utc": "2026-11-05T17:36:01.382362+00:00",
+      "cards": [
+        "hurricane_technique_yellow"
+      ],
+      "external_notes": [
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch494-redback-real-reaction-discount-author\\hurricane-technique-unattempted-hit-movement-lifetime-hold.json",
+          "sha256": "37f2054654babba9c81c46794d0f491c0f4533bd64feaea4288f2bebd0baf1db",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        }
+      ]
+    },
+    {
+      "retained_utc": "2026-11-05T18:32:29.974901+00:00",
+      "cards": [
+        "glacial_footsteps_red",
+        "barraging_beatdown_red",
+        "bloodied_gauntlet",
+        "burn_away_red"
+      ],
+      "external_notes": [
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch495-pound-correct-conditional-play-trigger-probe\\glacial-footsteps-unattempted-fusion-cost-order-hold.json",
+          "sha256": "b2acf80ebcdaf47ba59ce5932383d9822c75c22fa2fc9c210d3560fdf4d4fdb4",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch497-reunion-ward-first-ready-author\\barraging-beatdown-source-only-unattempted-hold.json",
+          "sha256": "4548b9644faa895bf2744d66d98f992a1fe2b1e50bc8099f326d906ed641b117",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch498-burn-rubber-first-ready-author\\bloodied-gauntlet-event-route-unattempted-hold.json",
+          "sha256": "4c053670d5f256e7acb65d792c92717aa5f31a26625f14e7e5c5f37a20528bf1",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch500-burn-source-only-cost-order-hold.json",
+          "sha256": "0ab1aa78e6d1285906a4990e213c3770ae27ac5e3fca053ab7acc0290cb4c017",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        }
+      ]
+    },
+    {
+      "retained_utc": "2026-11-05T19:07:31.896048+00:00",
+      "cards": [
+        "fisticuffs",
+        "golden_gait",
+        "blade_flash_blue",
+        "earthlore_empowerment_red",
+        "t_bone_red",
+        "oasis_respite_red",
+        "scour_blue"
+      ],
+      "external_notes": [
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-selected-route-unattempted-holds\\planning-holds.json",
+          "sha256": "167f397c711b3c0f2ffb77a7646580d8a99ce38a65f06d57f25aba10338ff82d",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC",
+          "record_card_id": "fisticuffs"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch501-selected-route-unattempted-holds\\planning-holds.json",
+          "sha256": "167f397c711b3c0f2ffb77a7646580d8a99ce38a65f06d57f25aba10338ff82d",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC",
+          "record_card_id": "golden_gait"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch502-rushing-river-first-ready-author\\blade-flash-unattempted-dispatch-unestablished.json",
+          "sha256": "d8f289ad0f4e2db613ecc62c54f89e10d0d26e8ba291689be2f98838fa8dd06c",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch503-herald-phantasm-first-ready-author\\earthlore-empowerment-unattempted-start-turn-dispatch-hold.json",
+          "sha256": "4616ca7742ff2f32cc859d23283ae39a0ccd41b00a402299e0e5238499554cb1",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch504-sprocket-first-ready-author\\t-bone-unattempted-enforcement-pass-transport-hold.json",
+          "sha256": "bc292c6266c171a031152dd48e3197e6d29339658e06ab00ab65aeb7588fe849",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-selected-target-declaration-source-holds\\oasis_respite_red-unattempted-source-hold.json",
+          "sha256": "56cdf794999bb5002e511eb9d7648d4e57eca10893d3ea9b90060f489591a909",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        },
+        {
+          "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch505-selected-target-declaration-source-holds\\scour_blue-unattempted-source-hold.json",
+          "sha256": "5082a91dc14cb335bed9328350b8a97342a2d537b026121527a4b724ffedeb38",
+          "kind": "PLANNING_NOTE_NOT_RUNNABLE_SPEC"
+        }
+      ]
+    },
+    {
+      "retained_utc": "2026-11-05T19:28:39.259037+00:00",
+      "cards": [
+        "amulet_of_echoes_blue",
+        "ironhide_gauntlet",
+        "nom_de_plume",
+        "photon_rush_red",
+        "popped_collar_polo"
+      ],
+      "source": "Reviewed B507/B508/B510 external W notes; exact per-row hashes retained."
+    },
+    {
+      "retained_utc": "2026-11-05T19:55:10.394616+00:00",
+      "cards": [
+        "stir_the_pot_blue"
+      ],
+      "source": "Reviewed external W B515 planning note, exact per-row hashes retained."
+    },
+    {
+      "retained_utc": "2026-11-05T21:39:43.953994+00:00",
+      "cards": [
+        "withstand_red"
+      ],
+      "source": "Reviewed external W B525 selected target-declaration planning limit, exact hashes retained."
+    }
+  ],
+  "preparation_scope_note": "Top-level preparer/time describe the initial four records; later appended records identify their own preparation sources.",
+  "appended_537_oracle_scope": "Thirty records:29 prior selected source/planning limits plus one rejected-draft oracle hold. Original preparer/time scope remains initial records. No new native bug/coverage."
+}

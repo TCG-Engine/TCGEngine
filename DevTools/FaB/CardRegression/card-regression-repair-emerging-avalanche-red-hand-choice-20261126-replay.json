@@ -1,0 +1,23 @@
+{
+  "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "fixtures": [
+    {
+      "slug": "repair-emerging-avalanche-red-four-live-20261126-hand-declined-fusion-correct-owned-entry",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-emerging-avalanche-red-four-live-20261126-hand-declined-fusion-correct-owned-entry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\emerging_avalanche_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "9398fdda4146431e1d1f7ec0bf46562a361eee6ce2f5b224a16b769b367c1f9b",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

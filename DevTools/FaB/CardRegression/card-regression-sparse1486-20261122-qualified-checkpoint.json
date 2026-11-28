@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T04:45:27.437730+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1486-20261122.json",
+  "source_spec_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 22,
+  "native_assertions": 626,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 5520,
+    "duels": 3136,
+    "four_live": 2384,
+    "recorded_primary_ids": 2668,
+    "identity_denominator": 5196,
+    "recorded_groups": 2542,
+    "group_denominator": 3324,
+    "four_live_groups": 2373,
+    "phase_qualified_scenarios_at_actual_contexts": 2157,
+    "phase_qualified_unique_groups": 2147,
+    "creation_replay_passes": 2899,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1318,
+  "scenarios": [
+    {
+      "card_id": "eclipse_existence_blue",
+      "group_id": "identity:eclipse_existence_blue",
+      "scenario_id": "card-eclipse-existence-blue-four-live-sparse1486-real-life-gain-earns-positive-owned-graveyard-banish",
+      "effect_branches": [
+        "positive_own_GY_Action_banish_with_more_life_than_Light_Hero_earned_by_real_Sigil_play"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-eclipse-existence-blue-four-live-sparse1486-real-life-gain-earns-positive-owned-graveyard-banish",
+      "source_spec": "card-regression-sparse1486-20261122.json",
+      "source_spec_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+      "review_evidence": "review-evidence/sparse1486-20261122-qualified-saved.json",
+      "review_evidence_sha256": "369a37eb1039af69650ba36daf7773e52cfb81c85343e58bf4f19328c8f257d4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1486-20261122-replay.json",
+          "sha256": "cedd22e3d8d6849b7cf58c8598130a93c0384bc2f2966841d005d31bf7109353",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "poison_the_tips_yellow",
+      "group_id": "identity:poison_the_tips_yellow",
+      "scenario_id": "card-poison-the-tips-yellow-four-live-sparse1486-positive-reload-before-go-again-real-action",
+      "effect_branches": [
+        "positive_Reload_same_UID_face_down_Arsenal_then_go_again_spent_on_real_Item"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-poison-the-tips-yellow-four-live-sparse1486-positive-reload-before-go-again-real-action",
+      "source_spec": "card-regression-sparse1486-20261122.json",
+      "source_spec_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+      "review_evidence": "review-evidence/sparse1486-20261122-qualified-saved.json",
+      "review_evidence_sha256": "369a37eb1039af69650ba36daf7773e52cfb81c85343e58bf4f19328c8f257d4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1486-20261122-replay.json",
+          "sha256": "cedd22e3d8d6849b7cf58c8598130a93c0384bc2f2966841d005d31bf7109353",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

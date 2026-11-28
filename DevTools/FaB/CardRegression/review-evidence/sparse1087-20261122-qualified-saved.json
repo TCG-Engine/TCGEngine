@@ -1,0 +1,91 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent narrow attack-reaction-clearing correction",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1087-20261122.json",
+  "source_spec_sha256": "a195dfd62b4f8f5cb964ecf373b5167e81d1ccbf5917a8f7c7512dff11c5b610",
+  "input_sha256": "fb268dc330e419d193c4b444dfe77c3323546775307483e8a1f55721e9b4e807",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+      "card_id": "fire_and_brimstone_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295a277fda4e89fade2de9959a4528d16e2a1ed334a5308142a1b7f0e684f267",
+        "actions.json": "a6a003ac54e6585051c3a1348f48dc4fd5d583cd75a2ebdb6889af3878dffc38",
+        "assertions.json": "9851e2e4278404ab5066e9348ab615e1d1ec23a65f97940c9595f2405ed143b8",
+        "expected_final_gamestate.txt": "200f57ab9a59067b8e3065c04aae670015d4879aec39095f51b1955011cc4ddb",
+        "meta.json": "0c7aca6d4afa7c70fc6adc502e6da4f09b4f8ab2879c5b07630b3fb3a4ec0c89"
+      },
+      "fixture_sha256": "5cbc6a08cba50022083208a1d0c53beb07d9b2eadf98a296eeb2dbb1f4ddd014",
+      "actions": 33,
+      "native_assertions": 274,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1087-20261122.json",
+      "input_sha256": "a195dfd62b4f8f5cb964ecf373b5167e81d1ccbf5917a8f7c7512dff11c5b610",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1087-local-20261122\\rules-corrected-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+        "fixture_slug": "card-fire-and-brimstone-red-four-live-sparse1087-real-reaction-cost-buffs-current-dagger-attack-one-to-two",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a195dfd62b4f8f5cb964ecf373b5167e81d1ccbf5917a8f7c7512dff11c5b610",
+    "reviewer": "breadth_review independent narrow attack-reaction-clearing correction",
+    "prior_review_spec_sha256": "fb268dc330e419d193c4b444dfe77c3323546775307483e8a1f55721e9b4e807",
+    "basis": [
+      "Corrects the prior shared review assumption that a resolved attack reaction remains on the combat chain. Supplied parent-verified current official CR8.1.2b requires the resolved attack reaction to clear; CR3.0.12 clearing moves it to its owner graveyard. This differs from a defending defense reaction.",
+      "Exact comparison confines changes to post-resolution checkpoint28 and explanatory oracle. That checkpoint changes Graveyard0 to1, CombatChain2 to1, redirects source5 identity/ownership assertions from CombatChain1 to Graveyard0 and removes the inapplicable ATTACK_REACTION Role query.",
+      "All native controls, four fresh REACTION response actors, source5 held on Stack until resolution, paid costs/R0/AP0, current dagger1 to2 power, actual2damage/HP18 and final owner graveyard/physical weapon7/Pitch6 remain unchanged. Prior legal Fang/Quicksilver/GenericBlue and no-unearned-GA review therefore stands."
+    ],
+    "rules": [
+      {
+        "id": "8.1.2b",
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/"
+      },
+      {
+        "id": "3.0.12",
+        "url": "https://rules.fabtcg.com/en/cr/03-zones/"
+      }
+    ],
+    "limits": [
+      "Child reviewed supplied official-rule evidence without making network requests. This is a fixture fate-oracle correction, not an engine repair or retroactive approval of the failed attempt.",
+      "Corrected recording and clean replay pending. Only current dagger +1 consumed by one paid attack; additional attacks, positive cost discount, marked-hit/Fealty/hero/full-card branches remain untested."
+    ],
+    "original_full_review": {
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "fb268dc330e419d193c4b444dfe77c3323546775307483e8a1f55721e9b4e807",
+      "reviewer": "breadth_review independent final legal setup and positive-consumer review",
+      "basis": [
+        "Cached Fire and Brimstone is Draconic Warrior AR2. Corrected young Fang20 is Royal Draconic Warrior; Quicksilver Dagger is Warrior Dagger1H and Critical Strike Blue is Generic pitch3. This corrects the original Fai/Ninja setup before native execution.",
+        "Actual weapon7 cost1 is supported by DYNRuntime.php:25,37-44; real Blue6 pays3 leaving R2/AP0. Current first non-Draconic weapon link supplies zero cost discount, so AR5 really pays2 leaving R0 while preserving AP0. Its text has no target declaration or mandatory mode.",
+        "GeneratedMacroCode.php:2939-2942 resolves FaBHNTBuffDaggers(player,1,true); HNTCards.php:55-56,73 tags the actual equipped dagger. WTRCards.php:726-728 reads its WEAPON_UID-linked power tag, so current computed power1 becomes2 and the unblocked actual hit must deal2/HP4=18. Source5 stays Stack through all four fresh REACTION responders, then enters ATTACK_REACTION role before owned graveyard.",
+        "Fresh turn history, no other weapon, unmarked defender Hero Counters[] and all Arenas0 isolate first Quicksilver attack: its conditional go again is false, Fang marked-hit event is absent and no Fealty discount exists. Final AP0 is correct; extra-attack permission alone grants no action point.",
+        "Used physical weapon Status1 follows CRUCards.php:412; exact final status-only delta against preserved proposal is 3 to 1. GameLogic.php:814 normalizes copied combat-chain Owner when absent; physical weapon7 and source5 ownership/fates remain guarded. All checks are persisted type/state/power checks."
+      ],
+      "limits": [
+        "Only actual current dagger +1 power consumed by one paid attack. No additional attack consumer, positive Draconic cost discount, other dagger, positive marked-hit/Fealty, hero ability, support identity, sibling or whole-card credit.",
+        "Corrected native recording and clean replay remain pending. Previous source-only/timing/ownership holds are neither exercised nor repaired."
+      ]
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1087-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "04a79d439bfc528ebd479d928889fb30dde2e6466b3e6a0c669747743d62242a"
+  },
+  "full_suite_run": false
+}

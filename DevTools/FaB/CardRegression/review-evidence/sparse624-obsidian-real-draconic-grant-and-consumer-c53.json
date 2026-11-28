@@ -1,0 +1,296 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_OBSIDIAN_V3",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T17:34:36.512407+00:00",
+  "source_spec": "card-regression-batch624-obsidian-v3.json",
+  "input_sha256": "dd925184a9a7902d3d01a39ec8af8767902efd7495b721aa0b22d7e63ab62872",
+  "source_sha256": "dd925184a9a7902d3d01a39ec8af8767902efd7495b721aa0b22d7e63ab62872",
+  "manifest_sha256": "db3c5dc9c55e526fb2786c196ea0dad82d959f652fb1719a63c3be42ff8be33f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-obsidian-v3-independent-source-review.json",
+    "sha256": "b4bb4d1cfa0dd0ee27def281f225a362fe2592186fb8a680f5c4e0ec410c5deb",
+    "unchanged_normative_model_reused": true
+  },
+  "prior_printed_material_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-v2-independent-source-review.json",
+    "sha256": "800c285934d86f7aeca527539dfb667bc66085bdfe84bc9352f9d218fe376fc6",
+    "unchanged_printed_rules_material_ledger_reused": true
+  },
+  "historical_native_oracle_classification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-obsidian-native-window-oracle-classification.json",
+    "sha256": "cd9503cdc02c6ebff16f297cbc023d5d8805c54f4da4a896f5c5d3a0b5027ba1"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch624-obsidian-v3-20261106T173145Z-6aee0f018213d.json",
+    "sha256": "32f703032b4d1fd624802c11fe7be025fb3d8d553422e1f70930c2cdf3deab61"
+  },
+  "results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch624-obsidian-v3.recording-results.json",
+    "sha256": "33fd89c1e455d367ce8915b35ba608f2f008182d1502cc699db6f17656775fe0"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch624-obsidian-v3-native-c53\\receipt.json",
+    "sha256": "ae7980198d0349ae56dada3f14990da3c83c9960c7298bf6a0e7de54b63d6a8d"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "obsidian_fire_vein",
+      "group_id": "identity:obsidian_fire_vein",
+      "slug": "card-obsidian-fire-vein-four-live-real-same-link-draconic-plus-one-go-again-and-consumer",
+      "source_spec": "card-regression-batch624-obsidian-v3.json",
+      "input_sha256": "dd925184a9a7902d3d01a39ec8af8767902efd7495b721aa0b22d7e63ab62872",
+      "reviewer": "/root/nov2_sparse_author",
+      "approved": true,
+      "semantically_approved": true,
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-obsidian-fire-vein-four-live-real-same-link-draconic-plus-one-go-again-and-consumer",
+      "fixture_sha256": "2b85d06d5ca999d41d47239b95aaf1c52c179de34f9e891adb3ee16d15910ad6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c7e515c5086800f20145d1b1e8b50582fee138ffcd220ee84192d1a4004db35",
+        "actions.json": "c607c778e4e699085cb895ce70716174d54681d505306719d56f429c82ee2e83",
+        "assertions.json": "e343e844044be79e3e716d5368d0c350b579758eb02946937054744fe067bac2",
+        "expected_final_gamestate.txt": "8f2f8d9a1965b6b24a90dd76f014b4a60a7ea549e518e0860a920b1f60e0b880",
+        "meta.json": "3e160951594f505c74ae1aaeed6c78bf31447e045dddd3469282331c479ee54c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6c7e515c5086800f20145d1b1e8b50582fee138ffcd220ee84192d1a4004db35",
+        "actions.json": "c607c778e4e699085cb895ce70716174d54681d505306719d56f429c82ee2e83",
+        "assertions.json": "e343e844044be79e3e716d5368d0c350b579758eb02946937054744fe067bac2",
+        "expected_final_gamestate.txt": "8f2f8d9a1965b6b24a90dd76f014b4a60a7ea549e518e0860a920b1f60e0b880",
+        "meta.json": "3e160951594f505c74ae1aaeed6c78bf31447e045dddd3469282331c479ee54c"
+      },
+      "actions": 55,
+      "native_assertions": 4920,
+      "actual_manual_passes": 50,
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 1654,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fang",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "pledge_fealty_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "obsidian_fire_vein",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fang",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "obsidian_fire_vein",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "fealty",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "pledge_fealty_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "immediate_on_play_power": 2,
+      "immediate_on_play_go_again": true,
+      "created_owned_Fealty_UID": 10,
+      "actual_weapon_damage": 2,
+      "actual_consumer_damage": 4,
+      "go_again_refund_materially_consumed": true,
+      "virtual_proxy9_ceased": true,
+      "final_UniqueIDCounter": 10,
+      "full_card_certification": false
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 55,
+  "total_native_assertions": 4920,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 1654,
+  "material_findings": [
+    "Actualcompleteexit0/stderr0/oneSavedatunchangedc53. Exactraw5/all55envelopes4920orderedqueries50actualmanualpasses/48preferences eachendpoint/current71guards+ab33 matchapprovedV3. No source-history re-audit.",
+    "Actualbase1/noGA firstlink; Pledge6actualPLAY atATTACKinstantlyproducescurrentpower2/GAtrue whilephysical6stillINSTANTStack throughfirstthreefreshresponses andArena0/AP0/R2. Fourthresponse alone createsoneownedFealty10 andplaces6ownGY; fullsourcepreservation/owner/controllerchecksactuallypassed.",
+    "Actual2physicalHP18;APrefund1onlyResolution andactuallyspentontheblankRed7AA4/noGA. Actual4moredamageHP14/R2AP0/fullClose. InitialUID1..8conserved/physicalweapon5used/Fealty10retained/6&7ownGY/8Pitch/virtual9ceased/RNG0;allfourHeroesandemptyzonesverified.",
+    "Priorfailedwindowlabel/nativeprefixremainsimmutablehistorical; functional suffix nowactuallypassed inV3. Beamingisnotincluded/rerun/reviewedhere."
+  ],
+  "limits": [
+    "One positive THISchainlink DraconicPLAY/+1/GA branch only. No marked-HeroFangWHEN/threeFealtydiscount/Fealtyactivation/End/thirdattack/support/sibling/fullcardcredit.",
+    "Combat-opening indicator/attack-layer semantics at omittedframingpoints remainunqualified. No enginefix or gameplaybug fromwindowlabels.",
+    "Exactpersistedqueries andparsedendpoints only; no extraper-inputrawsnapshotclaim. Rootfocusedcleanreplays/registration remainseparate, no pre-promotionqualificationclaim.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/deniedrepair operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch624_obsidian_v3_saved_readonly.py",
+    "sha256": "214ff2b5af7f823a6af8068589919086f86daf5ca9dc42f676b10462e2f6372d"
+  }
+}

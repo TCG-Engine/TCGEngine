@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8d7a208e4a4bfb434cbf47437d0f36bb0cd3e3771503c65f1e66764daf47adfc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68cb0f8fb06de8a964e218f825a501fe2f0b8f10d5adf9d294f51069140a6461",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "0bff38d5b74be45528965dffe9aa1af8c250035a24fd21ed1fca6b28c8e5a024",
+        "expected_final_gamestate.txt": "9cf0d4c3fc45dc89dad63b6c793099c8339838be94e1fc2fcf543065cf7b134f",
+        "meta.json": "c73fc5e0a69325179176e009c00af2b91700696e7e6dcf1c03552ecb3b3c3b05"
+      }
+    },
+    {
+      "slug": "card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6dd317708dae9565ddae94c2ffcc2c4c7d9070fee2f0214e7f826876fd117234",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de60326e5321b2eebb289d6690916df4bbeb7645241c066c62b0799780170253",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "47fc75649aad9015a1793b672d2a65609d34af9f3f034288d5122d41a9e0437d",
+        "expected_final_gamestate.txt": "d5a2f7a339d4aa302911b0ac9aba26d7dbf38bf4604801e2894a2d610e0327bf",
+        "meta.json": "d6bd0ad4281da16ec46f65808cea2a825b4b3cf66a1ecf6edbcb72debfa29451"
+      }
+    },
+    {
+      "slug": "card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c15d1df9dc4e4fd6f56eeb0aeeb2245cd83985cc7e24ed1fa13cd13627e14935",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "067cd2d4a91bcc94af5abe1ab415bb5c0de897f31fd41d548cb9caf2140c990c",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "f37ac09a2c926b0d6c1156d50d27ee6582b8ee4380538af0712a154eb3fa2c69",
+        "expected_final_gamestate.txt": "7ffebb72c08944ea777fa72d73b13e17cf95cae3160fa9f3d979112f7fac1bc9",
+        "meta.json": "bc9966dfe61e584a3205489802fbb2820c9f34e4da2575f82202db91ae1b836c"
+      }
+    },
+    {
+      "slug": "card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9ae1a6b3a82b67a8155baa5239e92707909318d2e1d35dedcdc55cce2bce028b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7cf56b4f205e8be22fe4ea8989613a4714eb8e5aafce8a850910707e1d93f2ad",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "0b50d7991b25470df1548d29bc4a827dcc9b7425626f9851fc301fab53875bb1",
+        "expected_final_gamestate.txt": "2a8470eb4ed237a8dd5b8518324d4bfc1410f45b6aba8c82ee74a47a5481b3a5",
+        "meta.json": "d747b8bfab9c63708dc6be6cfdf168f62e39f3b3ac45f37513c81b531967c1de"
+      }
+    },
+    {
+      "slug": "card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "496db3430e1a05ef4388e6354e224a7b52f331ffb4f0170825298cb445c03ea6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d1c3a9300e6e317767153665d51729dc2894aee0f5e158ef06a33914633debeb",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "d998f134661aed6ce94634717af5233a72bdfff2fde3cd0bff329623194b0f24",
+        "expected_final_gamestate.txt": "96d53024e09c422191a8056be2534cf5ccbca8bb60fe895c6feb0dd898efe7cd",
+        "meta.json": "f7af5fc0fd5e6c91a95854bb52c8b6331ce40cea33d43ca83c2bcb03ca227ba5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

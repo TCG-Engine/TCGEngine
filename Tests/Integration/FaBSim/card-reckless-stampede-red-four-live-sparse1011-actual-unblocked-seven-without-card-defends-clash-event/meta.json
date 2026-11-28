@@ -1,0 +1,7 @@
+{
+    "name": "Reckless Stampede / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:19:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever a card defends this, **clash** with the defending hero. The winner deals 1 damage to the other hero. Each hero may put their revealed card on the bottom of its owner's deck. Named branch actual_unblocked_seven_without_card_defends_clash_event. NaturalRhinar20/realBlue6pays2/R1/AP0, no random discard or hero activation. Fourmanual unblocked7/HP13; no card defends this, so qualified card-defends clash event never occurs. Real ownDeck7 and enemyDeck8 remain exact top, casterHP20/no extra clash loss or AP. No positive clash/RevealLog/bottom-choice claim. Allfour live/manual, actualprintedcost/power/HP/roles/physicalfates. No supporting identities/pitch siblings/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reckless_stampede_red"
+}

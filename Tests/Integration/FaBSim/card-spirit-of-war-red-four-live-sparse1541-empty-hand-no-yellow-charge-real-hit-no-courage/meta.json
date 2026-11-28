@@ -1,0 +1,7 @@
+{
+    "name": "Spirit of War / no yellow charge means no Courage ability on actual attack-action hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:33:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four live manual young20 Boltyn/Dori/Dori/Dori. Real primaryAA5 onlyHandcard; actualnormalzero-costplayformallytargetsadjacentHero4/AP1to0/R0. AfterprimaryleavesHand, noeligiblechargecard remains; optionalcostzero/skipschooser/noSoulmove, noYcharged. Printed IFYcharged THEN createsCourageWHENability, so false outerIF generatesnoCourageability (not suppressed earned WHENwithfalse resolutionIF). Actualprimary3power/noGA hitsHero4for3/HP17, yet noCourage/token/extraUID/layer; Boltynchargedstaticbonusalsoinactive. Fullfourmanualclose5GY1/UID5/noSoul/Banish/StackDQ. Positivecharge/ref/costtiming/earnedCourage staysheld; noenginechange. Onlyfalseoutercondition/actualhit, notpositivecharge orCourageability. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spirit_of_war_red FaBSim/GeneratedCode/GeneratedMacroCode.php#spirit_of_war_red:0:PrepareCard FaBSim/Custom/MONCards.php#FaBMONCharge FaBSim/Custom/BoltynCards.php FaBSim/Custom/GameLogic.php#FaBTryCompletePayment"
+}

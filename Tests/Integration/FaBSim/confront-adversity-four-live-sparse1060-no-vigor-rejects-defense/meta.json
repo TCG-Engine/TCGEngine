@@ -1,0 +1,7 @@
+{
+    "name": "Confront Adversity / four-live no-Vigor defense restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:21:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This may only defend an attack if the attack's controller has destroyed a Vigor token this turn.\n\n**Blade Break** Namedfalseprerequisiteonly: neitherseatdestroyedVigorthisturn (initialturnEffects[]/allArena0/noVigormovement). ActualDoriSword7cost1fundedBlue8/R2/AP0 andallfourmanualsourcepasses putsrealattack3atDEFEND_DECLAREpriority4. ReadyownedGenericEq5printedDEF2maynotdefendbecauseattackcontroller1hasnodestroyedVigor. NativeEqclickmustleaveEquipment5ready/unadmitted/CC0/Hand1. ThenactualGenericHand6WoundingDEF3alonefullyblocksSword3/0damage/noHit/HP20. CloseHand6ownedGY, never-defendedprimary5retainedEquipment/Status2/noBladeBreak. No priorVigor/currentVigor substitution/positiveorowner-asymmetricbranch/hero/support/fullcardcredit. SourceHVYguardcurrentlyusesdefenderp ratherthanattackera; thissymmetriczero-historycasecannotadjudicatethatsourceconcern anddoesnotclaimitfixed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#confront_adversity"
+}

@@ -1,0 +1,111 @@
+{
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "fixtures": [
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "4629d10fc329833bb542ad1830a35679894ea16829d89655403bdb8816f3faeb"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "843a8fc5b3b86f6fd9a14ff4b82ceeec0b7d61e5d985e334f1a9a5aa4843fa5d"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "6dab4dbb8cac3cf3937abce94b0eadc7f471643fec5fdf12e58f6ce792080bfc"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "b36e1ac47e115ff6e325c221eeaf4e47df13190cc912d55943af9366cce32c02"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "82ddceb34a3102ac0de13950be40db7d6e4ec20fde581731ef6f2fc2761e4370"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "3b562101677e4e97ffa5363950772f8b9e3ddd00d9456d01015810a86e3ef592"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "2a188a3325bcfaea2d349b5aefe29c9df29b1492357c89dc8323ad105eeeba22"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "fedf0ca6cf342ce93195be54525db6bc8594d5bc663a6925300035c540eb7edd"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "435d33abe8e29ec04fb8011dfbcaa3ef42c7423158ddb4e67ca221347aef4f20"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "c8d2bbcc63590783c66917bb1c908f43814410f990b97ff1dbaecd013bfab32d"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "301d2c7c7c0b6795141427e486245af9f4efe80311f614a27a3e0d8a17a4a9d6"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "7a1ca02767ea66a86b61d6559462f31ccf229b05be7bf0d9723e76732a2d0b37"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "d706186447bf7b6bb2ab605ba360b66c636373c079aedd0b6b668b2dd330515d"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "34de2df63cab748d3483a48202be037ea2aeee688452e9bbe502f11e831320f0"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "7d5679c088fc1e2fb4f932545216881ed1be6ab9fb6b4f6435e41fc0e84b071f"
+    }
+  ],
+  "full_suite_run": false
+}

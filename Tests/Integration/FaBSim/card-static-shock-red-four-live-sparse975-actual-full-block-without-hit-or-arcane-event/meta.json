@@ -1,0 +1,7 @@
+{
+    "name": "Static Shock / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:09:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Lightning Flow** - When this hits a hero, if you've played a Lightning card this turn, deal 1 arcane damage to them. Main-play representative only: Aurora20 legal ElementalRuneblade, actual cost0/two actual AA defenses3+3, zerodamage/noHit, no earned Hit event, all four live/manual, source and defender UIDs in owned graveyards/no AP return/Arena0. Prior Lightning condition is not isolated because Hit event absent. Positive Lightning Flow/trigger timing and arcane branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#static_shock_red"
+}

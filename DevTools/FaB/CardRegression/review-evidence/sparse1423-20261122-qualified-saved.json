@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1423-20261122.json",
+  "source_spec_sha256": "742b2779dec7942b350bcc64662182338a984678acfe7243901d8fa4e22c093d",
+  "input_sha256": "742b2779dec7942b350bcc64662182338a984678acfe7243901d8fa4e22c093d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-soul-harvest-blue-four-live-sparse1423-real-six-debt-banish-additional-cost-six-resources-and-twelve-power-fully-defended",
+      "card_id": "soul_harvest_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a9f07e4f92756d5333e2b7792c63fb8e90d93d9087357b6d088c1591bcfc921f",
+        "actions.json": "527d5675b3feb25c3bb2e986946ff0c57b760a63ac71ec30bbde5c693a4d690d",
+        "assertions.json": "8dd6370b676ae59e4ae237197b1b1866a726616d48743e68612a2776db4e0a7e",
+        "expected_final_gamestate.txt": "5cf1d6bbdf6133fc77d81d5a96b2425753b5885c07b033c29aa8b70e5563780e",
+        "meta.json": "4e8bbf43dbca2e18b2f4f217156ecb6b1d57666024e48aba4479f7aba1328bb1"
+      },
+      "fixture_sha256": "29ca3ab0110aa13aa6045b3b6388f31b1b30ed164d1b32f8314147c1f36157cb",
+      "actions": 34,
+      "native_assertions": 557,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1423-20261122.json",
+      "input_sha256": "742b2779dec7942b350bcc64662182338a984678acfe7243901d8fa4e22c093d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1423-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-soul-harvest-blue-four-live-sparse1423-real-six-debt-banish-additional-cost-six-resources-and-twelve-power-fully-defended",
+        "fixture_slug": "card-soul-harvest-blue-four-live-sparse1423-real-six-debt-banish-additional-cost-six-resources-and-twelve-power-fully-defended",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "742b2779dec7942b350bcc64662182338a984678acfe7243901d8fa4e22c093d",
+    "source_note_sha256": "66bbf51c6666ba4aae6d8d642d16186391ff797f0f5374411411a42697ae855f",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 34,
+    "query_checks": 557,
+    "persistable_assertions": 557,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_SIX_DEBT_ADDITIONAL_COST_STATIC_POWER_AND_FULLY_BLOCKED_COMBAT",
+    "per_case": [
+      {
+        "card_id": "soul_harvest_blue",
+        "group_id": "identity:soul_harvest_blue",
+        "native_controls": 34,
+        "persistable_assertions": 557
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld SoulHarvestBlue LegendaryLeviaSpecialization ShadowAA printed6cost/base6, onecopy under actualYoungLevia20/threeDori20/manual4UPF. Sixdifferent ownedShadowGenericBloodDebt GY cards are GhostlyVisit threepitches andVileInquisition threepitches; cachedlegal/typechecked, allbelow6power/nootherclass illegality. Vile target text is not played/triggered by priorGY position. TwoBlueCritical funders and twoeachWoundingRed/CriticalRed defendercopies legalcachedcounts.",
+      "ActualHero4 attack target declared before Stack/Prepare/costs. MONCanPlay requiresatleast6GY. GeneratedPrepare145397-145414 offers exact6ownGY choice, captures selectedBloodDebt before moves, applies WTR_POWER6 viaCRUSelfTagUID, movesactual8..13GY->Banish, recordsactualcount andfinishespreparedcard. These are untargeted additional-cost selections, not a late card target. AP1/R0/initial6GY->0 and exact6Banish before resourcepayment are correct when allcosts can be paid.",
+      "ActualBlue6 pitch3 pays onlyhalf printed6, remainsPITCH/R3/AP1; secondBlue7 paysfull6/R0/AP0 beforefourresponses. SixselectedBloodDebt captured yields staticbase6+6=12 on actualphysicalattack5, not a seededhistory effect or futurebanish-zone count. Livepower evaluator requiredbeforeandduringdefenses; noGoAgain. No priorGY movement itself earns a hit, cardplay or6powerLeviaevent (no6powerbanished).",
+      "Actualopponent4 fourHandActions14..17 eachprinteddef3 moveinorder toDEFENSE CC, noDominate/Overpower/othermodifiers. Fourmanual source/attack/defense/reaction/damage/resolution rounds give12defense/0damage/attackHitFalse/allHP20. Thus printedHero-hit Soulbanish trigger is not earned, without endorsing its positive timing. Fullclose5GY1/fourblocksGY4/6,7Pitch1/8..13Banish1/noHandDeckSoulArenaTemp/UID17RNG0/APR0/quietStackDQs coherent."
+    ],
+    "limits": [
+      "Only positive exact-six-debt additionalcost, full6resourcepayment/static12power and actualfullyblocked combat. No insufficiency/partialselection/alternativecostorder controls, positiveSoulhit/banish/lifeloss, EndphaseBloodDebt/Leviaimmunity, secondaryHero/support identities/pitchsiblings/whole-card credit. PriorGY provenance uncredited.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. Strict cost/power/fate oracles retained; failures receive no qualified coverage and no repair implied."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1423.py": "740b94e8d54e07402b1151cfafbfe3b139cf496af0e17df7ccf69bacb4e20395",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "on_hit_or_soul_banish_credit": false,
+    "end_phase_blood_debt_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_exact_cost_static_power_scope": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1423-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8f7f5defc8f30aeddaf64a9364ac0babc537a5d2384ed1338402a09a6cb96e87"
+  },
+  "full_suite_run": false
+}

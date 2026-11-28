@@ -1,0 +1,95 @@
+{
+  "status": "NATIVE_CONFIRMED_LEGAL_NONCHI_GORGON_REJECTED_BY_LEGACY_WEAPON_ONLY_AR_FALLBACK",
+  "reviewer": "/root/nov2_next_author",
+  "reviewed_utc": "2026-11-03T17:12:01.532863+00:00",
+  "classification": "Attack-reaction availability cohort omission in FaBWTRCanPlay weapon-only default; no printed Chi prerequisite/setup error",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_spec": "card-regression-batch350.json",
+  "input_sha256": "ee14fa689e808febb7cc581fa778fbb1e0238c6e5d1dee0065b604f7d20ce407",
+  "manifest_sha256": "9ebfc57220d19e3021229c2b043a0c1b52bd7d3c806a70623251fe229645bf32",
+  "prior_source_spec_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch350-independent-source-review.json",
+    "sha256": "7dfe479bca24da161c54119de84cf97db26fc103ff97d64db38e62d6ef797d44"
+  },
+  "native_archive": {
+    "path": "recording-runs\\card-regression-batch350-20261103T170629Z-6aea1495c61b2.json",
+    "sha256": "1744672d625ede5df60be7b7e23319c8e442dd217b582c74aba4ab4129f85fa8"
+  },
+  "wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch350-native-r1\\receipt.json",
+    "sha256": "8db6429f99fd2b9d6720e85e8ff42a87fa825ca3aae897254a7f88bc4dac9771"
+  },
+  "accepted_transport_inputs": 17,
+  "passing_fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "full_suite_runs": 0,
+  "observed_native": {
+    "error": "state window expected \"PITCH\" got \"REACTION\"",
+    "window": "REACTION",
+    "combatStep": "REACTION",
+    "combatOpen": true,
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 6,
+    "defending_UIDs": [
+      8
+    ],
+    "pendingPayment": null,
+    "pendingAttackTarget": null,
+    "card_plays": {
+      "1": [
+        "wounding_blow_red"
+      ]
+    },
+    "empty_decision_queues": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "remaining_hand_refs": [
+      "p1Hand-0",
+      "p1Hand-1"
+    ]
+  },
+  "legality_and_setup": {
+    "printed": "Gorgon is MysticAssassin AttackReaction/resource2; no declaredtarget, no mustChi prerequisite. Only the optional later foreignplay permission depends on Chi. LegalNuu20 may include it and GenericWounding.",
+    "reached_checkpoint16": "Native prefix checks establish P1Reactionpriority, physicalWounding6 currentATTACK/Controller1/link1, actualP4Raging8 RoleDEFENSE, physicalGorgon5 and Blue7Hand, R0/AP0. Blue7pitch3 funds printed2; AR requires no ActionPoint.",
+    "source": "FaBMSTCanPlay179-185 has no Gorgon restriction. FaBMSTPendingChi30 applies only isAbility, not playing thiscard. FaBUsesDeclaredReactionTarget onlynip/shred, not Gorgon. No target/choice/mandatorytrigger missing."
+  },
+  "bounded_cause": {
+    "paths": {
+      "FaBSim/Custom/WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+      "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim/Custom/MSTCards.php": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45"
+    },
+    "trace": [
+      "GameLogic899-902 accepts attackerAttackReaction at actualREACTION priority;903 calls FaBWTRCanPlay before laterpayment/DoPlay.",
+      "WTRCards384-407 treats all AttackReactions; named allowance/target branches omit Gorgon, then407 returns FaBWTRIsWeapon(activeAttack). PhysicalWounding6 is an AttackAction, not Weapon, so false.",
+      "CanPlayCard903 returnsfalse and DoPlayCard914 refuses announcement before source movement/payment. Existing FSM transport accepts its click but has no legal action; sourceHandrefs and GameState stay unchanged. No cost/effect phase was reached."
+    ],
+    "root_scope": "Custom WTR availability predicate/caller cohort, not a Core timing/payment fault or absentGorgonResolveCard implementation."
+  },
+  "dedup": {
+    "ledger_sha256": "eaef042b3155a26fd620793aaa3051d86d2cd08a69541514e51ce6030f6ab674",
+    "issue_records_read": 79,
+    "existing_Gorgon_record": false,
+    "closest_prior_issue": "FAB-REG-030",
+    "relationship": "Same FaBWTRCanPlay legality module;030 reproduced prior-link attack-action target rejection during a current weapon. Gorgon instead reaches the blanket weapon-only fallback with no printed target restriction. Shared file/function alone does not prove an identical root; Root assigns issue/family metadata.",
+    "new_shared_root_count_not_inferred": true
+  },
+  "source_peer_correction": "Earlier source/spec approval correctly modeled printed cost/effects but missed this pre-ResolveCard generic AR availability gate. It is not a current-engine qualification; original frozen expectations remain correct and unchanged.",
+  "printed_face": {
+    "path": "FaBSim/WebpImages/gorgons_gaze_yellow.webp",
+    "sha256": "85dcbe3e469805df5d34baa9e428724ea18f32686dfbd1a675b5cf5883765980",
+    "actually_viewed_in_source_review": true
+  },
+  "limits": [
+    "No full post-failure physical snapshot in this archive. Raw observations are GameState/DQs/Handrefs; physicalIDs and priority come from reached prefix checkpoints plus source-proven no-op, not invented rawcard capture.",
+    "No pitch/payment/sourcefour/effect resolution/Slither creation/defenderbanish/damage/cleanup suffix was executed after failedclick17. No passing fixture, sibling/fullcard/control credit or speculative second defect.",
+    "Original source/proof/archive remain immutable; no PHP/native/R/source/generator/retry or repair by reviewer."
+  ]
+}

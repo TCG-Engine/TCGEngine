@@ -1,0 +1,7 @@
+{
+    "name": "Lessons Learned / diagnostic correct optional shuffle-choice boundary with three distinct physical reactions",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T01:50:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OfficialJudgeHub5065 non-targeted optional0..3differentnames. Preserveoriginalchoiceboundary/fates/AP. Savedstabledeckordercase onechosenwithinitialemptyDeck. Productionstrongshuffle unchanged. Threecardpositive/duplicate-name retry are separate nativeentry diagnostic, not extra passing fixture/order credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lessons_learned_blue FaBSim/Custom/GameLogic.php#DoResolveCard FaBSim/Custom/GameLogic.php#FaBRunSourceMacro FaBSim/GeneratedCode/GeneratedMacroCode.php#exact_card_id_not_registered"
+}

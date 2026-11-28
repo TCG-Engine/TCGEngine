@@ -1,0 +1,7 @@
+{
+    "name": "Codex of Bloodrot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:09:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Each hero puts a card from their hand face-down into their arsenal.\n\nCreate a Ponder token under your control and a Bloodrot Pox token under each opponent's control.\n\n**Go again** Representative only: four_heroes_make_own_hand_choices_then_owned_ponder_and_opposing_pox. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#codex_of_bloodrot_yellow"
+}

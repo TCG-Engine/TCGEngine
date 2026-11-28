@@ -1,0 +1,31 @@
+{
+  "correction": "Normalize CRLF to LF in the emitted-body comparison only; fixed-body byte identity and unknown-source rejection remain unchanged",
+  "original_sha256": "cc6784b1b682d42b95d1a659d7da5954f132c963ca996959b9f496c5fa8f5d54",
+  "corrected_sha256": "45433c79564dde3e0b85d699fdd4567cd1bbad4621540b769cacac7835d199c1",
+  "old_check": "trim(FaBPrepareBIOSItemCode($old,'bios_update_red'))===trim($new)",
+  "new_check": "trim(str_replace(\"\\r\\n\",\"\\n\",FaBPrepareBIOSItemCode($old,'bios_update_red')))===trim(str_replace(\"\\r\\n\",\"\\n\",$new))",
+  "native_credit": false,
+  "checks": [
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-validation-normalized-bridge\\contracts.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-validation-normalized-bridge\\contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-validation-normalized-bridge\\contracts.php",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_EXTRACTED_AFTER_CONTRACTS_NOT_NATIVE\",\"phase\":\"after\",\"contracts\":17,\"assertions\":77,\"contract_names\":[\"actual new producer captures resolved source5/controller1 in serializable currentturn effect\",\"invalid/other source cannot invent BIOS origin\",\"actual shared payment assets precede banish then captured queue above actual AA\",\"actual existing queue does not clobber pending payment and record consumed before queue\",\"actual first BIOS power stays plus3 once independent of delayed movement\",\"noneligible cost3 Item preserves nexteligible record but consumes firstnextBoostpower\",\"nonItem and nonnumeric-cost Item do not trigger\",\"noBIOS and foreignholder leave unrelated effects untouched\",\"sourceless legacy flag is not assigned invented source\",\"actual ROS event dispatch moves only captured Item once and underlying AA remains\",\"earned layer survives source departure and later source ability loss\",\"missing or wrongzone Item is not resurrected\",\"wrong holder/card/owner Item does not substitute\",\"perlayer idempotence blocks duplicate direct resolver even after rebanish\",\"two independent records retain two source identities and consume before callbacks\",\"existing turn bucket expiration removes future untriggered power/item effects\",\"bridge legacy fixed idempotence unknownreject unselectedidentity\"],\"stubs\":\"Zone/Stack/schema/resource/AP and unrelated set hooks isolated; actual extracted payment/DYN/effects/ROS/producer/bridge listed in source-extractions.json\",\"native_credit\":false}\n",
+      "stderr": ""
+    }
+  ],
+  "status": "PASS"
+}

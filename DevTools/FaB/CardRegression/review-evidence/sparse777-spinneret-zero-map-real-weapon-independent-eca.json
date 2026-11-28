@@ -1,0 +1,417 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B777_SPINNERET_REAL_DISCARD_EQUIP_AND_WEAPON_DAMAGE",
+  "phase": "SAVED",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T00:44:35.640566+00:00",
+  "source_spec": "card-regression-batch777-spinneret-zero-map.json",
+  "input_sha256": "330bad600766260471a17b120969c946a752dcbfc765987a50562c6be32da3ff",
+  "manifest_sha256": "fc44db25bb273909d27dc6b475f3b347f79d697f91f7d7decbe9192f30a40267",
+  "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "recorded_runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch777-spinneret-real-discard-two-tokens-weapon-attack-r3-zero-map-author\\manifest.json",
+    "sha256": "fc44db25bb273909d27dc6b475f3b347f79d697f91f7d7decbe9192f30a40267"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch777-spinneret-zero-map-independent-source-review-root.json",
+    "sha256": "8af130b7be142e46e5bc3874fe5a61d9b1b2f9c338d0aefe747be096a4f3b5b3"
+  },
+  "original_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch777-spinneret-independent-source-review-root.json",
+    "sha256": "053c7c91efdeef923f4c1e07384de30cf57284e75b74eb887da67eb885a331d8"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch777-spinneret-zero-map-20261114T004029Z-6af7adfd00c00.json",
+    "sha256": "e42271a104f23f31d3a5686736b33ed03a25544cb8710104d28d0dd7e9500fd5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b777-spinneret-zero-map-real-weapon-native-recording\\receipt.json",
+    "sha256": "8e15a27a15a1b18d57b7d2e3d99e6409447a0990bf1f83c234dd697f7f0a2c45"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch777-spinneret-zero-map.recording-results.json",
+    "sha256": "4c88fd3048711be83cbcff4cc75b9ec08f418405cef6140ae95355590effbe3a"
+  },
+  "fixtures": [
+    {
+      "slug": "card-deadly-spinneret-red-four-live-real-hand-discard-two-graphene-tokens-paid-weapon-damage",
+      "card_id": "deadly_spinneret_red",
+      "group_id": "identity:deadly_spinneret_red",
+      "source_spec": "card-regression-batch777-spinneret-zero-map.json",
+      "input_sha256": "330bad600766260471a17b120969c946a752dcbfc765987a50562c6be32da3ff",
+      "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+      "recorded_runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_DISCARD_TWO_EQUIPPED_TOKENS_PAID_WEAPON_ONE_DAMAGE",
+      "fixture_path": "Tests/Integration/FaBSim/card-deadly-spinneret-red-four-live-real-hand-discard-two-graphene-tokens-paid-weapon-damage",
+      "fixture_sha256": "0f43de5c9903216f41e3fd7c87bdf3c857f1cd64dce6e081a8d2f9439d9914ff",
+      "file_sha256": {
+        "initial_gamestate.txt": "471944924f9edce23ed7ad6d8529d0fcf1622386df7930e757235def06b10953",
+        "actions.json": "d1e60e8e974f56d44c9da3f938214802aa9c30670e61b1ad881a89129de5f3a0",
+        "assertions.json": "fcf53b641c4e49c04349ce3b351ef651b57a0c686fa075ab5ac812057111e809",
+        "expected_final_gamestate.txt": "9b5192eddba93368df5b948f7e8fc08834f521996949dec2c1bf1b34b1e5d5dc",
+        "meta.json": "dde1b28a7751acf560e37f8213a8fb4ca33f19019ff76eb32e728b4486b1e0a5"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "471944924f9edce23ed7ad6d8529d0fcf1622386df7930e757235def06b10953",
+        "actions.json": "d1e60e8e974f56d44c9da3f938214802aa9c30670e61b1ad881a89129de5f3a0",
+        "assertions.json": "fcf53b641c4e49c04349ce3b351ef651b57a0c686fa075ab5ac812057111e809",
+        "expected_final_gamestate.txt": "9b5192eddba93368df5b948f7e8fc08834f521996949dec2c1bf1b34b1e5d5dc",
+        "meta.json": "dde1b28a7751acf560e37f8213a8fb4ca33f19019ff76eb32e728b4486b1e0a5"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "471944924f9edce23ed7ad6d8529d0fcf1622386df7930e757235def06b10953",
+        "actions.json": "d1e60e8e974f56d44c9da3f938214802aa9c30670e61b1ad881a89129de5f3a0",
+        "assertions.json": "fcf53b641c4e49c04349ce3b351ef651b57a0c686fa075ab5ac812057111e809",
+        "expected_final_gamestate.txt": "9b5192eddba93368df5b948f7e8fc08834f521996949dec2c1bf1b34b1e5d5dc"
+      },
+      "actions": 34,
+      "native_assertions": 2895,
+      "manual_passes": 29,
+      "actual_manual_passes": 29,
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1208,
+      "checkpoint_count": 35,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "endpoint_assertions_evaluated": {
+        "0": 124,
+        "34": 142
+      },
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "deadly_spinneret_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "nuu",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "graphene_chelicera",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "graphene_chelicera",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "deadly_spinneret_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_discarded_primary_UID": 5,
+      "actual_funder_UID": 6,
+      "actual_equipped_token_UIDs": [
+        8,
+        9
+      ],
+      "actual_used_weapon_UID": 8,
+      "actual_unused_ready_weapon_UID": 9,
+      "ceased_virtual_UIDs": [
+        7,
+        10
+      ],
+      "actual_Instant_resource_cost": 0,
+      "actual_Instant_AP_cost": 0,
+      "actual_weapon_resource_cost": 1,
+      "actual_weapon_AP_cost": 1,
+      "actual_power": 1,
+      "actual_go_again": 0,
+      "actual_damage": 1,
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "actual_used_weapon_Counters": {
+        "WEAPON_ATTACK_TURN": 2,
+        "WEAPON_ATTACKS": 1
+      },
+      "actual_unused_weapon_Counters_empty": true,
+      "HNT_WRATH_CHAIN_logical_value": 0,
+      "full_card_certification": false
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 2895,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 1208,
+  "total_checkpoints": 35,
+  "total_endpoint_assertions_evaluated": 266,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+    "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+    "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "3c404a0b1b35aa8f69565e8d034f4b157f611282b99647a59c7873801f618b7f",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+    "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+    "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+    "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+    "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+    "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+  },
+  "additional_guards": {
+    "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+    "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f"
+  },
+  "material_findings": [
+    "All34actualinputenvelopes/2895orderedpersistedqueries/29manualpasses7,7,7,8/35checkpoints/1208typedproperties equal independently admitted correctedSource. Stable control/semantic model reused, no full generic rebuild.",
+    "Actual initial/final raw5 independently parsed: all48 manual preferences perendpoint, youngnaturalHP20/quietownedHeroes, originalphysical1..6 and actualcreated8/9 ownership, counter6to10/RNG0.",
+    "Native meaningful checks prove actualprimary5 discard cost beforeABI7freshfour, twoemptyzones actually equip distinctnativeGraphene8/9, and actualweapon8 attack fundedbyBlue6 pitch3 to pay1/AP1 leavingR2/AP0. Physical8used/9ready retained; realproxy10power1/noGA againstunmarked4 deals1physicalHP19, thenfullclose.",
+    "Directrawfinal confirms same5GY/6Pitch/nativeWeapons8+9, Status8=1/9=2, actual8 meaningfulusecounters2/1, 9emptyCountermap, allHP19/R2/ChiAP0 andvirtual7/10/StackChainsDQpaymentframes quiet. Zero-valuedHNTkey is absent bysetter contract, not an enginefix or a relaxed cost/use/damage assertion."
+  ],
+  "oracle_correction": {
+    "status": "INDEPENDENT_SOURCE_VERIFIED_ORACLE_CORRECTION_NOT_GAMEPLAY_FIX",
+    "exact_delta_count": 3,
+    "counter_queries": [
+      {
+        "path": [
+          0,
+          "steps",
+          68,
+          "checks",
+          53,
+          "value"
+        ],
+        "object": "p1Weapons-0",
+        "before": "{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1,\"HNT_WRATH_CHAIN\":0}",
+        "after": "{\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}"
+      },
+      {
+        "path": [
+          0,
+          "steps",
+          68,
+          "checks",
+          61,
+          "value"
+        ],
+        "object": "p1Weapons-1",
+        "before": "{\"HNT_WRATH_CHAIN\":0}",
+        "after": "[]"
+      }
+    ],
+    "explanatory_oracle_note_only": true,
+    "controls_unchanged": true,
+    "all_other_queries_unchanged": true,
+    "all_setup_and_material_expectations_unchanged": true,
+    "basis": [
+      "Independently read FaBSetObjectCounter: value===0 unsets the key.",
+      "FaBHNTClose clears HNT_WRATH_CHAIN using that setter; FaBHNTWrathAmount reads an absent key as0.",
+      "Used weapon retains WEAPON_ATTACK_TURN2/WEAPON_ATTACKS1; unused weapon has an empty counter array.",
+      "Printed costs, physical creation/use, power1/noGA, HP19 and full cleanup remain required."
+    ],
+    "actual_failed_attempt": {
+      "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b777-spinneret-discard-equip-real-weapon-native-recording\\receipt.json",
+      "sha256": "21956138de82521328739b312304d8cf9980892b4c4c93fc2ed03eb98cee1418",
+      "fixture_saved": false,
+      "exact_successful_query_count_not_claimed": true
+    },
+    "gameplay_code_changed": false,
+    "gameplay_bug_credit": false
+  },
+  "held_dependency": {
+    "issue": "FAB-REG-122",
+    "status": "Remains held and unrepaired",
+    "scope": "Fluid Motion created-card go-again via Orb Weaver/Graphene. No Fluid, Orb Weaver, created-ledger consumer or earned-go-again path is used here; no coverage/fix/retry for122."
+  },
+  "limits": [
+    "One Deadly Spinneret Instant discard/equip branch plus necessary native createdweapon consumer only; no normalprimary attack, markedGA, seconduse, occupiedslots/support/fullcard credit.",
+    "FAB-REG-122 Fluid Motion/Orb Weaver/Graphene created-card bookkeeping remains held/unfixed/unexecuted; no PEN_CREATED consumer, earnedGA route, repair or broad Graphene-clean claim.",
+    "Original93b attempt remainsfailed/unsaved, with actual34actions but no recording.assertions retained in failed row; its completed-prefixcount is inference only. CurrentactualSaved2895queries apply solelyto330bad atactualeca.",
+    "Raw5 has actualinitial/finalexports. Intermediate cost/source/effect witnesses use actualcompletednativequeries and admittedSource, not invented rawmidpoint exports.",
+    "Root two new-only clean replays and registration are separate gates. Reviewer ran noPHP/native/game/replay/fullsuite/R/source/Git/remote action."
+  ],
+  "original_failed_unsaved_attempt": {
+    "root_receipt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b777-spinneret-discard-equip-real-weapon-native-recording\\receipt.json",
+      "sha256": "21956138de82521328739b312304d8cf9980892b4c4c93fc2ed03eb98cee1418"
+    },
+    "results": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch777-spinneret.recording-results.json",
+      "sha256": "3f58c7268f14706a52fd0bc70264b9dce8b14d823915344cb917b6dae758b8ae"
+    },
+    "input": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch777-spinneret.json",
+      "sha256": "93b31d8b7a1d794a92f8a377ddc5b73cdc67ed0d37fc94b6166975344337bccb"
+    },
+    "fixture_saved": false,
+    "gameplay_bug_credit": false
+  },
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch777_spinneret_saved_independent.py",
+    "sha256": "e8184634699487c0f8f274cf4286d3b3c37d7053b9d2ff28117daa65c99188bd"
+  },
+  "retained_readers": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

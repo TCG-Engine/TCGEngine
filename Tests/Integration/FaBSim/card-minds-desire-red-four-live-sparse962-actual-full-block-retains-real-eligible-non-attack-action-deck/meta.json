@@ -1,0 +1,7 @@
+{
+    "name": "Mind's Desire / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:07:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this hits a hero, banish the top card of their deck.\n\nWhenever this banishes a non-attack action card, gain 1{h}. Representative only: actual cost0, two real Hand AA defenders totaling6 fully block3, zero damage/no hit/Stack0/AP0, source5 and physical defenders reach owner graveyards. Eligible actual Deck8 and optional preexisting Graveyard9 remain owned by4; no banish or secondary healing. Positive hit/banish/matching/heal/ownership behavior untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#minds_desire_red"
+}

@@ -1,0 +1,644 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_KLAIVE_AND_STAR_FALL_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T18:06:50.100317+00:00",
+  "source_spec": "card-regression-batch626-klaive-star-fall.json",
+  "input_sha256": "3a19f76654fd25b2d05c1e82513562930e3e1f8ba17b310b52c6fd968dbfd882",
+  "manifest_sha256": "997ca7c6b6687b50315c42a4ba869907b4b6a28a8ce914b5845853c0c55670b9",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch626-independent-source-review.json",
+    "sha256": "1aa685d58f198f5dc77994ada44cf2516addbf61e17f026eff9406b7c2d1ac9d",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch626-klaive-star-fall-20261106T180129Z-6aee15f927da5.json",
+    "sha256": "60c3f42024c82d2e30e8157f5844fa0f9525269d2282e31c7d95f67a7b1881d2"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch626-klaive-star-fall.recording-results.json",
+    "sha256": "c6ccb0c5939d53142804c7e3771882c73582ae1c9be95296f7c96c3f6d595e23"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch626-klaive-star-fall-native-c53\\receipt.json",
+    "sha256": "e4e13c1e8e1fa5a800ca806fab51989b062657e5bf17fbee8e5a7ebd72205eca"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "hunters_klaive",
+      "group_id": "identity:hunters_klaive",
+      "slug": "card-hunters-klaive-four-live-real-paid-piercing-full-equipment-block-and-go-again-consumer",
+      "source_spec": "card-regression-batch626-klaive-star-fall.json",
+      "input_sha256": "3a19f76654fd25b2d05c1e82513562930e3e1f8ba17b310b52c6fd968dbfd882",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PIERCING_FULLBLOCK_GA_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-hunters-klaive-four-live-real-paid-piercing-full-equipment-block-and-go-again-consumer",
+      "fixture_sha256": "7e75184de18715cf3174022a4308317d7bd27badf814bb58503c219756022f33",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "446a1e0e2346eeb03fc8e32ea0cc3ddd054f6d006515906dd695f5a4ba39c27f",
+        "actions.json": "f1ccc299e0a482ddb6d37897fcc38b36f006d3075cb9dc4d87fd2ee4e6f90fca",
+        "assertions.json": "1ee10fcc05c4b24ab67c5e9f27d0699396f037b35b36e6a55bb88bd6e5ddc160",
+        "expected_final_gamestate.txt": "895b2a30c840c122ef8bbbecfb1de9d8db49d9902e30ce543a43443f7eed2daa"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "446a1e0e2346eeb03fc8e32ea0cc3ddd054f6d006515906dd695f5a4ba39c27f",
+        "actions.json": "f1ccc299e0a482ddb6d37897fcc38b36f006d3075cb9dc4d87fd2ee4e6f90fca",
+        "assertions.json": "1ee10fcc05c4b24ab67c5e9f27d0699396f037b35b36e6a55bb88bd6e5ddc160",
+        "expected_final_gamestate.txt": "895b2a30c840c122ef8bbbecfb1de9d8db49d9902e30ce543a43443f7eed2daa",
+        "meta.json": "71e87a9e762cb4259e39887db314f3d5cf3dec64f593539ce5b53de2dbdae560"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "446a1e0e2346eeb03fc8e32ea0cc3ddd054f6d006515906dd695f5a4ba39c27f",
+        "actions.json": "f1ccc299e0a482ddb6d37897fcc38b36f006d3075cb9dc4d87fd2ee4e6f90fca",
+        "assertions.json": "1ee10fcc05c4b24ab67c5e9f27d0699396f037b35b36e6a55bb88bd6e5ddc160",
+        "expected_final_gamestate.txt": "895b2a30c840c122ef8bbbecfb1de9d8db49d9902e30ce543a43443f7eed2daa",
+        "meta.json": "71e87a9e762cb4259e39887db314f3d5cf3dec64f593539ce5b53de2dbdae560"
+      },
+      "actions": 52,
+      "native_assertions": 5085,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 2039,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "hunters_klaive",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "ironrot_legs",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "hunters_klaive",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "8": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "ironrot_legs",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        8,
+        9
+      ],
+      "temporary_proxy_UID": 10,
+      "temporary_proxy_ceased": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "fd7e7c77cd369ef9d335fd2d20d733b217beaed27986eef8fb521cee28635ab7",
+      "native_assertion_mapping_sha256": "3d8fabcba864b2b7f8402ad608ab49f00de77e0c7dcb61776fe1d87d56d67cc7"
+    },
+    {
+      "index": 1,
+      "card_id": "star_fall",
+      "group_id": "identity:star_fall",
+      "slug": "card-star-fall-four-live-real-lightning-arsenal-play-plus-one-and-go-again-consumer",
+      "source_spec": "card-regression-batch626-klaive-star-fall.json",
+      "input_sha256": "3a19f76654fd25b2d05c1e82513562930e3e1f8ba17b310b52c6fd968dbfd882",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_LIGHTNING_POWER_GA_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-star-fall-four-live-real-lightning-arsenal-play-plus-one-and-go-again-consumer",
+      "fixture_sha256": "8b495ba421d891bc7ec8d85495aa2cbc35538477784fad91fe10621af7fa7ca1",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "7a3a64fd67b1a2a40ee2d1ad97f4a409c8ba6da5a404b113be0eeea61fabe224",
+        "actions.json": "3762cbca8f27765738eb92e6c5cb47373717e961309b04adc840650b87c9a7da",
+        "assertions.json": "e2f190507532ba6d2f4c1a46cb49eae7ae70a57ec8e2eff3b9cdf147c15b45a2",
+        "expected_final_gamestate.txt": "9f20c087e8fe630d8f915e9f03da896fb31671b02609fd31eff5415e8aae2f7a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a3a64fd67b1a2a40ee2d1ad97f4a409c8ba6da5a404b113be0eeea61fabe224",
+        "actions.json": "3762cbca8f27765738eb92e6c5cb47373717e961309b04adc840650b87c9a7da",
+        "assertions.json": "e2f190507532ba6d2f4c1a46cb49eae7ae70a57ec8e2eff3b9cdf147c15b45a2",
+        "expected_final_gamestate.txt": "9f20c087e8fe630d8f915e9f03da896fb31671b02609fd31eff5415e8aae2f7a",
+        "meta.json": "7fe9a520ed88a20a18289fce294a997df4457681b4f5e4b0492ef0442f015184"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "7a3a64fd67b1a2a40ee2d1ad97f4a409c8ba6da5a404b113be0eeea61fabe224",
+        "actions.json": "3762cbca8f27765738eb92e6c5cb47373717e961309b04adc840650b87c9a7da",
+        "assertions.json": "e2f190507532ba6d2f4c1a46cb49eae7ae70a57ec8e2eff3b9cdf147c15b45a2",
+        "expected_final_gamestate.txt": "9f20c087e8fe630d8f915e9f03da896fb31671b02609fd31eff5415e8aae2f7a",
+        "meta.json": "7fe9a520ed88a20a18289fce294a997df4457681b4f5e4b0492ef0442f015184"
+      },
+      "actions": 72,
+      "native_assertions": 6139,
+      "actual_manual_passes": 67,
+      "actual_priority_response_passes": 64,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "schema_property_assertions": 1966,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "aurora",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "star_fall",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "aurora",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "star_fall",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "lightning_surge_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6,
+        8
+      ],
+      "final_GY4_exact_UIDs": [],
+      "temporary_proxy_UID": 9,
+      "temporary_proxy_ceased": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        12
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "1980c44e2fdc70f6edcb412d4e92eb1e3cf379e7afa0dd3080833fdc5d7ba7f9",
+      "native_assertion_mapping_sha256": "29a462d1978d00e977b5e59e63a43d85351b38ad0dd5708597258f4aa470729d"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 124,
+  "total_native_assertions": 11224,
+  "total_manual_passes": 113,
+  "total_schema_property_assertions": 4005,
+  "material_findings": [
+    "Exact raw10/all124actual native envelopes11224orderedassertions113manual (Klaive11,11,11,13; StarFall16,16,16,19)/48manualpreferences perendpoint/71c53guards+ab33 match independent source1aa685 and immutable recording archive. Full initial/final UID inventories and all terminal/initial checks independently parsed; no source re-audit.",
+    "Klaive actualBlue3pays2/R1AP0; realbase1/Piercing1 once vs first and second physicalIronrot8/9 gives2, DEF2/fullblock0/HP20/noHit. PrimaryHero-hitMark is unearned. ActualGA refund1 funds realWounding6/AP0/4damageHP16. FullClose destroys original8/9 into exactGY4set{8,9}; sameWeapon5used retained/proxy10ceased/Red6GY1/Blue7Pitch/originalUID1..9/counter10/noRNG/quiet.",
+    "StarFall actual sameSurge6 played Arsenal0/realLightning/2damageHP18/earnedGA. ActualSword5Action1/Blue7pitch3/R2/AP0 uses that refund; printed1+earned1=2/conditionalGA/2damageHP16. Primaryrefund funds actualRed8cost0/4damageHP12/noGA; fullClose exactGY1set{6,8}, same5used retained/proxy9ceased/originalUID1..8/counter9/noRNG. Earned ROS_LIGHTNING1 remains afterClose; no ongoing-condition loss blessed.",
+    "Native usedStatus1 is not a printedtap-cost claim for either weapon. Current captured/openchain source-window exceptions are unchanged; combat-opening/queue semantics remain unqualified. Root replay/registration gates are separate."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\hunters_klaive.webp",
+      "sha256": "3528bf38024c74fde367f28fe1de610e498959c1c2667f45fd468ee9d48ea4f3",
+      "actually_viewed": true,
+      "printing": "AAC002"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\star_fall.webp",
+      "sha256": "22aba3df3739c752511e3a0211affbd6d6538d8658d3c2ef906f9b761a49c21c",
+      "actually_viewed": true,
+      "printing": "AUR002"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\lightning_surge_blue.webp",
+      "sha256": "c89520a4caa0354417b2d529001ca2221cc3e038cc0c8276527d3e41a3da06b4",
+      "actually_viewed": true,
+      "printing": "ELE191"
+    },
+    {
+      "url": "https://cards.fabtcg.com/card/hunters-klaive/AAC002/",
+      "retrieved": true,
+      "finding": "PrintedAction2/base1/ownGA/Piercing1/WHENHerohitMark."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3233/",
+      "retrieved": true,
+      "finding": "StarFallAction1/base1/actualLightningplayedTHISturn grants+1 andGA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "retrieved": true,
+      "rules": [
+        "8.3.23"
+      ],
+      "finding": "Piercing is static+N when defended by equipment; no per-equipment multiplier."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "retrieved_previously": true,
+      "rules": [
+        "7.5.2",
+        "7.6.2",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4"
+      ],
+      "finding": "Physical difference/fullblock, ResolutionGA, automatic Close and equipment wear/destruction."
+    }
+  ],
+  "limits": [
+    "One positive Klaive Piercing/fullblock/ownGA-consumer and one positive actualLightning/StarFall+1/GA-consumer branch. No KlaiveHero-hitMark/earnedtrigger test; no false-condition/alternateLightningproducer/secondactivation/Arsenalproducer/otherpitch/Hero/Embodiment/support/sibling/fullcard credit.",
+    "No source/history re-audit or PHP/native/replay/R/source/fullsuite/remote/deniedrepair by reviewer. Only actual Saved approval; promotion/qualification belongs to Root. Opaque undo hash-bound/excluded from current physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch626_saved_readonly.py",
+    "sha256": "68082a89c4d77249c253111deced969dd5fee473bb7526d004e7ae89997e0737"
+  }
+}

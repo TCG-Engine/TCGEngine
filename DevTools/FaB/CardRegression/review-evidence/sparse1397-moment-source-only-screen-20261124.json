@@ -1,0 +1,31 @@
+{
+  "classification": "SOURCE_ONLY_ABILITY_IMPLEMENTATION_NOT_SUBSTANTIATED_NO_NATIVE_DEFECT_CLAIM",
+  "card_id": "a_moments_peace_blue",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "observation": {
+    "card_id": "a_moments_peace_blue",
+    "classification": "SOURCE_ONLY_UNSUPPORTED_NO_NATIVE_DEFECT_CLAIM",
+    "native_attempted": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "old_draft_sha256": "3dff11957d630d57be8849997058fd30c4774ffd14fc00f4f5b0d1b9b43c5e81",
+    "reason": "No exact active Custom or GeneratedMacroCode callback found. A quiet false-guard outcome would not substantiate an implemented ability. Deferred before native; other two have generated Defended type predicates."
+  },
+  "qualified_review_receipt": {
+    "path": "review-evidence/sparse1397-20261122-qualified-saved.json",
+    "sha256": "0947b2b7faaa41be1ac0367d101aa8f0df8a6c52b179d6e70a9e6c41cb5a149e",
+    "independent_basis_sha256": "32ae47ef1c4c2d628e0901728c62f441f19df591e8a74184bb9aa9240cec4de2"
+  },
+  "bounded_scan": {
+    "custom_php_files": 67,
+    "custom_inventory_sha256": "1079ad641a05811ca8647de732d25a7120980715dc70c4ba1e2f0cf31bd7481a",
+    "generated_macro_sha256": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+  },
+  "limits": [
+    "Bounded literal callback inspection could not substantiate an implementation of the printed Sword-defend ability. Not exhaustive proof of absence or a confirmed native bug.",
+    "Quiet false-condition recording rejected before native; no passing fixture or coverage for this card."
+  ]
+}

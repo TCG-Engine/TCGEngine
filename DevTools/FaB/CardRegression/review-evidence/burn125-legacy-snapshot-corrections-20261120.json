@@ -1,0 +1,97 @@
+{
+  "status": "QUALIFIED_MINIMAL_SNAPSHOT_CORRECTIONS",
+  "runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+  "reviewer_independent": true,
+  "fixtures": [
+    {
+      "slug": "card-burn-them-all-red-four-live-real-dragon-attack-trigger-before-one-arcane-each-opponent-correct-probe",
+      "card_id": "burn_them_all_red",
+      "actions": 36,
+      "native_assertions": 3354,
+      "semantically_approved": true,
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "qualification_runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "old_review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "old_review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "old_fixture_sha256": "84e4da6d9f6fa8def198012d6252f7e66b8b4c08b4e1397d5e36586ab52fd180",
+      "fixture_sha256": "bb6df546cb15e668c389a18178e56acae08dca1a7c386491597ae9a08230fdc0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41af50cf9e1f188a9881fb81514ff72d03d61c4231b4a448e7311cfc85c11b4c",
+        "actions.json": "aed7c4aa8d7ec9c9ea9bae905c0fb9020e8aa6f32cad766081ed9809fdb5f074",
+        "assertions.json": "8f8512df73d84400df3b567d1790d27fa57c891923cd63a99dc58a75268e1af2",
+        "expected_final_gamestate.txt": "4b8e540233178c715680de8e37fc7f472ea8f177094e7ab43a0a028b6c27260c",
+        "meta.json": "c7f5f641a7e990f84e8cda49010e4b0a267ecce7be9c0c476de67d6aa0a23f74"
+      },
+      "changed_files": [
+        "expected_final_gamestate.txt"
+      ],
+      "unchanged": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ]
+    },
+    {
+      "slug": "repair-burn125-four-live-captured-dragon-source-specific-prevention",
+      "card_id": "burn_them_all_red",
+      "actions": 36,
+      "native_assertions": 3354,
+      "semantically_approved": true,
+      "recorded_runtime_sha256": "6617913063f142e9d2e0076f7896e15d4c399f9f0150adbf17d239ab60588321",
+      "qualification_runtime_sha256": "0e7817837e772fde21e98830ecbb5671c11566788c816a5822791ce7a7e102b8",
+      "old_review_evidence": "review-evidence/remaining17-5cae-qualified-saved.json",
+      "old_review_evidence_sha256": "432917d1a20e276414ca6c33f19b605c66c6ae2410f03b18dbf2d21ed6ac3b0d",
+      "old_fixture_sha256": "1a5acc96dfa49fde9e83e9464d074500e7937271d8fbc2fba17c03241c4cd0f0",
+      "fixture_sha256": "2e3561f1092f685c8d60714257c873359071e9e3f5666d514aab38cb2504c342",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b05455ca21cd130dd44c09adc70715bcd4364045f923a34f8ad4cca7890c287",
+        "actions.json": "aed7c4aa8d7ec9c9ea9bae905c0fb9020e8aa6f32cad766081ed9809fdb5f074",
+        "assertions.json": "f65dd61328c97ffc76b7cca15c6ff53b2488dc826b8e935167e50405f73ac1d2",
+        "expected_final_gamestate.txt": "60551a675a6b84df05309fdd4acf74b339ad9ff94165fd36044fef9201b00186",
+        "meta.json": "6f4b913d2f9e38dfb1838f73fc22b7511697a68fb70f2cf2af79a6d4a9e10316"
+      },
+      "changed_files": [
+        "expected_final_gamestate.txt"
+      ],
+      "unchanged": [
+        "initial_gamestate.txt",
+        "actions.json",
+        "assertions.json",
+        "meta.json"
+      ]
+    }
+  ],
+  "delta": "Final/4embedded undo GameStates add only arcCards6.burnDamageSourceEpoch1; final/4undo flat DQvariables remove only rosEvent(empty),iarAttack0,omnVictim0,rosTarget0,rosSource5. All remaining fields and all3354assertions percase unchanged.",
+  "independent_reviews": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-two-final-epoch-independent-review.json",
+      "sha256": "d26f4b837214a78a25cbf8767daf9ba46dd71ddedb37a13ac802667b0c4a3724"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-undo-context-independent-review.json",
+      "sha256": "015c9bd383287365d4c49b4797486afa441af42bfd3e6210f3ebef923038af8e"
+    }
+  ],
+  "application_receipts": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-epoch-snapshot-correction-prepared\\application.json",
+      "sha256": "40bffd98dfe67504fb865c78b7f81db50ece125e27d4c397858c48874977922d"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-undo-context-correction-prepared\\application.json",
+      "sha256": "cd39bfd9b04695c11ddab63b0e146ccedd9978e73836db6a06d3749badc4f099"
+    }
+  ],
+  "clean_replay": {
+    "path": "card-regression-burn125-departure-repair-20261120-replay.json",
+    "sha256": "9868ae4a0b578713ebff2757f4f1d6c636276a2a2519468f644d80ef76801586"
+  },
+  "complete_replay_receipt_external": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov20-burn125-final-compatibility-replays\\receipt.json",
+    "sha256": "2b8ad7bf018ca95bc08efb7e35666ad9f28ca990a2938574b74d0b3218f3512a"
+  },
+  "earlier_failed_replays_retained": true,
+  "original_recorded_runtimes_preserved": true,
+  "full_suite_run": false
+}

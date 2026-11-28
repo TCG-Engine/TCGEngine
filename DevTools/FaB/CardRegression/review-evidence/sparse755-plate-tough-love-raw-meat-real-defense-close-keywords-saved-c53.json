@@ -1,0 +1,591 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B755_PLATE_BLADEBREAK_AND_RAW_MEAT_TEMPER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b753_review",
+  "reviewer_independent": true,
+  "author": "/root/b753_author",
+  "created_utc": "2026-11-08T23:02:45.761526+00:00",
+  "source_spec": "card-regression-batch755.json",
+  "input_sha256": "331caed13c778c66d6ec21b9af76b353940010c5f65f3f7c0952a5646af0c9ae",
+  "manifest_sha256": "75e5fe2912ab68ab11310f57fc6fe6f029119448b82a4ac8b12454d0392c0944",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch755-plate-raw-meat-independent-source-review.json",
+    "sha256": "f7b0ff83f397daf41e2df7b7716492272fe6efddd59b0cda4cc4b20e0289996f",
+    "completed_material_audit_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch755-20261108T225522Z-6af0fddad8542.json",
+    "sha256": "d20687c0fdd630f10e2446d59dc31ae6e1f97bcdf3feda06710d7f754e743bee"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch755.recording-results.json",
+    "sha256": "e161240fba2b5cada4a02a546cb006b85b9fc2da7199b69955dc0564d69f4919"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b755-two-equipment-native-recording\\receipt.json",
+    "sha256": "a706730cbe97e91e66c717387ea108c098ddf984ead9c2496dc24cede81491a0"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "plate_of_tough_love",
+      "group_id": "identity:plate_of_tough_love",
+      "slug": "card-plate-of-tough-love-four-live-real-confidence-toughness-three-defense-four-damage-bladebreak",
+      "source_spec": "card-regression-batch755.json",
+      "input_sha256": "331caed13c778c66d6ec21b9af76b353940010c5f65f3f7c0952a5646af0c9ae",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TOKEN_CONDITIONED_DEFENSE_DAMAGE_AND_CLOSE_OUTCOME",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-plate-of-tough-love-four-live-real-confidence-toughness-three-defense-four-damage-bladebreak",
+      "fixture_sha256": "607f55fdf2f17c1304247c1ed7b26167e125a7d2ce8ca076d03a43aebf42ed65",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "386b77d7f4dd96dac360b00921b50d99d594a0730031ec980faa23897249e33a",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "648ab9d4588885df439ab3204fcca9744de3c0ff652787fabb19d03e0adb3fb3",
+        "expected_final_gamestate.txt": "39719d875c740df3e8aaaa779fab8c589001f196009a4409e19df7b6e8b05149"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "386b77d7f4dd96dac360b00921b50d99d594a0730031ec980faa23897249e33a",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "648ab9d4588885df439ab3204fcca9744de3c0ff652787fabb19d03e0adb3fb3",
+        "expected_final_gamestate.txt": "39719d875c740df3e8aaaa779fab8c589001f196009a4409e19df7b6e8b05149",
+        "meta.json": "9707c5e3698a75003767f08fb953a5e170134903fc2168f679e9977018132d1e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "386b77d7f4dd96dac360b00921b50d99d594a0730031ec980faa23897249e33a",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "648ab9d4588885df439ab3204fcca9744de3c0ff652787fabb19d03e0adb3fb3",
+        "expected_final_gamestate.txt": "39719d875c740df3e8aaaa779fab8c589001f196009a4409e19df7b6e8b05149",
+        "meta.json": "9707c5e3698a75003767f08fb953a5e170134903fc2168f679e9977018132d1e"
+      },
+      "actions": 29,
+      "native_assertions": 2876,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1085,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "pleiades",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "plate_of_tough_love",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "confidence",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "toughness",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "pleiades",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "6": {
+          "card_id": "confidence",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "toughness",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "plate_of_tough_love",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "actual_attack_resources_paid": 3,
+      "actual_Action_AP_paid": 1,
+      "actual_defense": 3,
+      "actual_physical_damage": 4,
+      "condition_objects_retained": true,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "a5f2f3e3ff9182d631185277fba2a5a5681c17cfd992093dd13862c9a650aa21",
+      "checkpoint_assertion_mapping_sha256": "5964c101f616fcaefd011ffcaa7c2a48297e2e6337da07119205f60211621eff",
+      "actual_BladeBreak_UID": 5,
+      "final_primary_zone": "p4Graveyard",
+      "final_Equipment4_UIDs": [],
+      "final_GY4_UIDs": [
+        5
+      ]
+    },
+    {
+      "index": 1,
+      "card_id": "raw_meat",
+      "group_id": "identity:raw_meat",
+      "slug": "card-raw-meat-four-live-real-agility-might-two-defense-five-damage-and-temper-counter-retention",
+      "source_spec": "card-regression-batch755.json",
+      "input_sha256": "331caed13c778c66d6ec21b9af76b353940010c5f65f3f7c0952a5646af0c9ae",
+      "reviewer": "/root/b753_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TOKEN_CONDITIONED_DEFENSE_DAMAGE_AND_CLOSE_OUTCOME",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-raw-meat-four-live-real-agility-might-two-defense-five-damage-and-temper-counter-retention",
+      "fixture_sha256": "22928a5b93246f86adae2a3b98f24ba00e2dd4b348a2eeb52ea9b00cfd2d5596",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "04eda5202ade7e4d65a97d11c99a03937141d11888e1ecd8b133ab10eeef7c3b",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "333a94a46dc7298e2ccbb029a1fbcddd90534a9d78fd2a2beacbac5f4b297b72",
+        "expected_final_gamestate.txt": "34b697cf847535da1e763e76903838678e29ffa423476137917a806d1ee3e509"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04eda5202ade7e4d65a97d11c99a03937141d11888e1ecd8b133ab10eeef7c3b",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "333a94a46dc7298e2ccbb029a1fbcddd90534a9d78fd2a2beacbac5f4b297b72",
+        "expected_final_gamestate.txt": "34b697cf847535da1e763e76903838678e29ffa423476137917a806d1ee3e509",
+        "meta.json": "6347865836aec46e40b5fff90b4a6e7c7c836a9c911282422b0aa98adc7d5014"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "04eda5202ade7e4d65a97d11c99a03937141d11888e1ecd8b133ab10eeef7c3b",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "333a94a46dc7298e2ccbb029a1fbcddd90534a9d78fd2a2beacbac5f4b297b72",
+        "expected_final_gamestate.txt": "34b697cf847535da1e763e76903838678e29ffa423476137917a806d1ee3e509",
+        "meta.json": "6347865836aec46e40b5fff90b4a6e7c7c836a9c911282422b0aa98adc7d5014"
+      },
+      "actions": 29,
+      "native_assertions": 2880,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 1089,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "rhinar",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "raw_meat",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "agility",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "might",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "rhinar",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "raw_meat",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "agility",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "might",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "actual_attack_resources_paid": 3,
+      "actual_Action_AP_paid": 1,
+      "actual_defense": 2,
+      "actual_physical_damage": 5,
+      "condition_objects_retained": true,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "3bab44912ae70b36d87c1aca5b6e02e59609df05fcee1f7359fe9be3bdd8e96a",
+      "checkpoint_assertion_mapping_sha256": "12563fbd2502b6767917bb7051c3b278c55e616f2ebe72c2edc227924de11c68",
+      "actual_Temper_UID": 5,
+      "final_primary_zone": "p4Equipment",
+      "final_primary_Status": 2,
+      "final_primary_Damage": 0,
+      "final_primary_Counters": {
+        "DEFENSE": 1
+      },
+      "final_effective_defense_source_and_raw_derived": 1,
+      "final_defense_native_getter_used": false,
+      "final_Equipment4_UIDs": [
+        5
+      ],
+      "final_GY4_UIDs": []
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 58,
+  "total_native_assertions": 5756,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 2174,
+  "material_findings": [
+    "Both actual rawfive/behavior and every58normalized native control/5756ordered persisted query/50manualpasses/2174typed property match exact independently approved Sourcef7b0ff83. Parsed all initial/final assertions, complete physical UID maps and48manual preference values perendpoint. Current70/c53/ab33 unchanged; only exact two current Saved fixtures audited.",
+    "Actual Plate5 under legal young Pleiades20 controls same Confidence6 AND Toughness7 throughout. DEF3 makes realRaging8 power7 deliver4/HP16. Full normal Resolutionfour enters automatic Close; defended BladeBreak destroys samePlate5 to own publicGY4. Actual Gear4empty/GY4[5]/Arena4[6,7]/GY1[8]/Pitch1[9]. No extra token/Cheer/Hero/Start event is earned.",
+    "Actual Raw5 under young Rhinar20 controls same Agility6/Might7; both clauses produceDEF2 and real5physical damage/HP15. Stored counter remains[] through every Chain/Resolutioncheckpoint; actual Close earnsDEFENSE1 and same5 returns Equipment4 ready/undamaged. Native raw confirms counter1 plus both tokens. FinalDEF1 is independently source+raw-derived as max(0,0-1+1+1), never a native finaldefensegetter.",
+    "Each actual Blue9pitch3 funds full resource3/AP1 before source responses; all25manual6/6/6/7 percase include actual P4 block finish. All four living owned natural20heroes remain ready, exact UID1..9/counter9/RNG0 and finalRAPChi0/StackChainsDQs/payment/await/targets clear. Initial public token producers and prior chronology unexecuted/uncredited."
+  ],
+  "limits": [
+    "Plate BOTH owned Confidence+Toughness staticDEF3, actual block/4damage and sameUID BladeBreak; RawMeat actual Agility+Might staticDEF2, block/5damage and one actual Temper-counter survival.",
+    "Initial public tokens are ordinary legal mid-turn premises; no prior producer/Start/turn chronology or token/Hero/support/sibling/full-card credit. No private history or effect/AP/resource flags seeded.",
+    "Close has no manual priority; CR7.7.3-7.7.7 auto-resolves its layers as if all passing. Only isolated ordinary keyword outcome; interactions/ordering with other Close effects untested.",
+    "Raw final effectiveDEF1 is source-derived from persisted sameUID/CountersDEFENSE1/tokens6and7; no unsupported native final-defense getter or invented intermediate raw snapshot.",
+    "All natural20 living young Heroes; all48 manual preferences remain exactSaved gate. Root native/independent Source+Saved/two new focused clean replays pending.",
+    "Only the selected positive two-token continuous defense, one real block/damage and ordinary BladeBreak/Temper outcome. Missing/either/single/zero-token/removal/creation/secondblock/zeroDEF destruction/reset/Hero/support/tokenproducer/sibling/fullcard and futureturn routes untested/uncredited.",
+    "Native recording/exactSaved/all48 manualpreferences/two new clean focused replays/Root registration remain required; Source approval confers no savedfixture/coverage/nativebug/fix credit. No PHP/native/replay/R/source/Git/remote/fullsuite/deniedrepairretry by reviewer.",
+    "Only these exact actual two-token positive static defense/one physical block/damage/ordinary BladeBreak or one Temper-counter survival outcomes. No missing/single/zero-token/removal/creation/secondblock/reset/zeroDEFdestroy/tokenStart/Hero/support/producer/sibling/fullcard credit. Close priority/layer interaction ordering with other effects untested.",
+    "Root two new focused clean replays and registration remain separate; no qualification before registration. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedrepairretry. B754 diagnostic/setuplegality classification is independent of these healthy Saved fixtures."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch755_saved_readonly.py",
+    "sha256": "078a85fb09a50ce795d7e500fca0a1967666a1bf58364290691f2a6a1f974bee"
+  }
+}

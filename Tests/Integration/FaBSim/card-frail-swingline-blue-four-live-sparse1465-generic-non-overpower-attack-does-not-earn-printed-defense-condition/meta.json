@@ -1,0 +1,7 @@
+{
+    "name": "Frail Swingline / plain equal-base no-go-again attack excludes Trap defense trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:18:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual legal Ranger Trap Action primary6 owned Azalea4 Hand-defends Dori1 Generic Wounding5. Actualpower4/base4/noGoAgain means power less than printed base predicatefalse, noearnedWHEN. Actual printeddefense and damage/HP, fullclose5GY1/6GY4, Deck7/8 unchanged, actorPotion9Hand and actualDawnblade10 readyPOWER1 untouched, allHeroStatus2, UID10/RNG0. The removablecounter/discardcard/readyHero controls make the conditional non-effect nonvacuous. AP0actualItemclickreject. Basic defense+negative predicate only; primary casting/positive effects/targets/timing/siblings and prior counter creation untested. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frail_swingline_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#frail_swingline_blue FaBSim/Custom/GameLogic.php#OnDefended"
+}

@@ -1,0 +1,262 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B719_TOUGH_AS_A_ROK_BLUE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T16:21:52.476609+00:00",
+  "source_spec": "card-regression-batch719.json",
+  "input_sha256": "95dd688d6cc44af105aa68b793b3c928b538168d38cd455fb269224533ea75c3",
+  "manifest_sha256": "eabbfd5a724b799ab9cbe55d35c5526e4dd4cdf244a0ce5650beea77988017b0",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch719-tough-rok-independent-source-review.json",
+    "sha256": "1607cb7814436c6546cbf6bea00fce87fec1d20b8e3b6ee66a0acf9e3f2583e8",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch719-20261108T161712Z-6af0a08804189.json",
+    "sha256": "105a7397d8c46de9f54ce5021e92c96c36ac244e9478d0a866a959dde7a95441"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch719.recording-results.json",
+    "sha256": "ececaaa56d73c0ab8b66bbb7de00d6fdbf7603e7df19bf7ba329744dd80a87bb"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b719-tough-rok-native-recording\\receipt.json",
+    "sha256": "17af9589778c2aa3e79495bceb9127f430add92560b73f41c01d7dadaf39fcfe"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "tough_as_a_rok_blue",
+      "group_id": "identity:tough_as_a_rok_blue",
+      "slug": "card-tough-as-a-rok-blue-four-live-natural-lower-life-base-six-real-payment-and-damage",
+      "source_spec": "card-regression-batch719.json",
+      "input_sha256": "95dd688d6cc44af105aa68b793b3c928b538168d38cd455fb269224533ea75c3",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NATURAL_LIFE_BASE_SIX_DELIVERY_AND_DYNAMIC_ZERO",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-tough-as-a-rok-blue-four-live-natural-lower-life-base-six-real-payment-and-damage",
+      "fixture_sha256": "df2d5d1fb1cc24d6dd5047b7952b36c1c33af366366f78d5e28102127723078e",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "f034869ef6ab706fdf5249dcd57cdf461160f688d61c7bed2957295268d51539",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c93a1a5a629f47afe7d98ae6cd8224f5fd2318a8bd69a59ad68f1ebee6b55d68",
+        "expected_final_gamestate.txt": "6d14eb3c4939060d7c743938f2a088289011244a519bf8ce409fb067f2d6dbb2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f034869ef6ab706fdf5249dcd57cdf461160f688d61c7bed2957295268d51539",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c93a1a5a629f47afe7d98ae6cd8224f5fd2318a8bd69a59ad68f1ebee6b55d68",
+        "expected_final_gamestate.txt": "6d14eb3c4939060d7c743938f2a088289011244a519bf8ce409fb067f2d6dbb2",
+        "meta.json": "86c6d7cb024d87018f01300edf30d70dd247ff6d3d3793bca4bffd23db725abc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "f034869ef6ab706fdf5249dcd57cdf461160f688d61c7bed2957295268d51539",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c93a1a5a629f47afe7d98ae6cd8224f5fd2318a8bd69a59ad68f1ebee6b55d68",
+        "expected_final_gamestate.txt": "6d14eb3c4939060d7c743938f2a088289011244a519bf8ce409fb067f2d6dbb2",
+        "meta.json": "86c6d7cb024d87018f01300edf30d70dd247ff6d3d3793bca4bffd23db725abc"
+      },
+      "actions": 28,
+      "native_assertions": 1948,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 359,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "tuffnut",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "tough_as_a_rok_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "tuffnut",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "tough_as_a_rok_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "yoji_royal_protector",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_resources_paid": 3,
+      "actual_AP_paid": 1,
+      "actual_damage": 6,
+      "current_power_before_delivery": 6,
+      "current_power_after_delivery": 0,
+      "cached_power_used_as_certificate": false,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        22,
+        22,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "10106b3cff7bf54b5859648be80acf1921358723f8fd8a3df37986bef665b913",
+      "native_assertion_mapping_sha256": "a92c9ec0f070b870259556f47e8b8e1e33af09f5caa608d7661eae05df009959"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 28,
+  "total_native_assertions": 1948,
+  "total_manual_passes": 25,
+  "total_schema_property_assertions": 359,
+  "material_findings": [
+    "Exact rawfive/behavior hashes, all28 native controls1948 persisted queries25manual6/6/6/7 and48preferences at both endpoints match Source1607. COMPLETE0/stderr0 receipt/results/archive and all70 actual c53/ab33 guards bound; physical endpoints and every initial/final query independently parsed.",
+    "Actual natural Tuffnut20 versus Yoji22x3, normal targetHero4 before full Blue3/resource3/AP1 payment, and same physical5 held across fresh source responses. Actual live power6 before delivery and noGA are persisted computed-property checks.",
+    "Actual unblocked physical6 reduces target22→16, breaking the each-other-hero condition; live computed power is0 afterward while damageDealt6/HP16 remain strict. No raw attackPower cache substitutes for current power. Full normal Close conserves UIDs1..6, primary5 publicGY1/funder6Pitch1, R/AP/Chi0, counter6/RNG0 and all physical queues/Stack/chain/awaits quiet."
+  ],
+  "limits": [
+    "ONEpositive visible-natural-life mainstatic effect/paid3/actualdamage6; not attackdefense3/sibling/fullcard/support/Hero credit.",
+    "Currentdynamicpower0afterP4HP16 isstrict; rawcachedattackPower6 unused/unqualified, no privatehistory or secondplaychronology assumption.",
+    "All48nativepreferences/Source/Saved/twocleanreplays remainRootandindependentgates; no nativefuturePASS.",
+    "QuietYojiabilityunactivated; its priorselectedformal-targethold preserved andnotretried.",
+    "Other7bodiesunread; metadatahintsdatedonly/noavailabilityfilter/noalternateprimary.",
+    "Primary publisher direct page was inaccessible; independently viewed issuer faces/current catalog and current static-effect rules are the printed basis; no invented JudgeID. Source approval is not a native/Saved/replay/fixture/coverage result. Exact Saved endpoint48preferences and all actual files remain separate gates. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite or denied retry.",
+    "Only the selected Blue identity and natural-life positive case executed. No false-condition attack, changed-life/tie matrix, attack-defense stat, second attack, whole-card, Yoji/Tuffnut ability, sibling or funding-card coverage credit.",
+    "Root targeted replays/registration/index/promotion remain separate; this proof grants no qualification credit before registration. RawVersions hash-bound/excluded from the physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/denied retry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch719_tough_rok_saved_readonly.py",
+    "sha256": "1c4bf0c560ab64b4757e6097dca2b46d42a775a7b15ecbcd33971f33812cdaf2"
+  }
+}

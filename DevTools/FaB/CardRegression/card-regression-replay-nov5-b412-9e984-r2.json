@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch412.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T03:03:28.796595+00:00",
+  "fixtures": [
+    {
+      "slug": "card-searing-emberblade-four-live-sparse-real-paid-weapon-second-draconic-link-earns-go-again",
+      "fixture_sha256": "95fa86ff3ddc8eb17f4382a040de4d4a18e6128ee21145f9b0595be704562ac8",
+      "passed": true,
+      "result": "[PASS] searing_emberblade / four live distinctive effect"
+    },
+    {
+      "slug": "card-fang-four-live-sparse-three-owned-fealty-enable-real-zero-resource-dagger-activation",
+      "fixture_sha256": "f910fab5db98dea3169c8486f8c9e34104cb87ead4df64dd53660aa243645505",
+      "passed": true,
+      "result": "[PASS] fang / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-searing-emberblade-four-live-sparse-real-paid-weapon-second-draconic-link-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] searing_emberblade / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-fang-four-live-sparse-three-owned-fealty-enable-real-zero-resource-dagger-activation",
+      "returncode": 0,
+      "stdout": "[PASS] fang / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Command Respect / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:09:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, if this has {p} greater than its base, destroy a card in their arsenal. ActualBravo20/Blue6pays3/R0/AP0, actual2or3HandAAdef6or9fullyblockbase6or7, HP20/damage0/nohit/Stack0/sourceandblockersownedGY. RealHand/Deck/FaceDownArsenalretainedwheredeclared. NoCrush4+orHiteventearned; futureabilitysuppression/playrestriction/positivepowerconditionuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#command_respect_red"
+}

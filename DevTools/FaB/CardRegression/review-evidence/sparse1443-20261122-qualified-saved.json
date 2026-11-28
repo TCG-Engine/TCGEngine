@@ -1,0 +1,148 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1443-20261122.json",
+  "source_spec_sha256": "039cc7501fab2edaa3cf3985ddf49c476aa7dd1317fbf1fd7a3ad4f597f18a29",
+  "input_sha256": "039cc7501fab2edaa3cf3985ddf49c476aa7dd1317fbf1fd7a3ad4f597f18a29",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+      "card_id": "blasmophet_levia_consumed",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50734e4295fe5bdb3e7f95c70c6d1d6b0d82f593d24dfc1ef9bb5364939f13b3",
+        "actions.json": "7337a7539d37f0cf8980fd002dde6eeb273a5659e2aa512eee1e67b44920286b",
+        "assertions.json": "54b24f579540b9cd265fcbd6e14e5828bb7da9055d997fc1fd28f431f00f60e9",
+        "expected_final_gamestate.txt": "0d2940fd5f9d9e77e7322c219ff9da0acd84ff067f22d2dae443c885d320798e",
+        "meta.json": "60e8476439bc998d88fb7717c494760e2c89914458732dafd4521522ad5429f3"
+      },
+      "fixture_sha256": "06a4a64a6030d4ea8176cb951f81bbd90d06b17435b4b8271f45cdddb3dfb9c5",
+      "actions": 19,
+      "native_assertions": 374,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1443-20261122.json",
+      "input_sha256": "039cc7501fab2edaa3cf3985ddf49c476aa7dd1317fbf1fd7a3ad4f597f18a29",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1443-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+        "fixture_slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "039cc7501fab2edaa3cf3985ddf49c476aa7dd1317fbf1fd7a3ad4f597f18a29",
+    "source_note_sha256": "01e005648a7e66dc061b7364a469d3d1837f3c67ddad0148d54afc4de9582ec4",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": {
+      "1": {
+        "hero": "blasmophet_levia_consumed",
+        "health": 13,
+        "manual": true,
+        "base_deck_hero": "levia_shadowborn_abomination"
+      },
+      "2": {
+        "hero": "bravo_showstopper",
+        "health": 40,
+        "manual": true
+      }
+    },
+    "native_controls": 19,
+    "query_checks": 374,
+    "persistable_assertions": 374,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_BOUND_TRANSFORMED_HERO_ONCE_TURN_BLOOD_DEBT_BANISH_PERMISSION_AND_AFFORDABLE_SECOND_PLAY_REJECTION",
+    "approved_qualification_endpoint": "COMPLETE",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "basis": [
+      "Selected current transformed Demi-Hero is not a starting hero. Original adult Levia deck pool admits Shadow Brute Consuming Command blue, Shadow Fasting Carcass red and Generic Wounding; current form health13/Bravo40 are pinned. Unrepresented primary group was screened without a matching hold.",
+      "Read component21-check/exit0 artifacts only: real Inventory1 is allocated before BravoHero2 and originalLeviaHero3; Banish4/5 and Hand6/7 exist before actual DTDCards135-140 transformation. It moves original3 to Soul, real form1 to Hero, clears counters/effects natively and sets13 life. No UID rewriting or hero-usage grant is performed. Native incidental MON_SOUL_ADDED/arcCards state is retained exactly in declared state.",
+      "Component verifies neither Banish card playable under original Hero, both playable under new current form, both lack intrinsic permission with heroPermission=false, and once-turn count is0. The actual raw initial SHA is bound through existing recorder guard before actions/save; a mismatch must fail closed. Component setup proof is separate from native gameplay/replay evidence.",
+      "DTDCards69-74 grants face-up Blood Debt banish play when DTD_BLASMOPHET_PLAY absent. DTDRuntime47-49 consumes the primary permission on actual Banish play using durable WTR effect storage. No seed marks this usage as spent.",
+      "Consuming Command blue costs1 and intrinsically has GO. Real Blue7 at Hand1 funds3 leavingR2; primary4 moves Banish to Stack ACTION and, after both manual responses, ownGY/AP1. GeneratedMacroCode1639-1643 grants a Blasmophet-token attack permission without a chooser; no such token or attack exists and no support identity is credited.",
+      "Fasting Carcass red is a0-cost face-up Blood Debt action with no intrinsic Banish permission. Its second actual click at AP1/R2 must reject before play/effects. Later Wounding6 cost0 uses retained AP, auto-binds sole Hero2, resolves through both genuine manual seats for4damage and no GO. This pins no leaked Fasting red-action GO.",
+      "Physical identities match sequential allocation: currentHero1, opposite2, originalSoul3, primary4, rejected5, Wounding6, funder7; initial Soul queries use only supported CardID/UID. Banish reindexes5 to0 after primary leaves. Final4then6GY/Pitch7/Soul3/Banish5 face-up/HP13,36/AP0R2/UID7/RNG0 are exact. No new card enters Banish after transform, so no new face-down trigger is owed.",
+      "Existing common COMPLETE validator supports declared two-seat heroes/health without starting-hero natural-life enforcement; scenario closes both combat chains and retains exact manual preferences/action/assertion checks. No custom adapter or engine/recorder change is required."
+    ],
+    "native_initial_component_evidence": {
+      "status": "parent_executed_component_PASS_21_checks_exit0_reviewed_read_only",
+      "component_sha256": "98e3a4414202dd16ba61fd51ee2db03eb958a7c3bfaa4ef124de5af751ec595d",
+      "command_receipt_sha256": "7b0efeadcdd8bd3523d7780ae63330716a5771aebf680b8b6ed17f624ef912f0",
+      "output_log_sha256": "53bd6ba5ea38c41a8d4bef1bd0d8602154562a14cea398d093e97e5d9c05c4aa",
+      "derivation_receipt_sha256": "3e9623709f25535ba24d3678cff158e6855a4a33af4fecfa11232e9dfe4ba787",
+      "raw_initial_sha256": "50734e4295fe5bdb3e7f95c70c6d1d6b0d82f593d24dfc1ef9bb5364939f13b3",
+      "guard": "Existing expectedInitialGamestateSHA256 must match recording initial bytes before any actions/save.",
+      "scope": "Configured transformed current-form starting position only; helper construction does not certify frontend transformation trigger eligibility, prior turn chronology or replayed setup.",
+      "portable_component": {
+        "source_path": "DevTools/FaB/CardRegression/test_levia_transform_position.php",
+        "source_sha256": "124bd7464f178ad5fceded1abb3309f8e8a629a3ed792691a0e9a5c32ba3d170",
+        "command_receipt_sha256": "accf5f0c52d49f6cf94445188fa55b60a481357638abf68ce3af28369cf6c8de",
+        "output_sha256": "49f348ed3a936267a8b14bc707b23c17132512a731e4e951936727a5bbe8fd6e",
+        "scope": "Exact first20 constructor checks from binding helper, excluding serializer/file output, with repository-root autodiscovery/output only. Parent-run PASS20/exit0 artifacts verified; not executed by reviewer."
+      }
+    },
+    "limits": [
+      "blood_debt_to_thirteen_transform_trigger_or_eligibility",
+      "current_banish_entry_face_down_trigger",
+      "blood_debt_life_loss_replacement_or_end_phase",
+      "next_turn_permission_reset",
+      "four_player_mode_or_young_original_hero",
+      "support_token_granted_attack_ability_or_other_pitch_variants",
+      "No native game, replay or component executed by reviewer. No saved fixture/native pass/coverage certified by this pre-native review.",
+      "Current-form configured continuous permission only; transformation eligibility and normal starting-Hero legality are explicitly not claimed.",
+      "Stop and preserve any native mismatch; no expectation relaxation or repair authorized."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "DevTools/FaB/CardRegression/test_levia_transform_position.php": "124bd7464f178ad5fceded1abb3309f8e8a629a3ed792691a0e9a5c32ba3d170"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1443.py": "5a67a2b094040d89f3217a624c68c1064f0f348bf9327ab6395e3458a8003627",
+      "levia_native_initial1443.php": "98e3a4414202dd16ba61fd51ee2db03eb958a7c3bfaa4ef124de5af751ec595d",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1443-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ce34dc6895c47631c15655917f52e978f9272fe9bc31b76612ad7d55fd4f49e1"
+  },
+  "full_suite_run": false
+}

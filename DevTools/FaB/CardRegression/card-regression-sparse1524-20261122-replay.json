@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cheating-scoundrel-red-four-live-sparse1524-real-spell-does-not-enhance-weapon-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cheating-scoundrel-red-four-live-sparse1524-real-spell-does-not-enhance-weapon-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1524-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1524-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8633960c1a667e1ef8996c5b6832fecbbda8cd91c2d893d275492223e05d9981",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "067058b160a2dae18990ec5d960e7d669d61fc38110538ef50427b61531fb1be",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "82aa6d3f3cb7c6dc61cdcfba8c5bc4f7562a32c2cc5fe8be37c020058b5a68cb",
+        "expected_final_gamestate.txt": "772989dfe2b906613804594eabe12d41f0b6dc34c9b79925f254c77bda6ef187",
+        "meta.json": "eb2d5cbdeb1bad4f62cf9a460a8d210ce310fcc38fa63836cc5b95938be48bd3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

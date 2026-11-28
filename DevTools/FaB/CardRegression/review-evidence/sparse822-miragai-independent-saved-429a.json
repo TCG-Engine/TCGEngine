@@ -1,0 +1,95 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_MIRAGAI_NO_CHI_TWO_COUNTER_WARD",
+  "phase": "SAVED",
+  "batch": 822,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:03:14.293666+00:00",
+  "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+  "source_spec": "card-regression-batch822-miragai-no-chi-two-counter-ward.json",
+  "input_sha256": "69453bd7da7efc05671f953e5b5255d9b60ca04bb2d357cd235cf350758de60c",
+  "manifest_sha256": "bf3321e9e2a13f70252ef57037a649335fe2908ded079b0b17cab2a8a42f7041",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch822-miragai-independent-normal-positive-source-review.json",
+    "sha256": "e062e6f972ce57974eab8964aa721e303526832fb6950446270d7d12f8aaa8a7"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b822-miragai-native-save-429a\\receipt.json",
+    "sha256": "72899739a7c17785da7f1fc954e49d152f650bea1d98f82f66b080262e14e779"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch822-miragai-no-chi-two-counter-ward.recording-results.json",
+    "sha256": "83350d6955e4be34b3af0806039b05647e8e1f547584f86e590336385f16f711"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch822-miragai-no-chi-two-counter-ward-20261115T175915Z-6af9f2f38281f.json",
+    "sha256": "912ecabb6f410f5811a406ed53bf269ce2bb2506a9d3b464d518c56996e1186d"
+  },
+  "fixtures": [
+    {
+      "card_id": "manifestation_of_miragai_blue",
+      "slug": "card-manifestation-of-miragai-blue-four-live-no-chi-real-two-counter-ward-two-prevention",
+      "actions": 37,
+      "native_assertions": 4341,
+      "manual_passes": 32,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d1cd8ce4f8f4072bbcf82961f884dd9619388c6e7828b6ff5915d45d7def3726",
+        "actions.json": "9752aab59fcb80778a18ecf96c32f1f002b94a324c403bba5db69309adb9cb37",
+        "assertions.json": "ddc2e65821169926ec4f4133c22aa6e007a0c9745ab9654246926f274800a53b",
+        "expected_final_gamestate.txt": "5dd7347e32dde57d246a1e8ecc30bd66ad55988987911b0e65ad54070a967b79",
+        "meta.json": "485e36b855560641cd6612163faaa8634f4c3bcbea6e74940ed6d7a1da351b36"
+      },
+      "fixture_sha256": "b33e72780a8ea84347239f1279b7e024de474303931087e5a6fa73cb443b780d",
+      "input_sha256": "69453bd7da7efc05671f953e5b5255d9b60ca04bb2d357cd235cf350758de60c",
+      "runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+      "recorded_runtime_sha256": "429a5183b9e7db50822c8f5fc966113cc842af7066d5d0a4e235e780fe09ee73",
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "terminal_queries_independently_evaluated": 230,
+      "expected_original_37_controls_4341_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact no-Chi cost3/POWER2/Ward2 preventing2 of actual4. No native sibling or other branch credit."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4341_native_queries_semantically_reviewed_against_unchanged_source": true,
+  "all_37_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 39,
+  "typed_property_queries": 913,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 25,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch822_actual_saved.py",
+    "sha256": "54d2241e75734ce192f8b4d518155d003a041c5ebd012b6dceec7902c08e61d3"
+  },
+  "semantic_witnesses": [
+    "Actual saved inputs6/7 announce real MiragaiUID6 at legal P4 Instant priority and pitch GenericBlueUID7 for fullcost3. Four actual Source responses4,1,2,3 precede Arena entry; accepted intermediate native queries establish exact Counters POWER2 and Chi0, not4 or cached Aura computedpower.",
+    "Actual native WoundingUID5 formallytargetsHero4 and has unblocked power4. Input28 reaches mandatory actualWard chooser retaining sameAura6 POWER2 and HP20. Input29 selects p4Arena-0, removes same6toowner4GY and applies exactly2physical damage toHero4HP18. All otherheroesremain20. Intermediate witnesses are accepted ordered native assertions, not separate raw snapshots.",
+    "Actual final raw independently pins Wounding5GY1, Miragai6GY4 publicFaceDown0 and GenericBlue7Pitch4, allfourResources/Chi/AP0, allfourHeroIDs/owners/controllers/living statuses and manual prefs, emptyHands/Arena/Stack/queues/awaitframes/chains and full ACTION cleanup. All230 terminal queries independently match raw final."
+  ],
+  "limitations": [
+    "This is exact Saved review only; qualification/registration still require two clean new-only replay receipts at this unchanged runtime.",
+    "No Chi/four-counter/otherdamage/counteramount/Auraattack/adultEnigmaweapon/heroactivation/internalpreventionordering/generalWard/fullcard/nativepitchsibling certificate or B822enginebug/fixclaim.",
+    "No isolated native fault-control credit, historical corpus replay or full-suite pass is implied. Chest Puff source-only timing hold remains separate and unattempted."
+  ]
+}

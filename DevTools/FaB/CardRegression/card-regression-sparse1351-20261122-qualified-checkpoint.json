@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T09:25:15.087920+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1351-20261122.json",
+  "source_spec_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 39,
+  "native_assertions": 864,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5324,
+    "duels": 3103,
+    "four_live": 2221,
+    "recorded_primary_ids": 2472,
+    "identity_denominator": 5196,
+    "recorded_groups": 2346,
+    "group_denominator": 3324,
+    "four_live_groups": 2210,
+    "phase_qualified_scenarios_at_actual_contexts": 1961,
+    "phase_qualified_unique_groups": 1951,
+    "creation_replay_passes": 2703,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1122,
+  "scenarios": [
+    {
+      "card_id": "viserai",
+      "group_id": "identity:viserai",
+      "scenario_id": "card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+      "effect_branches": [
+        "first_runeblade_nonattack_does_not_count_itself_as_another_exact_three_runechants_no_extra_hero_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+      "source_spec": "card-regression-sparse1351-20261122.json",
+      "source_spec_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+      "review_evidence": "review-evidence/sparse1351-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2febc6ab600586191490ff78168f750dd938a9b0dca11927e68a8e2c3924803c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1351-20261122-replay.json",
+          "sha256": "d73bc20c0c40d76e236fc1492b553f4658c13b13ba190480f1e30fbaa2b68f78",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "verdance",
+      "group_id": "identity:verdance",
+      "scenario_id": "card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+      "effect_branches": [
+        "four_faceup_non_earth_banished_cards_do_not_enable_heal_arcane_trigger_real_three_heal_then_base_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+      "source_spec": "card-regression-sparse1351-20261122.json",
+      "source_spec_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+      "review_evidence": "review-evidence/sparse1351-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2febc6ab600586191490ff78168f750dd938a9b0dca11927e68a8e2c3924803c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1351-20261122-replay.json",
+          "sha256": "d73bc20c0c40d76e236fc1492b553f4658c13b13ba190480f1e30fbaa2b68f78",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

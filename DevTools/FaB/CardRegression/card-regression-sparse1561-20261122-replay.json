@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kayo-berserker-runt-four-live-sparse1561-real-four-base-power-below-six-no-played-roll-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kayo-berserker-runt-four-live-sparse1561-real-four-base-power-below-six-no-played-roll-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1561-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1561-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "219aee2a8ffe7d0c54ee1ababff4ff38153dde460bc2fadaa7b096d42f893df0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25b64154f4fde898d067f38984d498d018de33fee49d1caa195f162c3fb82cee",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4227874c9d7499e7c7e6f353320c5a4dbe8cfa2b9e88856dfa59d0afdcd846bc",
+        "expected_final_gamestate.txt": "001dea5c81b2ff5f895d8aa91762da373d171b7ce734deabb47a084f01404f08",
+        "meta.json": "808247e608d4dc9b8ea41cf20f5c3c70ba0129d1b5535892bbdd61ec66c7a2f7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

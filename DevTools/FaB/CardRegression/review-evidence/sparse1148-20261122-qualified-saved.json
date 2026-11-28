@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent existing Zombie attack and intrinsic go-again review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1148-20261122.json",
+  "source_spec_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+  "input_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+      "card_id": "corrupted_corpse",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "192be5c0daa6df7a046f64d3cfa19a2095b785a5fa569f2535901f20962ad166",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "be2126f437979202ebee7f027295466a6b33f2e7bd0924ce23173d82ed15c9a7",
+        "expected_final_gamestate.txt": "7eb2ae0648c5a8ddaaaf14175f8da563e982c34c2964cb58f18859cf4910a094",
+        "meta.json": "c93e44e2895f90013181ddbb7798bee01cc5f0108971c14bfff54edd0bc61cac"
+      },
+      "fixture_sha256": "60f4578a8c5d2f165bc57bd5ca7cb18c4623309c441b5621600a7391450804f2",
+      "actions": 27,
+      "native_assertions": 334,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1148-20261122.json",
+      "input_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1148-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+        "fixture_slug": "card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "96f4956e7b777804da72cd600346cbcdb1238480b70d7a3a4762df37338d391b",
+    "reviewer": "breadth_review independent existing Zombie attack and intrinsic go-again review",
+    "basis": [
+      "Cached CorruptedCorpse is ShadowNecromancerZombieAlly base3/health3, with its attacks intrinsically gettingGA. NaturalyoungMalice20 legally controls admitted existingCorpse5 and Vox6; no currentZombie play/entry or Incarnate is tested. Malice WHENzombieDies is strictly unearned because sourceAlly remainsalive/Arena.",
+      "Vox grants controlledZombies Actionresource1,tapAttack. MONAbilities55 selects cost1/printedpower3 for existingZombie underVox,67-77 declares actualadjacent4 then creates ATTACKproxy7 fromphysicalArena5. ActualadmittedR1/AP1 is paid and source5ready2->1 beforefourmanualresponses. Tapped1 here is supported by the printedtapcost, unlike Luminaris bookkeeping scope.",
+      "IARRuntime331-333 explicitly tags actualCorruptedCorpse attackGO_AGAIN; no hit trigger is needed for that intrinsic static. Computedpower3/GAtrue, real3damage/victimHP17 and finalAP1 verify actualattack/GA across allfourmanualcombat rounds. PhysicalCorpse5 remains tappedArena/Owner1, Vox6readyretained, proxy7clears/noGGY orBanish.",
+      "Both exacthold335/issue213 searches clear; persistedtype/state checks and physicalsource UID/Controller/owner/maxUID7/finalR0 guard selectedoutcomes. No earnedentry/death/Hero body or material-owner export is entered."
+    ],
+    "limits": [
+      "One existingZombie actualVox attack/tapcost and primaryintrinsicGA only. No initialplay/Incarnate/BloodDebt/death/producer/endphase, Voxentry grantedWHEN, damage-to-Ally, otherZombie or fullcard/Hero/support/sibling coverage.",
+      "Native Save and one clean replay pending; no reviewer T/native/source/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1148-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "cede9a3dc6765c48a62afb92310bc0a15a5379fcb706d2377a85bfb9afe0661a"
+  },
+  "full_suite_run": false
+}

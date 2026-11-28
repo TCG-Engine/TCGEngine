@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gate-to-iarathael-four-live-sparse1179-real-target-and-destroy-cost-enable-actual-banished-action-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1179-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1179-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0ea8d4b74d9594a134e3ab84cef36369aad824a602b19ced66c4de25633bc7cb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "649a7a6ed00f6af7b331ceee16532195aacee1e87af05eb0ed90b00328feffdf",
+        "actions.json": "56ce885e5d681de282868edf75d53be972c0c32a890618eb3b68da7caf34c411",
+        "assertions.json": "dbfb60d1313b6319205d59b5194b400806fffc52d442d295151dbc127b8e90d6",
+        "expected_final_gamestate.txt": "0ae2e51fe4cd7ef80bb494327f392b85df41b732c214871bdbff72332e8b0728",
+        "meta.json": "7db56c8f3b356e04f120cafa495b67e0d1cd6edaf2eddaea3305eb66de832586"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

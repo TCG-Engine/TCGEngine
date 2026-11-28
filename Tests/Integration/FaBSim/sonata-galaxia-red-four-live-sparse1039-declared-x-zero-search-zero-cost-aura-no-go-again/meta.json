@@ -1,0 +1,7 @@
+{
+    "name": "Sonata Galaxia / four-live actual aura search",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:26:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This costs {r} less to play for each Runechant you control.\n\nSearch your deck for a Runeblade aura with cost X or less, put it into the arena, then shuffle.\n\nIf X is 2 or more, this gets **go again**. LegalChane20/Runeblade, no priorNAA/initialAura0/Runechant0. ActualNUMBERX0announcedwithBlue6available; XX0cost/AP0/Blue6retainedHand. AllfourmanualresponsesbeforeMZMULTIresolutionsearch: onlyAuraMalefic7Temp, actualnonAuraNimblism8retainedDeck1. Choose7\u00e2\u2020\u2019sameownedArena/enterswithVerse3andnoFAB_PLAY_ORDER; primary5ownedGGY. X0<2so noSonataGA/AP0; putMaleficisnotplayingitanddoesnotrefundGAortriggeranunusedheroability. One-cardremainder deterministicshuffle. NoRunechantdiscount/positiveXpayment/X>=2GA/Verseuse/otherbranches/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sonata_galaxia_red"
+}

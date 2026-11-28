@@ -1,0 +1,1188 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILED_CORRECT_EXPECTATION_NO_PASSING_FIXTURE",
+  "utc": "2026-11-24T16:21:15.654573+00:00",
+  "issue_id": "FAB-REG-225",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_sha256": {
+    "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+    "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+  },
+  "original_spec_sha256": "822dd2d7a5428fc046ce9fb57103d1c9c7180d0dd0ef96a50a9715bcce3cb145",
+  "native_receipt_sha256": "092aae8187d03b89de808064b1bf0203ff7c7eba438eb54736c1bc071290b679",
+  "native_input_count": 63,
+  "error": "go_again  expected false got true",
+  "observed_state": {
+    "window": "ATTACK",
+    "combatOpen": true,
+    "combatStep": "ATTACK",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 8,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "Rift Bind",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_ACTIVATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_CREATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_CREATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_AURA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_AURAS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "PEN_CREATED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_BANISHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "UPR_SMALL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_OPP",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_VALLEY_HIT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ARCANE_DEALT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_OPP",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_OPP",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_DEBT_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "UPR_SMALL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MST_BLUE_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_rift_bind",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_DAMAGE_EVENT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_TAKEN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_TAKEN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_ARCANE_TAKEN",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": {
+      "1": [
+        7
+      ]
+    },
+    "cardsPlayedThisTurn": {
+      "1": [
+        "read_the_runes_red",
+        "rift_bind_blue",
+        "rift_bind_blue"
+      ]
+    },
+    "mpgDurations": [],
+    "botProfiles": [],
+    "weaponHits": [],
+    "attackActionHits": {
+      "1": 1
+    },
+    "arcNames": [],
+    "arcaneDealt": {
+      "1": {
+        "4": 3
+      }
+    },
+    "arcCards": {
+      "5": {
+        "penFreezeSources": [],
+        "iarPermission": []
+      },
+      "6": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "12": {
+        "iarPermission": []
+      },
+      "13": {
+        "iarPermission": []
+      },
+      "14": {
+        "iarPermission": []
+      },
+      "10": {
+        "iarPermission": [],
+        "penMirageChain": -1
+      },
+      "7": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "penPitchTypes": [
+          "Generic",
+          "Resource"
+        ],
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstBluePlayedTurn": 2,
+        "mstBluePlayedPlayer": 1,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": true,
+        "dtdPrevention4": true,
+        "hntHitMarked4": false,
+        "hvyWagers": [],
+        "mstZeroDefense": false,
+        "penFreezeSources": []
+      },
+      "9": {
+        "iarPermission": []
+      },
+      "16": {
+        "target": 4
+      },
+      "17": {
+        "target": 4
+      },
+      "18": {
+        "target": 4
+      },
+      "8": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstBluePlayedTurn": 2,
+        "mstBluePlayedPlayer": 1,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": false
+      }
+    },
+    "arcActions": {
+      "1": 4
+    },
+    "iar": {
+      "2": {
+        "1": {
+          "DEBT_ATTACK": 1
+        }
+      }
+    },
+    "outPreviousNames": {
+      "1": []
+    },
+    "lastAttackCardID": "rift_bind_blue",
+    "attackTargets": [
+      {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      }
+    ],
+    "defendIndex": 0,
+    "attackGoAgain": false
+  },
+  "observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_hand_refs": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "initial_gamestate_text": "1\r\n0\r\n1\r\nviserai_between_worlds 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\ntimesnap_potion_blue 2 1 1 0 5 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\nwounding_blow_blue 10 1 1\r\n0\r\n0\r\n0\r\n4\r\nread_the_runes_red 6 1 1\r\nrift_bind_blue 7 1 1\r\nrift_bind_blue 8 1 1\r\ntitanium_bauble_blue 9 1 1\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n10\r\n0\r\n",
+  "initial_gamestate_sha256": "6856501013d6cf48ddc52fb5b814366afe51dffe6d460257b41c04d3e4d73ca5",
+  "native_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Arena-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-1!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "expected": "Second actual Blood Debt attack UID8 in same Turn2 must not get Go again; first UID7 already played and resolved in same turn.",
+  "observed": "At second Attack UID8, native go_again evaluator returns true. Observed cardsPlayedThisTurn contains Read the Runes and two Rift Bind plays; iar/Turn2/player1/DEBT_ATTACK is1. All choices/payment are quiescent.",
+  "prior_passed_sequence": "Actual young-front Runechant creation and Traverse; three Runechant targets declared before priority; three1arcane packets and first1physical; full first-chain close/AP1; actual second cost/AP0/R1; then second power1 check passed before go_again failed.",
+  "unrun": "Second physical damage, second chain close, extra-action outcome and final snapshot assertions did not run. No later HP/AP claim.",
+  "root_relation": "Source-supported IAR first-only history/counter-loss family, without isolated fault attribution or new globally deduplicated root credit. Exact loss point not localized; no repair.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "repair_attempted": false,
+  "new_distinct_gameplay_root_credit": 0
+}

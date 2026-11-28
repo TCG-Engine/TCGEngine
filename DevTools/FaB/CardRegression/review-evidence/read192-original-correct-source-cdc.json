@@ -1,0 +1,136 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_READ_RULE_CORRECT_AUTOMATIC_END_OPT_DRAW_ARSENAL",
+  "phase": "SOURCE",
+  "batch": 850,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch850-read-correct-auto-end-opt-bottom-draw-arsenal-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\read-rule-correct-automatic-end-opt-bottom-draw-arsenal-full-probe.json",
+    "sha256": "ad34579c3feb1a659837e7e93112afc5378e200986ab54a46356d8bcd766c93e"
+  },
+  "input_sha256": "ad34579c3feb1a659837e7e93112afc5378e200986ab54a46356d8bcd766c93e",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\manifest.json",
+    "sha256": "8c4dc5961c7c605936ac8095d6a641b07f8cc8f997348db4bf5c9b323f4754ca"
+  },
+  "manifest_sha256": "8c4dc5961c7c605936ac8095d6a641b07f8cc8f997348db4bf5c9b323f4754ca",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-firm-reservation.json",
+    "sha256": "4496a366ef7facd610028217b3736b4ea96b17263c013ff3a2e1772e83bf8708"
+  },
+  "root_rule_correction": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-root-read-no-endphase-priority-correction.json",
+    "sha256": "584d31ed548dc9aff6f86b87a024a413cb5bf10a97631bd92fb2dbd2b133a5a3"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\preflight.json",
+    "sha256": "df5bb7fd71e49b4fd39816202e05452e7d235f5be357fac1b27a7514291f058e"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "566aedef879f85a83a3bb022a4ff8f32055053362f0ee8d060b9abc05c540c12"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch850-read-rule-correct-automatic-end-opt-draw-arsenal-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "884f71576c939dd155cc0450b70f1e58e11479c1bf0cf3af6aadca6cc3720372"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 15,
+  "all_current_guards_independently_matched": true,
+  "actions": 12,
+  "declarative_controls": 12,
+  "actual_native_inputs": null,
+  "expected_native_input_bound": [
+    11,
+    15
+  ],
+  "expected_fixed_native_prefix_inputs": 11,
+  "expected_native_prefix_envelope_sha256": "15e3630f62927c98c463ae4f44037523b1c280cdd7033b2ecb4d9a1cee303094",
+  "variable_final_transport": {
+    "declarative_control": 12,
+    "purpose": "Post-Arsenal end-procedure transport only, never a priority response opportunity.",
+    "expected_pass_inputs_min": 0,
+    "expected_pass_inputs_max": 4,
+    "recorder_hard_guard": 40,
+    "expected_bound_is_not_enforced_by_recorder": true,
+    "actual_review_must_enforce_bound": true
+  },
+  "assertions": 1604,
+  "native_assertions": 1604,
+  "planned_native_assertions": 1604,
+  "manual_passes": 8,
+  "expected_legal_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "EndPhase_response_passes": 0,
+  "checkpoints": 13,
+  "schema_property_checks": 487,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "declarative_control_query_mapping_sha256": "5e8133075ec6ab1bf529c65ac58a54bdd192173052a73a0b8108da6d0c7a2da7",
+  "query_model_coordinate_system": "Source declarative after_control coordinates. Controls0..11 equal actual native coordinates; final boundary12 must be rebound to actual11..15 after validated 0..4 transport inputs. No fixed full native-query-step hash or action count is claimed.",
+  "checkpoint_mapping_sha256": "da9062c6a488334f2b73c9df674dbbc89001dc6c4b9ada57ec9614bcfb144d3b",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Current printed Wizard Action Aura0/YoungVerdance20/intellect4 and threeYoungBetsy20; allsupportGeneric/unplayed/legallyincluded. Initial Read5+fourordinaryHand6..9 andDeckA10/B11 are valid input, no outcome/history/phase seed. RealzeroAction spendsAP1to0; four ordinary Source responses precede physicalAuraentry.",
+    "OfficialCR4.4.1/4.4.2 forbids EndPhase priority; correctedRoot584d replaces originalwrongmanualearnedwindow. Exactly fourth ordinary empty-stack ACTIONpass(control9 untilpriority1) must already enterautomatic Read destroy/Opt decision withphysical5GY/A10Temp/B11Deck/Hand4 andstillresolvingearnedABI source5/controller1/kind. No until-Opt loop or extraEndquorum canhidewrongphase initiation.",
+    "ActualRearrange BottomA10 drawsformerB11 tophysicalHand-4/Hand5. CorrectprintedsequenceDestroy->Opt->Draw, followedbyoptionalArsenal(CR4.4.3b). ExistingMZREARRANGE enum/Top-Bottom string and nativeHandclick supported; actualArsenal API requiresEND transport internally, not a claimedpriorityplay. No guessedvirtualUID/CardID/eventalias.",
+    "ActualdrawnB11 mustmovefaceDownArsenal1, leavingtheoriginalfourHandcards. Normalintellect4refill thereforedraws0(CR4.4.3f), exactDeckA10/Handoriginals provesrealcard-effectdraw ratherthanborrowedrefill. No forcedlower-Handcountbaseline. CompletionmustreachP2MAIN/Turn3/AP1/R0, allHP20/physicalReadGY/queuesStackclear.",
+    "PostArsenal pass_untilACTION/P2 is reviewed existing phase-driver transport. IfAfterAction endingTurn ispending andStack/DQempty, GL2039..2040 autoFinish gives0passes; otherwise empty END_PHASE driver quorum(GL2225/2503/2527/2552) needsupto4aftereffects+Arsenal. No card-response/Endprioritycredit. Generic recorder allows40passes;11..15 is an expectedroutebound explicitlymandatoryforactualreview, not a hardcodedrecordercap.",
+    "CurrentUPR127..128 invokes actualStartTurn namedbody viaGL2517; emitted19260 destroy/Rearrange/draw body exists. GL2222onlyIntimidatequeue and laterdirectbody call isfresh literalbegin-end/virtual-layer-lifetime concern, NOT wrongMacroNameabsence or exact094rosTriggerpreclear. No currentNativebugconfirmed bySource. Correctstrictfullroute remainsunweakened."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "sections": [
+        "4.3.4",
+        "4.4.1",
+        "4.4.2",
+        "4.4.3b",
+        "4.4.3f"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.3"
+      ],
+      "reuses_resolution_layer_lifetime_review": true
+    }
+  ],
+  "required_remaining_gates": [
+    "OneRootexactfull--probe-onlyattempt/noSaveevenPASS.",
+    "Independentactualorderedtrace/prefix review, actualnativecount/transportbound andsemanticphaseadjudication.",
+    "Any futurepromotionrequiresexplicitRootdecision/freshnormalSource/Savedraw5/bothfresh48/twoownfocusedreplays."
+  ],
+  "limits": [
+    "No Native result, fixture, bug confirmation, repair, qualification, coverage or sibling/fullcard certificate.",
+    "No EndPhase priority or manualearnedresponse claim. Final variabletransport cannot certifyadditionalcardeffects or substituteextraquorumsbeforeOpt; reject actualcountsoutside11..15 evenifotherchecksPASS.",
+    "OtherOptchoices/deckempty/multiplebegin-endtriggers/Hero/support/siblingbranchesuntested.",
+    "NoPHP/native/Rwrites/sourcefix/fullsuite/Git/remote/newagents/Radiant189/Head190/Oysten191/denied188184B787 action."
+  ],
+  "created_utc": "2026-11-16T06:31:33.206577+00:00"
+}

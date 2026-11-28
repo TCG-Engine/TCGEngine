@@ -1,0 +1,103 @@
+{
+  "status": "PASS_SUPPORTED_NATIVE_RERECORD_FIVE_EXTRA_AMP_TIMING_GUARDS",
+  "runtime_before": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "started_utc": "2026-11-03T21:55:33.924356+00:00",
+  "old_raw5_sha256": {
+    "initial_gamestate.txt": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+    "actions.json": "5e5614b0be1b4e33c8f05f7affab9f1f9dd72ddfadea3209c7bf711ef10c07ea",
+    "assertions.json": "111f242134c6bf6f07c8d10d188692a81239067471edd9b55d4d40435f673b65",
+    "expected_final_gamestate.txt": "15a0c3587ad545bfae2c0400389bdf143b3eb9799eae736a37f3281f3ea5b0a4",
+    "meta.json": "285813b4f5063e8189a7962127dd7f0fe9825af8ed94aa0b58b3068a776c2e34"
+  },
+  "original_behavior_sha256": "619d6177c008ccfca31196dbf0c7d13648ed3ca50b1c24574124afc17fff0257",
+  "new_source": "card-regression-batch371-tree083-amp-v2.json",
+  "new_source_sha256": "9b714f12a591acabe8283189ba6683ca805c20d24fb07969d6848e7758dbfc3b",
+  "source_delta_review_sha256": "da1b45271e83328ad779d6e0710c0090f11d6baf99e679d6b0259aed102f6c2f",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch371-tree083-amp-v2.json",
+    "card-channel-the-millennium-tree-red-four-live-original-correct-entry-trigger-amp-three-before-real-zap-six",
+    "--rerecord-authored"
+  ],
+  "old_assertions": 1373,
+  "new_expected_assertions": 1378,
+  "actions_expected": 16,
+  "full_suite_run": false,
+  "pid": 20404,
+  "exit_code": 0,
+  "runtime_after": "0a2a062faba12b15a119fa82f44fab56e0a6e02970b8d8d26f47f16b24397256",
+  "new_raw5_sha256": {
+    "initial_gamestate.txt": "6996d0bccd038fc262844b461519badeac7f0e7b3e9896cf84430fbc4db349c6",
+    "actions.json": "5e5614b0be1b4e33c8f05f7affab9f1f9dd72ddfadea3209c7bf711ef10c07ea",
+    "assertions.json": "a7d589434ab955e65e52cde1829e97361988b19a066237032dbd38d65999d7d4",
+    "expected_final_gamestate.txt": "15a0c3587ad545bfae2c0400389bdf143b3eb9799eae736a37f3281f3ea5b0a4",
+    "meta.json": "4f201090b8d105b9de41038e863c749e3f85a1031223714afe4f4ed0f88b716e"
+  },
+  "stderr_bytes": 0,
+  "actions_initial_final_byte_identical": true,
+  "all_original_1373_assertions_preserved": true,
+  "added_native_assertions": [
+    {
+      "step": 6,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "turnEffects",
+        "1"
+      ],
+      "comparison": "equals",
+      "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+    },
+    {
+      "step": 7,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "turnEffects",
+        "1"
+      ],
+      "comparison": "equals",
+      "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+    },
+    {
+      "step": 8,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "turnEffects",
+        "1"
+      ],
+      "comparison": "equals",
+      "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+    },
+    {
+      "step": 9,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "turnEffects",
+        "1"
+      ],
+      "comparison": "equals",
+      "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1}]"
+    },
+    {
+      "step": 10,
+      "type": "game_state_field",
+      "viewerPlayerID": 1,
+      "rootName": "FaBSim",
+      "path": [
+        "turnEffects",
+        "1"
+      ],
+      "comparison": "equals",
+      "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"PEN_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_AURAS\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_AURA\",\"amount\":1,\"uses\":1},{\"type\":\"MST_AMP\",\"amount\":3,\"uses\":1}]"
+    }
+  ],
+  "completed_utc": "2026-11-03T21:55:49.423486+00:00"
+}

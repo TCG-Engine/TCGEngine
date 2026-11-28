@@ -1,0 +1,7 @@
+{
+    "name": "Kayo, Berserker Runt / actual base-four attack does not earn the six-or-more played trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T15:02:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual youngKayoBerserkerRunt19/Dori20/Dori20/Dori20. OnlyactualWounding5Hand1, printedbase4cost0. RealformalHero4thenAP1to0/AAStack5. OwnplayedAAisnotbase6+; eventconditionunmet, noDiceWHENlayerowed. Allfourmanualprimaryresponses/Attack/defendcommit/reactions/damage/Close. ActualCC4powerunchanged/noGA, physical4damageHero4=16, AA5GY1, Kayo19/allothers20, AP0R0/UID5RNG0/noextraStack/DQ. No fakepoweroverride/history/counters; stateRNG0alone isnotusedasrolloutcomeoracle. Onlyownprintedthresholdnegative, notpositiveDice/rounding/timing orotherKayohero/support/wholecardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kayo_berserker_runt FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

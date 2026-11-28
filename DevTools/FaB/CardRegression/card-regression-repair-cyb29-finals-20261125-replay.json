@@ -1,0 +1,209 @@
+{
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "fixtures": [
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "91291c2d27630c86879ed6ed4aec7a07f6870174274f669481b97178ced7cb1d"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "19052f51d2874201a46c41d496bb3a5218d4b86da822e6ab16dff8a656e6a4ac"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "bba928e1c4fc1ff6f35039f15ea0fdd3943db8228407a83978b3c9be25f5c0a0"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "b605e6771ffa58c2ff543fcfdb22cea7c6264b4c40283c2a446a62780e18ffeb"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "b306e7f13b330c8d814aa9bc97c6060c3b2b806ee5525574d470c1e3f481b7f7"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "037073e915affb79b2b3781cd8cb1f0cb7ec75ef5cee8263ebf53d7fe0286c05"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "68bbeedaee1e66bc4129b8cea04801da791be513b440cf4944e9645302f1c09b"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "c10066b97af71081a6f0f6b14e9084f3a732bdde4f93cac21ccea1725be16b64"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "fc6180c141562cc21868424db14104253254c6f0448292b850df807abf8818f2"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "8b5f6c8f4df8325c71d93a1b9170dde33c1a8cde6a9acc6f183f6063818ffd45"
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "4ff837955fedc78bd66a47dade4ed9272c48b59c77ec1f1ee160214c8aeaae08"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "7c6d2d610fce378c55480f1e1ff24744dd4ba7bbaba75eb148c3550d80030daa"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "9d8bb149aafcf795bf09cc2c48a3aa11a21af0376734fd17b06d7bbb79478fc9"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "86294244bbfa6109f8a60396773114b68a64421c514cc7f752964eeb6b38e71e"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "ebf103ddcb4eb52686a758b9ac232b98d498e3dc00130dd500e7ff6080a30ba2"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "0db334b625c8fdb49ff5910502600661f14909ad3ee6a1931638c1eca8199f6d"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "58b88391ef26b1560276a288f5e56abf519e766e8ebc7bd0b279b65a36e41960"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "c2b2a084bdc21ffb8022828297b792b2c6f30acdbd94de92b2726441186082c2"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "1f33118a6578752d30d8ee17d6f79f3bd3ba79e510c5b864a34d4552aeee7a35"
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "8268616bc3c8508987e612ee2592dab2b02096b2c5d042bb3335b10d5099c58e"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "0f70da7026ab87e046c1a29b979189a50b63b72171a4d082272e2cc9de8efb8f"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "66182c062d2b83c4dfe615422917311adb7d7f56aa9419ecadc5a6510f8b0fa6"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "a8c2afe4195c56492d47ab072fdeddaf815e1a2f33e090cba0a58d6bef59b5a1"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "90f403e2db7a70707272d29e79dcb08771bc6ad5f3e62e4c07ebaad95f7f1715"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "8f6f3f11d5b6b0442200b5c1a0e4a7895e1040a983f4af7a5fea57494946528f"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "93f5b748329b7293ab9aa2e0799ff5207c685ac2c944e16eacc69bcc40dac7f4"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "6d766236312b387aee7f6d6f84d24693b2f89c3915708ce3deaf4f3473c0a221"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "f5f02650d4f9c05d334b8427a6569ae9e63bf9a1aca050111d209e86fe58b94b"
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+      "passed": true,
+      "exit_code": 0,
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "expected_sha256": "e56f255c931f111afb7034a21393ac8e1bbb6a64155515b1ba2c0768c74c5052"
+    }
+  ],
+  "full_suite_run": false
+}

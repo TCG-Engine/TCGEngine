@@ -1,0 +1,31 @@
+{
+  "status": "APPLIED_LINT_PASS_ORIGINAL_NATIVE_PENDING",
+  "runtime_before": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "original_proposal_runtime": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "unrelated_verified_context": "Only prior reviewed Cull088 GameLogic eleven-byte cohort addition differs from originala06 proposal.",
+  "expected_runtime_after": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "manifest_sha256": "4b56c68d07621c0dc9095d4bd2b8e22c1f18be553ad4cf7750cec6867a30ace3",
+  "source_review_sha256": "429ad3701b97179055aa6e3f7f96ad0fd06bf69a0601acfc635309d15d2e5cc9",
+  "component_receipt": "nov4-frenzy087-root-component-checks.json",
+  "component_receipt_sha256": "333e9c20a5d40e713e7a62581fdadc560be7a181ee2c7d9a48063dc55ea8bb8e",
+  "files": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\candidates\\FaBSim\\Custom\\WTRCards.php",
+      "before_sha256": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+      "after_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517"
+    }
+  ],
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-source-application\\before\\FaBSim\\Custom\\WTRCards.php",
+  "fixture_count_before": 3689,
+  "generated_files_changed": false,
+  "core_files_changed": false,
+  "full_suite_run": false,
+  "lint": {
+    "returncode": 0,
+    "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\WTRCards.php\n",
+    "stderr": ""
+  },
+  "runtime_after": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "completed_utc": "2026-11-04T19:53:37.667940+00:00"
+}

@@ -1,0 +1,133 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_BLESSING_BLUE_AUTOMATIC_START_REAL_GENERIC_SEVEN_DAMAGE",
+  "phase": "SAVED",
+  "batch": 858,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch858-blessing-r2-target-offer-order-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-blessing-r2-native-target-offer-order-positive-author\\blessing-r2-native-target-offer-order-positive.json",
+    "sha256": "8412bc6f2330ae5a5401fc451d2cf68144f8393d39e08a90f2c084400ab91930"
+  },
+  "input_sha256": "8412bc6f2330ae5a5401fc451d2cf68144f8393d39e08a90f2c084400ab91930",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-blessing-r2-native-target-offer-order-positive-author\\manifest.json",
+    "sha256": "ed237a991a321eb3eb837852cfea389605e2e4225542eca903959701f9f69a9a"
+  },
+  "manifest_sha256": "ed237a991a321eb3eb837852cfea389605e2e4225542eca903959701f9f69a9a",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-blessing-r2-independent-one-wire-normal-source-review.json",
+    "sha256": "0a4ff55d0a402d57f99114d3168fffba0a296a14404de46e31f114e3776c02fe"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b858-blessing-r2-normal-native-save-cdc\\receipt.json",
+    "sha256": "3c5d0599eef99a374b2f6b9e6765ddd9f99f4abae6cc4c76b8a651ea4416d126"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch858-blessing-r2-target-offer-order-positive.recording-results.json",
+    "sha256": "5668835fbd6f0d7a44adebcbc9973ef6690c7ea06fec3cabc21e2617f33aa5dc"
+  },
+  "actual_frozen_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b858-blessing-r2-normal-native-save-cdc\\actual-result.json",
+    "sha256": "5668835fbd6f0d7a44adebcbc9973ef6690c7ea06fec3cabc21e2617f33aa5dc"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch858-blessing-r2-target-offer-order-positive-20261116T092811Z-6afaccab8ee9d.json",
+    "sha256": "9aa221a4862b1404f416eb0ba499335c3dff88669fab7138a31a7a6846047b1d"
+  },
+  "fixtures": [
+    {
+      "card_id": "blessing_of_savagery_blue",
+      "slug": "card-blessing-of-savagery-blue-four-live-automatic-start-real-generic-seven-damage",
+      "actions": 36,
+      "native_assertions": 4123,
+      "manual_passes": 33,
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 9,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d697ebf85e24473b8327f46c59e091f09a40ffc5116bdbca035326d9e4ec34b1",
+        "actions.json": "a33e0d14ad707023564c9dce12fb6ee975e24b6b347a5417d739f3cae298db5e",
+        "assertions.json": "b7747dcd30f133639a86ee51dd3b804e053c5cee1b4ab27b7f914a626a1d8d54",
+        "expected_final_gamestate.txt": "37059fabb0cd6f5e5cd8b175123855a9798ccdf8217c7d47d624fd37b9f4d54d",
+        "meta.json": "b1494d8062e8b22120d107f90d945c3878a9788a29ebb30ece8cf028d765cdba"
+      },
+      "fixture_sha256": "48d3c12b5497f700c1fa4f539d6516de9b3dafef63a86823e9cfb29c81bdaf93",
+      "behaviorfixture_sha256": "48d3c12b5497f700c1fa4f539d6516de9b3dafef63a86823e9cfb29c81bdaf93",
+      "input_sha256": "8412bc6f2330ae5a5401fc451d2cf68144f8393d39e08a90f2c084400ab91930",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 129,
+      "terminal_endpoint_queries_independently_evaluated": 234
+    }
+  ],
+  "actions": 36,
+  "native_assertions": 4123,
+  "manual_passes": 33,
+  "actual_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 9,
+    "4": 8
+  },
+  "legal_priority_response_controls": 28,
+  "formal_defense_finish_inputs": 1,
+  "nonpriority_END_transport_controls": 4,
+  "pass_controls_are_not_all_priority_responses": true,
+  "actual_expected_envelope_mapping_sha256": "a7e6c05d952defe1815cb12f9b51b3d7c39fef216deabbe453a6b72c990a848d",
+  "actual_ordered_query_mapping_sha256": "fc35ab29d07f116236a662902225db7d6009576945eff1b384212432ed81756d",
+  "checkpoint_mapping_sha256": "a05a38a34ce23ab2e67295d8ba8cc2ece22297aef3f262f9ca09a4fbcf8f75d7",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "checkpoint_count": 38,
+  "typed_property_queries": 776,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "actual_semantics": [
+    "All36 actual Native envelopes and4123 persisted successful ordered queries match the exact approved R2 Source/model. All33 manual pass controls match actors8/8/9/8;28 are legal priority responses,one is a defense finalizer,four are nonpriority END transport. No Start/End response window is credited.",
+    "Actual first new P2 MAIN/Turn3/AP1 boundary after automatic printed START has physical Blessing5 in owner/controller2 Graveyard and Arena2 empty, before real Brutal6 play. The existing Aura is a legitimate initial-state precondition; its earlier casting is not tested.",
+    "R2 native target offer3then1 and actual target answerHero3 are followed by real Blue7 pitch3/cost2/R1/AP0. Generic Brutal6 printedbase6 receives next-SIX1 and actually deals7 to legal adjacent Hero3HP13. Full Source/Attack/defense/Reaction/Damage/Resolution route executes with no go-again/AP refund.",
+    "Fresh rawfinal independently confirms exact Blessing5 then Brutal6 in public owner/controller2 Graveyard,Blue7Pitch2,R2=1,allAP0,HP20/20/13/20 and no extra physical objects. Stack,all four queues,await frames,payment,target and combat chain are clear. Both fresh raw48 manual profiles/Young living UPF seats/no passive or bots and all initial/terminal saved queries were independently evaluated."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Root binds its two own new-only clean replays and performs guarded registration/index update."
+  ],
+  "original_limited_wire_order_attempt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-blessing-independent-r1-target-offer-order-oracle-review.json",
+    "sha256": "009791d8738870c086d73c1a0b89f2216db52add5558b5dadeee9eb03179bf16"
+  },
+  "preserved_Razor_planning_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch858-razor-independent-known-hit-planning-review.json",
+    "sha256": "cc0471e1b94ae42c7b63199ddba4beff35e86d998f009ad59a3c494871d0175e"
+  },
+  "limits": [
+    "Only Blue primary automatic START/next eligible Generic base6 consumer representative. Prior Aura casting,siblings,below6/noneligible/reset/second consumer/support and full-card behavior are not certified.",
+    "Original R1 normal failure remains a separate expected-wire-order oracle error with no persisted assertion prefix or gameplay-bug credit. No successful prefix was invented for it.",
+    "Saved approval is not replay or full-suite qualification. No PHP/native/replays/R writes/source fixes or denied repair retries by reviewer."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch858_blessing_r2_actual_saved.py",
+    "sha256": "df0d19021a639688c3ff281eaa0596e2d380829ed0cea03f75c10b92367fd7ff"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "created_utc": "2026-11-16T09:36:30.737424+00:00"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-corpse-cover-red-four-live-sparse1216-actual-defending-instant-discards-real-ally-as-cost-then-prevents-two-of-four-remaining-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-corpse-cover-red-four-live-sparse1216-actual-defending-instant-discards-real-ally-as-cost-then-prevents-two-of-four-remaining-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1216-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1216-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "35d7ab653eb808dd5709e1c68d49934aa4ed9104840ebc1a855093c3b26b6c18",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c3677aeec6e2b871c841b3b647ac4f3d2736527b9bdddd8462fe95fae2755ab",
+        "actions.json": "0563c3372e577b5ba5c01103a83b9a2791d05e10ce9c22c547fb83ca2f58629d",
+        "assertions.json": "4f8c592267af426bfbca081c06b0a553463f5757ebcb813089d3808411f3c17f",
+        "expected_final_gamestate.txt": "51cebb4e8e0ab683b307c18ec957074f0e75a606e44c523561a171c937cb9eb0",
+        "meta.json": "7ffa859820060c0b48ce5d2ee57801bd272546e1ce760caa8db7b4e1b00cadaf"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

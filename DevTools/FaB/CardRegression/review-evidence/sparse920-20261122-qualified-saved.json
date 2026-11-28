@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse920-20261122.json",
+  "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+  "input_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+      "card_id": "call_for_backup_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98b8687a0aca14abe7f5561336a5873049b8a1b20071dd43445dd6d422799c8d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "bb75833ed59f6fd81cff27c8521dba9c349f6cbd3085f9466822aeb387609924",
+        "expected_final_gamestate.txt": "6f1ce768e131ef67cce6001b9ba5d880301604c0a430345ab767ca61e881f820",
+        "meta.json": "0759bc18a658c732180e2eb63df903ddefc98a251ad02e404accb57df6f024f6"
+      },
+      "fixture_sha256": "d678076d54519889cd5837c7207931a7151b9ad19b7c13fbf50ea3fae95475ed",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "input_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+        "fixture_slug": "card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+      "card_id": "depths_of_despair_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6b117fcff061c75563e063c63b8a5943c0d349bbb7118e3d3d201de42e1f0332",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "674c051d11bf997782bd025d504e1b97afaa384f4060a5559bf5bf3c7e9317d8",
+        "expected_final_gamestate.txt": "fcc9a84e092c079671779ea3de9319b2082d46f6cc9052477aa78d1660ce3e2e",
+        "meta.json": "8c5823c032d51a5df05ba2e80762512d036129cad9c87842ce0b2f308bf44760"
+      },
+      "fixture_sha256": "ce3e404c11524a04705f665887a45845c65cd3e7bf82a7e3752b43d108265d1f",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "input_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+        "fixture_slug": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+      "card_id": "infuse_alloy_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5483ffe843033d18fc83c23b7b2da398e36cdae0fe2355adfd9a0060acdb54ed",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "58541a10d0337a4ed81b690d63f7988e999658e8bb03c7cee615e606c098e23a",
+        "expected_final_gamestate.txt": "da8ee399f47c1147519e25896cd83df3a31093267faf54f7798a84e5d94efe2f",
+        "meta.json": "13252f4227343cb5c2015caf317c6068d970eb088cbeb9da7da11b45077ce749"
+      },
+      "fixture_sha256": "2a7990a1f9601a8e4eb6e323653c5de60ad00dede651d1b8a5e91d3acb486ffc",
+      "actions": 27,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "input_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+        "fixture_slug": "card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+      "card_id": "infuse_titanium_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ea93bfaf9bc7ebb0abbc4723df62b940ff5ff09704ae5c480c6b66307bb29623",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "192f3a3a4e2fd38f0862e48fd9eebfa02249543f935081aeb2673bddaccb906e",
+        "expected_final_gamestate.txt": "af1d989ea648f095391ae1934bfc5f9a55fb3ef1fb16ea85ad98e1d1547a7339",
+        "meta.json": "ead288bfb318462c2acbde70ee49d900f0f166ac2f43eb9397b38d73c9409cad"
+      },
+      "fixture_sha256": "e1f43691b4899798da9725b604019f6c5ac9339c488e1f9bc727b56630b28ed3",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "input_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+        "fixture_slug": "card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed main attack cost3/base7 or0/base4, actualBlue6whenrequired/Hand5source and realHP delta are independently coherent. Legalclass+talent/natural20heroes and fourlive/manual/setup guards checked.",
+      "Printed Defended event never happens for these actual attacks; no earnedDefended/Clash/Galvanize layer omitted. Depths stayssameHand/Chain/GY branch; BloodDebt/endphase notreached.",
+      "SourceUID5, realpaymentAP0/R0, fullmanualcombat, sourceownGY and no unearnedGA; no positive special-effects/sibling/full-card credit. Native save/replay still pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse920-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "82c8598a5b17648b47e1058988c197f92860c6af65b405f1a52d8b3315a4312a"
+  },
+  "full_suite_run": false
+}

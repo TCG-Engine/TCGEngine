@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-huntsman-two-live-sparse1369-real-contract-hand-defense-is-not-playing-no-deck-look-or-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-huntsman-two-live-sparse1369-real-contract-hand-defense-is-not-playing-no-deck-look-or-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1369-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1369-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d0928650675c2636c9d8d0249d6fbd2dcffa44369ee9ed4864770f7c2a65d2e3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d76701aac9a2531bd977a2ec0eb0b5a6c283cc9cc3ddec8be2ac43a9e9ffa408",
+        "actions.json": "44336d41ae81d3afbea90b1436503a13174590061f58c41353dc9d487b6ca140",
+        "assertions.json": "18b962a9113595f26ad8cc68e824e21037c7e1f7bbd6c8ecf1f686cbf13782b0",
+        "expected_final_gamestate.txt": "ac166db31098924a517170c08afdecfe2c635ab0c131ef538d8b4be8741c512c",
+        "meta.json": "e4ae410dde763554a4c48da5cb1e5c105cd37ada2f42123d0b6000b4238205e5"
+      }
+    },
+    {
+      "slug": "card-briar-warden-of-thorns-two-live-sparse1369-first-nonattack-is-not-second-real-three-runes-no-embodiment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-briar-warden-of-thorns-two-live-sparse1369-first-nonattack-is-not-second-real-three-runes-no-embodiment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1369-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1369-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0be528d0a631ee7b12d04420c9a9b853ec6c9012ec7b0b3f73cc453f3fd4ab77",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2bae3a461cea6d6e4bf854187c9e2874bdf719788df3ad118cb94e3109457d71",
+        "actions.json": "b2848e71087553e93376bbb654cd173ec3d60081458d615d2791c7fec0b6ae9c",
+        "assertions.json": "004828a7f8a524f59c3ab31dda4173813db9997b1f2d110bb0b9bc643f6a57d0",
+        "expected_final_gamestate.txt": "4d22f12c74786730461c8df845c14b16f1b46df054ace38a942658721f70a170",
+        "meta.json": "73fc41bfeb5a21e5d8df87dded62d3d5fec46a51474221bfce78db40da5d3444"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

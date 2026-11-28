@@ -1,0 +1,50 @@
+{
+  "status": "DATA_DOLL133_ORIGINAL33_2816_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 patch/checker and original491 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "72324c9568ea99ae02eb555554f301403e088b6b39782f7966cdc9ce402ad02e",
+  "input_sha256": "c3f97cc3add35fa77265f82e4ea585d1fe946ddb1c7a9fe4e8aff5ea84987a7e",
+  "source_spec": "card-regression-repair-data-doll133-earned-item-entry.json",
+  "fixtures": [
+    {
+      "slug": "card-data-doll-mkii-four-live-correct-deck-boost-item-earns-responseable-hero-trigger-then-owned-entry-and-six-damage",
+      "card_id": "data_doll_mkii",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "670fcb72f98e0137eacf2a454dbd4edcc8bf5a878b3894d1407639d483912477",
+        "actions.json": "fd6b1ea66e286e22e074e011d9b58f16fdfc41a1f5d7484141814a2e2798651a",
+        "assertions.json": "432c9cdd43da17e5518fe4147316926eb158e0ee2fa9f8c1eb1ae3f6ae407311",
+        "expected_final_gamestate.txt": "7b375f1e9a6a81e5c5051c6aed46b7a00b7e36d65aeb6b6effe20c7f6d73015d",
+        "meta.json": "8bf062dc15c784eb074607a4d48c72503bafa6843836f5289d3da718d80becbd"
+      },
+      "fixture_sha256": "eab941b6d694af1a3b147c91572c86eec88844f20503b63709d5b846b9782fa1",
+      "actions": 33,
+      "native_assertions": 2816,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "72324c9568ea99ae02eb555554f301403e088b6b39782f7966cdc9ce402ad02e",
+      "runtime_sha256": "72324c9568ea99ae02eb555554f301403e088b6b39782f7966cdc9ce402ad02e",
+      "source_spec": "card-regression-repair-data-doll133-earned-item-entry.json",
+      "input_sha256": "c3f97cc3add35fa77265f82e4ea585d1fe946ddb1c7a9fe4e8aff5ea84987a7e"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-data-doll133-replay.json",
+    "sha256": "937646e08b27f7edecd5c9a7b8fe2d9526d04905be87684594839eddea83c2b6",
+    "passed": true
+  },
+  "source_review_sha256": "3ba6cb531a4f9c89010c3906eb53837761e5bf352142a41c5956443134459992",
+  "components": 21,
+  "component_receipt_sha256": "22682712c69c22aa33e7a356a3c0442147830cc2dcb42ac6557e38d008f79737",
+  "basis": "All original13333actions/2816queries/setup unchanged. Real HandThrottle5 pays2/Blue6pitch3 and boosts actual DeckHyperDriver7; R1 is retained, same Item remains Banish before DataDollHero1 earned trigger resolves. Four fresh live-seat responses precede actual ownArena7 and fullSteam3 through normal Item-entry helper; no retroactive resource/steam consumption from the Boost that banished it. Parent actual attack6damage/HP4=14/printed Boost go again AP1, Throttle5ownGY, Blue6Pitch, R1/full four-live Stack/DQ/await/combat cleanup pinned. Source Hero functionality captured once and delayed target entry uses installed epoch guards; unrelated Boost callbacks unchanged.",
+  "official_sources": [
+    "https://rules.fabtcg.com/en/cr/06-effects/"
+  ],
+  "limits": [
+    "One original Hyper Driver Red boost/entry branch. Other Item cost/type boundaries, Crank/Stasis/Plasma Mainline/Symbiosis interactive entry, source loss/control/target return gameplay and full Data Doll behavior unqualified; isolated controls are separate evidence.",
+    "21 actual-function checks exercise producer/resolver, public movement/entry helpers and Boost consequence loop with modeled primitives. No new generic094 continuation or certification of all nested Item-entry interactions.",
+    "Original074 Induction branch is separately run no-save; it earns no extra saved fixture/replay/group credit. No full suite/historical corpus run, generation/Core/schema/service/remote write or new breadth."
+  ]
+}

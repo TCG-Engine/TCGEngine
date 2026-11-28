@@ -1,0 +1,158 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1308-20261122.json",
+  "source_spec_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+  "input_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+      "card_id": "spectral_prowler_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de06c38fa3c4425e44bad20e546ce140df0c4e11b6fb969e6662285fb434de42",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "5c8bb8aee9541c4bb328b667a9b344e2accb00985aa25a237e292124aaed8843",
+        "expected_final_gamestate.txt": "02a1ead026b44dce4477d009d729b907e3720e7efbe95adf95418cc8d91298fc",
+        "meta.json": "d6f03082835bbe087bb2e8825a8ffe79e09ed9a81b292ed584f4a7a125e733da"
+      },
+      "fixture_sha256": "6497f0d77a51caf8676840f0635b3c819a54c9416112e6e4a8e712105d33a678",
+      "actions": 28,
+      "native_assertions": 369,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1308-20261122.json",
+      "input_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+        "fixture_slug": "card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+      "card_id": "spectral_rider_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a0fbe4b086da9b8a510ee37b5caa48a1afc1940058b82ecfc9bd09d8588d390",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "a80537fd4e6adef824e236c74ff545a0753b6bcbe29629d03adcd73a15042dcc",
+        "expected_final_gamestate.txt": "eb154442f89da6bc7a7a42ec8c3a140378f885f53b5c159a8d2d8d07dca265ab",
+        "meta.json": "0241c389c62222111e391272438a857e4cef073745601567404704ae35e25ba7"
+      },
+      "fixture_sha256": "e9c009b2a15d5aef575ea1ee115d2eb8d65cd4531b9c40b09cf452e716669e7b",
+      "actions": 30,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1308-20261122.json",
+      "input_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+        "fixture_slug": "card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "0cb7d8f6aa4336de31df92d2cd2d08cf453f4d03de2d28a9cba9c9134e87f2b5",
+    "source_note_sha256": "73bf02ecc8874a956781acd0729028675bc5684d90069c78a1a4179cf9f8b59a",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 58,
+    "query_checks": 687,
+    "persistable_assertions": 687,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NO_SHIELD_ACTION_REFUND_NEGATIVE_AND_TWO_DEFENDER_PER_CARD_PHANTASM_GUARD",
+    "positive_shield_trigger_credit": false,
+    "positive_phantasm_destruction_credit": false,
+    "per_case": [
+      {
+        "card_id": "spectral_prowler_red",
+        "group_id": "pitch-cycle:spectral_prowler",
+        "native_controls": 28,
+        "persistable_assertions": 369
+      },
+      {
+        "card_id": "spectral_rider_red",
+        "group_id": "pitch-cycle:spectral_rider",
+        "native_controls": 30,
+        "persistable_assertions": 318
+      }
+    ],
+    "basis": [
+      "Two uncoveredIllusionistRed groups legal undernaturalYoungPrism20 versus threeYoungDori20/exact1234/manualUPF/no passives. AllArenas0/noSpectralShield orhistory/effectseed. Actualprimary5 andProwlerfollowup6 orRiderBlue6 plusenemyAA7/8 matchphysicalUIDs; printed0 oractualBlue3paycost3 givesAP1to0/R0 beforeallfourresponses. No PrismHeroability/Soul/tokenproducer used.",
+      "Printed WhenPlayed iffSpectralShield hasfalseintervening-if, so noearnedGA/Overpower trigger/layer. CurrentDYNPlayed71\u201372 addsGO_AGAIN/DYN_OVERPOWER onlyifactualShield. CachedGoAgain/Overpower metadata alone isnotunconditionalprintedability; GameLogicPrintedKeywordIsActive acceptsownisolatedkeywordtext andignoresconditionalgrantclause. PENCards conditionalOverpower hasnoSpectralRiderexception. CorrectProwler4/Rider8power andnoGA remainstrict.",
+      "Rider hasnoOverpower andcanactuallyaccepttwoActionHanddefendersCriticalStrikeRed7/basepower5/def3 thenBlue8/basepower3/def3. SourceDYNBlockLegal restrictsmorethanoneAction onlywhenactualOverpower true. Officialper-cardPhantasm rule suppliedbyparent agreeswithMONPhantasm316: examineeachdefendingnonIllusionistAA anditsowneffectivepower>=6, neveraggregate5+3. Neitherqualifies, sonoPhantasmlayer/destruction. Actualsource5stillCC/defense6/physicaldamage2/HP18 andfinaldefenders7/8ownGY4 independentlywitness bothacceptance andnoerroneouspop.",
+      "Prowleractual4damage/HP16/fullclose/AP0 plusretainedrealzero-costGenericWounding6 providefunctionalno-refundwitness. OwnACTION1/emptyStack/R0 permitsresourcecost0butActionrequiresAP; actualHandclickmustrejectwithoutcardmovement/target/payment/newUID/APchange/secondDamage. NativeFSM supportsno-legal-actionno-op followedbypersistedunchangedfullstate. NoGArefundisearned merelyfromconditionalmetadata.",
+      "Completefourmanualsource/combatresponses, actualprimary5GY1/funder6PitchifRider/followup6HandifProwler/APR0/UID6or8/RNG0/cleanStackDQsCC matchscope. All687 query/state/power/go_again assertions persist across58controls: Prowler28/369,Rider30/318."
+    ],
+    "limits": [
+      "Semantic/source review only pendingnative saves/replays; no nativepass/replay/coveragecredit claimed. OfficialOverpower/Phantasm evidence isparent-supplied, no reviewer networkrequest.",
+      "OnlynoShield guards, actualtwoAAActiondefenders/per-cardlowpowerPhantasmnegative, andProwlerfunctionalnoAPrefund. No positiveShield/GA/Overpowerrestriction/Phantasmdestruction/Prism/support/sibling/fullcardcredit; existingholdsunchanged.",
+      "Only W receipt written; no games/tests/replays/T orengine edits/auth/network/originalcheckout/Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1308.py": "816e8a2e111a5e4044d3850db9e31594be5400528873e90dc0654182a850e9cb",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "73a604d07a58c47a8fd5c9d5342197a8c2d01cb6506126fceb391b60d45945c5"
+  },
+  "full_suite_run": false
+}

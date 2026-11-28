@@ -1,0 +1,7 @@
+{
+    "name": "Visionary of Orbits / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:07:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, you may put an instant card from your graveyard on the bottom of your deck. Representative only: actual_full_block_retains_real_graveyard_instant. Physical Hand5 source/actual Blue6 pays printed1/2/3/R2/1/0/AP0, full four-live manual combat, owned source graveyard. Static grants/events not earned under these actual conditions; retained physical markers. No positive Hit/banished-source/Unity/clash/return or created ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visionary_of_orbits_red"
+}

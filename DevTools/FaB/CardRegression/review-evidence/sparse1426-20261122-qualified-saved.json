@@ -1,0 +1,140 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1426-20261122.json",
+  "source_spec_sha256": "fe4694ce0de6580f67be45c8706dcf8711289523dce03b3b35861a0539e230be",
+  "input_sha256": "95c6106f8b9a6da8c9b8ee0d455cd358d35d6c2de410fd82a02201404079cff1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-flicker-wisp-yellow-two-live-sparse1426-unfused-real-one-arcane-and-earned-action-plays-actual-item",
+      "card_id": "flicker_wisp_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5cfcebd3931a18220d87c9dc63be35361c6c7c0bd7c2bcf406c1b43d2d19e38",
+        "actions.json": "fde7d2e35c67b7e8ddf096a43686b851d4689a910aabf38486f81548eb828c50",
+        "assertions.json": "f62263f8cd862ae050815ea2a27559678af5cb700f38a97c05732c07545b8cf6",
+        "expected_final_gamestate.txt": "d8a17a373da1ec9d331087b2f7c0d7006c5cce755303c769ab7fff00af4566b1",
+        "meta.json": "273a5c0dab7e028d9bdf095af70718803bf50e08047d693b4f6ad99b00e39b01"
+      },
+      "fixture_sha256": "0703c4748700fa81ad0b56599c3889857be284a5fe818950d1ffd7e0f756d93d",
+      "actions": 7,
+      "native_assertions": 208,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1426-20261122.json",
+      "input_sha256": "95c6106f8b9a6da8c9b8ee0d455cd358d35d6c2de410fd82a02201404079cff1",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1426-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flicker-wisp-yellow-two-live-sparse1426-unfused-real-one-arcane-and-earned-action-plays-actual-item",
+        "fixture_slug": "card-flicker-wisp-yellow-two-live-sparse1426-unfused-real-one-arcane-and-earned-action-plays-actual-item",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "fe4694ce0de6580f67be45c8706dcf8711289523dce03b3b35861a0539e230be",
+    "source_note_sha256": "0187ff57fd19fe1c98233b9d2e73005be63da2f97d3ea083c1eadd7c78490dbd",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 7,
+    "query_checks": 208,
+    "persistable_assertions": 208,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "per_case": [
+      {
+        "card_id": "flicker_wisp_yellow",
+        "group_id": "identity:flicker_wisp_yellow",
+        "native_controls": 7,
+        "persistable_assertions": 208
+      }
+    ],
+    "coverage_category": "POSITIVE_NATIVE_DIRECT_DAMAGE_UNFUSED_AND_ACTUAL_GO_AGAIN_CONSUMER",
+    "basis": [
+      "Mechanical passing-subset rebind only: current single Flicker case equals original reviewed second case exactly; original two-case source/recorded input/mixed native receipt and review remain preserved. No gameplay/assertion changes or semantic re-review.",
+      "Read-only static validation preserves exact7 native inputs and208 persisted assertions, initial two-manual-seat state and complete final quiet endpoint. Raw five files unchanged. First clean targeted replay remains pending.",
+      "Original review positive unfusedFlicker1arcane/printedGA/actualPotionLuckAction0consumer scope retained; cachedLL adultAurora40/Dori40 legality, fixed soleHero2 damage default, noFusion/earlybinding/UPF/positiveHero/support/fullcard credit.",
+      "Nebula failed after first click on actual supported Play/UseAbility context menu; no primary effect reached. That case is excluded/uncredited and not retried; authoring/setup omission does not establish engine bug."
+    ],
+    "limits": [
+      "Only unchanged selected Flicker named branch approved. Original mixed source-note retains cohort history; qualified_selection is authoritative. No Nebula coverage, repair, retry or engine-bug credit.",
+      "No new game/test/replay or source/fixture edits performed. Saved-file equality validation only; first targeted replay pending."
+    ],
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "four_player_or_target_binding_credit": false,
+    "fusion_or_activated_discard_mode_credit": false,
+    "pre_native_correction_sha256": "b59896b5074e3fbe68269a48e889c7bf042acb095a0d2ef297d8a204ff575c14",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1426.py": "ee6758df53bf8afba406f90717f2f342e2a6df4ce1dad36fa542cf122dc31c19",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1415.py": "626483b1d95bd81854a19241a9fde7a951deccb5c3a88e4295c121936a180422"
+    },
+    "selection_provenance": {
+      "original_spec_sha256": "95c6106f8b9a6da8c9b8ee0d455cd358d35d6c2de410fd82a02201404079cff1",
+      "original_review_sha256": "a1f4c8a92440f63161c5fc818397c290a2c0c4a283784fe2669f1967a6192c60",
+      "original_note_sha256": "8b748b0c32ecd6c113703d3a43495d1d3caaeedebacce820371cf400cd90872e",
+      "recording_input_sha256": "95c6106f8b9a6da8c9b8ee0d455cd358d35d6c2de410fd82a02201404079cff1",
+      "mixed_receipt_sha256": "f5e39e837a760bb71a0a7c227ddf852e7b3c6bbd6eaff92db7c381a85eb06ebc",
+      "subset_record_sha256": "b16e8e56d6a42c486565bc804689ed514080134bdce0afe5eb8a3f8ca89df8c7",
+      "recording_inputs_sha256": "a3de07ae01919949cfa244ab73285bea99504f1ba0e015c70876f6e7aed5f827",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5cfcebd3931a18220d87c9dc63be35361c6c7c0bd7c2bcf406c1b43d2d19e38",
+        "actions.json": "fde7d2e35c67b7e8ddf096a43686b851d4689a910aabf38486f81548eb828c50",
+        "assertions.json": "f62263f8cd862ae050815ea2a27559678af5cb700f38a97c05732c07545b8cf6",
+        "expected_final_gamestate.txt": "d8a17a373da1ec9d331087b2f7c0d7006c5cce755303c769ab7fff00af4566b1",
+        "meta.json": "273a5c0dab7e028d9bdf095af70718803bf50e08047d693b4f6ad99b00e39b01"
+      },
+      "cases_removed": [
+        "nebula_duality_red"
+      ],
+      "selected_case_exactly_unchanged": true,
+      "native_recording_repeated": false
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1426-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d63130cd98fe981f0c5d7a9be3192fea5d3f286450cc13120b880cbfd9f117eb"
+  },
+  "full_suite_run": false
+}

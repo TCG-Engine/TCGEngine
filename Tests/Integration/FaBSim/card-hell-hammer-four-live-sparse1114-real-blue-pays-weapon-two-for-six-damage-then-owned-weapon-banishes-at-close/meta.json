@@ -1,0 +1,7 @@
+{
+    "name": "Hell Hammer / four-live actual attack and close banishment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:48:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: **Attack**\n\nWhen the combat chain closes, if you've attacked with this, banish it.\n\n**Blood Debt** Named realattack/normalClosebanishpositive. LegalnaturalShadowBruteLevia20 owns primaryWeapon5ready/Blue6Hand. Actualnativeattackdeclaresadjacent4, realBlue3pays2/R1/AP0, allfourmanualsource/combat; weaponproxy7printed6 doesactual6damage/HP4=14. Physicalweapon5remainsWeapons throughDAMAGEandfirstResolution checkpoint, noGA. AtCloseowntriggerbanishesactualWeapon5toowned/controller1Banish, proxy7clears/noGY, fund6Pitch/stableR1/AP0. Closeplayerprioritynotowed perCR7.7; onlysinglebanishresultcertified. Noendphase/BloodDebtloss/Leviaability/historyproducer/secondattack/othercloses/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hell_hammer"
+}

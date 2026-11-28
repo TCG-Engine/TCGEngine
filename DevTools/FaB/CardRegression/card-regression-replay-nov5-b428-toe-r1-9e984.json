@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch428.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T07:38:43.280976+00:00",
+  "fixtures": [
+    {
+      "slug": "card-toe-the-line-red-four-live-real-next-seven-prevents-two-and-creates-owned-flurry",
+      "fixture_sha256": "8038b6fbe7ea550a0577462232c14ad4dc68b566f04f7e55425b0b8dc7d5d2b4",
+      "passed": true,
+      "result": "[PASS] toe_the_line_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-toe-the-line-red-four-live-real-next-seven-prevents-two-and-creates-owned-flurry",
+      "returncode": 0,
+      "stdout": "[PASS] toe_the_line_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

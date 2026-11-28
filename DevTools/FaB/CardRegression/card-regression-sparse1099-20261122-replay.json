@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-evo-cogspitter-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-cogspitter-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2c8e2d0752cb93ac575cce1f76579fd18f5cf39a5a0a7a9df240d3664ae65307",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38501e95819c7796ceaf78ff3b1d3cc6fb01465e9acf2554838a48aaf3b9230c",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "8beb9db0b6c7cbf2a34685400299fbcdda9c18685a6ff76850ca9bc2588451fd",
+        "expected_final_gamestate.txt": "cf85e236ef5163b92fcf49c9438ec62ef66b7a1d7d675e20aca179de6aabbd7b",
+        "meta.json": "6834e94faf1e69d3154be5b373e13c153c05ed23318241868e87ac24b7fe4dd4"
+      }
+    },
+    {
+      "slug": "card-evo-data-mine-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-data-mine-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "68759abfe13da75cd63511a16673b0b874c8c4d79eb17d6bdc5ff012cf3af499",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8cc40f571707bb63c091a0f6dd5ffefc643a70bc2559dbd992300d06077c19e4",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "b99640f61eff988be32651b34300e7c4fef381852f90063e35fe5927f9128f0b",
+        "expected_final_gamestate.txt": "f72f53b14564b5f96abdf1164051b37e2ea763475b4545daf599884843ef9f9c",
+        "meta.json": "3d0be7e167e5a41c6fa3e0a8f6f5c37c9a68974d964f3745b8de69f4ec455dbe"
+      }
+    },
+    {
+      "slug": "card-evo-engine-room-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-engine-room-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e414d810bcc43c93f7a997447b494f0b269e072df2850f5c4649e75b8d31ea9f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7cdae42a450949c0922f7a6c549ad44a83c70e2dc84efe536ba725c9ea41cce9",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "cefb71d96f263a3f1069346a2de72054667810cb92f315714ed983e71b974d41",
+        "expected_final_gamestate.txt": "dc7a33ee4446dae1599b801fbe71e219e23f6c9b7917e67e82ec3a79bb730d95",
+        "meta.json": "d151de748a5b63fb585e2528273401b7b4ceac0d92c092993276311ea73d0956"
+      }
+    },
+    {
+      "slug": "card-evo-smoothbore-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-smoothbore-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "39c02fb4c2d336d506bc5a4e33329d693a0939a5eb9990438ff0bd85d42248af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a6816eaaee65cc000839218785e983adfa7f6a5c9e5f0725875fb129dd12ad13",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "2539b082736477351849017f12b2aeea0731fec52bbff3d85bed037bc78b515e",
+        "expected_final_gamestate.txt": "899a9bb23fd8d94a4f70fb5e28ee5a0cc84724339e63f592c4a96e8b96c6b3c7",
+        "meta.json": "2c585510093dedc6eb424852eaae6a484bfe5eb7312336b8e9cf717c631b38b2"
+      }
+    },
+    {
+      "slug": "card-evo-thruster-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-evo-thruster-yellow-four-live-sparse1099-actual-matching-base-transform-retains-material-without-export-or-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1099-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "748962a648a1e6132a8ee7b94025bbb6fcbd035780d652e497f29dd81e7e4f73",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b124564c0ddae0587b8d883e13915591fa416904e35ef76da6910c007232a40",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "f13769060f6b87f9f4db3efa0d0f6d650f550c428974c1041a2e8261a075be0b",
+        "expected_final_gamestate.txt": "697477300510da9faa07ba2a4d920f2d96735374107ee2eccb30ccfa30c8735b",
+        "meta.json": "893eb6b6dd205ba034b036f1a992fdab237f602b3a3f6a78d76eb06e92cf2a1a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

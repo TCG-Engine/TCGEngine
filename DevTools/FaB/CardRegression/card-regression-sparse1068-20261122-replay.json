@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8a1c0b0c32dc6872b0f0397c2e09e5057a24f698b4a6f17525b812289ed49a09",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "428e5a75957d9cd3c730890d4f6e9c9f08ad3345cd740058adde78991f0c4495",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9722cc52d2a1742186ea85f63bbd8b36d654ec0ce93e1f998c413a651158b740",
+        "expected_final_gamestate.txt": "c9754330e9694ae861dce15eaba1175a2e1ac8a2d427faf403a279ce863188dc",
+        "meta.json": "5ea3c1ab8f918846116c31ea87649161c90e7d4b7c5933f7e15130c54bab19d7"
+      }
+    },
+    {
+      "slug": "heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "197dea371edf6bd9fb2220a6f13211ded39b5509012c485a9e723b1e5b55232c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "864b39bbc88fabe4dee0f716afb4aa3d99ed405bed69811d6ebd0857232820c2",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "035dbb372972c6ee6e4cb9dcb633b3d452becd08387efc20a77b2b4f232b5960",
+        "expected_final_gamestate.txt": "fb2ee2c210a386a12177613090238393695ea7b4dbe87fc9fc23dcbecdb632d2",
+        "meta.json": "596d4c07fef99ab1f1a1d3e87bd3dabb6512344940344f7acee3c859cd3fb3bf"
+      }
+    },
+    {
+      "slug": "aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "725ddb70e411f99e402b0d045bc571bdae7fb64b5168bdea67668bbf5f47db95",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "613c5e2f8b8903373d20c7f128241b82d1cf7eae2db21290871a62eefc9c6562",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "671ccb1b20e5632263e112db5ce540fd3fdd601d57ae163adfb1c97bd2947930",
+        "expected_final_gamestate.txt": "399dff50c22661145844f158b6a4ab39abb2ff682a811be5b6afe50aa753f4fc",
+        "meta.json": "e8fdb689000c967b5909a9f9f675524618bb10aa2827434ff4951406f58c8b31"
+      }
+    },
+    {
+      "slug": "waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1068-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eab44d12733fe56b5a215c5ad3475a9729d338782a2f491e3c1a6785398d09b8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ddce9a90093d1454e3619b5afc629a40e256eeb9d486e730c8096482b3a0413",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "4e0fd849a6609403abbf04de3368ddd889953c8f8267b78a0cfb83c37751adfe",
+        "expected_final_gamestate.txt": "2dc5530e0de6208463dc4bf53cf94e4ddff447787b841cf8f722fbe8d4596772",
+        "meta.json": "79fc0c84409181499fe359c9fda8056a9c6c85875f506df49260b9f857db5ba1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

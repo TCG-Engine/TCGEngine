@@ -1,0 +1,91 @@
+{
+  "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+  "fixtures": [
+    {
+      "slug": "repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+      "passed": true,
+      "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "1621fc3ba5a9ab610b769f80ef09399435db2cec257b7917810eb6beaa4b816e",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-flood-of-force-yellow-two-live-20261125-first-false-second-true-owned-combo-current-top-four-damage",
+      "passed": true,
+      "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-flood-of-force-yellow-two-live-20261125-first-false-second-true-owned-combo-current-top-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "0f0ffd5b27b9797f3e7d4f4bd525913e92af49a1f9e40f3aaecba7a044156509",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-flood-of-force-yellow-two-live-20261125-second-link-owned-combo-snag-response-one-damage",
+      "passed": true,
+      "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-flood-of-force-yellow-two-live-20261125-second-link-owned-combo-snag-response-one-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "750fdad1cc85d93c10084a893dc813879255ca66efa12c1256fa5fe7511a73da",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+      "passed": true,
+      "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "b9f6d418d1a365d687ebc7dbcf6f078b66168e6d91b4ba4b0715ed83062ccbee",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+      "passed": true,
+      "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean5.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "e216d3e5d7e61a322e8bfcd9044eed626dbfb6ad87b604c0806def2eb90afa70",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

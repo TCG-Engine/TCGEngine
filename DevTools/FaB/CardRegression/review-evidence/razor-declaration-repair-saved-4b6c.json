@@ -1,0 +1,45 @@
+{
+  "status": "FOCUSED_RAZOR_REPAIR_SAVED_AND_ONE_REPLAY_PASS",
+  "reviewer": "root independent of scenario author; existing separate source static review retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184",
+  "input_sha256": "60f2bc9a47f6b023fb38914b7dd071d44eeed4acbb9ab9b803385f5c33ca8a34",
+  "source_spec": "card-regression-repair-razor-declaration-after4b6c.json",
+  "fixtures": [
+    {
+      "slug": "card-razor-reflex-red-four-live-declare-mode-target-before-payment-repair-witness",
+      "card_id": "razor_reflex_red",
+      "semantically_approved": true,
+      "actions": 35,
+      "native_assertions": 289,
+      "actual_manual_pass_inputs": 29,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "867a63910c3ad756a2b4ec40e1dc693716b926fb0fd1b48ec3e4d0f8b502b8b8",
+        "actions.json": "b26abf5d0fe8f03e1441fed3a6aeb2d63446785dfb12f028aea23dd32b7244b3",
+        "assertions.json": "b8bca5a70e935b09925476bf6a2088d54e8cf6a5f55fea99df6ad8a170c792f4",
+        "expected_final_gamestate.txt": "01ab32e4bcf1bf47fd6b58b04b6c12b066dacb04b5f61821d04f2bbf3afda2b4",
+        "meta.json": "89e7af94deefb3071dceca72a25c03f4b4a94637a7da28ae470077791124d8c6"
+      },
+      "fixture_sha256": "6fcaa67752f2d02ae02e61e56da871ac353c73f1301424a96ae792be243a7c1a",
+      "source_spec": "card-regression-repair-razor-declaration-after4b6c.json",
+      "input_sha256": "60f2bc9a47f6b023fb38914b7dd071d44eeed4acbb9ab9b803385f5c33ca8a34",
+      "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184",
+      "recorded_runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184"
+    }
+  ],
+  "basis": "Exact all35 native inputs/289persisted assertions match reviewed source. Both raw manual48 profiles checked; all four real priority actors verified against protocol. Actual originalphysicalSword2+3 damage5, costsR1/AP0 and cleanup checked. Independent source review bb9ff1d9 retained;39actual-function components separate. No snapshot-only blessing.",
+  "replay": {
+    "path": "card-regression-replay-nov16-razor-declaration-after4b6c-replay.json",
+    "sha256": "29395677ac193548f2823c4cc8947c0ed32e61bf5d62aea091bcd9a41e0023a8",
+    "passed": true
+  },
+  "limits": [
+    "Sword mode only; no AA-granted-Hit timing, sibling or Gauntlets coverage.",
+    "Existing Redlegacy11 fixtures still need declaration-input maintenance and targeted compatibility.",
+    "No full-suite run; no new distinct gameplay root count or new overall cycle/identity credit."
+  ],
+  "new_group_credit": false,
+  "new_primary_id_credit": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Ira Scarlet Revenger / actual second attack receives the printed plus one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T01:56:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_IRA_SCARLET40_DUEL_REAL_SECOND_ATTACK_ONLY. ActualPotion3ArenaandtwoactualGenericWounding4/5Hand, noAP2/attackcounter/modifierhistoryseed. PotionActioncostdestroys3/AP1to0/ABI6beforebothresponses, resolvesAP2. Actualfirst4Action0paysAP2to1, bothresponses\u2192printedpower4/noGA/actual4damageHP36and4GY. Actualdistinctsecond5Action0paysremainingAP1to0andbothresponses\u2192musthaveprinted4+Hero1=5, noGA, real5damageHP31/5GYifcorrect. Stopfirstmismatch,nofixtureorcreditonfailure. CurrentCRUPlayedchecksYoungira_crimson_hazeonlyisSOURCECONCERN, notoracle; doNOTacceptsecondpower4. No thirdattack/reset/weapon/multiplayer/Young/support/fullHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ira_scarlet_revenger FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php"
+}

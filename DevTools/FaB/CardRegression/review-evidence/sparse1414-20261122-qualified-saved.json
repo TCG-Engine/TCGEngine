@@ -1,0 +1,136 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1414-20261122.json",
+  "source_spec_sha256": "2fc6e8cd442dd6fa2c32623dbc18add7519a1145ab00f4f903621beff9bc8279",
+  "input_sha256": "2fc6e8cd442dd6fa2c32623dbc18add7519a1145ab00f4f903621beff9bc8279",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+      "card_id": "verdance_thorn_of_the_rose",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c89417a0ee0d51b0b5940f030e93841a7d5aca3d82926a0b253f2b51521e2226",
+        "actions.json": "93843f4ddfc1b17b6e25656301f0e9d3372a24ab055bc3430e9ba8e36ba7c1fa",
+        "assertions.json": "9f5b4c24baf3d11412a1ea004fcd1c11eb3d7e7a6b127c504c8827f81266ac99",
+        "expected_final_gamestate.txt": "af5ac33381116c750ac328a52d6c91eb552a3d94be6702dde4f97e1a064c833e",
+        "meta.json": "45d2a5d6ef42d2a30a941e5ac8f128e353109a2dcb0ac8e58e162a928df72e94"
+      },
+      "fixture_sha256": "bc425f331c6716929c72bcacb47771c3d58e424cfa61c53e8849b4dfdd7e7b84",
+      "actions": 6,
+      "native_assertions": 367,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1414-20261122.json",
+      "input_sha256": "2fc6e8cd442dd6fa2c32623dbc18add7519a1145ab00f4f903621beff9bc8279",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {
+        "2": 2
+      },
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1414-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+        "fixture_slug": "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2fc6e8cd442dd6fa2c32623dbc18add7519a1145ab00f4f903621beff9bc8279",
+    "source_note_sha256": "0625c707671512ae6ddbe1c4eb8bcba8d0d0de69c1d787f6331a9a7f12c44316",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 5,
+    "query_checks": 367,
+    "persistable_assertions": 367,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_ADULT_EIGHT_EARTH_THRESHOLD_NATIVE_HEAL_SEPARATE_HERO_TRIGGER_AND_REAL_ARCANE",
+    "per_case": [
+      {
+        "card_id": "verdance_thorn_of_the_rose",
+        "group_id": "identity:verdance_thorn_of_the_rose",
+        "native_controls": 5,
+        "expected_native_inputs": 6,
+        "persistable_assertions": 367
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld adultVerdanceThornRose identity, cached CC-legal/notbanned natural40 vs adultDori40, genuine two manual seats/defaultgameMode empty. Eight distinct actualEarthcards4..11 in ownedBanish FaceDown0, each cachedCClegal and allowed by EssenceEarth; no copy-limit violation or initial history/effect seed. Prior banish acquisition/provenance uncredited.",
+      "Printed adult threshold8 independently confirmed (young4 not used). ROSCards12 filters actual faceupEarthBanish;13 chooses8 for nonYoung;110 during actual ownturn life gain queues Hero only when active. CRUCards27-34 actualBlueSigil gain1 raises40to41 then FaBROSLife, ROSCards24 creates separate virtualABILITY12 CardIDadultVerdance/Controller1/SourceUIDHero1, not a secondphysicalSigil. OriginalSigil3 staysStack untilresolution, thenGY; freshHero trigger not immediatearcane.",
+      "FirstSigilresponse paidPR2 ->pass2 PR1 still3Stack/noheal/noHeroABI. Next sourcecontrol2 needs exactly2 nativepasses: pass1 finishesSigil, GameLogic1729-1744 seesnewHeroStack setsPRIORITY and returnspriorityTurnPlayer1 withpasscount0; freshpass1 givesPR2 withsameHeroABI12/HP2still40. Nextcontrol fromPR2 contributesotherHeroresponse, opens actualVerdance ownMZMULTICHOOSE0|1|p2Hero0 while12held; optionaldamagechoiceHero2 then actual1arcaneHP2=39. SoleopposingTarget default precommitted; no implementation target-binding/UPF credit.",
+      "Generated adultVerdance18381/await184823+ optional opposingtarget1packet route, noextra preventionassets. Hero remainsready/noresource/APcost. FinalownHP41/opp39/AP1/R0/Sigil3GY/eightEarthsameUIDFaceUp/UID12RNG0/quietStackDQs/combatclosed coherent. Source-bound pass-counts map control2->2 correctly reflects5 authored controls and6 expected nativeinputs; exact367 persistablechecks, no existing fixture/replay repeated."
+    ],
+    "limits": [
+      "Only adult exact-eight-Earth positive threshold, nativeSigilheal, separately queuedHero layer/fresh response opportunity and one realarcane damage. Below8/above8/hiddenEarth/priorbanish provenance, alternate targets/targetbinding/UPF, prevention/decline/duplicate gains, secondaryHero/support identities/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. Extra input is explicitly prebound response control, not inflated coverage or an assumed completed replay."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1414.py": "413ed2e75ad8f327107927d4e627439d77d836ddd6c7557c3dbe7045d24c4733",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "breadth_batch.py": "c996b5dcb5318f3b01313e9c1817e39b50c46739c92f1ef370f4db5b73a27cf3",
+      "sparse1414-local-20261122/expected-pass-counts.json": "53b545e6049b2bf3666353eb4795c1dc03fd5a2bd9d63fd8688ecd8a354f59c3"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14 Default Decisions",
+        "scope": "Previously retrieved official public default-decision rule; fixed only opposingHero2 damage choice, no delayed retargeting or multi-opponent default claim."
+      }
+    ],
+    "expected_native_inputs": 6,
+    "required_pass_counts_by_control": {
+      "card-verdance-thorn-of-the-rose-two-live-sparse1414-eight-earth-actual-life-gain-separate-hero-layer-and-arcane": {
+        "2": 2
+      }
+    },
+    "four_player_or_target_binding_credit": false,
+    "prior_banish_provenance_credit": false,
+    "below_eight_boundary_credit": false,
+    "positive_exact_eight_earth_hero_trigger_scope": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1414-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ab46bd5989f1c097db46a06928d86bc87b83d074b2fb1204587f8f1a474c7d16"
+  },
+  "full_suite_run": false
+}

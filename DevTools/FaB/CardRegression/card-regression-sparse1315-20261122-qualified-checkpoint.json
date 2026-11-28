@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:10:32.254500+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1315-20261122.json",
+  "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 130,
+  "native_assertions": 1846,
+  "manual_passes": 116,
+  "totals": {
+    "saved_registered_scenarios": 5257,
+    "duels": 3097,
+    "four_live": 2160,
+    "recorded_primary_ids": 2405,
+    "identity_denominator": 5196,
+    "recorded_groups": 2279,
+    "group_denominator": 3324,
+    "four_live_groups": 2149,
+    "phase_qualified_scenarios_at_actual_contexts": 1894,
+    "phase_qualified_unique_groups": 1884,
+    "creation_replay_passes": 2636,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1055,
+  "scenarios": [
+    {
+      "card_id": "call_down_the_lightning_yellow",
+      "group_id": "identity:call_down_the_lightning_yellow",
+      "scenario_id": "card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+      "effect_branches": [
+        "actual_native_primary_payment_and_go_again_funds_real_attack_with_unblocked_attack_does_not_earn_hand_defense_ping"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "review_evidence": "review-evidence/sparse1315-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b9723d00d9f48e88633821c53c02a099728d294e07bf115bd4cf4bba44f4ab74",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1315-20261122-replay.json",
+          "sha256": "e2582cb57034eb4a00a0aaf394df5c0f67e94fba8206f7b70401c42f15a9f5ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "chill_to_the_bone_red",
+      "group_id": "pitch-cycle:chill_to_the_bone",
+      "scenario_id": "card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+      "effect_branches": [
+        "actual_native_primary_payment_and_go_again_funds_real_attack_with_generic_attack_is_ineligible_for_ice_or_elemental_hit_token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "review_evidence": "review-evidence/sparse1315-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b9723d00d9f48e88633821c53c02a099728d294e07bf115bd4cf4bba44f4ab74",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1315-20261122-replay.json",
+          "sha256": "e2582cb57034eb4a00a0aaf394df5c0f67e94fba8206f7b70401c42f15a9f5ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "flashfreeze_red",
+      "group_id": "identity:flashfreeze_red",
+      "scenario_id": "card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+      "effect_branches": [
+        "actual_native_primary_payment_and_go_again_funds_real_attack_with_unfused_action_does_not_grant_fusion_only_attack_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "review_evidence": "review-evidence/sparse1315-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b9723d00d9f48e88633821c53c02a099728d294e07bf115bd4cf4bba44f4ab74",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1315-20261122-replay.json",
+          "sha256": "e2582cb57034eb4a00a0aaf394df5c0f67e94fba8206f7b70401c42f15a9f5ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "seeds_of_agony_red",
+      "group_id": "pitch-cycle:seeds_of_agony",
+      "scenario_id": "card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+      "effect_branches": [
+        "actual_native_primary_payment_and_go_again_funds_real_attack_with_three_cost_attack_is_ineligible_for_next_cost_two_arcane_grant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "review_evidence": "review-evidence/sparse1315-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b9723d00d9f48e88633821c53c02a099728d294e07bf115bd4cf4bba44f4ab74",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1315-20261122-replay.json",
+          "sha256": "e2582cb57034eb4a00a0aaf394df5c0f67e94fba8206f7b70401c42f15a9f5ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

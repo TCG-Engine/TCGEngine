@@ -1,0 +1,439 @@
+{
+  "status": "TWO_BLUE_FULL_ROUTES_QUALIFIED_AT_ACTUAL_84A7_CONTEXT",
+  "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+  "source_applications": [
+    {
+      "status": "APPLIED_UNQUALIFIED_PENDING_NATIVE_AFTER",
+      "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php",
+      "before_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "proposed_sha256": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-new-spell-cycles-managed-admission-proposal\\GameLogic.before.php",
+      "proposal_sha256": "954310b27975aae3b1260166686674e3cd7543a28d38d4d266471d784a8c9a7a",
+      "independent_review_sha256": "6e1a19c4459be8ff589b0f75b549e5d9b334551f719b7a3dae8267e12dfefe48",
+      "component_sha256": "da558b4f34464776c8afcb70d117dd725042e85f3b6af9082de40ed5bccedbe4",
+      "runtime_before": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "added_card_ids": [
+        "dimenxxional_gateway_blue",
+        "dimenxxional_gateway_red",
+        "dimenxxional_gateway_yellow",
+        "silver_the_tip_blue",
+        "silver_the_tip_red",
+        "silver_the_tip_yellow"
+      ],
+      "utc": "2026-11-13T21:55:05.764135+00:00",
+      "qualification": false,
+      "runtime_after": "0b95b1dbdee6c278d7fa0719e4e20bc275f2bc36c8a568807a591efeb8836e4e",
+      "applied_utc": "2026-11-13T21:55:06.199116+00:00"
+    },
+    {
+      "status": "APPLIED_UNQUALIFIED_PENDING_NATIVE_AFTER",
+      "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+      "before_sha256": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "proposed_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-bottom-order-live-temp-proposal\\ARCCards.before.php",
+      "proposal_sha256": "3776491d5934c5567a3b4f21e2500204bd3e7bedb19662cab270804b6791cbc9",
+      "independent_review_sha256": "b4255f656e8edf02e1a98278ebddc4301bbe494743a2e455a55687574d7a8841",
+      "component_sha256": "fb8cec0dc100a393f3cc62391ce1402cecc07d9fdb9370117da1e79ef3fa33e1",
+      "runtime_before": "0b95b1dbdee6c278d7fa0719e4e20bc275f2bc36c8a568807a591efeb8836e4e",
+      "qualification": false,
+      "utc": "2026-11-13T22:23:59.530945+00:00",
+      "runtime_after": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+      "applied_utc": "2026-11-13T22:23:59.965249+00:00"
+    }
+  ],
+  "independent_code_reviews": [
+    {
+      "status": "PASS_INDEPENDENT_ACTUAL_BEFORE_CLASSIFICATION_AND_EXACT_SIX_ID_MANAGED_ADMISSION_REVIEW",
+      "reviewer": "/root/breadth775_author_crossreview",
+      "reviewer_independent": true,
+      "created_utc": "2026-11-13T21:52:05.343681+00:00",
+      "checks": 54,
+      "proposal": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-new-spell-cycles-managed-admission-proposal\\proposal.json",
+        "sha256": "954310b27975aae3b1260166686674e3cd7543a28d38d4d266471d784a8c9a7a"
+      },
+      "source_before_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "source_proposed_sha256": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "runtime_before": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+      "source_guards": {
+        "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+        ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+        "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+        "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+        "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+        "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+        "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+        "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+        "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+        "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+        "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+        "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+        "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+        "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+        "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+        "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+        "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+        "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+        "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+        "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+        "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+        "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+        "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+        "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+        "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+        "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+        "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+        "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+        "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+        "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+        "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+        "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+        "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+        "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+        "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+        "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+        "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+        "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+        "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+        "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+        "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+        "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+        "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+        "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+        "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+        "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+        "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+        "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+        "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+        "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+        "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+        "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+        "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+        "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+        "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+        "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+        "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+        "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+        "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+        "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+        "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+        "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+        "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+        "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+        "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+        "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+        "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+        "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+        "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+        "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+      },
+      "source_guard_count": 71,
+      "actual_before_findings": [
+        {
+          "card_id": "dimenxxional_gateway_blue",
+          "input_sha256": "bbdb5a52f7dca3e75062b3cbe1cf0d280f78be19d4f5d66e92e41751adb289cf",
+          "receipt": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-b774-gateway-strict-native-before\\receipt.json",
+            "sha256": "4344dbd27581a915ae30a5deaa12829137506defc8eee3d945d3501daebb2c73"
+          },
+          "immutable_archive": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch774-gateway-diagnostic-before-20261113T214646Z-6af78546541d2.json",
+            "sha256": "381db519e4489af55f9f4b9da2d194561f9f1b421bbb6945c75b742985bddcef"
+          },
+          "actual_result": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch774-gateway-diagnostic-before.recording-results.json",
+            "sha256": "dba14e876bc77769dcb4be6c40a36108970ee4d01ecfa23411e172b250bd193c"
+          },
+          "native_inputs": 6,
+          "actual_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "successful_recorded_prefix_assertions": 461,
+          "actual_first_choice": {
+            "owner": 1,
+            "type": "MZREARRANGE",
+            "param": "Top=rift_bind_blue;Bottom="
+          },
+          "actual_Stack_count": 0,
+          "required_Stack_count": 1,
+          "managed_pending_marker_absent": true,
+          "classification": "NATIVE_CONFIRMED_PREMATURE_PHYSICAL_SOURCE_STACK_DEPARTURE_DURING_RESOLVING_CHOICE",
+          "later_GY_and_AP_values_measured": false,
+          "observation_limit": "First decisive query failed before GY0/AP0 checks; do not present later scalar/destination values as separately native-measured. Current source fallback predicts prematureGY/goagain and is reviewed independently.",
+          "fixture_saved": false,
+          "coverage_credit": false
+        },
+        {
+          "card_id": "silver_the_tip_blue",
+          "input_sha256": "b5ce289ffcba2be82746d4579ff2b0cc2c98cbf788fce17ce8aa85ef89dd98b1",
+          "receipt": {
+            "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-b774-silver-strict-native-before\\receipt.json",
+            "sha256": "5d8eca60d3b8adb3f77eeee3dab8865c945e61155b808d99eb1e8bb06183c778"
+          },
+          "immutable_archive": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch774-silver-diagnostic-before-20261113T214756Z-6af7858c25647.json",
+            "sha256": "c8ddbf8657266efcc66e40c9edbc366020f24f0247840648bbd4c94acd3b2310"
+          },
+          "actual_result": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch774-silver-diagnostic-before.recording-results.json",
+            "sha256": "4eed86789881df8433671919d0d1734dfdbfaf485a2b6593fe22d2572661218b"
+          },
+          "native_inputs": 6,
+          "actual_pass_actors": [
+            1,
+            2,
+            3,
+            4
+          ],
+          "successful_recorded_prefix_assertions": 515,
+          "actual_first_choice": {
+            "owner": 1,
+            "type": "MZMAYCHOOSE",
+            "param": "p1Temp-0"
+          },
+          "actual_Stack_count": 0,
+          "required_Stack_count": 1,
+          "managed_pending_marker_absent": true,
+          "classification": "NATIVE_CONFIRMED_PREMATURE_PHYSICAL_SOURCE_STACK_DEPARTURE_DURING_RESOLVING_CHOICE",
+          "later_GY_and_AP_values_measured": false,
+          "observation_limit": "First decisive query failed before GY0/AP0 checks; do not present later scalar/destination values as separately native-measured. Current source fallback predicts prematureGY/goagain and is reviewed independently.",
+          "fixture_saved": false,
+          "coverage_credit": false
+        }
+      ],
+      "approved_exact_added_ids": [
+        "dimenxxional_gateway_blue",
+        "dimenxxional_gateway_red",
+        "dimenxxional_gateway_yellow",
+        "silver_the_tip_blue",
+        "silver_the_tip_red",
+        "silver_the_tip_yellow"
+      ],
+      "affected_function": "FaBPlainSpellResolutionIsManaged",
+      "byte_inverse_exact": true,
+      "all_other_source_bytes_unchanged": true,
+      "original_kind_ownership_known_cohort_completion_gates_preserved": true,
+      "canonical_sibling_contract": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-batch774-six-id-contract-independent-readonly.json",
+        "sha256": "e180c4304821e8ac037e79989a5218a84f3e46c018d91e0afef9995606dbac28"
+      },
+      "source_patch_review_approved": true,
+      "root_syntax_component_checks_required": true,
+      "source_patch_applied_by_reviewer": false,
+      "native_executed_by_reviewer": false,
+      "gameplay_after_approved": false,
+      "full_route_models_approved": false,
+      "sibling_native_tests": false,
+      "sibling_coverage_credit": false,
+      "coverage_credit": false,
+      "review_limits": [
+        "Approval covers only prospective SHA691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d from actualbefore1cdad155, after two actual strict no-save source-lifetime failures. Root owns syntax/component checks/application/native qualification.",
+        "Six explicit IDs are same two new unheld cycles; canonical bodies identical percycle except lookamount. No sibling matrix or coverage, no other cohort/oldheld/denied repair.",
+        "Existing managed path retains physicalsource through awaits, completes own queuedwork, then goagain/ownerGY/clear; no Core/generated/cardbody/remote/DB changes. Exact failure first proved prematureStackdeparture; later destination/AP values not separately measured.",
+        "This patch does not fix or certify Silver later remaining-order-candidate concern, HeadShot WHEN handling, later Gateway damage/prevention/Shadow banish or fullroute completion. Correct fullroute expectations stay unchanged and need independent exactSource/native/Saved/replays.",
+        "W-only static review; noPHP/native/R/source/Git/remote/fullsuite writes or retries."
+      ]
+    },
+    {
+      "status": "PASS_INDEPENDENT_EXACT_BOTTOM_ONLY_LIVE_TEMP_PROPOSAL_REVIEW",
+      "reviewer": "/root/breadth775_author_crossreview",
+      "reviewer_independent": true,
+      "created_utc": "2026-11-13T22:21:32.929314+00:00",
+      "checks": 43,
+      "proposal": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-bottom-order-live-temp-proposal\\proposal.json",
+        "sha256": "3776491d5934c5567a3b4f21e2500204bd3e7bedb19662cab270804b6791cbc9"
+      },
+      "source_before_sha256": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "source_proposed_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "runtime_before": "0b95b1dbdee6c278d7fa0719e4e20bc275f2bc36c8a568807a591efeb8836e4e",
+      "source_guards": {
+        "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+        ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+        "FaBSim/Custom/GameLogic.php": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+        "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+        "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+        "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+        "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+        "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+        "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+        "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+        "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+        "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+        "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+        "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+        "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+        "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+        "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+        "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+        "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+        "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+        "FaBSim/Custom/HNTCards.php": "2815741c96cd842e419d7216733efe1be1497e199ba13d65ad8e3d2331118270",
+        "FaBSim/Custom/HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+        "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+        "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+        "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+        "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+        "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+        "DevTools/FaB/hnt_abilities.json": "4252b725640c5014d9264c987067b71a036ff1f7fa6e98f5fc1da5e542e080d8",
+        "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+        "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+        "FaBSim/Custom/SEACards.php": "83e666cff3fb39ced8c52e5438ae0aa977b72be9bf2ccadcda562a89f7091ad8",
+        "FaBSim/Custom/SEARuntime.php": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+        "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+        "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+        "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+        "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+        "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+        "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+        "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+        "DevTools/FaB/mon_abilities.json": "a06c06aa49853536c865fabcbe72f36cba1eab95f010aad2b4a17be3a4e3f77b",
+        "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+        "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+        "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+        "DevTools/FaB/evo_abilities.json": "681df04ce6b2430623dbd34d7266c09131bff3eb7c7e1f946820e33549cb9552",
+        "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+        "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+        "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+        "FaBSim/Custom/MONAbilities.php": "0e50c426738ec083bf3357d9f0326b30d78d8278586178a6a465d11ece280cc6",
+        "DevTools/FaB/sea_abilities.json": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+        "DevTools/FaB/ros_abilities.json": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+        "DevTools/FaB/build_ros_abilities.py": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+        "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+        "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+        "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+        "FaBSim/Custom/CodeGeneration.php": "50b64d437d5c41ff475d20bacbc1d6ce3b720c8af49990c95f46d024b6bdea69",
+        "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+        "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+        "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+        "FaBSim/Custom/FaiCards.php": "89678a2dd28ba283f21563fce488d286bea8153e88b123698e258bbc0994ba93",
+        "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+        "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+        "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+        "FaBSim/Custom/AMXCards.php": "8b2f46e250e3622b06e417b10c9dc11dd769dc48744fbbdfe276cc132ecb6a32",
+        "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+        "FaBSim/Custom/OMNCards.php": "3b827d9c98875c042daee925a5fe227fdce2195f303c08192fb76b9c806883c8",
+        "DevTools/FaB/omn_abilities.json": "6f3d1021628a3b676c1c60b3c6b7b3db486caea31057cdba3dcdbbc1c6ffef38",
+        "FaBSim/Custom/CustomInput.php": "91a368821f71a4f60bed8812c7cda2edeb91f481a0d6341557586e5e6ab5c2e6",
+        "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+        "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+        "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+        "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+      },
+      "source_guard_count": 71,
+      "source_patch_review_approved": true,
+      "byte_inverse_exact": true,
+      "signature_and_FinishOrder_unchanged": true,
+      "all_other_source_bytes_unchanged": true,
+      "exact_semantic_delta": "For literalpiles Bottom only, a nonmissing UID must currentlyoccupy Temp to appear inchooser. NonBottom modes shortcircuit newzonepredicate and preserveallprevious output; missingUIDs remainomitted, duplicate/order/liveTempmembership unchanged.",
+      "preserved_other_modes": [
+        "default Top,Bottom",
+        "Top",
+        "Cards",
+        "Bottom,Top",
+        "every string except exact Bottom"
+      ],
+      "caller_scope": "Nine currentBottomcallers: Silver3 andIndex3 can have departedstagedcard; OakenOldRedHit/PoxInertia/InertiaABI normallypassTemp-onlyUIDarrays. Other143 canonicalcall occurrences and nonBottom generatedcalls retainoldpredicate behavior.",
+      "prior_independent_native_and_callers": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-silver-candidate-native-failure-bottom-callers-independent-review.json",
+        "sha256": "5c0c2bbab5a9dfdac04d3e7fbf549489e110f0a82d032e13bd06d9a0b401759c"
+      },
+      "impact_report": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov13-bottom-order-index-fixture-impact-scan.json",
+        "sha256": "e8fa33073477dbd402073ca29c10e67c89e6ad93ace6d3367e3113aa7359ccec",
+        "reviewed_only_not_rescanned": true,
+        "reported_fixture_count": 4031,
+        "reported_files_scanned": 8062,
+        "reported_literal_Index_hits": 0,
+        "independent_primary_metadata_checks": true
+      },
+      "impact_limits": "Root literalCardID presence scaninitial/actionpairs plusprimarymetadata; thisreview doesnotrerun8062file scan, executeoldscenarios, certifyalloldruntimebehaviorunchanged orrequalifycorpus. Indexcaller output maychangeappropriately but noIndexnative/coverageclaim.",
+      "unheld_scope": "No retainedhold/denial targetedthisexactBottom-onlychooser contract in boundedthreeledger scan. Pox147damagetype andCodex161/107creatorownership remainunfixed/unexercised; Opalrecord isfixeddefaultTopBottomlifetimerepair. No oldheldcardbody/cohortrepair or deniedoperation retried.",
+      "root_required_checks": "Root exactproposedPHPsyntax plus focusedhelpercomponent covering departedArsenal/Deck/GY,missingUID/liveTemp/duplicates andunchangedothermodes beforeapplication. ActualSilverfullroute/nativeSaved/replays requiredafterfinalruntime.",
+      "source_patch_applied_by_reviewer": false,
+      "php_executed_by_reviewer": false,
+      "native_executed_by_reviewer": false,
+      "helper_component_executed_by_reviewer": false,
+      "gameplay_after_approved": false,
+      "corpus_replay_or_requalification": false,
+      "index_coverage_credit": false,
+      "coverage_credit": false,
+      "limits": [
+        "Only exactproposedf6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52 fromactuale883955. No widerlegacyTopBottomfilter or signature/FinishOrder/Core/generated/cardbody/DB/remote change.",
+        "Nativebefore provesinvalidremainingchooser only; noillegalcardmovement, secondorderanswer orfullcompletion claim.",
+        "SharedBottomcontract alsochangesIndexstaleDeckcandidate semantics; noIndexnative/siblingmatrix/coverage orcorpusrequalification.",
+        "W-onlystaticreview/noPHP/native/R/Gitwrites. B776notes stayunattempted/pending/unfiled."
+      ]
+    }
+  ],
+  "components": [
+    {
+      "status": "PASS",
+      "scope": "Pure proposed-vs-live cohort predicate component; no native game or regression suite",
+      "catalog_ids": 5196,
+      "kind_owner_checks": 62352,
+      "added_ids": [
+        "dimenxxional_gateway_blue",
+        "dimenxxional_gateway_red",
+        "dimenxxional_gateway_yellow",
+        "silver_the_tip_blue",
+        "silver_the_tip_red",
+        "silver_the_tip_yellow"
+      ],
+      "removed_ids": [],
+      "unchanged_kind_and_ownership_guards": true,
+      "source_before_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "source_proposed_sha256": "691f866f79ac173fa0b028281bc7a348a9dfacc2dd6a0936c5ca3ae019fd275d",
+      "proposal_sha256": "954310b27975aae3b1260166686674e3cd7543a28d38d4d266471d784a8c9a7a",
+      "native_actions": 0,
+      "fixture_saved": false,
+      "full_suite_run": false
+    },
+    {
+      "status": "PASS",
+      "scope": "Isolated helper component; moved Arsenal/Deck/GY/missing UID exclusion, duplicates/live Temp, unchanged other modes",
+      "checks": 15,
+      "source_before_sha256": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+      "source_proposed_sha256": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "proposal_sha256": "3776491d5934c5567a3b4f21e2500204bd3e7bedb19662cab270804b6791cbc9",
+      "native_actions": 0,
+      "fixture_saved": false,
+      "full_suite_run": false
+    }
+  ],
+  "source_diffs": [
+    "--- GameLogic.before.php\n+++ GameLogic.proposed.php\n@@ -1618,6 +1618,9 @@\n         'aether_spindle_blue',\n\n         'aether_spindle_red',\n\n         'aether_spindle_yellow',\n\n+        'dimenxxional_gateway_blue',\n\n+        'dimenxxional_gateway_red',\n\n+        'dimenxxional_gateway_yellow',\n\n         'flash_bolt_blue',\n\n         'flash_bolt_red',\n\n         'flash_bolt_yellow',\n\n@@ -1630,6 +1633,9 @@\n         'scalding_rain_blue',\n\n         'scalding_rain_red',\n\n         'scalding_rain_yellow',\n\n+        'silver_the_tip_blue',\n\n+        'silver_the_tip_red',\n\n+        'silver_the_tip_yellow',\n\n         'voltic_bolt_blue',\n\n         'voltic_bolt_red',\n\n         'voltic_bolt_yellow',\n\n",
+    "--- ARCCards.before.php\n+++ ARCCards.proposed.php\n@@ -106,7 +106,7 @@\n     return $uids;\n\n }\n\n function FaBARCOrderParam(array $uids,string $piles='Top,Bottom'): string {\n\n-    $ids=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f!==null)$ids[]=$f['object']->CardID;}\n\n+    $ids=[];foreach($uids as $uid){$f=FaBFindUID(intval($uid));if($f!==null&&($piles!=='Bottom'||$f['zone']==='Temp'))$ids[]=$f['object']->CardID;}\n\n     $names=explode(',',$piles);$out=[];foreach($names as $i=>$name)$out[]=$name.'='.($i===0?implode(',',$ids):'');return implode(';',$out);\n\n }\n\n function FaBARCFinishOrder(int $player,array $uids,string $result): void {\n\n"
+  ],
+  "native_after": {
+    "workspace_receipt": "nov13-b774-repaired-gateway-silver-full-native-recording/receipt.json",
+    "sha256": "4eae79fa00c0dbf0eba7229ea48e7c1247c74726772b16e27f53e1b2c7c9f683"
+  },
+  "saved_review": {
+    "path": "review-evidence/sparse774-repaired-opt-load-native-saved-independent-84a7.json",
+    "sha256": "967bc559c3c9d851e5199c849112dcebe5b22de760e227e42cdc64c16d7360b9"
+  },
+  "two_clean_replays": [
+    {
+      "path": "card-regression-replay-nov13-b774-spells-clean1.json",
+      "sha256": "64ce1e8f3ca0257c5807cc3e49d41ae23593cffdd7b12d08b39257d6ab1ea774"
+    },
+    {
+      "path": "card-regression-replay-nov13-b774-spells-clean2.json",
+      "sha256": "550ca5b6347916b07effe7ff26f85147af84b875c8dba2472dbeb16ebf6918b7"
+    }
+  ],
+  "limits": [
+    "Only two Blue representatives receive new coverage. Six-ID source admission and possible Index chooser effects do not validate pitch siblings or Index.",
+    "Old index rows, runtime labels, frozen base and historical review caveats are preserved; no broad requalification or full-suite run.",
+    "Before probes measured missing Stack during choices, then invalid remaining-card menu. No unexecuted before-probe GY/AP values or illegal card movement are claimed."
+  ],
+  "full_suite_run": false,
+  "historical_corpus_requalified": false,
+  "denied_repairs_retried": false
+}

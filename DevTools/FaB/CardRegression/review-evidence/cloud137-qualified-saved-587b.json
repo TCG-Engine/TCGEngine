@@ -1,0 +1,49 @@
+{
+  "status": "CLOUD137_NATIVE35_2968_SINGLE_REPLAY_PASS_SEVEN_LABEL_ORACLE_CORRECTION",
+  "reviewer": "root independent exact protocol Source inverse/Saved/effect review; independent gameplay patch review retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+  "input_sha256": "12dacfe4db48984aaaebc2f2b667c4755f8c227355d93af6912a035a380868f1",
+  "source_spec": "card-regression-repair-cloud137-protocol-after587b.json",
+  "fixtures": [
+    {
+      "slug": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+      "card_id": "cloud_skiff_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be35e8a85ed2ec7cc4a27b6a6db78e76ea39af15e61671a2e030025301246337",
+        "actions.json": "948fc4bc18a0dd03b96f91488c89a3aeeae4af2bb3ed3d9268dee16b316b5e76",
+        "assertions.json": "eab9ecc9b122e43186e38a85be77498599e135d9dc88d83c8d8be6e566a477cf",
+        "expected_final_gamestate.txt": "a1540ad90948a5b62b40ce8d751b82429e513b413b1acb9aa123e22071d60f93",
+        "meta.json": "d2c9f1c2056ed5af6f7e8352d1e9413bdc962e36f8dedac34845a0cabdca0db9"
+      },
+      "fixture_sha256": "d71f3618d0080f808290d6fac6afd5da8de82439269047119403fc87a628d224",
+      "actions": 35,
+      "native_assertions": 2968,
+      "actual_manual_pass_inputs": 29,
+      "true_priority_pass_inputs": 28,
+      "defender_declaration_finalizers": 1,
+      "recorded_runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "source_spec": "card-regression-repair-cloud137-protocol-after587b.json",
+      "input_sha256": "12dacfe4db48984aaaebc2f2b667c4755f8c227355d93af6912a035a380868f1"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-cloud137-protocol-after587b-replay.json",
+    "sha256": "ec5409f23ca8b31e02fbdad890d54d74953415965842cc63ec89ee0f2ab888c1",
+    "passed": true
+  },
+  "basis": "OnlysevenPRI-to-ATTACK labels corrected perexistingABI returnWindow/Stack-first contract. All35inputs/2968queries retained, both four-card and four-ABI responses. NormalBlue3 paysprinted1 leavingR2/AP0 andCogready; separatelyactivatedactualCogtap precedes ABI responses and realPower mode. Source5 deals4/Hero4HP16, Cog7exhaustedSteam0, Blue6Pitch, primary5GY/queues clean.",
+  "components": 85,
+  "before_expected_component_failures": 2,
+  "oracle_review_sha256": "c95ca5c26f8cd4c18797be287c12e9d5b9549e65ccf2b868ad83d812f4593563",
+  "independent_source_review_sha256": "b6c623e22ef29252d7376fe78ec51d537597743c24d223fa78debb43f6bd0ab9",
+  "limits": [
+    "NamedBluePower mode only. Go-again option, otherCloudprintings and otherAirships not native-qualified.",
+    "Failed9-input normalattempt retained and savednoCloudfixture; no invented passed-query count fromthatfailure.",
+    "Only quantities/costs/source/priority semantics validated; no fullsuite, newbreadth, deniedoperation or historicalruntime requalification."
+  ]
+}

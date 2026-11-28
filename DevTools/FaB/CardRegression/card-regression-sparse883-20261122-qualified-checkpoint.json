@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T15:27:55.238825+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse883-20261122.json",
+  "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 141,
+  "native_assertions": 485,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4285,
+    "duels": 3075,
+    "four_live": 1210,
+    "recorded_primary_ids": 1433,
+    "identity_denominator": 5196,
+    "recorded_groups": 1307,
+    "group_denominator": 3324,
+    "four_live_groups": 1199,
+    "phase_qualified_scenarios_at_actual_contexts": 922,
+    "phase_qualified_unique_groups": 912,
+    "creation_replay_passes": 1663,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 83,
+  "scenarios": [
+    {
+      "card_id": "looking_for_a_scrap_red",
+      "group_id": "pitch-cycle:looking_for_a_scrap",
+      "scenario_id": "card-looking-for-a-scrap-red-four-live-sparse883-actual-one-power-graveyard-cost-earns-five-damage-and-go-again",
+      "effect_branches": [
+        "actual_one_power_graveyard_cost_earns_five_damage_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-looking-for-a-scrap-red-four-live-sparse883-actual-one-power-graveyard-cost-earns-five-damage-and-go-again",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "review_evidence": "review-evidence/sparse883-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26a5a2bc7dfde07d8861d9a0417ef7b2b0935facae10ca9d81e8a81538e135cc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse883-20261122-replay.json",
+          "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "burn_away_red",
+      "group_id": "identity:burn_away_red",
+      "scenario_id": "card-burn-away-red-four-live-sparse883-actual-phoenix-flame-banish-cost-earns-four-damage-and-go-again",
+      "effect_branches": [
+        "actual_phoenix_flame_banish_cost_earns_four_damage_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-burn-away-red-four-live-sparse883-actual-phoenix-flame-banish-cost-earns-four-damage-and-go-again",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "review_evidence": "review-evidence/sparse883-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26a5a2bc7dfde07d8861d9a0417ef7b2b0935facae10ca9d81e8a81538e135cc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse883-20261122-replay.json",
+          "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "beaming_bravado_red",
+      "group_id": "pitch-cycle:beaming_bravado",
+      "scenario_id": "card-beaming-bravado-red-four-live-sparse883-actual-yellow-charge-cost-earns-four-unblocked-damage",
+      "effect_branches": [
+        "actual_yellow_charge_cost_earns_four_unblocked_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-beaming-bravado-red-four-live-sparse883-actual-yellow-charge-cost-earns-four-unblocked-damage",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "review_evidence": "review-evidence/sparse883-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26a5a2bc7dfde07d8861d9a0417ef7b2b0935facae10ca9d81e8a81538e135cc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse883-20261122-replay.json",
+          "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "elemental_strike_red",
+      "group_id": "identity:elemental_strike_red",
+      "scenario_id": "card-elemental-strike-red-four-live-sparse883-actual-earth-banish-cost-earns-seven-unblocked-damage",
+      "effect_branches": [
+        "actual_earth_banish_cost_earns_seven_unblocked_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-elemental-strike-red-four-live-sparse883-actual-earth-banish-cost-earns-seven-unblocked-damage",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "review_evidence": "review-evidence/sparse883-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26a5a2bc7dfde07d8861d9a0417ef7b2b0935facae10ca9d81e8a81538e135cc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse883-20261122-replay.json",
+          "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "endless_maw_red",
+      "group_id": "pitch-cycle:endless_maw",
+      "scenario_id": "card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+      "effect_branches": [
+        "actual_three_random_graveyard_cost_cards_earn_nine_unblocked_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+      "source_spec": "card-regression-sparse883-20261122.json",
+      "source_spec_sha256": "9e9b1e9ad34cfc09eec85540fcf61011951eaf47d6163443fe6051fc9b80fe8c",
+      "review_evidence": "review-evidence/sparse883-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26a5a2bc7dfde07d8861d9a0417ef7b2b0935facae10ca9d81e8a81538e135cc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse883-20261122-replay.json",
+          "sha256": "b90925bdf5851da32296b0fa965f3c07971e1a03838b3da6f00ab77c5d150089",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

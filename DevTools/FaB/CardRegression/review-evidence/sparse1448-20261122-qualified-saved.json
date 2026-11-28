@@ -1,0 +1,232 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1448-20261122.json",
+  "source_spec_sha256": "e9a0569a429466fe9393a68850cfbeed24cfbb69feeaf30e04599be2b4c6ff3e",
+  "input_sha256": "e9a0569a429466fe9393a68850cfbeed24cfbb69feeaf30e04599be2b4c6ff3e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-jolly-bludger-yellow-four-live-sparse1448-nonpermanent-defender-cog-instant-nonfunctional-with-real-rally-defending-exception-control",
+      "card_id": "jolly_bludger_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "347d23635a9f16fd77874392e5006e2b55d1082fdd4639c976f1dcb15cd7fa16",
+        "actions.json": "db7f385638ea42a9d602c270ab5f013cad3e5dad1fccac56724e8ed1b7b69317",
+        "assertions.json": "fd4850791f0d1d7cdee35f2401ccbcfaa06f415fa8e233c58fd23732f74d8181",
+        "expected_final_gamestate.txt": "f4458064dc46d66d3c43069b3cbbff5bcf694f850e76cced12150a450f3e0fd5",
+        "meta.json": "9199b07b7b8f6581b6bd5fbaf5f7410bb49b5bb6611db75b705e2b2ff752fce9"
+      },
+      "fixture_sha256": "9a1b4b9dc93bbffe33aa74e6ecc6caaa96cff0cb8e95adf887ddf614a428a688",
+      "actions": 40,
+      "native_assertions": 450,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        },
+        {
+          "step": 17,
+          "check": {
+            "kind": "can_activate",
+            "player": 4,
+            "mzID": "p4CombatChain-0",
+            "value": false
+          }
+        },
+        {
+          "step": 17,
+          "check": {
+            "kind": "can_activate",
+            "player": 4,
+            "mzID": "p4CombatChain-1",
+            "value": true
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 8
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1448-20261122.json",
+      "input_sha256": "e9a0569a429466fe9393a68850cfbeed24cfbb69feeaf30e04599be2b4c6ff3e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1448-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-jolly-bludger-yellow-four-live-sparse1448-nonpermanent-defender-cog-instant-nonfunctional-with-real-rally-defending-exception-control",
+        "fixture_slug": "card-jolly-bludger-yellow-four-live-sparse1448-nonpermanent-defender-cog-instant-nonfunctional-with-real-rally-defending-exception-control",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e9a0569a429466fe9393a68850cfbeed24cfbb69feeaf30e04599be2b4c6ff3e",
+    "source_note_sha256": "8dc538ad9cad193bbd0c4d2263ef8060b0a84c6aad3bcf4d2b6fa0cfeb792e2d",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual_young_natural20_UPF",
+    "native_controls": 40,
+    "query_checks": 456,
+    "persistable_assertions": 450,
+    "author_only_checks_omitted": 6,
+    "author_only_checks": [
+      {
+        "source_index": 23,
+        "check": {
+          "kind": "defense",
+          "value": 5
+        }
+      },
+      {
+        "source_index": 23,
+        "check": {
+          "kind": "can_activate",
+          "player": 4,
+          "mzID": "p4CombatChain-0",
+          "value": false
+        }
+      },
+      {
+        "source_index": 23,
+        "check": {
+          "kind": "can_activate",
+          "player": 4,
+          "mzID": "p4CombatChain-1",
+          "value": true
+        }
+      },
+      {
+        "source_index": 25,
+        "check": {
+          "kind": "defense",
+          "value": 5
+        }
+      },
+      {
+        "source_index": 29,
+        "check": {
+          "kind": "defense",
+          "value": 5
+        }
+      },
+      {
+        "source_index": 34,
+        "check": {
+          "kind": "defense",
+          "value": 8
+        }
+      }
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "primary_group": "identity:jolly_bludger_yellow",
+    "coverage_category": "LIMITED_NEGATIVE_NONPERMANENT_DEFENDING_ACTIVATION_WITH_POSITIVE_EXPLICIT_DEFENDING_EXCEPTION_CONTROL",
+    "positive_primary_ability_credit": false,
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "approved_qualification_endpoint": "COMPLETE",
+    "basis": [
+      "Published CR1.7.4a explicitly makes a nonpermanent defending card ability nonfunctional unless a defending exception applies. Its own Rally example confirms explicit activated defending exception. Jolly nonpermanentDEFENSE7 has no such exception; its Instant Cog text therefore cannot function here despite correct owner4/priority4/readyCog10/zeroR.",
+      "Jolly PirateMechanologist is legal under youngPuffin20; Rally and Blue are Generic, threeDori20 legal four manualUPF. Cog10 is a real prior-owned readyToken with oneSTEAM, reachable before its owner next start; it is not being played/cranked here. No entry, token production or startup credit.",
+      "ActualRagingRed5cost3 paidBlue6pitch3/R0/AP0/targetadjacentHero4 yields real7power. RealJolly7 and RallyBlue8 defend fromHand for3+2; Blue9 remains real discard material. Neither was played/attacking/hitting, so Jolly WHENs and Dori weapon-hit/Puffin crank producers are unearned.",
+      "SEARuntime21/33-42 recognizes Jolly Instant but requires active ATTACKrole; rejection as DEFENSE is consistent with the rule. Actual click must preserve Cog10 ready/counters, both defenders, Hand9, Stack/DQs empty and UID10. CanActivate observations alone are author-only; persistent native click/fates are required.",
+      "MONAbilities19-39 permits RallyBlue self-activation as actualDEFENSE source8 with realHand9 available. GeneratedPrepare requests discard of solep4Hand0, moves9ownedGY4 as cost; virtualABILITY11Controller4/Source8CombatChain waits, with no early defense change. GeneratedResolveAbility16951-16954 tags actual8 WTR_DEFENSE3, not primary7.",
+      "ARCAbilities128-129 records returnWindowDEFEND_PRIORITY; GameLogic1233-1239 returns there after Instant cost with actor4 priority. Corrected heldABI11 stage DEFEND_PRIORITY4 and fresh goals1/2/3 then1+Stack0 require actual4/1/2/3 manual responses. FaBPass2659-2660 resolves nonemptyStack before combat progression; after resolution turnplayer1 gets priority. No missing response is endorsed.",
+      "Rally raises totaldefense5to8; nativeDamage state requires defenseValue8/damage0/HP20 against7power, which would cause2damage without the actual Rally exception effect. All native physical defense roles and discarded9/GYorder9,7,8 persist; normal fullclose attack5GY1/Pitch6/Cog10unchanged/UID11RNG0/quiet checks pin effect/fates.",
+      "All456 source checks were normalized read-only: six can_activate/defense helper observations do not persist; remaining450 assertions include actual rejection, physical costs/layer/fates and final defenseValue8/damage0. Qualification must report450, not456 persisted assertions. Normal COMPLETE endpoint preserves all exact actions/manual seat/initial/raw5 checks; no new adapter."
+    ],
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+        "section": "1.7.4a",
+        "scope": "Official public rule and explicit Rally example independently retrieved; no general permission for nonpermanent defending Instant abilities without exception."
+      }
+    ],
+    "pre_native_protocol_correction": {
+      "record_sha256": "ccf9e5bab64ebf038aeb18576157b614c917fd498ebfd992d8110af1fbf61190",
+      "original_spec_sha256": "b0bfd16d740fd1786abb35393346ac334b008fabf17ee6ad14346d8467443387",
+      "scope": "Only paidRally window and three response-goal labels corrected toDEFEND_PRIORITY, plus explicit Stack0 last-pass predicate and explanatory oracle. All actors/indices/defense/damage/payment/UID/fates unchanged.",
+      "ordered_authoring": [
+        "author_breadth1448.py",
+        "correct_breadth1448_response_window.py"
+      ],
+      "native_inputs_before_correction": 0
+    },
+    "limits": [
+      "normal_primary_attack_and_known_Cog_Prepare_family",
+      "primary_attacking_Cog_Instant_positive_or_thrice_limit",
+      "primary_when_attacks_overpower",
+      "primary_Hero_damage_item_steal",
+      "pitch_siblings",
+      "Only selected negative primary functional-zone condition; positive Rally is an existing support control, not a newly credited identity.",
+      "Normal attacking Cog Prepare/activation family is not exercised or certified.",
+      "No native game, replay, engine/source edit or full suite executed by reviewer. No saved/native pass or coverage certified here."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1448.py": "9ba03d33f9d9795ed8ce96fedf7a5b03e97c5486d131c090ef1d34011dfe47ad",
+      "correct_breadth1448_response_window.py": "93953f6c51e772a1d44fbcc32b32eab1154774ed393e843e028bea9662e107d6",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "breadth_batch.py": "c7d9d9a33187494b4353057eae63574475675cf494498fdd1ed964c16f4c37b1",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1448-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ae5519dd6751c2b0e35aec7912befb3fa1772ee55912d90044b213366196ab11"
+  },
+  "full_suite_run": false
+}

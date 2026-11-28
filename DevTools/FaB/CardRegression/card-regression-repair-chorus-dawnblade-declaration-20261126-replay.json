@@ -1,0 +1,57 @@
+{
+  "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+  "fixtures": [
+    {
+      "slug": "repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+      "passed": true,
+      "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a5d997c33b498afc534a762e99b5e6e8274cdeb83cf614957549766a20a614da",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-razor-reflex-red-four-live-declare-mode-target-before-payment-repair-witness",
+      "passed": true,
+      "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-razor-reflex-red-four-live-declare-mode-target-before-payment-repair-witness",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "5023f6d52c129f81c3e130ba1c20cb4800140554f461c2aeb56080b0f843007d",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+      "passed": true,
+      "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shred-red-four-live-sparse-actual-selected-defender-minus-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\chorus232\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "6d8d6ca043724d852fa3e8a9006b53ea168f4138568ced1781e6d813e0a90779",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

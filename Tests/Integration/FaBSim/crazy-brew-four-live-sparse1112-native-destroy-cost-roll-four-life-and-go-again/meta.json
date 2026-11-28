@@ -1,0 +1,7 @@
+{
+    "name": "Crazy Brew / actual destroy cost, accepted four gains two life and go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:43:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - Destroy this: Roll a 6 sided die. On;\n\n- 1-2 - Lose 2{h}. **Go again**\n\n- 3-4 - Gain 2{h}. **Go again**\n\n- 5-6 - Gain {r}{r}, gain 2 action points, and your next attack this turn gets +2{p}. Named accepted-four branch only. Actual native ACTION0 destroys owned Item5 before four live manual responses, spends AP1 to0, and resolves one accepted six-sided roll. The unsaved diagnostic accepted EVR_ROLLED_4. Printed 3-4 independently requires gain2 life from20 to22 and go again/AP0 to1, with resources0; Item5 stays owned graveyard, virtual ability7 clears, actual support6 stays Hand. Every probe setup field and input/assertion step through and after RNG is preserved exactly; only this post-prefix rule-derived checkpoint is appended. No roll-output oracle substitution, false assertion, PRNG distribution, other face/reroll/entry/next-attack branch, support identity, hero ability or whole-card credit. Full packet is pending independent Root review, native Save and one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crazy_brew_blue"
+}

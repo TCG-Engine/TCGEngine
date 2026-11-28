@@ -1,0 +1,7 @@
+{
+    "name": "Knock 'Em Off Their Feet / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:26:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, {t} them. Actual printed payment via physical Blue pitches; legal Guardian defender Bravo declares real three/four Hand AA defense9/12, actual damage0/HP20/attackHitfalse, so no Crush event/choice/effect. Meaningful object markers retained. Positive Crush, exact unblocked power and siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#knock_em_off_their_feet_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Bam Bam / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:38:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, destroy an item they control.\n\n**Instant** - Discard this: Your club attacks this turn get \"When this hits a hero, destroy an item they control.\" ActualtwoHandAAeachdef3block6>=printedpower, actual0damage/HP20/attackHitfalse/Stack0. Realeligiblephysicalitem/Arsenal/Aura andforSnuffHandretained withsameOwner/controller, so noearneddestruction/banish/discard. PrintedcostrealBlue6/AP0/source5andblockersGY. AlternateInstantandpositiveHituntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bam_bam_yellow"
+}

@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T03:35:09.215215+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1043-20261122.json",
+  "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1080,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4821,
+    "duels": 3075,
+    "four_live": 1746,
+    "recorded_primary_ids": 1969,
+    "identity_denominator": 5196,
+    "recorded_groups": 1843,
+    "group_denominator": 3324,
+    "four_live_groups": 1735,
+    "phase_qualified_scenarios_at_actual_contexts": 1458,
+    "phase_qualified_unique_groups": 1448,
+    "creation_replay_passes": 2200,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 619,
+  "scenarios": [
+    {
+      "card_id": "dealers_grip",
+      "group_id": "identity:dealers_grip",
+      "scenario_id": "dealers-grip-four-live-sparse1043-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/dealers-grip-four-live-sparse1043-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "review_evidence": "review-evidence/sparse1043-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ec5fc8c0f831bac1cb9b1f12f1f14b5344970051946af82c7a8b17c6448275b7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1043-20261122-replay.json",
+          "sha256": "16395eb3d57b853d942f63c3c15c5dc587e58a7b60b605db56cd2663eeaf4348",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "edge_laden_plate",
+      "group_id": "identity:edge_laden_plate",
+      "scenario_id": "edge-laden-plate-four-live-sparse1043-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/edge-laden-plate-four-live-sparse1043-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "review_evidence": "review-evidence/sparse1043-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ec5fc8c0f831bac1cb9b1f12f1f14b5344970051946af82c7a8b17c6448275b7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1043-20261122-replay.json",
+          "sha256": "16395eb3d57b853d942f63c3c15c5dc587e58a7b60b605db56cd2663eeaf4348",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "dragonscaler_flight_path",
+      "group_id": "identity:dragonscaler_flight_path",
+      "scenario_id": "dragonscaler-flight-path-four-live-sparse1043-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/dragonscaler-flight-path-four-live-sparse1043-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "review_evidence": "review-evidence/sparse1043-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ec5fc8c0f831bac1cb9b1f12f1f14b5344970051946af82c7a8b17c6448275b7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1043-20261122-replay.json",
+          "sha256": "16395eb3d57b853d942f63c3c15c5dc587e58a7b60b605db56cd2663eeaf4348",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "drive_brake",
+      "group_id": "identity:drive_brake",
+      "scenario_id": "drive-brake-four-live-sparse1043-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/drive-brake-four-live-sparse1043-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1043-20261122.json",
+      "source_spec_sha256": "8277b02c45ff08fd9f209b63df62f2ff5cfbd21ef33ec4fb6034424203c23572",
+      "review_evidence": "review-evidence/sparse1043-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ec5fc8c0f831bac1cb9b1f12f1f14b5344970051946af82c7a8b17c6448275b7",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1043-20261122-replay.json",
+          "sha256": "16395eb3d57b853d942f63c3c15c5dc587e58a7b60b605db56cd2663eeaf4348",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

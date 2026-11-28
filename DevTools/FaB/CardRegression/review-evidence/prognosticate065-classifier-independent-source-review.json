@@ -1,0 +1,136 @@
+{
+  "status": "APPROVED_BOUNDED_SOURCE_CLASSIFIER_EXTENSION_NATIVE_QUALIFICATION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T02:50:08.108009+00:00",
+  "issue": "FAB-REG-065",
+  "related_existing_family": "FAB-REG-040",
+  "new_distinct_gameplay_root": false,
+  "manifest_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-arcane-classifier-proposed\\manifest.json",
+  "manifest_sha256": "120197a384b537e7d8178f61a819967c5c207faba173d0f7cf2cf9bdaa57c31a",
+  "base_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "files": [
+    {
+      "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ARCCards.php",
+      "target_relative": "FaBSim/Custom/ARCCards.php",
+      "before_sha256": "5bde46f342529508e33d983cc4a2475debbe2cfb2ba05a6c78a00da2f861672b",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-arcane-classifier-proposed\\ARCCards.php",
+      "after_sha256": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+      "exact_raw_byte_delta": "Single16byte insertion of prognosticate base in existing classifier list; all outside bytes identical."
+    }
+  ],
+  "validation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-arcane-classifier-proposed\\validation.json",
+    "sha256": "8bcae43b04c7df73781442ec7697c73533d1a67a65446b5b49c8f17da12a4952",
+    "actual_recorded_contracts": [
+      {
+        "label": "before",
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-arcane-classifier-proposed\\before-actual-functions.php",
+        "sha256": "5d60d650af87122cf1c80423db9ecf8e144f73c1bc234608bac824d6f6aae701",
+        "stdout_sha256": "f4cc7f92b419b7506ae63766b03c82777c6a4cf82b968c83db7444f557141ed2",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reported_exit_code": 1,
+        "actual_recorded_contracts": 10,
+        "actual_recorded_failures": [
+          "prognosticate_red",
+          "prognosticate_yellow",
+          "prognosticate_blue",
+          "PROGNOSTICATE_RED"
+        ],
+        "extracted_functions_exactly_match_full_sources": true
+      },
+      {
+        "label": "after",
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate065-arcane-classifier-proposed\\after-actual-functions.php",
+        "sha256": "17d3351104c5a5d277ad5fcfb64cc8fdd9d64eb989ece567f8a4ba8a1f4dfb7c",
+        "stdout_sha256": "0909e0e1970cb7ae9fa7fc574edf75163a07e8ab2487ef83d31d31356b068925",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "reported_exit_code": 0,
+        "actual_recorded_contracts": 10,
+        "actual_recorded_failures": [],
+        "extracted_functions_exactly_match_full_sources": true
+      }
+    ],
+    "lint_stdout_sha256": "54c55aceefb1a520c0795f8f40a820c6b29d907126145aa16c6fc77c7c3ac7ed",
+    "candidate_full_php_lint_recorded_pass": true,
+    "reviewer_ran_php_or_native": false
+  },
+  "native_before": {
+    "receipt_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate275-material-failed-prefix\\receipt.json",
+    "receipt_sha256": "42ebec3488bd7c87991d99150aabf85b59fb6f536780b3c6f9c8be959257598e",
+    "archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch275-prognosticate-material-correct-probe-20261103T023203Z-6ae947a33ea95.json",
+    "archive_sha256": "5a2dd6aca5bc956206df022d4e799cb7d3d64130445ae415188063af2fd4f336",
+    "wrapper_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-prognosticate275-material-native-r1\\receipt.json",
+    "wrapper_sha256": "9d704315f33c444b328c2454474da56672be7fb3e20461effbe955f481b4f55c",
+    "input_sha256": "8412007de8e11e9da5a3e7a98c5a0f018d12c4012960a35d6257d692b894f073",
+    "prefix_snapshot_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-focused-prefix-0d87\\runtime\\Tests\\Integration\\FaBSim\\negative-control-nov3-prognosticate275-material-failed-prefix\\initial_gamestate.txt",
+    "prefix_snapshot_sha256": "7f9ac0c7fe003dbc60ca7940ab726da2642ceb561278eb29c1ce47cad54bd196",
+    "prefix_snapshot_independently_schema_parsed": true,
+    "exact_first12_actions": true,
+    "four_living_actual_response_rounds": [
+      [
+        1,
+        2,
+        3,
+        4
+      ],
+      [
+        1,
+        2,
+        3,
+        4
+      ]
+    ],
+    "observed": "Actual paidCrucible1/Blue7pitch3 and four source responses completed; primary5 actualtarget4, paidAction/R2/AP0 and four more source responses. Raw postprefix snapshot confirms readyphysicalStaff6/ARC_USED_0:2, actual3arcane/P4HP17, noOpt/Temp, Deck8,9 unchanged, GY5/Pitch7. Archive confirms earnedARC_NEXT_ARCANE1 remainsunconsumed; no fixture. V1 private-field failure is not this gameplay confirmation."
+  },
+  "semantic_findings": [
+    "Re-viewed printed RedPrognosticate: actual3arcane effect and >3damage Surges Opt1. Re-viewed Crucible: paid once-per-turn Instant1 modifies next arcane-damage card by+1. With no mitigation in selected setup the correct material result is4/P4HP16 and earnedOpt1.",
+    "FaBARCIsArcaneCard is the existing explicit arcane-effect cohort, and Prognosticate has the required damage effect. One base insertion causes all pitch variants to match existing case-normalizing FaBWTRBase, without changing the19 prior bases or any non-Prognosticate classification.",
+    "Current direct call sites are ARC_NEXT_ARCANE attach/consume at ARCCards334 and MetacarpusNode eligibility at CRUCards166. The latter legitimately gains Prognosticate eligibility; no Metacarpus cost/choice/trigger/lifecycle branch is executed or credited here.",
+    "Data-only classifier fix directly addresses the observed retained/unconsumedCrucible modifier. Every other byte, helper, source macro, target/cost path and generated block is unchanged. Existing040 classifier family extended; not a new distinct engine root.",
+    "Opt/source-retention branch was not earned in before state and remains unverified. No manager/lifecycle change is included or approved on that evidence. Root must run unchanged correct material probe, preserve4damage/Opt1/sourceStack/fullsuffix, and classify any subsequent mismatch separately."
+  ],
+  "direct_references": [
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "line": 334,
+      "source": "        if($type==='ARC_NEXT_ARCANE'&&FaBARCIsArcaneCard($obj->CardID)){$bonus+=intval($e['amount']);continue;}"
+    },
+    {
+      "path": "FaBSim/Custom/ARCCards.php",
+      "line": 399,
+      "source": "function FaBARCIsArcaneCard(string $id): bool {"
+    },
+    {
+      "path": "FaBSim/Custom/CRUCards.php",
+      "line": 166,
+      "source": "    if(FaBARCIsArcaneCard($o->CardID))foreach(FaBCRUEquipment($p,'metacarpus_node') as $ref)FaBRunSourceMacro('CardPlayed',$p,'metacarpus_node',['mzID'=>FaBFindUID($uid)['mzID'],'cardID'=>$o->CardID,'fromZone'=>$from]);"
+    }
+  ],
+  "dependency_guards": {
+    "FaBSim\\Custom\\WTRCards.php": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "FaBSim\\Custom\\CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim\\Custom\\UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "DevTools\\FaB\\dyn_abilities.json": "b851c298ff9a31fd3da8cea0b62bd3bf6a6878dd77b22f21f57aef7dab6221cd",
+    "FaBSim\\Custom\\GameLogic.php": "ac90c758c64c079d3dde209920d1a01e4b937e03562a0f4f69fd5e88c1a92ff8",
+    "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "6a318ca63856aff98427ea1f9ecbdbcdf677e67f0f476895fac863926e9c52a6"
+  },
+  "rule_sources": [
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "https://rules.fabtcg.com/en/cr/06-effects/",
+    "https://rules.fabtcg.com/en/cr/08-keywords/"
+  ],
+  "printed_faces_actually_viewed": {
+    "prognosticate_red": "4e6dfa9b4d3d23030b0f590490c033e65ec0fb6f2b1228c582462218c6e4987e",
+    "crucible_of_aetherweave": "00c814bed0dbf69bc786df9cbf45cfbc5e461c24429c2977a262fde0078dce4e"
+  },
+  "method": "Independent read-only raw-byte delta/function extraction/caller scope and exact before-action comparison. Actual10 PHP classifier contracts/lint are root-recorded receipt evidence, not reviewer execution or native controls. No source application/native/backend/generator/R writes.",
+  "limits": [
+    "Source candidate approval only; root guarded application and unchanged original Red probe, exact saved review and focused replays remain pending.",
+    "No Yellow/Blue/native uppercase/Metacarpus/support/whole-card/legacy/fullsuite coverage or credit from pure classifier contracts.",
+    "No lifecycle change approved before actual earnedOpt observation; no source fix currently applied by this reviewer."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Ser Boltyn / adult duel soul-cost reaction and funded followup",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T08:35:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_LEGAL_ADULT_SERBOLTYN40_DORIIRONSONG40. ActualNimblism3Hand0cost/allbothresponses/printedGAearnsAP1; actualWounding4cost0buff3\u21927>base4/noGA. AdultHero0assetreactioncreatesvirtualABILITY7SourceUID1(noOwnerclaim); mandatorysoleSoul6choiceactualbanishfaceupown1beforebothreactionresponses; grantfalseuntilPP2thenPP1resolve. ThenGO_AGAINtrue/AP0untilactual7HeroDamageHP2=33/linkrefund1. FullcloseactualsecondWounding5nativeHandclickconsumesearnedAP1/freshbothresponses/4powerunbuffed/noGA/4actualdamageHP2=29. FinalNimblism3,attack4,attack5GY1/Soul6Banish1/Heroesready/UID7RNG0/APR0/StackDQCCquiet. Adultisdistinctcatalogstandalonegroupandlegal2live(no4seatadultsetup); reusesalreadyreviewedyoungabilityexpectedruleswithoutcreditingyoungcasehere. Positiveadultreactiongrantcostandactualfundedfollowuponly; chargedpassive, invalidthreshold,targetchange/fizzle,support/fullHerountested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ser_boltyn_breaker_of_dawn FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/CardChoices.php FaBSim/ZoneClasses.php"
+}

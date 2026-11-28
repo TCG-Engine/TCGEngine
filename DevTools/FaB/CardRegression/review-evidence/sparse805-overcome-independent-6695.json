@@ -1,0 +1,957 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B805_OVERCOME",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-15T00:45:24.316555+00:00",
+  "source_spec": "card-regression-batch805-overcome_adversity.json",
+  "input_sha256": "9a3f23d272cf0d83c03289a6d752054f6884344e1d93a9db2bc3b0380d68b11a",
+  "manifest_sha256": "0efebdb9e9627f2bd9670097adedceb842f5bea5a6776ac617c27f9ae6f0be89",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch805-overcome-real-four-seat-round-agility-destroy-red-block-blue-consumer-author\\manifest.json",
+    "sha256": "0efebdb9e9627f2bd9670097adedceb842f5bea5a6776ac617c27f9ae6f0be89"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch805-overcome-independent-correct-positive-source-review.json",
+    "sha256": "6bc2caa1d8ef9afd0463c9ae97025b1b17853f500ddd2f138e6d2aaf4c74d91f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b805-overcome-native-real-round-agility-blue-consumer\\receipt.json",
+    "sha256": "04d5bff1570b179fddeab79579a89745dbc41c10b697ab36beae9862eb0178e9"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch805-overcome_adversity-20261115T004206Z-6af8ffdea4a57.json",
+    "sha256": "f731519483a2aefe56a5805def2b2958de72f7a0ed53908da870369783346171"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch805-overcome_adversity.recording-results.json",
+    "sha256": "f4e2f2066631919cb1ada2887d3075e06b2a8176ef4c1ff974010f8ff32d4f27"
+  },
+  "fixtures": [
+    {
+      "slug": "card-overcome-real-four-seat-round-agility-destroy-red-block-blue-consumer",
+      "card_id": "overcome_adversity",
+      "group_id": "identity:overcome_adversity",
+      "source_spec": "card-regression-batch805-overcome_adversity.json",
+      "input_sha256": "9a3f23d272cf0d83c03289a6d752054f6884344e1d93a9db2bc3b0380d68b11a",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-overcome-real-four-seat-round-agility-destroy-red-block-blue-consumer",
+      "fixture_sha256": "39ccca3824a2fae6a265ca21fb965cb11e34eb9f24574fa733dc0b69a06236e7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f7a623feef330d4f49c2065699a02be46e5c6d70dc80d341ea03d324b9bde6c",
+        "actions.json": "0b3e2e3c2b16951f2112238b426f6f2bfe6ed637f22545687a63493fb920a7ab",
+        "assertions.json": "7c9e5f317a4371a6731e7b671f85a898370b625706b4e0d7c926fb4f4c8bcf13",
+        "expected_final_gamestate.txt": "9d5c9d778a1044b53c3c8d0512b485132bb0743e28ec18f4ca7c154f1807d8f5",
+        "meta.json": "19e7dbe75f214df8cf4308f6068ccc69089a98e97f060914a73be99f9a1e0823"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4f7a623feef330d4f49c2065699a02be46e5c6d70dc80d341ea03d324b9bde6c",
+        "actions.json": "0b3e2e3c2b16951f2112238b426f6f2bfe6ed637f22545687a63493fb920a7ab",
+        "assertions.json": "7c9e5f317a4371a6731e7b671f85a898370b625706b4e0d7c926fb4f4c8bcf13",
+        "expected_final_gamestate.txt": "9d5c9d778a1044b53c3c8d0512b485132bb0743e28ec18f4ca7c154f1807d8f5",
+        "meta.json": "19e7dbe75f214df8cf4308f6068ccc69089a98e97f060914a73be99f9a1e0823"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4f7a623feef330d4f49c2065699a02be46e5c6d70dc80d341ea03d324b9bde6c",
+        "actions.json": "0b3e2e3c2b16951f2112238b426f6f2bfe6ed637f22545687a63493fb920a7ab",
+        "assertions.json": "7c9e5f317a4371a6731e7b671f85a898370b625706b4e0d7c926fb4f4c8bcf13",
+        "expected_final_gamestate.txt": "9d5c9d778a1044b53c3c8d0512b485132bb0743e28ec18f4ca7c154f1807d8f5"
+      },
+      "actions": 82,
+      "declarative_controls": 66,
+      "native_assertions": 4624,
+      "manual_passes": 78,
+      "actual_manual_passes": 78,
+      "actual_combat_priority_response_passes": 44,
+      "actual_action_phase_pass_inputs": 16,
+      "actual_mechanical_End_dispatcher_pass_inputs": 16,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_manual_actor_counts": {
+        "1": 19,
+        "2": 19,
+        "3": 19,
+        "4": 21
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "native_input_weights": {
+        "4": 5,
+        "8": 5,
+        "12": 5,
+        "16": 5
+      },
+      "actual_declarative_to_native_control_expansion": [
+        {
+          "control": 1,
+          "raw_action_start": 1,
+          "raw_action_end": 1,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 2,
+          "raw_action_start": 2,
+          "raw_action_end": 2,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 3,
+          "raw_action_start": 3,
+          "raw_action_end": 3,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 4,
+          "raw_action_start": 4,
+          "raw_action_end": 8,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            4,
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "control": 5,
+          "raw_action_start": 9,
+          "raw_action_end": 9,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 6,
+          "raw_action_start": 10,
+          "raw_action_end": 10,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 7,
+          "raw_action_start": 11,
+          "raw_action_end": 11,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 8,
+          "raw_action_start": 12,
+          "raw_action_end": 16,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            1,
+            2,
+            3,
+            4,
+            1
+          ]
+        },
+        {
+          "control": 9,
+          "raw_action_start": 17,
+          "raw_action_end": 17,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 10,
+          "raw_action_start": 18,
+          "raw_action_end": 18,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 11,
+          "raw_action_start": 19,
+          "raw_action_end": 19,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 12,
+          "raw_action_start": 20,
+          "raw_action_end": 24,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            2,
+            3,
+            4,
+            1,
+            2
+          ]
+        },
+        {
+          "control": 13,
+          "raw_action_start": 25,
+          "raw_action_end": 25,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 14,
+          "raw_action_start": 26,
+          "raw_action_end": 26,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 15,
+          "raw_action_start": 27,
+          "raw_action_end": 27,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 16,
+          "raw_action_start": 28,
+          "raw_action_end": 32,
+          "raw_inputs": 5,
+          "manual_pass_actors": [
+            3,
+            4,
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "control": 17,
+          "raw_action_start": 33,
+          "raw_action_end": 33,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 18,
+          "raw_action_start": 34,
+          "raw_action_end": 34,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 19,
+          "raw_action_start": 35,
+          "raw_action_end": 35,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 20,
+          "raw_action_start": 36,
+          "raw_action_end": 36,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 21,
+          "raw_action_start": 37,
+          "raw_action_end": 37,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 22,
+          "raw_action_start": 38,
+          "raw_action_end": 38,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 23,
+          "raw_action_start": 39,
+          "raw_action_end": 39,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 24,
+          "raw_action_start": 40,
+          "raw_action_end": 40,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 25,
+          "raw_action_start": 41,
+          "raw_action_end": 41,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 26,
+          "raw_action_start": 42,
+          "raw_action_end": 42,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 27,
+          "raw_action_start": 43,
+          "raw_action_end": 43,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 28,
+          "raw_action_start": 44,
+          "raw_action_end": 44,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 29,
+          "raw_action_start": 45,
+          "raw_action_end": 45,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 30,
+          "raw_action_start": 46,
+          "raw_action_end": 46,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 31,
+          "raw_action_start": 47,
+          "raw_action_end": 47,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 32,
+          "raw_action_start": 48,
+          "raw_action_end": 48,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 33,
+          "raw_action_start": 49,
+          "raw_action_end": 49,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 34,
+          "raw_action_start": 50,
+          "raw_action_end": 50,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 35,
+          "raw_action_start": 51,
+          "raw_action_end": 51,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 36,
+          "raw_action_start": 52,
+          "raw_action_end": 52,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 37,
+          "raw_action_start": 53,
+          "raw_action_end": 53,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 38,
+          "raw_action_start": 54,
+          "raw_action_end": 54,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 39,
+          "raw_action_start": 55,
+          "raw_action_end": 55,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 40,
+          "raw_action_start": 56,
+          "raw_action_end": 56,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 41,
+          "raw_action_start": 57,
+          "raw_action_end": 57,
+          "raw_inputs": 1,
+          "manual_pass_actors": []
+        },
+        {
+          "control": 42,
+          "raw_action_start": 58,
+          "raw_action_end": 58,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 43,
+          "raw_action_start": 59,
+          "raw_action_end": 59,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 44,
+          "raw_action_start": 60,
+          "raw_action_end": 60,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 45,
+          "raw_action_start": 61,
+          "raw_action_end": 61,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 46,
+          "raw_action_start": 62,
+          "raw_action_end": 62,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 47,
+          "raw_action_start": 63,
+          "raw_action_end": 63,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 48,
+          "raw_action_start": 64,
+          "raw_action_end": 64,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 49,
+          "raw_action_start": 65,
+          "raw_action_end": 65,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 50,
+          "raw_action_start": 66,
+          "raw_action_end": 66,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 51,
+          "raw_action_start": 67,
+          "raw_action_end": 67,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 52,
+          "raw_action_start": 68,
+          "raw_action_end": 68,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 53,
+          "raw_action_start": 69,
+          "raw_action_end": 69,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 54,
+          "raw_action_start": 70,
+          "raw_action_end": 70,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 55,
+          "raw_action_start": 71,
+          "raw_action_end": 71,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 56,
+          "raw_action_start": 72,
+          "raw_action_end": 72,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 57,
+          "raw_action_start": 73,
+          "raw_action_end": 73,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 58,
+          "raw_action_start": 74,
+          "raw_action_end": 74,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 59,
+          "raw_action_start": 75,
+          "raw_action_end": 75,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 60,
+          "raw_action_start": 76,
+          "raw_action_end": 76,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 61,
+          "raw_action_start": 77,
+          "raw_action_end": 77,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 62,
+          "raw_action_start": 78,
+          "raw_action_end": 78,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        },
+        {
+          "control": 63,
+          "raw_action_start": 79,
+          "raw_action_end": 79,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            1
+          ]
+        },
+        {
+          "control": 64,
+          "raw_action_start": 80,
+          "raw_action_end": 80,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            2
+          ]
+        },
+        {
+          "control": 65,
+          "raw_action_start": 81,
+          "raw_action_end": 81,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            3
+          ]
+        },
+        {
+          "control": 66,
+          "raw_action_start": 82,
+          "raw_action_end": 82,
+          "raw_inputs": 1,
+          "manual_pass_actors": [
+            4
+          ]
+        }
+      ],
+      "schema_property_assertions": 1030,
+      "checkpoint_count": 68,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 149,
+        "82": 214
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "agility",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "overcome_adversity",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "betsy",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "overcome_adversity",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "544101fd428a245e56d50cc12e5c14b4a12952409cf9248734419497b82e395f",
+      "native_assertion_mapping_sha256": "be781a1bbafa2e6f08d46711f88a095588b51865984c0babe34404fb11005157",
+      "checkpoint_assertion_mapping_sha256": "f31af8789225d0e8da8c1b4aed3f6288c8564900dd844ca7f805339c886a0bb5",
+      "direct_intermediate_equipment_UID_Owner_Role_verified": true,
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 22,
+  "all_current_guards_matched": true,
+  "total_actions": 82,
+  "total_declarative_controls": 66,
+  "total_native_assertions": 4624,
+  "total_manual_passes": 78,
+  "total_schema_property_assertions": 1030,
+  "total_checkpoints": 68,
+  "total_endpoint_assertions_evaluated": 363,
+  "actual_initial_health": [
+    20,
+    20,
+    20,
+    20
+  ],
+  "actual_final_health": [
+    20,
+    20,
+    20,
+    16
+  ],
+  "actual_initial_turn": 2,
+  "actual_final_turn": 6,
+  "material_findings": [
+    "Allactual66declarative->82nativeenvelopes/78rawpassinputs/4624successfulqueriesmatchSourceweightedpositionsandactors19/19/19/21. Exactly16Action+16mechanicalENDacknowledgments+44combatresponses+twoP4formalfinishes. ENDinputsnotlegalpriorityorresponsecertificate.",
+    "Actualroundturn2to6/refillSAMEownedRed7+Blue8,9,10/Agility6retainedotherstarts thenceasedownnaturalStart/AP1. Initialrawnobuff/historyseed; finalrawHVY_DESTROYED_agility amounts[1,0,0,0] andNEXT_ATTACKconsumed.",
+    "ActualRed7power4GA1vslegalLegs5DEF2givesphysical2damageHP18. FirstResolutionraw56earnsAP1; ACTUALnextclickraw57playsrefilledBlue8/AP0. Currentsecondlink2computedqueriesexplicitlyp1CombatChain-1:power2/GA0givesphysical2damageHP16/noGAspill.",
+    "SameownedLegs5MIDChainUIDOwner4Controller4DEFENSERoleEquipmentoriginlink1guardedthroughbothlinks; notusedasnewdefendersecondlink. FulltrueCloseLegs5GY4/Red7+Blue8GY1/twoBlue9,10Hand1/Agility6ceased/RChiAP0/all4live/fullStackChainDQTargetPaymentManagerAwaitcleanup. All363rawendpointqueriesand48manualpreferenceseachindependentlyverified."
+  ],
+  "Start_End_legal_priority_certified": false,
+  "automatic_Start_End_dispatcher_only": true,
+  "general_Start_End_lifecycle_certified": false,
+  "limits": [
+    "ExactOvercomeLegspositiveonly; noAgilitycreation/negativelegality/Hero/generalAgility/fullcard/siblingcertificate. GamblerremainsindependentUNATTEMPTED.",
+    "NolegalStartEndpriority/freshAgilityresponses/automaticphaseordering/cardplaypermission/generalphasehealthcertificate.16ENDdispatchinputsmechanicalonly.",
+    "Roottwonew-onlyfocusedreplaysandregistrationremain. ReviewernoPHP/native/replay/R/source/Git/repair/B787action."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch805_overcome_saved.py",
+    "sha256": "32d9555adf62dee808c37139a9ee5b2454beac7fdeee6b0c647b15e3c6eceaca"
+  }
+}

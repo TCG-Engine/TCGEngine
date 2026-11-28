@@ -1,0 +1,7 @@
+{
+    "name": "Arakni, Web of Deceit / actual marked-stealth static power, fully blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:00:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Generic Public Bounty5 cost1 paid by Blue6 leavesR2 and, after four manual responses, marks Hero4 and restoresAP1. Real Sedate7 base3 attacks that marked hero: Bounty3 plus primary ArakniWeb static1 makes actualpower7. Three actual Generic NAAdef3 each fullyblock9, actual0damage/HP20/attackHitfalse. No hit means neither Sedate Inertia nor granted Hero hit-GA earns a layer; marker persists. SourceBounty5 and attack7 ownedGY1, defenders8/9/10 ownedGY4, Blue6Pitch, AP0/R2, Hero1same young20, noEndphase/Agent transform. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_web_of_deceit"
+}

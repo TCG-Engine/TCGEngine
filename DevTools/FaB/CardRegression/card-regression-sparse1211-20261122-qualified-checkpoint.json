@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T16:43:07.280367+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1211-20261122.json",
+  "source_spec_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 16,
+  "native_assertions": 646,
+  "manual_passes": 11,
+  "totals": {
+    "saved_registered_scenarios": 5113,
+    "duels": 3075,
+    "four_live": 2038,
+    "recorded_primary_ids": 2261,
+    "identity_denominator": 5196,
+    "recorded_groups": 2135,
+    "group_denominator": 3324,
+    "four_live_groups": 2027,
+    "phase_qualified_scenarios_at_actual_contexts": 1750,
+    "phase_qualified_unique_groups": 1740,
+    "creation_replay_passes": 2492,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 911,
+  "scenarios": [
+    {
+      "card_id": "volcanic_vice",
+      "group_id": "identity:volcanic_vice",
+      "scenario_id": "card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+      "effect_branches": [
+        "actual_typed_surged_creation_from_paid_tectonic_ability_then_conditional_spellvoid_destroys_same_equipment_and_prevents_real_one_arcane"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+      "source_spec": "card-regression-sparse1211-20261122.json",
+      "source_spec_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+      "review_evidence": "review-evidence/sparse1211-20261122-qualified-saved.json",
+      "review_evidence_sha256": "26990b7788c5fe21d23f7b651b92ac986252b804665e5b6862c1699c3da9d6c1",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1211-20261122-replay.json",
+          "sha256": "374c451096e084b10b4db737db226b05a5246354fa629e07d1505a007f8e53f5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

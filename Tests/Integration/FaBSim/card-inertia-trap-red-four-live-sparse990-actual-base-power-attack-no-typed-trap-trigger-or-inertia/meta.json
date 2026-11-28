@@ -1,0 +1,7 @@
+{
+    "name": "Inertia Trap / sparse four-live negative-trigger representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:49:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends an attack with {p} greater than its base, create an Inertia token under the attacking hero's control. Named typed-event-negative branch only: actual_base_power_attack_no_typed_trap_trigger_or_inertia. Genuine natural20 legal uzuri defender4 plays owned Arsenal5/FaceDown1 cost0/noAP. Actual Raging7 Generic attack has printed/current7 and no go again, paid3 by real Blue8, no normal blocks. Four actual DR responses4,1,2,3 then fresh1,2,3,4 give persisted defenseValue3/damage4/HP16; source5 and attack7 finish respective owned graveyards. Typed power-greater-than-base/has-go-again defend event is absent, not an earned WHEN followed by a false IF. No extra triggered layer, token or mark; all4Arena0, attackerHeroCounters[], attackerHP20, unused defenderBlue6 and attackerNAA9 retained. No positive trap/ownership/hero activation/source support credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#inertia_trap_red"
+}

@@ -1,0 +1,159 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1442-20261122.json",
+  "source_spec_sha256": "33f83007eee47cb57fe8913f27706868074affbca3af70a6128e63b2a2fbcb34",
+  "input_sha256": "33f83007eee47cb57fe8913f27706868074affbca3af70a6128e63b2a2fbcb34",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-malice-domina-of-the-dead-two-live-sparse1442-real-non-incarnate-zombie-death-trigger-banish-and-new-corpse",
+      "card_id": "malice_domina_of_the_dead",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da108325b1ba04e3cd30cc5447a93494b16543e200e09fad6f8d7b6903f3d889",
+        "actions.json": "13359d023ee278cdb5acb01b4a72b59899fc3242944dd58d4a8f7484f1293643",
+        "assertions.json": "8c1e1be30fc788474ef2bffc0ce0730d099b0179e45cb6bd3bfc3930db225c4c",
+        "expected_final_gamestate.txt": "cee7664832eaca174322d69e4f827bb059040dc52f2c5d894478baf75c718a93",
+        "meta.json": "a257c66bfe0c82e6178ab39cfd1a8d59e2a7152b0b7a5bd5f26fdd7d4a70a977"
+      },
+      "fixture_sha256": "d7564920ecace57a13da836a44539f7ea38666ea4cdfd37ec70aa2fa4c00ab79",
+      "actions": 17,
+      "native_assertions": 218,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1442-20261122.json",
+      "input_sha256": "33f83007eee47cb57fe8913f27706868074affbca3af70a6128e63b2a2fbcb34",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1442-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-malice-domina-of-the-dead-two-live-sparse1442-real-non-incarnate-zombie-death-trigger-banish-and-new-corpse",
+        "fixture_slug": "card-malice-domina-of-the-dead-two-live-sparse1442-real-non-incarnate-zombie-death-trigger-banish-and-new-corpse",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "33f83007eee47cb57fe8913f27706868074affbca3af70a6128e63b2a2fbcb34",
+    "source_note_sha256": "1d764e677e10fe1f4789c67af257d47cc9c1a3fe507a0711d7fe04c489ad261f",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": {
+      "1": {
+        "hero": "bravo_showstopper",
+        "health": 40,
+        "manual": true
+      },
+      "2": {
+        "hero": "malice_domina_of_the_dead",
+        "health": 40,
+        "manual": true
+      }
+    },
+    "native_controls": 17,
+    "query_checks": 218,
+    "persistable_assertions": 218,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_CAPTURED_ADULT_HERO_ZOMBIE_DEATH_TRIGGER_ORIGINAL_FACE_DOWN_BANISH_AND_NEW_FACE_UP_CORPSE",
+    "approved_qualification_endpoint": "COMPLETE",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "initial_ally_production_credit": false,
+    "basis": [
+      "Cached adult Malice/Bravo are CC eligible, natural40; no activeSeats field invokes existing genuine two-manual-seat path, default holdPriority false. Physical UIDs are heroes1/2, Wounding3, owned ready Shieldmaiden4. Group identity:malice_domina_of_the_dead was independently checked absent from coverage and hold ledgers.",
+      "Shieldmaiden is a non-Incarnate Shadow Necromancer Zombie Ally with life3. Printed Shadow Resist cannot apply against non-Shadow source Hero Bravo; IARRuntime416-419 returns no resist refs. Decay is not earned before end phase. Corrected lethal4 therefore causes a genuine Arena-to-Graveyard death.",
+      "Formal Hero-or-Ally chooser before zero-cost attack selects actual Shieldmaiden4. Payment uses AP1 only. Initial PRIORITY2 then1 resolves attack; fresh ATTACK1/2 and real declaration/defend/reaction passes lead to DAMAGE. Neither Hero takes damage.",
+      "GameLogic864-876 captures and queues actual pre-move non-token death; IARRuntime167-205 accepts exact adult Malice, preserves original owner/controller and entry epoch, queues separate physical Hero2-source ABILITY5. The damage step resets priority to turn-player1, so fresh1/2 responses are required.",
+      "IARRuntime206-226 resolves matching original Shieldmaiden4 to owned Banish face-down/Playable0 and independently creates new owned face-up non-token Corpse6 via IARCards210-213. ROSCards24/36 retains a separate trigger layer and dispatches exact event. GameLogic1731-1744 restores DAMAGE/turn-player1 when layer empties.",
+      "All original4 Arena/GY/Banish identity assertions were checked as Shieldmaiden; distinct newly created6 remains corrupted_corpse. Full close removes Wounding3 to owner1GY; no GO/AP refund is expected. CountersUID6/RNG0, both Hero40/ready, quiet frames/queues/Stack, exact zones are pinned."
+    ],
+    "rules_sources": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "sections": [
+          "8.3.46b",
+          "8.3.47"
+        ],
+        "review_scope": "Public official text checked: Incarnate removal is not death; selected replacement has no Incarnate, and Shadow Resist requires Shadow Hero damage."
+      }
+    ],
+    "limits": [
+      "hero_targeted_graveyard_play_activated_ability",
+      "token_zombie_death_or_changed_controller",
+      "later_graveyard_departure_before_trigger_resolution",
+      "Corpse_Incarnate_attack_or_Blood_Debt",
+      "four_player_UPF_or_young_hero_sibling",
+      "Incarnate_replacement_no_death",
+      "Shieldmaiden_Shadow_Resist_or_Decay",
+      "Source/spec approval only: no native pass, saved fixture, replay or coverage credit certified.",
+      "No original Corpse-death oracle approval: pre-native erroneous draft was never run and is preserved."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1442.py": "cfc6d6f756118871ba6465ea5b50f0d1a4dd4aeba1a5b6c566f3cc131c5ee2bf",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5",
+      "correct_breadth1442_incarnate.py": "127af47ff3341b57c394856939924ce18f1f694c241d0d3ba03ae53782566066",
+      "correct_breadth1442_duel_alias.py": "2d3083c1106dbae1191dd9bb78437fcf18ef2f19a2b092020aaece71902ec208"
+    },
+    "pre_native_correction_sha256": "d569ecfbc1c540122648adedaaecb2ad8944f8244f0a665fa7344c0301e7459d",
+    "original_unexecuted_spec_sha256": "1a9e558b46fa366a1753f616c236af783bdae877ae0654eb184060d99b3dfc50",
+    "authoring_provenance": {
+      "ordered_steps": [
+        "author_breadth1442.py",
+        "correct_breadth1442_incarnate.py",
+        "correct_breadth1442_duel_alias.py"
+      ],
+      "basis": "Read-only review of explicit corrector confirms only original dying ally4 identities/associated branch metadata and oracle correction; newly created Corpse6 untouched. Current source-note declares ordered original-author + corrector provenance; already-corrected input is a no-op, and uncorrected input with save directory is rejected. Neither script was executed by reviewer. Final alias corrector was read-only reviewed; it changes only native two-seat chooser address representation."
+    },
+    "protocol_correction": {
+      "scope": "Exactly two source fields changed: chooser Param p2Hero-0&p2Arena-0 to theirHero-0&theirArena-0 and answer p2Arena-0 to theirArena-0. All physical UID4/owner/controller assertions, costs, effects and outcomes unchanged.",
+      "basis": "GameLogic752-758 uses relative my/their target addresses with two seats; ZoneAccessors982-983 maps theirArena to opposing player2 from actor1.",
+      "original_approved_review_sha256": "b5c69072e17d183ecbe728d1445a4faebb9b516c6297a70cbd91ff5e024cc96f",
+      "original_spec_sha256": "98faa9868e9c8c3f312143fb8d9a4059715de3412e6e4b43ba772ac5dfd3423c",
+      "original_native_receipt_sha256": "6c9155ce0658ea9e5c1634ff436b7bcdb27bf5cd4a88fa33192cebaf88e524d4",
+      "original_native_inputs": 1,
+      "original_status": "unsaved authoring/UI alias oracle failure before target submission/play/payment; no native gameplay defect claimed",
+      "correction_record_sha256": "99d3ca534b44860af07edbf7b84a37186a08344c938f77fbc1181f4552a4f614"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1442-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5bc630cfe81515e905f64177ba8c4839a1c26221f92a59a5628854d917a32aaf"
+  },
+  "full_suite_run": false
+}

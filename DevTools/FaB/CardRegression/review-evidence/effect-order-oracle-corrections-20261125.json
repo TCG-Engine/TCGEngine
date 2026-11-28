@@ -1,0 +1,939 @@
+{
+  "status": "EXACT_ORDER_ORACLE_DELTAS_WITH_NATIVE_DOWNSTREAM_RESULTS",
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "source_spec": "card-regression-repair-effect-order-oracles-20261125.json",
+  "input_sha256": "01acbf6d5688791e2b8dda1208b7dbe189306ed9b26e2218fc238ab5ced13264",
+  "reviewer": "/root/breadth_review1457",
+  "review_scope": "Independent source causality, card text and exact assertion/source mirror diff review. Root normal runner all downstream gameplay checks and strict final comparison. No independent native game claimed.",
+  "before": [
+    {
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "category": "command",
+      "backup": "b01",
+      "candidate_assertions": "assertions-01.json",
+      "before_raw5": {
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "b2f2f99354cf4bf9817e25414b873ced828f7affa73b5d1902924cbc45416361",
+        "expected_final_gamestate.txt": "8bf39c9126be6c4645032a3a59d782e5742977409b594b2eda6a6b037ac6c073",
+        "initial_gamestate.txt": "90bf7947b0a1194e79dd3d6a5a8ab38c57f58eb9e12a14875a102599a08daedb",
+        "meta.json": "ea3496f76e4589f013b4a2e9df267b771dbbb20324a6df39a0c2493f967bc58f"
+      },
+      "candidate_assertions_sha256": "95d140ca542dbd2445f26e9ccb05a60f027ec7c0ca962b2ec368203ec1938a9b",
+      "native_assertions_changed": 7,
+      "source_checks_changed": 7,
+      "deltas": [
+        {
+          "assertion_index": 171,
+          "before": {
+            "step": 0,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "type"
+            ],
+            "comparison": "missing_or_null"
+          },
+          "after": {
+            "step": 0,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "type"
+            ],
+            "comparison": "missing_or_null"
+          }
+        },
+        {
+          "assertion_index": 853,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          }
+        },
+        {
+          "assertion_index": 854,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 3762,
+          "before": {
+            "step": 29,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          },
+          "after": {
+            "step": 29,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          }
+        },
+        {
+          "assertion_index": 3763,
+          "before": {
+            "step": 29,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 29,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 4440,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"IAR_BLASMOPHET_ATTACK\""
+          }
+        },
+        {
+          "assertion_index": 4441,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              7,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              5,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        }
+      ],
+      "source_spec": "card-regression-batch589-command-after143-r3.json",
+      "source_spec_sha256": "762f680f2bd18322984a3b8d30515bebd044f2515e74c9130fc7a82a219a4aed",
+      "source_step_actions_unchanged": true
+    },
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "category": "flex",
+      "backup": "b02",
+      "candidate_assertions": "assertions-02.json",
+      "before_raw5": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "85ea64ab61737e86a2b7ab62a1dde8f6a3bd564cd9d862ee2a2404a2b72715e9",
+        "expected_final_gamestate.txt": "14b9fe34d60a6ede1d9d44f9d11d29937df2c62cceac1e820b29cd4cbe6aac74",
+        "initial_gamestate.txt": "1a8fdee2e00c1263b03ab612c8cac2f9d396cb1400052ff38a0c2c910c5f8df0",
+        "meta.json": "6928cd3ee067c2a5f8085970acf3ad2a0cbc68bdbee018abe2f018c47572e8cd"
+      },
+      "candidate_assertions_sha256": "a7b0f0c5b49d47b6d3216f00ef69d1ac08ae05bb80d67e9a0b6df399be5639fd",
+      "native_assertions_changed": 1,
+      "source_checks_changed": 1,
+      "deltas": [
+        {
+          "assertion_index": 203,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1"
+            ],
+            "comparison": "equals",
+            "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1}]"
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1"
+            ],
+            "comparison": "equals",
+            "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]"
+          }
+        }
+      ],
+      "source_spec": "card-regression-batch101-flex-two-oracles-corrected.json",
+      "source_spec_sha256": "338df8910d5762768dd23e232f8a2babd1b246ab1be9f15e0849eb6281558218",
+      "source_step_actions_unchanged": true
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "category": "flex",
+      "backup": "b03",
+      "candidate_assertions": "assertions-03.json",
+      "before_raw5": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "9496c472f7d19c9931a28d6f4836e51b54029bca975a1255b9c0579fda23688e",
+        "expected_final_gamestate.txt": "3e16348aa583c492f886d4e218c578c836f5b18300aa73cd0d629ffa346fb800",
+        "initial_gamestate.txt": "3b9b686318bbbb048f2a9000984f685105a7f66c0a3553e7ea07d50ef2086732",
+        "meta.json": "d68c33ff7040aabba56b48c1e1007f0c98870684d29570cbd873642d2123810b"
+      },
+      "candidate_assertions_sha256": "8bd8ca136cd67405126cd353c97ac6dd7fc25ea273125c6f9adcd432060e021e",
+      "native_assertions_changed": 1,
+      "source_checks_changed": 1,
+      "deltas": [
+        {
+          "assertion_index": 203,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1"
+            ],
+            "comparison": "equals",
+            "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1}]"
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1"
+            ],
+            "comparison": "equals",
+            "valueJson": "[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"ARC_NEXT_AA\",\"amount\":3,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]"
+          }
+        }
+      ],
+      "source_spec": "card-regression-batch101-flex-two-oracles-corrected.json",
+      "source_spec_sha256": "338df8910d5762768dd23e232f8a2babd1b246ab1be9f15e0849eb6281558218",
+      "source_step_actions_unchanged": true
+    },
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "category": "quickfire",
+      "backup": "b04",
+      "candidate_assertions": "assertions-04.json",
+      "before_raw5": {
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "138c647dd9787c4de86bfc0af07300ba1f7ed57e3ec42d07295702584d5eb7d7",
+        "expected_final_gamestate.txt": "585fa596e105e33ae926e37ca1e8fd05472158138b4544eb10e9f2568f04b57f",
+        "initial_gamestate.txt": "e58f5ea81ce85434fc719d2e9ec72a20d8d2259274d5a91d1610c6e3a79dd646",
+        "meta.json": "1d8c3f0648958f852f57c66ea6cf8a5bf7be96dde1c073c21045099207849e34"
+      },
+      "candidate_assertions_sha256": "1823ce6dfd7907faa514a3c84ae6091fc504f16cce1de89429d0b3d6be9b33bd",
+      "native_assertions_changed": 15,
+      "source_checks_changed": 15,
+      "deltas": [
+        {
+          "assertion_index": 579,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          }
+        },
+        {
+          "assertion_index": 580,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          }
+        },
+        {
+          "assertion_index": 581,
+          "before": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 6,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 1031,
+          "before": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          },
+          "after": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          }
+        },
+        {
+          "assertion_index": 1032,
+          "before": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          },
+          "after": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          }
+        },
+        {
+          "assertion_index": 1033,
+          "before": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 12,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 2090,
+          "before": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          },
+          "after": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          }
+        },
+        {
+          "assertion_index": 2091,
+          "before": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          },
+          "after": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          }
+        },
+        {
+          "assertion_index": 2092,
+          "before": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 25,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 2752,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          }
+        },
+        {
+          "assertion_index": 2753,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          }
+        },
+        {
+          "assertion_index": 2754,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        },
+        {
+          "assertion_index": 2884,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "type"
+            ],
+            "comparison": "equals",
+            "valueJson": "\"EVO_NEXT_BOOST\""
+          }
+        },
+        {
+          "assertion_index": 2885,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "amount"
+            ],
+            "comparison": "equals",
+            "valueJson": "2"
+          }
+        },
+        {
+          "assertion_index": 2886,
+          "before": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              6,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          },
+          "after": {
+            "step": 33,
+            "type": "game_state_field",
+            "viewerPlayerID": 1,
+            "rootName": "FaBSim",
+            "path": [
+              "turnEffects",
+              "1",
+              4,
+              "uses"
+            ],
+            "comparison": "equals",
+            "valueJson": "1"
+          }
+        }
+      ],
+      "source_spec": "card-regression-batch601-quickfire-r2.json",
+      "source_spec_sha256": "bfbde63a0f368e2a58e08bb6513f6d4e4ef45513ed7777ca86565bde8f002bbf",
+      "source_step_actions_unchanged": true
+    }
+  ],
+  "fixtures": [
+    {
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "status": "FAIL_FINAL_SNAPSHOT",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "returncode": 1,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\trace_user_runner.php",
+        "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+        "C:/Users/maxim/Documents/Codex/2026-10-19/task/repairs-after1586-20261125/ordering-oracles/post01"
+      ],
+      "message": "Final snapshot mismatch at line 97 (expected 122 lines, actual 122 lines).\nExpected: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_DEBT_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"IAR_BLASMOPHET_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"MON_ALLY_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_blasmophet_the_insatiable_hunger\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":6,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":6,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":6,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":6},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":6,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":6,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[16]},\"cardsPlayedThisTurn\":{\"1\":[\"consuming_command_blue\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":{\"6\":1},\"attackActionHits\":[],\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"5\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"16\":{\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[]},\"8\":{\"penMirageChain\":-1},\"9\":{\"penMirageChain\":-1},\"10\":{\"penMirageChain\":-1},\"11\":{\"penMirageChain\":-1},\"12\":{\"penMirageChain\":-1},\"13\":{\"penMirageChain\":-1}},\"arcActions\":{\"1\":1}}\nActual:   {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_DEBT_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"IAR_BLASMOPHET_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_ALLY_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_blasmophet_the_insatiable_hunger\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":6,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":6,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":6,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":6},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":6,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":6,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[16]},\"cardsPlayedThisTurn\":{\"1\":[\"consuming_command_blue\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":{\"6\":1},\"attackActionHits\":[],\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"5\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"16\":{\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[]},\"8\":{\"penMirageChain\":-1},\"9\":{\"penMirageChain\":-1},\"10\":{\"penMirageChain\":-1},\"11\":{\"penMirageChain\":-1},\"12\":{\"penMirageChain\":-1},\"13\":{\"penMirageChain\":-1}},\"arcActions\":{\"1\":1}}\nContext:\n  L95   expected: 1 | actual: 1\n  L96   expected: 0 | actual: 0\n> L97   expected: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_DEBT_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"IAR_BLASMOPHET_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"MON_ALLY_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_blasmophet_the_insatiable_hunger\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":6,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":6,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":6,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":6},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":6,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":6,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[16]},\"cardsPlayedThisTurn\":{\"1\":[\"consuming_command_blue\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":{\"6\":1},\"attackActionHits\":[],\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"5\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"16\":{\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[]},\"8\":{\"penMirageChain\":-1},\"9\":{\"penMirageChain\":-1},\"10\":{\"penMirageChain\":-1},\"11\":{\"penMirageChain\":-1},\"12\":{\"penMirageChain\":-1},\"13\":{\"penMirageChain\":-1}},\"arcActions\":{\"1\":1}} | actual: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_DEBT_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"IAR_BLASMOPHET_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"MON_ALLY_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_blasmophet_the_insatiable_hunger\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":6,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":6,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":6,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":6},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":6,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":6,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[16]},\"cardsPlayedThisTurn\":{\"1\":[\"consuming_command_blue\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":{\"6\":1},\"attackActionHits\":[],\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"5\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"16\":{\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[]},\"8\":{\"penMirageChain\":-1},\"9\":{\"penMirageChain\":-1},\"10\":{\"penMirageChain\":-1},\"11\":{\"penMirageChain\":-1},\"12\":{\"penMirageChain\":-1},\"13\":{\"penMirageChain\":-1}},\"arcActions\":{\"1\":1}}\n  L98   expected: 0 | actual: 0\n  L99   expected: 1234 | actual: 1234",
+      "all_in_play_assertions_passed": true,
+      "raw5_sha256": {
+        "actions.json": "e80c10a71f34b728da4a8e71557196d4fcd4309d92de21609d2193b5f59b8886",
+        "assertions.json": "95d140ca542dbd2445f26e9ccb05a60f027ec7c0ca962b2ec368203ec1938a9b",
+        "expected_final_gamestate.txt": "8bf39c9126be6c4645032a3a59d782e5742977409b594b2eda6a6b037ac6c073",
+        "initial_gamestate.txt": "90bf7947b0a1194e79dd3d6a5a8ab38c57f58eb9e12a14875a102599a08daedb",
+        "meta.json": "ea3496f76e4589f013b4a2e9df267b771dbbb20324a6df39a0c2493f967bc58f"
+      },
+      "assertion_count_unchanged": true,
+      "exact_assertions_changed": 7,
+      "actions_initial_meta_and_final_unchanged": true,
+      "full_state_capture": "post01",
+      "new_group_credit": false
+    },
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "status": "PASS",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\trace_user_runner.php",
+        "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+        "C:/Users/maxim/Documents/Codex/2026-10-19/task/repairs-after1586-20261125/ordering-oracles/post02"
+      ],
+      "message": "",
+      "all_in_play_assertions_passed": true,
+      "raw5_sha256": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "a7b0f0c5b49d47b6d3216f00ef69d1ac08ae05bb80d67e9a0b6df399be5639fd",
+        "expected_final_gamestate.txt": "14b9fe34d60a6ede1d9d44f9d11d29937df2c62cceac1e820b29cd4cbe6aac74",
+        "initial_gamestate.txt": "1a8fdee2e00c1263b03ab612c8cac2f9d396cb1400052ff38a0c2c910c5f8df0",
+        "meta.json": "6928cd3ee067c2a5f8085970acf3ad2a0cbc68bdbee018abe2f018c47572e8cd"
+      },
+      "assertion_count_unchanged": true,
+      "exact_assertions_changed": 1,
+      "actions_initial_meta_and_final_unchanged": true,
+      "full_state_capture": "post02",
+      "new_group_credit": false
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "status": "PASS",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\trace_user_runner.php",
+        "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+        "C:/Users/maxim/Documents/Codex/2026-10-19/task/repairs-after1586-20261125/ordering-oracles/post03"
+      ],
+      "message": "",
+      "all_in_play_assertions_passed": true,
+      "raw5_sha256": {
+        "actions.json": "6ccb49c39b1099d224e618f22a9f834a44c4efac7bd722a0ae88ecbc66d7d083",
+        "assertions.json": "8bd8ca136cd67405126cd353c97ac6dd7fc25ea273125c6f9adcd432060e021e",
+        "expected_final_gamestate.txt": "3e16348aa583c492f886d4e218c578c836f5b18300aa73cd0d629ffa346fb800",
+        "initial_gamestate.txt": "3b9b686318bbbb048f2a9000984f685105a7f66c0a3553e7ea07d50ef2086732",
+        "meta.json": "d68c33ff7040aabba56b48c1e1007f0c98870684d29570cbd873642d2123810b"
+      },
+      "assertion_count_unchanged": true,
+      "exact_assertions_changed": 1,
+      "actions_initial_meta_and_final_unchanged": true,
+      "full_state_capture": "post03",
+      "new_group_credit": false
+    },
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "status": "FAIL_FINAL_SNAPSHOT",
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "returncode": 1,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\trace_user_runner.php",
+        "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+        "C:/Users/maxim/Documents/Codex/2026-10-19/task/repairs-after1586-20261125/ordering-oracles/post04"
+      ],
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).\nExpected: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"EVO_NEXT_BOOST\",\"amount\":2,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":4,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":4,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[8]},\"cardsPlayedThisTurn\":{\"1\":[\"quickfire_blue\",\"wounding_blow_red\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":[],\"attackActionHits\":{\"1\":1},\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"6\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"8\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"outPreviousNames\":[],\"mstFree\":false,\"mstPreviousPitch\":0,\"mstPreviousAA\":false,\"rosLastLightning\":false,\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[],\"mstZeroDefense\":false,\"penFreezeSources\":[]}},\"arcActions\":{\"1\":2}}\nActual:   {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVO_NEXT_BOOST\",\"amount\":2,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":4,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":4,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[8]},\"cardsPlayedThisTurn\":{\"1\":[\"quickfire_blue\",\"wounding_blow_red\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":[],\"attackActionHits\":{\"1\":1},\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"6\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"8\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"outPreviousNames\":[],\"mstFree\":false,\"mstPreviousPitch\":0,\"mstPreviousAA\":false,\"rosLastLightning\":false,\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[],\"mstZeroDefense\":false,\"penFreezeSources\":[]}},\"arcActions\":{\"1\":2}}\nContext:\n  L88   expected: 1 | actual: 1\n  L89   expected: 0 | actual: 0\n> L90   expected: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"EVO_NEXT_BOOST\",\"amount\":2,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":4,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":4,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[8]},\"cardsPlayedThisTurn\":{\"1\":[\"quickfire_blue\",\"wounding_blow_red\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":[],\"attackActionHits\":{\"1\":1},\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"6\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"8\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"outPreviousNames\":[],\"mstFree\":false,\"mstPreviousPitch\":0,\"mstPreviousAA\":false,\"rosLastLightning\":false,\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[],\"mstZeroDefense\":false,\"penFreezeSources\":[]}},\"arcActions\":{\"1\":2}} | actual: {\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":{\"1\":[{\"type\":\"MST_BLUE_PITCHED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_COST_ONE\",\"amount\":1,\"uses\":1},{\"type\":\"MST_BLUE_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"EVO_NEXT_BOOST\",\"amount\":2,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_BLUE_GRAVE\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PLAYED\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_AA_ATTACK\",\"amount\":1,\"uses\":1},{\"type\":\"HNT_ATTACKED_4\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED\",\"amount\":1,\"uses\":1},{\"type\":\"SUP_ATTACKS\",\"amount\":1,\"uses\":1},{\"type\":\"MON_LAST_wounding_blow\",\"amount\":1,\"uses\":1},{\"type\":\"ELE_AA_COMBAT\",\"amount\":1,\"uses\":1},{\"type\":\"ROS_DAMAGE\",\"amount\":4,\"uses\":1},{\"type\":\"ROS_VALLEY_HIT\",\"amount\":1,\"uses\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_PHYSICAL\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"2\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"3\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}],\"4\":[{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1},{\"type\":\"SEA_ATTACKED_HERO\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_DAMAGE_EVENT\",\"amount\":1,\"uses\":1},{\"type\":\"CRU_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"HNT_DAMAGED_BY\",\"amount\":1,\"uses\":1,\"uid\":1},{\"type\":\"MON_PHYSICAL\",\"amount\":1,\"uses\":1},{\"type\":\"DTD_LOST\",\"amount\":4,\"uses\":1},{\"type\":\"ELE_DAMAGED\",\"amount\":4,\"uses\":1},{\"type\":\"EVR_GRAVEYARD\",\"amount\":1,\"uses\":1}]},\"nextTurnEffects\":[],\"hitsThisTurn\":{\"1\":[8]},\"cardsPlayedThisTurn\":{\"1\":[\"quickfire_blue\",\"wounding_blow_red\"]},\"mpgDurations\":[],\"botProfiles\":[],\"weaponHits\":[],\"attackActionHits\":{\"1\":1},\"arcNames\":[],\"arcaneDealt\":[],\"arcCards\":{\"6\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"penPitchTypes\":[\"Generic\",\"Action\",\"Attack\"],\"dynPitchAA\":true,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"mstFree\":false,\"mstBluePlayedTurn\":2,\"mstBluePlayedPlayer\":1,\"rosLastLightning\":false,\"iarPermission\":[]},\"7\":{\"iarPermission\":[]},\"8\":{\"iarOrigin\":1,\"mstChiPitched\":0,\"rosMeld\":-1,\"rosSurgeGo\":false,\"evoDashPlay\":false,\"omnFirstDamage\":false,\"iarPlayedFrom\":\"Hand\",\"outPreviousNames\":[],\"mstFree\":false,\"mstPreviousPitch\":0,\"mstPreviousAA\":false,\"rosLastLightning\":false,\"iarPermission\":[],\"mstReactions\":0,\"mstBanished\":[],\"supFirst\":true,\"dtdPrevention4\":true,\"hntHitMarked4\":false,\"hvyWagers\":[],\"mstZeroDefense\":false,\"penFreezeSources\":[]}},\"arcActions\":{\"1\":2}}\n  L91   expected: 0 | actual: 0\n  L92   expected: 1234 | actual: 1234",
+      "all_in_play_assertions_passed": true,
+      "raw5_sha256": {
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "1823ce6dfd7907faa514a3c84ae6091fc504f16cce1de89429d0b3d6be9b33bd",
+        "expected_final_gamestate.txt": "585fa596e105e33ae926e37ca1e8fd05472158138b4544eb10e9f2568f04b57f",
+        "initial_gamestate.txt": "e58f5ea81ce85434fc719d2e9ec72a20d8d2259274d5a91d1610c6e3a79dd646",
+        "meta.json": "1d8c3f0648958f852f57c66ea6cf8a5bf7be96dde1c073c21045099207849e34"
+      },
+      "assertion_count_unchanged": true,
+      "exact_assertions_changed": 15,
+      "actions_initial_meta_and_final_unchanged": true,
+      "full_state_capture": "post04",
+      "new_group_credit": false
+    }
+  ],
+  "no_engine_change": true,
+  "no_comparison_policy_change": true,
+  "expected_snapshots_unchanged": true,
+  "new_group_credit": false,
+  "full_suite_run": false
+}

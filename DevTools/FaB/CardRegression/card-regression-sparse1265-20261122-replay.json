@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1265-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1265-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d17e3c4b8e03a35b8db8d0e7e467ea5af09f3e82c2e08b0db3b8995725405659",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a61474ad37910ca98dc427534aa70e8c6bc82addf809dacc8e27776cd884dc4",
+        "actions.json": "80de2f6b0e9dd336eb094773d98a3e71a75ee267e263a6a32f7947004d83a3f8",
+        "assertions.json": "a8a4d850dbaa78eac0e98835450d04656d0a42ca70b9ce0ea4879d5970a1c051",
+        "expected_final_gamestate.txt": "843e8414c2a68bb3fa76ef039c0ca21e29814b35937ae6833c0882b40ad20ef7",
+        "meta.json": "09ce04353537b44bcf5507e1977106869ba841f9b1e9e7d0a9667b508e0f4f07"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

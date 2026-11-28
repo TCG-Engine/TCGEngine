@@ -760,7 +760,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBOUTToken($player, 'ponder', 1);\n",
+        "abilityCode": "/* Entry Ponder is queued by FaBROSAfterMove. */\n",
         "isImplemented": true
       }
     ]
@@ -1923,8 +1923,9 @@
     "abilities": [
       {
         "macroName": "AttackDeclared",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\n$refs = FaBMONSoul($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Banish_from_soul\");\n \n}\nif ($chosen !== 'PASS') {\n FaBMoveChoice($player, $chosen, 'Soul', 'Banish');\n DoDrawCard($player, 2);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "$refs = FaBMONSoul($player);\n $chosen = 'PASS';\n if ($refs !== '') {\n $chosen = await $player.MZMayChoose($refs, \"Banish_from_soul\");\n \n}\nif ($chosen !== 'PASS') {\n FaBMoveChoice($player, $chosen, 'Soul', 'Banish');\n DoDrawCard($player, 2);\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "e60950a96f44db40452609a93002c9039372682ee413a14af918dacc0a6729c4"
       }
     ]
   },

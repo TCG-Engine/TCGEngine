@@ -51,7 +51,7 @@ function FaBBoltynUnity(int $p,int $uid): void {
     }
 }
 function FaBBoltynTemper(int $p,object $o): void {
-    if(($o->Role??'')!=='DEFENSE'||($o->FromZone??'')!=='Equipment'||!FaBHasKeyword($o,'Temper'))return;
+    if(($o->Role??'')!=='DEFENSE'||!in_array($o->FromZone??'',['Equipment','Weapons'],true)||!FaBHasKeyword($o,'Temper'))return;
     FaBSetObjectCounter($o,'DEFENSE',intval(FaBObjectCounters($o)['DEFENSE']??0)+1);
     if(FaBCurrentDefense($o,$p)<=0)FaBWTRTag($o,'DESTROY_ON_CHAIN_CLOSE');
     // Allow a new Unity trigger if this equipment defends on another chain.
@@ -64,4 +64,19 @@ function FaBBoltynPrevent(int $p,int $amount): int {
         $amount-=min($amount,2);++$tokens;
     }
     FaBWTRSetEffects($p,$left);for($i=0;$i<$tokens;++$i)FaBWTRCreateArena($p,'flurry');return $amount;
+}
+
+function FaBBoltynDefense(int $player,object $obj): int {
+    if(!in_array($obj->CardID,['silverstride_dodgers','flurry_foot_dance_yellow'],true)||HasNoAbilities($obj))return 0;
+    if($obj->CardID==='flurry_foot_dance_yellow'){
+        $uid=intval($obj->UniqueID??0);$physical=$uid>0?FaBFindUID($uid):null;
+        if($physical===null||$physical['zone']!=='CombatChain'||!in_array((string)($physical['object']->Role??''),['DEFENSE','DEFENSE_REACTION'],true))return 0;
+    }
+    $controller=intval($obj->Controller??$player);if(!FaBSeatIsLive($controller))return 0;
+    // Flurry's own abilities do not affect this presence condition.
+    foreach(FaBLiveSeats() as $seat)foreach(FaBChoiceRefs($seat,'Arena',['type'=>'Token','base'=>'flurry']) as $ref){
+        $found=FaBIdentityFromMZ($ref);if(!$found)continue;$token=$found['object'];
+        if(intval($token->Controller??$seat)===$controller&&empty($token->FaceDown))return $obj->CardID==='flurry_foot_dance_yellow'?2:1;
+    }
+    return 0;
 }

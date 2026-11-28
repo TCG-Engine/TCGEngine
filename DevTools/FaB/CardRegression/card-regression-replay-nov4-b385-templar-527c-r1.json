@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch385.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T20:10:55.154496+00:00",
+  "fixtures": [
+    {
+      "slug": "card-templar-spellbane-four-live-sparse-real-destroy-instant-prevents-one-of-three-arcane",
+      "fixture_sha256": "3bdb231372a84e60f579450fb672652fb0903fa5f448d736181e266d7c191468",
+      "passed": true,
+      "result": "[PASS] templar_spellbane / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-templar-spellbane-four-live-sparse-real-destroy-instant-prevents-one-of-three-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] templar_spellbane / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-two-steps-forward-four-live-sparse-real-two-kodachi-hits-same-chain-earns-destroy-agility"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

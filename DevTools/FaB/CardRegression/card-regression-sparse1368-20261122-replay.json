@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "952c7a6790d1d7be1435fd107bdb43db455af7e2811bb12564d0f9d9cdc6f5b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51a8b374e83ea959346dcc954d29a9e1e2f63a5ae5e1e7e7f9a661f7fb3b2925",
+        "actions.json": "2fc498690b4373cb4bfedec828403596e6afc9cf12487c75e6b03be6d20cbc46",
+        "assertions.json": "716d7a5dd2bc9109d3571ae421e4956779708a7122f4f4037ced8f4d50b77a01",
+        "expected_final_gamestate.txt": "9555bdb00affeff6f22218733c12bfcec000fa6cb8f8325a224c6578c5d0f4b2",
+        "meta.json": "defd99e36505934ed1a4cbbab06d4d1a4dbcb4f1725833d0159e194d5d439e77"
+      }
+    },
+    {
+      "slug": "card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1368-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5653a9698b25c3639c71ff0e9970894e627f2280ea3bfcef9edc2e8e57bbc814",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2f1a22d3636bed92d27db3ec77939483b58a79467a73a9b0f2ced1ff2841890f",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "27163992293236c753ef0e80352ceea6efa83704f0e638e4cc2f1d8a78bba26d",
+        "expected_final_gamestate.txt": "0bb63c327c8ac1f6c1880e7d6af0c05dbe54e95ef69103701f012042b9467e9b",
+        "meta.json": "f10d8b64e39f21f86d72e64e97968c38a3a8d676f8b98e3f7f87660ef86edac6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

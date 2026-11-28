@@ -1,0 +1,7 @@
+{
+    "name": "Arakni Tarantula / owned dagger actually kills Ally without earning Hero-hit life loss",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:12:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NativeyoungArakni20\u2192Tarantula1initialsetup preservesHNT_BASE_HEROarakni, no priortransitioncredit. ActualownedSpidersBite6Dagger2cost paidBlue5pitch3/AP0/R1, proxy8 formallytargetsrealAshwing7AllyDromai4/canonicalAshmaterial. Actual1power/1damagekillsTokenAlly notHero; allHeroHP20/noTarantulaextra1lifeLoss/noHero-hitlayer. WeaponownGoAgainAP1atResolution/fullfourmanualclose/Pitch5/source6kept/AllyclearednoGY/UID8. No primaryAR/positiveHeroloss/endbrood/sibling/secondarycredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_tarantula FaBSim/Custom/HNTCards.php#FaBHNTBecome FaBSim/Custom/HNTCards.php#FaBHNTHit FaBSim/Custom/GameLogic.php#FaBFaiHeroHit FaBSim/Custom/OUTRuntime.php DevTools/FaB/CardRegression/initial_agent_setup.php"
+}

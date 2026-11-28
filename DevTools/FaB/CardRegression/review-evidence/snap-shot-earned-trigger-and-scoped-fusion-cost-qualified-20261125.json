@@ -1,0 +1,285 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent eight-source, exact normal emission, three legal specs and saved payload/actor/fate review. Root native recordings and one clean replay each. No independent games claimed.",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "source_spec": "card-regression-repair-snap-shot-trigger-20261125.json",
+  "input_sha256": "83ab937fa1273a5856df6aff8ffd517c26b71e99846b7a14e4b7e4222cc25018",
+  "fixtures": [
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+      "card_id": "snap_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+        "actions.json": "db85b61c2ff32b0538836398b37dc881e94a804e43ed1a8ac1baa5acaac8a4b7",
+        "assertions.json": "48a3ecad1993ef0a35b6aeaec511ad753c94d8de2406e32d281aacce56a446cd",
+        "expected_final_gamestate.txt": "a0fbf5e5b17846e7f179839eb357e3430912c6722be85bce3879284e76ad9d5c",
+        "meta.json": "72b69b08efe520a457344e47f1b5a9eddb331b47bd043de26f47be39b84c9c85"
+      },
+      "fixture_sha256": "d1ab7dc8a430291531b10c823b1842e8b91314431b39ce8e97a1b272653d09ae",
+      "actions": 45,
+      "native_assertions": 616,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 37,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-snap-shot-trigger-20261125.json",
+      "input_sha256": "83ab937fa1273a5856df6aff8ffd517c26b71e99846b7a14e4b7e4222cc25018",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-real-fusion-delayed-instant-bow-two-uses-cap-four-damage",
+      "card_id": "snap_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+        "actions.json": "00d96b202afe12c698a1917213f2dd2982051fef79e9333c89d69637573bd578",
+        "assertions.json": "fd73e23283dcd9f248bfc5fd746fc30dfc9f0866e47576b51e34ef4cbcade849",
+        "expected_final_gamestate.txt": "2f04b3ecebfc234c1b7ae285164a7801f0ae2a620213eb2401cc29571b1cf8d0",
+        "meta.json": "5b46980ab8fe975059a51373a7592fc33be5e3fc7869c402f0bd5c5466d7463e"
+      },
+      "fixture_sha256": "3294f29e230dfcac8bb62fa76d30697a453e7cab22fe2333a4c0ea9875ee9b76",
+      "actions": 52,
+      "native_assertions": 286,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 41,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-snap-shot-trigger-20261125.json",
+      "input_sha256": "83ab937fa1273a5856df6aff8ffd517c26b71e99846b7a14e4b7e4222cc25018",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-snap-shot-red-four-live-20261125-channel-tax-reserved-fusion-paid-assets-before-effects",
+      "card_id": "snap_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "74d21d8138f8b6c872381a8653103fd192e4f570c29033b0d236feb1a9f1d06b",
+        "actions.json": "9b9f26e094ae88c48a7f8c655a68cd53befd664781dac432ac5bdeef20ad970f",
+        "assertions.json": "82e4f7d17d557ae9355777e04ba2b62aaaac4d9ded8fa2ba240439f0fd2d4734",
+        "expected_final_gamestate.txt": "98298576c4004bb3a575c3cee8ceae6af5b209042246e4bbd05ea71b848d33bf",
+        "meta.json": "574d30cf8774002335064640a187e7ce10759fa18b3e57e4c17325d48dc69d2f"
+      },
+      "fixture_sha256": "faf1fe1181f62717ee5cc544a7b52fd40747acd615719d22595ca536f3755a3b",
+      "actions": 34,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "source_spec": "card-regression-repair-snap-shot-trigger-20261125.json",
+      "input_sha256": "83ab937fa1273a5856df6aff8ffd517c26b71e99846b7a14e4b7e4222cc25018",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "restored_group_credit": 1,
+  "restored_tested_primary_identity_credit": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_output_review": {
+    "reviewer": "/root/breadth_review1457",
+    "status": "APPROVED_8_SOURCES_EXACT_EMISSION_3_SPECS",
+    "source_proposal_sha256": "6bfca933397ef52ba0d4f4a13b75a3fadbd57990422f81ab52947f137fd8a8ce",
+    "emission_receipt_sha256": "733faae93ee5b17f6fe4527e2ae2e21a49000b551ec2d922e2d8da9f062c47f1",
+    "input_sha256": "83ab937fa1273a5856df6aff8ffd517c26b71e99846b7a14e4b7e4222cc25018",
+    "scope": "Independent source/cost/lifecycle, whole generated-byte reconstruction and exact legal native-spec review;48checks are isolated real-function tests, not native games.",
+    "limits": [
+      "Scoped Snap3 payment only, no whole039 closure.",
+      "No sibling native, turn expiry, other Bow, source reentry or reveal-observer closure.",
+      "Native full gameplay claims still pending."
+    ],
+    "no_reviewer_games_tests_or_writes": true
+  },
+  "native_receipt_sha256": "63af0fe1ed45321b21bf77b2b5b15d71f514df8191acb6389d08791df27f5394",
+  "targeted_replays": {
+    "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+    "fixtures": [
+      {
+        "slug": "repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay01.log"
+        ],
+        "complete_log_sha256": "074f799c44858f9948ad82e34be7030753d59d656073acf3a753e38174217d57",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+          "actions.json": "db85b61c2ff32b0538836398b37dc881e94a804e43ed1a8ac1baa5acaac8a4b7",
+          "assertions.json": "48a3ecad1993ef0a35b6aeaec511ad753c94d8de2406e32d281aacce56a446cd",
+          "expected_final_gamestate.txt": "a0fbf5e5b17846e7f179839eb357e3430912c6722be85bce3879284e76ad9d5c",
+          "meta.json": "72b69b08efe520a457344e47f1b5a9eddb331b47bd043de26f47be39b84c9c85"
+        },
+        "is_new_repair_witness": true,
+        "errors": []
+      },
+      {
+        "slug": "repair-snap-shot-red-four-live-20261125-real-fusion-delayed-instant-bow-two-uses-cap-four-damage",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-snap-shot-red-four-live-20261125-real-fusion-delayed-instant-bow-two-uses-cap-four-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay02.log"
+        ],
+        "complete_log_sha256": "49557c9cd26c998cab55328324f94818f3d8137d043f9e8551f5ccc2746a7d2c",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+          "actions.json": "00d96b202afe12c698a1917213f2dd2982051fef79e9333c89d69637573bd578",
+          "assertions.json": "fd73e23283dcd9f248bfc5fd746fc30dfc9f0866e47576b51e34ef4cbcade849",
+          "expected_final_gamestate.txt": "2f04b3ecebfc234c1b7ae285164a7801f0ae2a620213eb2401cc29571b1cf8d0",
+          "meta.json": "5b46980ab8fe975059a51373a7592fc33be5e3fc7869c402f0bd5c5466d7463e"
+        },
+        "is_new_repair_witness": true,
+        "errors": []
+      },
+      {
+        "slug": "repair-snap-shot-red-four-live-20261125-channel-tax-reserved-fusion-paid-assets-before-effects",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-snap-shot-red-four-live-20261125-channel-tax-reserved-fusion-paid-assets-before-effects",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay03.log"
+        ],
+        "complete_log_sha256": "4c390d024a99386d50871052d81f48182f708cd946716467f3e75c52e3d7ee31",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "74d21d8138f8b6c872381a8653103fd192e4f570c29033b0d236feb1a9f1d06b",
+          "actions.json": "9b9f26e094ae88c48a7f8c655a68cd53befd664781dac432ac5bdeef20ad970f",
+          "assertions.json": "82e4f7d17d557ae9355777e04ba2b62aaaac4d9ded8fa2ba240439f0fd2d4734",
+          "expected_final_gamestate.txt": "98298576c4004bb3a575c3cee8ceae6af5b209042246e4bbd05ea71b848d33bf",
+          "meta.json": "574d30cf8774002335064640a187e7ce10759fa18b3e57e4c17325d48dc69d2f"
+        },
+        "is_new_repair_witness": true,
+        "errors": []
+      },
+      {
+        "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay04.log"
+        ],
+        "complete_log_sha256": "6ff93f20be4d5ebab84e9cd9a83f7806f813057434cc8ea959c6ee04f5bdc335",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "73c78c2ca9cfb421a6d4521b741d55254bb83238b05b19d4d4149582e7bf999f",
+          "actions.json": "a1d1fb4a15fb712acf440f0ac486807a0fd698fa38689fcfe4bb43ea5abccf8c",
+          "assertions.json": "04399b31e95c745e59aa463aff6b7a7a172b25bffa6c7fab3bba196659f5e9aa",
+          "expected_final_gamestate.txt": "66cd3052e2ed542117aba341a4731a900c58aa6e40a2f06d9e48c1385f652dde",
+          "meta.json": "1c775857b8c43b2be65fd57df2d0d487bcac98cf7f88dab2ddf5094f3f5885f0"
+        },
+        "is_new_repair_witness": false,
+        "errors": []
+      },
+      {
+        "slug": "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay05.log"
+        ],
+        "complete_log_sha256": "b7bfbe5f858c2f3b1f5f4c1da96773ffeb2253b3e136de8824bb845349d01d50",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "fcd2e238e75abe4a235762b8e082befee9e6d2b0ae61295fa36a6b43b4de8275",
+          "actions.json": "305d4ec6d80be6bec8178bbfa826301880130376cf81357506752d507e791060",
+          "assertions.json": "ae677be6ace866d8bb18b9b683a3d83ec33752f9edeb5fbeda4754f600e467b2",
+          "expected_final_gamestate.txt": "0957f7844dc32cc9ee86cb164da94746a5ece673ef04666b988e1c045f7ea297",
+          "meta.json": "c8f2ab2fe2e165f00fb5499916fd08253cf561d58bed841f96ee4edf03a09e47"
+        },
+        "is_new_repair_witness": false,
+        "errors": []
+      },
+      {
+        "slug": "card-force-of-nature-blue-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-no-fused-power-bonus-fully-blocked",
+        "passed": true,
+        "returncode": 0,
+        "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-force-of-nature-blue-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-no-fused-power-bonus-fully-blocked",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snap-shot-trigger\\replay06.log"
+        ],
+        "complete_log_sha256": "e152fc53792ebab607a8236c875a1c7f95baeec4d5648c30e8f0466ebea0b563",
+        "raw5_sha256": {
+          "initial_gamestate.txt": "d065d07426b492fb399ff5637014547920494f55c92dc45f50b27e044ecfdf2a",
+          "actions.json": "779503881f655e09d61b645dee57c20d8a0af5e2eb92ab0f3e9f3fae3d0f17c8",
+          "assertions.json": "45ea7c59e71818b23b6165ce9903392a74b7b8a90c5efe71e90b0fc8e6ec98ee",
+          "expected_final_gamestate.txt": "2a1cce5a052747d36dc852fc8951dd2f54f0b001cc90fbdd25be4af473af165f",
+          "meta.json": "449bcd5ba3b7c7b612a5982348315289c4548e4e17dd86addf1e17fbcfc37dec"
+        },
+        "is_new_repair_witness": false,
+        "errors": []
+      }
+    ],
+    "full_suite_run": false
+  },
+  "component": {
+    "checks_passed": 48,
+    "kind": "Isolated actual payment/routing functions with state/undo/reveal stubs, not native games or complete Core observer/rollback coverage.",
+    "path": "tests/snap_prepared_fusion_test.php",
+    "sha256": "4977143ee77a44230b6280a848072a955eb9c99e011e725a978580ec56367e55"
+  },
+  "limits": [
+    "Red native only; other pitches, Bows, expiry, reentry/copy interactions uncredited.",
+    "FUSION_REVEAL migration is onlySnap3; other039callers/observer integrations remain held.",
+    "Native tax case pins reservation/flags/assets/physicaldamage; exact Reveal boundary separately supported by isolated function spy, not MacroGameIndex scalar assertion.",
+    "Original rejected Snap fixture stays archived."
+  ]
+}

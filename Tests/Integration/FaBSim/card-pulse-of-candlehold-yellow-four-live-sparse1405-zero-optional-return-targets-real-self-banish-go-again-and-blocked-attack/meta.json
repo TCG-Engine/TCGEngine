@@ -1,0 +1,7 @@
+{
+    "name": "Pulse of Candlehold / zero return targets still self-banished with go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:45:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BRIAR20_THREEDORI20. ActualPulseCandlehold5Action0spendsAP/all4responses. AllGYinitialemptyandprimaryphysicalStacknotGY, soUPTOtwolegalreturntargetschooseszero; targetselection/reorderandpositiveGYreturnuncredited. PrintedBANISHTHISstillunconditional: realowned5faceupBanishNOTGY; printedGAAP1mustfinishdespiteselfmovement. RealunchangedDeck8controlnotdrawn/reordered. UseearnedAPonactualWoundingBlue6AA0toadjacent4/all4manualcombat/base2/noGA; realopponentHandRed7blocks3\u2192actual0damage/allHP20/fullclose6GY1/7GY4/5sameBanish/8Deck/UID8RNG0/AP0R0/quietStackDQ. OneNAAonly/AAdeals0meansnoBriarLightningorEarthtokens, noabilitysuppressionorartificialhistory. OnlypositivePulsefate/GAandzerooptional-targetbranch/nativeblockedcombat, notpositiveGYreturn/reorder/targettiming/siblings/support/Heroeffects/wholecard. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pulse_of_candlehold_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php"
+}

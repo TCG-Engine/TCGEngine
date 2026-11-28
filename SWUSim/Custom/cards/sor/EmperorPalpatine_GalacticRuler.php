@@ -141,7 +141,7 @@ $leaderAbilities["SOR_006"] = function(int $player): void {
     // from YOUR OWN board: letting it defeat a teammate's unit would spend an ally's card without
     // their agreement. The EFFECT pools above DO span the team. Owner ruling pending — if costs
     // should reach a teammate too, this line and LOF_028 / LOF_218 change together.
-    $targets = array_values(SWUControlledUnits());
+    $targets = array_values(SWUCostUnits());   // own board; Always Two: the team's
     if (empty($targets)) {
         SWUAfterAction($player);
         return;

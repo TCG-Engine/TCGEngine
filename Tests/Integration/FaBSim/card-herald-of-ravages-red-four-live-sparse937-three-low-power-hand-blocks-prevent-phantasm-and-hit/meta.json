@@ -1,0 +1,7 @@
+{
+    "name": "Herald of Ravages / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:52:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, put it into your soul and deal 1 arcane damage to target hero.\n\n**Phantasm** Representative only: three_low_power_hand_blocks_prevent_phantasm_and_hit. Actual cost2 Blue pitch, three native Hand defenses of power4/5/4 and defense3 each, four live manual seats/full combat, zero hit, no Phantasm destruction, original source in owned graveyard rather than Soul. Positive hit/destruction and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#herald_of_ravages_red"
+}

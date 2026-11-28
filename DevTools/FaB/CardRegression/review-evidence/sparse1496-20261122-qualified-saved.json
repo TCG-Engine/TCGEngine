@@ -1,0 +1,22 @@
+{
+  "status": "HISTORICAL_BATCH_QUALIFICATION_PARTIALLY_REVOKED",
+  "approved": false,
+  "current_qualified_scenarios": [
+    "card-jagged-edge-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-just-a-nick-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-maul-yellow-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-resounding-courage-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-spike-with-bloodrot-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-spike-with-frailty-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard",
+    "card-spike-with-inertia-red-four-live-sparse1496-actual-generic-attack-fails-specific-reaction-target-guard"
+  ],
+  "withdrawn_scenarios": [
+    "card-shift-the-tide-of-battle-yellow-four-live-sparse1496-unbuffed-warrior-weapon-not-above-base"
+  ],
+  "historical_original_proof_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-trigger-quarantine-20261125\\repository-before\\review-evidence\\sparse1496-20261122-qualified-saved.json",
+  "historical_original_proof_sha256": "fb252b83f58b0a6564db502941be77883b0dc41d70f24e89a0b9c939ce02988a",
+  "historical_native_replay_result": "PASS, execution fact retained; wrong timing oracle is not semantic coverage.",
+  "current_retained_proof": "review-evidence/sparse1496-retained-after-trigger-review-20261125.json",
+  "withdrawal_evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+  "withdrawal_evidence_sha256": "649b64bf7ff93dad8b0a0fc54e75eb176bc02012e1d11769fd7938177e4a464d"
+}

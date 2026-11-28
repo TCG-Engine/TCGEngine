@@ -1,0 +1,7 @@
+{
+    "name": "Riptide / Arsenal play is not Hand play despite eligible Hand card",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:31:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGRIPTIDE19_THREEDORI20. RealFDArsenalWoundingRed5playedfromARSENAL/notHand, legal0/AP0/base4/noGA/4damageHP4=16. Ownreal0costWoundingBlue6HandeligibleforHeroloadandArsenalnowvacantbutoriginconditionfalse/noRiptideWHEN/loadchooser/Handmovement. Stacksource5actualCardinputArsenal/Hand6sameUIDthroughallresponses/damage/fullclose/Arsenal0. NoTrapabilitytrigger/noHero1damage. Final5GY1/6Hand1/UID6RNG0/allArena0/ownHP19/AP0R0; actualresourceaffordable0Hand6consumerrejectsAP0withallfatesunchanged. OnlyArsenal-vs-Handorigin/noLoadguard/nativeattack/consumer; positiveHandplay/loadWHEN/timing/TrapHeroDamage/Heroadult/support/sibling/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#riptide FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OUTRuntime.php FaBSim/Custom/OUTCards.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/DTDCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

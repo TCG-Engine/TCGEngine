@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Ingenuity / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:52:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this then put up to 3 Hyper Drivers from your graveyard and/or banished zone into the arena. Representative only: natural_start_returns_three_actual_hyper_drivers_from_graveyard_and_banish. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_ingenuity_red"
+}

@@ -1,0 +1,137 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1486-20261122.json",
+  "source_spec_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+  "input_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-eclipse-existence-blue-four-live-sparse1486-real-life-gain-earns-positive-owned-graveyard-banish",
+      "card_id": "eclipse_existence_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a317bc9bb353bd8d95619d88bbe8a2c27fca500bd200fefb75dfcf706d27841",
+        "actions.json": "89aa8a741eeaece75c653751c152e1b71bf2011605ef582223a0fa9a934c2ee5",
+        "assertions.json": "d09bc6a3e19a86d43946130b048954ab71f12ddaeea326b88e917c0ab45c4730",
+        "expected_final_gamestate.txt": "28e106238068bba29e7bded2762b3c8cb4db38043bf55706e6c478bbbee4f511",
+        "meta.json": "47abfcb76ebf597dc4af3079d2c27b69fa127f704c08421227b3bbd65807cc3f"
+      },
+      "fixture_sha256": "16ad501185c30bb2846cad1a9a894aedc50d5d5781c97f7dbee3b0cf1d9255ef",
+      "actions": 11,
+      "native_assertions": 315,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1486-20261122.json",
+      "input_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1486-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-eclipse-existence-blue-four-live-sparse1486-real-life-gain-earns-positive-owned-graveyard-banish",
+        "fixture_slug": "card-eclipse-existence-blue-four-live-sparse1486-real-life-gain-earns-positive-owned-graveyard-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-poison-the-tips-yellow-four-live-sparse1486-positive-reload-before-go-again-real-action",
+      "card_id": "poison_the_tips_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bb95ea3e8c18f7ab5878697390b8251c33b2fb238047850ebd7a47aab21d4072",
+        "actions.json": "bc066cd3891105478e0da48f7532d3a2c90a339a2b7d60165102577cbf50a1c4",
+        "assertions.json": "4d9a0fa9f4c9e02b4045fa36d0d925be773af5fdc11fbc7099cfb579c5459416",
+        "expected_final_gamestate.txt": "d3e045de6e598ee66facc9aff9e54be08e067f4ec219ed4db8c82287bb655441",
+        "meta.json": "9448063a7a99e64c299fad2b2e6993da7fe7fa9ef6b5be6f3a78ce09caa522bc"
+      },
+      "fixture_sha256": "68ad78cb7ac63474a2f06a32581970433634836c675b3251f95eed0760c00cd3",
+      "actions": 11,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1486-20261122.json",
+      "input_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1486-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-poison-the-tips-yellow-four-live-sparse1486-positive-reload-before-go-again-real-action",
+        "fixture_slug": "card-poison-the-tips-yellow-four-live-sparse1486-positive-reload-before-go-again-real-action",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1486,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T04:45:15.903796+00:00",
+    "spec_sha256": "a1bf585d3423dcbc00db792b0929598bb0e8bcab9e97d78e79f61abfb7fdc703",
+    "source_note_sha256": "2d5b5ad6c19aebd3309dae267aaff04cef6f93df757be4570aa768ce15021ae9",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52"
+    },
+    "cases": 2,
+    "planned_actions": [
+      11,
+      11
+    ],
+    "persistable_checks": [
+      315,
+      311
+    ],
+    "named_primary_ids": [
+      "eclipse_existence_blue",
+      "poison_the_tips_yellow"
+    ],
+    "findings": [
+      "Exact original spec152defed and notea663a119 independently approved; reviewer explicitly authorized binding revised hash with sole extra face-up Banish assertion without repeating unchanged semantic review. Root applied only that strict addition and note documenting it.",
+      "Actual Sigil earns Levia21 greater than adjacent opposing LightPrism20; ownGYAction choice onlyWounding7. PhysicalInstant6 retained through choice, finalownedBanish7faceup/GYsigil5+Eclipse6/AP1.",
+      "Reload accepts anyHandcard includingWounding6, actualHand6/7chooser, sameUID6faceDownArsenal. Primary5Stack/AP0 until choice finishes, thenGY/AP1, thenrealPotion7spendsAP1to0. Fourmanualseats."
+    ],
+    "limits": [
+      "Independent source/spec review, no reviewer native games or saved-output review. Passing credit awaits saved targeted replay.",
+      "Later LightSoulhit and Arrowhitdiscard consumers remain unentered/uncredited. No wholecard or pitch sibling credit.",
+      "Current existing structural owned nonpersistent spell lifecycle is reused; no engine repair or new denial retry."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1486-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "cedd22e3d8d6849b7cf58c8598130a93c0384bc2f2966841d005d31bf7109353"
+  },
+  "full_suite_run": false
+}

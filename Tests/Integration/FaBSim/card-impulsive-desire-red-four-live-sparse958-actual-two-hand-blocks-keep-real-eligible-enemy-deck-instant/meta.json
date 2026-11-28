@@ -1,0 +1,7 @@
+{
+    "name": "Impulsive Desire / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:53:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\nWhen this hits a hero, banish the top card of their deck.\n\nWhenever this banishes a reaction or instant card, gain 1{h}. Representative only: two actual Hand AA defenses totaling6 fully block printed4/5/5/3, zero damage/no hit/Stack0/AP0. Actual printed payment, physical source and defenders reach owned graveyards. Eligible real enemy Deck marker is retained with same UID/owner, no banish/Silver/secondary heal; positive hit/Contract/ownership behavior untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#impulsive_desire_red"
+}

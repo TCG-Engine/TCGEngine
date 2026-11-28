@@ -1,0 +1,7 @@
+{
+    "name": "Malice, Domina of the Dead / actual non-Incarnate zombie death",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T22:11:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two real manual adultCC Bravo40/MaliceDomina40. Actual owned ready non-Incarnate Shieldmaiden4 priorArena2; noHeroactivation, noVox, Commander or manual death flags. NativeWounding3AA0/AP1to0 formallytargetsShieldmaiden4/bothresponses. Base4noGA reallethaldamage toShieldmaiden(baseLife3, no Incarnate; ShadowResist inactive because sourceHeroBravo is notShadow), notHero: sameShieldmaiden4ownedGY2FD0 and separateadultMaliceABILITY5Controller2SourceHero2; HPHeroes40both. Freshbothresponses resolve earnedHeroWhenZombieDies: sameoriginalShieldmaiden4Banish2FD1/PlayableFromBanish0, distinctnewCorpse6ownedBanish2FD0, noGY2/Arena2. No newtoken, noBloodDebt/endTurn, no corpseattack. FullcloseWounding3GY1/correct4FD+6faceupBanish2/UID6RNG0/HeroesReady40/APR0/StackDQCCframesquiet. Actorcontroller2differentturnplayer1. OnlyadultHero triggereddeathbranch; activatedtargetedGYplay, youngsibling/UPF/departure/controlledtoken branches untested. Noenginechanges or Source728holds. Sources: FaBSim/GeneratedCode/cardArrayCache.json#malice_domina_of_the_dead FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

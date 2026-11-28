@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-four-live-sparse1352-defending-contract-card-is-not-playing-no-hero-peek-or-deck-movement",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-four-live-sparse1352-defending-contract-card-is-not-playing-no-hero-peek-or-deck-movement",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "934d12a69950f51cd27619549c60fc5d62f469178fb121d9ef94ffe2233ba911",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33bc08de73f8403e885d1d3a5d8d45184b59fcd63140ba65152b13e0e98341b6",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "2c67d21bb4ffca9f8427f763199ec9fbfd5fd2a80b83421fd86768d9f617d7a6",
+        "expected_final_gamestate.txt": "8b862d7d869dd4536d14936ddfa20420ab576d698b1a3110c08bfcb87f83c867",
+        "meta.json": "826479cb98116aa5ac0c6967148b272200716b42bffdb59fe9d0bebd5780492f"
+      }
+    },
+    {
+      "slug": "card-betsy-four-live-sparse1352-defending-wager-text-card-is-not-wagering-no-hero-payment-despite-blue-funder",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-betsy-four-live-sparse1352-defending-wager-text-card-is-not-wagering-no-hero-payment-despite-blue-funder",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cb2e333fec598ad31f58f0db3a82da9a5b21f1f5ec437da5a11cd74b781b761b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1cfbc01856cf084632beebffb924ef427ea50d9f50f5f234e15377d0fa8024e8",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "d8c0d4737b2c75a65ad7e7814e726b6c4008c4f3109ec2f317d79d8942501eff",
+        "expected_final_gamestate.txt": "6ea5d24fcaaa07b90a120c7a5d8bace6ffcd17fc9ce5180c1c9a6a935bd43377",
+        "meta.json": "812f6d6b3fd4268458cf301cd4753b32c2a8bc36cad35e70022165baf8db0b41"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

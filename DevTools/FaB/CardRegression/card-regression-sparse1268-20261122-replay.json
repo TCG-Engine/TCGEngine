@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-azalea-ace-in-the-hole-two-live-sparse1268-real-arsenal-bottom-top-arrow-face-up-grants-observed-dominate",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-azalea-ace-in-the-hole-two-live-sparse1268-real-arsenal-bottom-top-arrow-face-up-grants-observed-dominate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1268-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1268-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "42143450ad3ce0260beae9103bd79ba208febf0df51c97cca9ff62955cebfdbb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "558225d8f43915d7a765b44bd546a4988938a4e781dcf74c6841872015e2f259",
+        "actions.json": "91e92bb50d4b665e42985bb7a739d9bac675ac57734da4b4f703cb5125b877cc",
+        "assertions.json": "91c8c3b6342ed51b7209d7e42d6a4adea544204393282fcaeef99d412572a1ce",
+        "expected_final_gamestate.txt": "a12789662f15f8ba0cd2882c47f65afd882c5ed9f20b3a7f150ad64b9226cc9e",
+        "meta.json": "2e7223f48fbfaa27b86a5a1ffc014c145789ba334d74c4520523843c1c7a7e76"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

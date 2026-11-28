@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:52:29.011119+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1068-20261122.json",
+  "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1132,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4907,
+    "duels": 3075,
+    "four_live": 1832,
+    "recorded_primary_ids": 2055,
+    "identity_denominator": 5196,
+    "recorded_groups": 1929,
+    "group_denominator": 3324,
+    "four_live_groups": 1821,
+    "phase_qualified_scenarios_at_actual_contexts": 1544,
+    "phase_qualified_unique_groups": 1534,
+    "creation_replay_passes": 2286,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 705,
+  "scenarios": [
+    {
+      "card_id": "heirloom_of_snake_hide",
+      "group_id": "identity:heirloom_of_snake_hide",
+      "scenario_id": "heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "effect_branches": [
+        "actual_face_down_cloaked_defense_admission_rejected_then_legal_hand_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/heirloom-of-snake-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "review_evidence": "review-evidence/sparse1068-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7ca4a179a48005005a8b2760af08a4546ec224b985c8d8c4af0535ac594c0b24",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1068-20261122-replay.json",
+          "sha256": "80a2102e4136154239b4bb9a7df7fcf9d3d73161c4c671e6805fc15b9fe020a5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "heirloom_of_tiger_hide",
+      "group_id": "identity:heirloom_of_tiger_hide",
+      "scenario_id": "heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "effect_branches": [
+        "actual_face_down_cloaked_defense_admission_rejected_then_legal_hand_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/heirloom-of-tiger-hide-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "review_evidence": "review-evidence/sparse1068-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7ca4a179a48005005a8b2760af08a4546ec224b985c8d8c4af0535ac594c0b24",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1068-20261122-replay.json",
+          "sha256": "80a2102e4136154239b4bb9a7df7fcf9d3d73161c4c671e6805fc15b9fe020a5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "aqua_laps",
+      "group_id": "identity:aqua_laps",
+      "scenario_id": "aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "effect_branches": [
+        "actual_face_down_cloaked_defense_admission_rejected_then_legal_hand_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/aqua-laps-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "review_evidence": "review-evidence/sparse1068-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7ca4a179a48005005a8b2760af08a4546ec224b985c8d8c4af0535ac594c0b24",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1068-20261122-replay.json",
+          "sha256": "80a2102e4136154239b4bb9a7df7fcf9d3d73161c4c671e6805fc15b9fe020a5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "waves_of_aqua_marine",
+      "group_id": "identity:waves_of_aqua_marine",
+      "scenario_id": "waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "effect_branches": [
+        "actual_face_down_cloaked_defense_admission_rejected_then_legal_hand_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/waves-of-aqua-marine-four-live-sparse1068-face-down-cloaked-rejects-defense",
+      "source_spec": "card-regression-sparse1068-20261122.json",
+      "source_spec_sha256": "68745fa456d646a2e0dbc1cafaba0bf870279dc7af1272042ff15de3e29837a7",
+      "review_evidence": "review-evidence/sparse1068-20261122-qualified-saved.json",
+      "review_evidence_sha256": "7ca4a179a48005005a8b2760af08a4546ec224b985c8d8c4af0535ac594c0b24",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1068-20261122-replay.json",
+          "sha256": "80a2102e4136154239b4bb9a7df7fcf9d3d73161c4c671e6805fc15b9fe020a5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

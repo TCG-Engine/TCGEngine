@@ -1,0 +1,7 @@
+{
+    "name": "Spew Shadow / four-live actual granted banish play and Light bonus",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:03:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Choose an attack action card with cost 2 or less in your banished zone. You may play it this turn. If it attacks a Light hero, it gets +2{p}.\n\n**Go again** Named positive permission and Light-hero bonus only. Levia20 actual Spew5 Hand/Blue6 pays2/R1/AP0. Actual genericWounding7 faceupBanish/no intrinsic permission starts PlayableFromBanish0, no effect or charged/roll/history seeded. All four manual responses before legal non-target resolution choice with source5 stillStack/GY0/AP0. Select actual7 -> permission1/source5GY/AP1 printedGA. NativeBanish7play cost0 targets adjacentLightBoltyn4, allfourmanual windows; printed4+Spew2=6 actual power/damage, HP4=14, no other damage. OwnedGY[5,7]/Pitch6/Banish0/AP0, no supportGA. No alternatepitch/costfilterrejections/nonLight/endphaseexpiry/BloodDebt/hero/support/sibling/fullcard/heldfix credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spew_shadow_red"
+}

@@ -8,9 +8,12 @@
 require_once __DIR__ . '/BoosterSets.php';
 
 function SWUFormatDefinitions() {
-    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW',];   // HMW released 2026-09-16 (owner)
-    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW',];
-    $previewSets = ['IC27',];  // the next set to release (or a future set's preview window)
+    $premierSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH', 'HMW', 'IC27',];   // HMW released 2026-09-16, IC27 2026-11-21 (owner)
+    $eternalSets = ['SOR', 'SHD', 'TWI', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'TS26', 'ASH', 'HMW', 'IC27',];
+    // The next set to release (or a future set's preview window). EMPTY between windows (owner, 2026-11-21: "Preview season is
+    // over since IC27 was officially released") — keep it in step with PreviewSets.php, and flip the preview pools below back on
+    // ('enabled' => true) when the next window opens.
+    $previewSets = [];
     $premierBans = ['ASH_011', 'ASH_248', 'ASH_052', 'ASH_079', 'SEC_179'];   // 2026-11-09: Neel, Chimaera (ASH), Koska Reeves (ASH), Aggressive Negotiations
     $eternalBans = ['JTL_140', 'JTL_170'];
     return [
@@ -180,7 +183,7 @@ function SWUFormatDefinitions() {
             'legalSets'     => array_merge($eternalSets, $previewSets),
             'banned'        => [],
             'legalRarities' => ['Common'],
-            'enabled'       => true,
+            'enabled'       => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
 
@@ -192,7 +195,7 @@ function SWUFormatDefinitions() {
             'displayName' => 'Premier Preview (IC27)',
             'legalSets'   => array_merge($premierSets, $previewSets),
             'banned'      => $premierBans,
-            'enabled'     => true,
+            'enabled'     => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         'twinsuns-preview' => [
@@ -241,7 +244,7 @@ function SWUFormatDefinitions() {
             'displayName' => 'Eternal Preview',
             'legalSets'   => array_merge($eternalSets, $previewSets),
             'banned'      => $eternalBans,
-            'enabled'     => true,
+            'enabled'     => false,   // OFF between preview windows (owner, 2026-11-21: IC27 released). Still resolvable in flight.
             'publicQueue' => true,   // public matchmaking (owner, 2026-09-16: Constructed only)
         ],
         // Limited — Sealed (and later Draft) in a private room only, decks built from packs opened in the room
@@ -271,6 +274,61 @@ function SWUFormatDefinitions() {
             'minPlayers'  => 2,
             'maxPlayers'  => 2,
             'publicQueue' => false,
+            'enabled'     => true,
+        ],
+        // Always Two — the official Doubles format (docs/superpowers/specs/2026-11-20-swusim-always-two-design.md). Every deck is
+        // built to Premier or Eternal exactly, so each entry reuses that format's pool and bans verbatim (a ban-list change
+        // reaches it automatically). 'alwaysTwo' is the mode: '1v1' = two seats, each playing TWO boards (two decks per seat);
+        // '4p' = exactly four seats, one board each, Red/Blue teams. Private rooms only, never rated, records nothing.
+        // ⚠ The 1v1 entries carry NO 'teams' key: the 2-seat waiting room must not draw red/blue teams. The engine still
+        // runs four boards in two teams — CreateGame sets SWU_MODE_TEAMS from 'alwaysTwo', not from 'teams'.
+        // Ids are short because the stats format column is varchar(16).
+        'at1v1-premier' => [
+            'displayName' => '1v1 Always Two (Premier)',
+            'legalSets'   => $premierSets,
+            'banned'      => $premierBans,
+            'alwaysTwo'   => '1v1',
+            'minPlayers'  => 2,
+            'maxPlayers'  => 2,
+            'publicQueue' => false,
+            // Bo1 only: a Bo3's game 2 is respawned from the match's one-deck-per-seat record, which cannot carry a second deck.
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],
+            'enabled'     => true,    // shipped with the two-board table (plan Task 13, 2026-11-20)
+        ],
+        'at1v1-eternal' => [
+            'displayName' => '1v1 Always Two (Eternal)',
+            'legalSets'   => $eternalSets,
+            'banned'      => $eternalBans,
+            'alwaysTwo'   => '1v1',
+            'minPlayers'  => 2,
+            'maxPlayers'  => 2,
+            'publicQueue' => false,
+            // Bo1 only: a Bo3's game 2 is respawned from the match's one-deck-per-seat record, which cannot carry a second deck.
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],
+            'enabled'     => true,    // shipped with the two-board table (plan Task 13, 2026-11-20)
+        ],
+        'at4p-premier' => [
+            'displayName' => '4P Always Two (Premier)',
+            'legalSets'   => $premierSets,
+            'banned'      => $premierBans,
+            'alwaysTwo'   => '4p',
+            'minPlayers'  => 4,
+            'maxPlayers'  => 4,
+            'teams'       => 2,
+            'publicQueue' => false,
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],   // Bo1 only (spec "## 4P Always Two" → Room)
+            'enabled'     => true,    // shipped with the partner vote (plan 2026-11-21-swusim-always-two-4p Task 6)
+        ],
+        'at4p-eternal' => [
+            'displayName' => '4P Always Two (Eternal)',
+            'legalSets'   => $eternalSets,
+            'banned'      => $eternalBans,
+            'alwaysTwo'   => '4p',
+            'minPlayers'  => 4,
+            'maxPlayers'  => 4,
+            'teams'       => 2,
+            'publicQueue' => false,
+            'queueTypes'  => ['bo1' => true, 'bo3' => false],
             'enabled'     => true,
         ],
     ];
@@ -582,7 +640,21 @@ function SWUFormatIsDualingSuns($formatId): bool {
 
 // A format that records nothing anywhere: no SWUStats, no deck stats, no SWU-PGN, no SWU Forge. Every such guard asks this.
 function SWUFormatRecordsNothing($formatId): bool {
-    return SWUFormatIsLimited($formatId) || SWUFormatIsDualingSuns($formatId);
+    return SWUFormatIsLimited($formatId) || SWUFormatIsDualingSuns($formatId) || SWUFormatAlwaysTwoMode($formatId) !== '';
+}
+
+// Always Two (Doubles): '1v1' (two seats × two boards), '4p' (four seats × one board), or '' for every other format.
+// Read from the RAW definition on purpose: SWUGetFormat()'s key whitelist is pinned (limited_format_test.php — adding a key
+// changes every format's shape), and this is the only reader of 'alwaysTwo'.
+function SWUFormatAlwaysTwoMode($formatId): string {
+    $defs = SWUFormatDefinitions();
+    $m = strval($defs[strval($formatId)]['alwaysTwo'] ?? '');
+    return in_array($m, ['1v1', '4p'], true) ? $m : '';
+}
+
+// How many decks one seat brings: two in 1v1 Always Two (one per board), one everywhere else.
+function SWUFormatDecksPerPlayer($formatId): int {
+    return SWUFormatAlwaysTwoMode($formatId) === '1v1' ? 2 : 1;
 }
 
 // A "team" format splits its seats into fixed teams (Team Suns: Red/Blue, 2 each).

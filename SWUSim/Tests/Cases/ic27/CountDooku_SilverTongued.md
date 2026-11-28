@@ -31,8 +31,8 @@ WithP2Resources: 3:SOR_095:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -59,8 +59,8 @@ WithP2GroundArena: SOR_046:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2SELECTABLEEXACT:myGroundArena-0&myGroundArena-2
@@ -82,8 +82,8 @@ WithP2SpaceArena: LOF_158:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:myGroundArena-0
 - P2>AnswerDecision:mySpaceArena-1
 
@@ -109,8 +109,8 @@ WithP2SpaceArena: SOR_225:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:READY
@@ -133,8 +133,8 @@ WithP2SpaceArena: LOF_158:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:READY
@@ -160,8 +160,8 @@ WithP1SpaceArena: LOF_158:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
@@ -187,8 +187,8 @@ WithP2GroundArena: SEC_080:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P2GROUNDARENAUNIT:0:EXHAUSTED
@@ -213,8 +213,8 @@ WithP2GroundArena: SOR_095:0:0
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-1
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -299,13 +299,13 @@ WithP2GroundArena: SOR_046:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:myGroundArena-1
 - P1>Pass
 - P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:myGroundArena-0
 
 ## EXPECT
@@ -331,8 +331,8 @@ WithP2GroundArena: SOR_095:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:myGroundArena-1
 
 ## EXPECT
@@ -357,8 +357,8 @@ WithP2GroundArena: SEC_080:0:0
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>SimulateRequestBoundary
 - P2>AnswerDecision:myGroundArena-1
 

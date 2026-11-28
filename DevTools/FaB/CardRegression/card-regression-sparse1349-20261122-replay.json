@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aftershock-red-four-live-sparse1349-no-seismic-history-real-four-resource-payment-two-hand-defenders-two-damage-no-surge",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1349-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1349-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b04dbfd1fe901b35d3e2d754d377c2f32cc51115b9bbf845eecac72652bde163",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "455b186178e0e2962296e8dd7720a989934fc09d6d79f8e19d969b3eb263d1fe",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "af33402defe99015367362bb315b573a538f60aafb377c6962b683c2b113cddb",
+        "expected_final_gamestate.txt": "313b11305cb1837dd6a1dd01d642ad8d00be5aca582fa3553f930376e15b6d74",
+        "meta.json": "0127416aac3dcf92a4b5e21201e8cc2e2cc2694832f76a084428b3089fd7b369"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

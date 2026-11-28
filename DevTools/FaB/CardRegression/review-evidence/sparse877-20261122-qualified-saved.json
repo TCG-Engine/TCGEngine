@@ -1,0 +1,376 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse877-20261122.json",
+  "source_spec_sha256": "eb499383e38ec1c4fe772714698327401a96fc9dd2a0db9204e2315a26438472",
+  "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-forbidden-harvest-yellow-four-live-sparse877-three-real-banished-cards-turn-down-but-only-two-shadow-cards-make-runes",
+      "card_id": "forbidden_harvest_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3bd45627f0cf8e88ed4eb3a3dbbbee1db8afb35558fb0d231c402f87dc8382e3",
+        "actions.json": "104c5b4b2742efcd4fd928e364256755c9fc50ace40b007c00eecdb5dacb8653",
+        "assertions.json": "a539f6862dccb6a49ea71dc43ac0372d41c6b2228e0d0f193ad71b4e4bebf22e",
+        "expected_final_gamestate.txt": "30e8375ba1eec017966aed9e4ebdde752b1290af3a632afdba85a42d8d91beaa",
+        "meta.json": "b799e882624986e4d7a99d9f44ff8f1ecb577b252c0c293f536c12d25bcbccb0"
+      },
+      "fixture_sha256": "e3cedc1fa243e8dfbd3b0e73c2aadc426e0241bd53324bb0488a778de5e799ad",
+      "actions": 7,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-goldwing-turbine-red-four-live-sparse877-creates-owned-golden-cog-and-declines-optional-crank",
+      "card_id": "goldwing_turbine_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f8694018a0523e31cc581036aa255f350f4a306af97b00863c43447a41933553",
+        "actions.json": "649fe97f6e3484b44b741ac39f791c03f9b45239b0132adaf150fbce8f629bb6",
+        "assertions.json": "aaf2b4d98bff0023c4645ff060301fc9f87882bb9f3cba6b7c2ac4041c1e2503",
+        "expected_final_gamestate.txt": "531ee97de6b29e2e601b406adc41b2ebdea520c559183c857cc8ea59df7dda02",
+        "meta.json": "cbe26e78ec43715011bf39cad34be479d45e1a05c04262ea53e84066b6f21620"
+      },
+      "fixture_sha256": "8ee4b5258be54742cc445e84a267e2739607c1d624251ad118515089b766a648",
+      "actions": 7,
+      "native_assertions": 86,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-hit-the-gas-blue-four-live-sparse877-turns-three-real-hyper-drivers-down-gains-three-action-points-and-draws",
+      "card_id": "hit_the_gas_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d2c15bcffafebbb543b27af31ce1fff3f6254100ba1ec2492d04b055cb21399",
+        "actions.json": "5fa2d520ab252a167c6dcceb750aa31757379e4fe6d0fd6c28283e16a1746750",
+        "assertions.json": "37faf144857d3dfd968e943f52f5ea65676a8c58c8cd50c563ab773796a1f283",
+        "expected_final_gamestate.txt": "b2effff5bae36dd4a08310b00452342d242ba5afdf5c9ab6cb2e0b269c6fa447",
+        "meta.json": "9b532c18a33c6d2a17d901a4f7e3fc0c8f05288c77e373cc1eba9bfceda65ad2"
+      },
+      "fixture_sha256": "8904ade3f3b377ff764222e1042f4299baec3b1ad2e257a9917dd0b60ba47686",
+      "actions": 6,
+      "native_assertions": 84,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-hook-blue-four-live-sparse877-loads-real-top-arrow-face-up-and-marks-printed-bonus",
+      "card_id": "hook_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0987359e5ce07796eec9de29104eaa0685a20deaf377fcad90d248081e92361c",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "03f84705efe846b703080d95c5ad6583f13e6af27eeee555ee234213532f81fc",
+        "expected_final_gamestate.txt": "dac603ad2391c06ef63e62b3f206bb0b6dd34e5ebefbf16cf2d96d69ad37c542",
+        "meta.json": "ff09a890dc6b44003e7655905b9d515825933b0760c14befef875b493c6deb1f"
+      },
+      "fixture_sha256": "c7c9e23094514cde2f196b95951e258cb1ff770789846972191a46e833f616a6",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-line-blue-four-live-sparse877-loads-real-top-arrow-face-up-and-marks-printed-bonus",
+      "card_id": "line_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c0ec3302859077b92da2b02224c362f3325f1fa5641167fade10e80b6350b50b",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "ea8feb92017c7c61ece91f4dcea7cb89a498533d1dc8dedeab989060a1810669",
+        "expected_final_gamestate.txt": "bb7f532e6dc0a5f22ad2a34b74e9ab25d4e5ea43311fdd717071b54dc171914c",
+        "meta.json": "ae6e13828637ca808580311c008d1234bb3098e5a3037c4fe554e1906b6f625e"
+      },
+      "fixture_sha256": "8a71ac8cb3ee8f5b5693a659092e7b9ff8ebd84053f0fbf2a8b0ca3e1a265a82",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-look-within-blue-four-live-sparse877-searches-real-middeck-chi-to-top",
+      "card_id": "look_within_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c8d02f56eed0a86110151de06cdaf9fcba2c2909c1cb2f0ab84909ba3f52b2e",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "909a9cc09b832685a96f64ae474f81c710c844c3fbc8f28a7af4b9c873531412",
+        "expected_final_gamestate.txt": "118134e2aabfdac545c8a47cf145546d078b9cfd5fa7ec563f61876b5e7717ca",
+        "meta.json": "e464ce670d81fbe5a9765953e937dde0b036ebbde7fead4e26eada0832a042b9"
+      },
+      "fixture_sha256": "f398a42dcf39033d6013994114f6b60f4c311a60b8fda2c9fe9fae8ad975aacc",
+      "actions": 6,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\amended-four.json"
+    },
+    {
+      "slug": "card-portside-exchange-blue-four-live-sparse877-discards-real-yellow-draws-actual-card-and-creates-gold",
+      "card_id": "portside_exchange_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6cc74bfa17de491b0447dcadfd36d366bf0e69537c466a8f7e17cad3f04f889",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "3f0ca3968211569589be620064e362c42a81fe7a805d5d3f36e2fed61c58720d",
+        "expected_final_gamestate.txt": "fa75c52f8f5e9ea3cf7dde3cbc749f6257063ef9e27ecd01d495535629cd45c6",
+        "meta.json": "2cbc9b0baede96cf6eb06ca8c4c2909e7a7a4b732d775b4036049864d8ff7722"
+      },
+      "fixture_sha256": "3e4628aba9ccbd3cfb901bc40ad8af29fbb15bd048ddcf64b4508b9cd5bf4259",
+      "actions": 6,
+      "native_assertions": 84,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "0c7b5b5b37e55ee25e45d4a405e9f49fbe1659690c1d469fbc639271c1ee90c9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\portside-retry\\selected.json"
+    },
+    {
+      "slug": "card-pull-from-beyond-red-four-live-sparse877-opt-orders-real-red-top-then-banishes-it-and-creates-gate",
+      "card_id": "pull_from_beyond_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7bfbdfbfaea254bff72237c97092b80de58988f2bfd59f1e0ce23888b4334e85",
+        "actions.json": "f27e20ef1d5dd4acfe875966294c37f8d28aee2ffae9c2221d6d5a46bfcd1358",
+        "assertions.json": "9dddc4ce1c9dadca7d20430dc233bbc81a935a2f6019aa8910b1d4ae513c51a1",
+        "expected_final_gamestate.txt": "3b692ef96936a7b53f5a44df1a50b44b963db8d14e0ba981c7a1e702568daae6",
+        "meta.json": "544428334fb0395932111421e4a2e27e8cd497dff048d68db93888b5cc9133b3"
+      },
+      "fixture_sha256": "d9729d96549a12d92f907f6e9dfc31493ac53aed11a0851187f9862ed84cbef6",
+      "actions": 6,
+      "native_assertions": 87,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-phoenix-bannerman-arms-red-four-live-sparse877-finds-real-phoenix-flame-to-hand-and-creates-might",
+      "card_id": "phoenix_bannerman_arms_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "abc4388c3ea3457f2c1796130d03217f8f0110e6c31a3d278a86ee9245b5bc89",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "74a2ae74e7982635155115e44bb751459265d99d237ec383c5abf51e9aab2bb1",
+        "expected_final_gamestate.txt": "ca29b27f2d6a16d3edbd1dca56558add6620726e0df38f3e2e0d896d9b7c4a37",
+        "meta.json": "595d78e384fe7a03ccdc31abae443cfddfb6227190ea73542a9c38cf149bad6d"
+      },
+      "fixture_sha256": "23196f8a691837b12c09119709e06f465ab2f77c6f34357a7c2277d5c9b81b26",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\amended-four.json"
+    },
+    {
+      "slug": "card-prayer-of-bellona-yellow-four-live-sparse877-real-yellow-top-card-enters-hand-then-charges-soul",
+      "card_id": "prayer_of_bellona_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4708a630d839aa894896a3e6b4775c17dbdc6d8caa67c6ea55aceab6d741c6b8",
+        "actions.json": "c4b2391abfbcf981b4ab16a79e1ef67007c67c23a0abc426d453339481bfbb4a",
+        "assertions.json": "307e902a266a4264d6418e052c18b02211cdd6cff16d9009dc21bcd3df8fb035",
+        "expected_final_gamestate.txt": "db7724fe0a793526cef7365e3f9a3ba46bb2737def9cfa526ba0ada5bc799b2c",
+        "meta.json": "e717b55150d3f8a5d8c5e94634b93d222ffd0b50e33cd21102981464a9437324"
+      },
+      "fixture_sha256": "490fd0c950653a29a8dafbac7d4df5680778657c19ba7de5276ab59e87141f22",
+      "actions": 7,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse877-20261122.json",
+      "input_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "83f70c56a8dda616d41f511b6997761cfd8a1667abc995098449ee22fcbce9c0",
+    "reviewed": [
+      {
+        "card": "forbidden_harvest_yellow",
+        "branch": "three_real_banished_cards_turn_down_but_only_two_shadow_cards_make_runes"
+      },
+      {
+        "card": "goldwing_turbine_red",
+        "branch": "creates_owned_golden_cog_and_declines_optional_crank"
+      },
+      {
+        "card": "hit_the_gas_blue",
+        "branch": "turns_three_real_hyper_drivers_down_gains_three_action_points_and_draws"
+      },
+      {
+        "card": "hook_blue",
+        "branch": "loads_real_top_arrow_face_up_and_marks_printed_bonus"
+      },
+      {
+        "card": "line_blue",
+        "branch": "loads_real_top_arrow_face_up_and_marks_printed_bonus"
+      },
+      {
+        "card": "look_within_blue",
+        "branch": "searches_real_middeck_chi_to_top"
+      },
+      {
+        "card": "portside_exchange_blue",
+        "branch": "discards_real_yellow_draws_actual_card_and_creates_gold"
+      },
+      {
+        "card": "pull_from_beyond_red",
+        "branch": "opt_orders_real_red_top_then_banishes_it_and_creates_gate"
+      },
+      {
+        "card": "phoenix_bannerman_arms_red",
+        "branch": "finds_real_phoenix_flame_to_hand_and_creates_might"
+      },
+      {
+        "card": "prayer_of_bellona_yellow",
+        "branch": "real_yellow_top_card_enters_hand_then_charges_soul"
+      }
+    ],
+    "evidence": [
+      "Cached printed text/type/cost and natural hero health20 independently checked; starting real owned cards/resources0/AP1, empty effects and all four live response opportunities establish native effects rather than seeded outcomes.",
+      "Forbidden Harvest corrected to printed cost1 with actual blue pitch/residue2; three actual face-up banished cards contain exactly two Shadow cards and create exactly two new Runechants UID10/11.",
+      "Goldwing printed cost2 leaves1 resource/AP0; actual owned Golden Cog enters with1 steam and modal1 is verified Keep_steam, leaving no crank AP gain.",
+      "Hit the Gas on Maxx uses three actual Hyper Drivers; source consumes initialAP then gains3, turns all three down and draws real deckUID9.",
+      "Hook/Line use ordinary legal Ranger Arrow Barbed Barrage, rather than another hero specialization; actual top arrowUID6 moves face-up to Arsenal and gains the appropriate printed power/go-again marker.",
+      "Look Within stages only actual Chi middeckUID7 then puts it at actual deck top; other two cards are non-Chi.",
+      "Portside discards actual yellow SigilUID6, draws real blueUID7 and creates owned Gold. Drawn blue is not an arrow, avoiding Marlynn arrow-load choice.",
+      "Pull Opt2 now starts blueUID6 then redUID7; selected red moves to actual top before being banished and earning Gate, leaving blueUID6 in deck. This catches ignored rearrange results.",
+      "Phoenix Bannerman searches actual middeck FlameUID7 to hand and creates owned Might; Prayer pays printed1 with blue/residue2, confirms real yellowUID7 enters hand before actual soul-charge choice, then soulUID7."
+    ],
+    "oracle_or_flow_errors": [],
+    "corrected_during_review": [
+      "Forbidden Harvest missing printed cost/payment corrected.",
+      "Hook/Line Azalea-specialization prerequisite replaced with ordinary legal Ranger Arrow.",
+      "Pull Opt starting order changed to make selected rearrangement causal."
+    ],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no native execution, tests, recordings or network performed. Parent verifies queue/object schema and actual replays.",
+      "Only named representative branches qualify after passing; no pitch siblings, Goldwing next-attack power outcome, Hook/Line attack outcome, Prayer next-attack buff, Might/Gate/Runechant combat or token start/end-phase behavior.",
+      "Search reveal/shuffle observability and random distribution are not independently asserted; only actual eligible search movement is approved.",
+      "No claim for declined/empty search, nonyellow Prayer/Portside, nonred Pull, zero/fewer Hyper Drivers, crank-positive Cog or subsequent blood-debt handling."
+    ],
+    "mutation_scope": "Only this independent-review.json written.",
+    "final_delta_review": {
+      "review_type": "independent_static_delta_review",
+      "result": "approved_portside_legal_hero_substitution_pending_native_execution",
+      "spec_sha256": "5d170b936029a7ed6c4bf0a0b4e6357b0c256d55a801d29880d2a140701ce89e",
+      "reviewed": {
+        "card": "portside_exchange_blue",
+        "branch": "discards_real_yellow_draws_actual_card_and_creates_gold",
+        "delta": "Only heroes[0] changes marlynn to gravy_bones; exact JSON semantic comparison found no other field change and other nine specs unchanged."
+      },
+      "evidence": [
+        "Cached Gravy Bones is Pirate/Necromancer Young hero with natural health20, making Pirate Portside legal and preserving all health expectations.",
+        "Gravy has no automatic draw trigger; its Gold activation is optional and not activated, and blue-in-graveyard permission does not force a resolution choice.",
+        "Actual yellow discard, real deck-card draw, Gold ownership, AP/go-again and resource assertions remain unchanged."
+      ],
+      "native_status": {
+        "nine_other_cases": "Already recorded per parent checkpoint; not rerun/reviewed here.",
+        "portside": "Pending native retry with portside-retry/selected.json; no pass claimed by this static review."
+      },
+      "limitations": [
+        "Prior B877 named-branch limitations remain applicable.",
+        "Marlynn draw-trigger integration is excluded from this isolated Portside branch, not treated as an engine defect or verified integration.",
+        "No tests, recordings or network performed by reviewer."
+      ],
+      "mutation_scope": "Only independent-final-review.json written."
+    },
+    "search_input_delta_review": {
+      "review_type": "independent_static_search_input_delta_review",
+      "result": "approved_reduced_inputs_pending_targeted_requalification",
+      "spec_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "batch878_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "reviewed": [
+        "call_to_the_grave_blue",
+        "lesson_in_lava_yellow",
+        "look_within_blue",
+        "phoenix_bannerman_arms_red",
+        "phoenix_bannerman_chest_red",
+        "phoenix_bannerman_head_red",
+        "phoenix_bannerman_legs_red",
+        "ominous_excavation_blue"
+      ],
+      "evidence": [
+        "Compared four amended specs with manifest source-spec backups and four changed B878 specs with 878-before.json. Each loses exactly one irrelevant initial Deck card. Native actions and all unrelated top-level fields remain unchanged; assertion deltas only reduce corresponding staged/deck counts and remove deleted filler existence checks.",
+        "Call to Grave retains two real selectable cards and chooses second to graveyard, leaving actual first card in deck. Source/selected UID and go-again checks remain.",
+        "Lesson and Look Within retain real ineligible first card plus eligible actual middeck Wizard/Chi, preserving eligibility discrimination and causal middeck-to-top outcomes.",
+        "Four Bannerman variants retain actual middeck Flame and one non-Flame, preserving eligible search, hand movement and correct distinct token outcomes.",
+        "Ominous retains actual graveyard Instant, moves it to initially empty real deck(count1/existence), preserves AP and requires no false Ponder; only irrelevant initial deck filler removed.",
+        "Twenty raw fixture backup hashes independently checked against manifest; all20 match.",
+        "Read-only RNG source confirms strong-entropy EngineShuffle uses random_int; reducing irrelevant remainders makes final fixture observations stable without changing runtime behavior."
+      ],
+      "oracle_or_flow_errors": [],
+      "engine_concerns": [
+        "Native multi-card strong-entropy shuffle remains outside deterministic snapshot certification; this amendment does not repair or certify it."
+      ],
+      "limitations": [
+        "No game execution, native tests, source edits, recordings or network performed.",
+        "Only named physical search/movement branches approved. No shuffle randomness/distribution or reveal observability claim.",
+        "Prior B874 Call and B875 Lesson require targeted requalification; this static review adds no coverage count. Other affected cases remain subject to actual record/replay results.",
+        "All prior named-branch exclusions remain, including token timing, later combat/buffs and alternate selections."
+      ],
+      "mutation_scope": "Only this independent-review.json written; original fixture backups preserved."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse877-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8f57f8be3f5d57a194b560718e88f321d8cde1ec07b8319dde61e3d39ce10d06"
+  },
+  "full_suite_run": false
+}

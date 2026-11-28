@@ -1,0 +1,7 @@
+{
+    "name": "rolling_thunder_red / actual accepted die and native Brute consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:33:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Roll a 6 sided die. Your next Brute attack this turn gets +X{p}, where X the number rolled.\n\n**Go again** Named accepted face6, one native Brute consumer. Exact diagnostic setup/prefix preserved. Derive independently from printed rule: bonus=6, so actual vanilla Brute SmashWithBigTreeRed7 printed7 must have power13, deal13 unblocked and reduce adjacent hero4 from20 to7. Actual Blue6 funds primary and attack at printed costs; primary go again restores AP1, real consumer spends it/AP0 and has no inherent go again. Physicalsource5 then consumer7 ownedGY1, Blue6Pitch, finalR0. No otherfaces/rerolls/distribution/secondattack/expiry/otherconsumer/pitch siblings or hero/support/fullcard credit. BadBeats belowfour specifically earns no +5; not positive +5 coverage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rolling_thunder_red"
+}

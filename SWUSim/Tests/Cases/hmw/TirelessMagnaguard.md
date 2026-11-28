@@ -366,8 +366,8 @@ WithP2GroundArena: SOR_046:1:0
 ## WHEN
 - P1>AttackGroundArena:0:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>PlayFromDiscard:0
 ## EXPECT

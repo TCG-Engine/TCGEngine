@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kassai-of-the-golden-sand-two-live-sparse1274-real-draw-enables-zero-resource-sword-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kassai-of-the-golden-sand-two-live-sparse1274-real-draw-enables-zero-resource-sword-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1274-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1274-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "49496b76069ad9f2ca0e403797e15c3e56113888104ae5695683933ca0cf8822",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f47658a0c6929ad6b4a3ddce9cd3327213ffee48a324271387f6f5624d3ea5c",
+        "actions.json": "34636c92a214e285a7eb5e87ab3ee9a5b1e5a7bcef1f4cb006a2a00fc703c051",
+        "assertions.json": "0eddce320d0a9c246af32c22b9204fbd12a1bd52d6e6981617d20bf716a7163f",
+        "expected_final_gamestate.txt": "a4a61935ac90ff46cd73fd8fc2304c1560ba002c481d51adbc7062ce45c3bf57",
+        "meta.json": "b6f23caf325abd40d57f16e212d77675add69e2acf2c1837fb3dad47ebe95c57"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

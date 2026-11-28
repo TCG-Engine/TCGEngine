@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent intrinsic defense and strict event-absence review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1103-20261122.json",
+  "source_spec_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+  "input_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "card_id": "blunt_retort",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0f093e7942a1a8e8637e814bcb8f3cccde948f7162eddba70e108c7b895dbf35",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "fe32c5b46c104f9715ff92d3e2e7044937418b7ba89339d223a69594f4bceb6b",
+        "expected_final_gamestate.txt": "b2290438aa95c8d3dd6d1dce763485e7b5d711df8d93f685250e6bca8ee2f9a8",
+        "meta.json": "fb43bc27883ca531097cdb29f36f859d4461f5c12872eace6c767eb2b9e931ef"
+      },
+      "fixture_sha256": "b5918a1938f2f72e81cf2789284b9423d991f2194bcf136b0bc52ea13c6e2986",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1103-20261122.json",
+      "input_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "fixture_slug": "card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "card_id": "hot_top",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d637497cdb475dc8a579dcda22a5eb56e1e7a7b8564b57a11374c6a8f4e88009",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "96bd2bc09a7d4cce606e4928fb0af2733d0ac504b35b543e35375f111511c431",
+        "expected_final_gamestate.txt": "36d21f353d2521113957628db93f310892fceb58c5662a671a159f1224ab5edd",
+        "meta.json": "9a77977d1059e1b7c643b93ef4af96445e4618beb168c4d8f9d72acfbd3ee31b"
+      },
+      "fixture_sha256": "f5050f3e71735f6af77aeee7915f1fa2e419ef17c95a0dd941438b86a67c0b44",
+      "actions": 29,
+      "native_assertions": 239,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1103-20261122.json",
+      "input_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "fixture_slug": "card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5d83a684b919936daf8e22f435504cca582a116f2daf3d49ebfae79c7b262111",
+    "reviewer": "breadth_review independent intrinsic defense and strict event-absence review",
+    "basis": [
+      "Blunt Retort and Hot Top are distinct unrepresented Warrior Equipment Head with printedDEF1/BladeBreak, legal on natural young Dorinthea20. Their body event specifically requires defending a weapon attack. Actual source7 Wounding Blow Red is a Generic attack-action card, not a weapon; that trigger event is absent rather than a WHEN-then-IF condition being false.",
+      "Actual source7 cost0 consumes AP1 to0 without payment/pitch. All four live players manually respond through normal source and combat windows. Native defender4 first declares actual Critical Strike Blue6 DEF3, then physical Equipment5 DEF1, totaling4 against printed attack4; actualdamage0/HP20/noHit are persisted.",
+      "Physical attack7 is retained through Stack/ATTACK-role combat chain, not a synthetic weapon proxy; only initial IDs1-7 exist. Source cleanup puts actual7 in owner1graveyard and the two declared defender cards in owner4graveyard, Hand6 before equipment5 by the declared chain order.",
+      "Generic BladeBreak source handling marks equipment destruction and performs it during normal Close. Supplied CR7.7 Close Step no-priority/as-if-all-pass exception permits direct final fate assertions after the four RESOLUTION passes; no competing close/body event is exercised. All CardID/UID/owner/controller and resource/AP checks are coherent and persisted."
+    ],
+    "limits": [
+      "Only intrinsicDEF1/fullblock/BladeBreak and nonweapon-event branch. No counter removal, attack-reaction return, weapon-defend trigger timing/choice, native equip, hero/support identity or whole-card claim.",
+      "Native recording/replay pending. Missing/unverified active-body routes and known source timing/ownership holds are not repaired or certified."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a2ef8715de7344f04b4f8f2f073b174fb8b80e12bf4cf7269c23e120a0a94c77"
+  },
+  "full_suite_run": false
+}

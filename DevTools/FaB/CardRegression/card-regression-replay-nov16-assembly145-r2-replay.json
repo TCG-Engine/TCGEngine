@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-assembly145-r2-after-item-entry.json",
+  "runtime_sha256": "30ac6a05608d2440250eee144e81df9d523beae7ff7f509f927836854dd0a683",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T20:37:22.668585+00:00",
+  "fixtures": [
+    {
+      "slug": "card-assembly-module-blue-four-live-real-tap-search-driver-enters-with-three-steam",
+      "fixture_sha256": "5b6128c83482c6b933cdd2488becaad4ef666ae1b5713f222077e8b79b173ac1",
+      "passed": true,
+      "result": "[PASS] assembly_module_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-assembly-module-blue-four-live-real-tap-search-driver-enters-with-three-steam",
+      "returncode": 0,
+      "stdout": "[PASS] assembly_module_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

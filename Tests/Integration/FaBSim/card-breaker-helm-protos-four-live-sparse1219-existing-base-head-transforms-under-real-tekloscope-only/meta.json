@@ -1,0 +1,7 @@
+{
+    "name": "Breaker Helm Protos / actual Base Head material only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:17:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "BASEHEADMATERIALONLY. Reuse exactqualified1218ProtoBaseHead input/query skeleton, substituting actuallegalMechanologistBaseHead BreakerHelmProtos5. RealEvoTekloscope6Hand1 and actualBlue7pitch3pay3/AP1to0 beforefourmanualresponses;5remainsreadyEquipment1untilresolution. NativeFaBEvoEquip/Transform consumesmatching5into soleSUBCARDS[breaker_helm_protos]underownedreadyTekloscope6, noGY/extraequipment/newUID, Blue7Pitch1/APR0/HPall20. Primaryneverdefends: its printed WHENdefends and Temper are NOTearned, not bypassedbyafalsecondition. No underlyingUID/foreignowner/exportorprimarydefenseability/Tekloscopetargeting/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#breaker_helm_protos FaBSim/Custom/ProfessorCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

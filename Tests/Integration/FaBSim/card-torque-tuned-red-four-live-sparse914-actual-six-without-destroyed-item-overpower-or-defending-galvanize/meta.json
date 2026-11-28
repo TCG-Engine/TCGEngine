@@ -1,0 +1,7 @@
+{
+    "name": "Torque Tuned / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:13:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If an item you control has been destroyed this turn, this gets **overpower**.\n\n**Galvanize** - When this defends, you may destroy an item you control. If you do, this gets +2{d}. Representative only: actual_six_without_destroyed_item_overpower_or_defending_galvanize. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#torque_tuned_red"
+}

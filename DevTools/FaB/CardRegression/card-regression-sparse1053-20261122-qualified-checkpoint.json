@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:11:15.216556+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1053-20261122.json",
+  "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1080,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4857,
+    "duels": 3075,
+    "four_live": 1782,
+    "recorded_primary_ids": 2005,
+    "identity_denominator": 5196,
+    "recorded_groups": 1879,
+    "group_denominator": 3324,
+    "four_live_groups": 1771,
+    "phase_qualified_scenarios_at_actual_contexts": 1494,
+    "phase_qualified_unique_groups": 1484,
+    "creation_replay_passes": 2236,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 655,
+  "scenarios": [
+    {
+      "card_id": "gauntlets_of_the_boreal_domain",
+      "group_id": "identity:gauntlets_of_the_boreal_domain",
+      "scenario_id": "gauntlets-of-the-boreal-domain-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/gauntlets-of-the-boreal-domain-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "review_evidence": "review-evidence/sparse1053-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a1d22b14e31e173838de07885ea07b261fde4266fb901dc5c1c8142289781aa5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1053-20261122-replay.json",
+          "sha256": "749737df98079975d2a9cf9649fa181674548f07b107557a4b5d4a3669f9b569",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "heavy_industry_power_plant",
+      "group_id": "identity:heavy_industry_power_plant",
+      "scenario_id": "heavy-industry-power-plant-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/heavy-industry-power-plant-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "review_evidence": "review-evidence/sparse1053-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a1d22b14e31e173838de07885ea07b261fde4266fb901dc5c1c8142289781aa5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1053-20261122-replay.json",
+          "sha256": "749737df98079975d2a9cf9649fa181674548f07b107557a4b5d4a3669f9b569",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "ironsong_versus",
+      "group_id": "identity:ironsong_versus",
+      "scenario_id": "ironsong-versus-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_temper_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/ironsong-versus-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "review_evidence": "review-evidence/sparse1053-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a1d22b14e31e173838de07885ea07b261fde4266fb901dc5c1c8142289781aa5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1053-20261122-replay.json",
+          "sha256": "749737df98079975d2a9cf9649fa181674548f07b107557a4b5d4a3669f9b569",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "scabskin_leathers",
+      "group_id": "identity:scabskin_leathers",
+      "scenario_id": "scabskin-leathers-four-live-sparse1053-actual-printed-two-defense-and-battleworn-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/scabskin-leathers-four-live-sparse1053-actual-printed-two-defense-and-battleworn-close",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "review_evidence": "review-evidence/sparse1053-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a1d22b14e31e173838de07885ea07b261fde4266fb901dc5c1c8142289781aa5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1053-20261122-replay.json",
+          "sha256": "749737df98079975d2a9cf9649fa181674548f07b107557a4b5d4a3669f9b569",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

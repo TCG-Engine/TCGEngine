@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1574-20261122.json",
+  "source_spec_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+  "input_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+      "card_id": "halo_of_lumina_light",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7c1a991691852fff7088c78d2ad46105b01e90872b1ceaab717bd05a0ff45ff",
+        "actions.json": "7103cab1da2baa625e148aafa83ebd6fc930e1a3ea47c9da0fb9754a8da1f1ea",
+        "assertions.json": "323330941e3989906bede0bd462fb4ab8a3f661df03950d3e75fdc280d80c99e",
+        "expected_final_gamestate.txt": "85656c438188a81658919a2b69119051dd8b73a90b58ad615611ceffce0a59bf",
+        "meta.json": "90cf76274b19dcb6425323fda783b761e675bf7668c55d0040eec093b5273950"
+      },
+      "fixture_sha256": "79ef6ccb441b6d2a4b6767d529e530e2f122a14cf92a5d6f9fc43f02ed62c4bb",
+      "actions": 7,
+      "native_assertions": 265,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1574-20261122.json",
+      "input_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1574-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+        "fixture_slug": "card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1574,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T15:21:51.702231+00:00",
+    "spec_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+    "source_note_sha256": "b9e7500617fc09ea767a0c7cc8f3cc3d32542fbefcee551bec9668190d4cca31",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CodeGeneration.php": "951c17c1ecf263339fa860d4842911bca7122535ab9047cf65ab533ef49e4b86",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact review approved actual legal target4 before cost, four live source responses and victim4 owned Halo5 Spellvoid decline. Spell6 remains physicalStack through choice then GY1; full3damageHP17 and arcaneDealt caster1/victim4=3 are independently source-backed.",
+      "Canonical Zap restores captured caster1 across victim await, giving a legitimate independent route; no wrong-player followup occurs. Different held Aethersling1566 route remains unresolved.",
+      "No Halo destruction event is earned, so no destroyed-reward layer is omitted. Proper Kano15/Prism20/class setup. Complete Zap target menu is not asserted or certified; reviewer retracted earlier incorrect four-seat-self-menu claim after re-reading exact ARCCards34-39."
+    ],
+    "limits": [
+      "Source/spec review only; native/save/replay pending.",
+      "positive_Spellvoid_two_prevention_and_Halo_destroyed_WHEN_reward",
+      "held1566_Aethersling_cross_seat_caster_context_route",
+      "Zap_complete_target_universe_including_self_and_other_support_identity_behavior",
+      "simultaneous_prevention_or_other_observers",
+      "whole_card_or_support_identity_credit"
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1574-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "086ba7529b4ddd204af8d7f12e3fa1d2d9127b1f9caaea2dc456f0df0d5cae4a"
+  },
+  "full_suite_run": false
+}

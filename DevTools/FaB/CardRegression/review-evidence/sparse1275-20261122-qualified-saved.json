@@ -1,0 +1,151 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1275-20261122.json",
+  "source_spec_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+  "input_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+      "card_id": "dromai_ash_artist",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4df8133cce99791aef8a7f8556aa46a2d05df67d8f79952b2e599942689b6b34",
+        "actions.json": "a1aeba327c4910eca3134f12125561b708c7227af85a3c03956ceaf80ac21f45",
+        "assertions.json": "8acd1bcfadcdb190674c802e66f369e8d0e32309a9b54defe8dbf93d56e2ae4f",
+        "expected_final_gamestate.txt": "de03ec303f675df8cfe5f65a8e64a55ef9fc0af97b0846f436f7eaaec5b2391f",
+        "meta.json": "01b9aa01f869e00a87e341c23975a1c9711a2d608fa42749497aaacebb94699a"
+      },
+      "fixture_sha256": "9879736d3d1b887d47b4dcbc7789da4d2cfb3c722fbe5068ef86ff5bdfc54cf9",
+      "actions": 17,
+      "native_assertions": 206,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1275-20261122.json",
+      "input_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+        "fixture_slug": "card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+      "card_id": "lexi_livewire",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e22ef46e94426473dd1d5599c5b364237f1a4ba4a5d44c388e1eebb8d16e97a",
+        "actions.json": "885c71041687763008edc8b29cb223647a848f7af4e37fd5485556e45f04f1ee",
+        "assertions.json": "b080b70a729449dd9f6edeb27357943c55f641f40466fc74b2a69ba18d85e7cb",
+        "expected_final_gamestate.txt": "12d99897b191d43d07ec77b7eb03692d4064193db8357498610b61b11c5324eb",
+        "meta.json": "53a6c8114b96e1e3a294a5ed15e73335da97652bf9b547948b1b5a7d6178ab34"
+      },
+      "fixture_sha256": "27b8eb51d4f7c7a560ec4dbb1a7c130f25cdcb8b7e500532a9d0774e2e603a2b",
+      "actions": 18,
+      "native_assertions": 201,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1275-20261122.json",
+      "input_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+        "fixture_slug": "card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+    "source_note_sha256": "9c79688d48eca03afe8ffc51d0f12290054b29957af63048106c2b5ec227459f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 35,
+    "query_checks": 407,
+    "persistable_assertions": 407,
+    "author_only_checks_omitted": 0,
+    "per_case": [
+      {
+        "card_id": "dromai_ash_artist",
+        "controls": 17,
+        "assertions": 206
+      },
+      {
+        "card_id": "lexi_livewire",
+        "controls": 18,
+        "assertions": 201
+      }
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_DROMAI_RED_PLAY_AND_LEXI_LIGHTNING_FLIP_EARNED_GO_AGAIN",
+    "basis": [
+      "Two distinct natural adult40 heroes DromaiAshArtist/DraconicIllusionist and LexiLivewire/ElementalRanger each against adultDorintheaIronsong40. OmittedactiveSeats/exact12/defaultgameModeempty/noPassives/both manual players use unchanged native duel setup. UIDs3up follow two hero objects. InitialAP1/R0 and no current-turn play, pitch, attack or go-again history is seeded. Prior young designs are templates only, no historical replay/requalification or young credit.",
+      "Dromai realNimblismRed3 is GenericAction0 with printed go again, actualpayAP1to0/both native responses then physical3GY/AP1. Its realred play satisfies Dromai continuous if-played-red Dragon-go-again condition. It is not a red pitch, so printed pitch-Ash trigger is unearned. Nimblism grants next low-cost attack-action power, not an Ally attack; correct Ashwing power remains1.",
+      "RealadmittedAshwing4 is DraconicDragonAlly with legitimate prior encoded ordinary Ash materialUPR_ASH1/DYN_ASHash; this is physical permanent provenance, not a current-turn permission. ActualStorm5Weapons is necessary and present for native DragonAttack0. Actual4 activates, taps/paysAP1to0, creates proxy6/sourceArena4 and waits for both responses. Current UPR checks actualred-play count for Dromai prefix and grants Dragon go again.",
+      "ActualDromai attack must show computedpower1/go_againtrue, deal1/HP39 and preserveAP0 through initialDamage priority and actor1 pass. Only finalopponent2 Damage pass entersResolution and returnsAP1 from actual go again. No defender exists, so material-granted Phantasm trigger is unearned. Finalreal4Arena/tapped/undamaged, Storm5ready/3ownedGY/R0/UID6 and empty Stack/queues/combat chain match limited branch.",
+      "Lexi actualWeaveLightningRed3 is lawful LightningAction in face-downArsenal and Wounding4Hand is GenericAAcost0/base4. Printed HeroAction flip is an activation cost; actualHero1 click/realMZCHOOSE3 flips same3FaceDown0 and paysAP1to0/ABI5 before fresh responses. ELELexiReveal records Lightningtrue/Icefalse from that actual cost object. After bothresponses, generated Lightning branch earns ELE_NEXT_ATTACKGO_AGAIN and own ability go again returnsAP1.",
+      "Weave3 is only flipped, never played, so none of its printed play effects are earned. ActualWounding4 pays returnedAP1to0, singletonHero2 target autochooses, waits both responses and carries earnedGO_AGAIN with printedpower4. Realunblocked4damage/HP36 and lateAP1 only after both Damage responses, final3stillfaceupArsenal/4ownedGY/R0/UID5/empty Stack/queues/combat chain demonstrate actualgrant/refund. Icefalse means no Frostbite target/ownership branch. All407 query/state/power/go_again checks persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and one targeted replay each. No native result, replay or coverage credit claimed.",
+      "Only named adult positive go-again branches. No young/four-live, red-pitch trigger, Ash/Dragon producer/transform/material retrieval, Phantasm/barrier, Ice/Frostbite, Arrow/Bow admission, Weave play effect, repeat/reset, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/UPRAbilities.php": "89aa6c083490439499254dbd1aea5f73f2661f314804d0d1aa27c50d7e1934de",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1275.py": "6c700b329d4d0b394eca02a5acad6d69b465730b277898d16f9ddf1dbd65d386",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2cc069a4f36e344c4180f67f09332d18a3bfce21795d55066b33ce7eb83d441c"
+  },
+  "full_suite_run": false
+}

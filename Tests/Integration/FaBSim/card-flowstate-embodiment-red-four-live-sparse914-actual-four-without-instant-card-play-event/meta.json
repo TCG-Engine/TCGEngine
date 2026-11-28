@@ -1,0 +1,7 @@
+{
+    "name": "Flowstate Embodiment / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:13:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever you play an instant card this chain link, create an Embodiment of Lightning or Lightning Flow token. Representative only: actual_four_without_instant_card_play_event Sources: FaBSim/GeneratedCode/cardArrayCache.json#flowstate_embodiment_red"
+}

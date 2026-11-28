@@ -1,0 +1,7 @@
+{
+    "name": "Fleece the Frail / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:48:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish opponents' cards with 2 or less {d}. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top card of their deck. Representative only: actual_full_block_preserves_eligible_enemy_deck_without_contract. Actual printed cost, two real Hand AA defenses totaling6, full four-live manual combat, zero damage/no hit, owned physical source and defenders in graveyards. No positive hit/steal/banish/creation/secondary damage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fleece_the_frail_red"
+}

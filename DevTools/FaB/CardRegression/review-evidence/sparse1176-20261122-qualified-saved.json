@@ -1,0 +1,394 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen packet/source review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1176-20261122.json",
+  "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+  "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_kyloria_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bad77da3ff23021662d0e169c386c23cfa3d340dfdd221796a917167fcda4132",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8131fd95e7d0c2620a7547b20c2804f4d93191a99c31e818d8b7e802ea9453ac",
+        "expected_final_gamestate.txt": "a1141c32bf03e33a94bd2bb394b3448005cb507510a05ea32c427a9e12e46747",
+        "meta.json": "08c25065a221805bfda23c01bd5590a6cbd91d1be28bc57f00c86a94e97f36ca"
+      },
+      "fixture_sha256": "fd7560748400faca0a02d28fed9c52a8714ab7e615d54aafece9592f897612f2",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_miragai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38b363df8e239c4ff16a27300581d1175f89a040e17c143e518448fbf78b110b",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "c3a1d615dd9705820983636b937948432f29f862a2191691707ac3178a1496b2",
+        "expected_final_gamestate.txt": "ffa715c6ea726ef1da58dca4946b2a5da8c6ea810b300a3f2b4e4b7b52ba20fe",
+        "meta.json": "79611360f9d17ab5f80869087bdf2104a333bc3fc1cc493c0539ba5f34536e53"
+      },
+      "fixture_sha256": "add620014a78d853b0002db7aa35790c72a88d80d496105141a4785b93dbb0e3",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_nekria_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3610e22a37ceb2f51b95bf7263f51b7af0f719ac76b310dae7ad3dde959d054",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "23f43ffc8a4e8440fea4747e3fcef5c851b916c4eaf05b2c548b246af24e12b0",
+        "expected_final_gamestate.txt": "0b88c47c58882222d739e3e9d6a728bfaed4d1ebc0f7fb78ce41ae8855a3ce36",
+        "meta.json": "b8919d73cac06494c64e58549a87e25eec69877e79d8b91cd18137426859c93a"
+      },
+      "fixture_sha256": "66e0218790c0f196bdc902bb37c7f15abb54159d25fd970e13cc284de21b0d8d",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_themai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50c7b63d9e9db6eeef469f6b9d13628db57853951b50d2ab88dac328c84cfad6",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8ebea87b9168c881cb0466fd0f21a30ce65d529a196985b50c68c75d8289c27f",
+        "expected_final_gamestate.txt": "5d08478c38b6b53abc2aea7ff6a65f83c24f5dcd25ae20e932dce70331783c93",
+        "meta.json": "622dc2f79ae2e0373b049143a84a50cc5c47f2e6e7e29aa0303f325236c71b7f"
+      },
+      "fixture_sha256": "8d66435ebc58d3eaead7a8206496dd7b2a2c901b6fc313a3e5261f33d1c97807",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_vynserakai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1976fed4fed9e7218939ce215027474bc5317945999f413934807a08c3a2abc7",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "8195464e69559b1a8b1ba4a127de269adca6efe32d92102bc1ca25663b40f276",
+        "expected_final_gamestate.txt": "d6ebfaa9f1ba5db7fbe01d9f56cd1914e13525ceb37ed69726f7405ee3ea2d89",
+        "meta.json": "5c12a425b922df1d8367fc46140335ceb760a5da7e64f62ff4f88341beb1e05f"
+      },
+      "fixture_sha256": "18c5a86b1b0d91c445d30b98c8fd2a87c93a9bb1a29706022638eccab575d934",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_yendurai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c899bf6af31002ccc3f2c80cb2c36862c0714cb69785d0ef1ddeadf229879a2",
+        "actions.json": "095a1b82f89791cef2deb18b6889bab75a5d22c0913c22604d7972b1d4708199",
+        "assertions.json": "36649ccc1ef31ba0b5cb9374c83cc871c5f3d49a25180779b19c2409f00a27b9",
+        "expected_final_gamestate.txt": "1a17c0eed8b7236bb15b1a16696413864da76e71a401bf23fcd60a59d8ff3ba3",
+        "meta.json": "39235289aad12eb1160a091af19fa80ff22c9746f7b277bb702d2c3a95a7027f"
+      },
+      "fixture_sha256": "59ac8628a9afc550b112b1d64c68841acac3108696c7f6fc91d8efbe585e1064",
+      "actions": 7,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_dominia_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b271ddb4a6093a6e2681df78018f178c3cbd49dc77b48c38a9a22cef91e6a905",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "ba8269c3754050ad6a526bed1b9a605695730fbbbf2c369c60776980a009234b",
+        "expected_final_gamestate.txt": "5d3367fcf293b861658350ad1b295ccfdbabc4e636497d16aa2170eca3fe8203",
+        "meta.json": "af636522e477d174a3d449f6dcebd3b15dcb71da63b129fb901299b8ca728804"
+      },
+      "fixture_sha256": "2fd8a0745bb24873697840e7cdca141d3271b6578ae32deea6e7995599c775c5",
+      "actions": 8,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_dracona_optimai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86c45fc79d9ea1a1ed814360c577c7c5fd8448a6797080198d0d267367ee91b3",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "ba4cd1f00a278a1210de89bb1895760dd0fd5306a5467d6e6201668a625c3e4b",
+        "expected_final_gamestate.txt": "8efbdb82a378fdf936ab12d513ed82289da88e7d00ec018fb51d32ff174ff283",
+        "meta.json": "9ab6c37b68d027bc36a02a31404a987d9dc5d63046bf781bcd14740e91037e4e"
+      },
+      "fixture_sha256": "b1ec632cd274b0e590e47d85c5441ae62f2d6b1fba0cb669c7d8d1736b1a3137",
+      "actions": 8,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "card_id": "invoke_tomeltai_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5225301ad9999609af183b8b6d65c360f402c2218bbc64edfe0dd5312a12980d",
+        "actions.json": "5f80c0beb068571de232c3f5db54202bf26e386af5e354fc71fe44f53f102272",
+        "assertions.json": "fdc524f20fd4fc0d8415a01f6932eba2ca1de0fc6433f0240ad33ac25040ee00",
+        "expected_final_gamestate.txt": "e67495641a1b3b7d37ed4374ff96c5c123cdad9c97676d4636c1c5fb535ecf87",
+        "meta.json": "6b3aae96a71e140c836d1953ae1f249a71bec38d24ce1a695d8b692ec34a7646"
+      },
+      "fixture_sha256": "1f06a5ed8ccc4367da5f8dae6685cbe91b6dec67b67e9ca758fe7422860f7360",
+      "actions": 8,
+      "native_assertions": 344,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "input_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "fixture_slug": "card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen packet/source review",
+    "spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+    "case_count": 9,
+    "native_controls": 66,
+    "persistable_assertions": 2832,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "invoke_kyloria_red",
+        "cost": 1,
+        "real_blue_pitches": 1,
+        "remaining_resources": 2,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_miragai_red",
+        "cost": 1,
+        "real_blue_pitches": 1,
+        "remaining_resources": 2,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_nekria_red",
+        "cost": 3,
+        "real_blue_pitches": 1,
+        "remaining_resources": 0,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_themai_red",
+        "cost": 2,
+        "real_blue_pitches": 1,
+        "remaining_resources": 1,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_vynserakai_red",
+        "cost": 3,
+        "real_blue_pitches": 1,
+        "remaining_resources": 0,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_yendurai_red",
+        "cost": 1,
+        "real_blue_pitches": 1,
+        "remaining_resources": 2,
+        "native_controls": 7,
+        "persistable_assertions": 300,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 1
+      },
+      {
+        "card_id": "invoke_dominia_red",
+        "cost": 4,
+        "real_blue_pitches": 2,
+        "remaining_resources": 2,
+        "native_controls": 8,
+        "persistable_assertions": 344,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_dracona_optimai_red",
+        "cost": 6,
+        "real_blue_pitches": 2,
+        "remaining_resources": 0,
+        "native_controls": 8,
+        "persistable_assertions": 344,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      },
+      {
+        "card_id": "invoke_tomeltai_red",
+        "cost": 5,
+        "real_blue_pitches": 2,
+        "remaining_resources": 1,
+        "native_controls": 8,
+        "persistable_assertions": 344,
+        "prepare_target": "p1Arena-0 / owned Ash UID6",
+        "final_dragon_uid": 5,
+        "endurance": 0
+      }
+    ],
+    "basis": [
+      "All nine distinct current groups are uncovered and have no exact named hold in either current source-only or issue ledger. Legal young Dromai20 and three young Dorinthea20; only actual Generic Blue resource pitches, so no red-pitch Ash-creation event.",
+      "Inspected every exact PrepareCard binding and generated await runner: after substituting only card/function identifiers, all nine runners are identical. They enumerate own Arena Ash, retain uid/target/chosen locals, request MZCHOOSE before payment, store actual uprAshUID and finish preparation. All exact ResolveCard bindings retrieve that Ash UID and call FaBUPRTransform for the named dragon.",
+      "Printed costs 1/1/3/2/3/1/4/6/5 are paid by one or two physical Blue7/8 cards. Two-pitch cases retain AP1 and R3 while still PITCH after first Blue; actual payment leaves AP0 and specified R0-2. Four distinct manual responders precede transformation.",
+      "Reused accepted B396 Azvolai transform/material interpretation without legacy replay: invocation UID5 becomes named back permanent, prior standalone Ash6 becomes one encoded material, no GY/Banish/new UID/RNG; physical owner/controller remain1. Printed front Go again restores AP1.",
+      "Current UPRCards.php11-19 has only Yendurai ENDURANCE1 entry addition among these nine. No dragon attack/hit/damage event occurs. Ouvia distinct StartTurn call is not included. All final counter maps, placements, unchanged other seats and empty response/payment state are pinned.",
+      "All declared checks normalize to persisted native assertions; no kind defense/can_play/can_activate diagnostics and no contradictory duplicate checkpoint oracles."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Approval is pending Root native recording, saved-assertion review and targeted replay; no child native execution or T changes.",
+      "Named Invocation transformation, actual costs, front Go again and one encoded Ash only; Yendurai entry counter only, not its prevention. No dragon ability, attack, Phantasm interaction, material export/retrieval, original standalone material UID conservation, Dromai ability, support/sibling/secondary identity or whole-card credit.",
+      "Existing material-export and other known held branches remain unrun and unfixed; accepted B396 endpoint representation is not a new claim of all subcard identity/export correctness."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1176-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7"
+  },
+  "full_suite_run": false
+}

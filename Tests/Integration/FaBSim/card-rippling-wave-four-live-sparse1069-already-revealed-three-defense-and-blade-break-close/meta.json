@@ -1,0 +1,7 @@
+{
+    "name": "Rippling Wave / four-live already-revealed ordinary defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:58:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Cloaked**\n\n**Instant** - {c}{c}{c}, turn this face-up: You may return a defending blue attack action card to its owner's hand.\n\n**Blade Break** Named existing already-revealed equipment defense only. Legal young MysticAssassin Nuu20 owns physical Rippling5, explicitly FaceDown0 and arcCards5.mstFlipped=true as after a prior legal resolved flip; no current flip/Chi/ability activation or timing credit. Actual Rhinar1 Club7 power4, real Blue8 pays2/R1/AP0. All four live seats manually respond. Actual Equipment5 contributes printedDEF3, then real GenericNAA6 contributesDEF2; persisted defenseValue3 then5/attackPower4/0damage/noHit/HP20 pins visible defense. Normal Blade Break close destroys owned5 before Hand6: GGY[5,6]/Equipment0, weapon7 used/Blue8Pitch. No defending-blue return, Nuu attack/Stealth/banish, hero/body/support/sibling/full-card/prior-hold credit. No author-only diagnostics; Root independent review/native/save/replay pending. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rippling_wave"
+}

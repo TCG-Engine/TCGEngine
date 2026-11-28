@@ -152,8 +152,8 @@ WithP2GroundArena: [SOR_095:1:0 SOR_046:1:0]
 - P1>UseUnitAbility:myGroundArena-0
 - P1>AnswerDecision:theirGroundArena-1
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:1:1
 ## EXPECT

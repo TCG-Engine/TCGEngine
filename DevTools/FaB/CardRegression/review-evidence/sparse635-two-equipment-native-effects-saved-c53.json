@@ -1,0 +1,651 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_GLIDEWELL_FINS_AND_STAND_STRONG_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T19:25:17.521587+00:00",
+  "source_spec": "card-regression-batch635-r2.json",
+  "input_sha256": "ece73fd45135c08c2e7d400ebf51ffa0b9e6b581e1d54d97abc736c297274951",
+  "manifest_sha256": "87408a6c00fb3c24f765a448752bf3e001b6ab137c60891516939726e801869b",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch635-r2-independent-source-review.json",
+    "sha256": "1c6c2e3da551a4be1b4fb1010876d2a4caebcf2772b36b95ea3d86a0cd1a5012",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch635-r2-20261106T192149Z-6aee28cd1a218.json",
+    "sha256": "19d8560aab72ddbd5e8b5fb2512dd2ee90a8a80c1bef3919134722d7c831b150"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch635-r2.recording-results.json",
+    "sha256": "ba6cafd30a449554da8ecb92489787d004ca7a61dc43963348d8c5a33273dc3f"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch635-r2-native\\receipt.json",
+    "sha256": "ece6211a01e0067ac3202212f3fc545f1d64e6927c4234acaa2b8e8810285261"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "glidewell_fins",
+      "group_id": "identity:glidewell_fins",
+      "slug": "card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "source_spec": "card-regression-batch635-r2.json",
+      "input_sha256": "ece73fd45135c08c2e7d400ebf51ffa0b9e6b581e1d54d97abc736c297274951",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_DESTROY_LOAD_BUFF_ALLY_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "fixture_sha256": "cf9e0e019869b6b31acb88f1307ea8f0f5d703bde24d359f9e624b92350c877b",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "9a18e02fe09652c5afd57f1ee6d38c27268bb6dd1263583dcd6dc98b899c6cd8",
+        "actions.json": "5c0b5ed0ec5beb5daa42ba107e947674788589ce2132b2429f653873f0e6b731",
+        "assertions.json": "fd8c7e1b930fea0fd785fd0c578e95716d96469626c569c98e3ddb42c02ffdad",
+        "expected_final_gamestate.txt": "ef69996925edf12c07ff792f371fbc9020a881c9824ae61a780f18dd36a1d810"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a18e02fe09652c5afd57f1ee6d38c27268bb6dd1263583dcd6dc98b899c6cd8",
+        "actions.json": "5c0b5ed0ec5beb5daa42ba107e947674788589ce2132b2429f653873f0e6b731",
+        "assertions.json": "fd8c7e1b930fea0fd785fd0c578e95716d96469626c569c98e3ddb42c02ffdad",
+        "expected_final_gamestate.txt": "ef69996925edf12c07ff792f371fbc9020a881c9824ae61a780f18dd36a1d810",
+        "meta.json": "a9ae55713df4ebffd7795aeee15c2ec876e346fc27dadee85ffb2eabc5164aa2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9a18e02fe09652c5afd57f1ee6d38c27268bb6dd1263583dcd6dc98b899c6cd8",
+        "actions.json": "5c0b5ed0ec5beb5daa42ba107e947674788589ce2132b2429f653873f0e6b731",
+        "assertions.json": "fd8c7e1b930fea0fd785fd0c578e95716d96469626c569c98e3ddb42c02ffdad",
+        "expected_final_gamestate.txt": "ef69996925edf12c07ff792f371fbc9020a881c9824ae61a780f18dd36a1d810",
+        "meta.json": "a9ae55713df4ebffd7795aeee15c2ec876e346fc27dadee85ffb2eabc5164aa2"
+      },
+      "actions": 34,
+      "native_assertions": 3407,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 1267,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "searing_shot_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "glidewell_fins",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "azalea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "death_dealer",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "glidewell_fins",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "searing_shot_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "16": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        5,
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "temporary_ability_UID": 17,
+      "temporary_ability_ceased": true,
+      "new_physical_token_UID": null,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "final_UniqueIDCounter": 17,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "7fcc67d88d6decabac1d632e2b84c2ddc225abac917d266a85290e30a142a180",
+      "native_assertion_mapping_sha256": "291869acf4bfad02a96241bcd87970c5208f363389e9064983337a06a3da37d7"
+    },
+    {
+      "index": 1,
+      "card_id": "stand_strong",
+      "group_id": "identity:stand_strong",
+      "slug": "card-stand-strong-four-live-real-suspense-prerequisite-paid-confidence-token-and-go-again-consumer",
+      "source_spec": "card-regression-batch635-r2.json",
+      "input_sha256": "ece73fd45135c08c2e7d400ebf51ffa0b9e6b581e1d54d97abc736c297274951",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_EARNED_SUSPENSE_PREREQUISITE_CONFIDENCE_AND_REFUND_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-stand-strong-four-live-real-suspense-prerequisite-paid-confidence-token-and-go-again-consumer",
+      "fixture_sha256": "b18953ecd68eb84071a2ddb6588da67fc39f8939b1d8cd18682bc0373c549c8f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "8837578e92b7af069620d31b24502a85a45947a0bd52c0de5a9e476a38c910a7",
+        "actions.json": "bf38c34de81fc4a61d97e7efba0b2f42913552e335c4908f10491e2dfac5b817",
+        "assertions.json": "4b6e233a3e3a37510b047a01ee8efab0eced85cfb40310b094c08f07c19ae430",
+        "expected_final_gamestate.txt": "a13fd0a577e257bf30333ae07aa7d0b1cdf62e6c6d609f709562904f17fe2d0a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8837578e92b7af069620d31b24502a85a45947a0bd52c0de5a9e476a38c910a7",
+        "actions.json": "bf38c34de81fc4a61d97e7efba0b2f42913552e335c4908f10491e2dfac5b817",
+        "assertions.json": "4b6e233a3e3a37510b047a01ee8efab0eced85cfb40310b094c08f07c19ae430",
+        "expected_final_gamestate.txt": "a13fd0a577e257bf30333ae07aa7d0b1cdf62e6c6d609f709562904f17fe2d0a",
+        "meta.json": "ccfb8b2f7dab6a5583cbc26485c678eeebc8f225d49d9fd72140e5269675bacf"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8837578e92b7af069620d31b24502a85a45947a0bd52c0de5a9e476a38c910a7",
+        "actions.json": "bf38c34de81fc4a61d97e7efba0b2f42913552e335c4908f10491e2dfac5b817",
+        "assertions.json": "4b6e233a3e3a37510b047a01ee8efab0eced85cfb40310b094c08f07c19ae430",
+        "expected_final_gamestate.txt": "a13fd0a577e257bf30333ae07aa7d0b1cdf62e6c6d609f709562904f17fe2d0a",
+        "meta.json": "ccfb8b2f7dab6a5583cbc26485c678eeebc8f225d49d9fd72140e5269675bacf"
+      },
+      "actions": 38,
+      "native_assertions": 3300,
+      "actual_manual_passes": 33,
+      "actual_priority_response_passes": 32,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "schema_property_assertions": 1102,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "the_suspense_is_killing_me_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "stand_strong",
+          "zone": "p1Equipment",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "the_suspense_is_killing_me_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "confidence",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "stand_strong",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        5,
+        8
+      ],
+      "final_GY4_exact_UIDs": [],
+      "temporary_ability_UID": 9,
+      "temporary_ability_ceased": true,
+      "new_physical_token_UID": 10,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "d20286018944ce7c2008be0c8e5d0326e15c7cb02e0d171ffb18452d2c27ae38",
+      "native_assertion_mapping_sha256": "b787811714f25e6b0855dc6a9675f50bbe2cee354d09c75f4605f5f31ebc6cd3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 72,
+  "total_native_assertions": 6707,
+  "total_manual_passes": 62,
+  "total_schema_property_assertions": 2369,
+  "material_findings": [
+    "Raw10/all72 actual native envelopes6707 ordered assertions62 genuine manual passes (Glidewell7,7,7,8; Stand8,8,8,9)/48manualpreferences per endpoint/70c53guards+ab33 exactly match independent R2 source1c6c2e and immutable archive. Full physical endpoints and all initial/terminal assertions independently parsed; no unchanged source/history re-audit.",
+    "Glidewell actual Blue3pays1/AP0 then destroys original5, ABI17held through freshfour and positive resolvingArrowchoice. Same6 loads FACEUP/+1, primary completion refundsAP1, then real Arsenal0Arrow spends it/base4+1=5/noGA to sameUrsur9. ActualDamage5/survival1 and allHeroHP20; source5/Arrow6GY1,Blue7Pitch/Bow8ready/priorGY4rawunchanged/originalUID1..16/ABI17ceased/R2AP0/quiet.",
+    "Stand actual first-onlyAura6 Instant0 entry earns controlledSuspense prerequisite/SUSPENSE2/FAB1first-entryrepresentation; Blue3pays3/AP0 then destroys5. ABI9heldfreshfour completes oneConfidence10OwnerCtl1 and GArefund1; actualWounding8 consumesAP/noGA, supportAura firstattack4+1=5/HP15. FullClose sameAura6+Confidence10 retained/GY5,8/Pitch7/ABI9ceased/R0AP0/quiet.",
+    "R2 only changes existing resolving-decision stop and removes known incorrect whole min0 menu assertion. All actual positive load/effect/response/payment/UID checks retained. Min0 source-only concern remains excluded, no optionality/menu/decline approval; no second-play FAB chronology or future Confidence/Suspense certification."
+  ],
+  "limits": [
+    "Glidewell positive legal Arrow selection only. Existing min0 source-only optionality concern is explicitly outside normative assertions; no menu completeness, decline or optional-load legality approval. Printed mandatory positive load/cost/held source/movement/+1/GA consumer remain strict. No native bug claim from this excluded route.",
+    "No second-play FAB chronology assumption, Suspense maturation, zero-counter trigger, Confidence future start/defense grant, ownEnd Ally healing, expiration, Battleworn/BladeBreak, Hero/Bow activation, Searing Hero-hit or prior producer/support/sibling/full-card credit.",
+    "Local primary faces/catalog independently viewed; attempted publisher card pages and release fetch were unavailable (404/inaccessible/502). No invented Judge ID or fetched issuer-ruling claim. Current CR retrieved successfully.",
+    "Original source-stage no-native-yet statement is historical; this separate proof now binds the actual R2 successful native/Saved evidence. This approves actual Saved named branches only. Root targeted replays/registration/qualification remain separate; no reviewer PHP/native/replay/R/source/fullsuite/denied repair. Opaque undo hash-bound/excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch635_saved_readonly.py",
+    "sha256": "f20526bfa83bff111d2e418efbd339f01ba7707963932919811a05a5cc63e3cf"
+  }
+}

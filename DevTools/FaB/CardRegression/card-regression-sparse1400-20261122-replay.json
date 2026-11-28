@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-shining-courage-red-four-live-sparse1400-zero-optional-defenders-real-cheer-separate-hero-confidence-and-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shining-courage-red-four-live-sparse1400-zero-optional-defenders-real-cheer-separate-hero-confidence-and-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1400-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1400-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6d6c7f19f5638b355db65d3c4075a025ac0426be2775ac89b1afde881b1e7b5f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5686ebddba4fd2edc2bd49fb5e4889c33abc14094b8248826ae9395822fb2f5e",
+        "actions.json": "14c92ce3695f6714ed828e4a1a9f269ceb7c3de61a66397ba19397cf2315b90a",
+        "assertions.json": "0ca321fdfa32e42e7715b02d19981b52772336277eeb3f4b8f1ba039f63c697b",
+        "expected_final_gamestate.txt": "050d43806f81acc53759022ea93ceba8c545feee6e3a3e3146d347ac74d7c060",
+        "meta.json": "fe25fa3f9355a4b062e55675beb18c5eac5b2b997b71c8318dccfc1975e6ce61"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

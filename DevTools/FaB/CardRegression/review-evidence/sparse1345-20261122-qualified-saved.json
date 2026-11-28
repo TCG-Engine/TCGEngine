@@ -1,0 +1,207 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1345-20261122.json",
+  "source_spec_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+  "input_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-silver-talons-red-four-live-sparse1345-non-draconic-primary-and-hero-no-dagger-damage-or-destruction-despite-real-owned-dagger",
+      "card_id": "silver_talons_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "401c63b350bf05e02e581e39854dbe7808ac047afbcbef8055e667bea8fb9f62",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "b6b72ad6684fbe854d4183b3db765c0c832f02ed8fbcdc650a06a6ea97ba641e",
+        "expected_final_gamestate.txt": "05bf9fa2c6441641add79286fbf5d6c54d47a9966834fb04fc7f86eb79eb29ad",
+        "meta.json": "4d60d8239ded2d634ac7114e722d502055e1416d834f2efcf40962c57a821a51"
+      },
+      "fixture_sha256": "8a968ea9ef292a6d1a6fb4879c6160c700cc2f347fa996b9ff679e2d2609cf58",
+      "actions": 28,
+      "native_assertions": 424,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1345-20261122.json",
+      "input_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-silver-talons-red-four-live-sparse1345-non-draconic-primary-and-hero-no-dagger-damage-or-destruction-despite-real-owned-dagger",
+        "fixture_slug": "card-silver-talons-red-four-live-sparse1345-non-draconic-primary-and-hero-no-dagger-damage-or-destruction-despite-real-owned-dagger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-infectious-host-red-four-live-sparse1345-wrong-seat-frailty-not-controlled-by-actor-no-copy-or-new-token",
+      "card_id": "infectious_host_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23ad1bdbb72b5de135e56b85e943793bad8f353716ead6643d7f7674c50e5a5f",
+        "actions.json": "fe03a00a1cfa6df31d2c375f01660530ab48b13cd35b8a3f9bf2d28f29a73c5b",
+        "assertions.json": "bb06235e29b26efdae7135b2987dc3124f9fa532f444ce321f9a7031fda43a6c",
+        "expected_final_gamestate.txt": "58493b373bb3af6ff468f722a7f70672d97df9c3f389bc1087a03093ef3e92f3",
+        "meta.json": "f26b5a1c9710f3c730608607c45b2adf5ec3eefb1a243c531efe420f632b7be5"
+      },
+      "fixture_sha256": "a8760c6cdbe10c7eae0f32b6cdd6190cec645bc3dee6e7963e57ed5c74fb6b15",
+      "actions": 28,
+      "native_assertions": 423,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1345-20261122.json",
+      "input_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-infectious-host-red-four-live-sparse1345-wrong-seat-frailty-not-controlled-by-actor-no-copy-or-new-token",
+        "fixture_slug": "card-infectious-host-red-four-live-sparse1345-wrong-seat-frailty-not-controlled-by-actor-no-copy-or-new-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-escalate-order-red-four-live-sparse1345-wrong-seat-toughness-not-controlled-by-actor-no-three-new-toughness",
+      "card_id": "escalate_order_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb648ff5d0a62483edf7c1a57a0d95d5722b427f9f3fc9a3752e272323e97f52",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a07d93477a440267f7d0074cd20af0571e0039fc5f3b688941b6a51df5153bc9",
+        "expected_final_gamestate.txt": "007e0f699f8f87b5c36a1cd4622d1b081cc47fdba9398ff1b44f883f6a0953ee",
+        "meta.json": "47f107ff290dd63cb92f92b7d8856807247b1ae108ac82e61cbb9e5fcbdbaa5d"
+      },
+      "fixture_sha256": "049b24549e70b3ad88782e26237abc1bdfe6b520a39f5d6ac8ff031fc126d4b8",
+      "actions": 29,
+      "native_assertions": 447,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1345-20261122.json",
+      "input_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-escalate-order-red-four-live-sparse1345-wrong-seat-toughness-not-controlled-by-actor-no-three-new-toughness",
+        "fixture_slug": "card-escalate-order-red-four-live-sparse1345-wrong-seat-toughness-not-controlled-by-actor-no-three-new-toughness",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "301b735b645c9a60df7630c0dfd486cce4c17a52c0159cc5a0f03e45967943f8",
+    "source_note_sha256": "9fe2033632c461e62467945f1d16531857c5d53253950352ac126869abe0a080",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 85,
+    "query_checks": 1294,
+    "persistable_assertions": 1294,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_ATTACK_GRANT_WITH_REAL_BASE_DAMAGE_AND_NATIVE_ACTION_CONSUMER_REJECTION",
+    "per_case": [
+      {
+        "card_id": "silver_talons_red",
+        "group_id": "pitch-cycle:silver_talons",
+        "native_controls": 28,
+        "persistable_assertions": 424
+      },
+      {
+        "card_id": "infectious_host_red",
+        "group_id": "pitch-cycle:infectious_host",
+        "native_controls": 28,
+        "persistable_assertions": 423
+      },
+      {
+        "card_id": "escalate_order_red",
+        "group_id": "identity:escalate_order_red",
+        "native_controls": 29,
+        "persistable_assertions": 447
+      }
+    ],
+    "basis": [
+      "Cached three distinct groups unrepresented/unheld; natural YoungZen20 supports NinjaSilverTalons, YoungDori20 supports GenericInfectiousHost, YoungReveredTuffnut20 supports ReveredEscalateOrder, each plus three YoungDori20/manual4 UPF. Printed costs0/0/2 and powers4/4/6 match. Physical primary5/FDArsenal6 or7, Bluefunder6 onlyEscalate, realownedreadyKodachi7 or actualFrailty7/Toughness8 ownedController2Arena2. Initial actorArena0, and foreignArena2=1 is correctly maintained at every counted checkpoint; initial checkpoint name is broader shorthand, assertions do not erase foreign token.",
+      "SilverTalons AttackDeclared23754 awaits current source event; await211745-211766 gates Hero attack then HNTUIDDraconic(uid), HNTCards69 checks actual primary object type. Both primaryNinja and targetDori lack Draconic, with no grant/history, so selected false condition is sound without deciding broader printed pronoun semantics. RealownedreadyKodachi7 is a valid potential dagger (HNTCards58) but no chooser/1damage/daggerhit/destruction is earned. Actualbase4HeroDamageHP16 and retained sameWeaponUID/OwnerControllerStatus2/RNG0 observe this false branch. Zen activation unused.",
+      "InfectiousHost AttackDeclared22314 dispatches OUTInfectious for Hero attack; OUTCards101 checks actor-controlled Arena separately for Frailty/Inertia/Pox before copy. Actor1 has none; realFrailty7 belongsController2Arena2, cannot qualify actor1. No earned conditional copies/choices/token creation. Existing p2Frailty static affects only its controller attacks, not actor1 Hand primary, and endphase is not reached. Actual4damageHP16, exactoneoriginal p2token7/allotherArena0/UID7 pins condition ownership without claiming creation support.",
+      "EscalateOrder AttackDeclared21448 counts MONArena(player,toughness), not everyseat. Actor1 empty vs realp2Toughness8 means no earned3-token producer; no Cheer/Tuffnut trigger. RealBlue6pitch3 pays2/R1/AP0, base6damageHP14. Existing p2Toughness is prior admitted Arena state after start; no start/end phase or defense by p2 is reached. Sameoriginal token UID/OwnerController/Status2 and Arena2=1 retained, otherArenas0/UID8/RNG0.",
+      "Reused four-seat actual source/combat rounds retain correct physical fates and noGA/refund. Real0costFDArsenalWounding source is resource-affordableR0/0/1 but actual postlink nativeclick rejects atAP0 before newtarget/payment/movement. Exactsame health/resources/physical controls/UID/RNG/Stack/queues/pendingPayment before-after provide action consumer witness. Counts28/424,28/423,29/447 total85/1294 persistable assertions."
+    ],
+    "limits": [
+      "Only both-nonDraconic SilverTalons and actor-own-token-absent Infectious/Escalate conditions, actual base damage/noRefund and physical guard consumers approved pending native save/replay. No native pass/qualified credit claimed.",
+      "No broad pronoun interpretation, positive Draconic/throw/target-timing/daggerdamage, positive token prerequisite/grants/creation/ownership, start/endphase or positive triggers, Hero activations, sibling/support/full-card coverage. Existing holds untouched; no engine repair.",
+      "Only W review receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1345.py": "99ef8f3963e30200810aebf4552acb5d6d143d143dee738355dbcf51b0f044b2",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1345-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "323babf23447e62fa1a7553ff772e77c2d67b4d6dc369a7c42b9634ede61ddc9"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Electryn Mindmeld / no go-again Quickstrike guard and Ally hit preserves a real graveyard Instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:32:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_BRIAR20_MANUAL_UPF_NO_GO_AGAIN_QUICKSTRIKE_AND_ALLY_NOT_HERO_DAMAGE_GUARDS_ONLY. LegalLightningRuneblade5Hand/BriarEssenceLightning; GenericRed6Handpaysprinted1/R0/AP1to0; realInstantSigil7GY andDromai4Ashwing8withpriorAshmaterial/controlHand9. NativeactualAllytarget andfourresponseflow, noGoagain/effect/arcanehistoryseed. PrintedQuickstrikeIFhasGAfalse\u2192no+1andnograntedwhenattacksHeroarcane; realpower3not4/noGA. Actual3physicaldamagekills1lifeTokenAlly8/ceasesnoGY4/noHeroHPdamage. FirstdealsdamageHEROconditionfalse\u2192noearnedInstantbottomtrigger/choice; eligibleactual7muststayownedGY0/notDeck. BriarHeroDamageproducerfalsebecauseAllynotHero, noEarthtoken. Fullprimary5GY1afteroriginal7/6Pitch/9Hand4/APR0/allHero20/Deck0/allArena0/UID9RNG0/StackDQsCCclean. No positiveQuickstrike/GA/arcane/Instantbottom/Briarproducer/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#electryn_mindmeld_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

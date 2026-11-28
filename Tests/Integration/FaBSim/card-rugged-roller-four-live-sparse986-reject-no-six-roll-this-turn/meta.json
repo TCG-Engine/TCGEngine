@@ -1,0 +1,7 @@
+{
+    "name": "Rugged Roller / four-live weapon activation restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:17:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}: **Attack**\n\nActivate this only if you've rolled a 6 on a die this turn. Named activation prerequisite rejection only: legalnatural20 Aurora/Dash/Rhinar, physicalownreadyWeapon5/Status2 and realHandWounding6. Initialfloatingresourceasset 1 fullycoversprintedactivationcost; no cost/payment credit is claimed. FalseLightningAttack/Crank/Roll6 ornonemptyHand mustrejectbeforeattacktarget/tap/payment/AP: weapon5ready/R1/AP1/Hand1/Stack0/allqueuesempty. Then plainGeneric6actuallyplays0cost anddeals4 toHero4 throughall4manual/AP0/GY6 whileWeapon5/R1retained. No primaryattack/damage/prevention/overpower/GoAgain/Hit/heroabilities or wholecard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rugged_roller"
+}

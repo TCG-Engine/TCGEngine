@@ -1,0 +1,122 @@
+{
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-09T01:03:18.287684+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\manifest.json",
+    "sha256": "09b7db2a5866591349833f61188eb93741cff8d8e907ebb1b4bddf5ce591457e"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\frozen-author-QA.json",
+    "sha256": "036cdcfc28ff326576e2d447ab5dfae0515b6e65a73318414db8ff4374b8e86d"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "0624bf0cec913bf85562ea0b4d89ece53c4f9abe40de41f36677bc59cbd816fa"
+  },
+  "input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\batch761-two-source-only-planning-input.json",
+  "input_sha256": "173fab2fc1d893af8e8b36778bd43bbfc96badc30511764bee293591a176801b",
+  "source_is_recorder_input": false,
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-firm-reservation.json",
+    "sha256": "c54e443b8fc5f0a3bbde0d6277988ba1fc3d3d8307c88c94406221759088164a"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-nonpermanent-reaction-preferred-metadata-pool.json",
+    "sha256": "eb1ca7a48235584d9c9d9aa9fba7d7a4aaa1d3077f372377034fc4b465cdf68a"
+  },
+  "source_guard_count": 72,
+  "source_guards_verified": true,
+  "source_guards_sha256": "e292d4d94528c147900839b3f84220a5544683256899a077b30dd0781f2d5558",
+  "source_guards_binding": "Exact72-path map in pinned manifest; every current path hash independently matched.",
+  "executable_cases": 0,
+  "native_actions": 0,
+  "native_assertions": 0,
+  "passing_fixtures": 0,
+  "source_body_present": true,
+  "reaction_source_retention_healthy": true,
+  "engine_implementation_concern": true,
+  "actual_review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov9_batch761_planning_readonly.py",
+    "sha256": "19011957174eb4ba2b76ac2c6cfe76049c2b203e826f257a24401fa01b2eddc8"
+  },
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "native_bug": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "qualification_permitted": false,
+  "executable_admission": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false,
+  "status": "SOURCE_ONLY_UNATTEMPTED_FUSION_REVEAL_BEFORE_ASSETS_PLANNING_LIMIT",
+  "card_id": "biting_gale_blue",
+  "group_id": "pitch-cycle:biting_gale",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov9-batch761-two-source-only-planning\\batch761-biting-gale-fusion-cost-source-only-plan.json",
+    "sha256": "b4a630acb82348fdb99af8822344c3bcb40928786a078175635eb37fc20471aa"
+  },
+  "independent_findings": [
+    "Viewed the local publisher face: Ice fusion is an optional additional reveal-cost; blue Biting Gale costs2 and defends2. Declaring whether to fuse and selecting its Ice card early is distinct from actually paying the reveal-cost.",
+    "Selected canonical and live compiled Prepare call FaBELEFinishFusion before FinishPreparedCard. The helper immediately writes fusion fields/FUSED effects and publishes the real RevealCard event. This is actual effect-cost payment while resource assets remain unpaid.",
+    "The live entry path enters PITCH and invokes Prepare before TryCompletePayment; ordinary FinishPrepared then reaches resource debit. No selected deferral applies. CR5.1.7 precedes5.1.9; CR8.3.17 identifies fusion as an additional reveal-cost.",
+    "Managed defense-reaction lifetime through resolution awaits is healthy. Only fusion-cost ordering blocks this positive witness; no source-clearing, body-absence, native failure or confirmed-bug claim."
+  ],
+  "source_evidence": {
+    "paths": [
+      "DevTools/FaB/ele_abilities.json:biting_gale_blue PrepareCard",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:9306-9310,118319-118351",
+      "FaBSim/Custom/ELECards.php:13-19",
+      "FaBSim/Custom/CardChoices.php:186-207,217-233",
+      "FaBSim/Custom/GameLogic.php:968-991,1080-1102,1739-1761"
+    ],
+    "canonical_selected_row_sha256": "85c62c16ef120e07964c1217d140097106b4dc3577f42e1e60353c23710bfa82"
+  },
+  "primary_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\biting_gale_blue.webp",
+    "sha256": "55995367dc7a23c8fde57500307f4a26d8af99baec5cfcbc15168af65a5b408e",
+    "actually_viewed": true
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "sections": [
+        "5.1.3",
+        "5.1.7",
+        "5.1.9"
+      ],
+      "actually_retrieved": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.3.17"
+      ],
+      "actually_retrieved": true
+    }
+  ],
+  "limits": [
+    "Only reserved blue positive Ice-fusion route; no red/yellow sibling or full-card qualification.",
+    "Static Source planning review only. No recorder-compatible spec, native game, cost/effect/target/damage outcome, fixture, replay, actual four-seat interaction, Hero/support/producer or coverage credit.",
+    "Original positive conditions retained unattempted. No replacement primary/producer hunt, false-condition/blank-play workaround, private/history/RNG flags, resource prefloat, code repair or denied-operation retry."
+  ]
+}

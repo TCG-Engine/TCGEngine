@@ -1,0 +1,394 @@
+{
+  "status": "CONFIRMED_NATIVE_KNOWN_FAMILY_EXTENSION_NO_PASSING_FIXTURES",
+  "issue_id": "FAB-REG-211",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse964-held-cog-prepare-pair-20261122.json",
+  "source_spec_sha256": "71cbec25f3f833254bd05c8fcbcccdaef3f5e2d879c3695fc2a1274552a1b2d0",
+  "original_native_input_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+  "original_receipt_sha256": "ab482bf54bd9d4dc1200f748c6b25ae1289198122ac5f805e930945c301057ee",
+  "expected": "Normal attack play requires printed2 resources and its action point; the separate optional Cog-tap Instant/Hit choice is not a normal-play additional cost. No Tap_a_cog chooser is owed before attack/combat.",
+  "observations": [
+    {
+      "card_id": "cloud_city_steamboat_red",
+      "slug": "card-cloud-city-steamboat-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "first_failure": "Expected p1ActionPoints to equal 0, got 1.",
+      "native_inputs": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 100,
+          "buttonInput": "",
+          "cardID": "p4Hero-0",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "initial_gamestate_sha256": "77db0042d08970bb2e8187229d9e9fb5c67aaabb919af8156dccdcfc02233184",
+      "observed_state": {
+        "window": "PITCH",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": {
+          "player": 1,
+          "uid": 5,
+          "cost": 2,
+          "fromZone": "Hand",
+          "kind": "ATTACK",
+          "returnWindow": "ACTION",
+          "returnCombatStep": "NONE"
+        },
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": [],
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": [],
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false
+          }
+        }
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p1Arena-0",
+            "Block": 1,
+            "Tooltip": "Tap_a_cog",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "cloud_city_steamboat_red:0:PrepareCard-await|cloud_city_steamboat_red:0:PrepareCard#1|1|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "limits": "Only wrong normal-play Prepare routing observed; intended third pitch did not establish successful payment. No illegal cog choice answered; later combat/cog/hit branches unrun."
+    },
+    {
+      "card_id": "cogwerx_zeppelin_red",
+      "slug": "card-cogwerx-zeppelin-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "first_failure": "Expected p1ActionPoints to equal 0, got 1.",
+      "native_inputs": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 100,
+          "buttonInput": "",
+          "cardID": "p4Hero-0",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "initial_gamestate_sha256": "25ca1d2cbb23c5b06186759fd2f8d7fec04f54a1f600ce78dc9e2f8fdd636603",
+      "observed_state": {
+        "window": "PITCH",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": {
+          "player": 1,
+          "uid": 5,
+          "cost": 2,
+          "fromZone": "Hand",
+          "kind": "ATTACK",
+          "returnWindow": "ACTION",
+          "returnCombatStep": "NONE"
+        },
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": [],
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": [],
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false
+          }
+        }
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZCHOOSE",
+            "Param": "p1Arena-0",
+            "Block": 1,
+            "Tooltip": "Tap_a_cog",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "cogwerx_zeppelin_red:0:PrepareCard-await|cogwerx_zeppelin_red:0:PrepareCard#1|1|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "limits": "Only wrong normal-play Prepare routing observed; intended third pitch did not establish successful payment. No illegal cog choice answered; later combat/cog/hit branches unrun."
+    }
+  ],
+  "independent_review": {
+    "result": "confirmed_engine_defect_known_family_extension_hold_both",
+    "issue_id": "FAB-REG-211",
+    "reviewer": "breadth_review independent read-only failure classification",
+    "spec_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+    "receipt_sha256": "ab482bf54bd9d4dc1200f748c6b25ae1289198122ac5f805e930945c301057ee",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "observations": [
+      {
+        "card_id": "cloud_city_steamboat_red",
+        "slug": "card-cloud-city-steamboat-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "submitted_inputs": 3,
+        "initial_gamestate_sha256": "77db0042d08970bb2e8187229d9e9fb5c67aaabb919af8156dccdcfc02233184",
+        "unexpected_continuation": "cloud_city_steamboat_red:0:PrepareCard-await|cloud_city_steamboat_red:0:PrepareCard#1|1|chosen",
+        "fixture_saved": false,
+        "qualified": false
+      },
+      {
+        "card_id": "cogwerx_zeppelin_red",
+        "slug": "card-cogwerx-zeppelin-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "submitted_inputs": 3,
+        "initial_gamestate_sha256": "25ca1d2cbb23c5b06186759fd2f8d7fec04f54a1f600ce78dc9e2f8fdd636603",
+        "unexpected_continuation": "cogwerx_zeppelin_red:0:PrepareCard-await|cogwerx_zeppelin_red:0:PrepareCard#1|1|chosen",
+        "fixture_saved": false,
+        "qualified": false
+      }
+    ],
+    "classification": [
+      "Both attempted ordinary attack plays are illegally gated by a cog-tap PrepareCard. Printed normal play costs only2 resources; tapping a cog belongs to a separate optional Instant or a hit-effect choice. No such activation/hit occurred. This is not a missing PLAY menu answer or a fixture oracle error.",
+      "Receipts show normal pendingPayment.kind ATTACK/fromZone Hand/uid5/cost2, window PITCH, combatOpen false/chainLink0. After Hand click, Hero4 declaration, intended Blue pitch input, AP remains1 and mandatory Tap_a_cog choice appears. The third input did not establish successful payment; do not describe it as a completed pitch.",
+      "The unguarded generated PrepareCard for each gathers readyCog, queues mandatory MZCHOOSE, then would FaBSEATap the choice and finish preparation. No attack/activated-ability context condition exists in either body. The illegal tap choice was never answered."
+    ],
+    "source_evidence": [
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "lines": [
+          9662,
+          121153,
+          9710,
+          121569
+        ],
+        "fact": "Cloud City Steamboat and Cogwerx Zeppelin PrepareCard wrappers/await bodies unconditionally route readyCog to mandatory tap."
+      },
+      {
+        "path": "FaBSim/Custom/SEARuntime.php",
+        "lines": [
+          28,
+          33,
+          35,
+          37,
+          42
+        ],
+        "fact": "Both separate cog-tap Instants require the current attacking CombatChain object, not a normal Hand/Stack attack play."
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": [
+          1084,
+          1086,
+          1371,
+          1373,
+          1377,
+          1380
+        ],
+        "fact": "Normal attack path calls PrepareCard; existing named ordinary-play guards cover Palantir separately and Cloud Skiff/Sky Skimmer in macro dispatcher, not these two cards."
+      }
+    ],
+    "family_relation": {
+      "existing_records": [
+        "FAB-REG-137 Cloud Skiff",
+        "FAB-REG-163 Sky Skimmer",
+        "FAB-REG-169 Palantir"
+      ],
+      "assessment": "Two new affected-card observations in the known ordinary-play/activated cog-cost Prepare family, one grouped issue211; no new distinct root count. Existing-record linkage supplied by Root and consistent with current named guards; no old replay/audit performed."
+    },
+    "healthy_subset": {
+      "recorded": 3,
+      "cards": [
+        "gear_turner_red",
+        "cogwerx_dovetail_red",
+        "cogwerx_prong_bot_yellow"
+      ],
+      "scope": "Save receipt reports semantic recording success; replay/qualification/registration remain with Root. No rerun requested or performed."
+    },
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587"
+    },
+    "limits": [
+      "Only demonstrated wrong Prepare routing classified; no independent AP/resource-accounting root claimed. Hand refs are present but receipt does not expose full physical Pitch/Hand card properties, so successful pitch is not claimed.",
+      "Hold both failures unsaved/unqualified. Keep original inputs and correct expected AP0 after sufficient normal payment. No illegal tap answer, workaround, native retry, repair, T edit, original access, Git or network action by reviewer. Preexisting Cog9 is not an entry/creation test and does not qualify207 or ownership behavior."
+    ],
+    "source_only_branch_risks": [
+      {
+        "card_id": "cogwerx_dovetail_red",
+        "branch": "ordinary attack play while controlling a ready Cog",
+        "status": "source_only_unrun_not_a_native_failure_or_qualification",
+        "source": [
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php:9698",
+          "FaBSim/GeneratedCode/GeneratedMacroCode.php:121465",
+          "FaBSim/Custom/GameLogic.php:1371"
+        ],
+        "finding": "Same unguarded PrepareCard gathers readyCog and would queue mandatory Tap_a_cog; normal-play dispatcher whitelist does not cover Dovetail. Thus ready-Cog ordinary-play branch has the same source risk as211. No native probe performed.",
+        "existing_branch_scope": "Recorded tapped Golden Cog Status1 means no ready Cog. The empty-ref branch skips the choice, calls tap with -, then finishes preparation. Its observed normal play/no-hit/tapped-Cog retention branch remains valid; this does not qualify ready-Cog ordinary play or optional Instant."
+      }
+    ]
+  },
+  "source_changed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_claimed": false,
+  "full_suite_run": false
+}

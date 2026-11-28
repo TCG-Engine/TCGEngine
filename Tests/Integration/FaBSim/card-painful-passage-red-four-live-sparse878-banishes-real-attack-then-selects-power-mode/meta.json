@@ -1,0 +1,7 @@
+{
+    "name": "Painful Passage / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may banish an attack action card from your hand. If you do, it gets +3{p} or **go again** until end of turn.\n\n**Go again** Representative only: banishes_real_attack_then_selects_power_mode. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#painful_passage_red"
+}

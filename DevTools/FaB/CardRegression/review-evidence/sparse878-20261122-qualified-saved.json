@@ -1,0 +1,346 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse878-20261122.json",
+  "source_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+  "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-phoenix-bannerman-chest-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-vigor",
+      "card_id": "phoenix_bannerman_chest_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "715a615d9029255fcdfcdda0f6f1ee476e8c2813ba986f605297f9547d0f5064",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "64170d463d6c8fd7cf61c942338cffa3229cfa06c781778c7dd2fd43b4bc7e3e",
+        "expected_final_gamestate.txt": "09db6c92459c5d0a5a613017e9b9dbc768d1214c7a3b1e2121b6cb0e79cf9342",
+        "meta.json": "5bbbdc5d1993ae8ffcebcfe3a33054869ea71f8b42db9e8bd7d125aaf8fc3d56"
+      },
+      "fixture_sha256": "cef3383139943184fbca633b74ad677f1a2d0ea2946ec64deb9ba1851ca33df4",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-phoenix-bannerman-head-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-ponder",
+      "card_id": "phoenix_bannerman_head_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0f576294f3217420b0e08374bf22940bd68c78d58fa00d2489d9afeab8b3b055",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "8b2d9dcf069f999734c1fed0cccc53fb7584187212e6d02a355f7ee6bc8f6573",
+        "expected_final_gamestate.txt": "30b010c419994b881815fa5b925cfff0dd447feb7b7482660dd04e46872ddc4a",
+        "meta.json": "1a800a6a2767fa432655f367e10f23012bf73d3455a3a2509dc80af83cac085d"
+      },
+      "fixture_sha256": "14de1d91cc978d83a047a133336e376811cbf5b25a1e3f54e7b80df595a654bb",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-phoenix-bannerman-legs-red-four-live-sparse878-finds-real-phoenix-flame-to-hand-and-creates-agility",
+      "card_id": "phoenix_bannerman_legs_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "58f654299809aa9ad71176c1607cb19b59ae9be4a4f480bf14b964b40c2290a1",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "93e5ae3866966debcda96f10d329a4784720ec6e3d2d0bd484c3efff7a5923ff",
+        "expected_final_gamestate.txt": "9ba79a1807a67266cdf03b56118a729dcc59e39fa867ef6053b7517c2be05ed7",
+        "meta.json": "a0f5e1662e884c6e834213fc30192c2d58d95ee45d653df65e24254bb7e505e9"
+      },
+      "fixture_sha256": "fb76fcd003974667859922fd0271668d1fadbb1236d7b27a7a2181e0b803c3b0",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-pour-the-mold-red-four-live-sparse878-puts-real-eligible-hand-item-into-arena-with-its-three-steam-counters",
+      "card_id": "pour_the_mold_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "28eb3b7117f5b75cd525f950acb4c92ff52e02c02aa6e63f6fa372c7b38f9786",
+        "actions.json": "fd41a737eb3a336e908a0167e41f583c2015a2192736fb6658abdb26f3dc7e30",
+        "assertions.json": "876e6458cce7a5e0803cfea7ec30d6f9e840252878fc7abbd222ffa9d6374fa0",
+        "expected_final_gamestate.txt": "74f2f3da22cb8606470b509286d2c732a621ef667686d167b688263199bbf2a1",
+        "meta.json": "448ed0af4d6789ac7d021188c9391826ba0b6f98b1ae91453588a468766facbc"
+      },
+      "fixture_sha256": "b27f322cfeda75d573a1c5eceb7c1b874748c25c90aafd7843a0ace2c2290138",
+      "actions": 6,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-restvine-elixir-red-four-live-sparse878-destroys-real-owned-inertia-and-gains-one-health",
+      "card_id": "restvine_elixir_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14d6ac5df99ed7a52e646e3eb5545704d98762adc56ed9c35a80d8ec845c1405",
+        "actions.json": "168eb46b5c95227057380b903d816a19f6e35f23cb929cb6ecd91ab0a1dd430f",
+        "assertions.json": "85ab760e3e985579bf8053b497742e179e92131b15d081b75012e74efccd80eb",
+        "expected_final_gamestate.txt": "706deb432d12e52bc7af27ede4c3ec76eff26e3a0eaa0fc063edb4bf99200f24",
+        "meta.json": "d847359c6f871ab3a8987744685411250dd17e207280cfb579655ca51618eb04"
+      },
+      "fixture_sha256": "53e256cb52e4d05bee6fc7e5d4299e2b581a72fabf27f3fd1765bd88cea76954",
+      "actions": 7,
+      "native_assertions": 84,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-rake-the-embers-red-four-live-sparse878-creates-actual-ash-then-transforms-it-into-owned-aether-ashwing",
+      "card_id": "rake_the_embers_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc99f3954c445219e01d7065bd8852475b33faab95cc161eabe61c6a5aa29886",
+        "actions.json": "168eb46b5c95227057380b903d816a19f6e35f23cb929cb6ecd91ab0a1dd430f",
+        "assertions.json": "41d24adb9597561ff7a62814305369f96c4458e496bb2cbb8d60a89ff2633054",
+        "expected_final_gamestate.txt": "67b862dd18bd21b05018f1836aee40985673bd98495968232c981e196feecb80",
+        "meta.json": "9c472d23d468802bb86b6c845ec3c1d6a425cc900d98c15eb87f023b8448cf53"
+      },
+      "fixture_sha256": "784cd63ec0a5284997fe74c4ee575dc02812f1d83eab0af8c820372ca4d519ff",
+      "actions": 7,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-read-the-glide-path-red-four-live-sparse878-opts-actual-top-card-to-bottom-and-completes-go-again",
+      "card_id": "read_the_glide_path_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a29ce9aa69d631514443a53325ef6bbf7938070fe2e482e05a9595ae49a9a65a",
+        "actions.json": "3a01536853bb765896d3e8329db35a133fa07e086f17383b57e8bf4abc91aa1b",
+        "assertions.json": "dd81c543df508b40e9c16f47cb9491338df1c35c236fb096c426b7848c2bb31e",
+        "expected_final_gamestate.txt": "11b3dac5a1a13b2cedf8412ae44360b56807bd4af64b884e9f6429d53ac8f770",
+        "meta.json": "986a6b2353ca32b4df1a2a4b1a337d5c6125957729e804b1ca6f314a3a29ebce"
+      },
+      "fixture_sha256": "a7743028ad716b00086361fbbe31fc3ad182541f01a8b5aeb81433a00c88b457",
+      "actions": 6,
+      "native_assertions": 82,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-re-charge-red-four-live-sparse878-adds-one-steam-counter-to-real-owned-hyper-driver",
+      "card_id": "re_charge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "075033c2608e6fba1aef1a0c57143c8c0b452b452504a4e7628a4ef717b16e55",
+        "actions.json": "168eb46b5c95227057380b903d816a19f6e35f23cb929cb6ecd91ab0a1dd430f",
+        "assertions.json": "7ba8dde1ec1fcd8e0e2503a64c0304e4937f942ad6983c0b0f7e3e7164a3a3f0",
+        "expected_final_gamestate.txt": "ba40d900cac717a841e0b72d833dfb15736f58662d400522a71a21f1938a3c34",
+        "meta.json": "9974b3260713c42e54f6b9e920651d6c1654f88bb15216a833559daea5e45429"
+      },
+      "fixture_sha256": "10ddd0112425767c071cdc62f332fcd5c614d69b411f41d9fc19a9d96dfc3f4c",
+      "actions": 7,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-painful-passage-red-four-live-sparse878-banishes-real-attack-then-selects-power-mode",
+      "card_id": "painful_passage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1802542ee30a37d0c75da97beb14a2d3718882fe7e64e3cf3f0270787cd79f95",
+        "actions.json": "bec4048ef08e1dab0c7096cbb8481a7c965a66714acf1fa3142857ff8139077b",
+        "assertions.json": "ff529c707c044b49b679816f599711b27c61f593107c075340b4285728aa434a",
+        "expected_final_gamestate.txt": "be0fb6b178b63e2e5a955667a9786fd262270f599afbc845e21c63474a9e14f9",
+        "meta.json": "887f91eeeb714ccaab21c6a6212d9d8abf2ca212a7dd19f29dde13ad897318fd"
+      },
+      "fixture_sha256": "df2f2a137d7cd493e49779f890191f238e4306cc70d4cc0fe07653b53ac6cee5",
+      "actions": 7,
+      "native_assertions": 84,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-ominous-excavation-blue-four-live-sparse878-real-graveyard-instant-returns-to-deck-without-false-ponder",
+      "card_id": "ominous_excavation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "af11ad3a7946879ec1232727d0034904eb4e366d8058671ea410172f94197eeb",
+        "actions.json": "79546c6b52b161f21e6196d31822f611f7c548529405f005bfc6953ee644cb4f",
+        "assertions.json": "11cf03860611f6d3d017b9c55690643e67363407a22333bb5224ccfe5c7aaf7b",
+        "expected_final_gamestate.txt": "cb6561de9789d84d2984c19cf7ae4587a9376fc4dbd2eec1eae3cf1bf5b9b07f",
+        "meta.json": "f45141218a4089907d3cf8e5e09c373c99b9371630fb3a44f84ffc691ab3efa7"
+      },
+      "fixture_sha256": "80274b589e18bc3fba03b37ee29473a694c8bc1ae6762e7c101e6b41da25d51c",
+      "actions": 6,
+      "native_assertions": 80,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse878-20261122.json",
+      "input_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+    "reviewed": [
+      {
+        "card": "phoenix_bannerman_chest_red",
+        "branch": "finds_real_phoenix_flame_to_hand_and_creates_vigor"
+      },
+      {
+        "card": "phoenix_bannerman_head_red",
+        "branch": "finds_real_phoenix_flame_to_hand_and_creates_ponder"
+      },
+      {
+        "card": "phoenix_bannerman_legs_red",
+        "branch": "finds_real_phoenix_flame_to_hand_and_creates_agility"
+      },
+      {
+        "card": "pour_the_mold_red",
+        "branch": "puts_real_eligible_hand_item_into_arena_with_its_three_steam_counters"
+      },
+      {
+        "card": "restvine_elixir_red",
+        "branch": "destroys_real_owned_inertia_and_gains_one_health"
+      },
+      {
+        "card": "rake_the_embers_red",
+        "branch": "creates_actual_ash_then_transforms_it_into_owned_aether_ashwing"
+      },
+      {
+        "card": "read_the_glide_path_red",
+        "branch": "opts_actual_top_card_to_bottom_and_completes_go_again"
+      },
+      {
+        "card": "re_charge_red",
+        "branch": "adds_one_steam_counter_to_real_owned_hyper_driver"
+      },
+      {
+        "card": "painful_passage_red",
+        "branch": "banishes_real_attack_then_selects_power_mode"
+      },
+      {
+        "card": "ominous_excavation_blue",
+        "branch": "real_graveyard_instant_returns_to_deck_without_false_ponder"
+      }
+    ],
+    "evidence": [
+      "Cached text/types/costs and all natural hero health20 checked. Only Restvine/Rake/Re-Charge cost1 and use actual blue pitch3/residue2; remaining sources cost0. Nine Actions consumeAP then printed go-again restores1; Ominous is Instant and preservesAP1 throughout.",
+      "Phoenix Bannerman chest/head/legs are distinct printed Draconic Action cards, not Equipment or pitch siblings. Actual middeck FlameUID7 enters hand with distinct owned Vigor/Ponder/Agility token as printed.",
+      "Pour puts actual eligible Mechanologist Item Hyper Driver(cost1\u22642) from hand into arena with its own three entry steam; no boost happened, so no extra steam expected. Dash does not grant crank.",
+      "Restvine destroys actual existing Inertia and gains exactly1 health,20\u219221; normal health has no starting-health cap. No next-attack power outcome claimed.",
+      "Rake pays with blue so Dromai creates no pitch Ash; spell creates real AshUID7, then transforms selected Ash into owned AshwingUID8 retaining material counters. No outcome Ashwing was seeded.",
+      "Read Glide Path stages actual Opt1 topUID6 and moves it below UID7, exercising changed deck order and go-again.",
+      "Re-Charge starts actual live owned DriverUID7 at1steam, a legal midgame prerequisite, then ends same Driver at2steam; no boost payoff seeded.",
+      "Painful Passage selects actual hand attack Rift Bind, modal0 is Power, then moves actual UID6 to Banish with power3 marker. No attack resolution claim; mode selection occurs before physical banish in native flow.",
+      "Ominous selects real graveyard Instant Sigil of Solace, returns it into real deck alongside existing Wounding Blow, leaves only source in graveyard and creates no Ponder without prior aura destruction."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Static semantic review only; no native execution, tests, recordings or network performed. Parent verifies queue/object schema and replays.",
+      "Scope limited to named physical branches. Search reveal/shuffle observability or random distribution, token start/end-phase effects, Ashwing/phantasm combat and token benefits remain unverified.",
+      "No credit for later arrow/attack/boost buffs, alternate Painful mode or attack, boosted Pour bonus, max-cost boundary, multi-Ash transform, declined/empty choices, Ominous aura-destroyed-positive condition or pitch siblings."
+    ],
+    "mutation_scope": "Only this independent-review.json written.",
+    "initial_spec_sha256": "bfb89a58d6bcff7144a4a8df6c32efb81df5029beba38705babab087027ea1fb",
+    "search_input_delta_review": {
+      "review_type": "independent_static_search_input_delta_review",
+      "result": "approved_reduced_inputs_pending_targeted_requalification",
+      "spec_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "batch878_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "reviewed": [
+        "call_to_the_grave_blue",
+        "lesson_in_lava_yellow",
+        "look_within_blue",
+        "phoenix_bannerman_arms_red",
+        "phoenix_bannerman_chest_red",
+        "phoenix_bannerman_head_red",
+        "phoenix_bannerman_legs_red",
+        "ominous_excavation_blue"
+      ],
+      "evidence": [
+        "Compared four amended specs with manifest source-spec backups and four changed B878 specs with 878-before.json. Each loses exactly one irrelevant initial Deck card. Native actions and all unrelated top-level fields remain unchanged; assertion deltas only reduce corresponding staged/deck counts and remove deleted filler existence checks.",
+        "Call to Grave retains two real selectable cards and chooses second to graveyard, leaving actual first card in deck. Source/selected UID and go-again checks remain.",
+        "Lesson and Look Within retain real ineligible first card plus eligible actual middeck Wizard/Chi, preserving eligibility discrimination and causal middeck-to-top outcomes.",
+        "Four Bannerman variants retain actual middeck Flame and one non-Flame, preserving eligible search, hand movement and correct distinct token outcomes.",
+        "Ominous retains actual graveyard Instant, moves it to initially empty real deck(count1/existence), preserves AP and requires no false Ponder; only irrelevant initial deck filler removed.",
+        "Twenty raw fixture backup hashes independently checked against manifest; all20 match.",
+        "Read-only RNG source confirms strong-entropy EngineShuffle uses random_int; reducing irrelevant remainders makes final fixture observations stable without changing runtime behavior."
+      ],
+      "oracle_or_flow_errors": [],
+      "engine_concerns": [
+        "Native multi-card strong-entropy shuffle remains outside deterministic snapshot certification; this amendment does not repair or certify it."
+      ],
+      "limitations": [
+        "No game execution, native tests, source edits, recordings or network performed.",
+        "Only named physical search/movement branches approved. No shuffle randomness/distribution or reveal observability claim.",
+        "Prior B874 Call and B875 Lesson require targeted requalification; this static review adds no coverage count. Other affected cases remain subject to actual record/replay results.",
+        "All prior named-branch exclusions remain, including token timing, later combat/buffs and alternate selections."
+      ],
+      "mutation_scope": "Only this independent-review.json written; original fixture backups preserved."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse878-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8b58835f878d3974854238dc8b9e0375ff3213417a9548740ad9519acbe1092f"
+  },
+  "full_suite_run": false
+}

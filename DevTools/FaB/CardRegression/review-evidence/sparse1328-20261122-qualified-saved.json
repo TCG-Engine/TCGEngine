@@ -1,0 +1,119 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1328-20261122.json",
+  "source_spec_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+  "input_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+      "card_id": "kayo_armed_and_dangerous",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9e4c6630d73c4b74c111c97091f7f3e54bb3560fb9869f832dd9e0d1f7a89262",
+        "actions.json": "d8a7aac6159eb83dafa0d92dd4c8283546054fe9f3a2107c6d15d56a8b7cf321",
+        "assertions.json": "8570b73fe39c352346e8a2cf4ffd492c6ddb3db0021cef3aee063f4958be2b0e",
+        "expected_final_gamestate.txt": "45d887da2b32b49d920ce8ee09bad75ec8d037f31324acbba0b7474150edfe72",
+        "meta.json": "1424d555190273133063b7a6250238d4c161b5158bb4705f98f3dbca7e9290ff"
+      },
+      "fixture_sha256": "8353d37675f005e215bd6ebbb204759a463f2d86195971ddb921c7b5af602bf7",
+      "actions": 18,
+      "native_assertions": 237,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 16,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1328-20261122.json",
+      "input_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1328-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+        "fixture_slug": "card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+    "source_note_sha256": "a895b0df16e4c6666201df838d9215a74bfd05ac886586fc838eb1ebf4a14ade",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 18,
+    "query_checks": 237,
+    "persistable_assertions": 237,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_OUTSIDE_CHAIN_OWNED_POWER_MODIFIER_THROUGH_ACTUAL_OFF_TURN_DISCARD_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "kayo_armed_and_dangerous",
+        "group_id": "identity:kayo_armed_and_dangerous",
+        "native_controls": 18,
+        "persistable_assertions": 237
+      }
+    ],
+    "basis": [
+      "Fresh unrepresented adult Kayo40 standalone group/no exact hold. Actual opponent adult Dorinthea Ironsong40 is TurnPlayer1; primary Kayo2 passive active with no activation. activeSeats omitted/default empty gameMode/no passives/manual native duel12. HeroUID1/2 then foreign Wounding3 Hand1, own RecklessSwing4 and Generic CriticalRed5 Hand2. Both natural40, actorAP1/defenderAP0/resources0/no effects or discard history seeded.",
+      "Foreign Wounding actualzero-cost4power attack/both responses is not modified by opponent Kayo ownership. At actual REACTION2, printed Brute Defense Reaction Swing4 zero-resource/no-AP play is legal for defending Hero2; actual source4 moves Stack and only remaining Hand card5 is actual mandatory random discard. WTRPayAdditionalCosts529\u2013535 captures FaBHVYOwnedPower in both ARC metadata and source Params after regular asset handling. HVY35\u201340/MONBasePower include actual owner Kayo+1 outside CombatChain, so printed5 Critical5 becomes6 in Hand/Graveyard. Zero resource/AP DR has no nonzero-asset099 dependency.",
+      "GameLogic526\u2013534 random Hand chooses sole UID5 through EngineRandomInt0,0; DeterministicRNG138 returns immediately on equal endpoints, no random counter advance or result seed. After cost, physical5 faceup ownGY0, Hand2empty, Stack4/health40 both/allArena0. GameLogic1230\u20131238 restores REACTION return window, default duel priority nextseat1 after actor2 payment. Pass1to2 keeps source/no damage; pass2 resolves with current reaction priority1. Correct ordinary reaction response order has no missed manual seat.",
+      "Legacy WTRResolveCard657 reads recorded discardedPower>=6 and deals real2 physical to attacking Hero1, yielding38; printed5 alone would not qualify. This observable game outcome verifies passive owned outside-chain power, not an internal flag. WTRCardDiscarded506 requires discarder==TurnPlayer and MAIN for Kayo Might; primary2 offTurn1 makes false, so no owed Might event/token/UID. Dori attack is not weapon and damage effect earns no unrelated Hero trigger.",
+      "Resolved physical Swing4 joins own CC DEFENSE_REACTION with printed4 defense against foreign4 attack, so actual defenseValue4/damage0/primaryHP40 is correct blocking, not prevention effect credit. Full close moves original3 ownGY1 and actual cost-discard5 then reaction4 ownGY2 in chronological order. HeroesStatus2/APR0/UID5/RNG0/allArena0/Stack decisions combat clear. All237 assertions across18 controls persist; young/support/full-Hero branches uncredited."
+    ],
+    "limits": [
+      "Only new adult passive/off-turn discard threshold semantic review pending native save/replay; no native pass or coverage credit claimed.",
+      "Only owned outside-chain power witnessed through actual reaction damage. Own CombatChain power exclusion, weapon-zone count, own-turn Might/trigger timing, Hero full behavior, support-card/Young/four-live credit untested; existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1328.py": "998d75172cda2fd80fb2cd6c73abb271e38529e4978d3c6e0672cf0af2111ee0",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "young_credit": false,
+    "four_live_credit": false,
+    "might_credit": false,
+    "weapon_zone_credit": false,
+    "own_combat_chain_power_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1328-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a863a0f1a4abb5a13db0114233b21390f216800c817f5fb06207bbe8c1a630ff"
+  },
+  "full_suite_run": false
+}

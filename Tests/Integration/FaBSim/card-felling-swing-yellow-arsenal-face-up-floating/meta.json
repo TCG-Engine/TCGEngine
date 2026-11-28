@@ -1,7 +1,7 @@
 {
     "name": "Felling Swing / arsenal-face-up-floating",
     "rootName": "FaBSim",
-    "createdAt": "2026-10-20T03:46:35+02:00",
+    "createdAt": "2026-11-25T22:05:48+01:00",
     "createdBy": "FaBSim card regression authoring",
-    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +5 power. It does not grant that attack go again. First hatchet_of_body is printed power2, becomes7, deals7; all resources are paid exactly and finalAP0. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
+    "notes": "Printed cost3, exactly1AP to play, then source's own go again returns exactly1AP on resolution. The next axe attack this turn gets +5 power. It does not grant that attack go again. First hatchet_of_body is printed power2, becomes7, deals7; all resources are paid exactly and finalAP0. Repair-only20261125: existing pass_until controls must record actual earned Hatchet response layers before advancing. All source steps and gameplay expectations remain unchanged; no new branch or coverage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#felling_swing_yellow https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/cr/06-effects/"
 }

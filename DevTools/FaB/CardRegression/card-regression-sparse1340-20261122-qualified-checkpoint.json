@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T08:26:27.520998+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1340-20261122.json",
+  "source_spec_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 57,
+  "native_assertions": 832,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5298,
+    "duels": 3103,
+    "four_live": 2195,
+    "recorded_primary_ids": 2446,
+    "identity_denominator": 5196,
+    "recorded_groups": 2320,
+    "group_denominator": 3324,
+    "four_live_groups": 2184,
+    "phase_qualified_scenarios_at_actual_contexts": 1935,
+    "phase_qualified_unique_groups": 1925,
+    "creation_replay_passes": 2677,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1096,
+  "scenarios": [
+    {
+      "card_id": "breed_anger_red",
+      "group_id": "pitch-cycle:breed_anger",
+      "scenario_id": "card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+      "effect_branches": [
+        "first_attack_this_combat_chain_real_tiger_present_but_not_last_attack_no_combo_go_again_or_tiger_creation_affordable_followup_rejected"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-breed-anger-red-four-live-sparse1340-first-attack-combo-false-despite-real-tiger-and-no-refund",
+      "source_spec": "card-regression-sparse1340-20261122.json",
+      "source_spec_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+      "review_evidence": "review-evidence/sparse1340-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bcc7f869643fcd3d27250368f55e99ff4069be337b7ddac7c01210fc9a4eb030",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1340-20261122-replay.json",
+          "sha256": "b59a2fdae71a44115b53e99c7d533a7325beaf2619f05db052e0cdd2e0339c94",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crash_site_salvage_yellow",
+      "group_id": "identity:crash_site_salvage_yellow",
+      "scenario_id": "card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+      "effect_branches": [
+        "no_eligible_scrap_unpaid_no_gold_or_go_again_then_zero_cost_arsenal_followup_rejected_at_no_actions"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crash-site-salvage-yellow-four-live-sparse1340-zero-scrap-no-gold-no-go-again-and-affordable-followup-rejected",
+      "source_spec": "card-regression-sparse1340-20261122.json",
+      "source_spec_sha256": "508f6a86ea79a4685cd9bf199b05e09e20d8596c2bfb967e75b8819f4538f877",
+      "review_evidence": "review-evidence/sparse1340-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bcc7f869643fcd3d27250368f55e99ff4069be337b7ddac7c01210fc9a4eb030",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1340-20261122-replay.json",
+          "sha256": "b59a2fdae71a44115b53e99c7d533a7325beaf2619f05db052e0cdd2e0339c94",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

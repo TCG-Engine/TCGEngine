@@ -1,0 +1,122 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1553-20261122.json",
+  "source_spec_sha256": "9ac08553e7ad2ed1756e50ea51a3f79492d3ab6f21a7ba2263799595eb75621d",
+  "input_sha256": "9ac08553e7ad2ed1756e50ea51a3f79492d3ab6f21a7ba2263799595eb75621d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dive-through-data-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+      "card_id": "dive_through_data_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a427867462258e17bf22d903f5be5677fb15714097753873938a1bb2d0ec330",
+        "actions.json": "9194fad16f357b3d3cfd0c2c50c8f229eef760576531a14bf2e1037d01ab1547",
+        "assertions.json": "3a98185a6fc890dba70c0855bd28d4434bbef11d0e3b717e49bd83ca2c3be0df",
+        "expected_final_gamestate.txt": "ec1fbcee25012d13ab8229ecedd45492c0358da326447ef4fec88c8647e6fe63",
+        "meta.json": "8c05486fd8d81ef78d13e451ef0e7f5f983355576c03959e85fc9321ec24df53"
+      },
+      "fixture_sha256": "b51f7255cf0588eb04804492f954d89a8bdb4c0387a8c78857660c63427b19b8",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1553-20261122.json",
+      "input_sha256": "9ac08553e7ad2ed1756e50ea51a3f79492d3ab6f21a7ba2263799595eb75621d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dive-through-data-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "fixture_slug": "card-dive-through-data-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-under-loop-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+      "card_id": "under_loop_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5d2e2062de3bd933296dd5347779a40a0270b32f7d2367bef77a04e9401b3d4",
+        "actions.json": "9194fad16f357b3d3cfd0c2c50c8f229eef760576531a14bf2e1037d01ab1547",
+        "assertions.json": "9203406010ed96e7db5aa2487768e819c9a17e73c9eb87d7af2045b38e0dfaed",
+        "expected_final_gamestate.txt": "82a4d38c7f2025153cbf3b3fae45edf22784de15bfc8ce6ccc258b854dcfedee",
+        "meta.json": "9f368c429f968825bf2652dd6849597b91ee80143268b044fe7db65375783590"
+      },
+      "fixture_sha256": "a3018868d3783b6076c3c0b12e4d248b8c91a5a4d51a06ef9468f512e6769124",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1553-20261122.json",
+      "input_sha256": "9ac08553e7ad2ed1756e50ea51a3f79492d3ab6f21a7ba2263799595eb75621d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-under-loop-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "fixture_slug": "card-under-loop-red-four-live-sparse1553-real-paid-boost-banish-mech-go-again-fully-blocked",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1553,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T13:01:33.293662+00:00",
+    "spec_sha256": "9ac08553e7ad2ed1756e50ea51a3f79492d3ab6f21a7ba2263799595eb75621d",
+    "source_note_sha256": "4b3755e12dc1542efcbb36ebbda3e21910af6f621a4c223592b10cdaad7c4fd9",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "cases": 2,
+    "findings": [
+      "Both actualexactPreparehandlers reviewed; formalHero4thenBoostModal0 whileR2AP1Deck7intact; fullcost1/APbeforeactualMech7faceupBanish/GA. No missingPreparefallbackneeded. Source6/ABI10Owner0/UID10/all35controls each consistent.",
+      "TwoactualHandDEF3+3block4 completely: damage0 so neitherprintedWHENhits eventearned. RealGArefundAP1/R1/fullCloseGY1[5,6]/GY4[8,9]/Banish7/Deck0. DashstartGame/otherBoostproducer events notentered."
+    ],
+    "limits": [
+      "PositiveBoostkeywordonly; primaryhitOpt/selfbottom andotherBoost branches/siblings/support/wholecard uncredited. Source/specreviewonly; nativepending; reviewer no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1553-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "89aff5f9524ba24aa10f19f95be9c1954c0779a0ece1150ee29d17aaa4fd1ae2"
+  },
+  "full_suite_run": false
+}

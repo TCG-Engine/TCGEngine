@@ -1,0 +1,7 @@
+{
+    "name": "Rites of Lightning / actual unfused normal-cost attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:16:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "UNFUSED_NORMAL_COST_AND_FALSE_FUSED_EFFECT_ONLY. FourrealYoungBriar20/Dori20/Dori20/Dromai20/manualUPF. Realprimary5Hand/Genericfunder6onlyHandeligiblefornormalpitchbutNOTEarth/Ice/Lightning soFusionadditionalcostcannotbepaid. ActualprimaryHandattacktargetrealAshwingAlly7withlegitimatepriorAshmaterial, avoidingBriarHeroDamageproducer. Nativeformaladjacenttargetthenactual6pitch1paysprintedcost/R0/AP1to0; allfourresponsewindows, nofakedfusedflags orarcanehistory. Printed4power/noGA; unfusedWHENifFusedfalse so noearnedattackarcane/taxtrigger. Actual4physicaldamagekills1lifeTokenAlly7/noGY4/noHeroHPdamage; noBriarToken/arcane/permissioneffect. Full5ownedGY1/6Pitch/controlsuntouched/allArena0/APR0/UID9RNG0/StackDQsCCclean. NoPositiveFusion/truearcane/Goagain/permission/tax/Heroability/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rites_of_lightning_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

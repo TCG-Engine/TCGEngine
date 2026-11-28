@@ -1,0 +1,7 @@
+{
+    "name": "Meganetic Protocol / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:46:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Evo Upgrade** - The defending hero must defend this with X equipment they control with -1{d} counters if able, where X is the number of Evos you have equipped. Representative only: zero_equipped_evos_actual_base_packet_only. No positive fusion/Evo/Boost condition or supporting/pitch-sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#meganetic_protocol_blue"
+}

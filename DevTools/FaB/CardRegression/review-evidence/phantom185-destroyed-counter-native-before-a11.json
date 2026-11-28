@@ -1,0 +1,124 @@
+{
+  "status": "ACTUAL_UNSAVED_FAILURE_REVIEWED_PHANTOM_PREMATURE_POWER_COUNTER_GAMEPLAY_TIMING",
+  "phase": "ACTUAL_FAILED_ATTEMPT",
+  "batch": 832,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T21:32:11.846972+00:00",
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "independent_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-independent-diagnostic-source-review.json",
+    "sha256": "ff74a845f11dcb18ff224ff1e2dfd1271a54e8632ade9044e16e8d4748dfd5f7"
+  },
+  "source_spec": "card-regression-batch832-phantom-original-correct-shield-destroyed-counter-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-original-correct-shield-destroyed-counter-probe-author\\phantom-original-correct-shield-ward-then-earned-destroyed-counter-probe.json",
+    "sha256": "4b97ef54d0cbb77bedead6593351e99aa37f9cd29c8c189b164eb3b6eee1b99c"
+  },
+  "input_sha256": "4b97ef54d0cbb77bedead6593351e99aa37f9cd29c8c189b164eb3b6eee1b99c",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch832-phantom-original-correct-shield-destroyed-counter-probe-author\\manifest.json",
+    "sha256": "ee67aca5a2d9eb10ec039306a0a5d4c3bd3838e676f82d4501088e05d138c8aa"
+  },
+  "manifest_sha256": "ee67aca5a2d9eb10ec039306a0a5d4c3bd3838e676f82d4501088e05d138c8aa",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-original-correct-unsaved-before-a11\\receipt.json",
+    "sha256": "8ab378b6484def40b94191f525d3b80fdee486b6ff45d72c4e22320fcdfa944b"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b832-phantom-original-correct-unsaved-before-a11\\recording-results.json",
+    "sha256": "50249050af6ff859d526744d8d7823adba9ec9296bf3b2ca0d606a8e9ea13a01"
+  },
+  "identical_Native_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch832-phantom-original-correct-shield-destroyed-counter-probe.recording-results.json",
+    "sha256": "50249050af6ff859d526744d8d7823adba9ec9296bf3b2ca0d606a8e9ea13a01"
+  },
+  "actual_inputs": 28,
+  "planned_inputs": 40,
+  "actions_mapping_sha256": "b24aa2e2d8e1f502cb1bb3167e0e50f446004c595b103e3df85c2a2f993310f9",
+  "actual_manual_passes": 24,
+  "actual_manual_actor_counts": {
+    "1": 6,
+    "2": 6,
+    "3": 6,
+    "4": 6
+  },
+  "actual_genuine_four_live_manual_seats": true,
+  "initial_raw_48_manual_controls": true,
+  "failed_query": {
+    "type": "card_property_equals",
+    "mzId": "p4Arena-0",
+    "property": "Counters",
+    "value": "{\"FAB_PLAY_ORDER\":1}",
+    "viewerPlayerID": 1,
+    "step": 28,
+    "source_step_index": 56,
+    "source_check_index": 99,
+    "ordinal_one_based": 3280,
+    "actual_value": "{\"FAB_PLAY_ORDER\":1,\"POWER\":1}"
+  },
+  "query_counts": {
+    "total": 4730,
+    "passed_recorded_prefix": 3279,
+    "failed": 1,
+    "unrun_suffix": 1450,
+    "postWard_passed_before_failure": 99
+  },
+  "accepted_native_query_prefix_exactly_matches_frozen_correct_source": true,
+  "actual_first_failure_is_protocol_or_oracle_error": false,
+  "native_gameplay_timing_defect_confirmed": true,
+  "confirmed_scope": "Same physical Phantom7 already has POWER1 after Shield Ward destruction, before any responses to its earned destroyed-card trigger.",
+  "observed_facts": [
+    "All28actualenvelopes/3279successfulrecordedNativequeries exactly match Source.24realmanualpasses sixeach; rawinitial48manualcontrols/fourYoung/liveUPF verified. BeforeWardanswer actualArena0wasShield6owner/controller4 andArena1Phantom7withFAB1/noPOWER; exactanswer selectedShield6.",
+    "SuccessfulpostWardqueries directly identify soleArenaPhantom7owner/controller4/status2/damage0/emptyTurnEffects, allHealth20 andresources0, p4Graveyard0. Thus ShieldgonefromArena/notretainedinGY; actualPhantomCounterquery then reportsFAB1+POWER1 withoutnew earned responses.",
+    "Both expected and actual FAB metadata equal1; difference is concreteextraPOWER1, not serialization/array/null/keyordering/globalsequence guessing. Source prediction is corroborated by direct actual counter data on identified physical source."
+  ],
+  "evidence_limits": [
+    "Stackcount1 and earned-ABI CardID/controller/Kind/SourceUID queries occur after failedcounter99 and areunrun. Emptyobservedqueues/DAMAGEstate doesnot prove NativeStack0 or capturedlayer absence. Missing-layer cause is supported by source, not a separately observed Stackgetter.",
+    "p4Equipment/Weapons/CombatChain/Temp/Inventory checks also follow failure. Direct Shieldabsence is proven inArena/GY and earlierpassedemptyHand/Deck/Arsenal/Pitch/Banish/Soul; universalpostfailure UID6absence fromeveryzone is not claimed. Token removal-from-game conclusion follows verifiedWardroute/source/rules, not a retainedfullrawfailure snapshot.",
+    "All12remaininginputs/1450queries areunrun: earnedtriggerfourresponses, intendedcorrectcountergrant, Damage/Resolution/printedGAAP1/finalcleanup/sibling andsupportcoverage. No finalraw48/fullsnapshot/passingfixture exists."
+  ],
+  "source_causal_findings": {
+    "path": [
+      "DTDCards148-151 mandatoryWardPay",
+      "MONCards234-244 snapshot and destruction",
+      "GameLogic785-799 token noGYretention",
+      "EVORuntime78-80 directPOWER increment on surviving Phantom"
+    ],
+    "finding": "Current native EVO destroy hook immediatelyincrements survivingPhantomcounter for destroyedIllusionist snapshot. Printed WHEN should create an earned responseable layer whose laterresolution putsPOWER. This producer is EVODestroyed, not held184 OMN leave-token table. Same conceptual trigger-capture category; no automatic new distinct/Core root allocation.",
+    "source_fix_approved": false,
+    "related_held_issue": "FAB-REG-184",
+    "denied_related_fix_retried": false
+  },
+  "primary_rules": [
+    "https://rules.fabtcg.com/en/cr/08-keywords/ CR8.1.8a,8.3.20,8.5.4",
+    "https://rules.fabtcg.com/en/cr/06-effects/ CR6.4.1a,6.6.5-6"
+  ],
+  "qualified": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "fixture_inventory_unchanged": true,
+  "corpus_before": 4090,
+  "corpus_after": 4090,
+  "source_fix": false,
+  "source_application_approved": false,
+  "normal_save_approved": false,
+  "new_distinct_global_root_count_awarded": 0,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 38,
+  "all_current_guards_matched": true,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch832_actual_failure.py",
+    "sha256": "cdf08a22ef7bba7e5ab01ef93e18e7533091a17fb5d953947bf58f63efd1c404"
+  }
+}

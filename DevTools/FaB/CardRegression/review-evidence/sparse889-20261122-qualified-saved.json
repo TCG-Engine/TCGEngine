@@ -1,0 +1,118 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of /root/breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse889-20261122.json",
+  "source_spec_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+  "input_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-seismic-surge-four-live-sparse889-natural-action-start-reduces-real-guardian-cost-seven-to-six",
+      "card_id": "seismic_surge",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5a8fbed8616e3d602a31ce395a5cec13960867456fa86e677205ba5aaf90acc1",
+        "actions.json": "58348e759d3d9d37762a984474fb430dfb8ec80556060b3db30942a9559b39db",
+        "assertions.json": "d386d9e6ffe791319cede4ef7a241dc3ae76459b6194683b535fa6fd295884f1",
+        "expected_final_gamestate.txt": "eeb0f9b4ce149348faad851c1b4ee57a4f0e961cdc7c0df4c8d3da568cf695b9",
+        "meta.json": "53f83708fe9f2e913fc8275138a418c7208d77f18ee40d1f6ea5c83d0744b5f9"
+      },
+      "fixture_sha256": "c11653441dc8e34c6a802c7fab67f5f4d475ffe82f29e6f967dae48474868b3b",
+      "actions": 37,
+      "native_assertions": 211,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse889-20261122.json",
+      "input_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-seismic-surge-four-live-sparse889-natural-action-start-reduces-real-guardian-cost-seven-to-six",
+        "fixture_slug": "card-seismic-surge-four-live-sparse889-natural-action-start-reduces-real-guardian-cost-seven-to-six",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+      "card_id": "toughness",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "974835120e2df1780c112bed58c9f3dd61408b29ec2e9c2deef85f50ce48c42a",
+        "actions.json": "c2d7a9614992a462e4e2243f9222316849a1ceff74e044698f642d7ebc3b88a6",
+        "assertions.json": "b0ab62ae23234c66287140652c6772d48fdd3970bcd86b1aa04bfb921f1d39d3",
+        "expected_final_gamestate.txt": "7fafca9859a626f042e5b31bd4bee1abe0db58ce329152b64d32a07bf6d1d1bd",
+        "meta.json": "d0df2d9b2e2c34f9a6ac100012c3337fed04661fe4a141e4c9217960e8fbba57"
+      },
+      "fixture_sha256": "3dcd3b5183b22df893d778343b8ce7869d6ec209b616bdb97319e9cf52b56fb5",
+      "actions": 37,
+      "native_assertions": 212,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse889-20261122.json",
+      "input_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+        "fixture_slug": "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-strong-yield-red-four-live-sparse889-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+      "card_id": "strong_yield_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50813c2959da67aa5278847896727dac6a29b6676fe86d4a90a0985fc867d3c0",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "9f5b29db5319d4e520edee4b8152a8520ebc88db8b1d0bac9cc19fb02b9dc609",
+        "expected_final_gamestate.txt": "d876e35e36c595baa870208194805189c9ea6921a185c1d3cf89d0c5c083541a",
+        "meta.json": "38ab19c5f147746384b0729bed51e8b159cdd28dc44fc0e72bbb0ffad028c58a"
+      },
+      "fixture_sha256": "be65ebeeacd4ceab0b41d711e7c89b3a2f81c89d5ee679c6afe2f5347621baaf",
+      "actions": 35,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse889-20261122.json",
+      "input_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-strong-yield-red-four-live-sparse889-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "fixture_slug": "card-strong-yield-red-four-live-sparse889-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of /root/breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "cc532c30fb43b19e39e0f8f04038fcf7299ad01f194ab3429db7f6c54d4e2cc0",
+    "evidence": [
+      "Root independently read packet and actual WTRCards beginning-action Seismic route/NEXT_GUARDIAN_COST modifier+consumption: actual Guardian cost7->6, two physical blues pay exactly6, actual Macho10 damage.",
+      "SUPCards FaBSUPStart destroys other-seat Toughness at opponent start and FaBSUPDefended adds1 only to actual Action defender. Owner4 token disappears, real WoundingBlue3+1 defends Raging7 for actual3damage; cached defenseValue4 secondary to physical damage/health.",
+      "ROSRuntime Strong Yield destroyed on own beginning, non-token physical Aura5 goesGY, earned3 next attack consumed by actual Wounding4->7/AP0. Oldhim legally supports Earth Guardian aura; no Aura entry/casting-cost/GA credit.",
+      "InitialTurn4/priority4/AP0 allnatural20, actual8turn4 controls thenfirstpriority1 auto-start boundary; four live/manual through physical attack phases, defenderP4 clicks realownHand8, exactcost and physicalUID/zones checked.",
+      "Only three named positive branches; no dominate restriction, stacking, alternativeowners, creation, casting or supportcardgroup credit."
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "native_games_by_reviewer": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f24ea695dc8400b06c969353f248f9ed2eff85f400a626678305f9ee42a5cea3"
+  },
+  "full_suite_run": false
+}

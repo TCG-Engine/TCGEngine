@@ -1,0 +1,7 @@
+{
+    "name": "Boltyn / real soul cost and empowered attack go again funds a follow-up",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T08:14:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_BOLTYN20_AND_THREE_DORI20. PrimaryHero1untappednocharge/historyseed. ActualNimblism5Hand0cost/NAAallfourresponses/printedGAearnsAP1; realWounding6Handcost0gets3buff\u21927>printedbase4/noGA. ActualBoltynHeroReaction0RnoAPadditionalassetcost/mandatorySoul8choiceBanishrealUID8faceupown1beforeallfourresponsepriorities; virtualABILITY9SourceUID1/nofalseproxyOwnerclaim. GO_AGAINfalseuntilfourresponsesresolveabilitythenTrue/APstill0untilactual7damageHP4=13andlinkrefund1. FullclosethenactualsecondWounding7nativeplayconsumesthatAP/4powerunbuffed/noGA/real4damageHP4=9/AP0. Elevenactualdamagepinsgrantedactionthroughoutcome,notflagalone. Soul8schemaonlyCardIDUID/locationinitial(noOwnerControllerquery); Banish8inplayer1zonehasproperOwnerController1. FinalNimblism5/attack6/attack7GY1,Soul8Banish1,Hero1stillready/UID9RNG0/StackDQCCquiet/allotherzonesempty. Onlyreactiongrantpositiveandsoulcost/fundedfollowup; chargedpassive/not-greatergate/otherHero/adult/support/sibling/fullHeroNOTcredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#boltyn FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/CardChoices.php FaBSim/ZoneClasses.php"
+}

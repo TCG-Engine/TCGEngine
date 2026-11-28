@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3b4aeff1354a98734678be04268d8e4171dc136f39a675adcb406d5829eb71b2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79dbc2f1f4771518a9126798af5657a4b7f7611a29e5140fcba85ab222c7d3be",
+        "actions.json": "5c0afd2dde29cdbc465fc6083b1ce21017b55b1fa889532436be757c477f83fe",
+        "assertions.json": "fa054b11a98fe4174575a279dd139a784491e341475cd93435cbd0084b30e444",
+        "expected_final_gamestate.txt": "a7171206f238b6b4179258becabf74df742ba48633e0a3c3539de82257eed51d",
+        "meta.json": "64d2c052cb14969ff869652fabc74eec74f9cfa13e5c3fc48fbc1c2684c67697"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

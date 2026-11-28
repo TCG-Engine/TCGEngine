@@ -1,0 +1,137 @@
+{
+  "status": "APPROVED_EXACT_NEW_SAVED_AFTER_COST_REPAIR_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T01:34:10.197043+00:00",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch273-celestial-correct-probe.json",
+  "input_sha256": "d3fd775022788d3725f6ef9651f1e680f0a2765e46641238770e5a7872d9ff6b",
+  "fixtures": [
+    {
+      "slug": "card-celestial-cataclysm-yellow-four-live-correct-probe-actual-channel-tax-assets-before-three-soul-effect-cost",
+      "card_id": "celestial_cataclysm_yellow",
+      "group_id": "identity:celestial_cataclysm_yellow",
+      "fixture_sha256": "ba99c6e83be627297384bef4d6ede2a98b564bf5c214043ec4fedf5939f4d53a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9347ee569737383e1f51725804a432fa6a986b23a04b57f6852d6dbc20a2a5ed",
+        "actions.json": "8e3d840f3908b4fd23360697c88c70b12be1ab7bc45342a6386e894a6dcc707e",
+        "assertions.json": "4f4d17caecf6ffa89a328668529292bec2dfb32b57e7c0b9f4614fb2cd0e763a",
+        "expected_final_gamestate.txt": "9c3f1ccfd20e6a47a2cfa2dd37d559a47ae869443468e59df253b1898787bafa",
+        "meta.json": "29ff066fabf62219c0301290b8c9604080886c9a5445438f9f989607bfe1d081"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "9347ee569737383e1f51725804a432fa6a986b23a04b57f6852d6dbc20a2a5ed",
+        "actions.json": "8e3d840f3908b4fd23360697c88c70b12be1ab7bc45342a6386e894a6dcc707e",
+        "assertions.json": "4f4d17caecf6ffa89a328668529292bec2dfb32b57e7c0b9f4614fb2cd0e763a",
+        "expected_final_gamestate.txt": "9c3f1ccfd20e6a47a2cfa2dd37d559a47ae869443468e59df253b1898787bafa",
+        "meta.json": "29ff066fabf62219c0301290b8c9604080886c9a5445438f9f989607bfe1d081"
+      },
+      "actions": 29,
+      "native_assertions": 2607,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_original_approved_source": true,
+      "initial_bytes_identical_to_before_failure": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_banish_uid_sets": {
+        "1": [
+          7,
+          8,
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Sameoriginalinitialbytes asbefore failure. RealopponentChannel10FLOW1 taxesprinted0to1; exact3Soul7/8/9 declared but strictunpaidcheckpoint retainsallSoul3/Banish0/Blue6Hand/R0/AP1/cost1pending. RealBlue6pitch3 pays1/AP; same7/8/9nowownfaceupBanish, Soul0/R2/AP0. Primary5retainedStack acrossactualsourceactors1/2/3/4 thenprinted7/GA deals7\u2192P4HP13. RealDAMAGEresponsesearnAP1, fullclose5ownpublicGY/Pitch6/Banish7,8,9, sameownedreadyChannel10FLOW1, noextraobjects/Hands/Chain/Stack/queues; SoulimplicitseatownershiprestoredexplicitlyinBanish.",
+      "qualification": "OnlyYellow exactmandatory3Soul withonepersistentChanneltax1/Bluefunding andunblocked7/printedGA. NoSoulacquisition/charge/Boltynability/Oldhimability/Channelcast/upkeep/decline/insufficient/replacement/rollback/foreignowner/supportprimary/fullcard/control credit."
+    }
+  ],
+  "existing_reviewed_rest": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch273-celestial-independent-source-review.json",
+    "sha256": "ec67d6af7d288c0e1c1eb409fc1ea79557e9e89c0354a54b7ef728798921ff52",
+    "historical_runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "original_input_and_oracles_unchanged": true
+  },
+  "source_fix_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-independent-source-review.json",
+    "sha256": "30aada52400a7db92a118e6078a17317d1a67242513a46e58d34f5c5f4a919de"
+  },
+  "actual_generated_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-062064-actual-generated-independent-review.json",
+    "sha256": "b00b4d2fd3dd34a2903e812ea5da8e1d719650f60e98b663c6f9af13e3e83fb0"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch273-celestial-correct-probe-20261103T012936Z-6ae939004b1e2.json",
+    "sha256": "2ee5b10fd6add70c3a0eda02709a6602fbc4a222c26e45d4e16bdbbb173e6a39"
+  },
+  "historical_before_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch273-celestial-correct-probe-20261103T005633Z-6ae931419f366.json",
+    "sha256": "80e39e6d5291eeed5caffab01fad4acc39d8a465d38699f3cefb0a50cc83386d",
+    "original_initial_sha256": "9347ee569737383e1f51725804a432fa6a986b23a04b57f6852d6dbc20a2a5ed",
+    "prefix_actions_unchanged": true
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch273-celestial-correct-probe.recording-results.json",
+    "sha256": "8af9627673c6721a2f6bd9fd084127f1f53ce5002db5adfc81db5d55ae1b2372"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-celestial064-native-after-r1\\receipt.json",
+    "sha256": "15eac031509a9f00722256ca81836aabdedccf16bff47f6c233b061552e88568",
+    "stdout_sha256": "d452a7a8d1d9b14f9d5f98a918e10af6fb3e08b956d18c7957ea55ac8d22d9c0",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "runtime_before": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+    "runtime_after": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+    "exit_code": 0,
+    "stderr_bytes": 0
+  },
+  "method": "Independentread-only exactsaved5file review atactual45b1. Everyaction actor/mode/payload andeverynativeassertion/order/step exactlyequals ORIGINALapprovedinput, notauthorbuilder/model. Fullschema-backedinitial/final snapshotsparsed; Soulhasimplicitseatownership, BanishhasexplicitOwner/Controller. NoPHP/native/replay/backend/Rwrites byreviewer.",
+  "cost_order_evidence_limit": "Actualnativeunpaidcheckpoint retainsdeclaredUIDsinoriginalzone, fullsuccesspostpaymentcheckpointhasrealPitch/R/APandselectedBanish. Movementandassetdebitfinishwithinoneactualinput: nativecheckpointsalone do notprove invisibleintraactionordering. Existingexactsourcehelper andhistoricalhostadapted38contracts/147assertions showmove seesR/APalreadydebited; thosef40eproposalcomponents are notretaggedas45b1testruns.",
+  "limits": [
+    "Savedcreation review only; roottwofocusedcreationreplays andcompatibilitychecks areseparateevidence. Reviewer claimsno replay or fullnativefixqualification here.",
+    "Originalfailedbefore evidence/spec/initialbytes preservedhistorically, no wrongoracle or fabricatedpass. Onlythisnewactualsavedfixturecanregister; allotherregisteredrest keepsitsactualoldcontext.",
+    "No sibling/fullcard/control/legacycorpus/fullsuite/requalification claim; no source/native/backend writes."
+  ]
+}

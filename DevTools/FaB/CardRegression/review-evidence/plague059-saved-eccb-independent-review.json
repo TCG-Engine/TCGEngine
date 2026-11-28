@@ -1,0 +1,158 @@
+{
+  "status": "APPROVED_EXACT_SAVED_FIXED_PLAGUE_ONLY_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "review_date": "2026-11-02",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "input_file": "DevTools/FaB/CardRegression/card-regression-batch258.json",
+  "input_sha256": "befc62d5cc654a0c499eaa37701024b65fabee647d141be7dc437a70056ae403",
+  "fixtures": [
+    {
+      "slug": "card-spreading-plague-yellow-four-live-sparse-real-paid-reaction-two-defenders-create-two-owned-bloodrots",
+      "card_id": "spreading_plague_yellow",
+      "group_id": "identity:spreading_plague_yellow",
+      "fixture_sha256": "45d250c70c66080181229a91cc4fabd627edfa6d2bd68da21cd0d694c1cd3313",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c4b747dbca1a1cc70fe254696b82ffab24e4164264ea33bf34c73a1890ebcbdc",
+        "actions.json": "d45f99fd4563e5fae615ea420c90f4425362a9f0efdfcb0096945d7d5a46a78c",
+        "assertions.json": "ebbd2b10b01100138fa970697e196ceee6c30ae69719b02e18e8673f0a4a4fa4",
+        "expected_final_gamestate.txt": "dbad1c4f8193f968d5a699d796307f98e35f1605a3b76b08f3ed231895e97faf",
+        "meta.json": "d81d06367cbfba2703f68fb39d7cd544bfb001072944c9559e1b4a4a0931cffc"
+      },
+      "actions": 35,
+      "native_assertions": 2909,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_unchanged_correct_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "intended_created_UIDs": [
+        10,
+        11
+      ],
+      "actual_Bloodrots": [
+        {
+          "CardID": "bloodrot_pox",
+          "UniqueID": 10,
+          "Owner": 1,
+          "Controller": 4,
+          "Status": 2,
+          "zone": "p4Arena"
+        },
+        {
+          "CardID": "bloodrot_pox",
+          "UniqueID": 11,
+          "Owner": 1,
+          "Controller": 4,
+          "Status": 2,
+          "zone": "p4Arena"
+        }
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          8,
+          9
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "semantic_findings": [
+        "Exact initial saved bytes equal the preserved failed correct-owner probe. Legal owned young Arakni and three young Dorintheas, four living manual UPF seats and no passive seats; no seeded effects, draw/play/hit history, resources, extra AP, defending-count or permissions.",
+        "Actual Generic Red attack6 declares adjacent P4 before payment, spends AP1 and enters the chain after four real responses with printed power4/no Go again. P4 actually defends with owned Blue8 and Yellow9, each printed defense3 and RoleDEFENSE/currentChain1. Both physical defenders survive the full defending response round.",
+        "P1 actually announces owned Plague5 as printed cost1 Attack Reaction; actual Blue7 pitches3/pays1, leavingR2/AP0. Source5 stays physical Stack with both current defenders and no Bloodrots through three real responders1/2/3. Fourth actor4 resolves count2 and only then produces two physical Bloodrots10/11 in P4 Arena, both Owner1/Controller4/Status2; source5 completes into public own graveyard.",
+        "All28 originally correct token Owner1 assertions, including both tokens and the whole later suffix, persist unchanged and pass native recording. Printed Plague instructs the creating actor to create under the defending hero control; current CR1.3.1a separates creator-owner1 from recipient/controller4. This agrees with the approved direct explicit-owner factory call.",
+        "Actual physical damage is max(0,4-6)=0 and attackHit=false; allHP20. Complete DAMAGE/RESOLUTION/closure leaves exact public graveyards P1{Plague5,attack6} and P4{blockers8,9}, Pitch7, Bloodrots10/11 retained only in P4 Arena, R2/AP0, closed combat and empty Stack/all queues/payment/managed marker. All original physical identities and owners are conserved; only the two intended token UIDs are added."
+      ],
+      "qualification": "One positive two-defender reaction creation branch after the reviewed caller-owner fix. No Bloodrot end-phase payment/damage, other counts/creators/controllers, source ownership transfer, replacement interactions, hero/support primary, siblings or complete-card certification. Internal callback sequencing beyond the persisted source/lifetime/ownership witnesses is not broadly certified."
+    }
+  ],
+  "registration_mode_hint": "--existing-reviewed-rest",
+  "other_batch_cases_re_reviewed_or_retagged": false,
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch258-correct-owner-independent-source-review.json",
+    "sha256": "7922f61182f2f3abd0d8dd8a34f72c64fda17828e835bf569e41ec1bcaa726de",
+    "runtime_at_source_review": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+    "note": "Correct Owner1 expectations are byte-unchanged. This proof uses new actual native recording at the fixed runtime, not retagged prior passes."
+  },
+  "source_fix_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-plague-creator-owner-source-fix-independent-review.json",
+    "sha256": "6c3d70791323b7b7a024553983122c1f51e4523dc68a0f1e82423300a8acb242"
+  },
+  "actual_generation_evidence": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-059060-guarded-generation-attempt1\\receipt.json",
+    "sha256": "6c423942dee3e02715929000c47d9fd57de0409db158dfa14cb94f4561eff392",
+    "final_runtime": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+    "compiled_macro_sha256": "637a789710b861a5562ee7e4838604e499806ff1e6d265757d69f56cf7d3d6d5",
+    "owner_aware_Plague_call_inspected": true,
+    "root_reported_unrelated_generated_bytes_preserved": true,
+    "scope": "Receipt and selected actual compiled Plague call inspected; no repeated whole-macro audit."
+  },
+  "native_before": {
+    "archive": "recording-runs/card-regression-batch258-20261102T205357Z-6ae8f86565ecd.json",
+    "sha256": "69720c18dc3b6c00b4d54dac575db4c27f81857fb9c8c588d004bfa75d752147",
+    "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+    "attempted_inputs": 23,
+    "error": "Expected p4Arena-0.Owner to equal '1', got '4'.",
+    "fixture_saved": false
+  },
+  "native_after": {
+    "archive": "recording-runs/card-regression-batch258-20261102T220251Z-6ae9088b4c795.json",
+    "sha256": "b9884254c4f64150d6286b22b7b3ce4c19b1385595f74f588782913cc8904913",
+    "wrapper": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-plague059-native-after-r1\\receipt.json",
+    "wrapper_sha256": "c8eb482fd19372188eb39982156b4f3eda030349f10f696b0c842e0896252f58",
+    "stdout_sha256": "e3b176ee1d4b130405223c81b0163fc284dbbd2444cabf1ab29c612be810004a",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "filter": "spreading-plague",
+    "results": 1,
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "recorded_semantically_checked": true,
+    "all_original35_actions_completed": true,
+    "all_original2909_assertions_completed": true,
+    "same_initial_saved_bytes_as_before": true,
+    "same_actual_first23_inputs_as_before": true,
+    "no_owner_oracle_change": true,
+    "no_other_batch_cases_rerun": true
+  },
+  "rules_source": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+  "review_method": "Read-only independent exact ordered action/assertion mapping and full initial/final serialization parse of the sole new Plague fixture; bind creator ownership, physical identities, complete game suffix and immutable source/native/generation evidence. The root performed native execution.",
+  "limits": [
+    "Raw4 digest concatenates each filename then its bytes in initial/actions/assertions/final order; raw5 also binds metadata.",
+    "The failed before probe remains failed historical evidence and had no saved fixture; both token ownership and later suffix are observed only in this new successful after recording.",
+    "Healthy Grasp/Bracers cases remain at their recorded old8920 contexts and were not re-reviewed or retagged.",
+    "Two focused creation replays and any isolated controls are separate; this proof claims neither, nor a full suite or general token-factory qualification."
+  ],
+  "reviewer_ran_native_or_mutated_repository": false,
+  "replay_qualification_claimed": false,
+  "remaining_blockers": []
+}

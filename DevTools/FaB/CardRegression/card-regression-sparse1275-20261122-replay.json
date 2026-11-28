@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3caf7f0ca8554da1c5cf902ef44ea1a68a068ee3a6d18e26b2be909f84d1ae99",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4df8133cce99791aef8a7f8556aa46a2d05df67d8f79952b2e599942689b6b34",
+        "actions.json": "a1aeba327c4910eca3134f12125561b708c7227af85a3c03956ceaf80ac21f45",
+        "assertions.json": "8acd1bcfadcdb190674c802e66f369e8d0e32309a9b54defe8dbf93d56e2ae4f",
+        "expected_final_gamestate.txt": "de03ec303f675df8cfe5f65a8e64a55ef9fc0af97b0846f436f7eaaec5b2391f",
+        "meta.json": "01b9aa01f869e00a87e341c23975a1c9711a2d608fa42749497aaacebb94699a"
+      }
+    },
+    {
+      "slug": "card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1275-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d6ad5b0d9034bbd73a40c09c3dbbcfe499bdf232a2d405dabc3944e9dc5791da",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2e22ef46e94426473dd1d5599c5b364237f1a4ba4a5d44c388e1eebb8d16e97a",
+        "actions.json": "885c71041687763008edc8b29cb223647a848f7af4e37fd5485556e45f04f1ee",
+        "assertions.json": "b080b70a729449dd9f6edeb27357943c55f641f40466fc74b2a69ba18d85e7cb",
+        "expected_final_gamestate.txt": "12d99897b191d43d07ec77b7eb03692d4064193db8357498610b61b11c5324eb",
+        "meta.json": "53a6c8114b96e1e3a294a5ed15e73335da97652bf9b547948b1b5a7d6178ab34"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

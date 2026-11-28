@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch563.json",
+  "runtime_sha256": "0942e0186aa135054d7b4920e84a11316647624c6e73cfb99a21949e6e19a263",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T04:18:07.583990+00:00",
+  "fixtures": [
+    {
+      "slug": "card-silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe",
+      "fixture_sha256": "face4a57066812df32b7302c878bc576638655087aa5fed79c2bcfe1e5041fe1",
+      "passed": true,
+      "result": "[PASS] silverstride_dodgers / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silverstride-dodgers-four-live-correct-controlled-flurry-defense-and-temper-probe",
+      "returncode": 0,
+      "stdout": "[PASS] silverstride_dodgers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -107,7 +107,7 @@ wounding_blow_blue 6 1 1
 1
 MAIN
 
-{"mzID":"p1Graveyard-0","mzIDCardID":"wounding_blow_blue","cardID":"tome_of_the_arknight_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
+{"mzID":"Stack-0","mzIDCardID":"wounding_blow_blue","cardID":"tome_of_the_arknight_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"tome_of_the_arknight_blue":1}},"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}}}
 {"PlayCardCalls":{"1":1},"PlayCard":{"1":{"tome_of_the_arknight_blue":1}},"PitchCardCalls":{"1":1},"PitchCard":{"1":{"wounding_blow_blue":1}},"RevealCard":{"1":{"wounding_blow_red":1,"starting_stake_yellow":1}}}
 8

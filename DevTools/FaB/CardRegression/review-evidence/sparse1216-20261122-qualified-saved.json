@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1216-20261122.json",
+  "source_spec_sha256": "e96f59126c2c6fbda7e83e79abb177bb2837f2e93635937ea49169259350eac3",
+  "input_sha256": "e96f59126c2c6fbda7e83e79abb177bb2837f2e93635937ea49169259350eac3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-corpse-cover-red-four-live-sparse1216-actual-defending-instant-discards-real-ally-as-cost-then-prevents-two-of-four-remaining-damage",
+      "card_id": "corpse_cover_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0c3677aeec6e2b871c841b3b647ac4f3d2736527b9bdddd8462fe95fae2755ab",
+        "actions.json": "0563c3372e577b5ba5c01103a83b9a2791d05e10ce9c22c547fb83ca2f58629d",
+        "assertions.json": "4f8c592267af426bfbca081c06b0a553463f5757ebcb813089d3808411f3c17f",
+        "expected_final_gamestate.txt": "51cebb4e8e0ab683b307c18ec957074f0e75a606e44c523561a171c937cb9eb0",
+        "meta.json": "7ffa859820060c0b48ce5d2ee57801bd272546e1ce760caa8db7b4e1b00cadaf"
+      },
+      "fixture_sha256": "3eb252ec9853f5414b1744c96c5948a2e9c26b7efea771c765e5ef335b603b58",
+      "actions": 38,
+      "native_assertions": 434,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1216-20261122.json",
+      "input_sha256": "e96f59126c2c6fbda7e83e79abb177bb2837f2e93635937ea49169259350eac3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1216-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-corpse-cover-red-four-live-sparse1216-actual-defending-instant-discards-real-ally-as-cost-then-prevents-two-of-four-remaining-damage",
+        "fixture_slug": "card-corpse-cover-red-four-live-sparse1216-actual-defending-instant-discards-real-ally-as-cost-then-prevents-two-of-four-remaining-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "e96f59126c2c6fbda7e83e79abb177bb2837f2e93635937ea49169259350eac3",
+    "source_note_sha256": "d2e53c0cb5f1725c0b63cedaff6305eb9dfb5ef085ce2d8b3d92385c069e9afa",
+    "case_count": 1,
+    "native_controls": 38,
+    "query_checks": 434,
+    "persistable_assertions": 434,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh isolation/runtime/HEAD verification reused; exact selected source/cache and frozen spec read independently. No aggregate runtime execution or Git operation by reviewer.",
+    "coverage_category": "ACTUAL_DEFENDING_INSTANT_ALLY_DISCARD_COST_AND_TWO_DAMAGE_PREVENTION",
+    "cases": [
+      {
+        "card_id": "corpse_cover_red",
+        "group_id": "pitch-cycle:corpse_cover",
+        "native_controls": 38,
+        "persistable_assertions": 434,
+        "ability_resource_cost": 0,
+        "defense": 3,
+        "incoming_attack_power": 7,
+        "prevention": 2,
+        "actual_damage": 2,
+        "final_target_health": 18,
+        "discard_uid": 8,
+        "physical_defender_uid": 5,
+        "ability_uid": 9
+      }
+    ],
+    "basis": [
+      "Corrected frozen hash reviewed by exact delta against the preserved original full semantic approval: seven pre-Damage cached-power queries become live computed-power assertions, all still expected7. All other setup/actions/assertions/printed outcome expectations are identical; unchanged source hashes verified. Original named-branch approval remains valid.",
+      "Frozen 52-step packet has 38 real native controls and 14 check-only checkpoints. All 434 queries normalize to 434 persistent assertions; no author-only defense/can-play/can-activate diagnostics. Exact pitch-cycle is unrepresented in both current coverage ledgers and no selected-card/sibling issue or source-only hold was found.",
+      "Current cache makes Corpse Cover a Necromancer Block DEF3 with printed Once-per-Turn Instant: destroy controlled Ally or discard Ally to prevent next2, only while defending. Young GravyBones20 legally owns primary5 and real yellow Pirate/Necromancer Chum8; three young Dorinthea20 are legal four-live peers. Generic RagingOnslaught6 costs3/power7, paid by actual Blue Sigil7 pitch3 with AP1->0/R0 before four source responses. Generic AA hit earns no Dorinthea weapon event.",
+      "IARRuntime11/21/22-32 provides explicit Instant0/once source and only live current-link DEFENSE or DEFENSE_REACTION admission. Exact PrepareCard binding9824 and runner8436490bab8fa883d80d at122436 request the only actual Ally Hand ref, then IARCards228-235 discards UID8 through normal FaBDiscardChoice before FaBFinishPreparedCard. Primary5 remains actual owner4 defender; virtual ABI9 has raw Owner0/Controller4/SourceUniqueID5, without conflating virtual and physical ownership.",
+      "Selected Instant has no resource or Action cost, so no unpaid resource/AP ordering099 branch is depended on. Real discard occurs before fresh DEFEND_PRIORITY responders4,1,2,3. ARCAbilities128 captures return window; GameLogic1236 preserves DEFEND_PRIORITY and1954-1958 restores that window/turn-player1 after resolution. Cost and response-boundary physical UID/roles and unchanged HP20 are explicitly persisted.",
+      "Generated ResolveAbility14452-14455 directly adds PREVENT_DAMAGE2 without a deferred choice/lifetime dependency. WTRCards524-526 subtracts min(remainingDamage,2). Actual physical DEF3 vs7 leaves4, then prevention2 yields damage2/HP18; no other protection assets/effects or earned primary defended/hit trigger exists.",
+      "SEACards33-38 queues WateryGrave only from Arena/Equipment/Weapons/Hero; actual Chum8 is discarded from Hand and stays public owned Graveyard4. Its yellow pitch does not enable Gravy blue-grave permission. Full manual combat closes with source6 owned Graveyard1, fuel7 Pitch1, Chum8 then CorpseCover5 owned Graveyard4, maxUID9 and empty Stack/queues/chains."
+    ],
+    "limits": [
+      "Only one successful defending Instant, actual Ally discard cost and next2 prevention are approved pending native save/replay; no native success or coverage is claimed by this review.",
+      "No alternate destroy cost, once-per-turn rejection, WateryGrave, token/Ally production, Hero/support identity, sibling pitch, expiry or full-card credit. All known unrelated holds remain unchanged.",
+      "Read-only T/source/cache review; only this W receipt was written. No native/PHP/test/replay/engine/framework/Git/original-checkout/network operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    },
+    "pre_native_oracle_correction": {
+      "original_spec_sha256": "2984b9fcb24cb8d6364c7efaebff179141487c063c74dcac97e1b54517b1da1c",
+      "original_review_sha256": "16c3a80ad15d3fedb892a6848b0169c90c93a9126583dcde52f4f700cb73fe54",
+      "original_review_preserved": "attempt1-cached-power-oracle/independent-review.json",
+      "changed_query_paths": [
+        [
+          0,
+          "steps",
+          17,
+          "checks",
+          2
+        ],
+        [
+          0,
+          "steps",
+          23,
+          "checks",
+          20
+        ],
+        [
+          0,
+          "steps",
+          25,
+          "checks",
+          23
+        ],
+        [
+          0,
+          "steps",
+          27,
+          "checks",
+          23
+        ],
+        [
+          0,
+          "steps",
+          29,
+          "checks",
+          23
+        ],
+        [
+          0,
+          "steps",
+          31,
+          "checks",
+          23
+        ],
+        [
+          0,
+          "steps",
+          33,
+          "checks",
+          10
+        ]
+      ],
+      "delta": "Exactly seven pre-Damage kind:state/key:attackPower/value7 queries replaced by kind:power/value7; no expected numeric power change or action/setup/other query delta.",
+      "source_basis": "GameLogic1994 initializes cached attackPower0; live FaBAttackPower2148+ derives printed/current attack value, while Damage writes cached power at2513/2536. Original recorder42/62-65 maps kind:power to persistent computed_power_equals. Exact seven changes independently compared; all bound current source hashes unchanged.",
+      "preserved": "All 38 controls and all Damage checkpoint42 power7/defense3/damage2/HP18 checks unchanged. 434 queries persist as 434 assertions with no omissions. Original 12-input unsaved attempt and review preserved; no gameplay bug, source change or fixture credit asserted."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1216-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3a3136c80dc84f6a0817810959c700a19e490f4b3efb533d917ad9474ee5cf8a"
+  },
+  "full_suite_run": false
+}

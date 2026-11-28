@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-fyendal-blue-four-live-sparse1189-real-opposing-vaporize-separate-owned-life-gain",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-fyendal-blue-four-live-sparse1189-real-opposing-vaporize-separate-owned-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1189-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1189-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a16ee143dd5d2232c7aae976b6570462727a9765e084854ff18c8e513fef044a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d204061ebd54d0302da3ebf8752b2a4b070887393c7cdb56580f21cb73872d4",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "e3a01f47798d3dd5694ec57f6a66409afb818f9eb34b5d821c5918c8f56063aa",
+        "expected_final_gamestate.txt": "5f2a4ad1ab542ad757e6686d23a9b721728bb6e7fa236134c9f172eb4c8e04ad",
+        "meta.json": "439897da50b69399803335bace476b5992efc9899295ed75727e56146e17b87e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

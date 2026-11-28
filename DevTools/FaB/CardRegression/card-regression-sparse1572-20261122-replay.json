@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ouvia-four-live-sparse1572-actual-own-start-transforms-ash-and-created-ashwing-attacks",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ouvia-four-live-sparse1572-actual-own-start-transforms-ash-and-created-ashwing-attacks",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1572-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1572-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7cc7ac692431f45173ba2a18fb4bfa21fd7ef433f574053ce7de0228262a46fb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e0aa73892d2cacd5a2bcbc0f55f70f0ae4bcf3cb7c7bf2582c42fdd1855a30ee",
+        "actions.json": "acacf1c0a920472e2f90295888b64c95edbd701821639af489cd0aeb64a89628",
+        "assertions.json": "1c165f12ee6c1c0266574dda097b7344e20a98d5764ac91f7d2908c9ebe617ef",
+        "expected_final_gamestate.txt": "76cec54d6dc9623889a59adfdc1c5b86ed17b8c3eaa13554ea4e165b37465474",
+        "meta.json": "bb9b74fc89cadb0fb9e9fdb8a3a24df3db0933f0202e5ad1c02131ab1674a747"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

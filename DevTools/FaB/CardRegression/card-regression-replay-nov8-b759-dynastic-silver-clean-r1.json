@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch759.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T23:54:11.840237+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dynastic-diadem-four-live-real-three-fealty-two-defense-five-damage-and-temper-counter-retention",
+      "fixture_sha256": "4fe9ae394dd3d900ecba1ecd0b555c7cbbbe61cde5518b761c4cb479d2fbb895",
+      "passed": true,
+      "result": "[PASS] dynastic_diadem / four live distinctive effect"
+    },
+    {
+      "slug": "card-silver-palms-four-live-real-two-defense-five-damage-and-same-arms-bladebreak-destruction",
+      "fixture_sha256": "cc0e93137c6a55596c8c3f9932f83c2f6cbba3e645ce88db55bafb09c0bf95a0",
+      "passed": true,
+      "result": "[PASS] silver_palms / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dynastic-diadem-four-live-real-three-fealty-two-defense-five-damage-and-temper-counter-retention",
+      "returncode": 0,
+      "stdout": "[PASS] dynastic_diadem / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silver-palms-four-live-real-two-defense-five-damage-and-same-arms-bladebreak-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] silver_palms / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

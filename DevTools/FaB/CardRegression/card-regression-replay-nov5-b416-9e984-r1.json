@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch416.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T04:18:51.262654+00:00",
+  "fixtures": [
+    {
+      "slug": "card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "fixture_sha256": "e515562f34682bd8080b810eee5c2b70914926d5ebb642a04501cc9f1ab1b3a2",
+      "passed": true,
+      "result": "[PASS] crowd_goes_wild_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-tempest-palm-gustwave-yellow-four-live-sparse-real-surging-prior-attack-and-third-link-combo-go-again",
+      "fixture_sha256": "8732abb9ebc56f98e8a0071d25f7a1d149a852dfc82c564e0a3181ca572838c7",
+      "passed": true,
+      "result": "[PASS] tempest_palm_gustwave_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] crowd_goes_wild_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-tempest-palm-gustwave-yellow-four-live-sparse-real-surging-prior-attack-and-third-link-combo-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] tempest_palm_gustwave_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,200 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse916-20261122.json",
+  "source_spec_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+  "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dry-powder-shot-red-four-live-sparse916-actual-facedown-arsenal-three-without-faceup-entry-power",
+      "card_id": "dry_powder_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4354e0520fc8086fb885f700ebf81290cf8abd5f5654850158267abc9dfd68ae",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "74b313f3e64ef2306c2a5330f5ad2080237eeacd6f20fd36e88401f309f020f4",
+        "expected_final_gamestate.txt": "375f9581eb9817f049e051039cef558347a54363d02b9f190a9e5af52ac383d5",
+        "meta.json": "59d8db67443462c6969fcf2dd27f50a5f0c2cbee699c3a94b6832c803ab18263"
+      },
+      "fixture_sha256": "219415ccac275ab656e44d82ff7c1d0cafdc2d9a00c14aac4524a0240318eeaa",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dry-powder-shot-red-four-live-sparse916-actual-facedown-arsenal-three-without-faceup-entry-power",
+        "fixture_slug": "card-dry-powder-shot-red-four-live-sparse916-actual-facedown-arsenal-three-without-faceup-entry-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-entangling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-hero-tap",
+      "card_id": "entangling_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01975e841db6c6f55ab62aff3072e15534f4f9540924156b4ab8b3230166ec0c",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "dd0d1e571e2fa9593d1d2c884ee3d22e2aba617dfe8b3aaa7760d43108f9cf61",
+        "expected_final_gamestate.txt": "533487d60dd83f7d85be70c073e1a76dc06801a559252d741d9f96293d8c00f8",
+        "meta.json": "b813bfd86a171efe383eeed26c21d2c5a94a8b130bde8175b27cb0456f65edcf"
+      },
+      "fixture_sha256": "21dffdab2ab33325a4a60adf8025124ccfb10feeac2e7e8d3f1654ab3240d885",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-entangling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-hero-tap",
+        "fixture_slug": "card-entangling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-hero-tap",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-nettling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-ally-tap",
+      "card_id": "nettling_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13e1e1040e8854683e17fb12dcd97e5e4692b2878db94bb214b2ab4d522f49e8",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "79f667793c794528af28474cef7c2ead0a396e60d95013cd2f7c1ef6715c81ce",
+        "expected_final_gamestate.txt": "a20a564fabf31889d3c3c92cb9034e812322dbacfd0fee079e1a0bffa3b668a0",
+        "meta.json": "acc53799f5019d9ab1fdbcb659eabcf9d479576fea7787fb32ee7e316b5c131f"
+      },
+      "fixture_sha256": "9e7c1412026f4e3b1dac2bfe427f780e4e230c5f7594fb9e41970daf07a171fe",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nettling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-ally-tap",
+        "fixture_slug": "card-nettling-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-ally-tap",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-ridge-rider-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-opt",
+      "card_id": "ridge_rider_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9f2bf72fe0411b66c06d6ec64fb1bf8f2bb864bfce0223555511930fb5b3ead",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "834930518f7da480e71495f28aefed0976fcb00f257a0c7cbfc68f01c5e958e5",
+        "expected_final_gamestate.txt": "6814693ede06aeb927472131a1cdb1e47f0f2906903d3af39df6c22d5e88a69e",
+        "meta.json": "129a6faf73c253f6340db07f70df670aa4ac0982dee35b4ce9a7ff92d85e7fb4"
+      },
+      "fixture_sha256": "92e396d1a10fca47bb8ca59b9d2ec50d6cf2d13f3aecc48845fd544f29be1cc8",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ridge-rider-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-opt",
+        "fixture_slug": "card-ridge-rider-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-opt",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-scouting-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-look",
+      "card_id": "scouting_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56e52c07e03f04e51c6dc13bfd27a6817fd0dc847e39ee3715975682b375d79d",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "fcb778cd1167c2b7525beeac0d5d4087df92ff8771f2e948d70c1099b8d425d9",
+        "expected_final_gamestate.txt": "8bf2ba63116bfac2beed45f0a0d1c7a2d664c08a185b873d774f3eeb5975dde3",
+        "meta.json": "2d94df4a291c8bc6008076831f155eb29ec033107f51935de7aadd3e62cf480d"
+      },
+      "fixture_sha256": "f4154789618febfbc334af578f1dd513631212b86a4b2343008f5846a3482c98",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scouting-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-look",
+        "fixture_slug": "card-scouting-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-look",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-swift-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-go-again",
+      "card_id": "swift_shot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ddd41ff73ef0a1de5fe3c1e57f4d63156371de84cbb0b9ffb1a976c580e82ce3",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "cd53ee3527a227bb4725f7f880dbbf8f40c9744758d09b2b504440eef812b5fe",
+        "expected_final_gamestate.txt": "e9959dd9dbd4be50328becbe6cace75cbabd62f9a36f70a80dcde6466b057be9",
+        "meta.json": "ebd1936445c46bdf4b7070a4fe77d87f0e99f078b26fc87df7082514183482ef"
+      },
+      "fixture_sha256": "5dd90f3973cb7a1ccead45c2fcb6c94c4dda1d3902e05476926bc00626728fb7",
+      "actions": 27,
+      "native_assertions": 126,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse916-20261122.json",
+      "input_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-swift-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-go-again",
+        "fixture_slug": "card-swift-shot-red-four-live-sparse916-actual-facedown-arsenal-four-without-faceup-entry-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a2a824ebd21b3d6c4cc43ff0b12f3ec073eb392784ff00230ed8ad36b18bca70",
+    "basis": [
+      "Six named new Arrow deltas over qualified908 facedown-Arsenal/Bow frame checked against printed cache: all cost0, powers3/4/4/4/4/4, legal natural20HP Lexi. Physical ownedArrow5 begins facedownArsenal, real owned ShiverBow6 remains equipped. Native adjacentHero4 target, physical5 ATTACK/ownGY, noGA/AP0, real base damage and four manual live seats.",
+      "All special printed events require being put into Arsenal face-up. Setup is facedown; no loading, hero flip or Bow ability is used. Ordinary play moves the card out of Arsenal rather than putting it into Arsenal face-up, so those trigger events never occur.",
+      "DryPowder actual3 excludes entry+2; Swift noGA excludes entryGA. No earned tap/Opt/look choices for the other four. Only main attack branches approved, not their positive load effects."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "No positive face-up load/tap/Opt/look, Bow/hero activation, card siblings or supporting-group credit. Empty optional targets/deck are not used to certify positive event behavior.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse916-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "297b668537124b3cfdc3455e765e2d7d861186cb4a00ce73dc96816bf9077d16"
+  },
+  "full_suite_run": false
+}

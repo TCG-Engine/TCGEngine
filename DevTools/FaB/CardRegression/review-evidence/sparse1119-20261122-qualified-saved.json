@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed mark-effect and exact counter-oracle delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1119-20261122.json",
+  "source_spec_sha256": "ffc3cf971b7bf56362aa96550198869dbce519d3fb5f5a0c782ec790825a1f8b",
+  "input_sha256": "ffc3cf971b7bf56362aa96550198869dbce519d3fb5f5a0c782ec790825a1f8b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-relentless-pursuit-blue-four-live-sparse1119-real-prior-attack-then-mark-and-source-goes-owned-deck-bottom",
+      "card_id": "relentless_pursuit_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4903cc82cdebdddf26f7a5c5a81341b472b7317104f3d5feca00e492bbb676d",
+        "actions.json": "5b09490025f10f573de0128532829c57b291a6a4d83ac66da524277dcce65fb2",
+        "assertions.json": "fe41ae306426144f151bcb3c40948957dab6a25c64698564982d2c95b7462ee9",
+        "expected_final_gamestate.txt": "9c55e6548b5cefde7c3ac7dababca429d3337eb042301f754b5e70441b5bdaef",
+        "meta.json": "f943a5a5171992e77a270a22efe9b7aa77ef58a844f5c0bc439baab7a33db88a"
+      },
+      "fixture_sha256": "26a86ece7fc6eb6bdb61359b95eb102ed2d34b46b73f8a842ec54b3e8b4e6fc2",
+      "actions": 33,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1119-20261122.json",
+      "input_sha256": "ffc3cf971b7bf56362aa96550198869dbce519d3fb5f5a0c782ec790825a1f8b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1119-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-relentless-pursuit-blue-four-live-sparse1119-real-prior-attack-then-mark-and-source-goes-owned-deck-bottom",
+        "fixture_slug": "card-relentless-pursuit-blue-four-live-sparse1119-real-prior-attack-then-mark-and-source-goes-owned-deck-bottom",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "ffc3cf971b7bf56362aa96550198869dbce519d3fb5f5a0c782ec790825a1f8b",
+    "reviewer": "breadth_review independent printed mark-effect and exact counter-oracle delta review",
+    "basis": [
+      "Natural young Fai20 is legal for Draconic Proclaim or Generic Public Bounty/Relentless Pursuit; all other natural heroes are young20. No Fai ability or Arakni Contract play event is earned. Current generated Prepare wrappers explicitly announce opposing Hero4 before payment/responses, hydrate locals, StoreTarget then FinishPreparedCard; resolution uses the same target. No late formal-target workaround.",
+      "Real HeadJab6cost0 first attacks Hero4 for3 unblocked/HP17 and earns printed GA/AP1, with four manual responses/fullcombat and source6ownedGY. Relentless5 then actually announces same Hero4 and spendsAP1 to0; four responses Mark4 and the already-earned attacked-them condition puts physical5 into owner1Deck (one-card bottom), with GA/AP1. No seeded attack history.",
+      "Exact correction verified against preserved pre-native proposal: only 3 empty Hero Counters CP strings change from - to []. ZoneClasses.php:25 initializes [] for serialized -, and Core RegressionTestFramework.php:1108-1110 JSON-encodes arrays. HNTCards.php:22-24 unmarks on actual hit; GameLogic373-379 unset zero counter also leaves[]. Marked HNT_MARKED1 queries, native inputs/costs/effects/HP/fates and other assertions are unchanged."
+    ],
+    "limits": [
+      "Named actual branch only; no alternative heroes/negative condition/pitch siblings/expiry/whole-card or hero/support identity claim. One-card Deck verifies destination, not multi-card bottom ordering; prior HeadJab identity uncredited.",
+      "Native Save and one clean replay pending; representation oracle correction is not a gameplay failure or engine change."
+    ],
+    "pre_native_original_spec_sha256": "f1ecf6a11c1417e97a6ca2a7ed8a7df06c8520801f745c66b3ca206c21adc185"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1119-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d4a5cef38575edc2264d121548495b5bdf3ee04e9a979c256b13353824b6a8f7"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Cyclone Roundhouse / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:50:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Combo** - If Spinning Wheel Kick was the last attack this combat chain, this gets \"At the beginning of the reaction step, banish a random defending card from each chain link.\" Representative only: actual_five_without_combo_or_granted_reaction_step_banish_trigger. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cyclone_roundhouse_yellow"
+}

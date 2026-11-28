@@ -1,0 +1,7 @@
+{
+    "name": "Tip Off Blue / declare opposing Hero before discard, then Mark after responses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-20T18:04:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "SAVE-capable existingFAB-REG-179 repaircompletion pendingindependentreview/nativequalification. Exactoriginal2inputs292queries/setup remainunchanged asstrictprefix; originalfile remainsdiagnostic-only. ChooseactualopposingP4HeroUID4 beforediscardofownTip5. ExistingHandBlue6 stays; generateduniqueARCabilityUID7 (not6: therearetwoinitialHandcards) holdsdeclaredUID4 throughnormalpaymentandfreshfourmanualresponses. Afterchoice source5ownGY, AP1/R0/allHP20, noHeroMarked throughfirstthreepasses. FourthmarksP4Hero4only andclearsABI7/Stack/await/payment/queues. No regularattack, sibling, invalidtarget or HerochangeNativecoverage; those are separatefocusedcompatibility/components. Sources: https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/HNT234.webp https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

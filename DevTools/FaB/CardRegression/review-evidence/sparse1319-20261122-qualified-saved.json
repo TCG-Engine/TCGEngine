@@ -1,0 +1,221 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1319-20261122.json",
+  "source_spec_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+  "input_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-art-of-the-dragon-claw-red-four-live-sparse1319-non-draconic-hero-hit-does-not-destroy-real-arsenal",
+      "card_id": "art_of_the_dragon_claw_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a5d3936c1d3f6d9f91ec7466eb1e44c257083ed9ee9ba94f66e2058a84ef8df",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "88a36451ea1111aacf913e16363f89d06f366effc3ad7a54a6ee1f27d012a511",
+        "expected_final_gamestate.txt": "e92e82796dab51a1092073ee25ee9858625caf65f419cbace39db00c7bfd7f40",
+        "meta.json": "72eb7838a381fe1dae9bb31bcdbe0214d8b6ec5f95b658c670e7373e09fbca38"
+      },
+      "fixture_sha256": "716da5f961ee2ae5d1bb78b3339fce62558bd8777bcfcfedeb39eaaa266654d0",
+      "actions": 28,
+      "native_assertions": 519,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1319-20261122.json",
+      "input_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-art-of-the-dragon-claw-red-four-live-sparse1319-non-draconic-hero-hit-does-not-destroy-real-arsenal",
+        "fixture_slug": "card-art-of-the-dragon-claw-red-four-live-sparse1319-non-draconic-hero-hit-does-not-destroy-real-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-art-of-the-dragon-scale-red-four-live-sparse1319-non-draconic-hero-hit-does-not-debuff-or-destroy-zero-defense-equipment",
+      "card_id": "art_of_the_dragon_scale_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3922881f761c5367d50e0025cfb2e9efbf872e35935ef2189e580aca118c6fb",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "270164930b8b0d7275c614a1bff63fb24cdf3741324a6ea33998387feae2aeda",
+        "expected_final_gamestate.txt": "bcebe2a28810d35afddb93615ee6b4ea75787d01d2bd13c4d101252b58b06d9a",
+        "meta.json": "82428a7c45a92be08e97651e6e8f7f80ebef43d983f316a56e268b05ec95686f"
+      },
+      "fixture_sha256": "88db5e0b324db3baad558990f1be50acdda132f1031446654a56dc05c9fa222d",
+      "actions": 28,
+      "native_assertions": 519,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1319-20261122.json",
+      "input_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-art-of-the-dragon-scale-red-four-live-sparse1319-non-draconic-hero-hit-does-not-debuff-or-destroy-zero-defense-equipment",
+        "fixture_slug": "card-art-of-the-dragon-scale-red-four-live-sparse1319-non-draconic-hero-hit-does-not-debuff-or-destroy-zero-defense-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dragon-power-red-four-live-sparse1319-non-draconic-attack-does-not-gain-three-power-despite-draconic-hero",
+      "card_id": "dragon_power_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe9ac160d08e7ef84ea020460e4eb1ea3680c573c426ef3321a554ec0f7d145c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "8c79aad47efe08c6f688f04ca73b60892b465548ca4a112f7178bc32c2fb91d9",
+        "expected_final_gamestate.txt": "18835c9943c374852f05c00750d855eab926310c1e59b68003962dfe6750b5af",
+        "meta.json": "17dfdf291e3d79aeaf3474c0e2ef70b83f32b224e44b8f8201b3b9ee63f76c5b"
+      },
+      "fixture_sha256": "73143214ced7450222ded8b9855acbf542a6190f238317aa2cbb2c2bf12ed800",
+      "actions": 28,
+      "native_assertions": 519,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1319-20261122.json",
+      "input_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dragon-power-red-four-live-sparse1319-non-draconic-attack-does-not-gain-three-power-despite-draconic-hero",
+        "fixture_slug": "card-dragon-power-red-four-live-sparse1319-non-draconic-attack-does-not-gain-three-power-despite-draconic-hero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "32f0ef111ebf42b6c480eec3331e29d3a4875aa703fb4b6512ba7393ac67cdaf",
+    "source_note_sha256": "8a0e2031b4f43ee1da77ca14a95f220a5e7d6b94df1a21ac24257df57947990d",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 84,
+    "query_checks": 1557,
+    "persistable_assertions": 1557,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NINJA_CARD_DRACONIC_TYPE_GUARD_WITH_REAL_HERO_HIT_AND_RETAINED_VULNERABLE_CONTROLS",
+    "per_case": [
+      {
+        "card_id": "art_of_the_dragon_claw_red",
+        "group_id": "identity:art_of_the_dragon_claw_red",
+        "native_controls": 28,
+        "persistable_assertions": 519
+      },
+      {
+        "card_id": "art_of_the_dragon_scale_red",
+        "group_id": "identity:art_of_the_dragon_scale_red",
+        "native_controls": 28,
+        "persistable_assertions": 519
+      },
+      {
+        "card_id": "dragon_power_red",
+        "group_id": "pitch-cycle:dragon_power",
+        "native_controls": 28,
+        "persistable_assertions": 519
+      }
+    ],
+    "basis": [
+      "Three fresh groups absent exact holds. Cached primary cards are Ninja Action Attack cost1, printed5/5/4 respectively, with no Draconic type. Natural Young Fai20 makes Ninja cards legal but does not grant his Draconic talent to them. Fai optional startup is declined and retrieval activation unused, with no automatic Hero-hit ability. Young Dorinthea20 seat4 is legal with Generic Head Talismanic Lens, printed0 defense/Instant activated ability only; the equipment is neither defended nor activated.",
+      "All three printed when-attacks IF Draconic have false intervening condition. Their compiled AttackDeclared uses actual UID5 then FaBHNTUIDDraconic before HNT_CLAW/HNT_SCALE/WTR_POWER3 tags. HNTCards69 tests actual card-object type. No grant/type history is seeded, so no attack layer/granted Hero-hit ability is earned, even though actual target is Hero and later hits. Positive trigger response timing is not certified.",
+      "Template transformation replaces prior Ally7 with lawful Talismanic Lens7 Equipment under Dori4, preserving foreign Hand8/face-down Arsenal9/own Deck10. Actual target answer is p4Hero0; every transformed Equipment query is valid CardID/UID7/Owner4/Controller4/Status2/Counters[], with no Ash counter/Damage residue. Physical Arsenal9 and Deck10 controls remain pinned. All final Arena4 counts0/Equipment4 count1 are coherent. Equipment0 defense would be vulnerable to an earned counter path, but selected route never earns one.",
+      "Normal Generic Red6 pitch1 funds actual cost1/R0/AP0 before four manual responses. Strict actual attackPower/damageDealt5/5/4 and target HP15/15/16 begin only at Damage and remain final; earlier HP20 checks are retained. Source5 and funder6 own graveyard/Pitch, same untapped counter-free equipment7/Arsenal9/Hand8/Deck10 retained, all AP/resources0/UID10/RNG0/empty Stack decisions combat complete. Each519 assertions across28 controls persists, total1557/84.",
+      "Encoding-only correction independently verified: exactly33 p4Equipment Counters equality strings {} to [] plus three oracle prose tokens; all other parsed spec fields identical to archived original. Equipment constructor ZoneClasses164 defaults empty Counters to PHP []; exact serialized [] retains strict emptiness/no-counter requirement. Earlier review missed representation. All three prior attempts stopped at initial setup assertion with zero game actions, no fixtures or completed gameplay repeated."
+    ],
+    "limits": [
+      "Only new binding/differences semantic review pending native save/replay; no native pass or coverage credit claimed.",
+      "Only negative Draconic-card prerequisite with normal payment and actual Hero damage. Positive Draconic grant/+3/arsenal destruction/equipment counter or destruction/Hero/support/sibling/full-card coverage untested; existing holds unchanged.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1319.py": "e075aec5c4736e51b0b98abd7350605668c27801b3b4f2fba098940a6fb6ba05",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_conditional_effect_credit": false,
+    "oracle_encoding_correction_review": {
+      "classification": "AUTHOR_ORACLE_EMPTY_PHP_ARRAY_JSON_ENCODING",
+      "original_spec_sha256": "fcdd7df39dc5ff3cdfa43b98a7af3d75b6c9f54a28d32716cb5390ac0a3301c3",
+      "original_review_sha256": "0f773786784b3ba6bcba7693d57e8bf6b57d5aa8f900c0264ce3f60ecc1754a2",
+      "original_native_receipt_sha256": "f3c472ed140238c2dc7ad4c379e23e16d1e7800673685b236cf04a34c0c8d2ce",
+      "original_recorded_input_sha256": "fcdd7df39dc5ff3cdfa43b98a7af3d75b6c9f54a28d32716cb5390ac0a3301c3",
+      "exact_equalities_amended": 33,
+      "oracle_prose_tokens_amended": 3,
+      "all_other_spec_content_identical": true,
+      "expected_empty_counter_json": "[]",
+      "constructor_source": "FaBSim/ZoneClasses.php:164",
+      "attempted_cases": 3,
+      "actual_game_actions_executed": 0,
+      "first_failure": "Expected p4Equipment-0.Counters to equal '{}', got '[]'.",
+      "fixture_saved": false,
+      "reviewer_native_execution": false,
+      "first_actual_game_attempt_pending": true,
+      "prior_bound_source_hashes_unchanged": true
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1319-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "28f068f85f5123b2cb9dc626193135b3b898a57c5072334cf614a07963656bed"
+  },
+  "full_suite_run": false
+}

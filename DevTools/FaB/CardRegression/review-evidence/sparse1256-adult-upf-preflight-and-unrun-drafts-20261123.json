@@ -1,0 +1,27 @@
+{
+  "classification": "FOUR_LIVE_YOUNG_HERO_SETUP_GUARD_NOT_GAMEPLAY_FAILURE",
+  "batch1256": {
+    "status": "PRE_SETUP_REJECTED_ZERO_NATIVE_INPUTS_NO_FIXTURE_NO_CREDIT",
+    "reason": "Four live players require a valid young Hero card for seat 1",
+    "spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1256-local-20261122\\proposed.json",
+    "spec_sha256": "48818fa2eeda1bf77d5024768c3443825f2d19f57c17b6bf6720af1708dd67ba",
+    "receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1256-local-20261122\\save\\receipt.json",
+    "receipt_sha256": "1cbeab0ae4823ee4d146e68579b8e7ef2f3f1d30fce1991dcf75edca2fe0ac1c",
+    "unregistered_source_archived_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1256-local-20261122\\held-unregistered-source.json"
+  },
+  "batch1257": {
+    "status": "ADULT_FLORIAN_FOUR_LIVE_DRAFT_NEVER_EXECUTED_NO_CREDIT",
+    "spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1257-local-20261122\\proposed.json",
+    "spec_sha256": "7ce145ffee732cd184c17dc56824bbb6c78572a55d271b60ebb9fc723c511e77"
+  },
+  "batch1258": {
+    "status": "AUTHOR_GROUP_HOLD_GUARD_STOPPED_BEFORE_PACKET_OR_NATIVE_INPUT",
+    "reason": "Existing sparse743 Aurora Emissary effect-cost-before-resource source-only hold preserved; no retry."
+  },
+  "future_path": "Native recorder already supports two-seat cases by omitting activeSeats; current sparse qualifier/index helpers assume four_live. No helper/framework/engine change made. Adult cases need proper duel setup and mode-accurate qualification/indexing, not an UPF guard bypass.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_gameplay_defect": false,
+  "engine_changes": false,
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494"
+}

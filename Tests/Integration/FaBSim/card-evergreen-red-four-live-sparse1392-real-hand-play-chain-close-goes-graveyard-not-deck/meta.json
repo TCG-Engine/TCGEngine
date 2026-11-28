@@ -1,0 +1,7 @@
+{
+    "name": "Evergreen / real hand play chain close goes graveyard not deck",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:18:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNGOLDHIM20_THREEDORI20/cachedUPFlegalnoBlitzclaim. ActualEvergreen5fromHAND(notArsenal), realBlue6pays3/AP0/R0/all4nativewindows/base7/noGA/actual7damageP4HP13. EmptyArsenalpinstrueorigin, actualnonemptyDeckWoundingBlue7control. OnactualcombatCHAINCLOSE, sourceconditionwasplayedfromArsenalFALSE, so noELE_BOTTOM_CLOSEtag/return; same5inownGY, Deckonlyunchanged7not5, Card6Pitch/UID7RNG0/quietStackDQ/AP0/R0/allotherHP20. No fakedorigin/history/initialeffects. OnlyHand-originfalseguard/fullchainclose/damage, nopositiveArsenalbottomreturn/itsWHENtiming/otherpitches/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evergreen_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php"
+}

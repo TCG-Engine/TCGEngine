@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T00:40:40.797664+00:00",
+  "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+  "source_spec": "card-regression-repair-escalate201-earned-draw-life-loss.json",
+  "source_spec_sha256": "3440cd25600cf6485c765ef88c6b4321544908d058c1a51792d3a89e697d39f3",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 9,
+  "native_assertions": 1247,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4147,
+    "duels": 3074,
+    "four_live": 1073,
+    "recorded_primary_ids": 1300,
+    "identity_denominator": 5196,
+    "recorded_groups": 1174,
+    "group_denominator": 3324,
+    "four_live_groups": 1066,
+    "phase_qualified_scenarios_at_actual_contexts": 784,
+    "phase_qualified_unique_groups": 779,
+    "creation_replay_passes": 1525,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "escalate_bloodshed_red",
+      "group_id": "identity:escalate_bloodshed_red",
+      "scenario_id": "card-escalate-bloodshed-red-four-live-opponent-real-draw-earned-life-loss",
+      "effect_branches": [
+        "prefirmedGlobalOpponentDrawOnly-realSkullhornWholeDrawRandomDiscardGA-thenAuraEarned4-LifeLoss1"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-escalate-bloodshed-red-four-live-opponent-real-draw-earned-life-loss",
+      "source_spec": "card-regression-repair-escalate201-earned-draw-life-loss.json",
+      "source_spec_sha256": "3440cd25600cf6485c765ef88c6b4321544908d058c1a51792d3a89e697d39f3",
+      "review_evidence": "review-evidence/escalate201-4e46-qualified-saved.json",
+      "review_evidence_sha256": "16b000cf6df652757a1b18138f4adfb5fccff1aeb51be5dd7ff42449e5420890",
+      "recorded_runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+      "qualification_runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-escalate201-replay.json",
+          "sha256": "1d3c661002380e13db52f1823a4a4411dc56400e44a10daf3bd9526c65023f6f",
+          "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

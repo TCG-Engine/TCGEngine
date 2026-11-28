@@ -1,0 +1,121 @@
+{
+  "status": "GAMEPLAY_HEAL_CORRECTED_IN_PLAY_LEGACY_FINAL_SNAPSHOTS_UNRESOLVED",
+  "baseline": {
+    "full_suite_total": 5671,
+    "passed": 5151,
+    "failed": 520,
+    "assertion_failures": 74,
+    "snapshot_failures": 446,
+    "CYB_heal_failures": 45,
+    "403_first_mismatch_counter_permutations_not_full_snapshot_equivalence": true,
+    "log": "C:\\Users\\maxim\\AppData\\Local\\Temp\\fabsim-full-20261125-1795623589761.log"
+  },
+  "runtime_before": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "runtime_after": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+  "source_files": [
+    {
+      "path": "DevTools/FaB/build_ros_abilities.py",
+      "before_sha256": "48b89a4b9f3fb19956dc9bfa526dd984c60e07c27180f7f4938cb6947848da9f",
+      "candidate_sha256": "f23856c180931fd184c6a19b400ff7c002a353def390f17318f63250f8bae7cf",
+      "crlf_lines_before": 172,
+      "crlf_lines_after": 172
+    },
+    {
+      "path": "DevTools/FaB/ros_abilities.json",
+      "before_sha256": "2851433ce5bc948fec9532a33ffc709d4a595f74078fcb9d956c922a8ff18ff8",
+      "candidate_sha256": "73230cf39aca9f0be9f6cfd50b7eda756d9a622cfcba901ac428381561aac370",
+      "crlf_lines_before": 2602,
+      "crlf_lines_after": 2602
+    },
+    {
+      "path": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "951c17c1ecf263339fa860d4842911bca7122535ab9047cf65ab533ef49e4b86",
+      "candidate_sha256": "3395c92854b9b99449f2cf777296291cccc81b79b5aa1d9127740530b30a4d8f",
+      "crlf_lines_before": 0,
+      "crlf_lines_after": 0
+    }
+  ],
+  "generation_scope": "Three named CYB resolution statement corrections and two normal-emitter timestamp comments; all other bytes identical.",
+  "generated_after_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "143f36f0facadcaaec25dfa174ba5bc0ac8780a9e51cb9691465d35fbef315d9",
+    "FaBSim/GeneratedCode/GeneratedMacroCount.js": "ce35971c720d39c19e22e061457c70f09ec49e3a28d554f2fed8aedc536c1c20"
+  },
+  "targeted": {
+    "selected": 59,
+    "family": 57,
+    "family_results": {
+      "PASS": 12,
+      "IN_PLAY_ASSERTION": 0,
+      "FINAL_SNAPSHOT": 45,
+      "ERROR": 0
+    },
+    "all_results": {
+      "PASS": 12,
+      "IN_PLAY_ASSERTION": 0,
+      "FINAL_SNAPSHOT": 47,
+      "ERROR": 0
+    },
+    "raw5_unchanged": true,
+    "expectations_modified": false,
+    "receipt_external": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\count-your-blessings\\targeted-receipt.json",
+    "receipt_sha256": "b63b98b9d7044bb48cde2740af0439a517b2029073d29fa1a21fc18346ce551d"
+  },
+  "snapshot_diagnostics": {
+    "status": "READ_ONLY_FULL_SNAPSHOT_CLASSIFICATION_NOT_TEST_PASS",
+    "audited_counter_types": [
+      "EVR_GRAVEYARD",
+      "ROS_LIFE",
+      "SEA_BLUE_GRAVE"
+    ],
+    "rows": [
+      {
+        "slug": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+        "stage": "FINAL_COMPARISON",
+        "line_counts": [
+          114,
+          114
+        ],
+        "all_differing_lines": [
+          90,
+          110
+        ],
+        "full_snapshot_equivalent_under_audited_counter_placement_only": false,
+        "expected_sha256": "ab0fe9ba6eafbcc47339d0d9b7021dd50601b177d426c731d0af7874a5d1e5ca",
+        "actual_sha256": "67d2e9971222f7d3d829364fb2eb23f5e844cd2b2b44aee6f13be77d38f2543e"
+      },
+      {
+        "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+        "stage": "FINAL_COMPARISON",
+        "line_counts": [
+          107,
+          107
+        ],
+        "all_differing_lines": [
+          85,
+          103
+        ],
+        "full_snapshot_equivalent_under_audited_counter_placement_only": false,
+        "expected_sha256": "f99a83ee7cc5d00bf1838450001be4dc5af6c8056bb4d540958f609c6074f6d6",
+        "actual_sha256": "584492e3339641c1738d7711bbb1808e45f463c53b60cc82f0ef0daa51594a3c"
+      }
+    ],
+    "raw_fixtures_modified": false,
+    "native_games": 0,
+    "replays": 0,
+    "limits": [
+      "Only these captured cases have complete-state classification. Baseline403 matching firstlines are not full-snapshot certification.",
+      "All health/resources/physical zones/UIDs/layers/otherstate/orderednoncounterrows must match; duplicate/missing/different counter rows fail."
+    ]
+  },
+  "additional_difference": "Complete captured CYB and AetherArc states also differ in serialized DecisionQueueVariables.mzID: old graveyard reference vs Stack-0. These two snapshots are not equivalent under counter permutation alone.",
+  "independent_review": "/root/breadth_review1457 approved sources and exact actual emitter bytes; audited three aggregate counter types but expressly did not certify producing event equivalence or stale macro-context references.",
+  "not_claimed": [
+    "No final whole-suite count improvement measured.45 historical heal assertions corrected, but45CYB completecases stillfail finalcomparison.",
+    "No blanketcounter normalization, bulkexpectedrefresh, engineeventorderingfix orFAB233closure.",
+    "No generatedhandediting, remoteAPI, fixturepruning, commit orpush."
+  ],
+  "next": [
+    "One narrow four-live CYB repairwitness at currentcorrectruntime, with independentsemanticreview anduserentrypoint replay. No newgroupcredit.",
+    "Investigate sharedownedWHENevent dispatch forFAB233 withquarantinedcorrect-expectationwitnesses, notlegacysnapshotblessing."
+  ]
+}

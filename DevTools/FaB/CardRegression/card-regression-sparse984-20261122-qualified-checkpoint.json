@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:07:54.436021+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse984-20261122.json",
+  "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 108,
+  "native_assertions": 894,
+  "manual_passes": 96,
+  "totals": {
+    "saved_registered_scenarios": 4675,
+    "duels": 3075,
+    "four_live": 1600,
+    "recorded_primary_ids": 1823,
+    "identity_denominator": 5196,
+    "recorded_groups": 1697,
+    "group_denominator": 3324,
+    "four_live_groups": 1589,
+    "phase_qualified_scenarios_at_actual_contexts": 1312,
+    "phase_qualified_unique_groups": 1302,
+    "creation_replay_passes": 2054,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 473,
+  "scenarios": [
+    {
+      "card_id": "boulder_trap_yellow",
+      "group_id": "identity:boulder_trap_yellow",
+      "scenario_id": "card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+      "effect_branches": [
+        "unmodified_attack_no_typed_trap_trigger_retains_real_equipment"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "review_evidence": "review-evidence/sparse984-20261122-qualified-saved.json",
+      "review_evidence_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse984-20261122-replay.json",
+          "sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "buzzsaw_trap_blue",
+      "group_id": "identity:buzzsaw_trap_blue",
+      "scenario_id": "card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+      "effect_branches": [
+        "unmodified_attack_no_typed_trap_or_riptide_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "review_evidence": "review-evidence/sparse984-20261122-qualified-saved.json",
+      "review_evidence_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse984-20261122-replay.json",
+          "sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "den_of_the_spider_red",
+      "group_id": "identity:den_of_the_spider_red",
+      "scenario_id": "card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+      "effect_branches": [
+        "unmodified_attack_no_typed_trap_trigger_or_mark"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "review_evidence": "review-evidence/sparse984-20261122-qualified-saved.json",
+      "review_evidence_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse984-20261122-replay.json",
+          "sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

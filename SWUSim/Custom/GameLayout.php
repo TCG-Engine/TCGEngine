@@ -6,7 +6,9 @@
 // Phones are routed to the vertical-stack layout in GameLayoutMobile.php. Shared
 // behaviour lives in GameLayoutShared.php and targets slot IDs, so both reuse it.
 require_once __DIR__ . '/GameLayoutDevice.php';
-if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
+// The multiplayer TABLE (Custom/TableLayout.php) is built on the phone layout's flowing rows — two columns of them, laid side by
+// side when the window is wide — exactly as the 1v1 Always Two table's halves are, so desktop routes there too.
+if (SWUSimIsMobileRequest() || (function_exists('SWUTableLayoutKind') && SWUTableLayoutKind() !== '')) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
     :root {
@@ -1341,34 +1343,6 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* Suppress empty-state text */
     #myHand > span:not([id]), #theirHand > span:not([id]) { display: none; }
-
-    /* Hand collapse */
-    .swu-hand-collapse-btn {
-        position: absolute; top: 0; left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 46px; height: 16px;
-        display: flex; align-items: center; justify-content: center;
-        background: rgba(11,15,20,0.90); border: 1px solid var(--swu-border-hi);
-        border-radius: 99px; cursor: pointer;
-        color: rgba(255,255,255,0.55); font-size: 8px; line-height: 1;
-        pointer-events: auto; z-index: 2;
-        transition: color 120ms, background 120ms, border-color 120ms;
-        user-select: none; -webkit-user-select: none;
-    }
-    .swu-hand-collapse-btn:hover {
-        color: rgba(255,255,255,0.95); background: var(--panel-scrim);
-        border-color: var(--swu-gold); }
-    /* #myHandSlot is taller than the hand band by --swu-hand-lift (hover headroom), so both of the
-       measurements below have to discount it or the collapse UI drifts upward by that much:
-       • the button is pinned to the panel's top edge, which is now the empty headroom strip — pin it
-         to the top of the CARD area instead so it sits exactly where it always did;
-       • `100%` in the collapsed transform is now band + lift, which would leave the 16px peek showing
-         headroom rather than the top of the cards. Subtracting the lift makes it band - 16px again. */
-    #myHandSlot .swu-hand-collapse-btn { top: var(--swu-hand-lift); }
-    #myHandSlot.is-collapsed    { transform: translateY(calc(100% - 16px - var(--swu-hand-lift))); }
-    #myHandSlot.is-collapsed:hover { transform: translateY(calc(100% - 16px - var(--swu-hand-lift))) !important; }
-    #theirHandSlot.is-collapsed { transform: translateY(calc(-100% + 16px)); }
-    #theirHandSlot.is-collapsed:hover { transform: translateY(calc(-100% + 16px)) !important; }
 
     /* ── Effect Stack ────────────────────────────────────────────────────────── */
     .swu-stack {

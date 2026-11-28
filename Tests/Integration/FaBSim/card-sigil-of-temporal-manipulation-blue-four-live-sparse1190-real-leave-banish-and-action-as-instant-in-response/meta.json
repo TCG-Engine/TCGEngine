@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Temporal Manipulation / actual leave, banish and foreign response-window Action play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:27:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual seats, youngBriar20 caster1/twoDori20/youngKano15owner4. RealVaporize6left0destroysownedTemporal5; source6GY1 completes before separateowner4ABI9. Fourfreshresponses then realDeckActionEnergyPotion8->Banish4. Actualcaster1SigilSolace7Instant createsforeignlowerStack; priority4 atAP0 actuallyclicksBanishAction8, itmustbeacceptedabove7withfresh4,1,2,3responses andenterownedArena4while7stillStack/HP1still20. Freshlower1,2,3,4resolve7->GY1/HP1=23. Exactrealcardfates/UID9/noStack/DQs/AP1caster1/R0. No normalACTION-only/permissionflag-only shortcut; actualnonActionwindow consumer demonstrated. HeldROSStart194 destruction unrun/unfixed, no producer/expiry/Potionactivation/wholecard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_temporal_manipulation_blue FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ARCCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

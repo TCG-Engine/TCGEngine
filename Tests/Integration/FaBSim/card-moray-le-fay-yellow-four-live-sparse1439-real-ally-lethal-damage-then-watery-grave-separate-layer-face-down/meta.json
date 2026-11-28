@@ -1,0 +1,7 @@
+{
+    "name": "Moray le Fay / lethal ally damage then Watery Grave",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T20:54:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOURREALMANUALYOUNGDORI20SEATS1-3_GRAVY20SEAT4. Initialpriorownedreadymoray_le_fay_yellow6Arena4(baseLife3/Damage0)andWoundingRed5Hand1, nohistory/override/permissionseeds. ActualAA0/formaladjacentAlly6target/AP1to0/R0/freshall4responses/base4/noGA. NoHeroattacktarget, noordinaryblocksdeclared(CR7.3.2a); normalall4priority/reactionpasses. Actual4damageislethaltoAlly6butnotHero4: source6ownedGY4FACEUP0, ownWateryABILITY7Controller4Source6earnedseparately/HP4still20. Freshall4roundresolvesWatery8.3.41: source6staysGY4samephysicalUID/OwnerController4 butFaceDown1; noBanish/Hand/Tokenreplacement. Thenfullcombatclose5GY1/6FDGY4/ABI7gone/UID7RNG0/HeroHP20all/APR0/StackDQCCquiet. Primarydidnotplayorattack/activateanything, sootherabilitiesnotearned/uncredited; priorproduction/Gravypermission/nonlethal/otherentryzones/siblings/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#moray_le_fay_yellow FaBSim/Custom/SEACards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Count Your Blessings repair / four-live own two grave copies, opposing copy excluded, source remains on stack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T18:20:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual youngDori seats20base, legal isolated midgameHero1 woundedto10, not a false starting-health claim. Prior ownedGYRed6+Yellow7 are legitimate priorhistory and opponentGYBlue8 excluded. RealPotion9 costsdestroy9\u2192GY thenABI10 resolvesfund2 withoutAPcost. RealInstantBlue5 pays2resources/APunchanged1, remainsphysicalStack5 and cannotheal before allfourfreshresponses. Resolvesexactly1+2=3life to13; ownGYCountsource5 appears onlyafterresolution, orderedGY6/7/Potion9/Blue5, opponent8retained. No lifegainHeroobserver, replacement, primaryPlayGA or untestedvariant credit. Existinggrouprepair witness, not breadth expansion. No oldsnapshot/context values imported. Sources: FaBSim/GeneratedCode/cardArrayCache.json#count_your_blessings_blue FaBSim/Custom/GameLogic.php FaBSim/Custom/CRUCards.php FaBSim/Custom/CodeGeneration.php DevTools/FaB/build_ros_abilities.py DevTools/FaB/ros_abilities.json https://judge.fabtcg.com/cards/detail/3333/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

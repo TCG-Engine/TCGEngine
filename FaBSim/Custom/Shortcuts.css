@@ -7,8 +7,7 @@
 }
 .fab-shortcut-ui * { box-sizing: border-box; }
 #fab-shortcut-dock { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; justify-content: center; }
-.fab-overlay-toolbar { align-items: center; justify-content: center; flex-wrap: wrap; width: max-content; max-width: calc(100vw - 24px); }
-.fab-upf-tools { align-items: center; }
+#fab-table-tools .fab-shortcut-bolt { width: 18px; height: 18px; }
 #fab-shortcut-toggle {
   display: flex; align-items: center; gap: 9px;
   min-height: 32px; padding: 5px 9px;
@@ -67,6 +66,13 @@
 .fab-shortcut-note { color: var(--shortcut-muted); font-size: 11px; line-height: 1.55; font-weight: 400; margin: 0; }
 .fab-shortcut-choices { margin-top: 16px; padding-top: 13px; border-top: 1px solid #ffffff15; }
 .fab-shortcut-footer { padding: 10px 16px; flex: none; border-top: 1px solid #ffffff0d; color: #949e9f; text-align: center; font-size: 10px; }
+@media (max-width: 430px) {
+  #fab-table-tools :is(#fab-shortcut-toggle, .fab-shortcut-master) { padding-inline: 5px; }
+  #fab-table-tools .fab-shortcut-bolt { display: none; }
+}
+@media (max-width: 360px) {
+  #fab-table-tools #fab-shortcut-count { display: none; }
+}
 @media (pointer: coarse) {
   #fab-shortcut-toggle { min-height: 44px; }
   .fab-shortcut-row { min-height: 44px; }

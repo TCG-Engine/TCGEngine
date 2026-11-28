@@ -1,0 +1,7 @@
+{
+    "name": "Belittle / unpaid optional reveal and real go-again funded second attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T07:26:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_DORI20. Belittle5Handcost1actualRed6pitch1/R0/AP1to0, onlyOTHERHandcardsCriticalStrikeRed6power5andWoundingRed7power4areabove3. Actualprimary3powerdoesnotrevealitselfaftermovingStack; optionalrevealcostUNPAID/noeffectcostperformed/nonew099path. Allfourrespond; noearnedadditional-cost-paidtutortrigger. RealMinnowism9DecktargetstayswithsameUID/owner/order/noShuffleRNG0, notemptysearchvacuity. ActualBelittle3HeroDamageHP17/printedGArefund1afterDamagepasses/fullclose. NativeWounding7Handcost0reallyspendsearnedAP1andhasfreshfourresponses/actual4damageHP13/noGArefund. Total7damageandproperAPuse/nativefatespinprintedGAfunding, notflagalone. RealHandblockcontrol8staysunblocked, Arenaall0/UID9/RNG0/StackDQCCquiet. Onlyunpaidoptionalreveal/noTutorandprintedGApositive; no paidreveal/tutor/triggerquantity/Shuffle/secondary/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#belittle_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CardChoices.php FaBSim/Custom/WTRCards.php"
+}

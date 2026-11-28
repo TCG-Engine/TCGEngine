@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-companion-of-the-claw-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-companion-of-the-claw-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1e198527304ecfdbbba989fca9ed55dcac0d73c0c4719d97a8c9362c54d35488",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295ec09791798680c59339797eca42dde6374a5de728ff3c99bba169fb437c4e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6faeb8c266cdc9a98ca777ea6ba78b44c7b3e0f55ab6bfb97d62b6db8b193463",
+        "expected_final_gamestate.txt": "f45414896d7a3dc0ff9ab324d68ad87f393dcb3e7f82cbbd09b1a17c8ba6cb0d",
+        "meta.json": "eda8c52ad60a1b46c9c282d266099e805dfdd3a6ab7eb1d8c74b6bf2888a7c01"
+      }
+    },
+    {
+      "slug": "card-harmony-of-the-hunt-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-harmony-of-the-hunt-red-four-live-sparse1286-no-blue-pitch-no-producer-effect-real-intrinsic-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a7bf3c314c29e3f0365c9ccb3cab05182dccbe8f3f6d9cacbc1928ee064f10b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16632d7f2056978d724ee806581ddadcb623a88b81a9b27c5fdea960735133d4",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3fbee5846e841c09554850af96fe8c0bc5d4c0cf3a186eed30dcf366727d8b72",
+        "expected_final_gamestate.txt": "663feb98f3c0c9a842be0a12b50808109f5b72079d132206cdef10b8ca95d8dc",
+        "meta.json": "4d148eb39c692479528efbd12d0f87526aa4bc38fccbab13f6273b3f35127b15"
+      }
+    },
+    {
+      "slug": "card-flamecall-awakening-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-flamecall-awakening-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "390df676fc01a869bdc5e12da0dec26e5673f9427c49eceb67a6c4861b9eb022",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13da28372115d6856c3bce211b041e47e268368e0cedb2ac962dd875c27bd218",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "de5b98b66dd91de7d99e4522a8f5f06613e78507e2c7cb2a3bf1a799c12de2ea",
+        "expected_final_gamestate.txt": "9decce61f04367912a1720fdf804fcb34f6b88b1191cf1a8c9f99fbb1859932a",
+        "meta.json": "0e1a3d1691d549962f3d21d4c952d8832615d343b6c295910a1630d945c141fb"
+      }
+    },
+    {
+      "slug": "card-inflame-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-inflame-red-four-live-sparse1286-no-other-red-play-no-producer-effect-real-intrinsic-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1286-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7e1e8195b64ae7ee2f97b6b70fae090c4cecc369b5455d770cfd325bbe6b5e50",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0fa3c7cdc89fe7bb6f49fb12b3f749bd58adc4791181343c230855eea8f44b7a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "2b8c2fe4f903b3a8d208ea3c62ce2b27d93d3ade53cd56c18aa3c93f816bb4c0",
+        "expected_final_gamestate.txt": "4bd4484062b11aa9e510f3b954220eb471e7d5acbd2bf6753a58690d879612aa",
+        "meta.json": "b9f9d328df6ce05ded1f51bd825f938c267167157cbe77167ea3fafcbdaf0fef"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

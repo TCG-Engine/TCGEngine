@@ -1,0 +1,68 @@
+{
+  "batch": 794,
+  "author": "/root/breadth787_author",
+  "created_utc": "2026-11-14T21:07:49.445131+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-firm-reservation.json",
+    "sha256": "9146d933271bb93f6e6b51a6038de3f5b2002c9c6a52e407b17ce7d181ebf3c1"
+  },
+  "existing_family_metadata_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch794-primary-support-family-metadata-preflight.json",
+    "sha256": "12e55cd404210ba3a2a19c29f6580a32e738b7472ccbb39a0d81134e6ab431ac"
+  },
+  "existing_82_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "runtime_reported_unchanged_by_Root": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "Root_reported_current_metadata": {
+    "issues_sha256": "9b83dc5d69a272c674229ba2893da0871490ef18e333bfc560875e46d12caa80",
+    "holds_sha256": "1af56d552f7d2da4d7ba93c898b3c8c76231b79bf7a3017d9b74a02014ecf516",
+    "qualified_scenarios": 4056,
+    "pending": 0,
+    "note": "Parent forwarded new180/241-row metadata; no source/code/metadata re-audit during this recovery. Existing preflight predates those additions."
+  },
+  "recovery": {
+    "partial_hold_notes_found": false,
+    "prior_tools_in_this_session_completed": true,
+    "CIM_process_inventory": "Read-only Get-CimInstance denied: Access to a CIM resource was not available to the client. No process-state success claimed.",
+    "no_PHP_native_R_operation_was_initiated_by_author": true,
+    "scope": "First serialization of two compact W-only planning notes from already established facts; no retry of native/source/repair action."
+  },
+  "counts": {
+    "runnable_cases": 0,
+    "recipes": 0,
+    "controls": 0,
+    "queries": 0,
+    "native_inputs": 0,
+    "new_native_bug_claims": 0,
+    "fixtures": 0,
+    "coverage_credit": 0
+  },
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "B787_denied_operation_untouched": true,
+  "status": "B794_OPEN_FIXED_AMP_SURGE_ROUTE_KNOWN_PLAIN_SPELL_LIFETIME_UNATTEMPTED",
+  "card_id": "open_the_flood_gates_blue",
+  "group_id": "pitch-cycle:open_the_flood_gates",
+  "fixed_route": "YoungKano15, actualCrucibleInstant1 fundedordinaryBlue3 leavesR2/AP1; OpenAction2 declaresHero4 beforecost, realamp1\u21922arcane/HP4_18 andearnedSurgeDraw2 ownedDeckRed/Yellow. NoHeroability/fakeR/AP/ampseed or substitute.",
+  "established_source_facts": [
+    "Selected PrepareCard does declare/store the damage target before payment; no late-target allegation.",
+    "Actual full arcane/Surge Draw2 body and real Crucible cost1/once-use activation/resolver exist. Availability is not correctness.",
+    "Both GameLogic managed plain-spell predicates exclude Open. Generic nonpersistent fallback moves its physical source to Graveyard at GL1823 before ResolveRules/arcane/Surge instructions."
+  ],
+  "known_dependency": "Same inherited unmanaged ordinary physical-spell source-lifetime family as retained Index/Solace and exact Sigil producer holds. Parent and independent peer agreed fixed route held unattempted.",
+  "source_anchors": [
+    "GameLogic1571..1572,1637..1681: exact managed cohorts",
+    "GameLogic1823..1824: preclear then ResolveRules",
+    "ros_abilities.json open_the_flood_gates_blue PrepareCard/ResolveCard",
+    "ARCAbilities29: Crucible Instant1 once-use; arc/cru selected resolver"
+  ],
+  "limits": [
+    "No executable/probe/native/arcane/draw/cleanup/coverage certificate.",
+    "No alternative amplifier, blank Surge branch, source repair or denied-operation retry."
+  ]
+}

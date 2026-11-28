@@ -1,0 +1,7 @@
+{
+    "name": "Shimmering Mirage / real defense-reaction entry then Mirage destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T19:23:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_YOUNGDORI20SEATS1-3_ZYGGY20SEAT4. ActualGeneric7Raging5AA3paidBlue6pitch3/APR0/formaltarget4/all4responses. Nohandblocks; normaldefendpriorityroundthenREACTIONactor4actuallyplaysShimmeringMirage7DReact0. Physical7heldStackthroughfreshall4responses, notyetdefending/noMiragelayerUID7. DReactresolvesintorealCC4RoleDEFENSE_REACTION(2def)thenqualifyingnonIllusionist7earnsSEPARATEMirageABI8Controller4Source7, source7stillCC/GY0/HP20. Freshsecondall4responsesresolveMirage: actual7GY4/CC4empty, returnsREACTION1. Actual7physical0defenseHP4=13/fullclose5GY1/6Pitch1/7GY4notBanish/ABI8gone/UID8RNG0/APR0. Primaryleftdefendingbeforechainlinkresolves, soitswhiledefendingendlinkbanish/permissionabilityNOTearned(noabilitytimingcredit). PositiveMirage/actualDReactentryonly; nosurvivingendlinkBanish/playpermission/responsepowerchange/lowpower/Illusionist/multiplelayers/secondary/fullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shimmering_mirage_blue FaBSim/Custom/DTDRuntime.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/Custom/MONCards.php https://rules.fabtcg.com/en/cr/08-keywords/ FaBSim/Custom/PENCards.php"
+}

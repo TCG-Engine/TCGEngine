@@ -1,0 +1,7 @@
+{
+    "name": "Skyzyk / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:38:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has **go again**, it gets +1{p}. Representative only: actual_three_without_go_again_power_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#skyzyk_red"
+}

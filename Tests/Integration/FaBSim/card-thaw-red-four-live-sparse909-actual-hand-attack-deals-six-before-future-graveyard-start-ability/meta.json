@@ -1,0 +1,7 @@
+{
+    "name": "Thaw / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:50:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is in your graveyard, at the start of your turn, you may banish it and choose 1:\n\n- Destroy target Frostbite.\n- Destroy target Ice affliction.\n- **Unfreeze** target frozen card in the arena or an arsenal. Representative only: actual_hand_attack_deals_six_before_future_graveyard_start_ability. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#thaw_red"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-never-yield-blue-four-live-sparse895-natural-start-empty-hand-draws-real-card-without-false-health-or-equipment-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-never-yield-blue-four-live-sparse895-natural-start-empty-hand-draws-real-card-without-false-health-or-equipment-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse895-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse895-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f0200851558a246bba3373e10c6dbdcc6c0f6e450cc4bbecb7c702e44f739aa2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ad764e753f81eec53f8928002d2991bbf198625ca7f565727538a5bb8fffe34",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "79033e1605eb243abd12198debb22f3bacbe0fca30709f08d0a11642918be309",
+        "expected_final_gamestate.txt": "c404ba0e6bc84560bb74982c755c5ad88159221220852499943f4f67ff8dc9a3",
+        "meta.json": "ef2e4095b45e8e6765d0b0de2e4912f9dbf6ba30dcd33b515d2c62f66c7ef036"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

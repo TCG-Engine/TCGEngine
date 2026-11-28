@@ -1,0 +1,78 @@
+{
+  "issue": "FAB-REG-231",
+  "classification": "EXISTING_025_075_PERSISTED_FUSION_REFERENCE_CALLER_EXTENSION",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "reviewer": "/root/breadth_review1457",
+  "source_spec_original_sha256": "98112d7b1a70a1fe500490066d561c41a97218636431795e3a92875ab42b56e7",
+  "full_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1494-local-20261122\\save\\receipt.json",
+    "sha256": "f1d528498773155fda932dae9f364ae6adbc07f114de85e88b7ae4774d21673f",
+    "retained_outside_repository": true,
+    "required_for_replay": false
+  },
+  "cases": [
+    {
+      "card_id": "emerging_avalanche_red",
+      "slug": "card-emerging-avalanche-red-four-live-sparse1494-declined-fusion-real-go-again-ice-pitch-is-not-fusion",
+      "accepted_native_inputs": 1,
+      "expected_fusion_offer": "p1Hand-0",
+      "observed_fusion_offer": "p1Hand-1",
+      "observed_live_hand_refs": [
+        "p1Hand-0",
+        "p1Hand-1"
+      ],
+      "initial_eligible_uid": 6,
+      "initial_other_uid": 7,
+      "pending_payment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 2,
+        "fromZone": "Hand",
+        "kind": "ACTION",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0', got 'p1Hand-1'.",
+      "fixture_saved": false,
+      "choice_answered": false,
+      "later_costs_or_effects_or_replay_run": false
+    },
+    {
+      "card_id": "force_of_nature_blue",
+      "slug": "card-force-of-nature-blue-four-live-sparse1494-declined-fusion-real-go-again-no-fused-power-bonus-fully-blocked",
+      "accepted_native_inputs": 1,
+      "expected_fusion_offer": "p1Hand-0",
+      "observed_fusion_offer": "p1Hand-1",
+      "observed_live_hand_refs": [
+        "p1Hand-0",
+        "p1Hand-1"
+      ],
+      "initial_eligible_uid": 6,
+      "initial_other_uid": 7,
+      "pending_payment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 0,
+        "fromZone": "Hand",
+        "kind": "ACTION",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0', got 'p1Hand-1'.",
+      "fixture_saved": false,
+      "choice_answered": false,
+      "later_costs_or_effects_or_replay_run": false
+    }
+  ],
+  "source_basis": [
+    "Native play removes Hand source5 while Prepare enumerates old Hand indices1/2.",
+    "WriteGamestate skips removed source slots, compacting survivors to0/1. Existing EngineRemapZoneForSave hook calls FaBELEFusionChoicesForSave, whose exact guarded cohort remains EntwineEarthRed KindATTACK; these KindACTION callers are excluded.",
+    "Both choice Param and Prepare frame retain rawHand1. Initial eligibleUID6 becomes currentHand0; rawHand1 instead names the other survivingUID7. The receiver consumes raw chosen refs, without established UID rebinding for these callers."
+  ],
+  "evidence_limit": "Native receipts capture actual live Hand refs0/1, stale offered ref1, pending source5 and exact error. Post-action Hand UID identities are inferred from passed initial physical mapping, sole source removal and audited writer compaction; no full post-action physical object dump or selected choice is claimed.",
+  "new_distinct_gameplay_root_group": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changed": false,
+  "full_suite_run": false
+}

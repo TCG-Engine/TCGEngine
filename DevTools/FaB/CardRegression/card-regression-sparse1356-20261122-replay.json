@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-katsu-four-live-sparse1356-actual-fully-blocked-ninja-attack-no-hit-despite-eligible-zero-cost-hand-and-combo-deck-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-katsu-four-live-sparse1356-actual-fully-blocked-ninja-attack-no-hit-despite-eligible-zero-cost-hand-and-combo-deck-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1356-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1356-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ccd8a8cfdbbdad4427d740b2d90e25b2ba662e5c597afccf5709148e46430861",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d61693043b35498b7893b26d6b388ffecece5c6850622e88c77a450c7c6b432b",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "88da1018b37d88a78fda7cd10984dd7ba23c676054bd997dcd5f867b1d58c496",
+        "expected_final_gamestate.txt": "0f7c4644ee296b2531cc12d78b93d4bc5a0863e76b437542dc7c1edf71db2d29",
+        "meta.json": "5fa04502a4ecdad0d1dca60325327b45fa9415ea9fc58ba12d18cc164d238e87"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

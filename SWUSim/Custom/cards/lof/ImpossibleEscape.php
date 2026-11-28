@@ -15,7 +15,7 @@ $customDQHandlers["LOF_218#0"] = function($player, $parts, $lastDecision) {
     }
     if ($lastDecision === 'ExhaustFriendly') {
         $friendly = [];
-        foreach (SWUAllUnits('my') as $mz) {
+        foreach (SWUCostUnits() as $mz) {   // a COST — Always Two may use the teammate's units
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed) && intval($o->Status ?? 0) === 1) $friendly[] = $mz;
         }

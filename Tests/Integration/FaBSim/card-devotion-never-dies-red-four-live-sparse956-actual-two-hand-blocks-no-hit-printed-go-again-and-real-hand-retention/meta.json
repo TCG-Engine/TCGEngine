@@ -1,0 +1,7 @@
+{
+    "name": "Devotion Never Dies / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:50:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, if a Draconic attack was the last attack this combat chain, banish this. If you do, you may play it this turn.\n\n**Go again** Fullactual2HandAAdef3eachblock6, HP20/damage0/attackHitfalse/Stack0, source5ownGY andrealHandcost0AAmarkerretained/Banish0. PrintedGAindependentofhitrestoresAP1atRESOLUTION/final, notDAMAGE. FirstchainhasoneDraconiclinkforDraconiccards, marker0<1eligibleifhit. Positivehitpermission/return/buff branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#devotion_never_dies_red"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-oath-of-loyalty-red-four-live-sparse1335-not-first-action-rejected-with-real-non-draconic-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oath-of-loyalty-red-four-live-sparse1335-not-first-action-rejected-with-real-non-draconic-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1335-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1335-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "366c722f39bbede36512505df078597ed7b7a586d702e3ec96469b44e53200cc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89976ad221a6dfb1f26876e4085dd0f2c6a4092df66d23e4c3c96e1d38a3b203",
+        "actions.json": "d8e9f7f8b6ce1dfec7c6f6d8dbaa2b0cacd151de15eccbcff57f026859c85474",
+        "assertions.json": "a3ab7cfe938ed2fc92f0e7016272c675749e49702dbc8d93a8032eba9e0669a7",
+        "expected_final_gamestate.txt": "9e598ad7ef075a508fbd2ac756cc427b6849df8b27f4cfa2da3ddb04b59a56d0",
+        "meta.json": "9b0173e28c08218317e6cfaccbc5a005bcb700d25892144b655387e4c7d5717d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

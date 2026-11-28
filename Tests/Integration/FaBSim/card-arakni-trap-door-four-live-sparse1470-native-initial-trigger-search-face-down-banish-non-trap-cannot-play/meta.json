@@ -1,0 +1,7 @@
+{
+    "name": "Arakni Trap Door / actual trigger resolution searches and banishes face-down without non-Trap play permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:07:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "InitialcanonicalyoungArakni20UID1/currentTrapDoor/HNT_BASE_HEROarakni; nativeBecome actuallyqueuedROSABI6source1 beforeRecording. RecordedinitialDeck5WoundingRed unalteredthroughfirst3passes andall4Heroesmanualpriority; fourthpass resolvesABIonlyasfarasMZMULTICHOOSE0|1|p1Temp0, realSearchstagingUID5, sameABI6retainedthroughchoice/noearlyBanish. Choose5\u2192actualBanishFaceDown1/PlayableFromBanish0 becauseGenericnotTrap, alltemp/deckempty/noRNGshuffleorderclaim; sourceABIremovedframefinished/AP1/R0/allHero20. ActualownedGenericAction0BanishclickrejectsdespiteAP1/availablelegaltargets, no cardplay/history/resources/UIDchanges. PositiveprimarySearch/faceDownBanish resolutiononlyplusnonTrappermissioncontrol; no priorbecome/capture, positiveTrappermission/boundary, nonemptyshuffle, otherforms orfullcardcredit; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_trap_door FaBSim/GeneratedCode/GeneratedMacroCode.php#arakni_trap_door FaBSim/Custom/HNTCards.php#FaBHNTBecome FaBSim/Custom/HNTCards.php#FaBHNTTrap FaBSim/Custom/ROSCards.php#FaBROSQueue DevTools/FaB/CardRegression/initial_agent_setup.php"
+}

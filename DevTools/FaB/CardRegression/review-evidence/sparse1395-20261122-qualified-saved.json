@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1395-20261122.json",
+  "source_spec_sha256": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+  "input_sha256": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-earths-embrace-blue-four-live-sparse1395-opponent-end-not-your-end-no-embodiment-or-aura-destroy",
+      "card_id": "earths_embrace_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "91ee0d6871ed24761bf12c04bb7aa833dbe857f0a55e1864f6032e1df0033ded",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "2e78db97e959e90eef63a92e53f36d00a46e97ce9aeb9e1a824a24dd628d2828",
+        "expected_final_gamestate.txt": "66cca900ee65aa6fe4d1ba6ea90eb135e9337eb15d6d1ccbaa7adb425d7ed3e4",
+        "meta.json": "2fb5f94b3543a6df1097b611ae14c51e295af4f714ab9f485fbb02141ee10508"
+      },
+      "fixture_sha256": "b896146132638f4bffaff3e6cfd69ec510a60774e56434e5038c543d349459a5",
+      "actions": 35,
+      "native_assertions": 395,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1395-20261122.json",
+      "input_sha256": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-earths-embrace-blue-four-live-sparse1395-opponent-end-not-your-end-no-embodiment-or-aura-destroy",
+        "fixture_slug": "card-earths-embrace-blue-four-live-sparse1395-opponent-end-not-your-end-no-embodiment-or-aura-destroy",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-oath-of-steel-red-four-live-sparse1395-real-hand-attack-is-not-weapon-attack-no-sword-power-counter",
+      "card_id": "oath_of_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b6adfa52c424d4169c0eab9605334d151ff075a0bc153ef2a280f5b7a8d95015",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "519602fa835c75a8bbfda6a54cda2e8d9cb4005a9dc076d9df1492439191eff5",
+        "expected_final_gamestate.txt": "2a43ef2b1880cdd96d043dce6cb3b9e74c41cc70712ff43b740b89b4dbacd025",
+        "meta.json": "6026f584e0add2824fe485d5f69ce443b63d9181e7e564bfff3f3f46f0f8c4eb"
+      },
+      "fixture_sha256": "713067d41c2f3ace237f073a621932cf126b50865b4a1d1bb821b6a45ac424d8",
+      "actions": 32,
+      "native_assertions": 329,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1395-20261122.json",
+      "input_sha256": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-oath-of-steel-red-four-live-sparse1395-real-hand-attack-is-not-weapon-attack-no-sword-power-counter",
+        "fixture_slug": "card-oath-of-steel-red-four-live-sparse1395-real-hand-attack-is-not-weapon-attack-no-sword-power-counter",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "dab63e7b834c67ee6a162b495202b7c14057eac8adfe43ce350761915fb4f8a2",
+    "source_note_sha256": "20614782bb295a0c8cdbf068a9c1ce5a7984f43ed264962656f387e3746274cb",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 67,
+    "query_checks": 724,
+    "persistable_assertions": 724,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "WRONG_CONTROLLER_END_AND_NON_WEAPON_ATTACK_EVENT_FILTERS_WITH_REAL_PHASE_OR_SPELL_AND_ATTACK",
+    "per_case": [
+      {
+        "card_id": "earths_embrace_blue",
+        "group_id": "identity:earths_embrace_blue",
+        "native_controls": 35,
+        "persistable_assertions": 395
+      },
+      {
+        "card_id": "oath_of_steel_red",
+        "group_id": "identity:oath_of_steel_red",
+        "native_controls": 32,
+        "persistable_assertions": 329
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented/unheld groups. EarthAura undernaturalYoungOldhim20 Earth/ElementalGuardian UPFcachedallowed(noBlitzeligibilityclaim); WarriorOath0/printedGA+2HWarriorDawnblade legalunderYoungDori20. Fourmanualnatural20/liveUPF. PriorEarthAura5+priorEarthloreSurge7Banish are positions only, no currentEARTH_BANISHED flag/event or entry/maintenance provenance claimed.",
+      "Earth case retains proven1391 actualTurnPlayer4/Priority4/AP4=1 throughfourAction/fourEndpasses toStart1/TurnNumber3/AP1=1, correct rebinding Equipment5toArena5/noFaceDownEquipmentquery/UID6to7 and added physicalBanishEarth7FaceDown0. PrintedbeginningYOURend means opponent4end is not controller1end; ROSRuntime106 iteratesonlyFaBMONArena(p,EarthEmbrace) for endingp. No EmbodEarthcreate orAuradestroy owed. UID7 also catches erroneousnewtoken8 even if it later disappears atStart1.",
+      "Nativeowner1Wounding6AA0usesstartAP/all4source/combatrounds/real4damageHP4=16/fullclose; originalAura5Arena/Banish7/6GY/HandDeckempty/UID7/RNG0/economy/quietqueues coherent. ExistingAura can persist following a prior qualifyingownerEnd; priorcreatedtokens may have left before selectedposition, no such prior sequence credited.",
+      "Oath5Action0actualAPspend/fourresponses then5GY/GAAP1, generated4815 installsEVR_OATH. RealWounding6HandAA0notSwordactivation formallytargets4/all4combat/base4/noGA/4damageHP4=16. EVRCards180-182 requiresFaBWTRIsWeapon beforecounterincrease; physicalDawnblade7readyCounters[]/effects[] isrealcontrol but notattacking. NoearnedOathweaponWHEN orDoriWeaponHitWHEN. Final5then6GY/Sword7Weapons/UID7/RNG0/AP0/R0/quietStackDQ correct."
+    ],
+    "limits": [
+      "Only wrong-controllerEnd and Weapon-versus-AA negativeguards plus actualphase/primaryspell0/GA/attacks/fates. PositiveEarthownerEnd/create/destroy/currentEarthbanishpredicate/timing/entry/maintenance; Oathweaponcounter/WHENtiming/endcleanup; supportidentities/provenance/siblings/wholecard untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1395.py": "1def90d7aa69cf3907b4f37161e846150df49948f650917eb19fe09450c202a0",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1391-local-20261122/proposed.json": "f4f500a242ca91752c95d1c30031066fa451cb920a7c55307fcbd891a1b04096"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_owner_end_trigger_credit": false,
+    "positive_weapon_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "859c0f3ca888ecaa8736a37567cff7a44871722058e98ba9bc5c5c9c07821c98"
+  },
+  "full_suite_run": false
+}

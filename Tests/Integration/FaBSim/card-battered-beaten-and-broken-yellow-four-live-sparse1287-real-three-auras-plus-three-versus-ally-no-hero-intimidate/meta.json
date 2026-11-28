@@ -1,0 +1,7 @@
+{
+    "name": "Battered Beaten and Broken / actual three-Aura bonus attacks an Ally, not a Hero",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:09:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_MANUAL_UPF. LegalReviledKayo20ownsactualprimary5Hand(base1cost0)and3realpriorAuraTokens6/7/8Arena(noactivation/startphaseproducedmodifiers). Dromai20seat4ownsactualAshwing9withlegitimateprioroneAshmaterialandactualGenericBlue10HandasIntimidatecontrol. Actual5declarestargetALLY9notHero4, paysAP1to0/R0/beforefourresponses. With3Aurasprimarycontinuous+3makesactualpower4(noexternalpowerseed); onattackHEROIntimidateconditionfalse, controlHand10mustnotBanish/noRNG/Stackextra. Actual4unblockedphysicaldamagekills1lifeTOKENAlly9(noGYexport), allHeroHP20, noHeroHitdestructiontrigger. Fullclose5ownedGY/3Auras6..8unchanged/control10Hand4/Ally9ceased/APR0/UID10RNG0/cleanStackDQsCC. NoactualAura/Rakeproducer/startphase/Tokensupport, below3threshold/HeroIntimidate/intimidateddestruction/otherpitch/Kayoability/Dromaiability/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#battered_beaten_and_broken_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SUPCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/GameLogic.php"
+}

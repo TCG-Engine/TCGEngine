@@ -1,0 +1,400 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B396_FLETCH_ONE_NEW_FOUR_LIVE_REPRESENTATIVE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T22:34:10.045412+00:00",
+  "source_spec": "card-regression-batch396-fletch.json",
+  "input_sha256": "fcbc457ab3bc5645a1fb0c5eed54c726cb7a8ba634e3d87d2ddd2310fb1e34a5",
+  "manifest_sha256": "55f8591a9d93b50a5337730709d7e71c71ad6c66c78194c19b60b61fa0738d28",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "source_guards_verified": 47,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch396-fletch-independent-source-review.json",
+    "sha256": "9cb2045d354530d07d37a31bbaa8f475eef8b2e087ca7a4020bc3d8d29abb4ce",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch396-fletch-20261104T223010Z-6aebb1f294ae4.json",
+    "sha256": "f9f417a4d5ffbaf2db485896256c55523c418fb321667bbb66dc783defe06207"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b396-fletch-native-527c-r1\\receipt.json",
+    "sha256": "3e5587dd5aa1d20ca1a00281de5558fbe69918e81e5e892660db94caeac41a67"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch396_fletch_saved_readonly.py",
+    "sha256": "f0fdba1557931c23fb59a7c6945c2e963b4740c60d1b2f3db2a36081b281f9b3"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither scenario/source implementation nor native recording; own independent manual source/rules gate reused.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "fletch_a_yellow_tail_yellow",
+      "group_id": "identity:fletch_a_yellow_tail_yellow",
+      "slug": "card-fletch-a-yellow-tail-yellow-four-live-sparse-real-aimed-falcon-hero-attack-reduces-two-yellow-defenders",
+      "source_spec": "card-regression-batch396-fletch.json",
+      "input_sha256": "fcbc457ab3bc5645a1fb0c5eed54c726cb7a8ba634e3d87d2ddd2310fb1e34a5",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "recorded_runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-fletch-a-yellow-tail-yellow-four-live-sparse-real-aimed-falcon-hero-attack-reduces-two-yellow-defenders",
+      "fixture_sha256": "2043c1537c8879749a58acc2e928bc7e082dc755890cb1e3663e57969658bf8c",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "5d58b8166b8a26fc71ce76c303a8470800336e5843a2197d1f476a665cb74da4",
+        "actions.json": "ac3e30a7392f24cf364d5e3e2a690302de6b509b02be5c5e8fb442d918a8310d",
+        "assertions.json": "e792df3efd4d19ecbf16001e0a25cd9ce287c8ba1ab664a638a6ec8731c71e25",
+        "expected_final_gamestate.txt": "4255612cd0885f35e975e1175125e6cf75c9b6d0e13558ec009e91c06e4609be"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d58b8166b8a26fc71ce76c303a8470800336e5843a2197d1f476a665cb74da4",
+        "actions.json": "ac3e30a7392f24cf364d5e3e2a690302de6b509b02be5c5e8fb442d918a8310d",
+        "assertions.json": "e792df3efd4d19ecbf16001e0a25cd9ce287c8ba1ab664a638a6ec8731c71e25",
+        "expected_final_gamestate.txt": "4255612cd0885f35e975e1175125e6cf75c9b6d0e13558ec009e91c06e4609be",
+        "meta.json": "2e36f84c5ce149b6a486239a7f52a011176a7e783a31aa761a12a2a729ebd4fc"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5d58b8166b8a26fc71ce76c303a8470800336e5843a2197d1f476a665cb74da4",
+        "actions.json": "ac3e30a7392f24cf364d5e3e2a690302de6b509b02be5c5e8fb442d918a8310d",
+        "assertions.json": "e792df3efd4d19ecbf16001e0a25cd9ce287c8ba1ab664a638a6ec8731c71e25",
+        "expected_final_gamestate.txt": "4255612cd0885f35e975e1175125e6cf75c9b6d0e13558ec009e91c06e4609be",
+        "meta.json": "2e36f84c5ce149b6a486239a7f52a011176a7e783a31aa761a12a2a729ebd4fc"
+      },
+      "actions": 35,
+      "native_assertions": 3408,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "fletch_a_yellow_tail_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "falcon_wing_red",
+          "zone": "p1Arsenal",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "sandscour_greatbow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "marlynn",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "8": {
+          "card_id": "sandscour_greatbow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "fletch_a_yellow_tail_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "falcon_wing_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "driving_blade_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_initial_physical_counters": {
+        "6": {
+          "AIM": 1
+        },
+        "8": {}
+      },
+      "actual_final_physical_counters": {
+        "8": {}
+      },
+      "actual_retained_undo_version_aim_evidence": [
+        {
+          "player": 1,
+          "field": "p1Versions",
+          "raw_sha256": "c4763f9cb17ee97f5dd6d4c5e913cf708112ddb3948dc34ac5ab47cc1ad260dd",
+          "source": "retained native undo/version history, not final active zone or newly captured intermediate snapshot",
+          "matching_records": [
+            {
+              "counters": {
+                "AIM": 1,
+                "FAB_PLAY_ORDER": 1
+              },
+              "turn_effects": [
+                "WTR_POWER:3",
+                "OUT_FLETCH:2"
+              ]
+            }
+          ]
+        },
+        {
+          "player": 2,
+          "field": "p2Versions",
+          "raw_sha256": "23fbe4b90ceb7dc5e014b02d0e1d0209c5ef6d666e23d3337af2d752d9181b0b",
+          "source": "retained native undo/version history, not final active zone or newly captured intermediate snapshot",
+          "matching_records": [
+            {
+              "counters": {
+                "AIM": 1,
+                "FAB_PLAY_ORDER": 1
+              },
+              "turn_effects": [
+                "WTR_POWER:3",
+                "OUT_FLETCH:2"
+              ]
+            }
+          ]
+        },
+        {
+          "player": 3,
+          "field": "p3Versions",
+          "raw_sha256": "91e87e06400511dfc5e8127616974fa08efe7c842ca6410160b322a01cb0dafa",
+          "source": "retained native undo/version history, not final active zone or newly captured intermediate snapshot",
+          "matching_records": [
+            {
+              "counters": {
+                "AIM": 1,
+                "FAB_PLAY_ORDER": 1
+              },
+              "turn_effects": [
+                "WTR_POWER:3",
+                "OUT_FLETCH:2"
+              ]
+            }
+          ]
+        },
+        {
+          "player": 4,
+          "field": "p4Versions",
+          "raw_sha256": "1f6a840e2aa23cb9c5888c4ba548f512a9d43feffc7e00e2b518172343f7ee0c",
+          "source": "retained native undo/version history, not final active zone or newly captured intermediate snapshot",
+          "matching_records": [
+            {
+              "counters": {
+                "AIM": 1,
+                "FAB_PLAY_ORDER": 1
+              },
+              "turn_effects": [
+                "WTR_POWER:3",
+                "OUT_FLETCH:2"
+              ]
+            }
+          ]
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "2db8f65e87b7c151b6e41f08ba356ec95b5b8655f688452df04942c502ad734c",
+      "native_action_mapping_sha256": "fa9531861c488b8736073b5ebe999d98ef22ab9177c5b39cfb87ee31b223d5d7",
+      "native_assertion_mapping_sha256": "4e1ab4b387e9d8bec8d29a2db1b13cd851491e9e1fd008d1893eac956c5a3f56"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 3408,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actualprimary5 Action1 funded byBlue7pitch3/AP1 leavesR2AP0, staysStack through firstthree responses, onlyfourth clears5/earnsnextArrow+3 and refunds ownGA/AP1. No initialnextArrow/history/resources/permission seed. PriorfaceupFalcon6/AIM1/Sandscour8 is legitimate setup, not creation/load credit.",
+    "ActualsameArrow6fromArsenal normalHero4target,0cost/AP1paid\u2192AP0, freshfour givesChain6/power3+Aim1+Fletch3=7/ownunconditionalGA. Two actualP4YellowNAA defenders9/10 legally played fromHand, primaryreduces eachDEF3\u21922,total4; physicalHP17/actualdamage3 materially tests both bonuses. CachedDefense4 is postDamage and corroborated by physicaldefenders andactualHP. No Allytarget or invented hit-trigger layer.",
+    "RawinitialArrowCounters decodesAIM1. Allfour retained native before-pass Versions include sameChainArrow6 FromArsenal countersAIM1+FAB_PLAY_ORDER1 and earnedWTR_POWER3/OUT_FLETCH2. This is labelled historicalundo/version evidence, not a newly captured intermediate rawstate or finalactiveCounter. GameplayfreshAim-dependent7power+defensepenalty also passes. FinalGY schema does not retainCounters, so no falsefinalAIM persistence claim.",
+    "AP0 throughDamage, Arrow ownGA refundsAP1 onlyResolution. Fullclose allphysicalUID1to10 conserved: P1GY5/6, P4GY9/10, Blue7Pitch, readyBow8 retained, R2AP1/otherRAP0/HP17/counter10/RNG0/no newobjects. Actualcardplaysequence primary+Arrow only/real3damage, Fletchnext effect consumed.",
+    "All35 actual envelopes/3408 exact persisted checks/29manual inputs (28priority+oneP4finish), rawfive hashes, completeparsed endpoints/UID/card/owner/controller/economy/all48manualsettings perendpoint/fourlivingreadyheroes/Stack/chain/queues/payment/await cleanup verified atcurrent527c/47guards."
+  ],
+  "limits": [
+    "One standaloneFletchYellow only; no siblings/othercolors/noAim/extraArrow/hero/support-primary/fullcard/new nativecontrol credit.",
+    "PriorAim creation/Arrowload/Bowactivation unexecuted. Falcon ownGA is supporting printedtext, not Fletch-grantedGA. No hit trigger/Allydefense scenario.",
+    "Intermediate facts rely on exact passed sequential native assertions plus explicitly labelled retained undo/version history. Only initial/final are complete raw snapshots; finalGY has no liveAIM field.",
+    "Azvolai entirely separate/unexecuted and outside this proof; exactsource review owned by anotherreviewer. No Ashloss/conservation/materialbranch/gamebug claim.",
+    "Root focused replays/registration separate, not run by reviewer. No PHP/native/R/source/service/gen/fullsuite/optional paper-model or denied089retry/reroute performed."
+  ]
+}

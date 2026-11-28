@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-reckless-charge-blue-four-live-sparse1122-real-accepted-3-gains-1-action-points-and-does-not-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reckless-charge-blue-four-live-sparse1122-real-accepted-3-gains-1-action-points-and-does-not-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1122-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1122-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0d9ed8106a817216ced2fd82848468063fe1e0fa855d4d2e0990df5944527ebe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6195a0452c81a0fed9f83b0ca0223d598eddfa1148a6b93f9545e65dac392e36",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "e093650ea2892d7966803870e3f00c7f13dc6a2f2d8b74e98197f2e2ee76ec0b",
+        "expected_final_gamestate.txt": "847aa7a4f11175b37d974a8cf97a2d991a04a240096bd32b04928395c8899100",
+        "meta.json": "bef85281ddc9e421beadccf4e4c1f5af95dc7dbbde36b0a1c5c81114f072ac26"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

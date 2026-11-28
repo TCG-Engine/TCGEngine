@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-constella-flowslide-yellow-four-live-sparse1255-real-owned-lightning-flow-created-after-four-responses-without-prior-starfall",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-constella-flowslide-yellow-four-live-sparse1255-real-owned-lightning-flow-created-after-four-responses-without-prior-starfall",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2e01e2d3913d87816c8f827ef5f02f88289a0f0a5b1e2db5b9f3d3ab8e7f475c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4c95327acd6f41080e07c3633ec15145717db27c0152694083985d72ddc6d8d",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "7e6efc788c4b9e86a38369d40bdff2328fb197db69d52776b869f4041e88ac2c",
+        "expected_final_gamestate.txt": "f44068a14c1bcbd7c74caf031bfe1b948ec49201179dc53f164bb3fa20ead54d",
+        "meta.json": "c006a8402d8a86d745db497556a809431d0d95455a1a38fca4f50486317d2f28"
+      }
+    },
+    {
+      "slug": "card-constella-uplift-yellow-four-live-sparse1255-real-untap-reenables-actual-tap-staff-activation-without-prior-starfall",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-constella-uplift-yellow-four-live-sparse1255-real-untap-reenables-actual-tap-staff-activation-without-prior-starfall",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1255-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bd92aa86190a7fb1260ddb7c79ed9b7c2dc16769639344ae242d22580dbecc99",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8968eef3f19cd0805560ef4a91e0a4f2de6e6986c0e961f29bbdf00ecc328adf",
+        "actions.json": "f9e9e45c6d88d1ec076a2cba55d456dc270ae06dd5f5f1a8bb284f8ec0ae5d40",
+        "assertions.json": "706c92b147081b90f7f62c36c3fe52f5b41585d253d4dbc6cacc1ad2d9409188",
+        "expected_final_gamestate.txt": "060ba2c6bd3fd42f7f5fc3c3898cf9bc8c2b65fc42f2688c4252ec47b4a1869f",
+        "meta.json": "aac20b69fadb4de5094d29e0a79fc8536fe76078561cb32409f6428b942fc9a9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

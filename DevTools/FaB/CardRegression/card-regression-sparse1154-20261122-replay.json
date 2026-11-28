@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-skera-strapping-four-live-sparse1154-real-six-power-pitch-enables-spellvoid-and-prevents-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-skera-strapping-four-live-sparse1154-real-six-power-pitch-enables-spellvoid-and-prevents-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1154-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1154-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41a4a72d926d6d7ff3ee1a032f9ccf6d80b1231d03c05c87adb78c0bcd7e9cde",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ea27e329017e4b24b0cbc970b211802ae54438bb2532e5d67e3dd2c4d59f14a",
+        "actions.json": "4ebefca438c542978b6a907854adb68e1f1cf7414e270f99d84d015ed5a726fc",
+        "assertions.json": "3bebe6f8d130473ab10dd73b655a01363a254695136a0e504ec5d9eec87132c7",
+        "expected_final_gamestate.txt": "a12d9955d20bc91197b692b68e8d878300ab66aea1459b0b4b761219784132c6",
+        "meta.json": "58869bc1a3fd4451fa6135de727442cd312376013ac66b6c56c06289406b1d64"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

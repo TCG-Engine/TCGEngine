@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ash-four-live-sparse1246-real-transform-material-grants-phantasm-six-power-block-pops-real-dragon",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ash-four-live-sparse1246-real-transform-material-grants-phantasm-six-power-block-pops-real-dragon",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1246-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1246-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "85faf5eee624678b3fc9cbb0d77e33f21f32058ecad1de46251276c26c900e4d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e878c770eedcb536eb1349038d27e88a17be74233543068949e54fd00f5bc37e",
+        "actions.json": "8cdb4ee03a8a0656d861a8d8df7d137be033749d9bf1b37fa1dd0aa0f513e98d",
+        "assertions.json": "4a1ce07216517574d3cda0441f697eb5ea4f19887e132abfc6153c7cc125efc8",
+        "expected_final_gamestate.txt": "cc3c1e5d65d584863f7c7c5c8a30a662f8b89ab5f3918ef3998ae7eb14da0594",
+        "meta.json": "0039e6a8581bf1f7fcc6d2a32eb96a27439e29671b1a35b9126d67a1a745989a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

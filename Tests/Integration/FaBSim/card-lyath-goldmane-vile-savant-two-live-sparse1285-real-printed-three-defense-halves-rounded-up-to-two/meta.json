@@ -1,0 +1,7 @@
+{
+    "name": "Lyath Goldmane Vile Savant / actual odd base defense halves rounded up in combat",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:50:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_LYATH40_DUEL_BASE_DEFENSE_ROUNDING_ONLY. NaturalDori40Turn1actualWounding3Hand/printedpower4cost0(AP1to0), primaryLyathHero2actualidenticalWounding4Hand/printeddefense3/nootherdefenderorbonusseed. Bothactualsourceandcombatresponses; incomingpower4mustnotbehalvedbyopposingHero. Hero2actuallydeclaresSAME4asHanddefender/noAPresourcecost. PrintedprimarycontinuousbaseDEFhalvingroundedup makes3\u21922, not1; actual4power/defense2/physicaldamage2/HP2=38 provesoutcome. NoBoo/Instantability/Mightgrant ordefensebonusactivated; nohealthhealing/modifiers/equipment. Final3GY1/4GY2/HP40vs38/APR0/UID4RNG0clean. Noownattackpowerhalving/evenbase/equipment/Boo/Might/Young/fourlive/support/fullHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lyath_goldmane_vile_savant FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php"
+}

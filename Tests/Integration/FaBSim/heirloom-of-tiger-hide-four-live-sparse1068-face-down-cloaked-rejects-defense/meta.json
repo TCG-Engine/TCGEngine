@@ -1,0 +1,7 @@
+{
+    "name": "Heirloom of Tiger Hide / four-live facedown Cloaked defense restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:52:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Cloaked**\n\nWhile this is equipped face-down, at the start of your turn, if you have exactly 1{h}, you may turn this face-up.\n\n**Blade Break** NamedCloakedfacedowndefenserestrictiononly. OfficialpublisherRulesReprise19/MSTnotes sayCloakedequipdownandfacedownequipmentcannotdefend/ordinaryabilitiesnonfunctional; noflipabilityisexercised. Legalnatural20zen ownsactualEq5FaceDown1/Status2. RealDoriSword7power3/Blue8pay1/R2/AP0 andallfourmanualsourcepassesreachactualDEFEND_DECLARE4. ClickhiddenEq5mustnotadmitit: Eq1/CC0/Hand1/FaceDown1/queuesclear. ThenactualWounding6HandDEF3aloneblocksSword3/0damage/noHit/HP20; Hand6ownedGY, untouchedprimary5retainedEquipmentFaceDown1/Status2. No nativeequip/faceup/Chi/startphase/reaction/prevention/durabilitybody/hero/support/fullcardoroldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#heirloom_of_tiger_hide https://legacy.fabtcg.com/en/articles/rules-reprise-19-part-the-mistveil-limited/ https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/part-the-mistveil/"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-teklovossen-four-live-sparse1127-intrinsic-permission-plays-real-evo-from-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklovossen-four-live-sparse1127-intrinsic-permission-plays-real-evo-from-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1127-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1127-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a0de16435c70160b7a44a26ef9d6effec2f6da3628ebe052014de57fcb30d10e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "400d34979d365a3be1548013b65786b38ce3a7a245ac76144234bf3d958500ae",
+        "actions.json": "771d77e6cbbe083a33526650e17dc264cefe7b6c278e68ad02aa51c632c2736d",
+        "assertions.json": "1dc1c5f669d54ad2387e04264c9026458b0da58ce0041b829f17c085f59b6a99",
+        "expected_final_gamestate.txt": "fa5a9a1dbb3e0a6ae0f34d8bcf3b473b6a465654b7ffa303d089a28e9787b665",
+        "meta.json": "9ccd012b74578e8694cb5ebb4b46428857eacd89844ab4ccd44fde9e8e8e0898"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,330 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T01:37:35.399119+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1457-20261122.json",
+  "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+  "new_scenarios": 10,
+  "new_groups": 10,
+  "new_primary_ids": 10,
+  "actions": 291,
+  "native_assertions": 5992,
+  "manual_passes": 254,
+  "totals": {
+    "saved_registered_scenarios": 5488,
+    "duels": 3135,
+    "four_live": 2353,
+    "recorded_primary_ids": 2636,
+    "identity_denominator": 5196,
+    "recorded_groups": 2510,
+    "group_denominator": 3324,
+    "four_live_groups": 2342,
+    "phase_qualified_scenarios_at_actual_contexts": 2125,
+    "phase_qualified_unique_groups": 2115,
+    "creation_replay_passes": 2867,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1286,
+  "scenarios": [
+    {
+      "card_id": "tempt_over_yellow",
+      "group_id": "identity:tempt_over_yellow",
+      "scenario_id": "card-tempt-over-yellow-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tempt-over-yellow-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "wage_agility_red",
+      "group_id": "pitch-cycle:wage_agility",
+      "scenario_id": "card-wage-agility-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-wage-agility-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "wage_might_red",
+      "group_id": "pitch-cycle:wage_might",
+      "scenario_id": "card-wage-might-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-wage-might-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "wage_vigor_red",
+      "group_id": "pitch-cycle:wage_vigor",
+      "scenario_id": "card-wage-vigor-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-wage-vigor-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "violent_gusto_red",
+      "group_id": "identity:violent_gusto_red",
+      "scenario_id": "card-violent-gusto-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-violent-gusto-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "crash_down_the_gates_red",
+      "group_id": "pitch-cycle:crash_down_the_gates",
+      "scenario_id": "card-crash-down-the-gates-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-crash-down-the-gates-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "gravekeeping_red",
+      "group_id": "pitch-cycle:gravekeeping",
+      "scenario_id": "card-gravekeeping-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gravekeeping-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bite_red",
+      "group_id": "pitch-cycle:bite",
+      "scenario_id": "card-bite-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bite-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "throw_yourself_at_them_red",
+      "group_id": "pitch-cycle:throw_yourself_at_them",
+      "scenario_id": "card-throw-yourself-at-them-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger-printed-go-again-and-earned-action-consumer",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage",
+        "printed_go_again_on_actual_Ally_attack_grants_action_spent_on_real_Item"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-throw-yourself-at-them-red-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger-printed-go-again-and-earned-action-consumer",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "attune_with_cosmic_vibrations_blue",
+      "group_id": "identity:attune_with_cosmic_vibrations_blue",
+      "scenario_id": "card-attune-with-cosmic-vibrations-blue-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "effect_branches": [
+        "actual_owned_attack_formally_targets_adjacent_real_Ally_not_Hero_cost_and_printed_power_actual_Ally_damage_death_no_Hero_only_trigger_or_Hero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-attune-with-cosmic-vibrations-blue-four-live-sparse1457-real-ally-target-excludes-hero-only-trigger",
+      "source_spec": "card-regression-sparse1457-20261122.json",
+      "source_spec_sha256": "9f109d8fd50d17b633cc25d132cdaba2773210ec27b1b979a33d849bee0fb4ee",
+      "review_evidence": "review-evidence/sparse1457-20261122-qualified-saved.json",
+      "review_evidence_sha256": "780a9951dffcc1a2b32054da4d17fbf74d64630f0d15f447c29dd2e7ac6d4015",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1457-20261122-replay.json",
+          "sha256": "95ff39bf66b14546fd7ddfcd2f58a6b01366d4144be07061feaeed032c061504",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

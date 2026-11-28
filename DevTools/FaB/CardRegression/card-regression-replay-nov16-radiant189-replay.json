@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-radiant189-earned-layer.json",
+  "runtime_sha256": "5a07738946b4c5166ee877b41bb186a6fa1bc7ac2ba6cb0488156740c8a211d0",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T21:05:38.819580+00:00",
+  "fixtures": [
+    {
+      "slug": "probe-radiant-forcefield-yellow-four-live-one-soul-prevent-one-earned-empty-soul-destruction",
+      "fixture_sha256": "fcd2160038bd3d9942d0c6a784695e71cb53293f5f943c8c3b9c05f1ae6ac70d",
+      "passed": true,
+      "result": "[PASS] Radiant Forcefield / one Soul then earned zero-Soul destruction"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=probe-radiant-forcefield-yellow-four-live-one-soul-prevent-one-earned-empty-soul-destruction",
+      "returncode": 0,
+      "stdout": "[PASS] Radiant Forcefield / one Soul then earned zero-Soul destruction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

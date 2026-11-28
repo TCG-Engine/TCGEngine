@@ -1,0 +1,110 @@
+{
+  "status": "FOCUSED_ORACLE_CORRECTIONS_FINAL_NATIVE_AND_REPLAY_PASSED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "records": [
+    {
+      "batch": 1245,
+      "classification": "SOURCE_VERIFIED_REACTION_WINDOW_LABEL_ONLY",
+      "original_spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\first-label-oracle\\proposed.json",
+      "original_spec_sha256": "60d253b309980651cd4b8195e50a9b7053ae1f753c04a2b5c470906ff7dd94a0",
+      "corrected_spec": "card-regression-sparse1245-20261122.json",
+      "corrected_spec_sha256": "e8dac903fa1b54e65d077ca37ab05eb2a30070332804365a0b0df2362fe653bd",
+      "failed_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\failed-label-save\\receipt.json",
+      "failed_receipt_sha256": "7c465c4c950d5f70768cfc6cdf6eb05d1136e77f460adea439f6fa88087bef50",
+      "independent_classification_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1245-local-20261122\\window-classification.json",
+      "independent_classification_sha256": "76bb8db5718b833139125ecec27f44d8b0584424b9a304b351835469b3ce71e6",
+      "original_failures": [
+        {
+          "slug": "card-bait-four-live-sparse1245-foreign-owned-bait-locks-own-cards-uses-real-reaction-then-destruction-unlocks-own-weapon",
+          "error": "state window expected \"PRIORITY\" got \"REACTION\"",
+          "native_inputs": 18,
+          "initial_gamestate_sha256": "79dbc2f1f4771518a9126798af5657a4b7f7611a29e5140fcba85ab222c7d3be"
+        }
+      ],
+      "oracle_diff": [
+        [
+          "/0/steps/25/checks/0/value",
+          "PRIORITY",
+          "REACTION"
+        ],
+        [
+          "/0/steps/26/until/window",
+          "PRIORITY",
+          "REACTION"
+        ],
+        [
+          "/0/steps/27/until/window",
+          "PRIORITY",
+          "REACTION"
+        ],
+        [
+          "/0/steps/28/until/window",
+          "PRIORITY",
+          "REACTION"
+        ]
+      ],
+      "fixture_saved_on_failed_attempt": false,
+      "engine_changed": false,
+      "new_gameplay_bug_claimed": false,
+      "corrected_cases_qualified": true
+    },
+    {
+      "batch": 1247,
+      "classification": "SOURCE_VERIFIED_ACTIVATED_SOURCE_USAGE_BOOKKEEPING_ONLY",
+      "original_spec_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\first-bookkeeping-oracle\\proposed.json",
+      "original_spec_sha256": "12bd7a31f8efbead3641e6da898cda0f8a1ee0bcd8e169c04e4c0ff912bb3e02",
+      "corrected_spec": "card-regression-sparse1247-20261122.json",
+      "corrected_spec_sha256": "2ac1362d143cc84552e57a3afcf9757ea7e771fb9028eb04ca39421d1a64bf4e",
+      "failed_receipt_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\failed-bookkeeping-save\\receipt.json",
+      "failed_receipt_sha256": "2e287cdf0c9d04e5ff6ecd6a1b3d792bef2eca679c87f543e66940fd844e81e8",
+      "independent_classification_local": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1247-local-20261122\\bookkeeping-classification.json",
+      "independent_classification_sha256": "7dcd4da550e5852d584f7e9b36eb136cff02f317ec98070acd9f62849a2ecfdb",
+      "original_failures": [
+        {
+          "slug": "card-dust-from-the-golden-plains-red-four-live-sparse1247-real-material-under-themai-six-power-block-does-not-earn-phantasm",
+          "error": "Expected p1Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_themai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_golden_plains_red\"}', got '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_themai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_golden_plains_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}'.",
+          "native_inputs": 19,
+          "initial_gamestate_sha256": "07d1c070ec5469290df314695c59cbc3f954591ffd950bc8f927b0cf126d4f29"
+        },
+        {
+          "slug": "card-dust-from-the-shadow-crypts-red-four-live-sparse1247-real-material-under-nekria-six-power-block-does-not-earn-phantasm",
+          "error": "Expected p1Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_nekria_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_shadow_crypts_red\"}', got '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_nekria_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_shadow_crypts_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}'.",
+          "native_inputs": 20,
+          "initial_gamestate_sha256": "8f7209a2f8b692771cc0855e5d5d8b454337fc9970ac06e2e9b4be76cc894ee0"
+        },
+        {
+          "slug": "card-dust-from-the-red-desert-red-four-live-sparse1247-real-material-under-vynserakai-six-power-block-does-not-earn-phantasm",
+          "error": "Expected p1Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_vynserakai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_red_desert_red\"}', got '{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_vynserakai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_red_desert_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}'.",
+          "native_inputs": 20,
+          "initial_gamestate_sha256": "402fb2b211c3eda7798836131fb56b56a67457a96e1db0d26488288dc9353aa3"
+        }
+      ],
+      "oracle_diff": [
+        [
+          "/0/steps/27/checks/6/value",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_themai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_golden_plains_red\"}",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_themai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_golden_plains_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}"
+        ],
+        [
+          "/1/steps/29/checks/6/value",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_nekria_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_shadow_crypts_red\"}",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_nekria_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_shadow_crypts_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}"
+        ],
+        [
+          "/2/steps/29/checks/6/value",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_vynserakai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_red_desert_red\"}",
+          "{\"FAB_PLAY_ORDER\":1,\"UPR_INVOKED\":1,\"UPR_FRONT\":\"invoke_vynserakai_red\",\"UPR_ASH\":1,\"DYN_ASH\":\"dust_from_the_red_desert_red\",\"WEAPON_ATTACK_TURN\":2,\"WEAPON_ATTACKS\":1}"
+        ]
+      ],
+      "fixture_saved_on_failed_attempt": false,
+      "engine_changed": false,
+      "new_gameplay_bug_claimed": false,
+      "corrected_cases_qualified": true
+    }
+  ],
+  "no_gameplay_expectations_weakened": true,
+  "limits": [
+    "Only source-verified window labels and generic activation-use metadata expectations changed. All original card effects, costs, physical identities, ownership, damage and cleanup assertions retained.",
+    "No saved fixture resulted from the four failed original attempts; full original initial states, action prefixes, specs and review are retained locally. Four failures/77 native inputs are test-oracle evidence, not new gameplay defects."
+  ]
+}

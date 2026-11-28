@@ -18,10 +18,12 @@
 //     1 = Mute sounds (0/1)
 //     2 = Card language (0=en 1=es 2=it 3=fr) — settingValue is an INT column, so languages are codes
 //     3 = Turn off health bars (0/1) — hides the base health bars; the Twin Suns HP badge stays (2026-10-08)
-//     -- next free: 4 --
+//     4 = Home Panels Layout (0/1) — 3/4-player games show the Home panels instead of the table (2026-11-22)
+//     -- next free: 5 --
 if (!defined('SWUSIM_SET_MUTE')) define('SWUSIM_SET_MUTE', 1);
 if (!defined('SWUSIM_SET_CARD_LANGUAGE')) define('SWUSIM_SET_CARD_LANGUAGE', 2);
 if (!defined('SWUSIM_SET_HIDE_HEALTH_BARS')) define('SWUSIM_SET_HIDE_HEALTH_BARS', 3);
+if (!defined('SWUSIM_SET_HOME_PANELS')) define('SWUSIM_SET_HOME_PANELS', 4);
 
 require_once __DIR__ . '/../Database/ConnectionManager.php';
 require_once __DIR__ . '/../Database/functions.inc.php';
@@ -70,6 +72,15 @@ if (!function_exists('SWUSimAccountMuted')) {
 if (!function_exists('SWUSimAccountHideHealthBars')) {
     function SWUSimAccountHideHealthBars($userId): ?bool {
         $v = SWUSimGetSetting($userId, SWUSIM_SET_HIDE_HEALTH_BARS);
+        return $v === null ? null : ($v === '1');
+    }
+}
+
+// "Home Panels Layout" (owner 2026-11-22): null = no account-level answer (guest, or never set). The layout is chosen SERVER-side
+// (SWUTableHomePanelsPreferred, SWUSim/Custom/TableLayout.php): the browser's cookie wins when it has made a choice, else this.
+if (!function_exists('SWUSimAccountHomePanels')) {
+    function SWUSimAccountHomePanels($userId): ?bool {
+        $v = SWUSimGetSetting($userId, SWUSIM_SET_HOME_PANELS);
         return $v === null ? null : ($v === '1');
     }
 }

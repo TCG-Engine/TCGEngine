@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+  "source_spec": "card-regression-repair-viserai-first-debt-history-20261126.json",
+  "input_sha256": "3b0a952e5b2dc4d8721aed9e6267668931ab9ef76911a628952485ebf9922b61",
+  "fixtures": [
+    {
+      "slug": "repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+      "card_id": "viserai_usurper",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6856501013d6cf48ddc52fb5b814366afe51dffe6d460257b41c04d3e4d73ca5",
+        "actions.json": "ae89c170cb154da2a9fbb33a4f001c2e3e6fcac85c70f3c4f49f4b1deee9673a",
+        "assertions.json": "181f6832f23533501c9fb10e58ca9516139cf1447e90362468aec59b4126094a",
+        "expected_final_gamestate.txt": "13e0977fb1dc27aede26bb2232ddd9d9d7c41099b071f7d51a5c102261b33368",
+        "meta.json": "96cbb5d1632124265d88f96c16be37f8ec89636f9841e3e4668e63ee7f0876be"
+      },
+      "fixture_sha256": "602227583c8e51ec667e888f98941f7b44f51d83a6ca90dd12ba0145da77704c",
+      "actions": 84,
+      "native_assertions": 620,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 74,
+      "recorded_runtime_sha256": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "runtime_sha256": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "source_spec": "card-regression-repair-viserai-first-debt-history-20261126.json",
+      "input_sha256": "3b0a952e5b2dc4d8721aed9e6267668931ab9ef76911a628952485ebf9922b61",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "runtime_before": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+    "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+    "before_sha256": "91e6ef44302d944f13fde9d096e30b73fcc20d5f8a3f8ee538fcccccbb84eb17",
+    "candidate_sha256": "76411959230c12727fed1437b33458793e09a17893d9277e4ae07d4b942326e8",
+    "scope": "Preserve only current-turn DEBT_ATTACK for each seat across chain close. No other IAR history-policy changes. Broader candidate correctly retained DAMAGE history but changed unrelated snapshots; its receipts retained and scope narrowed without weakening any expectations."
+  },
+  "targeted_replays": {
+    "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+    "fixtures": [
+      {
+        "slug": "repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+        "passed": true,
+        "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "2db3d8c6ee2359e15c216062ff117e396b0bdf0fed9422fedd6144c4164a86ea",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+        "passed": true,
+        "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "2681ebfc07f1e40f144fa6dc9dea17ffbd4c5f9990e67ae178d1736f4385e65c",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+        "passed": true,
+        "runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\viserai225\\final-narrow-strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "7604c388bc4942be114c7536ce82b74cedc059b6074fa656c5dfa24abc1237ed",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "One named reproduced caller and shared reset behavior; no catalog-wide IAR branch claim.",
+    "Ten actual-function controls distinguish named current/obsolete turn, other seats, unrelated history, pure input and combat reset.",
+    "Default strict comparator; fullsuite notyet run.",
+    "Primary-agent semantic/saved review only."
+  ],
+  "scope": "FaBResetWindowState preserves only current-turn DEBT_ATTACK for each seat across combat-chain close. Original84-input gameplay oracle retained; newcounter checks assert first1/postclose1/second2. Other IAR history behavior unchanged; broad candidate review/failed compatibility retained separately.",
+  "additional_validation": {
+    "actual_reset_component_checks": 10,
+    "original_native_probe_pass_84_inputs": true
+  }
+}

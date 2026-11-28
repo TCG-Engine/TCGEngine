@@ -1,0 +1,7 @@
+{
+    "name": "Shining Courage / real cheer then separate Pleiades Confidence",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:27:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_PLEIADES20_THREEDORI20. RealShiningCourageRed5Instant0inACTION/nocombatandnodefendingcards, legalUPTOonechooseszero. RealinstantdoesnotspendAP1/all4priorityresponses\u2192actualprintedCrowdCheers\u2192PleiadesHero1WHENearned, separatestackABI7Source1/Controller1and5GYbutNOToken. Freshall4responsesresolveHerotrigger\u2192ownedConfidence8Arena1(onlytoken), untouchedHero1ready/AP1/R0. NativeWounding6AA0toadjacent4/all4manualwindows/base4/noGA/actual4damageHP4=16/fullclose. Confidencecreatednowdoesnotdestroyuntilnextstartanddoesnotchangeattackpowernow:8sameArena/UID8/5GY0+6GY1/HandDeckempty/R0AP0/StackDQquiet. PrimarypositivecheeranditsobservableHero-triggerconsequencearecredited, nosecondaryHeroIdentitycredit. Defendingcard+3/optionalpositiveTargettiming/Confidencefuturestartandrestrictions/otherpitches/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shining_courage_red FaBSim/GeneratedCode/cardArrayCache.json#pleiades FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/WTRCards.php"
+}

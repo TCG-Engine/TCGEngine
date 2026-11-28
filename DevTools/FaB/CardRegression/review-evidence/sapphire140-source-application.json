@@ -1,0 +1,23 @@
+{
+  "status": "APPLIED_SOURCE_ONLY_NATIVE_QUALIFICATION_PENDING",
+  "source": "FaBSim/Custom/SEARuntime.php",
+  "runtime_before": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "before_sha256": "53466ba23c6ff2d845774e47160b7c9383878e3a8a3345f7d23ac6a20eb42067",
+  "candidate_sha256": "61912a3f1e31e6d6e10c64fa92514c6ecf937fcbb1ca63af0ace0dfd3a9dc001",
+  "source_candidate_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-sapphire551-independent-source-candidate-review.json",
+    "sha256": "ce43adbea146653b86678e6bcd9cac68f163daa228b07f2db4f5121209ba8863"
+  },
+  "native_before_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-v2-independent-native-classification.json",
+    "sha256": "d6ecf9e412ad7253ed1536416b19d8451ac0918197be2e2cead4141e4e32d348"
+  },
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-sapphire140-source-application\\before-SEARuntime.php",
+  "HEAD": "b097e43e4de0369d44839fa95d3804aa1454ff1e",
+  "git_index_before": "8b4cad05df40732a2702dbf54337822fdf627bf5ef05cdaaf356d4a4d3769d4a",
+  "source_application_attempt": 1,
+  "full_suite_run": false,
+  "runtime_after": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "git_index_unchanged": true,
+  "only_guard_changed": "FaBSim/Custom/SEARuntime.php"
+}

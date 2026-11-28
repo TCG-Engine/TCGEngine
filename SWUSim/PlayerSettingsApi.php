@@ -18,7 +18,7 @@ CheckSession();
 $uid = isset($_SESSION['userid']) ? (int)$_SESSION['userid'] : 0;
 // A guest is NOT an error here: muting still works for them, it just lives in their browser only.
 // Answering with mute=null lets the client fall back to its local value without special-casing.
-if ($uid === 0) return $respond(['success' => true, 'loggedIn' => false, 'mute' => null, 'cardLanguage' => null, 'hideHealthBars' => null]);
+if ($uid === 0) return $respond(['success' => true, 'loggedIn' => false, 'mute' => null, 'cardLanguage' => null, 'hideHealthBars' => null, 'homePanels' => null]);
 
 $action = $_POST['action'] ?? $_GET['action'] ?? '';
 
@@ -26,7 +26,8 @@ if ($action === 'get') {
     $m = SWUSimAccountMuted($uid);
     return $respond(['success' => true, 'loggedIn' => true, 'mute' => $m === null ? null : ($m ? 1 : 0),
                      'cardLanguage' => SWUSimAccountCardLanguage($uid),
-                     'hideHealthBars' => ($h = SWUSimAccountHideHealthBars($uid)) === null ? null : ($h ? 1 : 0)]);
+                     'hideHealthBars' => ($h = SWUSimAccountHideHealthBars($uid)) === null ? null : ($h ? 1 : 0),
+                     'homePanels' => ($hp = SWUSimAccountHomePanels($uid)) === null ? null : ($hp ? 1 : 0)]);
 }
 
 if ($action === 'set') {
@@ -63,6 +64,20 @@ if ($action === 'setHideHealthBars' || $action === 'promoteHideHealthBars') {
     if (!SWUSimSetSetting($uid, SWUSIM_SET_HIDE_HEALTH_BARS, $val)) return $respond(['success' => false, 'error' => 'save_failed']);
     $out = ['success' => true, 'loggedIn' => true, 'hideHealthBars' => $val];
     if ($action === 'promoteHideHealthBars') $out['promoted'] = true;
+    return $respond($out);
+}
+
+// "Home Panels Layout" (owner 2026-11-22). Same two-layer shape: set writes the account; promote carries a browser choice onto an
+// account that has NEVER set one. The browser layer is the swuHomePanels COOKIE (the server picks the layout before the page loads).
+if ($action === 'setHomePanels' || $action === 'promoteHomePanels') {
+    if (!array_key_exists('on', $_POST)) return $respond(['success' => false, 'error' => 'missing_on']);
+    $val = intval($_POST['on']) ? 1 : 0;
+    if ($action === 'promoteHomePanels' && SWUSimGetSetting($uid, SWUSIM_SET_HOME_PANELS) !== null) {
+        return $respond(['success' => true, 'loggedIn' => true, 'promoted' => false, 'homePanels' => SWUSimAccountHomePanels($uid) ? 1 : 0]);
+    }
+    if (!SWUSimSetSetting($uid, SWUSIM_SET_HOME_PANELS, $val)) return $respond(['success' => false, 'error' => 'save_failed']);
+    $out = ['success' => true, 'loggedIn' => true, 'homePanels' => $val];
+    if ($action === 'promoteHomePanels') $out['promoted'] = true;
     return $respond($out);
 }
 

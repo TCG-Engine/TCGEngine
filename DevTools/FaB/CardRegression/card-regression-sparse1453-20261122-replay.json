@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-riptide-lurker-of-the-deep-two-live-sparse1453-real-arsenal-instant-does-not-earn-hand-play-trigger-with-positive-loading-control",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-riptide-lurker-of-the-deep-two-live-sparse1453-real-arsenal-instant-does-not-earn-hand-play-trigger-with-positive-loading-control",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1453-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1453-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f129d2fd831289f575aef0eadd7c2902ef00a0f80369b4b6ed3f71740b05f3b0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56a44ff740b908a3e06144052a40cbb7bb0998baa6a94d38c9884bcf3c2fb5da",
+        "actions.json": "55d7adcb0d693876d4cd5824a2fea35606272af04658a30dcaca44b5b2cdc984",
+        "assertions.json": "3007ad6f560fd59abea75f433b8bc7638dc4583b3701682201c52c9932c651c4",
+        "expected_final_gamestate.txt": "10d11a2f649cd8d6ba8bb28b798be15246e9c97c3c4d122bad7c32932cc4d455",
+        "meta.json": "1ea8f4874f2582431b3d19349e7a645e8d77f2002d5cb088791a9b058e0b4b03"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

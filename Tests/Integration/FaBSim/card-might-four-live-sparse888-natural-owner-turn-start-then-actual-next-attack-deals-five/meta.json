@@ -1,0 +1,7 @@
+{
+    "name": "Might / sparse four-live natural start-turn representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:10:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this, then your next attack this turn gets +1{p}. Representative only: natural_owner_turn_start_then_actual_next_attack_deals_five. Actual owned Arena token, natural next-turn transition and four live/manual seats. No seeded token effect or supporting-card coverage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#might"
+}

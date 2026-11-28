@@ -1,0 +1,7 @@
+{
+    "name": "Dynastic Dedication / four-live actual Sword is not Dagger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:24:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This costs {r} less to play for each Draconic chain link you control.\n\nTarget dagger attack gets +3{p}. Namedattack-typelegalitynegativeonly. LegalFang20DraconicWarrior, primary5Hand, realDawnblade6Sword(notDagger) attacksadjacentDori4afteractualBlue7pays1/R2. AtactualownREACTION1currentWeaponAttackexistswithactualWarriorsValor8NAAdefender3; R2fullycoversprintedbasecost2 withoutdiscount. DraconicHerodoesnotchangeSwordtype. HNTexplicitdagger-targetfilterhasnolegalDaggersoARmustrejectbeforeplay/cost/chooser/Stack/prioritychange. Thenall4manualactualSword3vsDEF3/fullblock0/noHit/HP20/AP0; primary5retainedHand/physicalSword6used/Pitch7/8ownedGGY. No positiveDaggerbuff/conditionalpower/Fealty/costdiscount/typedtargettiming/hero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dynastic_dedication_red"
+}

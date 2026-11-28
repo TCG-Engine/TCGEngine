@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1565-20261122.json",
+  "source_spec_sha256": "fca0993646a45cc9a84a336bc9ffa9c49ea3fe60a67ddc24b5959dbb3ba21478",
+  "input_sha256": "fca0993646a45cc9a84a336bc9ffa9c49ea3fe60a67ddc24b5959dbb3ba21478",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dorinthea-four-live-sparse1565-blocked-weapon-earns-no-extra-use-despite-real-ap-and-resource",
+      "card_id": "dorinthea",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7516ceb2f2ccaee8d6f6e28055867f869df1f0267a7bedbcbe8eb496371106b9",
+        "actions.json": "24d49ee0a1a2ed6f115fad7f1afec0e276cd6b2b3fc14c68d086c7ee2a111462",
+        "assertions.json": "ce0286af20d499dbbce9ea494c9c6fede5f75a51bfbc1186c3eb458045d19793",
+        "expected_final_gamestate.txt": "f626d3db0b324d0819576e1fec4b7d5113d987e9ac4d71e5939f3f34284042d1",
+        "meta.json": "1c1ee91dad346d80ca01eb7f9f53d081bd3e1f89db647034e7a5f2417bcac864"
+      },
+      "fixture_sha256": "7a7597e8c1d4fbfb57ae4be18708bacf2f566fcaaa67d9d2e4b9d5f2969a43dd",
+      "actions": 39,
+      "native_assertions": 630,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1565-20261122.json",
+      "input_sha256": "fca0993646a45cc9a84a336bc9ffa9c49ea3fe60a67ddc24b5959dbb3ba21478",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1565-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dorinthea-four-live-sparse1565-blocked-weapon-earns-no-extra-use-despite-real-ap-and-resource",
+        "fixture_slug": "card-dorinthea-four-live-sparse1565-blocked-weapon-earns-no-extra-use-despite-real-ap-and-resource",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1565,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T14:24:24.783114+00:00",
+    "spec_sha256": "fca0993646a45cc9a84a336bc9ffa9c49ea3fe60a67ddc24b5959dbb3ba21478",
+    "source_note_sha256": "c94bd96f7454690cd2006a7c24887e98c377e85d4ce32a6640e45ed3fae13f97",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "ActualPotion2, targetlessHitAndRun selfGA/staticnextWeapon grant beforeanyWeaponattack (no+3); Sword1leavesR1/power3, realHandDEF3 yields0damage/noHit. Dori firstHit/Dawnblade secondHit events unearned.",
+      "PhysicalSwordStatus1/singleUse counters/TurnEffects[], HeroCounters[] remain afteractualGAAPrefund1/fullClose. RepeatSwordclick withAP1R1 testsactualusegate rejection beforetarget/cost/layer.",
+      "Allfourmanualloops/UIDs5-10/canonicalCCOwner1/targetHero4/fates coherent. 39controls630assertions; no source/framework changes."
+    ],
+    "limits": [
+      "Source/spec review only; native/save and firsttargetedreplay pending. PositiveDoriHit/timing/extraUse/turnReset andsupport/wholecard remainuncredited."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1565-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6bab28b344020bbd1a36302f09ef28fe41c2939b03cd7d4490fcb583167aca1f"
+  },
+  "full_suite_run": false
+}

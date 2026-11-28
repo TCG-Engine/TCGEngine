@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "source_spec": "card-regression-repair-submerge-red-hand-choice-20261126.json",
+  "input_sha256": "df59083f647dda546683e18fcca444ab70699c738e992572b1a88b35228c742f",
+  "fixtures": [
+    {
+      "slug": "repair-submerge-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "card_id": "submerge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb3907f30e6fd006a41e81945ba0fe4488d25ade4c132fde03791f04df296066",
+        "actions.json": "138fd9aa76d5c9b7199fdc8760f28ed4ba07e4eebfdd8992f5d255935103eb4e",
+        "assertions.json": "1dadd854b0f2218c05ce40809c286b8c715451dbce9b4ffc82eba3c78caa1313",
+        "expected_final_gamestate.txt": "7ba01bc879cedffc3e1c559d31145d1420da1a0dea9a242f4a8c516b3290407f",
+        "meta.json": "9120c583fccb0c9f440cdb71e5b5c9144398e41f54f680dfd0b8eb22ddd8e4be"
+      },
+      "fixture_sha256": "f9f99b58bb7b5b10e16dd9578b374f82aa0369d4ce34245c9718f1eafc90d540",
+      "actions": 7,
+      "native_assertions": 232,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "runtime_sha256": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "source_spec": "card-regression-repair-submerge-red-hand-choice-20261126.json",
+      "input_sha256": "df59083f647dda546683e18fcca444ab70699c738e992572b1a88b35228c742f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_CALLER_QUALIFICATION",
+    "runtime_before": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+    "path": "FaBSim/Custom/WTRCards.php",
+    "before_sha256": "34e00bac47d38444c032807f47429ac257c2a94bd1c07336464bca186b6defe3",
+    "candidate_sha256": "24bd9d8cc2db7bd88c324a4ed06f12b420518341581eefa2629aa3fdd952ea73",
+    "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\candidate\\WTRCards.php",
+    "scope": "One shared writer-coordinate mapper, exact five owned generated Prepare profiles. Clone only the matching decision; preserve live Hand/frame/callback/eligible identity sets and all RNG/material. No generated/Core changes.",
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5"
+  },
+  "targeted_replays": {
+    "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+    "fixtures": [
+      {
+        "slug": "repair-submerge-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "passed": true,
+        "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-submerge-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\submerge_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "3161011ec58aec7a6ea4efacf71646702df5da78e6f6aabf50d62947f3fb3725",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "No sibling-pitch or whole-card credit.",
+    "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+    "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+    "Primary-agent semantic/saved review only; no separate-agent approval.",
+    "Default strict comparator unchanged; full suite not yet run."
+  ],
+  "scope": "Shared save-coordinate mapper retains original offered physical identities for five exact owned Prepare continuations after source-Hand removal; live Hand, generated continuation locals, eligibility and RNG untouched. This witness verifies the named caller, not unknown callers or untested branches.",
+  "additional_validation": {
+    "component_checks": 22,
+    "original_correct_reference_probes_pass": 5,
+    "unsaved_positive_Fusion_identity_control_pass": true,
+    "missing_mapper_causal_fault_control_pass": true,
+    "source_operation": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\apply-operation.json"
+  }
+}

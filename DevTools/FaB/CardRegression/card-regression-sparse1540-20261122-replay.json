@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-consuming-aftermath-red-four-live-sparse1540-real-potions-fund-empty-hand-no-dominate",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-consuming-aftermath-red-four-live-sparse1540-real-potions-fund-empty-hand-no-dominate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1540-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1540-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "82a8f7b830ed9d6fe5fe6716c7e43d702f6b1a765fc8a8f9f3397ef1f58336a2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cad9533435e815ba573f0301b27a8ed143362ff3814692dad9f3dc6ea1e67d9",
+        "actions.json": "114da9a709c6b87620eafdcb7e8988cd0e6b031a507a1a8683aebd8a02d93304",
+        "assertions.json": "e483b1c7507297995e9ca5fda192dfdc6597ed957d017b925458d9293334108e",
+        "expected_final_gamestate.txt": "2df97aff59e4b4d489b636657a823ade22164b917ed9005bbacfc2f983b081f2",
+        "meta.json": "2fdf900f644232f1a7903af617169c1224c8ea055375e0088695671e1ec74dcb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

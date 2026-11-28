@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-argh-smash-yellow-four-live-sparse1111-accepted-five-destroys-two-real-items-and-earns-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-argh-smash-yellow-four-live-sparse1111-accepted-five-destroys-two-real-items-and-earns-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1111-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1111-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "beff3131130dc4af76a7c242f5a66ab266da226f930b80abeec193d26890ab27",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b6b1308e84a59567e53b475a74723b6d5c980566bd479ce9c3158d33210756d",
+        "actions.json": "9bab2e821d43d481474231a1cf54f522ba202301d81791dc6cc3da5038d8db3d",
+        "assertions.json": "683728016c861bb0fbec17c5d32be8895d88ff85ee80bea8c3f31f369b97dda8",
+        "expected_final_gamestate.txt": "fd2f074a6b92a120b69405029070927ad8fb4f72184d71ac550cd4bffcc7e28d",
+        "meta.json": "ac42082f83c72fe409fabfc30505c5cb81bde9b2fde4a0b8111128218c0e6692"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

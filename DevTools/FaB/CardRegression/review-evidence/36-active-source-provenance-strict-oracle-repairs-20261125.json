@@ -1,0 +1,2760 @@
+{
+  "status": "EXACT_REVIEWED_STRICT_FINAL_ORACLES",
+  "review": {
+    "reviewer": "/root/breadth_review1457",
+    "approved": true,
+    "scope": "Exact36 active-reference cases incl60/92/220/355,180raw5guards, wholecandidate equality,101mzIDonly capsules and123accounting placements. Every original physical Grave UID/card startsHand and has exactlyONE qualifying native last-response origin;101derivedindices/sourcezones match without choosing proposedindex. Underlying Stack/Params exact;DQ/await/pending/resolving ownership inactive. GL2093to99 rebinds next ordinary resolver live source; ARC178to199 initializes sourceUID/context for pending equipment/Gold layers. Source-derived invocation ref corrections, not arbitrary stale params globally irrelevant. Normal strict targeted PASS required. Reviewer ran no games/tests/writes.",
+    "provenance_sha256": "14260dae31679cb493adb6b8dbed5443b0e98909d28b7ae9c53ef38a084bc748"
+  },
+  "review_manifest_sha256": "403f69b445ba9faf27e0ca2487c13fcd78b0c00f0e0feed469b04f78a99ea65e",
+  "runtime_sha256": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "number": 1,
+      "slug": "card-aether-dart-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-dart-blue-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-001.log"
+      ],
+      "complete_log_sha256": "5b590f078a4c7092a8df4c6aac3e49363127d0373c8424d59249f13eed72924f",
+      "before_expected_sha256": "19f5c75d55965f764df082a731312b181cc18648c6c5f6815f97089c1399f568",
+      "expected_sha256": "c92cfa50a662819044a382ed9889197b8513d1cbed91f560961a4ae569f0009a",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "a9b6daec37a88ced217c61c3da4009ad2b65b895779fecff4e9b4c9ee93c5473",
+          "before_rows_sha256": "728fe2b4bef70409ca00bdf13ee515159579d6bf8a562f2aa742b4b982527bc7",
+          "after_rows_sha256": "29968af1a772f60610ba3a6e91d1921a1a752eca462f09246e152c6b4b3a5dd9"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-002.log"
+      ],
+      "complete_log_sha256": "7fbc3994dddc470973898dcefaf4f57f31694da842b1f41f6fac04f07e783022",
+      "before_expected_sha256": "cfb4fd45a4dbd6d3d44d7540a8eb1fcf6590075a800e1a99e9d65810a1fc7dec",
+      "expected_sha256": "1d1518993a27ed26d8459d7f79951cec44cf98ba03ce38bea28ead9405809fd6",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "1ad72713f4c4b7d4d72521391bfccdc364b040356799d755107eec7fb5857ff4",
+          "ordered_nonaccounting_sha256": "a2f064d1a68e6ef30320f102379d28bc22f19d3cf0f812a576bb934fb5e91a91",
+          "before_rows_sha256": "05d5baece2c6d6c3dde503e4ba8de6ebcf746062a8d888902b327ed046a4362b",
+          "after_rows_sha256": "cff9b20f57ed7b301cbd29f8b958567a7b9a2141ee7e38876d26f4908c165eb7"
+        },
+        {
+          "location": "line98/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p3Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line98/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "a2f064d1a68e6ef30320f102379d28bc22f19d3cf0f812a576bb934fb5e91a91",
+          "before_rows_sha256": "2b9f19ad73df741431f420eced864c8e569ada741983ed1ff608f5655530640c",
+          "after_rows_sha256": "76efe6ab4c2795e821cf0e8717d2ad355bade0eb73a35df8c622bd647973190e"
+        },
+        {
+          "location": "line100/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p3Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "a2f064d1a68e6ef30320f102379d28bc22f19d3cf0f812a576bb934fb5e91a91",
+          "before_rows_sha256": "2b9f19ad73df741431f420eced864c8e569ada741983ed1ff608f5655530640c",
+          "after_rows_sha256": "76efe6ab4c2795e821cf0e8717d2ad355bade0eb73a35df8c622bd647973190e"
+        },
+        {
+          "location": "line102/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p3Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "a2f064d1a68e6ef30320f102379d28bc22f19d3cf0f812a576bb934fb5e91a91",
+          "before_rows_sha256": "2b9f19ad73df741431f420eced864c8e569ada741983ed1ff608f5655530640c",
+          "after_rows_sha256": "76efe6ab4c2795e821cf0e8717d2ad355bade0eb73a35df8c622bd647973190e"
+        },
+        {
+          "location": "line104/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p3Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "3",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "a2f064d1a68e6ef30320f102379d28bc22f19d3cf0f812a576bb934fb5e91a91",
+          "before_rows_sha256": "2b9f19ad73df741431f420eced864c8e569ada741983ed1ff608f5655530640c",
+          "after_rows_sha256": "76efe6ab4c2795e821cf0e8717d2ad355bade0eb73a35df8c622bd647973190e"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "slug": "card-aether-dart-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-dart-red-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-003.log"
+      ],
+      "complete_log_sha256": "5059e2c367245374ed8397ae1da39b043e3d0390af866cec95fbf818ba8f365d",
+      "before_expected_sha256": "f39c407fb6b631c7256346ac3a6a3143be0428948bbfa2c009bc58cfcfe6dbb9",
+      "expected_sha256": "fea8555d8fb6dcd7132c406aa8d4f4ef5529f3060b8d32c80debafd163a761c2",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "e0af76bdb47072503340b8e23c73442025d79aff60ebbc23697ac96e9661b601",
+          "before_rows_sha256": "2d87967a0c920b8dd26d7b2281259250e695a95c22c936eabfe8f6fb7c7f735d",
+          "after_rows_sha256": "be9f560e5fe8b2b9504afd45ae0a289ea9f751ad131deac632d3bc1c28d5f29e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "slug": "card-aether-dart-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-dart-yellow-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-004.log"
+      ],
+      "complete_log_sha256": "e282d99656270e34dd0e23bee742dd1f799951dc49c7accc4164e5f560c1c1bd",
+      "before_expected_sha256": "b1a82b4d8ce5c19268053f34f077b29068e625973c47717a312996d5bad1e686",
+      "expected_sha256": "fee65e0f3c12cc886763b6e0fde10e8073661e9f4b10c5284e7d7e137dfa3f98",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "25a0c53c830c190280f9e232d41ff793f2aeeebc700f06504368be33d5fd7eec",
+          "before_rows_sha256": "c5c08b87ef51f57efa421b9ada8bc257ad345ccd9f553313dc9a7be729cebbbf",
+          "after_rows_sha256": "8b0721324f8521eabd67968cdb80d609089abed934321d238a41c9da2196d25e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "slug": "card-aether-hail-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-hail-blue-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-006.log"
+      ],
+      "complete_log_sha256": "f4b88f07e5318fcefaf5e4d19089e173e379d4a32f443ad199917e74d7cc704f",
+      "before_expected_sha256": "6fee47c6dad63c0248a5d9bcdb4a901d3c43e952b33c6849e01e8997890b69d5",
+      "expected_sha256": "ddffe8c4de8df0c09b779e7c02240d09d992bfe2902e67a07fd0c55d862ce681",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "25a0c53c830c190280f9e232d41ff793f2aeeebc700f06504368be33d5fd7eec",
+          "before_rows_sha256": "c5c08b87ef51f57efa421b9ada8bc257ad345ccd9f553313dc9a7be729cebbbf",
+          "after_rows_sha256": "8b0721324f8521eabd67968cdb80d609089abed934321d238a41c9da2196d25e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "slug": "card-aether-hail-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-hail-red-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-007.log"
+      ],
+      "complete_log_sha256": "ca9a1605e53e573df772cd0fab9ee7906edb2c6af97fd5e6abd80c9d284caba3",
+      "before_expected_sha256": "562064ffa521e77388f9f498abe9bd24a9d543b0a06fd665498a1671ff26de3f",
+      "expected_sha256": "0f076921719c1b9dfd81999e2d4bbe5c872c8fa5d5894692942b8970e303dadf",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "cc76c5411fb3c94ddf4202631d28d9f2e3f60fca205e2cc3025e9f240205e1e7",
+          "before_rows_sha256": "b6709bdef6209e8838ae78b7f028c3aa97b9f12b4e6e149511d55b48e5d1f8b8",
+          "after_rows_sha256": "48a0c7e17c3c77e9262a2eb2f2220bc67e9add2ef5e30d8b20a10bd39b1b4d68"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "slug": "card-aether-hail-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-hail-yellow-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-008.log"
+      ],
+      "complete_log_sha256": "23f943ba68e89dad04d025ef317bfdcf1c1985bef841632750c7c2bbbd556ad3",
+      "before_expected_sha256": "63b455f1abac20685e355a0ac39100b65abd7fdb6c039345c60772fcdeb6eec0",
+      "expected_sha256": "0161dd15ac53f3944e23b34cb74d01debe8bb9c1a2b9b4b94d2befb277a2463d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "e0af76bdb47072503340b8e23c73442025d79aff60ebbc23697ac96e9661b601",
+          "before_rows_sha256": "2d87967a0c920b8dd26d7b2281259250e695a95c22c936eabfe8f6fb7c7f735d",
+          "after_rows_sha256": "be9f560e5fe8b2b9504afd45ae0a289ea9f751ad131deac632d3bc1c28d5f29e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "slug": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-010.log"
+      ],
+      "complete_log_sha256": "2bd356ba7fdaf2bb048ea08fd46d4ef9ca00966e27d86dcefa9717129c50ab7a",
+      "before_expected_sha256": "f0852eadb951dad83b465395f2c838f3fc9dd9bdf2a75f69cb1cb6155e0d656c",
+      "expected_sha256": "846bd0ba9d2ab6195a837e7c78f5fb589879046201351cf30750b54855b0705d",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line89",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "fb0d250be2a764db065da8360f4d94dd14d7b8760d7370618e463725e382f4bf",
+          "before_rows_sha256": "b2179df74ae3de467de971e19d11141f69c29f1db7c495fc26cfcdc3c65cea9e",
+          "after_rows_sha256": "2f3d44219e8e2631c4fac3920fa62f30d820d4ca8378646cf2900625f5fd5650"
+        },
+        {
+          "location": "line109",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "slug": "card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-020.log"
+      ],
+      "complete_log_sha256": "d8674fde6abc650468434d724c1b9c88b0ff06d73d17f51beac6324bcb21787f",
+      "before_expected_sha256": "a777ac7ff800d63975828b77038ee0ba92acfd217d8abc007b9ba39948b53b32",
+      "expected_sha256": "421e4b552428c1377a31fe67c0c870b430ca33b31d8c5c8fafea0cd3e9dcd4c5",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "034252813daaf44caf4cf2496dc2fc0a0a67e24f6b2c238548f9920c763fca87",
+          "before_rows_sha256": "bacc9fc25e2726a9c70d6e35ac1340f2972d220256441088845201f36ee0d7d9",
+          "after_rows_sha256": "de9cbc1b5c7ec0c92f0a37b49d67b4b6f88fc3db0e04e890c89a38796ba87062"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 34,
+      "slug": "card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-034.log"
+      ],
+      "complete_log_sha256": "09f5164b6091c764fdb7140ae1950f653b18e39501ed54b6af0c9182230d32db",
+      "before_expected_sha256": "03de91424f0d7b1ff0390b73471a152bb258d0c260330cad56f06356f92356be",
+      "expected_sha256": "280126e4daf5acd6c9ede5f16629fa27ce813c492d2c9d059e65fcab253f59a1",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "ae3ee54f670934e4cbd2893396a820ef13e7cdf4ca6f65c399087e6e5ac2df16",
+          "after_rows_sha256": "862ff65d5044f98a424c719520889bebf30cfaf9cf65b78660b4aecf5ad8211d"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "slug": "card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-048.log"
+      ],
+      "complete_log_sha256": "5fc7406840098b85cc3dccdb9282ffc7fd87d9886aab293022b8b6f9ba1214ea",
+      "before_expected_sha256": "db46556fc46345baca692be12b0ee590210c40ee5f4a75a8ccf843e46e7fcc57",
+      "expected_sha256": "fb25302fde8e159109c23db3add4141f78562a38bc712f201c5acfcb764c3e20",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "3f8306769104646f273ccc6fbbf075f5b12e8963e466d1bc40a2dbf8a062053e",
+          "ordered_nonaccounting_sha256": "bc1a5a596b6c0aa97d85bb7beca5e78f8862eec78235e9f4a3ba90cbbfda7463",
+          "before_rows_sha256": "ae3ee54f670934e4cbd2893396a820ef13e7cdf4ca6f65c399087e6e5ac2df16",
+          "after_rows_sha256": "862ff65d5044f98a424c719520889bebf30cfaf9cf65b78660b4aecf5ad8211d"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 60,
+      "slug": "card-balance-of-justice-four-live-sparse-real-opponent-draw-two-then-owned-instant-draw",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-balance-of-justice-four-live-sparse-real-opponent-draw-two-then-owned-instant-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-060.log"
+      ],
+      "complete_log_sha256": "e8db1ba983ca0b231d44d8d62874c8c1acf724658d288d6371b422c1e126c442",
+      "before_expected_sha256": "1ab31ea71dd8a84891526e427dddab42bb4ecdb3a53a39192d22adc486f3cac3",
+      "expected_sha256": "5dd56ca0e5330ec3619ef89a414aecf3f0140599c342dd5545577720ff7d66f8",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line92",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8ff7ae1abf2540c08e80e1e7e98143e3ca11ce6b195aa7305e2cf12b8d680aec",
+          "before_rows_sha256": "b679ba8059f29adb8dc4fc5351abbf861dde2abd0a9416d39f7e0e1fb7183261",
+          "after_rows_sha256": "4437f814e3c0caa0d7bcf869b7f848ef3548f1f1da357db99d85c3ba283d2620"
+        },
+        {
+          "location": "line101/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8ff7ae1abf2540c08e80e1e7e98143e3ca11ce6b195aa7305e2cf12b8d680aec",
+          "before_rows_sha256": "b679ba8059f29adb8dc4fc5351abbf861dde2abd0a9416d39f7e0e1fb7183261",
+          "after_rows_sha256": "4437f814e3c0caa0d7bcf869b7f848ef3548f1f1da357db99d85c3ba283d2620"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8ff7ae1abf2540c08e80e1e7e98143e3ca11ce6b195aa7305e2cf12b8d680aec",
+          "before_rows_sha256": "b679ba8059f29adb8dc4fc5351abbf861dde2abd0a9416d39f7e0e1fb7183261",
+          "after_rows_sha256": "4437f814e3c0caa0d7bcf869b7f848ef3548f1f1da357db99d85c3ba283d2620"
+        },
+        {
+          "location": "line105/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8ff7ae1abf2540c08e80e1e7e98143e3ca11ce6b195aa7305e2cf12b8d680aec",
+          "before_rows_sha256": "b679ba8059f29adb8dc4fc5351abbf861dde2abd0a9416d39f7e0e1fb7183261",
+          "after_rows_sha256": "4437f814e3c0caa0d7bcf869b7f848ef3548f1f1da357db99d85c3ba283d2620"
+        },
+        {
+          "location": "line107/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8ff7ae1abf2540c08e80e1e7e98143e3ca11ce6b195aa7305e2cf12b8d680aec",
+          "before_rows_sha256": "b679ba8059f29adb8dc4fc5351abbf861dde2abd0a9416d39f7e0e1fb7183261",
+          "after_rows_sha256": "4437f814e3c0caa0d7bcf869b7f848ef3548f1f1da357db99d85c3ba283d2620"
+        }
+      ]
+    },
+    {
+      "number": 80,
+      "slug": "card-blink-blue-opponent-response-before-scalar-gain",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blink-blue-opponent-response-before-scalar-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-080.log"
+      ],
+      "complete_log_sha256": "479b1cb01462fe3cf2033e84c25ba360d74bdeea17ec5dad1436e5d698943fea",
+      "before_expected_sha256": "c530225a27f80ae55cbc2e1e91d35abb39472326846fb4553ad3733c3f017fe5",
+      "expected_sha256": "45993426f65e742e218f3628b1ee7939ede538ef6ab16c048af54a9f36f209a3",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 82,
+      "slug": "card-blink-blue-two-copies-stacked-resolve-one-at-a-time",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blink-blue-two-copies-stacked-resolve-one-at-a-time",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-082.log"
+      ],
+      "complete_log_sha256": "eb75c32368d3e4ae5c703d3a3b1db2c998b3c41e8ea08625164677d6433590fc",
+      "before_expected_sha256": "f11708964221b00d9b590e5613bbfe13908da8c47cf159e94b1b7478b82919be",
+      "expected_sha256": "3081639c4e61a2757d9734e4f9107c693174e867baec26cce32982b4cdaac33f",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 91,
+      "slug": "card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-091.log"
+      ],
+      "complete_log_sha256": "4b54454ae4d972102557d5a4702d20a1bc35df2f33762b7106be1df92e138cae",
+      "before_expected_sha256": "b0e2328700e674244f3f8817c5ce3c30d064d2b046a5f55be80412344279423e",
+      "expected_sha256": "b96afa27e632b74e3e73e113121f2b3cbdaae41ec7ca061d0d61d93d572ab6c5",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line99/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "3edd689df321cd59cfdb29991f121fdcaf7573cfd1d73ceadfceb9ac872644fb",
+          "before_rows_sha256": "53325942670feb693b722bcca287e05bd787f57f75fa8e284a90a65a6d5fea09",
+          "after_rows_sha256": "a72ce93aecce30e98752709820e98315ad9f6f54f606d0478402716f36d537bf"
+        },
+        {
+          "location": "line101/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "3edd689df321cd59cfdb29991f121fdcaf7573cfd1d73ceadfceb9ac872644fb",
+          "before_rows_sha256": "53325942670feb693b722bcca287e05bd787f57f75fa8e284a90a65a6d5fea09",
+          "after_rows_sha256": "a72ce93aecce30e98752709820e98315ad9f6f54f606d0478402716f36d537bf"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "3edd689df321cd59cfdb29991f121fdcaf7573cfd1d73ceadfceb9ac872644fb",
+          "before_rows_sha256": "53325942670feb693b722bcca287e05bd787f57f75fa8e284a90a65a6d5fea09",
+          "after_rows_sha256": "a72ce93aecce30e98752709820e98315ad9f6f54f606d0478402716f36d537bf"
+        },
+        {
+          "location": "line105/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "261dfde05729517e382a05c743f5a4c2144ada1f5086e41407e96d21c945f230",
+          "ordered_nonaccounting_sha256": "3edd689df321cd59cfdb29991f121fdcaf7573cfd1d73ceadfceb9ac872644fb",
+          "before_rows_sha256": "53325942670feb693b722bcca287e05bd787f57f75fa8e284a90a65a6d5fea09",
+          "after_rows_sha256": "a72ce93aecce30e98752709820e98315ad9f6f54f606d0478402716f36d537bf"
+        }
+      ]
+    },
+    {
+      "number": 92,
+      "slug": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-092.log"
+      ],
+      "complete_log_sha256": "7dc374b50c935f3ccb5c3548a5af6df46b672aae00c1fc088c0b275c5ca71b84",
+      "before_expected_sha256": "f15557efc246ef5a34ecf2da476997cf08a135830074623328abe731daf8a53e",
+      "expected_sha256": "7aad891f10227bfc4795b27330eb3ddbb9f188fc1dfcade2fe15090d4bcd508e",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8b7ec21ba4e27c42110ef7399b6786caa54a82cd9e79d1f8384af37e754d2988",
+          "before_rows_sha256": "faa85ff1a195d125317dd91e3689bc13d9c2fdd19526c48b209e70de48710686",
+          "after_rows_sha256": "b9344444541df023912e80ffb0998e39a96297689753012b8aed911c0cda9721"
+        },
+        {
+          "location": "line99/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8b7ec21ba4e27c42110ef7399b6786caa54a82cd9e79d1f8384af37e754d2988",
+          "before_rows_sha256": "faa85ff1a195d125317dd91e3689bc13d9c2fdd19526c48b209e70de48710686",
+          "after_rows_sha256": "b9344444541df023912e80ffb0998e39a96297689753012b8aed911c0cda9721"
+        },
+        {
+          "location": "line101/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8b7ec21ba4e27c42110ef7399b6786caa54a82cd9e79d1f8384af37e754d2988",
+          "before_rows_sha256": "faa85ff1a195d125317dd91e3689bc13d9c2fdd19526c48b209e70de48710686",
+          "after_rows_sha256": "b9344444541df023912e80ffb0998e39a96297689753012b8aed911c0cda9721"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8b7ec21ba4e27c42110ef7399b6786caa54a82cd9e79d1f8384af37e754d2988",
+          "before_rows_sha256": "faa85ff1a195d125317dd91e3689bc13d9c2fdd19526c48b209e70de48710686",
+          "after_rows_sha256": "b9344444541df023912e80ffb0998e39a96297689753012b8aed911c0cda9721"
+        },
+        {
+          "location": "line105/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "8b7ec21ba4e27c42110ef7399b6786caa54a82cd9e79d1f8384af37e754d2988",
+          "before_rows_sha256": "faa85ff1a195d125317dd91e3689bc13d9c2fdd19526c48b209e70de48710686",
+          "after_rows_sha256": "b9344444541df023912e80ffb0998e39a96297689753012b8aed911c0cda9721"
+        }
+      ]
+    },
+    {
+      "number": 111,
+      "slug": "card-cosmic-flare-red-opponent-response-before-scalar-gain",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cosmic-flare-red-opponent-response-before-scalar-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-111.log"
+      ],
+      "complete_log_sha256": "cb9d5b53c1d58f6d14436f567676e604495de969602930c7ff974261154c480d",
+      "before_expected_sha256": "95892da3f0118cd8dcf121a5f4fe2f217efed52d442f321431c5d06bbf459826",
+      "expected_sha256": "11506e863cbe331fa792b4caf0c5aa33c3a055149ca5a3e9ed54de6429af20e9",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 113,
+      "slug": "card-cosmic-flare-red-two-copies-stacked-resolve-one-at-a-time",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cosmic-flare-red-two-copies-stacked-resolve-one-at-a-time",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-113.log"
+      ],
+      "complete_log_sha256": "550783e69a611053e375b42aa46db6b57bf2f0cf2ab7bc17ee8dece258b3a0d1",
+      "before_expected_sha256": "e37ecc3097902d43d3366e5d00afa620381adf94fa2bf8db27913bec9fa60d7b",
+      "expected_sha256": "b7e20283a779298ce9ae532be8cf12dad0d1cd6531e77be651384c83f9a33c44",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-1",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 136,
+      "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-136.log"
+      ],
+      "complete_log_sha256": "f57dd738cabe8398a07a4aaef8ca47f848284f49a084c5c003d5347ff6ae1013",
+      "before_expected_sha256": "0e217b447fe375b69c80ab6e9831ec3e27e6eb10e29d7c99c66a07b1b5a36226",
+      "expected_sha256": "57c0211a22ca6f36f9202dbf9fdde446aff6ca3d488bb23bf702c83d376692de",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line100/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e7be57caf1714aa4a332e762baa7ae2e9c324e45026940eec4fcda69b3a27a37",
+          "before_rows_sha256": "f935c72551c6440ef3ab5197f97715c94f2d203c25f756e096139f20bbc63681",
+          "after_rows_sha256": "961975be1d6649f0fd557c7d71ead077dacc1c89273b7a183c65dad7514914e0"
+        },
+        {
+          "location": "line102/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e7be57caf1714aa4a332e762baa7ae2e9c324e45026940eec4fcda69b3a27a37",
+          "before_rows_sha256": "f935c72551c6440ef3ab5197f97715c94f2d203c25f756e096139f20bbc63681",
+          "after_rows_sha256": "961975be1d6649f0fd557c7d71ead077dacc1c89273b7a183c65dad7514914e0"
+        },
+        {
+          "location": "line104/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e7be57caf1714aa4a332e762baa7ae2e9c324e45026940eec4fcda69b3a27a37",
+          "before_rows_sha256": "f935c72551c6440ef3ab5197f97715c94f2d203c25f756e096139f20bbc63681",
+          "after_rows_sha256": "961975be1d6649f0fd557c7d71ead077dacc1c89273b7a183c65dad7514914e0"
+        },
+        {
+          "location": "line106/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "e7be57caf1714aa4a332e762baa7ae2e9c324e45026940eec4fcda69b3a27a37",
+          "before_rows_sha256": "f935c72551c6440ef3ab5197f97715c94f2d203c25f756e096139f20bbc63681",
+          "after_rows_sha256": "961975be1d6649f0fd557c7d71ead077dacc1c89273b7a183c65dad7514914e0"
+        }
+      ]
+    },
+    {
+      "number": 159,
+      "slug": "card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-159.log"
+      ],
+      "complete_log_sha256": "eb157e4e2a44fd25f7168041a240c16036657db60e395cbc461384acfe8db507",
+      "before_expected_sha256": "b109b23b1b5c9c2af00a66caba3b32357e9b276d4e27d17cde171301d3d526de",
+      "expected_sha256": "7cc9c8855634d0598a02a4b84d5b6a78c72d2ba7bccd458cf728ca3cdae4be28",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "72eb0ee7dafc03050f3ba3e98ae1aec331c293d63edd84aa695cf34b39b89e0d",
+          "ordered_nonaccounting_sha256": "2464572c5c59c60c4034b94e72ea5475077b4375da5593a615a581eefb2fc825",
+          "before_rows_sha256": "d9a6c94478ae1137383326835e92c9710565c0c1b32508b787d702497485cad7",
+          "after_rows_sha256": "eb8258cc0b75e849b19d64ea4d11c7e9890462a12353a16a8985ca9090fdeb3d"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 176,
+      "slug": "card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-176.log"
+      ],
+      "complete_log_sha256": "d7bb31fc8302844b5ffe822d5de842173c42a3ddf43074ccafe90f159c6860e4",
+      "before_expected_sha256": "96e3fdff0563223f08433760017772e1a822079d460310687eaf8ac4ba5218b9",
+      "expected_sha256": "d4e481be4dbc0d67b30f9c36173fc09da673a53d8f18940379e4430dfd732f46",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "d6996308c4b2864bebdc5077d2a54a1235d708696ee513859e38bfdc31bd6e72",
+          "ordered_nonaccounting_sha256": "ca9e769cd914f70a5268b319225b7ba5765c7bf01188d8a3b5dcf77c83d77906",
+          "before_rows_sha256": "dfc436a4e19b3ee1a4a16bb95c3f23184630eb246de696beab9c5ff3358e3a53",
+          "after_rows_sha256": "0bb405d2f662f8e43b070efb2a858bbc9e8aa0806bcb5fec944a452debd7c622"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 191,
+      "slug": "card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-191.log"
+      ],
+      "complete_log_sha256": "5724713d91d0b1c473f45b388660a057d73161c4ebe927ebae3bfa6d7729689d",
+      "before_expected_sha256": "f9e861b8b57c3d89111b81f54d9b84cacd634d21c2cd5267a4ed05d2ede1679f",
+      "expected_sha256": "c9e8832072fef0bdbf7178eb3e025168322d7763a17c27cc6e8e4b59ea8a2221",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "d6996308c4b2864bebdc5077d2a54a1235d708696ee513859e38bfdc31bd6e72",
+          "ordered_nonaccounting_sha256": "ca9e769cd914f70a5268b319225b7ba5765c7bf01188d8a3b5dcf77c83d77906",
+          "before_rows_sha256": "dfc436a4e19b3ee1a4a16bb95c3f23184630eb246de696beab9c5ff3358e3a53",
+          "after_rows_sha256": "0bb405d2f662f8e43b070efb2a858bbc9e8aa0806bcb5fec944a452debd7c622"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 209,
+      "slug": "card-frosting-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frosting-blue-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-209.log"
+      ],
+      "complete_log_sha256": "a31291da66961d4d3cc8541ca495c667cfc98d66b5f2069db5a0e4539002888b",
+      "before_expected_sha256": "c81d7e8806bd6ffe3dc012e3bfceb0e1a95b18f5dec9335b8baa7a87144b3b7f",
+      "expected_sha256": "e697902d997eb46eb0a710fc9764853429d6a332b589b14a1871d575311df966",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "a9b6daec37a88ced217c61c3da4009ad2b65b895779fecff4e9b4c9ee93c5473",
+          "before_rows_sha256": "728fe2b4bef70409ca00bdf13ee515159579d6bf8a562f2aa742b4b982527bc7",
+          "after_rows_sha256": "29968af1a772f60610ba3a6e91d1921a1a752eca462f09246e152c6b4b3a5dd9"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 210,
+      "slug": "card-frosting-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frosting-red-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-210.log"
+      ],
+      "complete_log_sha256": "ba5ea6e290918565a338552e112f2679d25eb87c440d4c58e360681eedc2ca72",
+      "before_expected_sha256": "b8dcdae59ee5146743802a75bc7396c16ffa771847c455d43326e5462374c5b3",
+      "expected_sha256": "96c66f343eefdae7fdba10fc45ae6b20a3dae823e46cba09ab847adddfb50e34",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "e0af76bdb47072503340b8e23c73442025d79aff60ebbc23697ac96e9661b601",
+          "before_rows_sha256": "2d87967a0c920b8dd26d7b2281259250e695a95c22c936eabfe8f6fb7c7f735d",
+          "after_rows_sha256": "be9f560e5fe8b2b9504afd45ae0a289ea9f751ad131deac632d3bc1c28d5f29e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 211,
+      "slug": "card-frosting-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frosting-yellow-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-211.log"
+      ],
+      "complete_log_sha256": "3180983882aeecef22746b18d01d9cc55f075f51546ca2b28f2eed686b3f1285",
+      "before_expected_sha256": "7383bb1f7e125f616ababb75a5aad86dbdeec5e9507661983ddad4a3d28ec981",
+      "expected_sha256": "9dbfdbd0d280b7ed36dda12e64072fb4230980442c7074e29a2f3e7fca16b2b8",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "25a0c53c830c190280f9e232d41ff793f2aeeebc700f06504368be33d5fd7eec",
+          "before_rows_sha256": "c5c08b87ef51f57efa421b9ada8bc257ad345ccd9f553313dc9a7be729cebbbf",
+          "after_rows_sha256": "8b0721324f8521eabd67968cdb80d609089abed934321d238a41c9da2196d25e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 220,
+      "slug": "card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-220.log"
+      ],
+      "complete_log_sha256": "ca1dcce56a57436b540015695d80ed71556cb7d3cec5073977e41066404c1324",
+      "before_expected_sha256": "7538f6fa96fa270fda499f80548d13d06a93193b86fc71e1afb34bcccfc6e83d",
+      "expected_sha256": "c4f34c99181249d8e18c57d5f2bddc226bd5e3e029d24ad8e318a82787fd767b",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line91",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "064547016a428456fb0b8e2a306262238e91136378504cd46b1420212937e250",
+          "before_rows_sha256": "afa91c9bb5348a66bfc946d3082bfa3ee4504a3d9f3d38b6ad6600aee92ddf08",
+          "after_rows_sha256": "107022e566383e2dd744c42e3970e4ddf72b64c1912f3bdb89f643d74329f0f9"
+        },
+        {
+          "location": "line100/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line100/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "03b2b41e376db20eb51058fc03b7f05d210de623531bd1456a28d0529ab1c719",
+          "before_rows_sha256": "5e5519ad5c8c00a97d69af85cb71b867f20a855ee7bc3f27c339ed7cb626039f",
+          "after_rows_sha256": "1a425706e764223127b3815a1a4a90e61d91dc1694c2836e0dd8f6f31d586acc"
+        },
+        {
+          "location": "line102/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line102/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "03b2b41e376db20eb51058fc03b7f05d210de623531bd1456a28d0529ab1c719",
+          "before_rows_sha256": "5e5519ad5c8c00a97d69af85cb71b867f20a855ee7bc3f27c339ed7cb626039f",
+          "after_rows_sha256": "1a425706e764223127b3815a1a4a90e61d91dc1694c2836e0dd8f6f31d586acc"
+        },
+        {
+          "location": "line104/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line104/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "03b2b41e376db20eb51058fc03b7f05d210de623531bd1456a28d0529ab1c719",
+          "before_rows_sha256": "5e5519ad5c8c00a97d69af85cb71b867f20a855ee7bc3f27c339ed7cb626039f",
+          "after_rows_sha256": "1a425706e764223127b3815a1a4a90e61d91dc1694c2836e0dd8f6f31d586acc"
+        },
+        {
+          "location": "line106/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line106/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "33440b91bc961bf2cb5c4194294bde5480c17bd9e626c0af9ae0cff092db3818",
+          "ordered_nonaccounting_sha256": "03b2b41e376db20eb51058fc03b7f05d210de623531bd1456a28d0529ab1c719",
+          "before_rows_sha256": "5e5519ad5c8c00a97d69af85cb71b867f20a855ee7bc3f27c339ed7cb626039f",
+          "after_rows_sha256": "1a425706e764223127b3815a1a4a90e61d91dc1694c2836e0dd8f6f31d586acc"
+        }
+      ]
+    },
+    {
+      "number": 229,
+      "slug": "card-healing-balm-blue-opponent-response-before-life-gain",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-blue-opponent-response-before-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-229.log"
+      ],
+      "complete_log_sha256": "05cfb545ce849993af6f620ac15a7b9f2affea77880868ffe9753bbb7d4db6d0",
+      "before_expected_sha256": "d907fab62a58da544a230f5fc80c51d8e83acb46efbc1b522b28db3524e6529d",
+      "expected_sha256": "4e18615c3d3e9537c91c8bb60202e60166ed3b5e00ad16229bf0096cd3ae8ddc",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "0cbc74f7e7c02a81ebd56927230f491fd7150bffa96de8a4c62c54c0e2e2371a",
+          "before_rows_sha256": "96a1dd1c1decc4d1c5fd834434c8d28e40b6e2abf5fc5a70b4e628e63e69ccb2",
+          "after_rows_sha256": "3867c31e03b22e88d33a4e7be87689fdb69d56ef28c25c734152a5308595aeee"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 238,
+      "slug": "card-healing-balm-red-opponent-response-before-life-gain",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-red-opponent-response-before-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-238.log"
+      ],
+      "complete_log_sha256": "2a9e1cdf5f84c3173b421bd8ad6e291010632f30cf38770f3ab7f4a4174ab1cb",
+      "before_expected_sha256": "0f03e9cc31543b8f707ef94c845509094213e97c78fc0518d9600b58784c66bb",
+      "expected_sha256": "9ef3b468e23ef8b7e7eb701fb7337000a8bb63f1f51ca4e4d771448b938f32d1",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "b6b4b9ec21be7211a507c2c43784bc209e3fe92e0a995e781c3681e9d9ecae63",
+          "ordered_nonaccounting_sha256": "0b27ff917abbf8b70337a6d9c6ba0a48b39e3559ccb0a88a0d2d0aee21835d10",
+          "before_rows_sha256": "033e6e8ca8cde50a7fb291293dbc4d2bc98af0e204804612a6e41757cea73dba",
+          "after_rows_sha256": "adee8737f64c76bfcc28c5a94ab4b5c6d01820129ac2c3dacb266225e0d662b5"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 247,
+      "slug": "card-healing-balm-yellow-opponent-response-before-life-gain",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-healing-balm-yellow-opponent-response-before-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-247.log"
+      ],
+      "complete_log_sha256": "1433c2f52ad83d03467950118dadd4ae9d4bbd4838d770d4fbb99221a79d451d",
+      "before_expected_sha256": "c2c6d7369d1a8da1c933f42ebd20f2ca60b700d4685b899088fb92aa94ab5ccc",
+      "expected_sha256": "689372802c895703d8c10bc819f7a0345b2eed4788a559163d3625f5b3201955",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "d6996308c4b2864bebdc5077d2a54a1235d708696ee513859e38bfdc31bd6e72",
+          "ordered_nonaccounting_sha256": "0b27ff917abbf8b70337a6d9c6ba0a48b39e3559ccb0a88a0d2d0aee21835d10",
+          "before_rows_sha256": "b06ef9e31b3f437d34ecf0123985b03e09ad3a214e77c03bf54af4c509f34432",
+          "after_rows_sha256": "afbd136dd353432df966cf767692fe22be5167c03b7e34c3b55ff83154ac132e"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 260,
+      "slug": "card-ice-bolt-blue-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ice-bolt-blue-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-260.log"
+      ],
+      "complete_log_sha256": "611cc5316f16e48cce9b13fcdb61c1a2db34bdffb3ff196c573ce0ce12ff4e04",
+      "before_expected_sha256": "5baa3b7781c811b0e23dac17b608c6b1bde0c0fbf35c6f0a31d1d3578b00744d",
+      "expected_sha256": "0f477a0789403d9ac3284664936ca552577cf356207503c8ab38ed88e7bfe505",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "e0af76bdb47072503340b8e23c73442025d79aff60ebbc23697ac96e9661b601",
+          "before_rows_sha256": "2d87967a0c920b8dd26d7b2281259250e695a95c22c936eabfe8f6fb7c7f735d",
+          "after_rows_sha256": "be9f560e5fe8b2b9504afd45ae0a289ea9f751ad131deac632d3bc1c28d5f29e"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 261,
+      "slug": "card-ice-bolt-red-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ice-bolt-red-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-261.log"
+      ],
+      "complete_log_sha256": "dbbb604e54c19a51c46783390f6d1e52495a2f186c672ae0e8e8fdd427073baf",
+      "before_expected_sha256": "091250d2e830a19fc285d07fedb8e389d86f9e3d6dde46e4a16f303a215ea87a",
+      "expected_sha256": "19f10cd713dfa815a88f843246ea088e553e5c69edc8af5799b87fed2ef4bd11",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "5965914d6220b585bc89381a11604a8f1bf17e314dd704ab839972a8799d07b7",
+          "before_rows_sha256": "492cd09d3e901143dca7911072ea083bd73b580e06efbfddac9406420566404b",
+          "after_rows_sha256": "8e2f3a65264431d1b3b65ad7eb7367b04e3a030792b5dc26c8d5a8341984b268"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 262,
+      "slug": "card-ice-bolt-yellow-opponent-sigil-response-before-arcane",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ice-bolt-yellow-opponent-sigil-response-before-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-262.log"
+      ],
+      "complete_log_sha256": "8c651ac3f9b68a8007565378928fd914e5687917cd77a7866a08860a7775cee3",
+      "before_expected_sha256": "b76995e9cbc6642ebb4b4b118bd779ebb8b74c30dc09600a8fbb8e4c2fded51a",
+      "expected_sha256": "822c9e7909f3a07af45e639122a05a0f70d74380e63e619e5750b297334fc44a",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "cc76c5411fb3c94ddf4202631d28d9f2e3f60fca205e2cc3025e9f240205e1e7",
+          "before_rows_sha256": "b6709bdef6209e8838ae78b7f028c3aa97b9f12b4e6e149511d55b48e5d1f8b8",
+          "after_rows_sha256": "48a0c7e17c3c77e9262a2eb2f2220bc67e9add2ef5e30d8b20a10bd39b1b4d68"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        }
+      ]
+    },
+    {
+      "number": 290,
+      "slug": "card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-290.log"
+      ],
+      "complete_log_sha256": "35b9bee98146d17ebb121cbfe80148905d09ac136c2baecf5bde5713b4ee26ef",
+      "before_expected_sha256": "2aa32a889674bab75daee15875bb33bd4fb3ac545f3f7e3c18bcdefddb8b13ee",
+      "expected_sha256": "44162365007f481c0ba089725274cbcccd4b4c7509b5fe8370957c6713b2dbca",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line101/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "25902b79aaa4a0480c22b2157c5b807ee64b3d18217d9d60cf8b409cc6d4e2da",
+          "before_rows_sha256": "5739c78ec27067b597c808cfe503ce1d17930de6d1c8765272ca0bcd855c0dbe",
+          "after_rows_sha256": "2b002847217faac08f0de926a88115df63b90e844acf70f298c843f50fa06c68"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "25902b79aaa4a0480c22b2157c5b807ee64b3d18217d9d60cf8b409cc6d4e2da",
+          "before_rows_sha256": "5739c78ec27067b597c808cfe503ce1d17930de6d1c8765272ca0bcd855c0dbe",
+          "after_rows_sha256": "2b002847217faac08f0de926a88115df63b90e844acf70f298c843f50fa06c68"
+        },
+        {
+          "location": "line105/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line105/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "25902b79aaa4a0480c22b2157c5b807ee64b3d18217d9d60cf8b409cc6d4e2da",
+          "before_rows_sha256": "5739c78ec27067b597c808cfe503ce1d17930de6d1c8765272ca0bcd855c0dbe",
+          "after_rows_sha256": "2b002847217faac08f0de926a88115df63b90e844acf70f298c843f50fa06c68"
+        },
+        {
+          "location": "line107/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p4Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line107/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "4",
+          "accounting_bag_sha256": "ab0dd064cabbea75055979d6180a7ddb1bec489fa32c64c0fd864d7af8364fc6",
+          "ordered_nonaccounting_sha256": "25902b79aaa4a0480c22b2157c5b807ee64b3d18217d9d60cf8b409cc6d4e2da",
+          "before_rows_sha256": "5739c78ec27067b597c808cfe503ce1d17930de6d1c8765272ca0bcd855c0dbe",
+          "after_rows_sha256": "2b002847217faac08f0de926a88115df63b90e844acf70f298c843f50fa06c68"
+        }
+      ]
+    },
+    {
+      "number": 300,
+      "slug": "card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-300.log"
+      ],
+      "complete_log_sha256": "1ebb97efd7765bb3706769d9e7912b1b24b75163737277accbea0606d27946b4",
+      "before_expected_sha256": "10da6022642e651dd96c5ff6a847555a8646aaa7b3275f13848f8678f31dff59",
+      "expected_sha256": "ad8188fd1210c55ceeaa1675e0a799bb5faca2ecf275691c073d4d3c8943e2c4",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "d6996308c4b2864bebdc5077d2a54a1235d708696ee513859e38bfdc31bd6e72",
+          "ordered_nonaccounting_sha256": "ca9e769cd914f70a5268b319225b7ba5765c7bf01188d8a3b5dcf77c83d77906",
+          "before_rows_sha256": "dfc436a4e19b3ee1a4a16bb95c3f23184630eb246de696beab9c5ff3358e3a53",
+          "after_rows_sha256": "0bb405d2f662f8e43b070efb2a858bbc9e8aa0806bcb5fec944a452debd7c622"
+        },
+        {
+          "location": "line86",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "c6027c2c47e3a4175cb381e2387e19e72069b1048f9a73e4896f3a3747a8c0fb",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "e11edab0f08413bec2253431eea2670707bdbfe3aaa5402fd55b77341ec31b75",
+          "after_rows_sha256": "bd3b21a2add701d394bffc54a6c849cdd3a9b7554a6f1cc1321ee62f282313aa"
+        },
+        {
+          "location": "line95/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line95/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "1bac5483f760b687d52655f913eb3345bc15ec65fe8cdc2bb28f5fd7697130a3",
+          "ordered_nonaccounting_sha256": "d02268391eef1015cbbc206159b45890f36f23ba94d6f196c72d3263d4b447c1",
+          "before_rows_sha256": "9daa1a453adc755e6b2e9baec45dc39e7d9b5c4058dd93e38e02109bdd4173e6",
+          "after_rows_sha256": "0e53db2641534db9a83ccce605bbbc41e625fc6035787f8e73d5f515b874c119"
+        },
+        {
+          "location": "line104",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        }
+      ]
+    },
+    {
+      "number": 355,
+      "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-355.log"
+      ],
+      "complete_log_sha256": "a4ed347dbdd5dd70688c7b869b747fa5888c63d378210caf5802462d12377ad1",
+      "before_expected_sha256": "079ab1a2456d1dc9399e550055f55fd524d0e56a88b1ac42d3d402e7d68f5925",
+      "expected_sha256": "329851bb1bb34bc27b98077bbb7335eb91b9f5b930ceef40a4be89b143d65933",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "c4db00f9a9b794fe112c37ff75216126162b30ccc1cc0f9dd36410cfae689c89",
+          "before_rows_sha256": "75259680d068b24ab3b33a31134a11c5a80b423daf8290ceb7471ae4f7912b2d",
+          "after_rows_sha256": "58a108a5e9321ba6f0bd10649bf8e66f65f2bdd29d9e14ace54ce4d6833e6923"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "c4db00f9a9b794fe112c37ff75216126162b30ccc1cc0f9dd36410cfae689c89",
+          "before_rows_sha256": "75259680d068b24ab3b33a31134a11c5a80b423daf8290ceb7471ae4f7912b2d",
+          "after_rows_sha256": "58a108a5e9321ba6f0bd10649bf8e66f65f2bdd29d9e14ace54ce4d6833e6923"
+        },
+        {
+          "location": "line99/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "c4db00f9a9b794fe112c37ff75216126162b30ccc1cc0f9dd36410cfae689c89",
+          "before_rows_sha256": "75259680d068b24ab3b33a31134a11c5a80b423daf8290ceb7471ae4f7912b2d",
+          "after_rows_sha256": "58a108a5e9321ba6f0bd10649bf8e66f65f2bdd29d9e14ace54ce4d6833e6923"
+        },
+        {
+          "location": "line101/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line101/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "c4db00f9a9b794fe112c37ff75216126162b30ccc1cc0f9dd36410cfae689c89",
+          "before_rows_sha256": "75259680d068b24ab3b33a31134a11c5a80b423daf8290ceb7471ae4f7912b2d",
+          "after_rows_sha256": "58a108a5e9321ba6f0bd10649bf8e66f65f2bdd29d9e14ace54ce4d6833e6923"
+        },
+        {
+          "location": "line103/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p1Graveyard-0",
+          "new": "Stack-0",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line103/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "1",
+          "accounting_bag_sha256": "7cb0aad04ef69e33e5697517911e260d9559f5ab5227900049e147b29c991f84",
+          "ordered_nonaccounting_sha256": "c4db00f9a9b794fe112c37ff75216126162b30ccc1cc0f9dd36410cfae689c89",
+          "before_rows_sha256": "75259680d068b24ab3b33a31134a11c5a80b423daf8290ceb7471ae4f7912b2d",
+          "after_rows_sha256": "58a108a5e9321ba6f0bd10649bf8e66f65f2bdd29d9e14ace54ce4d6833e6923"
+        }
+      ]
+    },
+    {
+      "number": 392,
+      "slug": "card-snatch-red-opponent-responds-before-hit-draw",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-snatch-red-opponent-responds-before-hit-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-cohort-445\\active36-392.log"
+      ],
+      "complete_log_sha256": "6d5116d6955e4de4acf871a1e406277c5413cb61d488b6d5ab319916de1ceb96",
+      "before_expected_sha256": "75380e27e73cb0ca6e667ba9fea28a0c69f39dc48e3b82d40c9d54406647a5ae",
+      "expected_sha256": "3b0dfd0885137e3872d3e469f5c64c1db2c957b4fd2607422da549ecadb576bd",
+      "other_four_files_unchanged": true,
+      "failed_candidate_restored": false,
+      "edits": [
+        {
+          "location": "line88",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "051aade117a1fd1a738d9a1adb8621a2061cba271414eccb773bec985f549e81",
+          "before_rows_sha256": "fe22794f57433e03ee144ed63be9f5577a2bf6cf47e4d452a0c03e76401ff3eb",
+          "after_rows_sha256": "22524fdc1a60f2e2c350f6e3ea55623245c6c3b400e128342159f7d17ccaf67e"
+        },
+        {
+          "location": "line97/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line97/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "051aade117a1fd1a738d9a1adb8621a2061cba271414eccb773bec985f549e81",
+          "before_rows_sha256": "fe22794f57433e03ee144ed63be9f5577a2bf6cf47e4d452a0c03e76401ff3eb",
+          "after_rows_sha256": "22524fdc1a60f2e2c350f6e3ea55623245c6c3b400e128342159f7d17ccaf67e"
+        },
+        {
+          "location": "line99/Versions/86",
+          "kind": "RETAINED_COMPLETED_SOURCE_REFERENCE",
+          "old": "p2Graveyard-0",
+          "new": "Stack-1",
+          "other_fields_unchanged": true,
+          "additional_source_and_inactive_context_proof_required": true
+        },
+        {
+          "location": "line99/Versions/90",
+          "kind": "CANONICAL_ACCOUNTING_PLACEMENT_ONLY",
+          "seat": "2",
+          "accounting_bag_sha256": "54dd8529fea7a41151990c734cf5a0abb856b1ccd5d6f305a2ad31bdc54069fc",
+          "ordered_nonaccounting_sha256": "051aade117a1fd1a738d9a1adb8621a2061cba271414eccb773bec985f549e81",
+          "before_rows_sha256": "fe22794f57433e03ee144ed63be9f5577a2bf6cf47e4d452a0c03e76401ff3eb",
+          "after_rows_sha256": "22524fdc1a60f2e2c350f6e3ea55623245c6c3b400e128342159f7d17ccaf67e"
+        }
+      ]
+    }
+  ],
+  "full_suite_run": false,
+  "new_groups_or_scenarios": 0,
+  "comparison_or_gameplay_changes": false,
+  "preserved": "All original actions, assertions, initial snapshots, metadata and every final byte outside the exact reviewed edits."
+}

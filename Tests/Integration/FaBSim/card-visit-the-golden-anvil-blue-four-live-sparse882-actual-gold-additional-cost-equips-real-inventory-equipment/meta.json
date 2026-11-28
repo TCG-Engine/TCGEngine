@@ -1,0 +1,7 @@
+{
+    "name": "Visit the Golden Anvil / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:15:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Olympia Specialization**\n\nAs an additional cost to play this, destroy X Gold you control.\n\nEquip X weapons and/or equipment from your inventory. Representative only: actual_gold_additional_cost_equips_real_inventory_equipment. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visit_the_golden_anvil_blue"
+}

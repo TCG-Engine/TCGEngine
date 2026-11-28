@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T19:54:38.087638+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1439-20261122.json",
+  "source_spec_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 62,
+  "native_assertions": 562,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 5451,
+    "duels": 3127,
+    "four_live": 2324,
+    "recorded_primary_ids": 2599,
+    "identity_denominator": 5196,
+    "recorded_groups": 2473,
+    "group_denominator": 3324,
+    "four_live_groups": 2313,
+    "phase_qualified_scenarios_at_actual_contexts": 2088,
+    "phase_qualified_unique_groups": 2078,
+    "creation_replay_passes": 2830,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1249,
+  "scenarios": [
+    {
+      "card_id": "moray_le_fay_yellow",
+      "group_id": "identity:moray_le_fay_yellow",
+      "scenario_id": "card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "effect_branches": [
+        "real_adjacent_ally_target_lethal_four_damage_puts_primary_into_owned_graveyard_then_responseable_watery_grave_turns_it_face_down"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "source_spec": "card-regression-sparse1439-20261122.json",
+      "source_spec_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+      "review_evidence": "review-evidence/sparse1439-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c7f80d642d2a556b1f3ba591a18a98df8b2b727dd38e0a92b132ae287f0eec5c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1439-20261122-replay.json",
+          "sha256": "81c05a795186072ab29692b8f7983dc11d776e040cd3b3f051da3f3ae2bd9627",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "scooba_salty_sea_dog_yellow",
+      "group_id": "identity:scooba_salty_sea_dog_yellow",
+      "scenario_id": "card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "effect_branches": [
+        "real_adjacent_ally_target_lethal_four_damage_puts_primary_into_owned_graveyard_then_responseable_watery_grave_turns_it_face_down"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "source_spec": "card-regression-sparse1439-20261122.json",
+      "source_spec_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+      "review_evidence": "review-evidence/sparse1439-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c7f80d642d2a556b1f3ba591a18a98df8b2b727dd38e0a92b132ae287f0eec5c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1439-20261122-replay.json",
+          "sha256": "81c05a795186072ab29692b8f7983dc11d776e040cd3b3f051da3f3ae2bd9627",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

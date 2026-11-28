@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-malice200-partial-earned-death.json",
+  "runtime_sha256": "5a8c088126ff8d9c581c7eb97e4b9cc77511e4011c8fd3faed3a5328b7b47379",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T09:27:13.092916+00:00",
+  "fixtures": [
+    {
+      "slug": "repair-malice200-four-live-earned-zombie-death-one-corpse-partial",
+      "fixture_sha256": "aba6a7fc713ea8fbaf0227453cfd5947329c6c93b7a829d308eec1041f3d0fb1",
+      "passed": true,
+      "result": "[PASS] Malice / partial earned Zombie death and one Corrupted Corpse"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-malice200-four-live-earned-zombie-death-one-corpse-partial",
+      "returncode": 0,
+      "stdout": "[PASS] Malice / partial earned Zombie death and one Corrupted Corpse\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

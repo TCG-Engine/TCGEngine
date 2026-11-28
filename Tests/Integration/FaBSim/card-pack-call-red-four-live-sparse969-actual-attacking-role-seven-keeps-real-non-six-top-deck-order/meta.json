@@ -1,0 +1,7 @@
+{
+    "name": "Pack Call / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:43:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, reveal the top card of your deck. If it has 6 or more {p}, put it on top. Otherwise, put it on the bottom. Rhinar20ordinaryATTACKnotdefending, noWHENdefends event. Printed3Blue6/R0/AP0, actualunblocked7damage/HP13/physicalsource5ownGY/all4manual. ActualownDecktopWounding4power7 thenRaging7power8 retainedsameorder; no reveal-logclaim, incorrectdefend-triggerreorderwouldmove4powertopbottom. Positive defense branchuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pack_call_red"
+}

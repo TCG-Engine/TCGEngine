@@ -107,7 +107,7 @@ for (const [engine, launcher] of [['chromium', chromium], ['firefox', firefox], 
     const name = `${engine}/${s.label}`;
     const p = await b.newPage({ viewport: s.viewport });
     const errs = []; p.on('pageerror', e => errs.push(e.message));
-    await p.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${GAME}&playerID=1&authKey=testschema${s.query}`,
+    await p.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${GAME}&playerID=1&authKey=testschema${s.query}`,
                  { waitUntil: 'domcontentloaded' });
     try { await p.waitForSelector(s.baseSel, { timeout: 20000 }); }
     catch { bad(name, `no base thumbnail at "${s.baseSel}" — the Home Panels did not render`); await p.close(); continue; }

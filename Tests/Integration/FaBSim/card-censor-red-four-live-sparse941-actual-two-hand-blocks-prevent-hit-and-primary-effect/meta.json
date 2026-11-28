@@ -1,0 +1,7 @@
+{
+    "name": "Censor / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:06:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, name a card. They can't play the named card until the end of their next turn. ActualtwoHandAA3defeachfullyblock, zeroHP/nohit, samephysicalcardsGY; positivehits/exactunblockedpower untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#censor_red"
+}

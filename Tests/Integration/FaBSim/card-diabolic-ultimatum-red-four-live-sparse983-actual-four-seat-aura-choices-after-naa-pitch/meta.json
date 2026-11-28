@@ -1,0 +1,7 @@
+{
+    "name": "Diabolic Ultimatum / four live independent Aura choices",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:56:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If an attack action card was pitched to play this, each hero chooses and destroys an ally they control.\n\nIf a non-attack action card was pitched to play this, each hero chooses and destroys an aura they control. Actual Generic non-attack NimblismBlue6 pitch3 pays3/AP0. Every live hero has two owned Aura alternatives and personally chooses Quicken7/9/11/13, retaining Ponder8/10/12/14. Source5 stays owner1/Stack through all four non-target resolution choices, then alone reaches owned graveyard; tokens destroyed cease, allfour health20. NoAApitch/Ally branch, alternative selections, Aura creation/ownership producer, future Ponder draw or Hero activation credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#diabolic_ultimatum_red"
+}

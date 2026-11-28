@@ -1,0 +1,7 @@
+{
+    "name": "Beaming Bravado / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:23:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may **charge** your soul.\n\nIf a yellow card is **charged** this way, this gets +1{p}. Representative only: actual_yellow_charge_cost_earns_four_unblocked_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beaming_bravado_red"
+}

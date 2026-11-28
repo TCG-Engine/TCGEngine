@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1511-20261122.json",
+  "source_spec_sha256": "e3c803456b44e3d6ff0db1c6b2e751f9018e9ebe8284fdb1b472c414420ec445",
+  "input_sha256": "e3c803456b44e3d6ff0db1c6b2e751f9018e9ebe8284fdb1b472c414420ec445",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-skittering-sands-red-four-live-sparse1511-actual-ashwing-is-not-ash-material-failed-red-play-does-not-grant-dragon-go-again",
+      "card_id": "skittering_sands_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "09ead8ca36369a6da14f643d003edfb18928a9cc3dedb7b42ac0541d619d8b8d",
+        "actions.json": "4e33d0e387c546d3986022ff419d48752fb1dcffe43c659dadf85f5276debc1a",
+        "assertions.json": "f48dcc1772f61705574acce717d9fe9d48df1ed43defaf60ee35edc94a288d57",
+        "expected_final_gamestate.txt": "73fdf7e15314e7f17e7499d4ad31e51284f436d9ada9eec9f6426ad8dc34c482",
+        "meta.json": "fd755ecb72b0f801659fb6b23375a641718c78b13c1fa5eb9ebdd847879811d5"
+      },
+      "fixture_sha256": "72497aa047d16b10afdbdbadb84d1a25400373450170c3162604f44c753d2d62",
+      "actions": 33,
+      "native_assertions": 452,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1511-20261122.json",
+      "input_sha256": "e3c803456b44e3d6ff0db1c6b2e751f9018e9ebe8284fdb1b472c414420ec445",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1511-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-skittering-sands-red-four-live-sparse1511-actual-ashwing-is-not-ash-material-failed-red-play-does-not-grant-dragon-go-again",
+        "fixture_slug": "card-skittering-sands-red-four-live-sparse1511-actual-ashwing-is-not-ash-material-failed-red-play-does-not-grant-dragon-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1511,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T07:13:56.852682+00:00",
+    "spec_sha256": "e3c803456b44e3d6ff0db1c6b2e751f9018e9ebe8284fdb1b472c414420ec445",
+    "source_note_sha256": "f1ef2944931f244f0b562db58b7d17748f4e93717cbd0c4c24b8b0eea52f7409",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d"
+    },
+    "cases": 1,
+    "findings": [
+      "Actual prior transformed Dragon7 has canonical Ashmaterial counters but is not an Ash permanent; current UPR guard rejects before late positive target/transform route.",
+      "Storm8 grants actual Dragon attack. FormalHero4target precedesAP, source7used/Storm8ready, proxy9exact4counterprovenance and1power.",
+      "Preactivation actual material2keys remain; afteractualactivation FaBCRUUseWeapon appendsWEAPON_ATTACK_TURN2/WEAPON_ATTACKS1, all4postactivation physicalcounterchecks correct before any native run.",
+      "OnlyBlueSigilplayed, rejectedRed not played, so no unearnedRedGA/+3. Actual1damage/HP19/AP0 and fullphysicalfates sound."
+    ],
+    "limits": [
+      "Only necessary Ash-type exclusion plus realunmodifiedDragonfollowthrough; positive Skittering/targettiming/transform/RedGA/priorcreation untested. Source/spec review, no reviewer games."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1511-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "398cd33036822f6f3bd7b01d1fa837a32af4981fb5366dbaee79689ce9810b33"
+  },
+  "full_suite_run": false
+}

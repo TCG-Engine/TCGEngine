@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T09:56:01.013221+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1526-20261122.json",
+  "source_spec_sha256": "0bc6514192f9acffef0d00e0333fec5efe17f8d9f8454a3f023dc393ff422ee1",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 480,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5610,
+    "duels": 3135,
+    "four_live": 2475,
+    "recorded_primary_ids": 2758,
+    "identity_denominator": 5196,
+    "recorded_groups": 2632,
+    "group_denominator": 3324,
+    "four_live_groups": 2464,
+    "phase_qualified_scenarios_at_actual_contexts": 2247,
+    "phase_qualified_unique_groups": 2237,
+    "creation_replay_passes": 2989,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1408,
+  "scenarios": [
+    {
+      "card_id": "flicker_reality_blue",
+      "group_id": "identity:flicker_reality_blue",
+      "scenario_id": "card-flicker-reality-blue-four-live-sparse1526-actual-ward-one-and-earned-leave-layer-with-no-other-aura",
+      "effect_branches": [
+        "sole_Ward1_destroys_owned_source_prevents_one_of_actual_four_damage_then_earned_leave_layer_resolves_without_an_eligible_other_aura"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flicker-reality-blue-four-live-sparse1526-actual-ward-one-and-earned-leave-layer-with-no-other-aura",
+      "source_spec": "card-regression-sparse1526-20261122.json",
+      "source_spec_sha256": "0bc6514192f9acffef0d00e0333fec5efe17f8d9f8454a3f023dc393ff422ee1",
+      "review_evidence": "review-evidence/sparse1526-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cf5f8b3ee25319ed54e17ea07fe38a0cee6efba6ce638976c508258a775d1185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1526-20261122-replay.json",
+          "sha256": "1929e56f946b647bfb8628fbc2fd7f8c0a91ed849f3fdf2476f4e6db881eb4ed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

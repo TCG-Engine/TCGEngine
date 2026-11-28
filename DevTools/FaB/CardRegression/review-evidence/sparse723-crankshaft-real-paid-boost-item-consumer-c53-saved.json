@@ -1,0 +1,299 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B723_CRANKSHAFT_BLUE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T17:20:45.972350+00:00",
+  "source_spec": "card-regression-batch723.json",
+  "input_sha256": "9c807ed17148ed06ce9088fa32fe1e5b72856cfde4714380388c9c3c0d192ffd",
+  "manifest_sha256": "13526cfc75260043b93956ef17a2caa819c2361f77980c20d006e6881bcff6b4",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch723-crankshaft-independent-source-review.json",
+    "sha256": "8e0c85d47de01ae71c02d7062ce44323c4e567c1568a4875cd966121015facf9",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch723-20261108T171627Z-6af0ae6b2ef4a.json",
+    "sha256": "3c1c5801d684252cae3cc430f41a12bee4a989ffb150c6b2b1866b57826d157e"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch723.recording-results.json",
+    "sha256": "a0b4e2f55e13e3a10e51aad6d3fc05a62b543030d626f67f82ad0d57734bac59"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b723-crankshaft-native-recording\\receipt.json",
+    "sha256": "956b49a91d017ebcdc969a46063e44189e3ce648da8b93621344331a1c1c5253"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "crankshaft_blue",
+      "group_id": "pitch-cycle:crankshaft",
+      "slug": "card-crankshaft-blue-four-live-real-paid-mech-boost-three-damage-and-item-refund-consumer",
+      "source_spec": "card-regression-batch723.json",
+      "input_sha256": "9c807ed17148ed06ce9088fa32fe1e5b72856cfde4714380388c9c3c0d192ffd",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_BOOST_THREE_DAMAGE_AND_ITEM_AP_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-crankshaft-blue-four-live-real-paid-mech-boost-three-damage-and-item-refund-consumer",
+      "fixture_sha256": "fe32db501f1fa2b909f2bd7bc246066e4f3784572f04900fe853bc8d386058cf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "5148f5cc7e09c18400401dc039929d646a3a422c7edb3ebb1905bd3a18fac343",
+        "actions.json": "917c0000574ea01250ae8a030b8262bb9896873c095a7cac26be996983695132",
+        "assertions.json": "c08dbcb394e4144f4163434aa458c6060ce40189434e317d2e18181f0fefdeb6",
+        "expected_final_gamestate.txt": "8204aabb24e5b2baf9844f9f83a389ca9f4944e0315369e7ad1cb5353b254282"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5148f5cc7e09c18400401dc039929d646a3a422c7edb3ebb1905bd3a18fac343",
+        "actions.json": "917c0000574ea01250ae8a030b8262bb9896873c095a7cac26be996983695132",
+        "assertions.json": "c08dbcb394e4144f4163434aa458c6060ce40189434e317d2e18181f0fefdeb6",
+        "expected_final_gamestate.txt": "8204aabb24e5b2baf9844f9f83a389ca9f4944e0315369e7ad1cb5353b254282",
+        "meta.json": "7e12e30c7d60ba8c856142c4885808a98a57169efab822dea63dcdc8c8a09e5a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "5148f5cc7e09c18400401dc039929d646a3a422c7edb3ebb1905bd3a18fac343",
+        "actions.json": "917c0000574ea01250ae8a030b8262bb9896873c095a7cac26be996983695132",
+        "assertions.json": "c08dbcb394e4144f4163434aa458c6060ce40189434e317d2e18181f0fefdeb6",
+        "expected_final_gamestate.txt": "8204aabb24e5b2baf9844f9f83a389ca9f4944e0315369e7ad1cb5353b254282",
+        "meta.json": "7e12e30c7d60ba8c856142c4885808a98a57169efab822dea63dcdc8c8a09e5a"
+      },
+      "actions": 34,
+      "native_assertions": 2549,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 666,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "crankshaft_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "potion_of_strength_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "crankshaft_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "native_pre_asset_declaration_no_early_banish_verified": true,
+      "internal_cost_order_source_verified": true,
+      "native_internal_cost_event_order_instrumented": false,
+      "actual_resources_paid": 2,
+      "actual_AP_paid": 1,
+      "boost_banished_uid": 7,
+      "primary_self_banish_condition_earned": false,
+      "driver_Arena_WHEN_earned": false,
+      "actual_primary_damage": 3,
+      "actual_GA_refund": 1,
+      "actual_refund_consumer_uid": 8,
+      "potion_FAB_metadata_certified": false,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "a26d7b83395f5762a5dbac3b550092be73c56b3a39179b357ba2522d4da9096a",
+      "native_assertion_mapping_sha256": "3b22e8b5fbf366bda805cb877d9ae2dfc5f1ce20d82901908114f97a37291de7"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 34,
+  "total_native_assertions": 2549,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 666,
+  "material_findings": [
+    "Exact rawfive/behavior,34 controls2549 ordered persisted queries29manual7/7/7/8 and48preferences each endpoint match Source8e0c. Actual COMPLETE0/stderr0 receipt/results/archive/current70c53ab33 bound; all physical endpoints and terminal assertions independently parsed.",
+    "Actual explicit Boost declaration leaves real Driver7 in Deck/R0/AP1 and Banish empty. Actual Blue6 payment produces R1/AP0 plus Deck7→publicBanish and liveBoostGA; the preapproved source establishes resource/AP debit before that banish within the same input, without claiming an instrumented internal pause. Same primary5 held through fresh source responses; live3/GA and actual three damage→HP17 passed.",
+    "Actual Resolution AP1 refund, then normal fullCloseACTION precedes ordinary Potion8 play/AP0. Its fresh four responses produce same ready Item8 with no playGA/refund. PhysicalUID1..8 retained exactly: GY5/Pitch6/Banish7/Arena8, R1/AP0/counter8/RNG0/fullquiet. Primaryself-banish Steam and DriverArena Boost WHENs remain unearned; private Potion FAB chronology/whole Counter map is unqualified."
+  ],
+  "limits": [
+    "OnepositivepaidHandBoost/realMechbanish/GA/3damage/Itemrefundconsumer; noprimaryselfBanishWHEN orSteam branch.",
+    "Source/Support/Hero/pitchsiblings/fullcard/Itemactivationuncredited; no hiddenArenaDriverasset.",
+    "NormalCloseACTIONbeforeItem; no afterCloseweaponhistory/privateFABchronology/wholeCounterfitting.",
+    "Optionalhistorydefaultsunpinned/nofulleffectbankassertions; objectmapswhenqueriedJSON.",
+    "Rootnative/Saved/twofocusedreplays+all48rawpreferencesremainseparategates; nofuturePASS.",
+    "Only Blue Hand-play/positive Boost representative executes; no primary banished-from-Boost Steam trigger, Hyper Driver Arena/Boost function, other pitch execution, Potion activation/+2, whole-card or support/Hero coverage. Second-card Potion FAB chronology/whole Counter map remains unqualified.",
+    "Source approval is not native/Saved/replay/fixture/coverage credit. Root native, independent exact Saved, two focused replays and registration remain separate. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/denied retry.",
+    "Only Blue representative executed. No whole-card/pitch-sibling/support/Hero/DriverArena/Potion activation or future Steam/WHEN credit. No private full effect-bank/history or Potion FAB semantics certificate; raw bytes are hash-bound without that qualification.",
+    "Root targeted replays/registration/index/promotion remain separate; no qualification credit before registration. RawVersions excluded from physical inventory but hash-bound. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/denied retry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch723_crankshaft_saved_readonly.py",
+    "sha256": "a8d9cd0296ab66ba4fa6e9df30f76c6c825b589126177d36797631fd7f69c250"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Visit the Boneyard / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Put a card with 6 or more {p} from your graveyard on top of your deck.\n\nCreate a Vigor token. Representative only: actual_six_plus_power_card_moves_to_deck_top_and_creates_vigor. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visit_the_boneyard_blue"
+}

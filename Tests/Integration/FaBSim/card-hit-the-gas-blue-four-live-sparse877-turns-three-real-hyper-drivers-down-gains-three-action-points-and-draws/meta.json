@@ -1,0 +1,7 @@
+{
+    "name": "Hit the Gas / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:23:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Maxx Specialization**\n\nTurn any number of Hyper Drivers in your banished zone face-down and gain that many action points. If 3 or more cards are turned face-down this way, draw a card. Representative only: turns_three_real_hyper_drivers_down_gains_three_action_points_and_draws. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hit_the_gas_blue"
+}

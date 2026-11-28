@@ -11,8 +11,8 @@ P1Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:NO
 ## EXPECT
 P1GROUNDARENAUNIT:0:EXHAUSTED
@@ -53,8 +53,8 @@ P1Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>AnswerDecision:YES
 ## EXPECT
 P2GROUNDARENAUNIT:0:CARDID:SOR_095
@@ -74,8 +74,8 @@ P1Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:YES
 ## EXPECT
 P1GROUNDARENAUNIT:0:READY
@@ -97,8 +97,8 @@ P2Deck: [SOR_063 SOR_063 SOR_063 SOR_063 SOR_063 SOR_063]
 ## WHEN
 - P1>AttackGroundArena:0:BASE
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>AnswerDecision:YES
 ## EXPECT
 P1GROUNDARENAUNIT:0:CARDID:SOR_095

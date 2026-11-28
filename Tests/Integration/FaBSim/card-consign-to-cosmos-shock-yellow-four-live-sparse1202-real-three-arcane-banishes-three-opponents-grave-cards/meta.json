@@ -1,0 +1,7 @@
+{
+    "name": "Consign to Cosmos // Shock / actual three arcane banishes real cards across all opponents",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T16:49:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungOscilio18/threeDori20. PriorownedPotion7Arena1, realConsign5+Zap6Hand1, actuallegalGenericInstantSolace8/9/10inrespectiveGY2/3/4. ActualPotionACTION0spendsAP1to0/destroys7GY1beforeABI11fourresponses; resolvesgain2AP. ActualZap6Action0formalHero4targetspendsAP2to1/fourresponsesdeals3arcaneHP4=17. MainConsign5leftAction0declaredbeforecost/AP1to0/fourresponses thenactualmandatoryMZMULTICHOOSE3|3includesall3actualGYcardsincludingopposite3(untargetedanygraveyard). Selectall8/9/10UIDstable->ownBanish2/3/4, source5heldStackthroughchoiceandfinallyGY1after7+6. No seededArc/AP/zerochoice/adjacent-onlyshortcut. FinalHP18/20/20/17/AP0/R0/UID11/noStackDQs/otherzones/RNG0. NoShock/both/otherX/ownGY/self-arc/shuffle/production/Hero/secondary/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#consign_to_cosmos_shock_yellow FaBSim/Custom/SEACards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/ROSCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

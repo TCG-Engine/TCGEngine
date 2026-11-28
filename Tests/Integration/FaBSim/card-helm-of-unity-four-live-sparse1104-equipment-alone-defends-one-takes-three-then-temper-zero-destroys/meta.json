@@ -1,0 +1,7 @@
+{
+    "name": "Helm of Unity / four-live single defense and zero-Temper destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:06:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Unity** - When this defends together with a card from hand, this gets +1{d} until end of turn.\n\n**Temper** Named positive ordinaryDEF1 and Temper-at-zero destruction only, with strictly absent Unity event. Natural young Warrior Dorinthea4 owns primaryEquipment5 and a real Generic Hand6 retained UNUSED throughout. Natural Rhinar1 actualClub7cost2 is paid by realBlue8pitch3/R1/AP0. Four live seats manually respond through every normal combat window. Only primary5 is declared; no Hand card defends, so Unity 'defends together with a card from hand' event is not earned. Actual defense1 against printedClub4 deals3/HP4=17. BeforeClose primary5 still has no -1defense counter; the Close Step automatically handles Temper underCR7.7 without playerpriority: addonecounter, currentDEF0, destroyprimary5 to owner4graveyard. Hand6 remains sameownedHand; sourceweapon7retainedused/Pitch8/R1/AP0/noGA. No Unity-positive/body/competingClose-order, initialequip/hero/support identity/sibling/full-card or held-trigger repair credit. No assertion of counter persistence after graveyard zone change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#helm_of_unity"
+}

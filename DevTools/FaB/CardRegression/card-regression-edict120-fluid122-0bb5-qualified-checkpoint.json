@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T23:11:01.487874+00:00",
+  "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+  "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+  "source_spec_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 71,
+  "native_assertions": 6167,
+  "manual_passes": 61,
+  "totals": {
+    "saved_registered_scenarios": 4143,
+    "duels": 3074,
+    "four_live": 1069,
+    "recorded_primary_ids": 1296,
+    "identity_denominator": 5196,
+    "recorded_groups": 1170,
+    "group_denominator": 3324,
+    "four_live_groups": 1062,
+    "phase_qualified_scenarios_at_actual_contexts": 780,
+    "phase_qualified_unique_groups": 775,
+    "creation_replay_passes": 1521,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "imperial_edict_red",
+      "group_id": "identity:imperial_edict_red",
+      "scenario_id": "card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+      "effect_branches": [
+        "imperial-edict-red-post-close-same-caster-turn-named-instant-prohibition"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-imperial-edict-red-four-live-post-close-same-turn-named-instant-remains-prohibited-correct-probe-v2",
+      "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+      "source_spec_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08",
+      "review_evidence": "review-evidence/edict120-fluid122-0bb5-qualified-saved.json",
+      "review_evidence_sha256": "ca92795b6a9a9aad1f3bf98fd2ccf9f59aed30387170a4863714cf8d4f0f3256",
+      "recorded_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "qualification_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-edict120-fluid122-replay.json",
+          "sha256": "785ce5105588b9d20857df2922e37ebc3e78ee3f9b5d663e9801a66ae2f99b9e",
+          "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fluid_motion_blue",
+      "group_id": "identity:fluid_motion_blue",
+      "scenario_id": "card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe",
+      "effect_branches": [
+        "fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fluid-motion-blue-four-live-real-created-graphene-token-earns-go-again-two-damage-and-action-refund-correct-probe",
+      "source_spec": "card-regression-repair-edict120-fluid122-state-creation.json",
+      "source_spec_sha256": "70f935255ec011ca69a0b11322eb6d838e522df5242933c33dfee5a927abba08",
+      "review_evidence": "review-evidence/edict120-fluid122-0bb5-qualified-saved.json",
+      "review_evidence_sha256": "ca92795b6a9a9aad1f3bf98fd2ccf9f59aed30387170a4863714cf8d4f0f3256",
+      "recorded_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "qualification_runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-edict120-fluid122-replay.json",
+          "sha256": "785ce5105588b9d20857df2922e37ebc3e78ee3f9b5d663e9801a66ae2f99b9e",
+          "runtime_sha256": "0bb5374c3ebce5ffe4c76d28e95d60954873489d005857e893f9c8453ec60e06",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

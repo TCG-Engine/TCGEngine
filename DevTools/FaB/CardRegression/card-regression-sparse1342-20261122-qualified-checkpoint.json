@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T08:48:03.080191+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1342-20261122.json",
+  "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 113,
+  "native_assertions": 1582,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 5304,
+    "duels": 3103,
+    "four_live": 2201,
+    "recorded_primary_ids": 2452,
+    "identity_denominator": 5196,
+    "recorded_groups": 2326,
+    "group_denominator": 3324,
+    "four_live_groups": 2190,
+    "phase_qualified_scenarios_at_actual_contexts": 1941,
+    "phase_qualified_unique_groups": 1931,
+    "creation_replay_passes": 2683,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1102,
+  "scenarios": [
+    {
+      "card_id": "second_strike_red",
+      "group_id": "pitch-cycle:second_strike",
+      "scenario_id": "card-second-strike-red-four-live-sparse1342-first-attack-no-prior-damage-no-power-or-go-again-grant-or-retroactive-refund",
+      "effect_branches": [
+        "first_attack_no_prior_damage_no_power_or_go_again_grant_or_retroactive_refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-second-strike-red-four-live-sparse1342-first-attack-no-prior-damage-no-power-or-go-again-grant-or-retroactive-refund",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "review_evidence": "review-evidence/sparse1342-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fcd5f12df3b87c49ea16ac0ccb8fef6c84cf3089aa5c474bd31a9ce158900806",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1342-20261122-replay.json",
+          "sha256": "2492d080aeee3d57e163f45a7699df991c39636b55d3fc9e27cda1c54db8b04b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hunt_the_hunter_red",
+      "group_id": "identity:hunt_the_hunter_red",
+      "scenario_id": "card-hunt-the-hunter-red-four-live-sparse1342-first-played-red-does-not-count-as-another-red-unplayed-red-arsenal-retained-no-mark",
+      "effect_branches": [
+        "first_played_red_does_not_count_as_another_red_unplayed_red_arsenal_retained_no_mark"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hunt-the-hunter-red-four-live-sparse1342-first-played-red-does-not-count-as-another-red-unplayed-red-arsenal-retained-no-mark",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "review_evidence": "review-evidence/sparse1342-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fcd5f12df3b87c49ea16ac0ccb8fef6c84cf3089aa5c474bd31a9ce158900806",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1342-20261122-replay.json",
+          "sha256": "2492d080aeee3d57e163f45a7699df991c39636b55d3fc9e27cda1c54db8b04b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "scrap_hopper_red",
+      "group_id": "pitch-cycle:scrap_hopper",
+      "scenario_id": "card-scrap-hopper-red-four-live-sparse1342-no-eligible-scrap-unpaid-no-quicken-creation-or-automatic-action-refund",
+      "effect_branches": [
+        "no_eligible_scrap_unpaid_no_quicken_creation_or_automatic_action_refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scrap-hopper-red-four-live-sparse1342-no-eligible-scrap-unpaid-no-quicken-creation-or-automatic-action-refund",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "review_evidence": "review-evidence/sparse1342-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fcd5f12df3b87c49ea16ac0ccb8fef6c84cf3089aa5c474bd31a9ce158900806",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1342-20261122-replay.json",
+          "sha256": "2492d080aeee3d57e163f45a7699df991c39636b55d3fc9e27cda1c54db8b04b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "unbound_by_shadow_red",
+      "group_id": "identity:unbound_by_shadow_red",
+      "scenario_id": "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+      "effect_branches": [
+        "actual_hand_play_not_banish_no_gate_creation_or_action_refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+      "source_spec": "card-regression-sparse1342-20261122.json",
+      "source_spec_sha256": "b3396d2455464f156b4c229bedc84a82da65540c1071cadc1260a3601c507b4c",
+      "review_evidence": "review-evidence/sparse1342-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fcd5f12df3b87c49ea16ac0ccb8fef6c84cf3089aa5c474bd31a9ce158900806",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1342-20261122-replay.json",
+          "sha256": "2492d080aeee3d57e163f45a7699df991c39636b55d3fc9e27cda1c54db8b04b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

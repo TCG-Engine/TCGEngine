@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1461-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1461-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "976a77655d0ed4b1a84dc430e174b4e0f7e7f2e09a261c2dc06624c0a3299200",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41e502c25f7e3a8e37731cebce38d9333ff7295d76efcb6d3b10b543064ed7cc",
+        "actions.json": "44384c3981ca1088b1d5322e2a724f2d2ac6ff7de979578323546002d79ed7d2",
+        "assertions.json": "360700739484416a27cc02c4238fe9cd63ee86a9a10c893f0897a2fa8f6831a6",
+        "expected_final_gamestate.txt": "9eade050a10148d6e5b269c4ccc218458976463f06d0286f71376545d8060abf",
+        "meta.json": "205feef62d548334ab5dc1894f685a24da449610b35c8c391b3fc5673c2dd6b4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "The Grain that Tips the Scale / actual Blue Instant is not Attack despite true another-Blue condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:47:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes, legal Mystic Nuu. Real BlueSigil5 is played and on Stack, so anotherBlue has genuinely been played before primary6click, but the actual Instant is not an attack and there is no current combat attack. Cost0/Instantpriority1/AP1 otherwise eligible. Mandatory attack target absence must reject before announcement or Transcend, preserving physical primaryID6Hand. ActualSigil resolvesHP21 after allfour responses; real BluePotion7 then spends AP1 and allfour respond. Primary remains original card6Hand, neverInnerChi, only actual supports appear in cardsPlayedThisTurn; source5GY/Potion7Arena/AP0. This does not certify positive target timing or an implemented positive Transcend route. Sources: FaBSim/GeneratedCode/cardArrayCache.json#the_grain_that_tips_the_scale_blue FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/MSTCards.php#FaBMSTAttackRefs"
+}

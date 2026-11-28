@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-restless-templar-red-four-live-sparse1579-real-nonlethal-zombie-damage-is-not-death",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-restless-templar-red-four-live-sparse1579-real-nonlethal-zombie-damage-is-not-death",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1579-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1579-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d5381202288227f3dfa55e32f99486f925b8aeb0f94142cabbe3523fe28efa54",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5008fd4efd25cb230ec41396e41fea52498357c410d55ae4e53ac099964b2feb",
+        "actions.json": "7403b4eb88ab0ab4f4a10b6dda1174dd453a00f1f794704f5b8779b4dd1f9556",
+        "assertions.json": "14baa14998e163546b0200ec4e12075e285f718a022c7434a9078e23514d98c7",
+        "expected_final_gamestate.txt": "4c5d33a54c4d82b1143c105c3a199a52cf884ff7604276b2f316402988e398fd",
+        "meta.json": "5e7b6ad080d6e9bdb08e6ded81fa15bef7d1d501415fd6873b2992b4bc009bdd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T09:12:20.230835+00:00",
+  "runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+  "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+  "source_spec_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 56,
+  "native_assertions": 4389,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4172,
+    "duels": 3074,
+    "four_live": 1098,
+    "recorded_primary_ids": 1325,
+    "identity_denominator": 5196,
+    "recorded_groups": 1199,
+    "group_denominator": 3324,
+    "four_live_groups": 1091,
+    "phase_qualified_scenarios_at_actual_contexts": 809,
+    "phase_qualified_unique_groups": 804,
+    "creation_replay_passes": 1550,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "tremor_of_iarathael_red",
+      "group_id": "pitch-cycle:tremor_of_iarathael",
+      "scenario_id": "card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+      "effect_branches": [
+        "tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+      "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+      "source_spec_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+      "review_evidence": "review-evidence/tremor073102-d834-qualified-saved.json",
+      "review_evidence_sha256": "ef9bf3eceeb2e5fe561386f172b7826134b914537e747b6602f9b815b37cf2c7",
+      "recorded_runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+      "qualification_runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-tremor102-d834-replay.json",
+          "sha256": "1f266af03884820a04e8e5a7539789d9b0e041dd9b10d2b54bec1c624844fc98",
+          "runtime_sha256": "d8345acccd130cce07e72fc43c1746609ca5860ecb5d1dcc9c2ddab28bf2697c",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

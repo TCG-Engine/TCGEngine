@@ -1,0 +1,69 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent foreign-Aura static draw replacement review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1168-20261122.json",
+  "source_spec_sha256": "d7e6b045ed875c21378b2d60272504d3e1aaf15df8d619b35378e37e3f30316b",
+  "input_sha256": "d7e6b045ed875c21378b2d60272504d3e1aaf15df8d619b35378e37e3f30316b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-the-muse-red-four-live-sparse1168-foreign-aura-replaces-real-draw-with-owned-ponder-not-deck-movement",
+      "card_id": "sigil_of_the_muse_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7dcf77364f5f1c86487dfd19593ad7add0b09f7e6fec9176a611a8a91014ab5",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "a7d0de815bf3df56ecf406dab2239a08d765d92c9b2f01c2dc331f845e6425d6",
+        "expected_final_gamestate.txt": "e36213e7dd33dc098f034d7f5429f7dbda895b28a3d6c7684fd206cd792c1723",
+        "meta.json": "7d67361b3947aceb58ecab08ba93068b067c6139020b128e444b6904f4b7d8de"
+      },
+      "fixture_sha256": "64e65793e2a04ff86414f5cc579af5b92bdfa329fa5d22f4e1ad01eeacbc82e8",
+      "actions": 5,
+      "native_assertions": 263,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1168-20261122.json",
+      "input_sha256": "d7e6b045ed875c21378b2d60272504d3e1aaf15df8d619b35378e37e3f30316b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1168-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sigil-of-the-muse-red-four-live-sparse1168-foreign-aura-replaces-real-draw-with-owned-ponder-not-deck-movement",
+        "fixture_slug": "card-sigil-of-the-muse-red-four-live-sparse1168-foreign-aura-replaces-real-draw-with-owned-ponder-not-deck-movement",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d7e6b045ed875c21378b2d60272504d3e1aaf15df8d619b35378e37e3f30316b",
+    "reviewer": "breadth_review independent foreign-Aura static draw replacement review",
+    "basis": [
+      "Sigil of the Muse is a Wizard Aura with a printed IF would-draw replacement, not an earned WHEN. Natural Verdance20 legally owns prior Aura5 at foreign seat4; young Chane20 legally plays Shadow Tome6 at seat1. No entry/start phase, end phase, Aura producer or extra hero event is owed in this fixture.",
+      "Actual Tome0 spends AP1 before all four source responders. GL2962 applies the draw replacement before moving real top Deck7 to Hand. IARRuntime155-158 enumerates all live-seat Sigil Auras but calls CreateArena for the actual drawing player1 and returns replacement true. Thus the same real DeckSigil7 remains Deck and neither Hand nor Banish gains it.",
+      "Current CreateArena routes Ponder creation to the drawing player. The exact outcome is one ready Ponder8 owned/controller1, foreign Aura5 retained owned/controller4, sourceTome6 ownedGY1, maxUID8, empty Stack/queues, unchanged HP20/R0/AP0. No extra source token or draw is inferred. Keeping real Deck7 makes the replacement nonvacuous and the owner separation is observable."
+    ],
+    "persisted_check_review": {
+      "controls": 5,
+      "normalized_assertions": 263,
+      "author_only_omissions": 0
+    },
+    "limits": [
+      "One actual action-phase draw replacement only. No multiple draws or competing replacements, Aura entry/start-phase destruction, Ponder end-phase ability/refill, suppression, hero/support or full-card credit.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1168-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fc24751d78493be66645160ec17181073245a6b15e1e5a97a71932e561b433b5"
+  },
+  "full_suite_run": false
+}

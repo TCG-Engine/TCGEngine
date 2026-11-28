@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch564-r3.json",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T04:02:57.352816+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rally-shadow-horde-blue-four-live-real-defending-instant-banish-cost-and-plus-two-defense",
+      "fixture_sha256": "ee0d534d397e7700962dd1a86e208d63986471d73172b7d7c0be8963c5ea21b3",
+      "passed": true,
+      "result": "[PASS] Rally the Shadow Horde Blue / real defending Instant banish cost / defense four and three damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rally-shadow-horde-blue-four-live-real-defending-instant-banish-cost-and-plus-two-defense",
+      "returncode": 0,
+      "stdout": "[PASS] Rally the Shadow Horde Blue / real defending Instant banish cost / defense four and three damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

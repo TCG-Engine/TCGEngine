@@ -1,0 +1,7 @@
+{
+    "name": "Talk a Big Game / real number choice and actual damage below threshold",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T07:07:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_BRAVO20_AND_DORI20. Primary5HandActionnormal0cost/AP1to0/fourmanualresponses. DuringrealresolutionNUMBERCHOOSE0|1000source5remainsStackandAP0; actualanswer3thenprimary5ownedGYandprintedGArefund1. ActualWoundingRed6Hand0costconsumesearnedAP1to0/formaladjacentHero4/freshfourmanualresponses/printedpower4. ActualSnatchBlue7Hand4defends2/nativeCCRoleDEFENSE, notplay/Attack, so itsownhitWHENunearned. Actualphysicaldamage4-2=2/HP4=18 isBELOWchosen3, despiterawattackpower4>=3. Thereforedelayednextdamageconditiondoesnottrigger/noMightproducer, UID7/allArena0/RNG0remain. Fullcloseprimary5anddriver6ownGY1/actualdefender7ownGY4/APR0/StackDQCCclean. PositiveNumberChoicecontinuation/GAfunding andactualdamage-thresholdfalseguardonly; no>=3trigger/tokenproducer/count/GAonAA/Heropower/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#talk_a_big_game_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HVYCards.php"
+}

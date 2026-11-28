@@ -1,0 +1,7 @@
+{
+    "name": "Disdainful Delight / actual three defense without boo",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:59:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_DORI20_DORI20_DORI20_kayo_strong_arm20. PrimaryBlock6legaltalentHand4, realGenericWoundingBlow5Hand1zeroCost/AP1to0/formaladjacentHero4target/fourmanualresponses. Noearlierbooevent/history/modifierseed. NativeBlock6declaredHand->CCdefenseRole/FromHand/owned4/noAPorResourcecost, actualprinted3defensewithoutunearned+1. Realfourpowerminus3defensegivesONEHeroDamageHP19, notzerodamagefromfalse4defense. Counter6/RNG0/allArena0/noHeroConfidenceorVigorearned. Fullclose5ownGY1/6ownGY4/StackDQCCquiet/HP20others/APR0. BasicdefenseandfalsecrowdguardONLY; noearnedboopositive+1/Producer/Heroability/otherpitch/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#disdainful_delight_yellow FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php"
+}

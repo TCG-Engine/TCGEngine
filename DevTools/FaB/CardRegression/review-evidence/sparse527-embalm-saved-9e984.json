@@ -1,0 +1,301 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B527_PUBLIC_BANISH_GA_AND_EARNED_AP_DAMAGE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T21:57:52.130474+00:00",
+  "source_spec": "card-regression-batch527.json",
+  "input_sha256": "13de3983992c7e5b7f36f105bd3953f8dee64bc6313268af8b43df7f8645c1be",
+  "manifest_sha256": "882cd49187a541d1fa23a1f0c41774b5670350bb76078e278fdeb409d1935b97",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch527-independent-source-review.json",
+    "sha256": "fcbc9ff84c8447bc594e5a45ee1e423886e0b0b51be00c616fb1554d1ce9edee",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch527-20261105T215101Z-6aecfa45b81a7.json",
+    "sha256": "6222eecd8d65e85bc8d3a5a356d63a597408237a5a62642a848349842c5fe664"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch527.recording-results.json",
+    "sha256": "97eac055caeb9df5bd3d44d97a0228ee0651118db20ef05d490d0b08adc7bfc4"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch527-native-r1-9e984\\receipt.json",
+    "sha256": "93d081626d642390f061e2c56957cf72439bcad8781edeef3a323937113e18c5"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "embalm_yellow",
+      "group_id": "identity:embalm_yellow",
+      "slug": "card-embalm-yellow-four-live-real-public-banish-go-again-funds-four-damage",
+      "source_spec": "card-regression-batch527.json",
+      "input_sha256": "13de3983992c7e5b7f36f105bd3953f8dee64bc6313268af8b43df7f8645c1be",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PUBLIC_BANISH_GA_AND_EARNED_AP_CONSUMER",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-embalm-yellow-four-live-real-public-banish-go-again-funds-four-damage",
+      "fixture_sha256": "457eb36efeab99a7198efcc4c4c4f89e35e9736971888b56786dc329d9119a37",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "98db505a02ffa6dcd77699c1fb127717a4efe170418d86fb3d67f0f31976fb7f",
+        "actions.json": "b5b05a02cc2d86a036c7a5f5ba7322e73bef47c9d833b53dab7bcea13a797421",
+        "assertions.json": "3c77fb02e1af79ba4af531752aa9a96833721b09429baaac2b37d5670d611180",
+        "expected_final_gamestate.txt": "c93ab752908f0b72c255eb70d474624ac54a34349a92e933019e51670d98ef98"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98db505a02ffa6dcd77699c1fb127717a4efe170418d86fb3d67f0f31976fb7f",
+        "actions.json": "b5b05a02cc2d86a036c7a5f5ba7322e73bef47c9d833b53dab7bcea13a797421",
+        "assertions.json": "3c77fb02e1af79ba4af531752aa9a96833721b09429baaac2b37d5670d611180",
+        "expected_final_gamestate.txt": "c93ab752908f0b72c255eb70d474624ac54a34349a92e933019e51670d98ef98",
+        "meta.json": "d91f775fc0aff0cd57be15785eccbb7d710626c41545fd1062dc4dbb797d4a84"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "98db505a02ffa6dcd77699c1fb127717a4efe170418d86fb3d67f0f31976fb7f",
+        "actions.json": "b5b05a02cc2d86a036c7a5f5ba7322e73bef47c9d833b53dab7bcea13a797421",
+        "assertions.json": "3c77fb02e1af79ba4af531752aa9a96833721b09429baaac2b37d5670d611180",
+        "expected_final_gamestate.txt": "c93ab752908f0b72c255eb70d474624ac54a34349a92e933019e51670d98ef98",
+        "meta.json": "d91f775fc0aff0cd57be15785eccbb7d710626c41545fd1062dc4dbb797d4a84"
+      },
+      "actions": 32,
+      "native_assertions": 2602,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 616,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ebon_fold",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "embalm_yellow",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "levia",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "ebon_fold",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "embalm_yellow",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_Graveyard1_exact_UID_card_set": {
+        "7": "ebon_fold",
+        "5": "embalm_yellow",
+        "6": "wounding_blow_red"
+      },
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "04b8860a08bf4627fb3917ca1975efc46dd83cb6a8379c0362798be43ca761c5",
+      "native_action_mapping_sha256": "67b224f4da258cee3565696b76a6e41d301cbccd09012958be3a39bc568d06eb",
+      "native_assertion_mapping_sha256": "9a298101df6907fd367c4c426e6851756495477714fa1f4d54d31fd369ed4d04"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 32,
+  "total_native_assertions": 2602,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 616,
+  "material_findings": [
+    "Actual complete native receipt0/stderr0 and immutable archive match unchanged approved13de input/fcbc source at9/all69guards. All five physical files,32 native envelopes and2602 ordered persisted assertions independently reconciled, including29manualinputs/616properties. Raw48manualpreferences at each endpoint checked, not snapshot-only approval.",
+    "ActualownEmbalm5 starts publicBanish/Playable0/no seededtag orpermission. ActualBanishclick moves same5StackSourceBanish and spendsordinaryAP1to0/resource0 with realGO_AGAIN. Freshsource1,2,3,4 retain5throughfirstthree; fourth completes5ownGY and refundsAP1. PriorEbon7Equipment and EmbalmNAA are noteligibleBloodDebtAA, so no resolvingchooser was earned or omitted; separate bottoming success is not a GAcondition.",
+    "ActualblankWounding6 click now uses primary-earnedAP1; actualnativeMZCHOOSE declaresadjacentP4Hero before its cost. Realresource0/AP1to0, same6Stack/thenChain currentpower4/noGA, realphysicaldamage4/HP20to16. It receives no refund. Fullclose leaves alloriginalUID1..7 conserved: exactunorderedGY1set5Embalm,6Wounding,7EbonFold, noHand/Banish/Deck/Pitch/othercardzones/virtualUID. ActualEbonFoldrawobject and allHeroobjects unchanged, allRAPChi0/counter7/RNG0/StackChainDQawaitpayment/combatquiet.",
+    "Normative source model reused honestly: lawfulpriorEbonFold origin is provenanceonly. No nonemptyeligibleGY/bottoming/Deckorder/await-source-lifetime/BloodDebtendphase/Levia/EbonFoldactivationSpellvoid/supportprimary/sibling/fullcard or nativecontrol credit. Exactendpoint snapshots and completed query ledger establish this branch; no per-action raw snapshot or callback instrumentation is invented. Root focusedreplay/registration gates remain separate and are not claimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4489/",
+      "finding": "Current intrinsicBanish permission, originconditionalGA and separate nontarget bottom effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+      "rules": [
+        "1.8.5c",
+        "1.8.6",
+        "1.8.9"
+      ],
+      "finding": "No legal nontarget parameters causes effect failure, not illegalplay."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4b",
+        "5.3.5"
+      ],
+      "finding": "Independent remaining resolution/goagain after effectfails."
+    }
+  ],
+  "excluded_conditional_source_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch527-embalm-banish-go-again-author\\excluded-nonempty-eligible-graveyard-source-only-note.json",
+    "sha256": "239aad8c03cc32ca8f51ef582f10c84556d55de5893b379f82f1285256900d4e",
+    "native_attempted": false,
+    "coverage_credit": false
+  },
+  "limits": [
+    "One intrinsicpublicBanishpermission/conditionalGA+realearnedAPattackconsumer/4damage branch only. Separate non-target GY effect hasZEROeligibleBloodDebtAA and legallyfails; no omittedmandatorychoice.",
+    "NonemptyeligibleGY chooser/source-lifetime known-family seam explicitly source-onlyunattempted/unqualified. No sourceclear-during-body/fullcard approval; no BloodDebtEndPhase/Levia/EbonFold/supportprimary/otherpitch/sibling credit.",
+    "Noauthornative/pass/fixture/coverage/bug/sourceapproval; OTHERpeer/Rootnative/Saved/replaysrequired. NoR/PHP/native/sourcefix/gen/service/fullsuite/git/remote/denied135retryoraftercandidateevaluation/sharedhelperedits.",
+    "No nonemptyeligibleGY/bottoming/Deckorder/source-retentionthroughawait/currentBloodDebtendphase/Handorigincontrast/Levia/EbonFold/supportprimary/sibling/fullcard/nativecontrol credit.",
+    "NoPHP/native/replay/R/source/candidate/service/gen/fullsuite/git/remote/denied135retry.",
+    "No Root replay PASS or registration claim from this Savedproof. Opaque undoVersions hash-bound, excluded from current physical inventory."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch527_saved_readonly.py",
+    "sha256": "2584a34d066b6b71343e7039742a5e66868fe7afac9e0e1989ab7dac33e9eb58"
+  }
+}

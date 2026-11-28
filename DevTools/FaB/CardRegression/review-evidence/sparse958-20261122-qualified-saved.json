@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse958-20261122.json",
+  "source_spec_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+  "input_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sack-the-shifty-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-base-go-again",
+      "card_id": "sack_the_shifty_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "55f079dab89bea9e3f251d33dbb92d2f33e7c36996024ba845a24c5170634ccb",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "fe2b3bbbac18d014900483c0aa0847f59c00dc88521ebaa2871296ad6282080a",
+        "expected_final_gamestate.txt": "66653573a40d794f0ad11fef909e4d44a22386598cc3b3a951b16ddd783196fc",
+        "meta.json": "001930cddd0d35dd4fc9e32266ecf70100ab38497688f5455f2c8c4e6de9215e"
+      },
+      "fixture_sha256": "f20251f8ff14589aa727dec76a60bccf0b4e292bb9c31063f1ae4a624c01b358",
+      "actions": 29,
+      "native_assertions": 180,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse958-20261122.json",
+      "input_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sack-the-shifty-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-base-go-again",
+        "fixture_slug": "card-sack-the-shifty-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-base-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-nix-the-nimble-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-reaction",
+      "card_id": "nix_the_nimble_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11d13e3004eb2dfdf23fe2c38cc8eadf41bd57247589bd60266258abcf074631",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1d6315902e25ccac15d6677023595f2c8fe398492cb1048b5432efd6bd1dde5b",
+        "expected_final_gamestate.txt": "208bf4045ab9619c3f22880cfc15e94c8ddcb4646bb62c20fb1d6a8351c329e4",
+        "meta.json": "59070e2ef05b20385a7a845c232c686f1f9fe2497204d3f6e250dac82ca51bd1"
+      },
+      "fixture_sha256": "3e9adcc29f274f460953900fcc0621abae33b64de357444dbaa672b340ff880a",
+      "actions": 30,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse958-20261122.json",
+      "input_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nix-the-nimble-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-reaction",
+        "fixture_slug": "card-nix-the-nimble-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-reaction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-excessive-bloodloss-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-red",
+      "card_id": "excessive_bloodloss_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe1cbac858fd6f2699258340f540a14d57b43e002ace707fc4b6404365828847",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "400659a2c00213b8f1ecd911f7d70849c1419016dc4f49c526e6aec4384b1d42",
+        "expected_final_gamestate.txt": "b16b930605e566d61831436163bbac9d7b7522238cfd5a8f6c4c6e7e9584aff8",
+        "meta.json": "3e9db4aa700f64a1f23d54ba1c4768091154905c9f39aef1e899ce5ef455ba38"
+      },
+      "fixture_sha256": "528d3776afb263a1a172803f1ac386fc52d5334e3a1e89bf514c39a1bc99178f",
+      "actions": 30,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse958-20261122.json",
+      "input_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-excessive-bloodloss-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-red",
+        "fixture_slug": "card-excessive-bloodloss-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-red",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-impulsive-desire-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-instant",
+      "card_id": "impulsive_desire_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a98f95918fe911971f9ccf895c8473dcc69a4e021047d23ee0f93fca4b94958a",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3fcb7794c2f32dac31b3f2e1041eb84cce8659c8b6ae6e2bf90e98f561b59e25",
+        "expected_final_gamestate.txt": "3f5ab89fb67b55ac76d475e1651f7f10b5a00c6dba834a4f4b4b8504140cb7f5",
+        "meta.json": "1e9536454da779c11133694cb0e2014f3752cac298aa85a8a8f81034b737d171"
+      },
+      "fixture_sha256": "0a331e5e577511a8150410a1c49c8aace6b9d62870d974c62ce66f6e3ade51eb",
+      "actions": 29,
+      "native_assertions": 180,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse958-20261122.json",
+      "input_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-impulsive-desire-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-instant",
+        "fixture_slug": "card-impulsive-desire-red-four-live-sparse958-actual-two-hand-blocks-keep-real-eligible-enemy-deck-instant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d93affdaecfa84ef3661243550aa0a7fc6417bbd1b9436e77d83da567100afe7",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed WHEN hit is absent at0actualHPdamage/fullblock6, therefore noearnedbanish/secondary Contract/Silver/heal. LegalplainAssassinUzuri20/noactivation andGenericDoriDeckmarkers, noNuuclosepassive. Actualsource5/Blue6ifcost1/printed0or1/R0or2/AP0/ownedsourceblockersGY andall4manualresponses.",
+      "RealeligibleenemyDeck8ifzeroor9ifcost1 retainedCardID/UID/Owner4; LeadChargebaseGA, FateForeseenDefenseReaction, CriticalRedred, SigilSolaceInstant eligibility readfromcache. No emptyDeckoracle. BothBanish0/all4Arena0/ownHP20 directnoSilver/heal. Nopositivehit/contract/ownership/pitchsibling/fullcardclaim.",
+      "Reviewedexactsourceauthor/packet/note, inheritedDeckmarkerremovedandcountsguardsnowconsistent. No unconditional WHENattacks/plays skipped. No originalschema read, Tsourceonly. Nativeexecutionandonecleanreplaypending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse958-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fb43a5eac758ac5b9bd33db9e834a8644d600d8c1e8484113fac69230cf08e2c"
+  },
+  "full_suite_run": false
+}

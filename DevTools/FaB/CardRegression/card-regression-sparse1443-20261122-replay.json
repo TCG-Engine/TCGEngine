@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blasmophet-levia-consumed-two-live-sparse1443-native-bound-transformed-hero-blood-debt-banish-play-once-per-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1443-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1443-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "38c139e1c03d282fd6ada787f47a6fa2913385d32be808221aa1ef83a60982fa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50734e4295fe5bdb3e7f95c70c6d1d6b0d82f593d24dfc1ef9bb5364939f13b3",
+        "actions.json": "7337a7539d37f0cf8980fd002dde6eeb273a5659e2aa512eee1e67b44920286b",
+        "assertions.json": "54b24f579540b9cd265fcbd6e14e5828bb7da9055d997fc1fd28f431f00f60e9",
+        "expected_final_gamestate.txt": "0d2940fd5f9d9e77e7322c219ff9da0acd84ff067f22d2dae443c885d320798e",
+        "meta.json": "60e8476439bc998d88fb7717c494760e2c89914458732dafd4521522ad5429f3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

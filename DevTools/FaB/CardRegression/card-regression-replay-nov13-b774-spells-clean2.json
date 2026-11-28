@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch774.json",
+  "runtime_sha256": "84a7ebfb969b795ea825aae03afe2bee9673c21c1f9d6c756ac97cbab82d8883",
+  "returncode": 0,
+  "completed_utc": "2026-11-13T22:58:22.911159+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dimenxxional-gateway-blue-four-live-opt-reveal-all-opponents-arcane-shadow-banish",
+      "fixture_sha256": "899ecdb91e99cee5cb817e03729d0158bd9c6562196e92c56c846b973714db69",
+      "passed": true,
+      "result": "[PASS] Dimenxxional Gateway blue / four live opt, opposing heroes and Shadow banish"
+    },
+    {
+      "slug": "card-silver-the-tip-blue-four-live-arsenal-load-remaining-bottom-head-shot-damage",
+      "fixture_sha256": "1edf084917178a7b8a6cefb3a13af1bbc873d28f56f5401b6ea5631789cb0191",
+      "passed": true,
+      "result": "[PASS] Silver the Tip blue / four live arsenal load, remaining bottom and Head Shot damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dimenxxional-gateway-blue-four-live-opt-reveal-all-opponents-arcane-shadow-banish",
+      "returncode": 0,
+      "stdout": "[PASS] Dimenxxional Gateway blue / four live opt, opposing heroes and Shadow banish\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-silver-the-tip-blue-four-live-arsenal-load-remaining-bottom-head-shot-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Silver the Tip blue / four live arsenal load, remaining bottom and Head Shot damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

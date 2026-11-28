@@ -1,0 +1,7 @@
+{
+    "name": "Wreck Havoc / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:05:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Defense reaction cards can't be played this chain link.\n\nWhen this hits a hero, you may turn a card in their arsenal face-up, then destroy a defense reaction in their arsenal. ActualGenericHandblocks3+3fullyblock5/6, zeroactualdamage/nohit/AP0, physicalcardsownerGY. Positivehiteffects andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wreck_havoc_red"
+}

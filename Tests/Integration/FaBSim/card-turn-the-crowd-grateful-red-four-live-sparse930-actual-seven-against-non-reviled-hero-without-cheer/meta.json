@@ -1,0 +1,7 @@
+{
+    "name": "Turn the Crowd Grateful / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:26:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks a Reviled hero, this gets +1{p}.\n\nWhen this hits a Reviled hero, **the crowd cheers** you. Representative only: actual_seven_against_non_reviled_hero_without_cheer. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turn_the_crowd_grateful_red"
+}

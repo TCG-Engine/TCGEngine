@@ -1,0 +1,45 @@
+{
+  "status": "SEEK152_ORIGINAL72_5421_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent from b820 Source author; exact Source/Saved/physical review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+  "input_sha256": "304b170998367fc677ee74e8f2913c7be8893f6b2bde18dc0d7e870a90e03127",
+  "source_spec": "card-regression-repair-seek152-after-native-combo.json",
+  "fixtures": [
+    {
+      "slug": "probe-seek-vengeance-blue-four-live-real-edge-prerequisite-and-actual-go-again-refund",
+      "card_id": "seek_vengeance_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1732dbadb5425646b14b4647fc33f806d95ae107d7c9491417d6bb7c99988b91",
+        "actions.json": "7cab644d2d341e7b7d4848d966e733303e7306a35372f56032918805577f3fa8",
+        "assertions.json": "04e787a4438ccd64360cee2ab3a65ac87ea0c15d9ec6c0d60a77e99915b165c2",
+        "expected_final_gamestate.txt": "2bfeeed0eb2b271731b9c594bee6228900853e6768d2b324da33e9ad105a5c91",
+        "meta.json": "7fe5fd1b6ea0150b0208f585ff6c4964ebbaa46c8e00929f21332c3b6d9a7c4f"
+      },
+      "fixture_sha256": "cc19b620c84f27088c02e078bdc613f1fc97e066fd9d7ce278275917c77ecbea",
+      "actions": 72,
+      "native_assertions": 5421,
+      "actual_manual_pass_inputs": 67,
+      "recorded_runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+      "runtime_sha256": "96daaf5312276a581cc536bf7b56f7affcae4e449f2b7fe6cb9a63ad267821cc",
+      "source_spec": "card-regression-repair-seek152-after-native-combo.json",
+      "input_sha256": "304b170998367fc677ee74e8f2913c7be8893f6b2bde18dc0d7e870a90e03127"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-seek152-replay.json",
+    "sha256": "451dd835c80d271c9444392628ee7b937b6412a033c7dbad9a3f5f5425d5792c",
+    "passed": true
+  },
+  "source_review_sha256": "85a2d3de16536777313fc87940d2f9d437d681ead4346396a87a535840747bdf",
+  "components": 46,
+  "basis": "Original72inputs5421queries unchanged. RealEdge1damage earnsAP, actualSeek2samechain damagesHP17 and earnssecondAP, then actualRed4attack consumesAP and takesHP4to13; original5weaponremains,6/7ownGY,Blue8payscost1leavesR2/AP0. Fourlive manualresponse actors, exactsetup/history/oracles/fullcleanup preserved. No directAP patch.",
+  "limits": [
+    "Blue positive samechainEdge Combo branch only. Wronghistory/closedchain/blanking/rotatedcontroller andNO_GO_AGAIN are componentcontrols, not newNative branches.",
+    "Originaldiagnostic remains unchanged; only repairsuccessor permits qualifiedsave.",
+    "No fullsuite, siblings, denied lifecycle, Core/generated change or newbreadth."
+  ]
+}

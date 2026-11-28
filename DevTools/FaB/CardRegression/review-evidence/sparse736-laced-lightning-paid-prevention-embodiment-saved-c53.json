@@ -1,0 +1,271 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B736_LACED_LIGHTNING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T19:19:20.028459+00:00",
+  "source_spec": "card-regression-batch736.json",
+  "input_sha256": "2f6f41d4dd0b139583caafe30da0989a86406016c4c36b82cc04dec31395c605",
+  "manifest_sha256": "19599c33f91fd374c86b6b4836472c2a7fcb29ef022c9bcd128d1f38fa10cc6f",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch736-laced-lightning-independent-source-review.json",
+    "sha256": "34cb57f9522fb495a9d187fa41a02c66eff8e2bd479c88e75fdfb29a68767b38",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch736-20261108T191636Z-6af0ca9491abe.json",
+    "sha256": "c058b1c5e325ad3dbccd8c63e08b2af22d8983a38c35223beefb29ccbe5ca9c9"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch736.recording-results.json",
+    "sha256": "0f6b03d24b7785a9246814e62c201a005691fe869c90b2fc5e63a6bb1106598d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-b736-laced-lightning-native-recording\\receipt.json",
+    "sha256": "da873720a164f14bec69b36465226f25595a26eb41b9b6466ff98656fb6bfdd1"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "laced_lightning",
+      "group_id": "identity:laced_lightning",
+      "slug": "card-laced-lightning-four-live-paid-destruction-real-one-prevention-and-earned-embodiment",
+      "source_spec": "card-regression-batch736.json",
+      "input_sha256": "2f6f41d4dd0b139583caafe30da0989a86406016c4c36b82cc04dec31395c605",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_PREVENTION_AND_EARNED_EMBODIMENT",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-laced-lightning-four-live-paid-destruction-real-one-prevention-and-earned-embodiment",
+      "fixture_sha256": "09cea99d0b6f5be3780b6a7e0ceed0c2dc207d7943f1c9cd9f20e7376478c11d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "714a89d2186fefa7e19b020c7eba31d6e1e2fcb8d93005244d83d53060e0e560",
+        "actions.json": "99f10270d70742f971cce6486ffe50690abb557a80b921c81af6e0c7538a4893",
+        "assertions.json": "5f9bf8930ea20af471478b17515135e9dfa58c8a3f88a74c871eb8832ccedcdb",
+        "expected_final_gamestate.txt": "233202bcaac94430a348f94ca8a912d7118b3b4db5aa33f1da52774d0a494e79"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "714a89d2186fefa7e19b020c7eba31d6e1e2fcb8d93005244d83d53060e0e560",
+        "actions.json": "99f10270d70742f971cce6486ffe50690abb557a80b921c81af6e0c7538a4893",
+        "assertions.json": "5f9bf8930ea20af471478b17515135e9dfa58c8a3f88a74c871eb8832ccedcdb",
+        "expected_final_gamestate.txt": "233202bcaac94430a348f94ca8a912d7118b3b4db5aa33f1da52774d0a494e79",
+        "meta.json": "cc9c5492f3c1c2827640caf5fbb0efc6daff8a95cc766f486ef8e77902348a52"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "714a89d2186fefa7e19b020c7eba31d6e1e2fcb8d93005244d83d53060e0e560",
+        "actions.json": "99f10270d70742f971cce6486ffe50690abb557a80b921c81af6e0c7538a4893",
+        "assertions.json": "5f9bf8930ea20af471478b17515135e9dfa58c8a3f88a74c871eb8832ccedcdb",
+        "expected_final_gamestate.txt": "233202bcaac94430a348f94ca8a912d7118b3b4db5aa33f1da52774d0a494e79",
+        "meta.json": "cc9c5492f3c1c2827640caf5fbb0efc6daff8a95cc766f486ef8e77902348a52"
+      },
+      "actions": 15,
+      "native_assertions": 1334,
+      "actual_manual_passes": 11,
+      "actual_priority_response_passes": 11,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 2
+      },
+      "schema_property_assertions": 403,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "aurora_emissary_of_lightning",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "laced_lightning",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "aurora_emissary_of_lightning",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "embodiment_of_lightning",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "laced_lightning",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        9
+      ],
+      "actual_resources_paid_by_primary_controller": 2,
+      "actual_primary_AP_paid": 0,
+      "actual_Zap_Action_AP_paid": 1,
+      "actual_prevented_damage": 1,
+      "actual_arcane_damage": 2,
+      "actual_created_token_UID": 9,
+      "actual_created_token_owner_controller": 4,
+      "ceased_ability_UID": 8,
+      "actual_primary_cost_destroyed_UID": 5,
+      "final_UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "7480f796fd905c419e94a1d3d67d23313797ddf82a3fb812cc4d320f6ab3088e",
+      "native_assertion_mapping_sha256": "878b10856f97cb987fc880fd4c46243b01b71102c4688ecf58929bf8393d4379"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 15,
+  "total_native_assertions": 1334,
+  "total_manual_passes": 11,
+  "total_schema_property_assertions": 403,
+  "material_findings": [
+    "Exact rawfive/behavior/all15controls1334orderedqueries11manual3/3/3/2/48preferences at both endpoints match Source34cb. COMPLETE0/stderr0 receipt/results/archive/current70c53ab33 bound; full physical endpoints and all initial/final queries independently parsed.",
+    "Actual WizardZap6targetHero4/AP1spent; real primary5 Instant2 paid with Blue7pitch3→R1, same5 destroyed toGY4 before paidABI8 freshfour4/1/2/3. ABI8 stays above heldZap6 firstthree; fourth clearsABI without early damage/token. FreshZapfour1/2/3/4 then actualHP18 and exactly physical Embodiment9OwnerCtl4 materialize together.",
+    "Actual effect prevents1 of printed3 arcane and earns one token; physical originalUID1..7 retained plus9/ABI8ceased/source5GY4/spell6GY1/Pitch7/R1/AP0/Chi0/counter9/RNG0/fullStackChainDQpaymentawaitquiet. No Flow/Hero activation, token AA/GA/futurefunction, secondary support or fullcard certification."
+  ],
+  "limits": [
+    "Onepaidprevent1of3andearnedEmbodimentphysicalcreationbranch; noTokenfutureAA/GA/Hero/DEF0/fullcard/supportcredit.",
+    "ActualHero4target/source/type/actorstrict, wholeZaptargetmenuunqualified.",
+    "Alloptionalhistory/defaultbank/FABmetadataunqualified; sourcecost/UID/HP/token/quietstrict.",
+    "Rootnative/exactSaved/all48manualpreferences/twoNEWfocusedreplays remainseparategates; authornoPHP/R/sourcechanges.",
+    "Whole Zap target menu is unqualified; actual chosenHero4/current controller/source/payment/prevention/HP/token identities remain strict. No primaryDEF0/alternateprevent amount/multipleevents/otherHero/secondaryactivation/Flow/tokenfutureAA/GA/expiry/support/sibling/fullcard credit.",
+    "Issuer faces independently viewed. Direct publisher retrieval unavailable; indexed official Omens notes are author evidence, not an invented independently successful page or exact JudgeID. No seeded current-history/effect map or incidental FAB certificate. Actual raw5/48preferences/Saved/replays/registration remain separate gates. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry.",
+    "Only this actual paid prevent1of3/earned one-token branch executed. No alternate prevention menu/amount/multiple events, token future AA/GA/expiry, Hero/Flow/DEF0/support/sibling/fullcard credit.",
+    "Root focusedreplays/registration/index/promotion remain separate; no qualification before registration. RawVersions hash-bound/excluded from physical inventory. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite/deniedretry."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov8_batch736_laced_lightning_saved_readonly.py",
+    "sha256": "0da1a9b026af18270898ffe4480b16449fa73d4f78ef50c84aacd4ad21a9bd60"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Dark Arcanite Helm / Generic source controlled by Shadow Levia",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-14T21:24:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fouryoungnatural20 live/manual Levia1/Betsy2..4. RealGeneric WoundingBlue5 Hand1 cost0 attackadjacentHero4 paysAP1to0; sameownedHelm6 equippedHead4. CR8.3.47/8.5.3a admit damage attributed to ShadowHero controller although Genericattack card doesnotgainShadow. Fullfour source/Attack/DefendPriority/Reaction flow reaches actualoptionalsharedprevention MZMULTICHOOSE0..1 ownHelm4; sameattack2onChain, HP4still20/Helm6retained. Answer exactHelm6 reallydestroys it intoownedGY4 toprevent1; actualphysicalremaining1 HP4_19. FourDamage/fourResolutionresponses trueclose sameBlue5GY1/Helm6GY4, allRChiAP0, otherHP20, allfourlive/allStackChainqueuesempty. No Shadowcard substitute, Leviaability/BloodDebt/Endphase, prevention/outcome/history flag seed, directhelperinjection or virtualOwner0 oracle. ExistingRadiantForcefieldmacro is transport only; no Forcefieldpermanent/Soul/activatedlayer seeded. No native/fixture/coverage byauthor; independentSource/Rootnative/twocleantargetedreplays required. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

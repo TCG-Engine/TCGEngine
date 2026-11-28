@@ -1,0 +1,148 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1277-20261122.json",
+  "source_spec_sha256": "d4b72fe05a418670c7f1f9f88b17f0688524b96c6d86d0b9b7e2a48a2cfcd6c7",
+  "input_sha256": "d4b72fe05a418670c7f1f9f88b17f0688524b96c6d86d0b9b7e2a48a2cfcd6c7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fang-dracai-of-blades-two-live-sparse1277-real-three-fealty-discount-makes-actual-dagger-attack-free",
+      "card_id": "fang_dracai_of_blades",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9975336b900cddbb0ed8a92499de5bd9aae528328e869d8ff98a76e445fa9a0f",
+        "actions.json": "f29f853d8b05170754fb1459afcb42561c70ee78273ee032a24583c6a586af80",
+        "assertions.json": "ed9f728631fff9f516154419d4935b2d6360bc414f52e945606a9ede0d50e63d",
+        "expected_final_gamestate.txt": "5e18ffdce08a96893aa88b89640e8c5bf4e684ca42a9e6c4b0ecfd145241310a",
+        "meta.json": "3057363436960830e9e2155c63eb9c6235ad84468e023a08f8950d8a483ac6d0"
+      },
+      "fixture_sha256": "c5ca4d5c706ae948583912b793fb5e06244cbfb1eec80179fa486704d0a922eb",
+      "actions": 14,
+      "native_assertions": 159,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 13,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1277-20261122.json",
+      "input_sha256": "d4b72fe05a418670c7f1f9f88b17f0688524b96c6d86d0b9b7e2a48a2cfcd6c7",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fang-dracai-of-blades-two-live-sparse1277-real-three-fealty-discount-makes-actual-dagger-attack-free",
+        "fixture_slug": "card-fang-dracai-of-blades-two-live-sparse1277-real-three-fealty-discount-makes-actual-dagger-attack-free",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cindra-dracai-of-retribution-two-live-sparse1277-real-three-paid-instant-equips-two-owned-daggers-after-choice",
+      "card_id": "cindra_dracai_of_retribution",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "84a2c70dc7e82d7d2d04f36de0e04f051e1e24c66619ab2c0144dee9f6c765a5",
+        "actions.json": "962c60f376bfc56606b9e55f310c4a73c6dfa2bde23599d78434978c5e81e146",
+        "assertions.json": "75946ac5079c7168db4652aa00496e6c32378b5de0460756c02867d851886e7a",
+        "expected_final_gamestate.txt": "274af9a006a117b71ba745f1720616667adf0910b1959617416be04f8d525019",
+        "meta.json": "d831c7f45ac6d18b4335f27befb5b86b149711e5db1e0d7c9b7c7ae69fb61b03"
+      },
+      "fixture_sha256": "fdf2d6e0d8db40939a9f4dda569f829a873438fca957e3fae0da9a35b29d40ae",
+      "actions": 5,
+      "native_assertions": 208,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1277-20261122.json",
+      "input_sha256": "d4b72fe05a418670c7f1f9f88b17f0688524b96c6d86d0b9b7e2a48a2cfcd6c7",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cindra-dracai-of-retribution-two-live-sparse1277-real-three-paid-instant-equips-two-owned-daggers-after-choice",
+        "fixture_slug": "card-cindra-dracai-of-retribution-two-live-sparse1277-real-three-paid-instant-equips-two-owned-daggers-after-choice",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d4b72fe05a418670c7f1f9f88b17f0688524b96c6d86d0b9b7e2a48a2cfcd6c7",
+    "source_note_sha256": "f1c6cd6f07badb24a98b745a7c21bf2ab71267f0b59551a59a03c6924755f037",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 19,
+    "query_checks": 367,
+    "persistable_assertions": 367,
+    "author_only_checks_omitted": 0,
+    "per_case": [
+      {
+        "card_id": "fang_dracai_of_blades",
+        "controls": 14,
+        "assertions": 159
+      },
+      {
+        "card_id": "cindra_dracai_of_retribution",
+        "controls": 5,
+        "assertions": 208
+      }
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_FANG_FEALTY_DISCOUNT_AND_CINDRA_PAID_GRAVEYARD_EQUIP",
+    "basis": [
+      "Two distinct natural adult40 heroes FangDracai/DraconicWarrior and CindraDracai/DraconicNinja each against adultDorintheaIronsong40, unchanged legacy duel/omittedactiveSeats/exact12/defaultgameModeempty/noPassives/both manual players. Owned prior Fealty and graveyard daggers are real admitted assets; no marked hero, prior Draconic-card/link, resource, permission or discount flag is seeded.",
+      "Fang owns realFealty3/4/5Arena and lawfulDraconicWarriorObsidianFireVein6DaggerWeapons, noHand/R0/AP1. Printed static3Fealty discount and current HNTAbilityCost read physical controlled Fealty count>=3, subtract1 from actualdaggernormal1. Actual6 click must directly enterPRIORITY/AP1to0/source6used/proxy7 with no pitch; realresponses2and1 precede attack.",
+      "ObsidianFireVein base1 gets+1/go_again only if a Draconiccard was played that chainlink. This is a weapon activation, not a Draconiccard play; no other card has been played. Correct computedpower1/noGA and actualunblocked1damage/HP39, no marked-hit Fealty trigger, same3priorFealty remain and physicaldagger6 staysownedtapped, APR0/UID7/RNG0/empty Stack/queues/combat chain.",
+      "Cindra starts with two realownedDraconicNinja1H Kunai3/4GY and actualGenericBlue5Hand, Weapons empty/two open hands, zero Draconicchainlinks. HNT merged ARC row is Instant3; actualBlue5pitch3 pays full3/R0 while AP1 stays. VirtualABI6SourceHero1/real3and4GY survive nativePriority2 and realopponent2pass1 before actor1resolution. No discount-positive condition is earned.",
+      "Generated Cindra resolution offers non-target MZMULTICHOOSE minimum0/maxmin(2,openhands,eligible)=2 with actualGYrefs3/4. Current ARC managed ability class retains6Stack through its await frame. Selecting actualboth daggers equips samephysical3/4 into ownedreadyWeapons, emptiesGY and clears6 only after choice. No existing weapon competes and no dagger is attacked, so Kunai on-chain destroy cost/GA and Hero marked-hit trigger remain unearned.",
+      "Cindra final3/4readyWeapons/5Pitch, HP40both/R0/AP1/UID6/RNG0 and empty Stack/two queues/combat chain/other specified zones correctly demonstrate paid actual equip. All367 checks are recorded assertion/state/power/go_again queries. Prior Young408 is design-only, with no legacy replay/requalification or young credit."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and one targeted replay each. No native result, replay or coverage credit claimed.",
+      "Only Fang positive actual3Fealty static dagger discount and Cindra full-cost positive two-dagger equip. No Fealty producer/activation, marked-hit trigger, below3, positive chain discount, alternate quantity/cards, dagger attack or futurechain behavior, other Hero ability, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1277.py": "4d04ad0a11e36dd2cc5e779d5c519ce55c977b2b927d03527cb9f7728f0a737b",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1277-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f6066e1f019633f17f8c0e1bf2d3b1049b72e6b37dd41143dd97d3e3d5d8c96a"
+  },
+  "full_suite_run": false
+}

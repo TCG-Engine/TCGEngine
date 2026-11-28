@@ -1,0 +1,7 @@
+{
+    "name": "Codex of Frailty / actual caster recovery and correct four-seat token ownership",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:10:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "YoungAzalea20/3Dori20manualUPF4, realprimary5cost0/AP1to0beforeallfourresponses. Onlycaster1haseligibleGYAA7; opponentsGYemptybutrealHandmarkers8/9/10mustNOTdiscardbecausecannotload. ActualresolutionchooseGY7->ownedFDArsenal1thenactualHandBlue6discard->ownedGY1; source5helduntilbothchoicescomplete. ThencreatePonder11owner/controller1andfrailtytokens12/13/14undercontrollers2/3/4butallOwner1(castercreator); exact4newUIDs/noRNG/nootherArena. RealprintedGArestoresAP1/source5GY1/healthall20/R0. No fakepermission/cost/zonefate/tokenownership. FOREIGNCALLBACKBRANCHUNTESTED: avoidknowncaster-context-lostcategorywhenotherseatactuallyanswers; noemptyDeck/refill/endphase/tokeneffects/multiplearsenal/choicefailure/wholecard/Hero/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#codex_of_frailty_yellow FaBSim/Custom/OUTCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

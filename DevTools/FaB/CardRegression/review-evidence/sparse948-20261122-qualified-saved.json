@@ -1,0 +1,171 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse948-20261122.json",
+  "source_spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+  "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-demonstrate-devotion-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "card_id": "demonstrate_devotion_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa5ccd5d95a7631c0cf02e4e8d0b1e3a481dafed3a51d1e447bde363af96f9e0",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2769e67a934541b78167c44a25e4c262cc556b9d0dd41895e311e66f0b7c92f8",
+        "expected_final_gamestate.txt": "10932e173e61420a688ba7218c4c95c25fd4791372fafb1189656f2a6a265981",
+        "meta.json": "c206f13b87348d9c01327d4839ef82e85a44d693ab8a7cd6a257ac0ec2428fdf"
+      },
+      "fixture_sha256": "0c27be3f61a2145fcac398b70a07c01226c101f07923b5963c864de1e9cc3222",
+      "actions": 28,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-demonstrate-devotion-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "fixture_slug": "card-demonstrate-devotion-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-display-loyalty-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "card_id": "display_loyalty_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c541165ff39e308e696aa44c8d2e2b7c2928370d7d9a6c7d24cfda9391394265",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "dca281d66b94e711d009897602471bc9ed18de4ba0a26f873c5c39b4a5b76938",
+        "expected_final_gamestate.txt": "3c3e00e89395508ddcbfa4e82a4fe5ca4de337b94f9cde0228215c637e451a08",
+        "meta.json": "69466265d88b669e302d9355797c1cc29644344c78e377f241a63c60d44d5313"
+      },
+      "fixture_sha256": "059582645f77fa53d3f78a8c0914114f82a76d2c0c2ad1f8d7d3d1575209d9aa",
+      "actions": 27,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-display-loyalty-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "fixture_slug": "card-display-loyalty-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hot-on-their-heels-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "card_id": "hot_on_their_heels_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1825ecaf21baba84db8dd01fd67b51cbf21b2a36177976f25ed1206230496cdf",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "80f36a142580b246444b05098eb38e843b1e07f8d5048385e581abb5858522cb",
+        "expected_final_gamestate.txt": "27bd750c2b59ea90a8f957b909b617932a131e1937e55eeb136c2e5d1e2b6e07",
+        "meta.json": "875b66d4a1200fabf58210686a9c91d971b83e9dbf6cb56d90b2d97b78ca2ab0"
+      },
+      "fixture_sha256": "733571056b4a4ccfc601e13cb29250bc35e915eb489e3f72a834ae028354abdf",
+      "actions": 27,
+      "native_assertions": 137,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hot-on-their-heels-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "fixture_slug": "card-hot-on-their-heels-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mark-with-magma-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "card_id": "mark_with_magma_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3111e2378c56bcac703ff7c23c086c2d95c0a28da8fae40eba51f4fb8f8483ae",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "63cec270bc6686e73decc67405e76a392523ffff35e4291a9d4007fc5d467ddf",
+        "expected_final_gamestate.txt": "5d194b34ff45f245062728bcf812b11a20e371c3ffc54bfbf56b08cbc57f3dea",
+        "meta.json": "c6450b7e0e7bcfd44dd08c8d9e183aba21ad48d653112c8b3d6e507546f98f00"
+      },
+      "fixture_sha256": "6ec49750caba9740d2a49301eb544bc76819afa2fc8f65f9a3f72979e608a311",
+      "actions": 28,
+      "native_assertions": 159,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mark-with-magma-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "fixture_slug": "card-mark-with-magma-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-bonds-of-ancestry-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+      "card_id": "bonds_of_ancestry_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25f1e2ea0283ef3012927ea086f92cba5918ba6694cdcf7db373a61229bdbfaa",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1bbb9b855441c00bfcb9352386a43f8384626d9fc246559177bbacc3d2b03455",
+        "expected_final_gamestate.txt": "03d31455548d84c29c3178c19b1e3d34c5d4d4a906a70fb87c5939066d4c0825",
+        "meta.json": "20168143b78bb128d469ae5ec710ac09d12b18b0ad8d5fab8c34f948f7928a49"
+      },
+      "fixture_sha256": "d10114f0aef6c1116bf5d1b829d2f2aaa8c1887964ac3d9119a201463d25e78f",
+      "actions": 28,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse948-20261122.json",
+      "input_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bonds-of-ancestry-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "fixture_slug": "card-bonds-of-ancestry-red-four-live-sparse948-actual-first-chain-base-damage-without-unearned-chain-grants",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e79a5368c977fabb3e1caedd24c3fbfe92499384034bf3ad9cf886f8a36c501b",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached text: first four grant go again and quoted attack/hit ability only with at least2 Draconic links; fresh chain has only this one. Bonds requires a prior Gustwave, absent here. Thus these abilities are not granted and no separate earned trigger is omitted. Legal Fai20, printed costs1/0/0/1/2 and powers4/3/3/4/4.",
+      "HNTRuntime68 gates go again at chain count>=2; generated attack/hit producers share the threshold. OUTRuntime27/73 and generated Bonds continuation gate its Combo search and discount. Actual adjacent target declaration before payment, real Blue6 when needed, AP0, four manual seats, base HP loss and owned UID5 graveyard fate.",
+      "Hot Heels and Mark with Magma explicitly compare Hero4 Counters[] initially and finally. Hero constructor initializes[], regression raw property query JSON-encodes arrays, and HNTCards6-7 stores HNT_MARKED on that same field. No target weapon-hit hero counter event occurs. Initial zone counts and physical UIDs agree."
+    ],
+    "limits": [
+      "Only fresh first-link/no-Gustwave branches. No positive chain grants, Fealty creation, Mark application/duration, Combo discount/search, other pitch variants, or whole-card certification. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse948-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5c89e79f77d7726f83d6b362bb9d0b6c0c7bf0d48d4e6f8adb16d54f573287d0"
+  },
+  "full_suite_run": false
+}

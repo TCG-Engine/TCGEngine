@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T06:53:45.648979+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "fcb6a1e2be0aedecafd0d8325da86cb79982d7c2d28bf35a8ec6bd8ade166a9c",
+  "source_review_sha256": "bf4ed605380e4b3774b22fcc9c519a874b884e598cbd5bcaf40ccb31437b762b",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch851-tome-first-actual-action-earned-destroy-draw-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4099,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 34232,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p2Arena count 1, got 0.",
+  "result_sha256": "8ddd69831fc27b411bf68bf260859857b0b522a83f953bac80b98dbc8c4c151f",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4099,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 8,
+  "completed_utc": "2026-11-16T06:53:55.844353+00:00"
+}

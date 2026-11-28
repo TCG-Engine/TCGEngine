@@ -1,0 +1,7 @@
+{
+    "name": "Meganetic Shockwave / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:46:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The defending hero must defend this with X equipment they control if able, where X is the number of times you've **boosted** this combat chain. Representative only: no_boost_history_actual_base_packet_only. No positive fusion/Evo/Boost condition or supporting/pitch-sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#meganetic_shockwave_blue"
+}

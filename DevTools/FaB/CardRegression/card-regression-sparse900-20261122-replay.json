@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-timekeepers-whim-red-four-live-sparse900-real-blue-cost-three-and-five-arcane-during-own-turn-without-bottom-replacement",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-timekeepers-whim-red-four-live-sparse900-real-blue-cost-three-and-five-arcane-during-own-turn-without-bottom-replacement",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a49e6a8756a52b9360a873e218c94316f8dbe3f757c7b0637d3a6f3d02cb95b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "555c9dd2bce690e5ca23f1c5b276f0fe4f6e8f485099dbb9823bdecf474e44e9",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "8a77ff3fc52c90b591784eba35f063ea198077b212b8deac102af493221cd24c",
+        "expected_final_gamestate.txt": "ce64c8941e4d0353f0d70707e5ecd9302634b39fc96e7d6221a25643f4af39d5",
+        "meta.json": "7db9e34518f06606ac0285fece9662f8952c44dd529a8c3b7cd64c8daf3ddc33"
+      }
+    },
+    {
+      "slug": "card-open-the-flood-gates-red-four-live-sparse900-real-blue-cost-two-and-three-arcane-without-unearned-surge-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-open-the-flood-gates-red-four-live-sparse900-real-blue-cost-two-and-three-arcane-without-unearned-surge-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "57f336940363a122e5193e44251ed346d516d912f3f2c3f3beeaa73def75697d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3ce76a65dae7a47a2e894ed4eeb33e2677205fe8499c22f071f0f38bcc6ff5a",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "e21487ddea02297cc37cb40bb2a2db36218b4f55a6cf64ae86984d5bbb834adf",
+        "expected_final_gamestate.txt": "738e7902fb0a9686ed82d3a8cb3ddbaa92ba186f2a1fe5f46335ffee0e2f0da3",
+        "meta.json": "7605ed3ec32acbe0b4ddfba3bf3d1b54be7668efab7aa8655f4892cdfbf2ea34"
+      }
+    },
+    {
+      "slug": "card-glyph-overlay-red-four-live-sparse900-real-blue-cost-one-and-no-sigils-means-three-arcane-without-surge-healing",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glyph-overlay-red-four-live-sparse900-real-blue-cost-one-and-no-sigils-means-three-arcane-without-surge-healing",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse900-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e4f267bf19f72b1f509cd7c93c218115aef85499a47f3f15123d29355c2c4466",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "459b89ef334198b1e2d57f0aa4c147927e9576af14f8843043770bac41776992",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "e1db102ba3b0c8a5347b2521007722fd4dd26f2e1f9f6258ee2eb58763f6c125",
+        "expected_final_gamestate.txt": "ef62e4bdc636cdcc6807be40dde41196a4e68c4b50f0faf96ac53ad78fc6b5a9",
+        "meta.json": "9560fdfcd31a07f6db42638a11bb6c7fb63185f54959d91c8250c3d2b6b529a4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

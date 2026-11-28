@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8083c1bdaf55e263d35ccc78e5bdf3c8a39dd04082e25a28c14662537611ebb0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5f7393e769942f813413be6c48efedd389878066ad172ce8cfdd70e718398415",
+        "actions.json": "b13a5c6357eefee8545eef3d84ffc45ae2693a805a3c988fca0b32df9c890957",
+        "assertions.json": "4b238f155e914e4adbfbaaf068d17a27fdb49369f7cb8d057bfb1d31564273d6",
+        "expected_final_gamestate.txt": "6ddf425e1c3711741e6440ab6faa85fd92fe60b079a3ef8c2e1669ee09285904",
+        "meta.json": "08831e2c3c2fbc21518cf9850159d64d4845517e0382d481069511a99dc16b5e"
+      }
+    },
+    {
+      "slug": "card-strongest-survive-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-strongest-survive-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2e9cf39e36612637e56e1d9069dc677428563cf305b6e7c726f89d2a4f0693d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "468dc35487b7e4ab316025dfca62594f288885433c5ad8b0f36a79cbc27e68c3",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "2e4a81728c80c32537415be0c5d2c28bb61ee195e942c580312b10cc627bdd8c",
+        "expected_final_gamestate.txt": "9178a8e5ebd715bd97ee0b795b4e4b6527a811afa3861aa8c2e6465f751c38e7",
+        "meta.json": "1599003fb1ab77960375809c7e9c9695ad12e13552af0043c569c63d5521659e"
+      }
+    },
+    {
+      "slug": "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d4a78c5386fa6abb0ab8f5b3145bbdb1625658a4966984d67ceb0e98874147dc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "154cdaf8773d8a0f372e4b5af535ae7c225fb02eaf1967058f3b162b0a52e531",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6d2b50e348b81bba1b60e5da5facc66413ff6aa48e9cda6b6201d06ea5c7ca9e",
+        "expected_final_gamestate.txt": "bdc2286dcd53a07e1577cf8493e57dac1d804d9568b7c6e21b4f09a1cf79fe44",
+        "meta.json": "ed6ac7430bcb6ed8a872015e7dc73b6f2d13392d703e4a49f27af3a9eb81a14b"
+      }
+    },
+    {
+      "slug": "card-pack-call-red-four-live-sparse969-actual-attacking-role-seven-keeps-real-non-six-top-deck-order",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pack-call-red-four-live-sparse969-actual-attacking-role-seven-keeps-real-non-six-top-deck-order",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse969-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e0f263154f926de7427a5436e7a5c3d728c8d86db8c2bb6f95cb95fd05cac3d5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e0ba4a5393aed441f4c013ea513888a687c5c488e7445ae849ac5427f5a4219c",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4375615b7cbb0f3472460fc60590d0bc620ff6e9e9d4d475a981945fb97239a2",
+        "expected_final_gamestate.txt": "c174be6f449548bbb730f51d0934cfb497ce493d55e3c10e284ab06284e2c2c2",
+        "meta.json": "abcb1a474df4fdc3ec9cad46ffb148d84919ba2adcf4b4475dbe160794ac976c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

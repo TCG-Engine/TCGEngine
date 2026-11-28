@@ -1,0 +1,151 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_OYSTEN_REAL_ALLY_LETHAL_EARNED_GOLD_AND_WATERY_ORDER_NEUTRAL",
+  "phase": "SOURCE",
+  "batch": 849,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch849-oysten-real-lethal-gold-watery-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\oysten-real-ally-lethal-earned-gold-watery-full-probe.json",
+    "sha256": "601c66319fa2c5c7956d346c5b137b6d1b221d25d16f947bd1230709c3f91480"
+  },
+  "input_sha256": "601c66319fa2c5c7956d346c5b137b6d1b221d25d16f947bd1230709c3f91480",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\manifest.json",
+    "sha256": "d11fd425ee8cee3e59955e62aa052fdb3ad4f8830b33fa084adbb0b671d0aaf2"
+  },
+  "manifest_sha256": "d11fd425ee8cee3e59955e62aa052fdb3ad4f8830b33fa084adbb0b671d0aaf2",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-firm-reservation.json",
+    "sha256": "f515f1adc0276c0c0c54529d2db5e19677d31c1e334ca47b8f4c8ce3fb6b4b92"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\preflight.json",
+    "sha256": "f4ed308e116cdc3020fb774b0764cccee8c2aa9f671fe5bfeea043990eb69fc6"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "219cd0c075f692ad3a98a0a679d92f9cc75ffab59dd9d2455fcf8dd0f8d40fb7"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "333e7e8fe868ee8404b61b4d76b98779f387bc694406cf094fc82ee67b93e7d7"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 17,
+  "all_current_guards_independently_matched": true,
+  "actions": 36,
+  "declarative_controls": 36,
+  "assertions": 4250,
+  "native_assertions": 4250,
+  "planned_native_assertions": 4250,
+  "manual_passes": 33,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 9
+  },
+  "expected_formal_defense_finish_inputs": 1,
+  "checkpoints": 38,
+  "schema_property_checks": 897,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "853a50a78395a18a823d0ff33cebe66b2bbcf25bfa77d0dd9653d136d6b8c2b6",
+  "expected_native_query_mapping_sha256": "4d390982dde8ee79c73aa9f0a8ee6815d6bb60c756b8bb292d4dbe99e572482b",
+  "checkpoint_mapping_sha256": "4580016f1a0b04ed03cde03d418d1b9d542ad0c32d9ccdd5f10f29e18b63b02d",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Actual fixed legal four Young Heroes all20/live UPF/no passive. Oysten7 is a legitimate preexisting unmodified owned Arena Ally (life1), not a seeded death/Gold/face-down/trigger. Recorder turn2 is bootstrap context; prior cast/turn history is unclaimed.",
+    "Native Smash5 formal adjacent Ally7 target precedes actual Blue6 pitch3 paying cost2/R1/AP0. GL667..687 admits real adjacent Arena Ally; GL1872 forbids Hero-card blocking for nonHero target, so P4 only finishes zero-defense declaration. Official CR8.2.8d/e supports no defending cards/no Hero damage. Source/Attack/DefendPriority/Reaction all four-seat boundaries retained.",
+    "GL2067..2077 calls UPRDeal actual target, UPR74 lethally destroys life1 Ally. MONDestroy captures physical object before GY movement. Printed dies Gold and CR8.3.41 Watery both earn layers; CR6.6.5/6.6.6 requires responseable layers before effects, not inline Gold.",
+    "At control20 Gold0 is front-loaded before later sameOysten7 GY face-up and two captured controller4/source7/ABILITY witnesses. First three earned responses preserve both effects absent. No guessed virtual UID/CardID/event/ordering chooser. Parent fixed source and meaningful expectations are not fitted to existing inline behavior.",
+    "After first complete earned round, one captured layer must remain across next three responses; order-dependent Gold and corpse FaceDown values are intentionally unasserted at24..27. Second completed round requires actual owned/controller4 Gold1 and same physical Oysten7 GY face-down. CR6.6.6b allows controller-chosen ordering; this diagnostic neither fixes nor certifies order UI/permutations/intermediate which-effect timing.",
+    "SEARuntime75..76 queues existing Watery via GraveEntered then creates Gold inline. This is a fresh literal Oysten SEA-death producer concern, not Native-confirmed by this Source gate; no exact primary ledger match and no new distinct-root allocation. Denied OMN184/Flutter188/B787 untouched.",
+    "All36 controls/4250 ordered normalized queries/897 typed properties independently checked against model/schema and72+10+17 current guards. Native mapping has33 actual pass inputs including one zero-defense finish. Full Damage/Resolution/physicalSmash5GY1/Blue6Pitch1/R1/allAP0/heroes20/queues+Stack+chain cleanup required."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6",
+        "6.6.6b"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.8d",
+        "8.2.8e",
+        "8.3.41"
+      ]
+    }
+  ],
+  "required_remaining_gates": [
+    "One Root full exact --probe-only run, no Save even PASS.",
+    "Independent actual trace review and explicit order-scope assessment before any promotion recommendation.",
+    "Separate explicit Root promotion/fresh normal Source/actual Saved raw5 and both fresh48 controls/two own focused replays if a passing representative is later considered."
+  ],
+  "limits": [
+    "No Native result, fixture, bug confirmation, fix, qualification or coverage credit.",
+    "No ordering UI/permutation/which-effect intermediate timing or full printed-card certificate; both firing at first resolution would not be excluded by the intentionally omitted intermediate outcome values.",
+    "Own cast/attack ability, control changes, other death causes, Gold activation, support/Hero/sibling branches untested.",
+    "No PHP/native/R writes, sourcefix/fullsuite/Git/remote/newagents/Radiant189/Head190/denied188184B787 action by reviewer."
+  ],
+  "created_utc": "2026-11-16T05:55:55.345209+00:00"
+}

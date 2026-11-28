@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T14:09:14.716793+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1562-20261122.json",
+  "source_spec_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 22,
+  "native_assertions": 1098,
+  "manual_passes": 14,
+  "totals": {
+    "saved_registered_scenarios": 5655,
+    "duels": 3138,
+    "four_live": 2517,
+    "recorded_primary_ids": 2803,
+    "identity_denominator": 5196,
+    "recorded_groups": 2677,
+    "group_denominator": 3324,
+    "four_live_groups": 2506,
+    "phase_qualified_scenarios_at_actual_contexts": 2292,
+    "phase_qualified_unique_groups": 2282,
+    "creation_replay_passes": 3034,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1453,
+  "scenarios": [
+    {
+      "card_id": "frost_lock_blue",
+      "group_id": "identity:frost_lock_blue",
+      "scenario_id": "card-frost-lock-blue-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "effect_branches": [
+        "explicit_optional_Ice_Fusion_decline_with_eligible_own_Hand_card_retained_then_fixed_assets_paid_before_attacking"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-frost-lock-blue-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "source_spec": "card-regression-sparse1562-20261122.json",
+      "source_spec_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+      "review_evidence": "review-evidence/sparse1562-20261122-qualified-saved.json",
+      "review_evidence_sha256": "e1bf10a1e5af7adef4d74bab020c19ad2bf62283bdeef0c55a7c2be0cd04a20d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1562-20261122-replay.json",
+          "sha256": "e718406f14318320758bd7a262abf635663530c4a4296b4b01c354853810a284",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "explosive_growth_red",
+      "group_id": "pitch-cycle:explosive_growth",
+      "scenario_id": "card-explosive-growth-red-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "effect_branches": [
+        "explicit_optional_Earth_Fusion_decline_with_eligible_own_Hand_card_retained_then_fixed_assets_paid_before_attacking"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-explosive-growth-red-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "source_spec": "card-regression-sparse1562-20261122.json",
+      "source_spec_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+      "review_evidence": "review-evidence/sparse1562-20261122-qualified-saved.json",
+      "review_evidence_sha256": "e1bf10a1e5af7adef4d74bab020c19ad2bf62283bdeef0c55a7c2be0cd04a20d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1562-20261122-replay.json",
+          "sha256": "e718406f14318320758bd7a262abf635663530c4a4296b4b01c354853810a284",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

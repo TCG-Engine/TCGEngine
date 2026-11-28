@@ -1,0 +1,40 @@
+{
+  "runtime_sha256": "eea92fedc8d04dc4f5d3a20da77969084e2bcfe2aae64b2c85e5b5c0ed61423f",
+  "full_suite_run": false,
+  "rows": [
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-beatchest077-directly-affected-legacy-cost-compatibility\\fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost.log"
+      ],
+      "returncode": 0,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-beatchest077-directly-affected-legacy-cost-compatibility\\fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "log_sha256": "41888dbbf85a9963a0c312ab83cf838bc2db292132849f6cb32db8e895b36824",
+      "fixture_raw5_unchanged": true
+    },
+    {
+      "slug": "fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-beatchest077-directly-affected-legacy-cost-compatibility\\fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three.log"
+      ],
+      "returncode": 0,
+      "stdout": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-beatchest077-directly-affected-legacy-cost-compatibility\\fab-reg-039-tome-of-harvests-four-live-declared-arsenal-uid-assets-before-bottom-and-draw-three.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": "",
+      "log_sha256": "afa1693991b25bfda0b10fe96b867d9347a1f7179e956b11bd4557b638da2d3d",
+      "fixture_raw5_unchanged": true
+    }
+  ]
+}

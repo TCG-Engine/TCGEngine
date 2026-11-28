@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deep-recesses-of-existence-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "632083d0b9c1c839948b614469b56caea85f30f7e55594b1c9ea19a691631614",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4a4e344fc3a2a5bb3c8129aeec9728df9e8d527123b1a9ffdfbf33448bc822a2",
+        "actions.json": "5851afe2e5c0a53dce2353fe52c8f05cd656d478e657ca2058196c205133d980",
+        "assertions.json": "246a9f10f3e3ab522122a6a12a81b530a17052a16726b27248aab0ed6d85403f",
+        "expected_final_gamestate.txt": "f48b9b09a042eb262340048ca526d97932c4b95f695f5467a7af765dd1509edc",
+        "meta.json": "60f0c18c4bf415b3b6972c9ec6ba984c83fef2353bf592277207fae56e1dbb88"
+      }
+    },
+    {
+      "slug": "card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widespread-annihilation-blue-four-live-sparse1546-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1546-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "17e45f3fd05ad154195b55181b80fab7ad7188f9e211431cfb09e3fb083ad1db",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5dec808d25c40129972878c1a8279758010325277367e6a1f5956eadca7f5fef",
+        "actions.json": "5851afe2e5c0a53dce2353fe52c8f05cd656d478e657ca2058196c205133d980",
+        "assertions.json": "27d57139afbe72e01e42ac4fa5fd988f486fe76425426bfe8714d03d2227386d",
+        "expected_final_gamestate.txt": "2bcce136a132a7cbbc3ef35accab021b5fa5a75169c30c628a131fc5ba02ace8",
+        "meta.json": "319201fe38f6a7e8ee6b5fe10acabeaca898206a4db6f86f3169a4a4f39f26f8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

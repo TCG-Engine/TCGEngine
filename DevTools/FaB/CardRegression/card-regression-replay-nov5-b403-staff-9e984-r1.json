@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch403.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T00:46:16.206575+00:00",
+  "fixtures": [
+    {
+      "slug": "card-staff-of-verdant-shoots-four-live-sparse-real-paid-action-amp-one-and-zap-four-arcane",
+      "fixture_sha256": "d5c21bb669376173c6e5a78a061bbec9242c21f6b36d49f1ef5df9e636ad6f31",
+      "passed": true,
+      "result": "[PASS] staff_of_verdant_shoots / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-staff-of-verdant-shoots-four-live-sparse-real-paid-action-amp-one-and-zap-four-arcane",
+      "returncode": 0,
+      "stdout": "[PASS] staff_of_verdant_shoots / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-high-roller-red-four-live-correct-probe-intimidate-target-declared-before-payment-and-real-sole-hand-banish"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

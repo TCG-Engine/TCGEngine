@@ -1,0 +1,183 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse984-20261122.json",
+  "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+  "input_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+      "card_id": "boulder_trap_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "693347362c3c71a3686453bb014f0eafc786d9b9266cf62dbe531099e26c626a",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "8a12e14d4aae78804ca7588c5a1216219f7fb2478b216d600a647bbd451081a4",
+        "expected_final_gamestate.txt": "374bb134b64d71442ffff8a4760e23a34175b88cb3559d318c38bdf5115640c9",
+        "meta.json": "b5207f00008e4ce9119e7bc7cadc0e33c40ff105e303d01bc3c3dcaf6b15751c"
+      },
+      "fixture_sha256": "48127346238fa9fcc19da9566ca866658dcaf499518528da379560491ff10a79",
+      "actions": 36,
+      "native_assertions": 305,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "input_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse984-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+        "fixture_slug": "card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+      "card_id": "buzzsaw_trap_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e2179377ef325d390cba2357fe2df1605e10bacf55de057a089932d7a9faea0",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "5dc6c9112931756a6be3ce4615cc051f575deea0c7af64ed66878da2eb9b5d18",
+        "expected_final_gamestate.txt": "65d24095055eb1e4cc78c0c5765c55383234537998cc9ea8e0759b2bd74ea962",
+        "meta.json": "f52499e2e36303aaa59fedfac8672df7b4d453d48100fea198bf809825f0bb7e"
+      },
+      "fixture_sha256": "5b391f9864cea52933134c5a914759c3d7def17b141cc88e235e2c7a6e898a56",
+      "actions": 36,
+      "native_assertions": 296,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "input_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse984-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+        "fixture_slug": "card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+      "card_id": "den_of_the_spider_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c0844e9c8e0cd39cb96753df94435fd77c57fad12baeef588fdfbb844a4d934",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "8649713f82b395d6a4aa078643e778a56205389c406c7b6c0286c14cdccd155a",
+        "expected_final_gamestate.txt": "1aa39a60de6d45915f6abcf572e930319126a94a0a546f7723446aaa3aaafc89",
+        "meta.json": "5cae8cf63d6faa09f34ee01d512e6f43fa30e626b8f12ce12e7b855529f7bd66"
+      },
+      "fixture_sha256": "90494cda7899cf40a3ffa80acec8b606eb190bea8f64d7ec673efc3c36a072be",
+      "actions": 36,
+      "native_assertions": 293,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "input_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse984-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+        "fixture_slug": "card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+    "basis": [
+      "Exactsource/cachedtexts/cost0DEF3/naturalheroes verified: Lexi20Ranger, Riptide19ownspecialization, Uzuri20Assassinlegaldualsource. Allprimary5faceDownArsenal4 so no Riptide WHENplayfromHand event; realunusedBlue6handretained. No conditioned event is earned for printedWHENdefendsattackwithpowerGREATERthanbase whenactualunmodifiedRaging7equalsbase7.",
+      "Established983Bcost/DRresponse transport reused correctly, nowcost0/noP4pitch/R0/AP0. Actual7minus3damage4 pinsP4HP16/15/16; source5/attack7 finalownedGY4/1, realcasterNAA9retained, allfourmanual nativepriority. No defenseValue-only oracle.",
+      "BouldereligibleattackerIronrotEquipment10Counters[] retained; DenattackingHero1Counters[] remainsunmarked. BuzzattackerHealth20 pinsnoRiptideTrapdamage, per-cardTurnEffects[] excludesknownOUT_NO_GAIN serializedtag but futuregainconsumerunrun. This is negativeeventscope only, not positiveinlinekeyword/trigger-timingapproval."
+    ],
+    "limits": [
+      "No positivepowerbuff/trapcounter/Mark/noGainconsumer/RiptideHero/Handplay/creatorownership/otherabilities/pitchsiblings/wholecard. Exactnative schema/capture/onecleanreplay stillpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse984-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e"
+  },
+  "full_suite_run": false
+}

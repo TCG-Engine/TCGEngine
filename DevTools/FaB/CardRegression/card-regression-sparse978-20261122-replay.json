@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-drill-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-drill-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "68b3637b6d507d7b66eb2ba2e880e760e86ce36b03094dcb0ebc860274ba47f9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1942525f6653ae6901d276f954a31573b1c3ca9aa7922015135488e121cfde02",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "00d2f0e825db37e7d9889720b2d5bef40f11c635121d43a3b097027e8abca578",
+        "expected_final_gamestate.txt": "0b7b97d0ddc5f3f5a2b9c748134672b87fd4a1d28b855a5d928eb30f293d79cd",
+        "meta.json": "89d4c2e9d6dc17350c5beecce56af0f07656644a7c83f1f81713b9b09cc1f2f2"
+      }
+    },
+    {
+      "slug": "card-infecting-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-infecting-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10f5b15a3746d5666a6bfa44e25d230f9b6734848d86b7eb4e8fb7cb01a3a8b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e16bd69896a13dbcf3b608606b14174188d3bdbfad20d3860eced6644f18478",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "6fe6e90bed4ca889e54d6b174b0fcd009244a70428260c45adb25a10df13127e",
+        "expected_final_gamestate.txt": "bd15c78b7b1f6db0e35e41795b5594bcf4b12f3494745b857d398f19e7b33a3d",
+        "meta.json": "59b71752f56dc6a5e5563dca17aac6b3441bf3b1d18ca03c2d919e23c5163a9a"
+      }
+    },
+    {
+      "slug": "card-sedation-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sedation-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "22e2a22a0ed5a08e9514c7ea7f0090c975b66707275b649de6536fe23b69c277",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "756f5582aa8952519b777a06ea61e06e9f012b9b7ef7f58bf4e67b8dca05e194",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "f5df09fe9f159883b5c8e8d815b1643592badbb744dbb0dcb2e998b3376ad5d9",
+        "expected_final_gamestate.txt": "b78391afacaf735797e84268869c6763635a9c8f245a8f84007cc3f466510e9a",
+        "meta.json": "886e01a1aefb8cebe5c6efeebc70630e3b5be04b94ce7a4ef2f7e26c3350eaf5"
+      }
+    },
+    {
+      "slug": "card-withering-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-withering-shot-red-four-live-sparse978-actual-facedown-arrow-exact-hand-full-block-without-aim-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "159e7fdcd53e11845dde0ad86ac381960ae606203cfada949f6dbc2b7c212e6b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "03b067606304bee77e6f062881a6c01146ced7f130df40fc3eff857713b7a74f",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "3444bd254a785ea440352be0c0c5c17f21603b0ac4183c7556d8ed241e70ba7c",
+        "expected_final_gamestate.txt": "a66f51a22a5bce1d482d767347d9a5c42303ec04207938ecf7f1662d9c1973a0",
+        "meta.json": "02e0c9caf6e759c207cc3053bc432dd6b7683c959e59bd8ac0653afd2d81b210"
+      }
+    },
+    {
+      "slug": "card-salvage-shot-red-four-live-sparse978-actual-full-block-goes-to-graveyard-and-retains-real-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-salvage-shot-red-four-live-sparse978-actual-full-block-goes-to-graveyard-and-retains-real-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse978-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4500700cc7fbe72c028ff5512d86ea361b31c3729e1d29c5938a0230d04f99bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ea789f32d8f7d3f2d01e9de40db5091887a936f031eaffadb16cd11f00a3b74",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "1bed4c4894d0ecf9fe77ac39ef7eb9efa282cc0815cc67918993232886964d37",
+        "expected_final_gamestate.txt": "75ba02257fe0538702a88cc1b7c0e667815dcc76f6267ef457031c5c387a2ebe",
+        "meta.json": "ba0c9aec40dab31429a1082a268831ef4bbaf7303c9d306cd2ff7f4f65d56b5c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,120 @@
+{
+  "id": "FAB-REG-126",
+  "status": "NATIVE_CONFIRMED_MODULAR_CURRENT_HEAD_ILLEGALLY_OFFERED_AUTHORED_ASSERTION_V2",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-mold-v2-independent-native-before-classification.json",
+  "independent_review_sha256": "ca75dc383919c4e145feab466854774a4b0911dfbf89727133289a69ab7c62e8",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch485-mold-v2.json",
+  "input_sha256": "e545b541c3b04986cd06cd792f04524ca7f202adafd6a4192050b62518bfb290",
+  "scenario_id": "card-adaptive-alpha-mold-four-live-correct-real-action-head-to-empty-chest-resolving-choice-and-owned-identity",
+  "first_failure": {
+    "error": "Expected p1DecisionQueue-0.Param to equal '1|1|Chest&Arms&Legs', got '1|1|Head&Chest&Arms&Legs'.",
+    "native_action_boundary": 5,
+    "source_step_index": 10,
+    "source_check_index": 45,
+    "ordered_authored_check_ordinal_1based": 419,
+    "preceding_ordered_authored_checks_passed": 418,
+    "completed_prior_boundary_checks": 373,
+    "same_boundary_checks_before_failure": 45,
+    "expected_menu": "1|1|Chest&Arms&Legs",
+    "actual_menu": "1|1|Head&Chest&Arms&Legs",
+    "raw_source_check": {
+      "type": "card_property_equals",
+      "mzId": "p1DecisionQueue-0",
+      "property": "Param",
+      "value": "1|1|Chest&Arms&Legs"
+    },
+    "remaining_authored_checks_after_failure_unexecuted": 190
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 5,
+    "planned_inputs": 6,
+    "manual_inputs": 4,
+    "manual_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "accepted_action_stream_sha256": "ecc2352743a8fb51d20085cbab6ba239cb4d1ecd4913ecda8d94dcec8e9d7632",
+    "initial_manual_settings_verified": 48,
+    "initial_gamestate_sha256": "a118a3c2bef867ffeda03b1aa7e13a59519b70bc5a78ba9372c15df8a0d36ed0",
+    "actualqueried": "RealAction0spendsAP1->0; sameownedphysical5readyEVO_SLOTHead retainedthroughallresponses. Correctdecision-stopfourthresponse actuallyreachesP1MZMODALwithoutprotocolabort. Atboundary5 all4HP20/R0/AP0, physical5OwnerCtl1Ready/EVO_SLOTHead, Stack1ABILITYCardIDAlpha/Controller1/SourceEquipmentUID5 andTypeMZMODAL allactuallyqueriedBEFOREParamfails. This is strongerthantheoriginalrawDQonlyobservation.",
+    "unexecuted": "NoChestanswerinput6, actualequipbody/slotchange/newzonequeries/clearedStack/APsuffix/finalcleanup orfinal48preferencesran.190checksafterfailedParamunexecuted."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_MODULAR_EQUIPPED_SLOT_SUBTYPE_INTEGRATION_OMISSION",
+    "protocol_or_oracle_error_at_V2_first_failure": false,
+    "native_confirmed": "Correcttransport nowreachesexplicitmenuassertion. ActualcurrentownedHeadobjectshouldexcludeHeadunderanother-zoneandCR8.5.41c; realchooserincludesHead. LivephysicalHeadstateandheldsourcewerequeriedduringchoice, so thisisnotmerelya staleinitialassumption or unsupportedwait.",
+    "bounded_source_cause": "UnchangedGL288 usesEVO_SLOTtoaddcurrenttypeonlyforadaptive_plating/adaptive_dissolver, omittingAlpha. ActualSUPMoldOptions excludescurrentzonesbyFaBHasType, thereforeoffersallfour. This explainsselectednativewrongoffer; noinstrumentedEffectiveCardTypefunction-returntrace orbroaderModularcatalogueclaim.",
+    "object_identity_rule": "CR8.3.30 conferscurrentequippedsubtype; CR8.5.41c anotheremptydifferenttype; CR3.0.9 samearenaobjectidentity retained. RawEVO_SLOTHead is lawfulpersistentlocation, notpermission/historyseed.",
+    "attribution": "OnlyRootreserved126; no sourcefix/applier/globalRoot/Corecount proposed."
+  },
+  "original_protocol_observation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-mold-independent-native-before-classification.json",
+    "sha256": "d7c3561b75e20bfb14e0b3f4fd479082c2da394d3aab41564047d40846962033",
+    "original_protocol_abort_retained": "Original5inputs/373checks thenUnexpecteddecisionwhilepriority-onlywaitunmet; rawillegalHeadmenuobserved butnoauthoredmenucheckexecuted. ThisV2doesnotretagthatfailure."
+  },
+  "protocol_delta_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch485-mold-v2-independent-source-review.json",
+    "sha256": "40a4761767717894609fc82e6a9a0f5b103d46fe492ff7b55345943ff94094aa",
+    "reviewer": "/root/b105_semantic_review",
+    "allmenu/slot/cost/heldABIeffectexpectationsunchanged": true
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch485-mold-v2.recording-results.json",
+      "sha256": "85695b56c8028104652da957d869dc44ce95650e8c43ebb94a941d9afbda4378"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch485-mold-v2-20261105T163103Z-6aecaf47d5631.json",
+      "sha256": "be89cfd559c0174da3f859ab3d320902a35c1ec522881ab7eab4a9abd1b365c0"
+    }
+  },
+  "selected_source_file_sha256": {
+    "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim\\Custom\\SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim\\Custom\\EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2764/",
+      "finding": "Current independentAgility/Vigordefensebonuses/Temper/WarriorArmsDEF0."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/4117/",
+      "finding": "CurrentModular/Action0equipanotherzone/Battleworn/MechanologistBaseDEF1."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.30",
+        "8.5.41c",
+        "8.3.10"
+      ],
+      "finding": "Modularcurrentzone/subtype; equipemptydifferentzone; Temperonlywhenchaincloses."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/03-zones/",
+      "rules": [
+        "3.0.9"
+      ],
+      "finding": "Arena-to-arenazonemoveretainssamephysicalobject."
+    }
+  ],
+  "limits": [
+    "OriginalandV2sourcesremainunchanged; onlystopleafchangedandcaseextracted. Originald7c356protocolerratumretained, newauthoredfailureisdistinctactualrun. NoHeadselection/Chestbody/equipzonechange/Battleworn/defense/repeatedactivation/initialequip/proxycleanup/fullcardqualification orcoverage.",
+    "Onlyinitialrawsnapshotcomplete. Boundary5physicalHead/heldStackfacts are actualpassedqueries, notfullpostfailureSnapshot. No laterfinaleffects/nativecounter/control/oldcaseaudit/globalRoot/Coreallocation.",
+    "Beckonalreadyqualified/separate; notrereviewed/replayed. No PHP/native/replay/R/source/service/gen/fullsuite/remote/deniedretry/sourcefix byreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T16:36:16.568758+00:00"
+}

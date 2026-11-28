@@ -72,8 +72,13 @@ function _SWUHmw035Resolve(int $player, string $label, int $picksLeft, int $bloc
         // "may" and does not reach this card. A lone legal attacker auto-resolves via PASSPARAMETER.
         $attackers = SWUUnitsWithNonBaseAttackTarget($player);
         if (!empty($attackers)) {
+            // ⚠ The NEXT pick is NOT queued here: it waits for this attack to COMPLETE (HMW_035#2 arms it; combat fires it from
+            // CollectAfterAttackTriggers). Queued here, it sat ahead of the attack's combat step whenever the attack paused for a
+            // decision (an On Attack "may", e.g. deployed Admiral Holdo) — the second mode was chosen mid-attack, a second attack
+            // started inside the first, and the first one's combat damage was lost (bug report P-37, game 8008).
             SWUQueueChooseTarget($player, $attackers,
-                "Attack_with_a_unit_(it_can't_attack_bases_for_this_attack)", "HMW_035#2", $block);
+                "Attack_with_a_unit_(it_can't_attack_bases_for_this_attack)", "HMW_035#2|" . ($picksLeft - 1), $block);
+            return;
         }
     }
     $left = $picksLeft - 1;
@@ -99,13 +104,25 @@ $customDQHandlers["HMW_035#1"] = function($player, $parts, $lastDecision) {
 // left on the unit afterwards (contrast JTL_092's phase-scoped CANT_ATTACK_BASES turn effect).
 // Combat owns the after-action: this attack happens inside a When Played, where BeginSWUAttack skips
 // SWUAfterAction in trigger-resume mode and SWU_TRIGGER_RESUME closes the action.
+// $parts[0] = the picks still to make after this one. With one left, the next pick is armed for AFTER this attack: combat's
+// CollectAfterAttackTriggers matches the attacker's UID (on the normal AND the fizzle path) and queues it then.
 $customDQHandlers["HMW_035#2"] = function($player, $parts, $lastDecision) {
-    if (SWUDecisionDeclined($lastDecision)) return;
     global $playerID; $playerID = intval($player);
-    $atk = GetZoneObject((string)$lastDecision);
-    if (SWUObjGone($atk)) return;
+    $left = intval($parts[0] ?? 0);
+    $atk = SWUDecisionDeclined($lastDecision) ? null : GetZoneObject((string)$lastDecision);
+    if (SWUObjGone($atk)) {
+        // No attack after all: nothing to wait for, so the next pick follows directly.
+        if ($left > 0) _SWUHmw035Pick(intval($player), $left, 1);
+        return;
+    }
+    if ($left > 0) SetSWUVar('SWU_HMW035_NEXT_PICK', strval(intval($atk->UniqueID ?? 0)));
     BeginSWUAttack(intval($player), (string)$lastDecision, noBases: true);
 };
+
+// Fired by combat once the armed attack has completed (see CollectAfterAttackTriggers / DispatchTrigger 'HMW_035_NEXT').
+function _SWUHmw035AfterAttack(int $player): void {
+    _SWUHmw035Pick($player, 1, 1);
+}
 
 $whenPlayedAbilities["HMW_035:0"] = function($player, $mzID = '') {
     global $playerID; $playerID = intval($player);

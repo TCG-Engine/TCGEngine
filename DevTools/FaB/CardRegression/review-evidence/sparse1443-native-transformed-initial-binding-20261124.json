@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "head": "aa67228188d97c1437e4785e471fc44daece8f17",
+  "native_setup_helper_sha256": "98e3a4414202dd16ba61fd51ee2db03eb958a7c3bfaa4ef124de5af751ec595d",
+  "component_command_receipt": {
+    "utc": "2026-11-24T21:14:37.264098+00:00",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\levia_native_initial1443.php"
+    ],
+    "returncode": 0,
+    "component_sha256": "98e3a4414202dd16ba61fd51ee2db03eb958a7c3bfaa4ef124de5af751ec595d",
+    "log_sha256": "53bd6ba5ea38c41a8d4bef1bd0d8602154562a14cea398d093e97e5d9c05c4aa",
+    "gameplay_or_replays": 0
+  },
+  "native_setup_checks": 21,
+  "native_derived_initial_sha256": "50734e4295fe5bdb3e7f95c70c6d1d6b0d82f593d24dfc1ef9bb5364939f13b3",
+  "recorded_initial_sha256": "50734e4295fe5bdb3e7f95c70c6d1d6b0d82f593d24dfc1ef9bb5364939f13b3",
+  "source_spec": "card-regression-sparse1443-20261122.json",
+  "source_spec_sha256": "039cc7501fab2edaa3cf3985ddf49c476aa7dd1317fbf1fd7a3ad4f597f18a29",
+  "existing_recorder_initial_guard_matches": true,
+  "portable_component": {
+    "utc": "2026-11-24T21:17:32.404380+00:00",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\test_levia_transform_position.php"
+    ],
+    "returncode": 0,
+    "source_path": "DevTools\\FaB\\CardRegression\\test_levia_transform_position.php",
+    "source_sha256": "124bd7464f178ad5fceded1abb3309f8e8a629a3ed792691a0e9a5c32ba3d170",
+    "output_sha256": "49f348ed3a936267a8b14bc707b23c17132512a731e4e951936727a5bbe8fd6e",
+    "native_gameplay_or_replays": 0
+  },
+  "portable_checks": 20,
+  "overlap_note": "The portable20 checks overlap the native binding21 checks; no41-unique-check claim.",
+  "scope": "Actual native FaBDTDTransform constructs a current transformed position, original Levia in Soul, banished cards predating transformation. Recorded initial bytes exactly match native-derived output before gameplay/save. The replay verifies once-turn permission, real payment, affordable second eligible rejection and normal Hand-play followthrough.",
+  "limits": [
+    "No original transformation trigger eligibility or earlier history replay.",
+    "No CreateGame/frontend/auth integration verified.",
+    "No future Banish-entry facedown, Blood Debt/end phase, permission reset next turn or sibling credit."
+  ],
+  "workspace_full_receipts_retained": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1443-local-20261122"
+}

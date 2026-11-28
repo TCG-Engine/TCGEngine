@@ -214,6 +214,17 @@ function SWULogRestoreQueuedSource(int $player, string $fullParam): void {
 //                    "P2&P3", so "P1 chose P3 (Garindan)" comes from the same line.
 // Declined "you may"s, YESNOs and target picks are deliberately NOT logged: the effect lines already
 // show what happened to what.
+// Is $head (the answered decision) one of the 4P Always Two blind team votes — i.e. followed by its AlwaysTwoTeamVote continuation?
+function _SWUAnswerFeedsTeamVote(int $player, object $head): bool {
+    $seen = false;
+    foreach (GetDecisionQueue($player) as $d) {
+        if (!empty($d->removed)) continue;
+        if ($d === $head) { $seen = true; continue; }
+        if ($seen) return strval($d->Type ?? '') === 'CUSTOM' && str_starts_with(strval($d->Param ?? ''), 'AlwaysTwoTeamVote|');
+    }
+    return false;
+}
+
 function GameOnDecisionAnswered(int $player, string $answer): void {
     $head = null;
     foreach (GetDecisionQueue($player) as $d) {
@@ -229,6 +240,9 @@ function GameOnDecisionAnswered(int $player, string $answer): void {
             AddGameLogEntry('NAMECARD', $who . ' named ' . $answer . SWULogSourceSuffix(), 'ALL');
             break;
         case 'OPTIONCHOOSE':
+            // 4P Always Two's game-start team votes are BLIND: announcing "P1 chose Go second" here would show the teammate the vote
+            // before they cast theirs. The agreed outcome is logged once both have voted (InitiativeChoice / AlwaysTwoStartingBoard).
+            if (_SWUAnswerFeedsTeamVote($player, $head)) break;
             // Labels are single tokens on the wire ("Draw&Discard" separates options; "Your_deck" uses
             // underscores for spaces) — show them as words. A bare card token in a label ("[[LAW_124]]_Takes_7_Damage",
             // SOR_233 I Am Your Father) keeps its CardID's underscore and becomes the named "[[id|name]]" log link.
@@ -957,10 +971,14 @@ function SWUParseGameLogEntry(string $entry): array {
 function SWUFilterGameLogForViewer($rawLog, $viewerSeat, $isSpectator) {
     $out = [];
     $vSeatTag = 'P' . intval($viewerSeat);
+    // 1v1 Always Two: a seat plays two boards, so it reads the private lines of both (SWUBoardsOfSeat; [seat] everywhere else). The
+    // viewer may be EITHER board of the seat — the 2×2 table's log lives in the board seat+2 half — so map board → seat first.
+    $vTags = [$vSeatTag];
+    if (function_exists('SWUBoardsOfSeat')) $vTags = array_map(fn($b) => 'P' . intval($b), SWUBoardsOfSeat(SWUSeatOfBoard(intval($viewerSeat))));
     foreach (explode('<NL>', strval($rawLog)) as $entry) {
         if ($entry === '') continue;
         $logVis = explode('|', $entry, 3)[1] ?? 'ALL';
-        if ($logVis === 'ALL' || (!$isSpectator && in_array($vSeatTag, array_map('trim', explode(',', $logVis)), true))) {
+        if ($logVis === 'ALL' || (!$isSpectator && array_intersect($vTags, array_map('trim', explode(',', $logVis))))) {
             $out[] = $entry;
         }
     }

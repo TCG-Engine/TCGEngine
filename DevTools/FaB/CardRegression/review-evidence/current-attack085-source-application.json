@@ -1,0 +1,48 @@
+{
+  "status": "APPLIED_SYNTAX_PASS_NATIVE_QUALIFICATION_PENDING",
+  "started_utc": "2026-11-03T23:12:29.163067+00:00",
+  "runtime_before": "800b8b4f79d79d280ecff89ad13dca62b959559d66c300067b66f5a501bb7a56",
+  "expected_runtime_after": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "manifest_sha256": "85e69d9dc60dc979ca989529e287babbd4046a42930f11e2b5d0a134464a7d30",
+  "source_review_sha256": "35eb68697e00ba2a740b7328c514542f55b95efbb216631c50779e9b0a517814",
+  "component_receipt_sha256": "0d958cee79fa713e9f6d10684adf8de93aefb8ef3daa7a754115a70c61703d65",
+  "files": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\GameLogic.php",
+      "before_sha256": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "after_sha256": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135"
+    },
+    {
+      "path": "FaBSim/Custom/DTDRuntime.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-shared-attack085-live-source-proposed\\candidates\\FaBSim\\Custom\\DTDRuntime.php",
+      "before_sha256": "8812bc94760701fd363d88891fa03a50158b3c1dc16c399aaa2e2a598f27983e",
+      "after_sha256": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2"
+    }
+  ],
+  "applied_files": [
+    "FaBSim/Custom/GameLogic.php",
+    "FaBSim/Custom/DTDRuntime.php"
+  ],
+  "syntax": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\GameLogic.php\n",
+      "stderr": ""
+    },
+    {
+      "path": "FaBSim/Custom/DTDRuntime.php",
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\DTDRuntime.php\n",
+      "stderr": ""
+    }
+  ],
+  "fixture_count_before": 3671,
+  "generated_files_changed": false,
+  "native_after_executed": false,
+  "full_suite": false,
+  "runtime_after": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "completed_utc": "2026-11-03T23:12:29.859278+00:00",
+  "fixture_count_after": 3671
+}

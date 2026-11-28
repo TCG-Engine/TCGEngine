@@ -1,0 +1,7 @@
+{
+    "name": "Everbloom // Life / announced Instant Life half gains one life",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:13:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Meld**\n\nChoose an action card in a graveyard with cost less than the total {h} you've gained this turn. Put it on the bottom of its owner's deck.\n\n**Go again**\n\n//\n\nGain 1{h} Named Life/right-half only. Young Oldhim20 is legal through Earth Essence and has no automatic life-gain trigger. Actual primary5Hand is announced via current Prepare MZMODAL Right_half index1 BEFORE payment/responses. It becomes a cost0 INSTANT, spends no AP/resource and stays owned Stack through four real manual live-seat responses. Printed Life gains1: actual health20 to21, AP1/R0 unchanged, no left-half graveyard choice/Meld continuation or go-again grant; same physical5 ends owner1 graveyard, all other zones/players remain guarded. No Everbloom left half, Meld-both/second layer, action go again, initial life producer, other hero ability, alternate pitch, support identity or whole-card claim. Pending Root independent review/native Save/one clean replay. Sources: FaBSim/GeneratedCode/cardArrayCache.json#everbloom_life_blue"
+}

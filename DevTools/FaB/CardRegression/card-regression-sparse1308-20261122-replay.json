@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spectral-prowler-red-four-live-sparse1308-no-shield-no-refund-rejects-real-zero-cost-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "215ecec67f1e29dcb4f3bd802155415726be3bb1ae7d2586f3b3d2e3adfb7017",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de06c38fa3c4425e44bad20e546ce140df0c4e11b6fb969e6662285fb434de42",
+        "actions.json": "cb28b47f5dc15b249b3654ad141cf5f2ccf833368e3cb287e1fd2c33043e8215",
+        "assertions.json": "5c8bb8aee9541c4bb328b667a9b344e2accb00985aa25a237e292124aaed8843",
+        "expected_final_gamestate.txt": "02a1ead026b44dce4477d009d729b907e3720e7efbe95adf95418cc8d91298fc",
+        "meta.json": "d6f03082835bbe087bb2e8825a8ffe79e09ed9a81b292ed584f4a7a125e733da"
+      }
+    },
+    {
+      "slug": "card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spectral-rider-red-four-live-sparse1308-no-shield-allows-two-action-defenders-without-summing-phantasm-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1308-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6360159682e70641ba884ddccdc146643173d7818e0704043da74e0c15b0840a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a0fbe4b086da9b8a510ee37b5caa48a1afc1940058b82ecfc9bd09d8588d390",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "a80537fd4e6adef824e236c74ff545a0753b6bcbe29629d03adcd73a15042dcc",
+        "expected_final_gamestate.txt": "eb154442f89da6bc7a7a42ec8c3a140378f885f53b5c159a8d2d8d07dca265ab",
+        "meta.json": "0241c389c62222111e391272438a857e4cef073745601567404704ae35e25ba7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

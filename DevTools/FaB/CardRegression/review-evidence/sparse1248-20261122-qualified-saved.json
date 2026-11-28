@@ -1,0 +1,87 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1248-20261122.json",
+  "source_spec_sha256": "7166d1f6dd90ebe5100d305b981a994b96c912489d7fdb611c6ec7708b255b35",
+  "input_sha256": "7166d1f6dd90ebe5100d305b981a994b96c912489d7fdb611c6ec7708b255b35",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-frostbite-four-live-sparse1248-real-cost-tax-rejects-unaffordable-zero-attack-foreign-removal-allows-paid-play",
+      "card_id": "frostbite",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49bc692c353ed186aff8c5cc756fe8eaab1ba2e345dc338915dc2a7f3cdd0f22",
+        "actions.json": "22eaf604510eee5940e8593124602df29a19d61c69d196da199ded1ade292afa",
+        "assertions.json": "003f3ea69f8daa75af3c42ecfa9dfd1d185823545d3a9f149c9c54c5cb231db4",
+        "expected_final_gamestate.txt": "21f6bc1778db67daaf6a7de52ec63216c4e3172942a45494ff31a3a289674b45",
+        "meta.json": "af652dbaa751f20e1797acd3342cc1ad17e9c5c6cacd50ae2ed780391039adf5"
+      },
+      "fixture_sha256": "2401af0e710297a42d33fea316a17bc355b117a5f0d765ca58e6f1b5e0056e18",
+      "actions": 48,
+      "native_assertions": 346,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 39,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1248-20261122.json",
+      "input_sha256": "7166d1f6dd90ebe5100d305b981a994b96c912489d7fdb611c6ec7708b255b35",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1248-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frostbite-four-live-sparse1248-real-cost-tax-rejects-unaffordable-zero-attack-foreign-removal-allows-paid-play",
+        "fixture_slug": "card-frostbite-four-live-sparse1248-real-cost-tax-rejects-unaffordable-zero-attack-foreign-removal-allows-paid-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "7166d1f6dd90ebe5100d305b981a994b96c912489d7fdb611c6ec7708b255b35",
+    "source_note_sha256": "ed0227fc3774fc38fb01d9d033bc4a2dc7517f99ccb50331ec431fa11504575a",
+    "case_count": 1,
+    "native_controls": 48,
+    "query_checks": 346,
+    "persistable_assertions": 346,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "COST_TAX_AFFORDABILITY_REJECTION_AND_ACTUAL_POST_REMOVAL_PLAY",
+    "basis": [
+      "Primary Frostbite identity is unrepresented and has no source-only hold on this group. Four natural Young Oldhim20/Dori20/Dori20/Briar20 seats. Existing own-controlled Frostbite5 is an admitted real persistent token, not an artificial tax/history flag; own ownership is lawful, while no producer, foreign-creator ownership or current creation route is claimed. No current event or AP/resource effect is seeded.",
+      "ELETax counts physical controlled Frostbite, and CardCost adds it to printed0, making Wounding6 cost1. AvailablePitch excludes selectedUID6; Hand1 contains no other card and resources0, so CanPlayCard rejects before DoPlayCard target or payment is created. Actual click must leave token/card/UID/AP1/R0/emptyStackDQ/pending fields unchanged, rather than merely checking a cost display.",
+      "No card is played or ability activated by taxed controller1 while token exists. Therefore the known inline destruction WHEN and tax-payment timing are unearned; no such behavior is blessed. Foreign Briar4 real mode1Shock7 declares legal adjacentHero3 before four responses and deals1, earning actual ARCANE_OPP1 without changing controller1 AP/token. Instants earn neither Briar AA damage nor second NAA observer.",
+      "Actual foreign mode0Vaporize8 resolves after four fresh responses. Non-token permanent chooser is absent because only Frostbite token exists; real token chooser must be nonempty0|1|p1Arena0 from earnedX1. Actual selected5 is destroyed without Graveyard export. No primary-controller activation is used to remove it.",
+      "Same physical Wounding6 then actually offers native adjacentHero4 target, pays0resources/AP1to0, resolves through all four manual combat seats, deals actual4 unblocked damage, and endsGY1. This positive follow-through pins that the earlier rejection was the removed tax. Final HP3=19/4=16/others20, two real foreign spellsGY4, no token/Stack/DQs/CC, R0/AP0/UID8/RNG0 match the limited intended branch."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only pending native save and targeted replay, no native success or coverage credit claimed.",
+      "Only existing single Frostbite affordability rejection and real post-removal card play. No actual extra resource payment, card/ability destroy WHEN timing, end phase, stacked tax, creator ownership or production route, alternate owner, support/Hero or whole-card credit.",
+      "Only W review written; no native/test/T/source/auth/network/Git/original action."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1248-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "692bb37c15d02b2ade182438004d789a84b3ca5d6687e30ac5a679c2035598ac"
+  },
+  "full_suite_run": false
+}

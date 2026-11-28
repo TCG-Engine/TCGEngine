@@ -1,0 +1,7 @@
+{
+    "name": "Bounding Demigon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:13:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've played a non-attack action card this turn, you may play this from your banished zone.\n\nWhen this is played from your banished zone, it gets +1{p}.\n\n**Blood Debt** Representative only: actual_hand_three_without_banish_origin_power_gain. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. Only named Hand-origin main attack; Banish-origin, phantasm destruction and Blood Debt end-phase branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bounding_demigon_red"
+}

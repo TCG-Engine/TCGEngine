@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T04:17:07.019238+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1307-20261122.json",
+  "source_spec_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 64,
+  "native_assertions": 1146,
+  "manual_passes": 57,
+  "totals": {
+    "saved_registered_scenarios": 5246,
+    "duels": 3097,
+    "four_live": 2149,
+    "recorded_primary_ids": 2394,
+    "identity_denominator": 5196,
+    "recorded_groups": 2268,
+    "group_denominator": 3324,
+    "four_live_groups": 2138,
+    "phase_qualified_scenarios_at_actual_contexts": 1883,
+    "phase_qualified_unique_groups": 1873,
+    "creation_replay_passes": 2625,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1044,
+  "scenarios": [
+    {
+      "card_id": "cold_wave_red",
+      "group_id": "pitch-cycle:cold_wave",
+      "scenario_id": "card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+      "effect_branches": [
+        "unfused_arrow_normal_payment_hits_for_five_then_opponent_really_plays_zero_cost_instant_without_tax"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cold-wave-red-four-live-sparse1307-unfused-arrow-allows-real-opponent-zero-cost-instant",
+      "source_spec": "card-regression-sparse1307-20261122.json",
+      "source_spec_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+      "review_evidence": "review-evidence/sparse1307-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cc7dccca1f9725bef00387da1a3d13088ce43eabc6224a1f46750f7f51e93328",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1307-20261122-replay.json",
+          "sha256": "4449730cca5c0c4c5ed3c772a4c2a694ab1ffc3bc6b4b00211fcd2ba83bdef24",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rites_of_replenishment_red",
+      "group_id": "pitch-cycle:rites_of_replenishment",
+      "scenario_id": "card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+      "effect_branches": [
+        "actual_unfused_no_arcane_attack_hits_ally_without_bottoming_real_eligible_non_attack_or_attack_action_graveyard_controls"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rites-of-replenishment-red-four-live-sparse1307-unfused-no-arcane-attack-keeps-both-eligible-graveyard-controls",
+      "source_spec": "card-regression-sparse1307-20261122.json",
+      "source_spec_sha256": "de5b9c3cdc0eb97cb1739a23032c48f0f90485cb505413f51ee01e74b1da0969",
+      "review_evidence": "review-evidence/sparse1307-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cc7dccca1f9725bef00387da1a3d13088ce43eabc6224a1f46750f7f51e93328",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1307-20261122-replay.json",
+          "sha256": "4449730cca5c0c4c5ed3c772a4c2a694ab1ffc3bc6b4b00211fcd2ba83bdef24",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

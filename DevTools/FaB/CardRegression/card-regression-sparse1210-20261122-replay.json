@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-barbed-barrage-red-four-live-sparse1210-real-additional-three-cost-two-declared-heroes-each-take-five",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-barbed-barrage-red-four-live-sparse1210-real-additional-three-cost-two-declared-heroes-each-take-five",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1210-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1210-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c69a4d6f031cafd6ece0804ac1a0c3e7db3d2cd064b1caa4ee6af92e61f2a904",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "504bed72bf374bec935e5b4733571b3c719181291f7004a3f27c5a12f69c916b",
+        "actions.json": "1f9eecf4e95310f2d126bc82e356ca74fe95395db9a281beff3df342b45b1796",
+        "assertions.json": "16757e4923179a0d6583aa22ad8c8dbecdd8938bfc03ce69559ca55bf289aa78",
+        "expected_final_gamestate.txt": "356816ad447842d10423e00302fe649f76b45451293a97b6ab3a3c475c11e1ac",
+        "meta.json": "26be4d6ee62ef6c4fb02d42e280deb45201f7afdc6f1f3080e8d98d55bc7530a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

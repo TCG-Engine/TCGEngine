@@ -1,0 +1,7 @@
+{
+    "name": "Mutated Mass / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:23:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone.\n\nThis card's {p} and {d} are equal to twice the number of cards in your pitch zone with different costs.\n\n**Blood Debt** Representative only: one_actual_distinct_pitch_cost_sets_star_power_to_two. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mutated_mass_blue"
+}

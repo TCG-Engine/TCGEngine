@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-conductivity-blue-four-live-sparse1186-real-arcane-shelter-one-then-separate-leave-trigger-creates-owned-embodiment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-conductivity-blue-four-live-sparse1186-real-arcane-shelter-one-then-separate-leave-trigger-creates-owned-embodiment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1186-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1186-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ed76b9d61728e76f28a63fff38da5e234bf92f261d156908ee8de5721c383afc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b785d7e6b93b577c76982ab55bf4611748e96ba018d81f86695794b3d5977c8",
+        "actions.json": "fdc8a120be3253a85d73a1f92b059ff5bb6b8494acc4190b73db3d220cd6bbd8",
+        "assertions.json": "aa2079b56b665d88d374de547bbba77c4e2013df589c43103e3264696cf3810e",
+        "expected_final_gamestate.txt": "a572785fda6d311ba51e9c754580c290ef7d6e8c737b900f2860705e95c2f41d",
+        "meta.json": "b0026ecab67f2b062d799ad1a917ffeae48ebc400ebb162e11e0a9e4c8a19799"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

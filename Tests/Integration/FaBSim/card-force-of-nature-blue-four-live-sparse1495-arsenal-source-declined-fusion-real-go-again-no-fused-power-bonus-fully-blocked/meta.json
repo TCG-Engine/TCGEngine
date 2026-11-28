@@ -1,0 +1,7 @@
+{
+    "name": "Arsenal source / Force of Nature / declined Fusion and real go-again consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:37:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ARSENAL SOURCE ONLY: real face-down Arsenal5 is played, eligibleHand6 remains currentHand0 through Prepare and persistence. ActualeligibleEarthHand6offeredforFusionandexplicitPASS, notpositive-revealcostpath. ZeroCostprimary5AP0/fourresponses\u2192GY/AP1. RealWounding7fundedbyGA, power4notfused5. ActualRazor9/10defend2+2, final0damage(allHP20), noBriarownDamageorprimaryhitdraw triggerearned. Earth6Hand/Deck8unchanged, primary5+attack7GY1/blocks9+10GY4/AP0R0/noArena/StackDQ. Drawconsumeruntested, notfalse-condition-certifiedbecauseactualhitfalse. PositiveprintedGAandlimiteddeclinedFusiononly; fusedrevealcost/timing/ownership/positivebonus/latertriggers/siblingsuncredited. Noenginechanges. Original Hand-source FAB-REG-231 remains held; no bad chooser is answered and no original expected reference is changed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#force_of_nature_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#force_of_nature_blue FaBSim/Custom/ELECards.php#FaBELEFinishFusion FaBSim/Custom/GameLogic.php#FaBPlayCard"
+}

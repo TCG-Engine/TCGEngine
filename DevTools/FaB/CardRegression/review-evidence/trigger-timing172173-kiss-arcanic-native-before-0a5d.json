@@ -1,0 +1,178 @@
+{
+  "status": "NATIVE_CONFIRMED_B784_PREMATURE_TRIGGER_EFFECTS_UNSAVED",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T04:45:35.064930+00:00",
+  "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+  "cases": [
+    {
+      "card_id": "kiss_of_death_red",
+      "source_spec": "card-regression-batch784-kiss-trigger-probe.json",
+      "input_sha256": "9cec7276d36b9734500e9480bd50998dded102e390991397e5d9cee536b2a7c4",
+      "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-kiss-independent-strict-diagnostic-source-review.json",
+        "sha256": "089599718c6330cba5e8d0b8d81b877322572037f17f38dc56884425698ab65e"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-kiss-hit-trigger-native-before\\receipt.json",
+        "sha256": "44598b6bb3ef150c2c11719c6dac6828a52847d2050003c2bf04e1d9b96c504b"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch784-kiss-trigger-probe.recording-results.json",
+        "sha256": "bee6301f23ba3403e20578c840c5724f789b0ceb7a19e42f0b1c2c83b1fc3728"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch784-kiss-trigger-probe-20261114T044314Z-6af7e6e200577.json",
+        "sha256": "74d765c695fc92d92f5a9fe27ae6dda25ac9c932aa8cbb80d921a4489be7994c"
+      },
+      "actual_native_inputs": 19,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "future_trigger_response_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 997,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 998,
+      "failed_query": {
+        "step": 19,
+        "type": "scalar_zone_equals",
+        "zone": "p4Health",
+        "value": 17,
+        "viewerPlayerID": 1
+      },
+      "direct_observed_health": 16,
+      "expected_health_before_trigger_response": 17,
+      "direct_observed_physical_attack_UID": 5,
+      "direct_observed_physical_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "direct_observed_Kiss_damageDealt": 3,
+      "direct_observed_Kiss_DTD_LOST_packets": [
+        3,
+        1
+      ],
+      "direct_observed_Arcanic_arcaneDealt": null,
+      "Stack_following_observer_not_executed": true,
+      "post_zone_Stack_trigger_target_raw_snapshot_available": false,
+      "direct_Stack_count_claim": null,
+      "normalized_trigger_target_claim": null,
+      "causal_explanation_source_derived_only": "SelectedcanonicalHitdirectFaBARCLoseLife / selectedResolveCarddirectFaBARCDealArcane explain prematureeffect withoutseparateresponsewindow. Actualeffecttimingisconfirmed; exactabsence/internalshapeoftriggerlayer/normalizedtargetbinding/physicalzonelocationafterfailurearenotrawobserved.",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 120,
+      "initial_raw_sha256": "7b67b0e244bdbd5e690079aa2ed212231affed36d924276efaf17eaca5cc2135",
+      "native_confirmed_responseable_trigger_timing_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "arcanic_crackle_blue",
+      "source_spec": "card-regression-batch784-arcanic-trigger-probe.json",
+      "input_sha256": "4128ffa6d7cc2d3653569e4fd15184b33dbc97d711b5e4d84053b068935f204e",
+      "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch784-arcanic-independent-strict-diagnostic-source-review.json",
+        "sha256": "f223f2a2413040354c6a8439c8c28b291b2695d9fa58d0b85a1f0a91c0cf0b98"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b784-arcanic-attack-trigger-native-before\\receipt.json",
+        "sha256": "9489bc3b24ab84b45482019a71d00b46b39528937f7ca18a82ffd8c24d88d120"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch784-arcanic-trigger-probe.recording-results.json",
+        "sha256": "4ab2bdcc9c276a7d8b91925a8f913b833f20efadaca11f2a133b409f04eb4876"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch784-arcanic-trigger-probe-20261114T044342Z-6af7e6fe4f571.json",
+        "sha256": "7a0b9a7ef1eb0c0520fa21959c0cc631a8d43511db65ce6bc5239f10587cdc73"
+      },
+      "actual_native_inputs": 7,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "future_trigger_response_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 379,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 380,
+      "failed_query": {
+        "step": 7,
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 20,
+        "viewerPlayerID": 1
+      },
+      "direct_observed_health": 19,
+      "expected_health_before_trigger_response": 20,
+      "direct_observed_physical_attack_UID": 5,
+      "direct_observed_physical_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "direct_observed_Kiss_damageDealt": null,
+      "direct_observed_Kiss_DTD_LOST_packets": null,
+      "direct_observed_Arcanic_arcaneDealt": {
+        "1": {
+          "2": 1
+        }
+      },
+      "Stack_following_observer_not_executed": true,
+      "post_zone_Stack_trigger_target_raw_snapshot_available": false,
+      "direct_Stack_count_claim": null,
+      "normalized_trigger_target_claim": null,
+      "causal_explanation_source_derived_only": "SelectedcanonicalHitdirectFaBARCLoseLife / selectedResolveCarddirectFaBARCDealArcane explain prematureeffect withoutseparateresponsewindow. Actualeffecttimingisconfirmed; exactabsence/internalshapeoftriggerlayer/normalizedtargetbinding/physicalzonelocationafterfailurearenotrawobserved.",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 120,
+      "initial_raw_sha256": "88ae3a7ba5771cba5c930d226d83c32ba1c2f19dafd190f59bac8dec7a635c24",
+      "native_confirmed_responseable_trigger_timing_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    }
+  ],
+  "total_native_inputs": 26,
+  "total_direct_persisted_successful_queries": 1376,
+  "confirmed_gameplay_defect_scope": "Prematureprintedtriggeredeffectswithzeroactualtriggerresponseinputs: KissHP16after3physicalhitsinsteadof17; ArcanicHP2_19immediatelyaftertarget2answerinsteadof20.",
+  "fixture_saved": false,
+  "passing_coverage": false,
+  "source_application_approved": false,
+  "limits": [
+    "No postrawStack/zone/triggerParam snapshot. Stack1secondchecksandlaterqueries neverexecuted, so no directStack0/unavailabletargetbinding claim.",
+    "Actualinitial48manualbooleanscheckedEACH; no finalrawpreferencesclaim. Prior997/379 successesdirectlypersisted, not inferred.",
+    "Sourcecausalattribution isboundedselectedbodyanalysis; noinstrumentedcalltrace/globaltriggerframework/fullcard/othercycle/oldheldrepair claim.",
+    "RootaloneexecutedactualnoSaveprobes; reviewer ran noPHP/native/game/replay/R/source/Git/remote actions."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch784_actual_trigger_failures.py",
+    "sha256": "d35cb4ff6946b6beca5d698b5f79f9773b298cf10f31ff5770beefe14d7f47fe"
+  },
+  "blockers": []
+}

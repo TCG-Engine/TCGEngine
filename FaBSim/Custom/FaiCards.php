@@ -34,8 +34,8 @@ function FaBFaiCardPlayed(int $player,object $obj): void {
     }
     FaBWTRSetEffects($player,$effects);
     if($obj->CardID==='blaze_headlong_red') {
-        $reds=array_filter(FaBGetState()['cardsPlayedThisTurn'][(string)$player]??[],fn($id)=>intval(CardPitch($id))===1);
-        if(count($reds)>1)FaBWTRTag($obj,'GO_AGAIN');
+        $reds=count(array_filter(FaBGetState()['cardsPlayedThisTurn'][(string)$player]??[],fn($id)=>intval(CardPitch($id))===1))+FaBARCEffect($player,'PEN_ADDED_RED_PLAYED');
+        if($reds>1)FaBWTRTag($obj,'GO_AGAIN');
     }
     if($obj->CardID==='promise_of_plenty_red'&&($obj->SourceZone??'')==='Arsenal')FaBWTRTag($obj,'GO_AGAIN');
 }

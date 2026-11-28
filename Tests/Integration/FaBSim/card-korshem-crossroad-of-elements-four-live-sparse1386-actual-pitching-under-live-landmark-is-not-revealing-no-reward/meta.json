@@ -1,0 +1,7 @@
+{
+    "name": "Korshem / actual pitch is not a reveal event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:30:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNGOLDHIM20_THREEDORI20. OldhimElementalGuardianlegalforElementalKorshem/GuardianThunder, naturalHP20; cachedUPFbannedfalse(LivingLegendflagnotUPFban), nofreshformatpolicyclaim. NativeKorshem5Action1paysbyrealBlue6/AP1to0/R2,all4responses\u2192physicalLandmark5Arena+printedGoAgainAP1. ActualGuardianThunderBlue7cost6declaresadjacent4target; whileKorshemactive twoBlue8/9actuallypitched(costavailabilityR2+3<6then+3to8,pay6\u2192R2/AP0). PitchingfaceupisNOTrevealing: noKorshemrewardchoice/layer/resource/health/powerincrease; nativebase8not9/noGA,actual8damageP4HP12, allothers20/R2(noR3)/primary5sameArena/threeBlue6,8,9Pitch/Thunder7GY/RedWounding10HandrejectAP0/UID10RNG0/StackDQquiet. Noactualreveal, nootherLandmark, noendphase; positiveRevealchoice/bonustarget/timing/othermode/uniqueness/endcondition/otherpitch/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#korshem_crossroad_of_elements FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php"
+}

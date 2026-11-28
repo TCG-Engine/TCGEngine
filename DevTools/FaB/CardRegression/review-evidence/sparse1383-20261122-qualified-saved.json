@@ -1,0 +1,164 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1383-20261122.json",
+  "source_spec_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+  "input_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "card_id": "bigger_than_big_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c324629c337d312b3a1fe96ea4f577d87b10d91c9bdb1d430f3cb7b8f64ae642",
+        "actions.json": "964d74e9025aff1e5dda0ff675107626c47f375330cd86f023bf102cb325399a",
+        "assertions.json": "f4bde9d37066a966120f2df5dda3fde1703858f20c476481f5c41a7b56abe4a5",
+        "expected_final_gamestate.txt": "edcb6368781289cc3cbaaca62d53e2db3cd59dd55c26e7137f6a9e9c082b376f",
+        "meta.json": "f9f0b0bae2411889db5eccd4ab60098d12120e74f7c7116df19557d3b1bfcf01"
+      },
+      "fixture_sha256": "41d42d369ef24937ebd8bbe495f8042400dce29c8e8095cda4ba956595c2d81b",
+      "actions": 41,
+      "native_assertions": 380,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1383-20261122.json",
+      "input_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "fixture_slug": "card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "card_id": "big_bop_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17afd4054318185b963fd6ba05fd56710b4c9134022e604892845dd129c531b4",
+        "actions.json": "964d74e9025aff1e5dda0ff675107626c47f375330cd86f023bf102cb325399a",
+        "assertions.json": "9d4db0d970ed57dfa5cf2a02957fc217c1a005475bf245f07a70fc12c7410527",
+        "expected_final_gamestate.txt": "d1493aadb6af2fcdeb57293dc4ea28412c8c0a1bf5cbc82aaccdc04b51882694",
+        "meta.json": "84ed46e13f8cdb9037842eda5f096726ab8eb6d4e13e67c02d0900d5b7e0944f"
+      },
+      "fixture_sha256": "2a5a2b0e4984c4d39c3a1a41f615b59f20c47a2d8f678c9a6ff1f2a7360ab592",
+      "actions": 41,
+      "native_assertions": 380,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1383-20261122.json",
+      "input_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "fixture_slug": "card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+    "source_note_sha256": "7a15297c3288a403620add4e150e116209a48645e99d49e685a819f822001366",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 82,
+    "query_checks": 760,
+    "persistable_assertions": 760,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "START_TURN_AURA_TIMING_GUARD_WITH_REAL_PAID_GUARDIAN_ATTACK_AND_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "bigger_than_big_red",
+        "group_id": "pitch-cycle:bigger_than_big",
+        "native_controls": 41,
+        "persistable_assertions": 380
+      },
+      {
+        "card_id": "big_bop_red",
+        "group_id": "pitch-cycle:big_bop",
+        "native_controls": 41,
+        "persistable_assertions": 380
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented/unheld Guardian Aura pitch cycles represented by Red only. Cached primary3cost/noGoAgain under YoungBravo20 versus three YoungDori20/manual4UPF legal; all assets cached UPF allowed. ThunderQuakeBlue actualGuardianAA cost6/power8/onlyHeave3, no ordinary attack WHEN/Crush; Heave not used. Three BlueTitaniumBauble Resource cards legal pitch3/copies3.",
+      "Native Timesnap5 Action0 spends initial AP1 to0, sourceGY/virtualABI12 and four manual responses then actual Gain2AP2 (WTRAbilities16/411). No callback-specific destroy event credited. Aura6Hand spends one AP2 to1 and Blue7pitch3 pays3, then four responses actual ownedArena entry without GA refund; no seeded action points or prior Aura start state.",
+      "HVYRuntime85 calls these StartTurn macros only at actual startturn. Generated ResolveCard757/772 merely moves Aura; StartTurn18687/18708 destroys and stages nextGuardian+5/wager. Aura is actually played after current start, with sameTurn1/TurnNumber2 throughout; no granted bonus or attack-Hero wager trigger exists yet. Keeping Aura6 intact and actual8 not13 power/damage is correct, not bypass of an earned trigger.",
+      "After Aura/funder7 leave Hand, ThunderQuake8 is Hand0; actual target selection precedes payment, same Hand0 pitches9 then10 for total6/R0/AP0. Four manual source/combat windows actual unblocked8damageHP4=12, noGA/noWagerLayer/tokens. Final real0Wounding11 Hand click rejectsAP0; source5then8GY, Blue7/9/10Pitch, Aura6Arena and Hand11 physical guards/zone totals/UID12/RNG0 align. No second-card ordinal assertion depends on held Sting bookkeeping."
+    ],
+    "limits": [
+      "Only real Aura3payment/entry and same-turn not-startturn guard with paid Guardian attack, actual damage and AP0 consumer rejection. Future StartTurn destroy/+5/wager/timing/token payout, endturn/Heave, sibling pitch variants, support identities, initial Timesnap provenance and whole-card untested. Ouvia remains deferred source-only/no native/no coverage.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/HVYRuntime.php": "2866849d60037455d66281b8ccd8cc8af4c647d28d76fd2ca0fa031f7652055f",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1383.py": "06f64ab339aed36fe7c9cb1364dc5924991486a3d46152f4362c725adfb8e26f",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_start_turn_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e946cff869bca8963e98b0c6f0e5b7eeec3b1242ce8f0e344851c56aa0d24bf0"
+  },
+  "full_suite_run": false
+}

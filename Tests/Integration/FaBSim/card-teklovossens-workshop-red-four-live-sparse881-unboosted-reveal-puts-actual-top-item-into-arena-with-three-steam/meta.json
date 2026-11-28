@@ -1,0 +1,7 @@
+{
+    "name": "Teklovossen's Workshop / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Opt X**, where X is the number of times you've **boosted** this turn.\n\nReveal the top card of your deck. If it's a Mechanologist item card with cost 2 or less, put it into the arena. Representative only: unboosted_reveal_puts_actual_top_item_into_arena_with_three_steam. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklovossens_workshop_red"
+}

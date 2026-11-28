@@ -1,0 +1,257 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent exact2file source/native-owned route, officialWHEN oracle, original same-source1power defect, all101savedactions336assertions/15rawhashes, correct current attackslots/same-open-chain/put/Snag/physicalfates,5strictloghashes reviewed. Reviewer no tests/games/writes.",
+  "runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+  "source_spec": "card-regression-repair-flood-owned-combo-20261125.json",
+  "input_sha256": "39bb45c9371e442d2c61f8ed1884fd692aad2d18ac51253d860e28f8fdf76352",
+  "fixtures": [
+    {
+      "slug": "repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+      "card_id": "flood_of_force_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18154adf66730be1435166a877feb8560dcdd380e99a2600def83d0a61120cb1",
+        "actions.json": "4b5ef342e1f176e081bbfaa551fe93d0ffad6d56fabaa14b749821a75f4e0a9b",
+        "assertions.json": "9a08f564c87a975f670007aaf998299ba6a29e7839dcd0f504f73fdfb5fb26e3",
+        "expected_final_gamestate.txt": "247ba35f39b880b294fd8c5e1cc5ab13cb2770137421ac601505d9d4735d40fd",
+        "meta.json": "9ae7e2961cab2a85e761cf1b22c999bdbd94f835adfd8db855b993adb6907452"
+      },
+      "fixture_sha256": "b094fcb0b84ebcf7555e8df1caf36c5004643cfd4166a4677239c9e20160be5a",
+      "actions": 31,
+      "native_assertions": 80,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "source_spec": "card-regression-repair-flood-owned-combo-20261125.json",
+      "input_sha256": "39bb45c9371e442d2c61f8ed1884fd692aad2d18ac51253d860e28f8fdf76352",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-flood-of-force-yellow-two-live-20261125-first-false-second-true-owned-combo-current-top-four-damage",
+      "card_id": "flood_of_force_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0466aaec7deab41d6dedf9fa27880a9af73e1ebe52ec085bbcf7126a8a47e7c1",
+        "actions.json": "cee70ddf4838c94f141d62cd3ac4b30e45495364acf07f904732c55b01480f0e",
+        "assertions.json": "8dd49f841a7a80e0f1ed72d5bfaf71a0d2f075418dbb755aac07d342384ea6a6",
+        "expected_final_gamestate.txt": "95fe1b8346dc43fdd0ca8c4225d324ec192969f366ab06c7a4b3bd0ac0ab3a76",
+        "meta.json": "60e4882348d607fc7205e0390abbae76fb8e9f685f6abcc93c0e6940f5b12c8d"
+      },
+      "fixture_sha256": "c3235f213627400f555e3590e5c7dda15d6d530e1bfa5fec86bc6f4ac1d85d92",
+      "actions": 33,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 30,
+      "recorded_runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "source_spec": "card-regression-repair-flood-owned-combo-20261125.json",
+      "input_sha256": "39bb45c9371e442d2c61f8ed1884fd692aad2d18ac51253d860e28f8fdf76352",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    },
+    {
+      "slug": "repair-flood-of-force-yellow-two-live-20261125-second-link-owned-combo-snag-response-one-damage",
+      "card_id": "flood_of_force_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d58aa5f322b7d22b7f606d6e8fe05f7d2bc34aec4436b168e18baa2b28c1a44",
+        "actions.json": "d0f195738071ba9905afd1eba52b67f8eb869f17a8a0fb3a43efbcdcc24c49ae",
+        "assertions.json": "af9916741a43b9cbaaac0666a05d52f061cadf7e8d01ee8faa54931cc06447f1",
+        "expected_final_gamestate.txt": "af83de568a21bf8ae22ae8c9a279c9e004c174f78c9bfd64d79be92010869b75",
+        "meta.json": "143f51e46b0ce537dca335c5278c9aa0da95c07eb2a439941d0d3aabd8104438"
+      },
+      "fixture_sha256": "72ec5c8d3c80592ad9f3bccc3720e255e5cf0b1473e752f263653e9aa387eb0b",
+      "actions": 37,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "runtime_sha256": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+      "source_spec": "card-regression-repair-flood-owned-combo-20261125.json",
+      "input_sha256": "39bb45c9371e442d2c61f8ed1884fd692aad2d18ac51253d860e28f8fdf76352",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "PROPOSED_NOT_APPLIED",
+    "files": [
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "before_sha256": "d661c7f694c08b3a06e701f649af5a2f5d01ba53c4f33318d96c876fd84afcb0",
+        "candidate_sha256": "2e04e3d0cc9b7b99cb0459fda8f72c46512431d08a8353fd7ad3fca0700748a5",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\candidate\\FaBSim\\Custom\\GameLogic.php"
+      },
+      {
+        "path": "FaBSim/Custom/CRUCards.php",
+        "before_sha256": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+        "candidate_sha256": "4f90f0c9cb981ebd9fcbfac1d8697423ec795a8090d9162d7d1c00844869612e",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\candidate\\FaBSim\\Custom\\CRUCards.php"
+      }
+    ],
+    "scope": "Exact Flood WHEN reuses existing managed owned AttackDeclared event; captured predecessor fixes self-match. Native payload uses real reveal/put and null-safe original-link selfpower/GA, duplicate guard. No shared no-arg helper, Core, generated files, external boundary or generic scheduler changes.",
+    "rules": "https://judge.fabtcg.com/cards/detail/602/",
+    "limits": "Name-changing/copy/intervening-chain native branches remain unqualified; original no-trigger oracle corrected separately."
+  },
+  "source_spec_review": {
+    "approved": true,
+    "reviewer": "/root/breadth_review1457",
+    "source_proposal_sha256": "08c9d5d8f8b604bd3cc17a1e406dae49c5447ebc94068bff4180ddc384a352a1",
+    "spec_sha256": "1dc3b64d7757f709aa4d2194b3321b56f213877fc8090a1f37ff942435358a5b",
+    "source_only_no_games_or_writes": true,
+    "scope": "Exact2file owned/native route approved; original helper/generated bytes untouched. Conditionalfalse still earnslayer, currenttoprevealed/putindependentofsourcefate/putsuccess; selfpowerhasSnagprovenance. All336checks preserved after removing4impossibledueltargetanswers; ordinary legalCC3copies vsfourliveUPFsingleton. Native qualification pending.",
+    "limits": [
+      "Duplicate guard is per layer, not producer dedup.",
+      "Changed source controller, name/copy/intervening chain and native source departure not qualified."
+    ]
+  },
+  "targeted_replays": {
+    "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+    "fixtures": [
+      {
+        "slug": "repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+        "passed": true,
+        "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "1621fc3ba5a9ab610b769f80ef09399435db2cec257b7917810eb6beaa4b816e",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-flood-of-force-yellow-two-live-20261125-first-false-second-true-owned-combo-current-top-four-damage",
+        "passed": true,
+        "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-flood-of-force-yellow-two-live-20261125-first-false-second-true-owned-combo-current-top-four-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "0f0ffd5b27b9797f3e7d4f4bd525913e92af49a1f9e40f3aaecba7a044156509",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-flood-of-force-yellow-two-live-20261125-second-link-owned-combo-snag-response-one-damage",
+        "passed": true,
+        "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-flood-of-force-yellow-two-live-20261125-second-link-owned-combo-snag-response-one-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "750fdad1cc85d93c10084a893dc813879255ca66efa12c1256fa5fe7511a73da",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "passed": true,
+        "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "b9f6d418d1a365d687ebc7dbcf6f078b66168e6d91b4ba4b0715ed83062ccbee",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+        "passed": true,
+        "runtime": "4541eaa85c46f366134a5568f54e56d47760eccd2414e6dc15d88e6464c66de0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-head-leads-the-tail-red-four-live-correct-attack-trigger-name-earns-real-same-chain-head-jab-power",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\flood-of-force222\\clean5.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "e216d3e5d7e61a322e8bfcd9044eed626dbfb6ad87b604c0806def2eb90afa70",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "component": {
+    "actual_function_pass": 22,
+    "path": "tests/flood_owned_combo_test.php",
+    "sha256": "075a3177261c4ae3eacc153632462ffefb414a5fe97bd8f48c5c4d36319319da"
+  },
+  "oracle_and_protocol_corrections": {
+    "official_text": "https://judge.fabtcg.com/cards/detail/602/",
+    "historical_no_trigger_oracle_rejected": true,
+    "valid_first_power1_oracle_preserved": true,
+    "duel_target_protocol": {
+      "status": "REMOVED_FOUR_IMPOSSIBLE_DUEL_TARGET_ANSWERS_BEFORE_NATIVE",
+      "old_spec_sha256": "c51ff6e52d1c5a10ed15b8d928da336009ffc43b536b9189fa76b1c9489ea53d",
+      "new_spec_sha256": "1dc3b64d7757f709aa4d2194b3321b56f213877fc8090a1f37ff942435358a5b",
+      "source": "FaBSim/Custom/GameLogic.php FaBClaimOrRequestAttackTarget773-791 auto-selects only legal Hero2; four-live explicit Hero4 chooser retained.",
+      "gameplay_checks_unchanged": true,
+      "no_native_game_attempted": true
+    },
+    "go_again_author_type": {
+      "status": "AUTHOR_CHECK_VALUES_USE_REAL_BOOLEAN_RETURN_TYPE",
+      "old_spec_sha256": "1dc3b64d7757f709aa4d2194b3321b56f213877fc8090a1f37ff942435358a5b",
+      "new_spec_sha256": "39bb45c9371e442d2c61f8ed1884fd692aad2d18ac51253d860e28f8fdf76352",
+      "changes": 15,
+      "source": "record_card_regressions.php FCRCheck kindgo_again obtains boolean FaBAttackHasGoAgain and compares strictly; persisted computed_go_again_equals casts intval, unchanged0/1 semantics.",
+      "no_native_fixture_saved": true,
+      "no_engine_or_semantic_expectation_change": true
+    },
+    "persisted_go_again_expectations_unchanged": true
+  },
+  "limits": [
+    "Exact Yellow representative only; other Combo callers/copy/name-changing/intervening-chain/control-change/native source-departure branches unqualified.",
+    "Same-layer resolution dedup only; producer double invocation not covered.",
+    "Four-live UPF singleton false case; two adult Classic Constructed fixtures permit3sameYellow copies for actual second-link Combo and Snag control. No four-player positive-Combo claim.",
+    "Revealed Combo top is put into Hand, not drawn. Native ordinary outcome plus actual-function API checks; no positive draw-listener integration claim.",
+    "22 component checks use isolated card/zone I/O, independently distinct from101 native inputs/336 persisted assertions.",
+    "One necessary existing-failure repair group, no breadth batch or sibling/support identity credit.",
+    "Five strict focused passes at stated runtime, not a full-suite run."
+  ]
+}

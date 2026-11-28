@@ -83,7 +83,7 @@ sloggism_red 4 1 1 0
 0
 1
 0
-{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MST_BLUE_PLAYED","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"SEA_BLUE_GRAVE","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"NEXT_AA_HIGH","amount":6,"uses":1}],"2":[{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["lead_the_charge_blue","sloggism_red"]},"eleKorshemActiveTurn":2,"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"mstBluePlayedTurn":2,"mstBluePlayedPlayer":1,"rosLastLightning":false,"iarPermission":[]},"4":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"rosLastLightning":false,"iarPermission":[]}},"arcActions":{"1":2}}
+{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MST_BLUE_PLAYED","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"SEA_BLUE_GRAVE","amount":1,"uses":1},{"type":"SUP_COST_ONE","amount":1,"uses":1},{"type":"EVR_PLAYED","amount":1,"uses":1},{"type":"NEXT_AA_HIGH","amount":6,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}],"2":[{"type":"EVR_GRAVEYARD","amount":1,"uses":1},{"type":"EVR_GRAVEYARD","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":{"1":["lead_the_charge_blue","sloggism_red"]},"eleKorshemActiveTurn":2,"arcCards":{"3":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"mstBluePlayedTurn":2,"mstBluePlayedPlayer":1,"rosLastLightning":false,"iarPermission":[]},"4":{"iarOrigin":1,"mstChiPitched":0,"rosMeld":-1,"rosSurgeGo":false,"evoDashPlay":false,"omnFirstDamage":false,"iarPlayedFrom":"Hand","mstFree":false,"rosLastLightning":false,"iarPermission":[]}},"arcActions":{"1":2}}
 0
 12
 12
@@ -101,7 +101,7 @@ sloggism_red 4 1 1 0
 1
 MAIN
 
-{"mzID":"p1Graveyard-1","mzIDCardID":"sloggism_red","cardID":"sloggism_red","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
+{"mzID":"Stack-0","mzIDCardID":"sloggism_red","cardID":"sloggism_red","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
 {"PlayCardCalls":{"1":2},"PlayCard":{"1":{"lead_the_charge_blue":1,"sloggism_red":1}}}
 {"PlayCardCalls":{"1":2},"PlayCard":{"1":{"lead_the_charge_blue":1,"sloggism_red":1}}}
 5

@@ -1,0 +1,7 @@
+{
+    "name": "Goldkiss Rum / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:01:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - {t} your hero, destroy this: Your next action this turn gets **go again**. Your hero can't {u} this turn unless they're a Pirate. Representative only: actual_instant_taps_real_hero_and_destroys_token_then_real_next_attack_gets_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#goldkiss_rum"
+}

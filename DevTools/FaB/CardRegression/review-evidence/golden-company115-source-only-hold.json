@@ -1,0 +1,160 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_ALTERNATIVE_COST_NATIVE_PROTOCOL_UNRESOLVED",
+  "created_utc": "2026-11-05T12:15:33.249238+00:00",
+  "batch": 460,
+  "selected_id": "golden_company_red",
+  "group_id": "pitch-cycle:golden_company",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/IARRuntime.php": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/WebpImages/golden_company_red.webp": "10c025e794ec784dbffeb1c4cfd9fa1a287b566a79a35c30942cb921a66e60c1",
+    "FaBSim/WebpImages/gold.webp": "d870a5a7356eab9c8bbbd4112080c5e999bf321c30d101f98bdd324e3dc7f8c0"
+  },
+  "primary": {
+    "types": [
+      "Warrior",
+      "Defense Reaction"
+    ],
+    "cost": 2,
+    "defense": 6,
+    "text": "You may destroy a Gold you control rather than pay this card's {r} cost.",
+    "current_official": "https://judge.fabtcg.com/cards/detail/4785/",
+    "official_image": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/FAB481-RF.webp",
+    "local_face_actually_viewed": "FaBSim/WebpImages/golden_company_red.webp"
+  },
+  "support": {
+    "card_id": "gold",
+    "types": [
+      "Generic",
+      "Token",
+      "Item"
+    ],
+    "text": "Action - {r}{r}, destroy this: Draw a card. Go again",
+    "local_face_actually_viewed": "FaBSim/WebpImages/gold.webp",
+    "legitimate_provenance": "P4 previously created the Gold under its own control; it persists without an expiry ability. Owner4 and Controller4 must both be actual, no history/resource/cost flag."
+  },
+  "intended_correct_model": {
+    "heroes": [
+      "dorinthea",
+      "dorinthea",
+      "dorinthea",
+      "dorinthea"
+    ],
+    "health": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "resources": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "actionPoints": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "physical_setup": [
+      "UID5 GoldenCompanyRed P4Hand",
+      "UID6 Gold P4Arena Owner4 Controller4 ready",
+      "UID7 RagingOnslaughtRed P1Hand",
+      "UID8 WoundingBlowBlue P1Hand"
+    ],
+    "play": "Real Blue8 pays Raging7 cost3/AP1. Full four-manual combat reaches legal P4 DR priority. GoldenCompany must be legally announcable at R0 using controlled Gold6 instead of resource2.",
+    "cost": "Declare the actual Gold alternative using a supported native interface, destroy SAME owned/controlledGold6 as payment before fresh four responses. Gold token ceases; no own Gold Action activation/draw/go again or generated resource.",
+    "effect": "Same primary5 resolves as DEF6 against actual7, causing1 damage/HP19 and full combat close. This requires an established supported declaration/payment interface; no such recipe is fabricated here."
+  },
+  "bounded_evidence": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "854-862",
+      "function": "FaBCardCost",
+      "finding": "Starts from printed cost2 and registered cost modifiers; selected GoldenCompany-specific alternative producer was not found."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "918-922",
+      "function": "CanPlayCard",
+      "finding": "Final affordability admits named alternative exceptions, FaBIARAlternativeAvailable, or available pitch >= cost. No GoldenCompany alternative exception in this selected caller."
+    },
+    {
+      "path": "FaBSim/Custom/IARRuntime.php",
+      "lines": "272-280",
+      "function": "FaBIARAlternativeAvailable / FaBIARAlternativeChoices",
+      "finding": "Generic alternative path delegates to an explicit darkest_hour/skeletal_puppetry allowlist, not GoldenCompany."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "987-991",
+      "function": "DoPlayCard",
+      "finding": "Preparation uses registered PrepareCard macro then normal payment; no selected GoldenCompany declaration macro was found."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1265-1295",
+      "function": "FaBRunSourceMacro",
+      "finding": "Selected precompiled PrepareCard bridge only covers declared reaction targets; no general Gold alternative protocol established."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "finding": "Exact selected family golden_company literal absent in current compiled code."
+    }
+  ],
+  "lookup_scope": {
+    "exact_selected_family": "golden_company",
+    "custom_php_matches": [],
+    "ability_json_matches": [],
+    "compiled_selected_literal_present": false,
+    "source_flow_read": [
+      "FaBCardCost",
+      "CanPlayCard affordability",
+      "FaBIARAlternativeAvailable/Choices",
+      "DoPlayCard PrepareCard dispatch",
+      "FaBRunSourceMacro selected bridge",
+      "HVY ability preparation"
+    ],
+    "scope": "Bounded selected-family lookup and its actual affordability/preparation callers only. No catalog timing audit, fixture crawl, new creator/primary search or code change."
+  },
+  "blocker": {
+    "action": "Author a correct positive Gold-instead-of-resource native recipe",
+    "target": "GoldenCompanyRed Hand at P4 Reaction priority with R0 and actual controlled Gold6",
+    "reason": "Supported alternative-cost declaration/index/payment/destruction route is unresolved in the selected source. Ordinary resource payment would fail the requested main property, and inventing a modal/action or cost flag would fabricate support.",
+    "state": "UNATTEMPTED_SOURCE_ONLY_HOLD",
+    "denied": false,
+    "pending_approval": false,
+    "uncertain_execution": false
+  },
+  "metadata_newness": {
+    "selected_group_unrepresented": true,
+    "review_primary_ID_absent": true,
+    "effectbranches_empty": true,
+    "source_only_ledger_group_absent": true,
+    "registered_through": "card-regression-sparse456-9e984-checkpoint.json",
+    "index_sha256": "5dc74ddf39e546ae7bd63632243c808a996bacd152b86365d792979ae4c67645",
+    "base_group_index_sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+    "primary_review_sha256": "723c1c98f9863f05e76b186d1673595c34e44296b5483379a43453e85d62fd66",
+    "coverage_metadata_sha256": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94",
+    "holds_sha256": "335918930048a8fdc75cf6b1b1ca47507b68a324b596a0d34e09e741239c9ff1"
+  },
+  "limits": [
+    "This selected-source concern is not proof of complete implementation absence and is not a confirmed native bug/root.",
+    "No gameplay spec, invented choice protocol, ordinary-payment passing case, token-destruction workaround, gameplay/native/coverage/sibling/fullcard credit.",
+    "No PHP/native/replay/R/source/service/generator/ACTIVE/fullsuite/stage/commit/push/deploy/remote writes or retry/rerouting of any held denied operation."
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_bug": false,
+  "source_repair_proposed": false
+}

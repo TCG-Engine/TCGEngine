@@ -1,0 +1,112 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+  "source_spec": "card-regression-repair-sigil-of-fate-arena-exit-20261126.json",
+  "input_sha256": "bb28cc4c0b0693b37d12d76d64b9baae7aac11a5d6b938a135cbb8de22a6f13e",
+  "fixtures": [
+    {
+      "slug": "repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+      "card_id": "sigil_of_fate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f683bc169dca2afff40791d47c1efd00b8484a84c05b1168651b1511380aaf83",
+        "actions.json": "80335b53b3da4a387ae24cf9ae1cd8408f1f7930c698d49bd123d89b7ec29869",
+        "assertions.json": "c75df01a3c500e4072a8c8ef7057e418d8d46029363922b975546fe91b407db6",
+        "expected_final_gamestate.txt": "1aadb75df368add16b1025c713b7f7f388e5d37a16414e25c35c17155239b3c0",
+        "meta.json": "00ac897c18f045d4dce8221527a70752f7d8ccf7c5d021cc7ab96bbc692888cf"
+      },
+      "fixture_sha256": "eb5d1bf121e4101a9dad1b1e446327ecba4770b3e79ced3667e25c79f66ea504",
+      "actions": 13,
+      "native_assertions": 322,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "runtime_sha256": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "source_spec": "card-regression-repair-sigil-of-fate-arena-exit-20261126.json",
+      "input_sha256": "bb28cc4c0b0693b37d12d76d64b9baae7aac11a5d6b938a135cbb8de22a6f13e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+    "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+    "changes": [
+      {
+        "path": "FaBSim\\Custom\\PENCards.php",
+        "before_sha256": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+        "candidate_sha256": "2d6452c9d082ff102e6f927cab79e1665280e5d80312e41470084c5ee566c151"
+      },
+      {
+        "path": "FaBSim\\Custom\\GameLogic.php",
+        "before_sha256": "07f6ed6d6c00f82b14f8e946fe612353ea7903c2add7cca723b9e2d1768ad451",
+        "candidate_sha256": "59da889d7916e9921510542ad9bccc25870bf76538eb1d80e13a213d18ae06a4"
+      }
+    ],
+    "scope": "Extract existing PEN LKI departure observer; invoke once when token ceases before normal AfterMove destination path. Preserve other movement callbacks/Malice queue and untouched raw bytes/EOL. Departure history is not the token ability: suppression blocks Sigil ability but not Toughness history. No phantom destination object."
+  },
+  "targeted_replays": {
+    "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+    "fixtures": [
+      {
+        "slug": "repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+        "passed": true,
+        "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\arena-exit215-224\\sigil_of_fate\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "a7cba625b99d589fcb122f0fd8a7cfabd95e1cf83f79a858ae2146bff9906d67",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+        "passed": true,
+        "runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\arena-exit215-224\\sigil_of_fate\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "d47463d9e0e56804265c3d6e4cc5bb75e59fb64e261723bb44afa538b9878c56",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Glory native witness ends at originalDAMAGE checkpoint; Guardwell close and other-controller Toughness quantifier remain untested.",
+    "Toughness history is observable even if token suppressed; Sigil ability suppression still prevents its trigger.",
+    "Nine isolated actual-observer controls are distinct from native cases.",
+    "No broad PEN departure/card-pool audit. Primary-agent saved/source review, strict comparator unchanged; fullsuite unrun."
+  ],
+  "scope": "Existing PEN LKI leave observer extracted and invoked exactly once on token cessation before the destination-object early return. No fake Graveyard object.215 original13-input Warhorn destruction earns realOpt and top-to-bottom deckchange.224 original28-input actualToughness departure makesGlorydefense1 and four-powerdamage3/HP17. Assertions unchanged.",
+  "additional_validation": {
+    "actual_lki_observer_component_checks": 9
+  }
+}

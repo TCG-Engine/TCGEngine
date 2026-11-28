@@ -1,0 +1,7 @@
+{
+    "name": "Uplifting Performance / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:00:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control a Confidence or Toughness token, this gets +1{p}.\n\nWhen this hits a hero, create a Confidence and a Toughness token. LegalReviledKayo20/ReviledGuardianLyath20/ReveredGuardianPleiades20, noHeroInstant/crowdevent. OwnArena0excludesconditional+1/GA. Actualexactdefense2/2/5fullyblocksbase2/ceil3div2/5; all0damage/nohit/notokens; ChainBrutalityactualunblocked2/AP0below6/staticnogrant. Actualprintedcost3Blue6onlyforPleiades, otherwise0; sourceblockersownedGY/all4manual. Positiveconditional/token/crowd/6power branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#uplifting_performance_blue"
+}

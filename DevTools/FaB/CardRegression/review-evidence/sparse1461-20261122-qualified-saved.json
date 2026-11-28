@@ -1,0 +1,14 @@
+{
+  "status": "HISTORICAL_BATCH_QUALIFICATION_REVOKED",
+  "approved": false,
+  "current_qualified_scenarios": [],
+  "withdrawn_scenarios": [
+    "card-snap-shot-red-four-live-sparse1461-declined-fusion-no-instant-bow-permission-with-real-spare-action"
+  ],
+  "historical_original_proof_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\conditional-trigger-quarantine-20261125\\repository-before\\review-evidence\\sparse1461-20261122-qualified-saved.json",
+  "historical_original_proof_sha256": "8ba9bad1d3c6f95cc257d131f8a07adf4a5e8873080b7ca96b0f2ef1c1288c20",
+  "historical_native_replay_result": "PASS, execution fact retained; wrong timing oracle is not semantic coverage.",
+  "current_retained_proof": null,
+  "withdrawal_evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+  "withdrawal_evidence_sha256": "649b64bf7ff93dad8b0a0fc54e75eb176bc02012e1d11769fd7938177e4a464d"
+}

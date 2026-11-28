@@ -1,0 +1,7 @@
+{
+    "name": "Alpha Instinct / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:08:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Rhinar Specialization**\n\nWhen this is discarded to beat chest, create a Might token. Representative only: legal_rhinar_attack_without_beat_chest_discard_event. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#alpha_instinct_blue"
+}

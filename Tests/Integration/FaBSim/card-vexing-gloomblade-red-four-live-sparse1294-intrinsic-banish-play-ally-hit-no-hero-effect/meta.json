@@ -1,0 +1,7 @@
+{
+    "name": "Vexing Gloomblade / actual intrinsic Banish play with an Ally target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:52:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_INTRINSIC_BANISH_PLAY/ALLY_NOT_HERO_HIT_GUARD_ONLY. NaturalYoungVynnset20/fourmanualUPF/actualfaceupprimary5Banish/noexternalPlayableFromBanishflag orhistory. NoRunechantsANYArena soUsurpmandatoryifableunable/no+2. ActualBlue6pitch3paysprinted3/AP1to0/R0/source5StackfromBanishthroughallfourresponsewindows. ActualtargetisAlly7AshwingnotHero4. Actualprinted5physicaldamagekills1lifeTokenAlly/ceasesnoGY4/noHeroHPdamage. Hero-onlyHitconditionfalse\u2192noearned2Arcanetrigger/choice, actualopponentHand/Arsenal/eligibleAgilityAura controlsstayownedcontrolled4; nootherHeroHPchange. Fullsame5ownedGY1/sourceBanishnowempty/actualfunderPitchifany/APR0/UID10RNG0/cleanStackDQsCC. No paidUsurp/positiveHeroHit/Gateproduction/BloodDebtend/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vexing_gloomblade_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

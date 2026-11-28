@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse942-20261122.json",
+  "source_spec_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+  "input_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-coax-a-commotion-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "coax_a_commotion_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bef1d1c70936ae7829ea73110069e3d92c0196e794827426b08293db3c8012d6",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "ae4c399c92b22cbdb2452dd4fdba95a0ad7c8226a9e575f8d2b09e13ec6b9600",
+        "expected_final_gamestate.txt": "352a92c2c9aade039b9201531136059d1b5a95785237407da13bc35897c66632",
+        "meta.json": "c05a2658e21935c0202cdcf1cfb6200589e574000a90d6965b6f1cc24fda16ba"
+      },
+      "fixture_sha256": "5d48aae6563b41590dbbb61a303ee5ea3ec11afddea7c13a002c65f10c122d96",
+      "actions": 29,
+      "native_assertions": 151,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse942-20261122.json",
+      "input_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-coax-a-commotion-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-coax-a-commotion-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mischievous-meeps-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "mischievous_meeps_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be3dc63cc8973613846e4ae848e4690ac5d91a3b013cdd4b7e5c926c109b32e9",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "86cc5a9c838ee71f5ed146b9f2d15b4cfe73155017b16d31d3cb05cfab2ca322",
+        "expected_final_gamestate.txt": "b25fb112c42a60a441204d3d0179777666f00ae94ec53b31d4d837e967b7c5a6",
+        "meta.json": "5a50a7559c63d6bcf39a1244352e6b40883ee75f5cd8d560c6e463a772b86dd9"
+      },
+      "fixture_sha256": "786deacca1c8f09ece196c0c34db26bc405a54a906c242dd2a85cb9af89750c9",
+      "actions": 30,
+      "native_assertions": 183,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse942-20261122.json",
+      "input_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mischievous-meeps-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-mischievous-meeps-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vipox-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "vipox_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f2b9095508c784ba930976d8cf8dabc9a2e2dba05f52aeb2923c179344b6f41",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3491b34e119490a6a3add17fde2a3b9f5b50d5c90675885496c8f59cdbdd0fd5",
+        "expected_final_gamestate.txt": "e785139b71562eddf68ec18bf8f876560447647e377ab98085083b23b955c270",
+        "meta.json": "f04ebc06f9fd71c4d58a9bc2b1a8724f04eeb5ea11454229a34e724beef9f89d"
+      },
+      "fixture_sha256": "6227e2f9f0f8738e297ab035e164cd3f0f540bf2af7a073115a320710b09d2ad",
+      "actions": 29,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse942-20261122.json",
+      "input_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vipox-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-vipox-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cadaverous-contraband-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "cadaverous_contraband_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ad0be823751e117aac44b446b1bb63d0c5ebdbe742b3c086253bad1d6b145845",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6e37a890ad68942fc935716a5ce59e53783ae89393e6be6c13acc4d8680eae24",
+        "expected_final_gamestate.txt": "48d0742c0b63895b2b4d21b05e704a1cdd918ae509f236db6c27b7adbee39cf9",
+        "meta.json": "046ff8b06733c316d3db8b9c819d96b869de5ddcf367b547e3a74f9b79298b5a"
+      },
+      "fixture_sha256": "3403ff9dc94e4a7b093f73781a37b289d64a8a9ceaf5c2f584b32068e3b143b9",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse942-20261122.json",
+      "input_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cadaverous-contraband-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-cadaverous-contraband-red-four-live-sparse942-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "727c8a25801a45d9425f274d21c9e5983b738891f0a0f08239d6be794aaba0cd",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Four Generic AA are legal natural20 Dorinthea plays, ordinary Hand5 targetHero4 before assets. Printedcost0/1/0/2 is paid with actualBlue6 only where needed, leavingR0/2/0/1. ActualtwoGeneric HandAA defense3 each fully block printed4/2/1/6, so damage0/HP20/attackHitfalse/Stack0 and no earned Hit layer/chooser are correct.",
+      "Meeps has standalone own Goagain; AP0 throughDAMAGE thenAP1 atRESOLUTION/final despitefullblock follows currentkeywordparser. OthersAP0. Realeligiblecost0PotionStrength9 remains enemyArena/Owner4/Controller4 and ownArena0: no unearned control transfer. The preexisting Item is legal Generic and not activated during the test.",
+      "Vipox beginsP4Hand3, then after realtwo nativeHand0 block declarations counts2 then1, preserving physicalUID8/Owner4. Fullblock means no hit-life-loss despite a remaining card; HP20 makes the intended negative result nonvacuous. Blockers6/7 physically reach owner4GY.",
+      "Contraband has a legitimate preexisting NAA LeadTheCharge9 in ownGY0, not a seeded effect. Initial and post-paymentGYcount1 are correct; after primary closure source5 appends atGY1/count2, Lead9 remainsGY0/Owner1 and Deck0. This pins no unearned graveyard-to-top movement while preserving physicalsourcefate.",
+      "Coax noHit means no earned modal selection, Quicken/draw/gain effect. All four manual response/combat rounds plus realdefenderclicks retained; state counters/UIDs/zone counts are coherent, no whole-effect empty-map assertion. Positive created-token ownership and Hit timing concerns are not exercised."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay remain pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only actualfullblock/payment/printedGA/nohit/sourcefate/negative-marker outcomes. Exactunblockedpower, positivechoice/Itemtransfer/lifeloss/GYselection/draw/owner mechanics, futureturn, siblings/support identities or whole-card behavior untested; existing positive shared concerns remain unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse942-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3b4fa5c88172c4d16fba03e6e195e24eaf2c6cdea83f9d8786c3c09596a29b22"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Gaze the Ages / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:14:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Opt 2**\n\nIf you've played another Wizard non-attack action card this turn, put this into its owner's hand. Representative only: actual_opt_two_split_top_bottom_without_prior_wizard. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gaze_the_ages_blue"
+}

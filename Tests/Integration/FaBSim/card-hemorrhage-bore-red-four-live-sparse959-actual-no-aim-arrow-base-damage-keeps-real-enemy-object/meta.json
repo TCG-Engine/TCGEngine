@@ -1,0 +1,7 @@
+{
+    "name": "Hemorrhage Bore / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:54:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has an aim counter, it gets \"When this hits a hero, destroy a card in their arsenal.\" Lexi20legalRanger/realBow/FaceDownArsenal5. Stone/Hemorrhagehavezeroaim, staticallynograntedhitability; actual4/5damage/AP0 andretainedenemyHand/Arsenal. Endless/PathingactualtwoHandAAdef6block0damage/nohit/AP0/source5GY/Arsenal0, PathingrealeligibleHandArrow9retainednotloaded. Positivehit/aim/return/load branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hemorrhage_bore_red"
+}

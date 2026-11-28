@@ -200,8 +200,8 @@ WithP2GroundArena: [SHD_110:1:0 SHD_110:1:0]
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:0
 ## EXPECT

@@ -1,0 +1,7 @@
+{
+    "name": "Prey on Insecurity / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:18:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\n**Attack Reaction** - Put a card from your hand on the bottom of your deck, destroy this: Another target attack with stealth gets +3{p}. Representative only: actual_action_play_full_block_without_optional_reaction_cost. Actual Hand5 play with real printed payment, real Hand AA defenses, four live/manual seats, zero damage/nohit/Stack0/AP0/source and defenders in owned graveyards. Legitimate physical cards/counters retained; no positive hit/reaction/banish/steal/random/entry/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#prey_on_insecurity_red"
+}

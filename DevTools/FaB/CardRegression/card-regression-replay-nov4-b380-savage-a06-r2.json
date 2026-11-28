@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch380.json",
+  "runtime_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T19:16:49.974502+00:00",
+  "fixtures": [
+    {
+      "slug": "card-savage-beatdown-red-four-live-sparse-real-prior-six-and-own-seven-discard-earns-six-power-fourteen-damage",
+      "fixture_sha256": "3510f156b57d4419f155ba2a03d62484fa0bb900b7436b6a77ba88d2106c7ae8",
+      "passed": true,
+      "result": "[PASS] savage_beatdown_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-savage-beatdown-red-four-live-sparse-real-prior-six-and-own-seven-discard-earns-six-power-fourteen-damage",
+      "returncode": 0,
+      "stdout": "[PASS] savage_beatdown_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

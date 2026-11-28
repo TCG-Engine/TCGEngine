@@ -1,0 +1,101 @@
+{
+  "status": "SOURCE_ONLY_UNATTEMPTED_FIXED_CONSUMER_REPLACEMENT_PLANNING_LIMIT",
+  "card_id": "ready_to_roll_blue",
+  "group_id": "identity:ready_to_roll_blue",
+  "planning_review_approved": true,
+  "approved": false,
+  "reviewer": "/root/b750_saved_recovery",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-08T23:34:13.229429+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-bloodrush-paid-discard-draw-and-ready-source-only-author\\batch756-ready-to-roll-fixed-consumer-source-only-plan.json",
+    "sha256": "bc0d9cfbadb273ad48005ad0eee7ddb61c82a5d2f98e0a4471d5b855f3798c5f"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\manifest.json",
+    "sha256": "efb40bbf4a9fe662ee9bda4ba67da14cf40b0832404a35f0c6975bfe516e610e"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\frozen-author-QA.json",
+    "sha256": "8eceb12b3644d728126618816fb54eb24619d0893529f8bbd8b7d8ab05e7eda3"
+  },
+  "rule_notes": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-two-source-only-final-planning\\SOURCE_RULES_NOTES.json",
+    "sha256": "2a93961bb5b8f7048e2e9ed2c96eebf90c7f9e53fcb79e8d9520f72896b4c7be"
+  },
+  "original_author_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-bloodrush-paid-discard-draw-and-ready-source-only-author\\manifest.json",
+    "sha256": "9e953f1e5cdd9c059b13076b8ab8e4377f998bff7a34da212231f02afc5c47cf"
+  },
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-firm-reservation.json",
+    "sha256": "125ec90ba1c12086095b83255eed2b064cde1db06a746e78e173cd7e11b66cac"
+  },
+  "pool": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch756-nonshadow-action-instant-metadata-pool.json",
+    "sha256": "f2f6255fa87c3062536d33e594370d6875b6e8923821dbe7b2bb7acec305ad26"
+  },
+  "source_guard_count": 70,
+  "source_guards_verified": true,
+  "executable_cases": 0,
+  "source_body_present": true,
+  "engine_implementation_concern": true,
+  "independent_findings": [
+    "Ready publisher face and fixed Reckless Arithmetic consumer face actually viewed. The reserved positive plan requires the extra-die replacement, not a seeded or chosen roll. Primary ResolveCard really adds EVR_READY; the correct shared FaBEVRRoll helper really samples a second die and keeps the higher result for this single-Ready premise.",
+    "The selected Reckless Arithmetic AttackDeclared canonical body and live compiled runner instead call raw EngineRandomInt(1,6), then LegacyRoll and WTR_POWER with that single result. With no Gambler’s Gloves in the fixed premises, its optional reroll loop contributes no die. CRULegacyRoll has no READY read, extra RNG sample, or max operation; generic EngineRandomInt has no replacement hook; selected source dispatch has no override.",
+    "This static fixed-consumer path cannot admit the reserved positive two-dice replacement witness. No RNG state/result was derived, seeded, fitted to output, or executed. The bodies exist; this is not a whole-card absence claim."
+  ],
+  "source_evidence": {
+    "canonical_ready_sha256": "81f3885508c19404d671d67a9ad1bdc4129a74418f566995ea0f4dfeeb3c16ec",
+    "canonical_consumer_sha256": "683c9c85f1cc881bb47e6eade9c603f4c227249296c955eb75215c06bbe54970",
+    "paths": [
+      "DevTools/FaB/evr_abilities.json:ready_to_roll_blue ResolveCard",
+      "DevTools/FaB/pen_abilities.json:reckless_arithmetic_blue AttackDeclared",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php:5910-5914,207565-207641",
+      "FaBSim/Custom/EVRCards.php:3-13",
+      "FaBSim/Custom/CRUCards.php:307-318",
+      "Core/DeterministicRNG.php:132-149",
+      "FaBSim/Custom/GameLogic.php:1264-1297"
+    ]
+  },
+  "official_rules": [
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/everfest/",
+      "actually_retrieved": true,
+      "scope": "Ready to Roll replacement adds a die and ignores the lowest result"
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1279/",
+      "actually_retrieved": true,
+      "scope": "Current primary printed card"
+    }
+  ],
+  "limits": [
+    "Only the reserved Ready Blue plus fixed actual Reckless Arithmetic Blue consumer path is held. No replacement primary, alternative roll producer hunt, blank-play/condition-false workaround, history/private flag/RNG seed, source repair or denied-repair retry.",
+    "No gameplay/native/replay/fixture/dice count/rolled value/power/damage/UID/coverage/confirmed-bug outcome is certified. Kayo/Betsy/support/sibling/full-card behavior has no primary credit.",
+    "Both original firm groups are now Source-only in the final successor manifest. The preserved Bloodrush positive candidate is never admitted by this proof; no executable or installable review is provided."
+  ],
+  "source_approved": false,
+  "source_spec_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "runnable_approved": false,
+  "installable": false,
+  "native_attempted": false,
+  "native_executed": false,
+  "replay_executed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "confirmed_gameplay_bug": false,
+  "confirmed_bug": false,
+  "bug_reproduced": false,
+  "source_fix": false,
+  "repair_attempted": false,
+  "repository_writes": false,
+  "full_suite_run": false
+}

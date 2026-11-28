@@ -1,0 +1,173 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1392-20261122.json",
+  "source_spec_sha256": "c8712b4c4ce446962a9f97f920db72beef80afefd88bde37bf877a6e751341fb",
+  "input_sha256": "c8712b4c4ce446962a9f97f920db72beef80afefd88bde37bf877a6e751341fb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-evergreen-red-four-live-sparse1392-real-hand-play-chain-close-goes-graveyard-not-deck",
+      "card_id": "evergreen_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a7f5f9418c15b2c27fcbf548b73d7ddbd806a090c6a186d2143d55c89f2d404",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7325bdccad1f32763f1420297222aaf20dc6981b300c598980574dcfd809331f",
+        "expected_final_gamestate.txt": "3370dd57e87f92483703f2ce5536967f04d091572a1c198518b825cce16bb11f",
+        "meta.json": "7daea6c23ae48afae40405061b64a4de37a3f7d1f6479e1189a3c321e998c706"
+      },
+      "fixture_sha256": "d0f934147f48b689f190942a96ef466a164b0bac9a0563a65941c825d08594bc",
+      "actions": 28,
+      "native_assertions": 283,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1392-20261122.json",
+      "input_sha256": "c8712b4c4ce446962a9f97f920db72beef80afefd88bde37bf877a6e751341fb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1392-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evergreen-red-four-live-sparse1392-real-hand-play-chain-close-goes-graveyard-not-deck",
+        "fixture_slug": "card-evergreen-red-four-live-sparse1392-real-hand-play-chain-close-goes-graveyard-not-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-current-funnel-blue-four-live-sparse1392-actual-previous-action-not-lightning-no-current-go-again",
+      "card_id": "current_funnel_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7aacef44acf4f77aa76a3956b354648692aef33eeebce223d77a9e32c3ba753f",
+        "actions.json": "7067417341d1532ab404c72e3f385ce949cfc3d5e992c4413364be8c36e702c9",
+        "assertions.json": "a62931e1a3f1761cd5224fa76b73efb2afabed3f0d4749035ca69705587562d3",
+        "expected_final_gamestate.txt": "b0b07acf06f06f053358a5f58ea8dc19548364c3bd54959e6c561bc285899cfe",
+        "meta.json": "aef0329b74cb6c1aa73219145090ca7521d23cc34eff715efee0bccd5c64a4f0"
+      },
+      "fixture_sha256": "1c1d3642a6a8ed0da67946fc0ee6d94587037d7fced75717209f82c1a171a079",
+      "actions": 61,
+      "native_assertions": 430,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 54,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1392-20261122.json",
+      "input_sha256": "c8712b4c4ce446962a9f97f920db72beef80afefd88bde37bf877a6e751341fb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1392-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-current-funnel-blue-four-live-sparse1392-actual-previous-action-not-lightning-no-current-go-again",
+        "fixture_slug": "card-current-funnel-blue-four-live-sparse1392-actual-previous-action-not-lightning-no-current-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c8712b4c4ce446962a9f97f920db72beef80afefd88bde37bf877a6e751341fb",
+    "source_note_sha256": "8420f0972d5717023a781599c1c7c36a6663b0a350082852fa861169bab37844",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 89,
+    "query_checks": 713,
+    "persistable_assertions": 713,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "PLAYED_ORIGIN_AND_PREVIOUS_ACTION_ELEMENT_FALSE_GUARDS_WITH_REAL_COMPLETE_COMBAT",
+    "per_case": [
+      {
+        "card_id": "evergreen_red",
+        "group_id": "pitch-cycle:evergreen",
+        "native_controls": 28,
+        "persistable_assertions": 283
+      },
+      {
+        "card_id": "current_funnel_blue",
+        "group_id": "identity:current_funnel_blue",
+        "native_controls": 61,
+        "persistable_assertions": 430
+      }
+    ],
+    "official_rules_evidence": {
+      "card_id": "current_funnel_blue",
+      "publisher": "Legend Story Studios / Flesh and Blood",
+      "title": "Rosetta + 1st Strike Release Notes",
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/rosetta-1st-strike/",
+      "quote": "Current Funnel does not consider itself when checking the last action card you played.",
+      "retrieval": "Independent reviewer public publisher-indexed search snippet; direct page returned HTTP403, not retried. No authenticated requests.",
+      "scope": "Official clarification supports checking the previous Action, not counting Current Funnel itself. No full page fetch or fresh format-policy verification claimed."
+    },
+    "basis": [
+      "Two distinct unrepresented/unheld groups. NaturalYoungOldhim20 Earth/ElementalGuardian for Evergreen and naturalYoungOscilio18 LightningEssence for CurrentFunnel, threeYoungDori20/manual4UPF/cachedUPFallowed. Oldhim cachedLL does not establish Blitz eligibility; no current format-policy claim.",
+      "Evergreen printed WHEN chaincloses IFplayedArsenal hasfalsecondition after actualHand5play/Blue6pitch3pays3/AP0. ELECards173 only tagsELE_BOTTOM_CLOSE fromArsenal; GameLogic2622 uses tagatrealchainclose. SevenbasephysicaldamageHP4=13/noGA thenactual5GY andunchangedDeckBlue7(notEvergreen5) correct, no earnedbottom trigger/layer.",
+      "Current Funnel interpretation independentlychecked against publisher indexed Rosetta+1stStrike note: explicitly excludes itself. DirectpageHTTP403, no retry/auth; indexedquote/title/URLandretrievalscope boundinmetadata. Originaltwo-case source/actions unchanged, no archive/filter/native attempt before this approval. SourceROSRuntime16 capturespriorLAST_LIGHTNING before currentupdate, generatedAttackDeclared21099 testsrosLastLightning, does notdependonheldFAB_PLAY_ORDERordinal.",
+      "ActualTimesnap5earns2AP/ABI10; realGenericCriticalBlue6cost1paidBlue7/R2/AP1 thenactual3damageHP4=17/fullfirstclose. GenericAction notLightning; Itemactivation andResourcepitch are not interveningActioncards. CurrentFunnel8LightningAA0 thenAP0/realbase2/noGA/fullsecond2damageHP4=15; no earnedconditionalWHEN/nextActiongrant onselectedfalsebranch. ConsumerHealing9Hand0cost0rejectsAP0 confirmsnoextraAction, allphysicalGY5/6/8,Pitch7/Hand9/UID10/RNG0/R2/sourcehealth18quietqueues coherent."
+    ],
+    "limits": [
+      "Evergreen onlyHand-originfalseguard/fullchainclose; positiveArsenalbottomreturn/timing untested. Funnel onlypriorGenericActionnegativecondition, nativecost/twoattacks/noGA/consumer; positivepriorLightning/currentandnextGA, action-as-Instant responses alteringlastcard/conditionrecheck/timing/targetvariants untested. No fullcard/support/sibling/provenance credit.",
+      "Approval pending native execution. Reviewer ran no game/test/replay, engine/repository edit, original checkout access, auth, full suite or Git operation. Narrow public official indexed rules lookup was used; direct officialpage403 recorded/notretried, no fullpagecontentsclaim."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1392.py": "7b628be4612f57b46489d8e9d8c01634c6d338f860dda5814d630dba13b826e6",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1392-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "33f1e7f09314c3812beb40d33678f41854377d2ad2697ae70618afd192dbaa9c"
+  },
+  "full_suite_run": false
+}

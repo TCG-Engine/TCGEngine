@@ -1,0 +1,7 @@
+{
+    "name": "Loyalty Beyond the Grave / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:43:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is in your graveyard, at the start of your turn, you may banish 2 cards named Loyalty Beyond the Grave from your graveyard. If you do, draw a card. Named partial branch: actual_arsenal_reaction_base_three_no_future_start_step. Real defender4 dromai natural20, owned source5 plays in actual Reaction. Printed cost0 paid by actual Blue6 if positive (residue0/AP0); no seeded resources or defense. Actual Generic Raging7/Blue8 paid3, no normal blocks. Four actual DR responses4,1,2,3 resolve same source5 as DEFENSE_REACTION, fresh1,2,3,4 yields persisted defenseValue3/damage4/HP16; source5/attack7 finish respective owned graveyards, attackerNAA9 retained. No author-only defense/can_play/can_activate diagnostics; persisted state/HP/card/role/fate/cost checks only. No defender card is pitched or played from Hand, so Dromai pitch trigger is absent. Its graveyard start-of-own-turn ability is not reached (turn-player remains1), no banish/draw credit; actual unused Blue6 remains Hand. Sources: FaBSim/GeneratedCode/cardArrayCache.json#loyalty_beyond_the_grave_red"
+}

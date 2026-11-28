@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch773.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T03:29:06.961169+00:00",
+  "fixtures": [
+    {
+      "slug": "card-hood-of-second-thoughts-four-live-real-first-hit-earns-destroy-prevents-one-next-damage",
+      "fixture_sha256": "faa587eeed4ae34fb436862770d422431d49c72ae9c8e82c069d91164616da6e",
+      "passed": true,
+      "result": "[PASS] hood_of_second_thoughts / four live distinctive effect"
+    },
+    {
+      "slug": "card-stormweavers-aegis-four-live-real-granted-instant-discard-ability-prevents-two-of-seven",
+      "fixture_sha256": "4214f61ce29aae3efd2fc1590beab5ddb638786d0a57abb00917e3e3385bc5d3",
+      "passed": true,
+      "result": "[PASS] stormweavers_aegis / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hood-of-second-thoughts-four-live-real-first-hit-earns-destroy-prevents-one-next-damage",
+      "returncode": 0,
+      "stdout": "[PASS] hood_of_second_thoughts / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-stormweavers-aegis-four-live-real-granted-instant-discard-ability-prevents-two-of-seven",
+      "returncode": 0,
+      "stdout": "[PASS] stormweavers_aegis / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

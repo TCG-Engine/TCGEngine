@@ -1,0 +1,7 @@
+{
+    "name": "Adaptive Plating / actual Action moves from Head to empty Chest through retained resolving layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:03:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActuallegalDash20ModularAdaptive5Head, emptyChest. NativeAction0paysAP1to0/createABI6Source5; allfourmanualresponses, samephysicalHead5andABI6surviveactualresolvingMZMODALchoice. Chestindex1 movesnativeEVO_SLOTHeadtoChest onsameowned5/Statusready, nootherobjectnewUID6/GY0/StackDQclean/AP0 noGA. CR8.3.30Modularand8.5.41cequipemptydifferentzone; nooccupiedzone/destruction/Galvanize/BladeBreak/otherHero/siblingcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#adaptive_plating FaBSim/Custom/EVORuntime.php#FaBEVOAbilityRows FaBSim/Custom/EVOCards.php#FaBEVOModular FaBSim/Custom/GameLogic.php#CardTypes FaBSim/GeneratedCode/GeneratedMacroCode.php#adaptive_plating:0:ResolveAbility https://rules.fabtcg.com/en/cr/08-keywords/#modular https://rules.fabtcg.com/en/cr/08-keywords/#equip"
+}

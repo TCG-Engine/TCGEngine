@@ -1,0 +1,133 @@
+{
+  "status": "APPROVED_SELECTED_PLANNING_LIMIT_ONLY",
+  "approved": true,
+  "planning_review_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-06T03:52:57.903170+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch565-song-required-melody-trigger-source-hold\\planning-hold.json",
+    "sha256": "4e9aff7ef9fbc3a020e6379efd93d5f70b0392230b61c9b0462eb5171144f97e"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch565-song-required-melody-trigger-source-hold\\manifest.json",
+    "sha256": "c18bb390f01599795fea098af2df9c9e001350dc1e719c87a6da1abd33cdaeb8"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch565-song-required-melody-trigger-source-hold\\frozen-author-QA.json",
+    "sha256": "7c3eea18819a8feaf83a50d762b449f4ec11feefe3905c6ab1a4bf490b858917"
+  },
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guard_count": 69,
+  "all_actual_source_guards_match": true,
+  "baseline_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-after140\\manifest.json",
+    "sha256": "6eccd65bad5d11ee6e8410abafe31e9f115dbd20b79b8a87a477b083d1b7a754"
+  },
+  "selected_source_guards": {
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "card_id": "song_of_larinkmorth_white_blue",
+  "group_id": "identity:song_of_larinkmorth_white_blue",
+  "required_support_id": "melody_sing_along",
+  "independent_normative_model": [
+    "ViewedPEN150/currentcatalog is BardActionSong, cost0/pitch3/DEF3: createoneFrostbite under eachotherHero. No formalTargetword limits it toadjacency; inselectedfourlivinggame it includesP2/P3/P4, but exacttokenownership/defaults/UIDs are not certified by thisplanningreview.",
+    "ViewedTCC049youngMelody20 is legalBard and has mandatory Whenever-you-play-a-Song Copper trigger, not an optionalactivation. FourlivingHeroes means3Copper. PlayingtheSongearns a Hero-controlledtriggeraboveit before nextpriority; a genuinefour-seatresponse round resolvesit whileSongremains, then a freshSongresponse round precedesFrostbite resolution. OrdinaryAction0 spendsAP1; noGOAGAINorHeroomission isauthorized.",
+    "A Frostbite-onlypassingrecipe wouldomit mandatoryearnedMelodymaterialeffect. No suppressedHero/seededpendingeffect/history or arbitrary quietHero substitution is admitted."
+  ],
+  "source_evidence": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1155-1158,1191-1197",
+      "finding": "Full earlier selectednormalpayment completion invokes actualOnCardPlayed. It callsOMN/IARplayedhooks, WTRCardPlayed, sourceCardPlayedmacro andactualDispatchMacroListeners. Concern isnotbasedsolelyonemptyHero row."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "530-570",
+      "finding": "Fullsharedplayedpath recordsactualcardhistory/appliesearnednext effects andcallsnamedsetPlayedhelpers includingPEN,Boltyn,ARC. NoSong/Melody producer wasestablished by boundedselectedlookup; genericalternative isnot globallydisproved."
+    },
+    {
+      "path": "FaBSim/Custom/PENCards.php",
+      "lines": "564-584",
+      "finding": "Actualselectedsetplayedhelper coversAura,Instant,nextattack/color effects andotherliteralconditions. No identifiedSong-play/Melody producer onthispath."
+    },
+    {
+      "path": "DevTools/FaB/pen_abilities.json",
+      "finding": "PositiveimplementedSongResolveCardbodyexists: loopsFaBOpponents andcallsrealFaBHVYTokenforFrostbite. Notprimaryimplementationabsence."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "165-167",
+      "finding": "ActualFaBOpponents returnsallotherlivingseats; this isnot a chosenattack/formaltarget list."
+    },
+    {
+      "path": "FaBSim/Custom/HVYCards.php",
+      "lines": "20-33",
+      "finding": "Actualtokenfactoryexists withrealcreation/replacement/count paths. No downstreamdefault/ownership/lifecycle or creatorbranch nativequalification claimed."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "7252,255418,256877,264735-264772",
+      "finding": "ActualSongResolve registration/count exists. Full actuallistenerdispatcher enumeratesregisteredabilitykeys andrequiresphysicalCardID match, preservescontroller/context. CompleteexactMelodyID scan hasnoemittedoccurrence; no identifiedregisteredHerolistenerroute."
+    },
+    {
+      "scope": "Exact requiredHeroCID in current canonical abilityJSON and CustomPHP; CustomSong-type literal check",
+      "selected_matches": [],
+      "finding": "NoexactMelodyrow/CustomCID/Song-type producer found in boundedlookup. Dynamic/genericalternatives remainunestablished, notcategoricallyimpossible. Nootherprimarybody/catalogue survey."
+    }
+  ],
+  "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_REQUIRED_MELODY_TRIGGER_ROUTE_UNESTABLISHED",
+  "disposition": "Retainplanninglimit. A futureoriginal-correctSongprobe mustinclude mandatoryMelodytrigger/3CopperbeforeSong, notgreenFrostbiteonly. No executablecase/UIDallocation/protocol isapprovedhere and nonewasauthoredbyreviewer.",
+  "alternate_Hero_scope": "CurrentcatalogYorickWeaverofTales hasmandatory sharedstartingdeck/graveyardrule. No legalquietYorick/sharedDeckstartingtransport wasestablished orcertified inthisselectedread. This isnot a verdictaboutallBardHeroes/allpossibletransport; no alternativerecipe/search wasperformed.",
+  "primary_sources": [
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/compendium-of-rathe/",
+      "evidence": "CurrentofficialindexedselectedSongresolution/Frostbite ruling independentlyretrieved. No fullreleasefetch/JudgeHubIDinvented."
+    },
+    {
+      "path": "FaBSim/WebpImages/song_of_larinkmorth_white_blue.webp",
+      "issuer": "PEN150",
+      "sha256": "e6ff55269586664b440fe42b4c9f6b90fd8ae0b39a903c53e17045ecc7777a89",
+      "actually_viewed": true
+    },
+    {
+      "path": "FaBSim/WebpImages/melody_sing_along.webp",
+      "issuer": "TCC049",
+      "sha256": "6e7512dbd385a1168881b35315d10a3835cd4f205b9144e9a966e7b051427bf8",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "actually_opened": true,
+      "rules": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Triggered-eventconditioncreatesresponseablelayer, addedbeforethenextpriority. NoClose-step exception applies."
+    }
+  ],
+  "limits": [
+    "No nativeSongplay/Melodylayer/Copper/Frostbite/AP/zone/ownership/default/UIDobservation, nativebug/newissue/fixture/coverageorroot/Core/dedupallocation.",
+    "PositiveSongbody/tokenfactory/listenerframeworkexist; no whole/globalabsenceorunimplementedclaim.",
+    "No allHeroverdict, alternateproducer/body/pool hunt, existingfixtureaudit, seededhistory/permissions/suppressionorreplacementtransport.",
+    "No recipe/PHP/native/replay/Rwrite/sourcefix/fullsuite/codegen/service/remote/git/denied-operation retry. Copperabilities/Frostbitetax/destruction/support/sibling/fullcardunqualified."
+  ],
+  "source_spec_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "installable": false,
+  "recipe_count": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_engine_bug": false,
+  "issue_allocated": false,
+  "coverage_credit": false,
+  "repository_writes": false
+}

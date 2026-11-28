@@ -500,7 +500,7 @@
       },
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBMSTAdd($player, 'AMP', 3);\n",
+        "abilityCode": "/* Entry amp is queued by FaBROSAfterMove. */\n",
         "isImplemented": true
       }
     ]
@@ -645,7 +645,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBCRUGainLife($player, 3 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])) - 1);\n",
+        "abilityCode": "FaBCRUGainLife($player, 3 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])));\n",
         "isImplemented": true
       }
     ]
@@ -655,7 +655,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBCRUGainLife($player, 2 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])) - 1);\n",
+        "abilityCode": "FaBCRUGainLife($player, 2 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])));\n",
         "isImplemented": true
       }
     ]
@@ -665,7 +665,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "FaBCRUGainLife($player, 1 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])) - 1);\n",
+        "abilityCode": "FaBCRUGainLife($player, 1 + count(FaBChoiceRefs($player, 'Graveyard', ['base'=>'count_your_blessings'])));\n",
         "isImplemented": true
       }
     ]

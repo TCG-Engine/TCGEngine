@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T03:38:27.576770+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1474-20261122.json",
+  "source_spec_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 37,
+  "native_assertions": 429,
+  "manual_passes": 32,
+  "totals": {
+    "saved_registered_scenarios": 5513,
+    "duels": 3136,
+    "four_live": 2377,
+    "recorded_primary_ids": 2661,
+    "identity_denominator": 5196,
+    "recorded_groups": 2535,
+    "group_denominator": 3324,
+    "four_live_groups": 2366,
+    "phase_qualified_scenarios_at_actual_contexts": 2150,
+    "phase_qualified_unique_groups": 2140,
+    "creation_replay_passes": 2892,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1311,
+  "scenarios": [
+    {
+      "card_id": "smoldering_steel_red",
+      "group_id": "identity:smoldering_steel_red",
+      "scenario_id": "card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+      "effect_branches": [
+        "positive_graveyard_optional_Frostbite_creation_replacement_real_Ice_Bond_producer_and_physical_banish_without_token_creation"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+      "source_spec": "card-regression-sparse1474-20261122.json",
+      "source_spec_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+      "review_evidence": "review-evidence/sparse1474-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a1571db2cd3422f0de7f61d4f06a8c1571bd657dc3bd3a48afb18647b0478eac",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1474-20261122-replay.json",
+          "sha256": "127fcee53c9b5e69583d927cc5b7c4f53150e84efe05fcff86652741f788e2af",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

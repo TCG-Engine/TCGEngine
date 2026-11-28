@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "nock-the-deathwhistle-blue-four-live-sparse1067-actual-search-top-and-reload",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=nock-the-deathwhistle-blue-four-live-sparse1067-actual-search-top-and-reload",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1067-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1067-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "da6ebefdb3356802e85f767b61641d9af7e6d277c8aad2ef6e01f6bf3ff6adb5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3224c602c64da09b60fbcc56026a326165d37d38d999c695d40356b788b7bb8",
+        "actions.json": "c7302eee0b906aafe76c35c768643913182bc355336f7c23c7ba356641e4e4a1",
+        "assertions.json": "e6d445a7db3fc1483bac34f29440b6a918aad5b24e231be72b6174ed0185c656",
+        "expected_final_gamestate.txt": "29dbc25f00923cfd92728f8a527f6eca721cea6dc22cebdc2125715e33ad156a",
+        "meta.json": "02fe725ec5582f35b5a854a36f92ac4cb55090c925db7a15733f43b1ce945b63"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

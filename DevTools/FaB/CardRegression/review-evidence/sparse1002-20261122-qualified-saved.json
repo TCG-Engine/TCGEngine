@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1002-20261122.json",
+  "source_spec_sha256": "8ec87e9542fce22b18c6c5e5e7af2fc0d66ed4ff9b6de3e91e7db962da104760",
+  "input_sha256": "8ec87e9542fce22b18c6c5e5e7af2fc0d66ed4ff9b6de3e91e7db962da104760",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-galaxxi-black-four-live-sparse1002-real-banish-card-is-not-banished-play",
+      "card_id": "galaxxi_black",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "630dec2475cb45196e8ad14167ad4fd4f9fa9acc0a1eab4235617ee29efbc449",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "956a435a9610a168eb2b86d160e3def441a9ecda7ff91690de2e257f652cfecb",
+        "expected_final_gamestate.txt": "296ef33ec38ab55fd3f8c19cca6a0e5a183376e77fb081136c4c81117c25ab8a",
+        "meta.json": "c3f387f15844a99e2b0f03dd22a60eb00cc6cf0b58ed5b6b8791bd90f553180f"
+      },
+      "fixture_sha256": "e97b170ea686575ce6901743850fd12218c0ff996a8693421c6578adefc2183e",
+      "actions": 29,
+      "native_assertions": 179,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1002-20261122.json",
+      "input_sha256": "8ec87e9542fce22b18c6c5e5e7af2fc0d66ed4ff9b6de3e91e7db962da104760",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1002-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-galaxxi-black-four-live-sparse1002-real-banish-card-is-not-banished-play",
+        "fixture_slug": "card-galaxxi-black-four-live-sparse1002-real-banish-card-is-not-banished-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-seven-sin-nebula-four-live-sparse1002-owned-banish-card-with-no-banished-play",
+      "card_id": "seven_sin_nebula",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bcc4fffc795b3b8d3e3007f4306405db50274d5e6d07dd82d6a70cd583b787e",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "a1850910f44c77fd2e0c52126308ab11fd671aac84501b25b82658bccdb85ed7",
+        "expected_final_gamestate.txt": "24518e6c32e33d2a108602e3f8246e033f09803fdfb12b70b6e8a137a2cb9d38",
+        "meta.json": "2a28f409d77ce7abd31f92ffa65b387df4713e3f4cf803d354fe8a2a03936add"
+      },
+      "fixture_sha256": "08113d5681e181b9c8bc4fb2c0214aa54fee8f880ee4e8eee1a82d68a362d584",
+      "actions": 28,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1002-20261122.json",
+      "input_sha256": "8ec87e9542fce22b18c6c5e5e7af2fc0d66ed4ff9b6de3e91e7db962da104760",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1002-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-seven-sin-nebula-four-live-sparse1002-owned-banish-card-with-no-banished-play",
+        "fixture_slug": "card-seven-sin-nebula-four-live-sparse1002-owned-banish-card-with-no-banished-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "8ec87e9542fce22b18c6c5e5e7af2fc0d66ed4ff9b6de3e91e7db962da104760",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Cached printed text and direct WTRCards897/917 fallback maps establish actual Action cost1 activation routes for both legal Shadow Runeblade weapons on Chane20. Physical ready Weapons5 and actual adjacent Hero4 target exist. No unsupported quiet-click route is assumed.",
+      "Galaxxi: actual Blue6 pays1 leavingR2/AP0; real Wounding7 defends3 against printed base1. Initial real Banish RiftBind8 is not played, so MONCards228 BANISH_PLAYED static+2 is false. Persisted Damage attackPower1/defenseValue3/zeroDamage plus HP20 and source WEAPON_UID5 pin the base-power branch despite overblock. Printed hit-arcane event never occurs. Same physical Weapon5/Banish8 retained and blocker7 owner4 graveyard; no opaque proxy Owner/UID assumption.",
+      "SevenSin: WTR CanActivate899 and Activate919 explicitly reject absent BANISH_PLAYED before target/payment. ReadyWeapon5, actualR1/AP1, legalACTIONpriority1 and realBanish7 isolate history rather than affordability or absent source. Rejection checks same ready5/Hand6/R1/AP1/Stack0/all queues empty, followed by actual legal Wounding6 four-damage combat and retainedBanish7/R1. DeclaredR1 is an available asset, not verified payment.",
+      "Both genuine four-live/manual, naturalHP20, native transport/physical costs/fates and persisted checks are sound. Exact two groups independently uncovered and no exact primary-ID issue-ledger match. No forbidden author-only diagnostics."
+    ],
+    "limits": [
+      "Only named static/main or false-prerequisite branches. Positive banished play/Hit/arcane/Runechant/GoAgain/Assassin-target grant, own-start Silver return, creator ownership, hero ability, pitch siblings/support identities and full-card behavior remain untested.",
+      "Root owns native input retention, saved-assertion review and one clean replay. Reviewer ran no native/PHP/game/test and made no T/source/original/network/auth/Git/engine changes; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1002-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4dcee063c335af62929bbfcb90147147967561f4dbfe99be33716d182813063f"
+  },
+  "full_suite_run": false
+}

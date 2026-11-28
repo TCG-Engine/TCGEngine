@@ -1,0 +1,94 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse989-20261122.json",
+  "source_spec_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+  "input_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+      "card_id": "aphrodias",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a1c63f0a72e72e83c62c649aaf0ff9ab6138e1e7272c31203cc40a6ee19674",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "1f8b78a11550c85c38af4f0f0c1c4aaeaea8f9326118b19fb8e401ffc15c2465",
+        "expected_final_gamestate.txt": "ff52f585676936321c5a5fe8ce03fa2b5917d30bdcc80ea19740802942fa15bd",
+        "meta.json": "9f034d8300bf05b52c5e0998d09452f8e6b1646ac07f45b904f82c7ca50c59b0"
+      },
+      "fixture_sha256": "eeb85d4bc5406cc8e5a9ab220dd4d0ff9305718dcfe6cb0803176f4e6e78afb6",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse989-20261122.json",
+      "input_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+        "fixture_slug": "card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+      "card_id": "waning_moon",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "57c4bab7f6f6fd529a8ae2a8534e2d38249705593e4498b059d1fc4dcca3e603",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "b75ab2079c23ed534d1ac20ffcb9d71cbeb7944c9f2659eed663edffad2c6312",
+        "expected_final_gamestate.txt": "949e8c6a801e121fa699610fc6e29c63184e1b1c6024f0096e7ab458fd550b60",
+        "meta.json": "55fdc2a9738f591721681191f805a63480072c93c56fe556db7d6ef603d26fee"
+      },
+      "fixture_sha256": "c1ba584b52e971796341061630a6b49d50140f7a24c14761f3c3bbab5e0bc90c",
+      "actions": 28,
+      "native_assertions": 173,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse989-20261122.json",
+      "input_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+        "fixture_slug": "card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Actual cached Aphrodias is LightningIllusionist2HOrb, legal for young Zyggy20. Waning Moon is plain Wizard2HStaff (no Elemental restriction in current cached types), legal for actual young Kano15. Both are ready owned soleWeapon5 with real GenericWounding6Hand; neither hero has a passive earned by the follow-through, and no hero action is activated.",
+      "Printed Aphrodias requires a prior controlled aura entering with a holo counter; Waning Moon a prior NAA played. Fresh empty history/combat/Arena states make both false. Starting fixture resources1/2 cover all printed weapon costs1/2, source5 ready covers Aphrodias tap cost, and Instant timing is legal at current ACTION. No absent resource/source asset explains rejection; no paid-cost claim is made.",
+      "Supported activation routes verified: OMNCards.php:209 Aphrodias Instant1 row, :245 ready+HOLO_ENTER guard, :256 tap cost; UPRAbilities.php:15 Waning Moon Instant2 row and:23 actual FaBARCPlayed(p,true) prerequisite. These are existing native indexed ability paths, not unimplemented quiet-click assumptions. Positive arcane targeting/resolution remains untested.",
+      "Each first Weapon0 click immediately requires source5/Owner1/Controller1/Status2 retained, Hand1, unchanged AP1/resources1or2/Stack0/noGYPitch/ACTION/no pending payment/emptyallqueues. Actual legal Hand0 support6 then declares adjacent Hero4, playscost0/AP0 and deals4/HP16 through25 manual phase/seat controls, ending ownedGGY6 while Weapon5 retained. All P1 health/resource assertions consistently preserve Zyggy20/R1 or Kano15/R2; supportAA is not NAA and does not satisfy Waning prerequisite. No subsequent activation attempted.",
+      "Both primary groups currently unrepresented and exact issue-ledger matches0;28 native controls per case including rejected input. No author-only kind=defense/can_play/can_activate checks."
+    ],
+    "limits": [
+      "Only false-prerequisite rejection plus legal support progression. No positive holo/NAA condition, weapon arcane effect/targeting, nonturndamage, prevention, armor, hero ability, paid funding, source ownership creation, support/sibling/full-card credit.",
+      "Native rejection, raw attempted-input retention, fixture qualification and one clean replay pending Root. Any failure remains unsaved/unqualified, no oracle weakening or engine repair.",
+      "No PHP/native/test/T/source/original/Git/network/auth/engine change by reviewer; only this W receipt written."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse989-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "917c5127d3667730bd335e518450ee006419d436d26b228f42558ee4f1b0901c"
+  },
+  "full_suite_run": false
+}

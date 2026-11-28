@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T20:02:14.585656+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse939-20261122.json",
+  "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 137,
+  "native_assertions": 667,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4485,
+    "duels": 3075,
+    "four_live": 1410,
+    "recorded_primary_ids": 1633,
+    "identity_denominator": 5196,
+    "recorded_groups": 1507,
+    "group_denominator": 3324,
+    "four_live_groups": 1399,
+    "phase_qualified_scenarios_at_actual_contexts": 1122,
+    "phase_qualified_unique_groups": 1112,
+    "creation_replay_passes": 1864,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 283,
+  "scenarios": [
+    {
+      "card_id": "hurricane_technique_yellow",
+      "group_id": "identity:hurricane_technique_yellow",
+      "scenario_id": "card-hurricane-technique-yellow-four-live-sparse939-actual-first-chain-four-without-rising-knee-thrust-combo",
+      "effect_branches": [
+        "actual_first_chain_four_without_rising_knee_thrust_combo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hurricane-technique-yellow-four-live-sparse939-actual-first-chain-four-without-rising-knee-thrust-combo",
+      "source_spec": "card-regression-sparse939-20261122.json",
+      "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+      "review_evidence": "review-evidence/sparse939-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c5fff00769f32f289f9067dfd63be04eb3d0d159a96a945f36af21334d80a185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse939-20261122-replay.json",
+          "sha256": "52a5eee86580096dbeeea5881b73e46b26f4a136a353c9f3a462a91805bd8ff5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "stoke_vengeance_red",
+      "group_id": "identity:stoke_vengeance_red",
+      "scenario_id": "card-stoke-vengeance-red-four-live-sparse939-actual-first-chain-four-without-edge-of-autumn-combo",
+      "effect_branches": [
+        "actual_first_chain_four_without_edge_of_autumn_combo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-stoke-vengeance-red-four-live-sparse939-actual-first-chain-four-without-edge-of-autumn-combo",
+      "source_spec": "card-regression-sparse939-20261122.json",
+      "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+      "review_evidence": "review-evidence/sparse939-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c5fff00769f32f289f9067dfd63be04eb3d0d159a96a945f36af21334d80a185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse939-20261122-replay.json",
+          "sha256": "52a5eee86580096dbeeea5881b73e46b26f4a136a353c9f3a462a91805bd8ff5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tiger_swipe_red",
+      "group_id": "identity:tiger_swipe_red",
+      "scenario_id": "card-tiger-swipe-red-four-live-sparse939-actual-first-chain-two-without-crouching-tiger-combo",
+      "effect_branches": [
+        "actual_first_chain_two_without_crouching_tiger_combo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tiger-swipe-red-four-live-sparse939-actual-first-chain-two-without-crouching-tiger-combo",
+      "source_spec": "card-regression-sparse939-20261122.json",
+      "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+      "review_evidence": "review-evidence/sparse939-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c5fff00769f32f289f9067dfd63be04eb3d0d159a96a945f36af21334d80a185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse939-20261122-replay.json",
+          "sha256": "52a5eee86580096dbeeea5881b73e46b26f4a136a353c9f3a462a91805bd8ff5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "phoenix_form_red",
+      "group_id": "identity:phoenix_form_red",
+      "scenario_id": "card-phoenix-form-red-four-live-sparse939-actual-three-with-no-phoenix-flame-keeps-real-own-deck",
+      "effect_branches": [
+        "actual_three_with_no_phoenix_flame_keeps_real_own_deck"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-phoenix-form-red-four-live-sparse939-actual-three-with-no-phoenix-flame-keeps-real-own-deck",
+      "source_spec": "card-regression-sparse939-20261122.json",
+      "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+      "review_evidence": "review-evidence/sparse939-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c5fff00769f32f289f9067dfd63be04eb3d0d159a96a945f36af21334d80a185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse939-20261122-replay.json",
+          "sha256": "52a5eee86580096dbeeea5881b73e46b26f4a136a353c9f3a462a91805bd8ff5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "goon_tactics_blue",
+      "group_id": "identity:goon_tactics_blue",
+      "scenario_id": "card-goon-tactics-blue-four-live-sparse939-actual-one-with-zero-auras-keeps-real-enemy-deck",
+      "effect_branches": [
+        "actual_one_with_zero_auras_keeps_real_enemy_deck"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-goon-tactics-blue-four-live-sparse939-actual-one-with-zero-auras-keeps-real-enemy-deck",
+      "source_spec": "card-regression-sparse939-20261122.json",
+      "source_spec_sha256": "24826b72d902828e5e7e8575ce78ad6af4002f47d8f8040a9d4b0d51d782488a",
+      "review_evidence": "review-evidence/sparse939-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c5fff00769f32f289f9067dfd63be04eb3d0d159a96a945f36af21334d80a185",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse939-20261122-replay.json",
+          "sha256": "52a5eee86580096dbeeea5881b73e46b26f4a136a353c9f3a462a91805bd8ff5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

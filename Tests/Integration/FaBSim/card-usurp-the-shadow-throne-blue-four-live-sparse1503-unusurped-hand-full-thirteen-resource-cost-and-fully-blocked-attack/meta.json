@@ -1,0 +1,7 @@
+{
+    "name": "Usurp the Shadow Throne / no usurp full13cost and actual13attack fully blocked",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:22:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Shadow Runeblade Viserai Between Worlds satisfies talent/class and Viserai specialization, not Usurper form; no usurp/private effect is seeded. Isolated lawful midturn Hand6/Hand5 and one prior opposing face-up Generic Banish; no deck copy limit exceeded. Actual four distinct Blue3 plusRed1 pays printed13 from Hand without discount, only then AP spent. Actual13attack fully blocked by distinct legal Generic cards3+3+3+3+2=14. Therefore no on-hit banish conversion/life loss/gain is earned despite a nonempty opposing Banish. This validates the unearned discount/full-cost branch and combat, not positive usurp or hit abilities. Sources: FaBSim/GeneratedCode/cardArrayCache.json#usurp_the_shadow_throne_blue FaBSim/Custom/GameLogic.php#FaBCardCost FaBSim/Custom/GameLogic.php#FaBPayPendingCost FaBSim/Custom/WTRCards.php#FaBWTRCardPitched"
+}

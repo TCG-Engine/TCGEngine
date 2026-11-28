@@ -1,0 +1,131 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact frozen packet/current source review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1177-20261122.json",
+  "source_spec_sha256": "f9a645748151f49c0f8d071dde6bf04889497b9a6c4accd55f6959552ecd47ee",
+  "input_sha256": "f9a645748151f49c0f8d071dde6bf04889497b9a6c4accd55f6959552ecd47ee",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cogwerx-base-legs-four-live-sparse1177-real-boost-and-steam-cost-gains-actual-extra-action-point-before-boost-go-again",
+      "card_id": "cogwerx_base_legs",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44d93f4de3f6d54fe773507a63aeb7a3b305ab7c3dcc0990958f920352a27148",
+        "actions.json": "5cd977126e6819ba10fad71e97cf8ffc652460c2d44b338f2c01665095b681f3",
+        "assertions.json": "c078922fb451c079e0e07a1a0301236d0031917d19b498c8851da6a3756809e1",
+        "expected_final_gamestate.txt": "241c7b8b9edc58c13533d900b367a6a7556850f846d21d89947abb7bdb47d464",
+        "meta.json": "bb5b0d1c0d23107f2a0e71447c139d0dc5ffdaa0301b04f30c6a96f188c1544e"
+      },
+      "fixture_sha256": "f1ec647de2de39c53ed9ccc1c31d9fbf23f339b536bc9cad2af3e2016a38cf42",
+      "actions": 34,
+      "native_assertions": 472,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1177-20261122.json",
+      "input_sha256": "f9a645748151f49c0f8d071dde6bf04889497b9a6c4accd55f6959552ecd47ee",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cogwerx-base-legs-four-live-sparse1177-real-boost-and-steam-cost-gains-actual-extra-action-point-before-boost-go-again",
+        "fixture_slug": "card-cogwerx-base-legs-four-live-sparse1177-real-boost-and-steam-cost-gains-actual-extra-action-point-before-boost-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cogwerx-base-head-four-live-sparse1177-real-boost-and-steam-cost-returns-actual-banished-attack-to-singleton-deck",
+      "card_id": "cogwerx_base_head",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b752a891b0d1061100310af18639e1d1d7465404336a9a4bb8186f7fb8674f47",
+        "actions.json": "16ea5f1cfb2f0b62d1681c38360072c7bf17454caf840a352da5ce2e4838fbc9",
+        "assertions.json": "2898717dcc58a99ba450ac01423022ccab4f40aaa3a68d8a80658b9e69c5ccc3",
+        "expected_final_gamestate.txt": "a849f5a5bc061f1daee9a8ce2cd566e31138dc6349921bb8aa74078702deb5e2",
+        "meta.json": "12fca5d6cf9d59f65bbe50872277d9759d000c67ae2feca9e68a5002188cdad0"
+      },
+      "fixture_sha256": "062a5c52dedd2ccf74021494f53fdd470aba9183f8f96205c2a11e98dce51ab5",
+      "actions": 35,
+      "native_assertions": 486,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1177-20261122.json",
+      "input_sha256": "f9a645748151f49c0f8d071dde6bf04889497b9a6c4accd55f6959552ecd47ee",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cogwerx-base-head-four-live-sparse1177-real-boost-and-steam-cost-returns-actual-banished-attack-to-singleton-deck",
+        "fixture_slug": "card-cogwerx-base-head-four-live-sparse1177-real-boost-and-steam-cost-returns-actual-banished-attack-to-singleton-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact frozen packet/current source review",
+    "spec_sha256": "f9a645748151f49c0f8d071dde6bf04889497b9a6c4accd55f6959552ecd47ee",
+    "case_count": 2,
+    "native_controls": 69,
+    "persistable_assertions": 958,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "cogwerx_base_legs",
+        "group_id": "identity:cogwerx_base_legs",
+        "native_controls": 34,
+        "persistable_assertions": 472,
+        "final_AP": 2,
+        "damage": 4,
+        "defender_health": 16,
+        "final_resources": 2
+      },
+      {
+        "card_id": "cogwerx_base_head",
+        "group_id": "identity:cogwerx_base_head",
+        "native_controls": 35,
+        "persistable_assertions": 486,
+        "final_AP": 1,
+        "damage": 4,
+        "defender_health": 16,
+        "final_resources": 2
+      }
+    ],
+    "basis": [
+      "Both exact standalone equipment groups remain uncovered and have no exact named current hold. Young Dash20 and three Dorinthea20 are legal; admitted equipped STEAM1 is an earlier lawful state, not an equipment-entry producer test.",
+      "Authoritative current cache gives Zero to Sixty Red cost0/power4. Exact frozen computed-power/Damage/HP oracles use 4/4/16 throughout, correcting the earlier source-selection illustration of 3 without fitting native output.",
+      "Actual target4 precedes original Boost declaration MZMODAL0; Blue Mechanologist attack7 really moves Deck to public owned Banish during deferred Boost cost payment after fixed AP/resource assets. No seeded ARC_BOOSTED, extra Boost observer, cog attack, Hyper Driver or early-cost fallback dependency.",
+      "Explicit EVORuntime6 Instant1/once/steam1 rows,20 boosted gate and ARCAbilities72-73 checks admit actual Equipment5 activation. Blue8 pays1 from3, leavesR2, spends no AP, marks ARC_USED_0=2 and unsets zero STEAM before responses (ARC169,173). Equipment remains physical owner/controller1/Status2.",
+      "PITCH/AP0/STEAM1 is pinned before actual resource pitch, then paid response window returns ATTACK per GL1236-1237. Four fresh individual ATTACK responders retain ability9 KindABILITY/Controller1/SourceUniqueID5 and current attack6. No generic PRIORITY assumption.",
+      "Legs direct ResolveAbility14311/FaBEVOAP gains AP1 only after the upper response cycle while attack remains unresolved, separately from later attack Go again. Full printed4 damage and normal cleanup finish AP2.",
+      "Head generated await42b36... properly opens MZMAYCHOOSE at resolution over own public Mechanologist attack Banish7. Actual answer p1Banish-0 occurs with ability9 still held, then same owner/UID7 returns to singleton Deck; no original-caster change. Actual meaningful recovery has zero EngineShuffle iterations, no entropy204 or shuffle-algorithm credit. Full attack4/cleanup finishes AP1.",
+      "All exact declared checks normalize to persistent assertions; checked for contradictory checkpoint oracles and found none. Physical equipment/attack/Blue/Banish-or-Deck fates, counters, all seats, empty queues/payment/layer endpoint and no new material/RNG are pinned."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, saved-query review and clean targeted replay. No reviewer native or T/source changes.",
+      "Only actual positive activation after genuine Boost; no equip WHEN/initial steam producer, negative activation prerequisite, second/once-per-turn rejection, equipment defense, broader Boost sequence, Head decline/multi-card shuffle, random algorithm, support/sibling/Hero/full-card credit.",
+      "The human oracle phrase counterempty is interpreted only as no remaining STEAM; exact canonical queries and source-note explicitly retain nonempty ARC_USED_0=2. No raw empty-Counters oracle or claim is approved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1177-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0781aa356c59b818e47fb6a6a0eb163a1b994ff7d73f96d1a30a446d35c1fb80"
+  },
+  "full_suite_run": false
+}

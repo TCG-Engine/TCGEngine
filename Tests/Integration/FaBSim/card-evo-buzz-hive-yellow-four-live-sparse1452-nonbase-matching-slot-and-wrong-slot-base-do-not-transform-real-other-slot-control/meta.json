@@ -1,0 +1,7 @@
+{
+    "name": "evo_buzz_hive_yellow / matching-slot nonbase rejects transform; real other-slot Base transforms",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T00:22:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungTeklovossen1/Dori2/3/4at20. PriorownIronrotironrot_plateUID5hasmatchingprimaryChestslotbutnotBase; priorownteklo_base_headUID6isBasebutwrongprimaryslot. ActualInstantprimary7Hand0cost0/allfourresponses/doesnotspendAP. No matchingBase\u2192noequip,7GY/noownWHENearned,5&6unchanged/AP1R0/noBanish/newtokens/draw/choice/Deck11orotherHand8/9/10movement. Actualevo_command_center_yellow8Actioncost3thenrealBlue9pitch3/allfourresponses/AP0R0; nativepositiveTransformonlymatchingBase6encodedSUBCARDSunderEquipment8,5unchanged,7stillGY/noBase6GY,HandPotion10andDeck11same. PrimarynegativeconditionONLY; no positiveprimaryEquip/equipWHEN/timing/defense/activatedability/pitchsiblings/Heroorsecondarycredit. Positivecontrolshowsnotglobalequipmentdisable. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_buzz_hive_yellow FaBSim/Custom/EVOCards.php#FaBEVOTransform FaBSim/Custom/ProfessorCards.php#FaBEvoBase FaBSim/Custom/GameLogic.php#DoResolveCard FaBSim/GeneratedCode/GeneratedMacroCode.php#evo_buzz_hive_yellow"
+}

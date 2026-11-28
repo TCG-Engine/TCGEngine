@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T05:05:55.347970+00:00",
+  "runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+  "source_spec": "card-regression-repair-pulping076-attack-trigger.json",
+  "source_spec_sha256": "754523090642a76bf2dd15b87a915a7448c830855a16f96eccf4ef55a9dda2d6",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 32,
+  "native_assertions": 2436,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4164,
+    "duels": 3074,
+    "four_live": 1090,
+    "recorded_primary_ids": 1317,
+    "identity_denominator": 5196,
+    "recorded_groups": 1191,
+    "group_denominator": 3324,
+    "four_live_groups": 1083,
+    "phase_qualified_scenarios_at_actual_contexts": 801,
+    "phase_qualified_unique_groups": 796,
+    "creation_replay_passes": 1542,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "pulping_red",
+      "group_id": "pitch-cycle:pulping",
+      "scenario_id": "card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "effect_branches": [
+        "pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "source_spec": "card-regression-repair-pulping076-attack-trigger.json",
+      "source_spec_sha256": "754523090642a76bf2dd15b87a915a7448c830855a16f96eccf4ef55a9dda2d6",
+      "review_evidence": "review-evidence/pulping076-b363-qualified-saved.json",
+      "review_evidence_sha256": "74277c239d580b1c69b882fc70336ce28062f79f2cbd2b71c2a2f54a9dbea140",
+      "recorded_runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+      "qualification_runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-pulping076-replay.json",
+          "sha256": "225155aa93c76f51a9182001190971113443d3f8302b6ba2e95457112e0ae028",
+          "runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

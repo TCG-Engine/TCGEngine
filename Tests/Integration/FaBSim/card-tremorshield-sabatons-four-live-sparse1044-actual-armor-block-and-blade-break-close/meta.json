@@ -1,0 +1,7 @@
+{
+    "name": "Tremorshield Sabatons / four-live actual defense and printed keyword close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:37:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Instant - Destroy this: Prevent the next 1 arcane damage that would be dealt to you this turn. If you've controlled a Seismic Surge token this turn, instead prevent the next 2.\nBlade Break Namedordinarydefense/Blade Breakcloseonly. Legalnatural20oldhimownsreadyEquipment5DEF1; actualGenericLeadCharge6HandDEF2. Natural20dorintheaactuallyattacksowneddawnblade7power3/cost1, realBlue8pays/R2/AP0. Fourmanualsource+combat, realEquipment5\u2192CCDEFENSEthenHand6\u2192CCDEFENSEgivesexactDEF3/0damage/noHit/HP20. BladeBreakdeclaredbeforeclosemeansprimary5ownedGGY4index0, thenHand6ownedGGY4index1; Equipment0, noCounterclaimonGGY. Physicalweapon7usedretained/Blue8Pitch, AP0/queuesclean/allfourlive. NoAllyattack/BeatChest/Zombiediscard/Arcanepacket/Gold/blueGravypermissionoractivatedbodyoccurs; noGArider/heroactivation/supportidentity/pitchsiblings/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tremorshield_sabatons"
+}

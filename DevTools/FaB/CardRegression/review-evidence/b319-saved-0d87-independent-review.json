@@ -1,0 +1,118 @@
+{
+  "status": "APPROVED_EXACT_SAVED_LAVA_BURST_REAL_FOURTH_LINK_RUPTURE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T10:15:41.943281+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch319.json",
+  "input_sha256": "c6971fb36921cc92fc4845cec2fa4ace2e8c3fb1c248b383c237b750f59958f4",
+  "fixtures": [
+    {
+      "slug": "card-lava-burst-red-four-live-sparse-real-three-prior-links-earn-fourth-link-rupture-plus-three",
+      "card_id": "lava_burst_red",
+      "group_id": "identity:lava_burst_red",
+      "fixture_sha256": "b0e6c7472ddf8bf6875db9a6128a15c90d5aefa8df045c0ac57e900e47a475c3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec1575142e9e3cc3a32a96d9441ddf4054f2b541b0761462fbc4308955e1c195",
+        "actions.json": "14a5c0f54e31a0463c2cd35b3e8f20475f153b013a6387bee7192e4e5c311af7",
+        "assertions.json": "a1c775b6d2095a7d2034d3fa4c283c3c5bed58ab07702446c741cf53e34ac6c0",
+        "expected_final_gamestate.txt": "e6666b3a493f2323560b88dfadca1c90469455c1a371f3ba82af8475c2d01720",
+        "meta.json": "d628fafbd07e51990a23ecb6e0efc38a36471a970c2527a313c599ca5953fcad"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ec1575142e9e3cc3a32a96d9441ddf4054f2b541b0761462fbc4308955e1c195",
+        "actions.json": "14a5c0f54e31a0463c2cd35b3e8f20475f153b013a6387bee7192e4e5c311af7",
+        "assertions.json": "a1c775b6d2095a7d2034d3fa4c283c3c5bed58ab07702446c741cf53e34ac6c0",
+        "expected_final_gamestate.txt": "e6666b3a493f2323560b88dfadca1c90469455c1a371f3ba82af8475c2d01720",
+        "meta.json": "d628fafbd07e51990a23ecb6e0efc38a36471a970c2527a313c599ca5953fcad"
+      },
+      "actions": 93,
+      "native_assertions": 7765,
+      "actual_manual_passes": 88,
+      "manual_passes": 88,
+      "priority_response_passes": 84,
+      "defender_declaration_finish_inputs": 4,
+      "manual_pass_actor_counts": {
+        "1": 21,
+        "2": 21,
+        "3": 21,
+        "4": 25
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6,
+          7,
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualquietyoungFai20/threeDori20; onlyphysicalRonin5/Loyalty6/RoninYellow7/Burst8Hand/noFlame/history/assets/effectseeds. Fourrealcost0APplays, firstadjacentP4targetbeforemovement/oneanswer; actualsupports3+3+2damageHP17,14,12 andprinted/conditionalGAonlyfourthDAMAGE giveearnedAPfornextplay. No intermediatechainclose. Primary8untaggedStackaboveEXACTphysical5link1/6link2/7link3throughfresh1,2,3responses, fourthactual8joinsATTACKlink4/WTR_POWER3/computed2+3=5/noGA afteractualcounterincrement/currentUPRcustomthreshold. Fullfourlivecombatreal5damageHP7, no primaryAPrefundthroughDAMAGE/RES. FourfinalRESclosesall4; exactownedpublicGYUIDset5,6,7,8/originalUID1-8ownershipconserved/UniqueIDCounter8/Random0/RAP0/StackChainsqueuesawaitframesclear/heroesreadyalllive/all11manualwindowsfalse. Every93nativeaction and7765orderedassertionexactlymatchesapprovedinput; actual88manualactors21,21,21,25/fourP4defenderfinishes verified.",
+      "qualification": "OnlypositiveactualplayedfourthchainlinkRupture+3/5damage/fullclose; no third/fifthlinkprimary/falsecondition/abilitysuppression/sibling/Faihero/PhoenixFlame/supportRonin-or-Loyaltyprimary/fullcard/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch319-independent-source-review.json",
+    "sha256": "6f2434d2dce182d60400f7c0d98b33f13b7fa989d8314790266d50e1096fd589",
+    "manifest_sha256": "6f906e74d5e6fa374dfc8d9287a28b359aafd8067f189136945e8e31b0d5dec9"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch319-20261103T101413Z-6ae9b3f546d82.json",
+    "sha256": "51fbf1a0f345e193a1b6d427d7e6a2dbdd878ed65092d5b537c5a01109a3f767"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch319.recording-results.json",
+    "sha256": "045832d1f44e5987f8d1166f4d08842413770d2320c52930f43b52245d30837e"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch319-native-r1\\receipt.json",
+    "sha256": "b40bc0172d1bad6d118d1438bfb19dfe84b42e3f5a390e00b04771cdd39260ae",
+    "stdout_sha256": "4b78cedfc474e3668cae93ba7350e051734150a288eb95d36750bf5354e10d4f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "generic_readonly_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch285_saved_readonly.py",
+    "sha256": "6454b10b9bf38ed53b267adf6a5a2dc12e5bb7af7d6efef37c8e0f9c3ba58cd8",
+    "scope": "Own genericraw5/archive/schema/action/assertionparserprefix exactB319bindings only, unrelatedoldsemanticsection neverexecuted."
+  },
+  "method": "Independentread-only actualsavedraw5review: all93actualactor/mode/payload+7765orderednativeassertions equalapprovedfrozeninput; fullschema initial/final ownership/profiles/economy/actualfourlinks andnewfourthRupturetag/power5/noGA/3+3+2+5damage/fullphysicalUIDcleanupverified. NoPHP/native/replay/Rwrites byreviewer.",
+  "limits": [
+    "Savedcreationreviewonly; Roottwofocusedreplaysseparateevidence, not executed by reviewer.",
+    "OnlypositiveactualplayedfourthchainlinkRupture+3/5damage/fullclose; no third/fifthlinkprimary/falsecondition/abilitysuppression/sibling/Faihero/PhoenixFlame/supportRonin-or-Loyaltyprimary/fullcard/controlcredit.",
+    "Current0dcontextretained; no sourceapplication/runtime migration/oldcorpus audit or deniedrepairretry."
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-katsu-the-wanderer-two-live-sparse1564-first-own-aa-fully-blocked-no-hit-search-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-katsu-the-wanderer-two-live-sparse1564-first-own-aa-fully-blocked-no-hit-search-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1564-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1564-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "46fd65cfa4e637edfdb223b9f4bb1c64156b0bebce05dcf41262e8f5c389eae9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "858862dffb06a50c540a693948372a1db27168c813138e600378fe6392de1a17",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "029a9fd6de02ac61c3d29fd109b3e5fb40116994f6aad0729b6556555053f680",
+        "expected_final_gamestate.txt": "4fce1c23c9fe6d4f64429fac95e13bc621cae0d50b4906b0f1c12e09b10ea3b3",
+        "meta.json": "3a6fc89ad6e24ce8fc134ddcb584e35dc512a1ff2f7970703e475a6c04e752b8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

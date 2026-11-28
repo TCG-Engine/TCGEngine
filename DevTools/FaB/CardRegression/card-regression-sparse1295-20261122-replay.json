@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fafe038649221cda3fa8c328490c70261dbb12a25da577cd7312f07b57806335",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "623d173f07847f2b8a6905ed2c8c4e6315414cb85ca036fa82d6f868c5bf4275",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "dd0c3956e36cfe217a09fbc53c22836117b50d6f72bdea2ded81b1b5256153b8",
+        "expected_final_gamestate.txt": "00e32dc7377667afc1556753d8fd2502cc2d6945b22a2041465958f9c0e9d1b3",
+        "meta.json": "6f2c869c4c0795fcf1ecb9f4bc19366693c3cb714b73244db3ff5c9c491bdcdb"
+      }
+    },
+    {
+      "slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "db08b75428418969ef8585a089c5d833ab8751e82a50efc5a73a8e019898c1ea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd6b1741f626ed7334f71cb450f5b863fa577c56040e2ae5aeee614ee5fa3d1a",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "a9c1ee1ec5c150c954745ae25744cd0e0b4c542a0f6d9eeb8d103b0d4b95c79a",
+        "expected_final_gamestate.txt": "94976e39b388b09f5201b9f60ac18669f15c2348397db1e3cba4aa5dec6e7af7",
+        "meta.json": "8dad44b8b8fe1f34679234ad5f2438d85020a8a864bc7f492d6d23bca391f9a7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

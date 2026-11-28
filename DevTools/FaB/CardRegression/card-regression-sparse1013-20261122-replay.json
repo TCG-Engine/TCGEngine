@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pitfall-trap-yellow-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "26ced18001019766156e6d7408a84926f6782eb7ee916db51271b83f3ae9a4e0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "79b1876eafa3e8a3440b6b6048beeccb907c72ac57ba463413c6719794318249",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "3b2153fc33f2585ab7d283d1d5283fb93d406b76a547ae0210a65880c3e34390",
+        "expected_final_gamestate.txt": "303b00b94317f951c59bc74d2dd5ca730bc870241600bd2e4474bd08e26a2723",
+        "meta.json": "b24619bbd29fb6b98f7591cea8af5c2539dbeeb5a6edd793ac0323c4c86ec6ce"
+      }
+    },
+    {
+      "slug": "card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rockslide-trap-blue-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "225d26bde47f20748750e9d3e734cb9a45d0e0dbb26c0d1b119c43c990205054",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "54b603615af14b0fdfc11eb8efde8e5981a67df0305c4b67dee129d7f68db63b",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "d7f5beedace007047ec622f0e693094946675bf6539c8a410bd5f427aed4624d",
+        "expected_final_gamestate.txt": "d9ab9626a3dbc719563634373f6317e774c1948ead081196219774df67f58cb2",
+        "meta.json": "8b0fb5f7c79c08788ed960dad832e821cf4c73bac9123a8c57804450716f01a2"
+      }
+    },
+    {
+      "slug": "card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tripwire-trap-red-four-live-sparse1013-reject-hand-origin-at-legal-reaction-then-real-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3255f6c02dc252ef6516147dd5409e12b35a66ab5a425e8c828e455d96752a5c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c48bff04b2a6f007d6b5bf670d9216966ce162ed1c77ffe5cca3f84b6e151339",
+        "actions.json": "14051ab6b272c61f524964d7ed302117a042b1a71c97684dc14078b465592673",
+        "assertions.json": "4e50fd653c427647633208aa67a43690fb9ee2e9edfc03ae680f45683ca16315",
+        "expected_final_gamestate.txt": "6d10f348f20fcc1c36491aac5b73e4e021ac0fd799ddab8ca14d6e109583a6ed",
+        "meta.json": "08264af0c8778946ae3eb69d7639d320b36dcf1e5bc9efbb07375351e7265f46"
+      }
+    },
+    {
+      "slug": "card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-virulent-touch-red-four-live-sparse1013-reject-hand-origin-then-real-generic-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1013-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4d7d0d0940955cea9b130a994d36e811527d1c7b1d6786c0af9fd8516172992b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "059f44ea873b9f47d8d40908ac8544c2670ed01b9c67c546a6abb1c077c2946c",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "60c1db514844cae7bda3951c07575a11fb010c649875a93194df142db35d6121",
+        "expected_final_gamestate.txt": "c99016c74fd0428563914125b5168151c92e2a0bb8ffdbd5b86840bd1ceba0ad",
+        "meta.json": "15a63f9b096bbfdb0fb7164eb6047749c44cedb81d066bfbc9e3f54e785085ea"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

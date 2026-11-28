@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-crows-nest-four-live-sparse1372-real-faceup-arrow-from-hand-not-deck-no-aim-payment-after-bow-load-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-crows-nest-four-live-sparse1372-real-faceup-arrow-from-hand-not-deck-no-aim-payment-after-bow-load-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1372-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1372-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6caba038723a46287c830739ac13ac18e729bd4bc815280ab5348109834241d4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "455e08bf8274aeb72b08538a049c350678e0104353478a3aa89943fcebb0a0fe",
+        "actions.json": "dfd9852a86d1a065e066e79519b2453d1677bbb8ed535ddf30ba5313d0473313",
+        "assertions.json": "c6f505743974710c747889b26080d145f5e4eb7b17f812958b79acc77f770524",
+        "expected_final_gamestate.txt": "3c0cb8cba271c70c7827597b655266386ae41cc716704ecd874c6443bf85ccb3",
+        "meta.json": "8e6bb1da07e26197907d284aa1c257f46e1766fb670a4ca6ddce22d8a195dfea"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

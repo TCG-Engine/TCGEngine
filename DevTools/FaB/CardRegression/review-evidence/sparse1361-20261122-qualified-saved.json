@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1361-20261122.json",
+  "source_spec_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+  "input_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+      "card_id": "riptide",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0089cee3541e6912844687d465284e96a59f124c69f0e57549fba5d6e447689",
+        "actions.json": "aa28c80b9314c126361e09b4921f791238d9422e9409317fe707290a6ce30e13",
+        "assertions.json": "9936b236ed3bd3147dd10976b83c48c428a93e9b02801880f078014148118f8f",
+        "expected_final_gamestate.txt": "514ac9d0be8d004313569942e620ea568c50ce82cb22d7dfaa11a150e94158a9",
+        "meta.json": "feb93429d9f2ed4cdc40af932ca33e782104a9fe3c4b048907f039d28e5e02c1"
+      },
+      "fixture_sha256": "e0610c17a79f9d8be52db70e6ef218b13f028c1ec01a03a202b406a3a58b7fe4",
+      "actions": 28,
+      "native_assertions": 383,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1361-20261122.json",
+      "input_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+        "fixture_slug": "card-riptide-four-live-sparse1361-real-arsenal-play-not-hand-play-no-load-despite-eligible-hand-and-empty-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+      "card_id": "prism_advent_of_thrones",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "987786f9cca37102a81ee8c77addd66fe76e2b689641cd9beabe5cba345c9ab9",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a61ff2ed0a9f5136c29d4b9ba826a7280c9e2913b4b1e2fbf152141a270c9e1e",
+        "expected_final_gamestate.txt": "55dd3843a1bad2576fb0119fba9f566b8e2470452f2c2f6a38df7c50eb21ee0f",
+        "meta.json": "dbf245542da8286ae58f865908ba8e0b0f234eb89670ee747ec6ebc434ffd473"
+      },
+      "fixture_sha256": "875201ca6d810b20a2b8d2e4a43b0bfcfef54d59ae61e75430e1edbc19618e85",
+      "actions": 29,
+      "native_assertions": 471,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1361-20261122.json",
+      "input_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+        "fixture_slug": "card-prism-advent-of-thrones-four-live-sparse1361-real-herald-pitch-not-soul-no-figment-search-with-eligible-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "86a228d608b4e8e106ea3adf952a50813f697ffe62751710ff198cf102c375bf",
+    "source_note_sha256": "4fcf6af5ce0ff9ad11db0a4d9bc0f3f2961fbacd1ec42d22f6244c1fd8742f8c",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 57,
+    "query_checks": 854,
+    "persistable_assertions": 854,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_MOVE_ORIGIN_GUARDS_WITH_ACTUAL_ARSENAL_ATTACK_OR_HERALD_PITCH",
+    "per_case": [
+      {
+        "card_id": "riptide",
+        "group_id": "identity:riptide",
+        "native_controls": 28,
+        "persistable_assertions": 383
+      },
+      {
+        "card_id": "prism_advent_of_thrones",
+        "group_id": "identity:prism_advent_of_thrones",
+        "native_controls": 29,
+        "persistable_assertions": 471
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld standalone YoungHero groups: cached naturalRiptide19 Ranger and PrismAdvent16 LightIllusionist, each with three naturalYoungDori20/manual4UPF. Generic attacks are class-legal; HeraldRavagesBlue is legal LightIllusionist/pitch3 and single LegendaryFigmentDeck is legal. Cached local upf_banned=false only; no current-format policy verification or blocked legality request.",
+      "Riptide realFDArsenalWoundingRed5 cost0 targets adjacentHero4, leaves emptyArsenal and realeligibleWoundingBlue6Hand. OUTRuntime40-52 receives play-origin and invokes Hero load only fromHand; GameLogic1048-1050 preserves source fromZone. Therefore Arsenal origin earns no Hand-play WHEN/load choice despite eligible Hand and vacantArsenal. Realbase4/noGA/unblocked4damageHP4=16; source5GY1/Hand6unchanged/Arsenal0/ownHP19/AP0R0/UID6/RNG0/allArena0. Initial physical allocation5Arsenal/6Hand and transformed bundles/counts consistent. Actual0Hand6consumer rejects AP0 unchanged.",
+      "Prism actualGenericCriticalRed5 cost1 paid by HeraldRavagesBlue6Hand-toPitch/pitch3 leavesR2/AP0, then fivephysicaldamageHP4=15. DTDRuntime8-9 invokes HeraldSoul search only for destinationSoul, notPitch; pitched Herald does not attack/hit or enterSoul. RealeligibleDeckFigment8 remains exactownedDeck0/count1, Soul0/allArena0/noentry/newUID/chooser, ownHP16/UID8/RNG0; FDArsenalWounding7 actual0consumer rejects AP0. Existing Figment entry hold is not performed or credited.",
+      "Both packets preserve four fresh manual source/combat/Damage/Resolution response rounds, legal adjacentHero4 selection, physical ownership and graveyard/pitch/Hand/Arsenal fates, affordable zero-cost rejected followups. CountsRiptide28/383 plusPrism29/471 total57controls/854persistable assertions."
+    ],
+    "limits": [
+      "Only Arsenal-versus-Hand and Pitch-versus-Soul event guards, actual native base attack/funding/damage, eligible retained assets and no-action consumers approved pending native execution. No pass or coverage claimed.",
+      "PositiveHand-play/load/Trapdamage, HeraldSoul/search/entry/awaken, HeroWHEN timing/target variation/adult/support/sibling/full-card behavior untested/uncredited. Exact Deck retention/RNG0 does not independently prove absence of private look or order-preserving shuffle; negative search expectation derives from the false move-origin predicate. Existing holds untouched.",
+      "Only W review receipt written; no native game/test/replay, engine/repository edit, auth/network, original checkout access, full-suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OUTRuntime.php": "c0230fc9eb9948e3e2a93e2b33b6d1ebb588604957196b114991e23a19c22961",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1361.py": "0d0b740404524561e4f594434a961c75a6e4783c8071514ebcfde18acc6e298b",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1361-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c249e2e3ab524a666fb87f72b4fa4ed5151be3f249bab9b3c18bcc69e009c3b3"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1067-20261122.json",
+  "source_spec_sha256": "c9b92556b01abf0759065810fe7fdaeae1b678cc08b61feaa1ea590548ac47b2",
+  "input_sha256": "c9b92556b01abf0759065810fe7fdaeae1b678cc08b61feaa1ea590548ac47b2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "nock-the-deathwhistle-blue-four-live-sparse1067-actual-search-top-and-reload",
+      "card_id": "nock_the_deathwhistle_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3224c602c64da09b60fbcc56026a326165d37d38d999c695d40356b788b7bb8",
+        "actions.json": "c7302eee0b906aafe76c35c768643913182bc355336f7c23c7ba356641e4e4a1",
+        "assertions.json": "e6d445a7db3fc1483bac34f29440b6a918aad5b24e231be72b6174ed0185c656",
+        "expected_final_gamestate.txt": "29dbc25f00923cfd92728f8a527f6eca721cea6dc22cebdc2125715e33ad156a",
+        "meta.json": "02fe725ec5582f35b5a854a36f92ac4cb55090c925db7a15733f43b1ce945b63"
+      },
+      "fixture_sha256": "b18a4838c7cef12718143484ccc3b105df47d0b1108580b1d9d7e5d735ec67e9",
+      "actions": 7,
+      "native_assertions": 221,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1067-20261122.json",
+      "input_sha256": "c9b92556b01abf0759065810fe7fdaeae1b678cc08b61feaa1ea590548ac47b2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1067-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "nock-the-deathwhistle-blue-four-live-sparse1067-actual-search-top-and-reload",
+        "fixture_slug": "nock-the-deathwhistle-blue-four-live-sparse1067-actual-search-top-and-reload",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c9b92556b01abf0759065810fe7fdaeae1b678cc08b61feaa1ea590548ac47b2",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "Printed cost0 Azalea-specialized Ranger Action searches Arrow/reveals/shuffles/puts chosen card top, then Reload/Go Again. Actual young Azalea20 legal; real source5 Hand, Deck6 Generic Nimblism above Arrow7, real Hand8 BlueCritical and ready owned Bow9. Native source AP1\u21920 plus four manual responses precedes legitimate non-target resolution search; actual filter moves only physical Arrow7 to Temp while Nimblism6 remains Deck. Source5 Stack/GY0/owner1/AP0 pinned at search.",
+      "Generated await3cda74 explicitly captures selected UID after FaBRevealChoices, calls FinishSearch, then FaBARCToDeck(topUID,true) before creating optional Reload choice. Persisted pre-Reload Deck7 top/6 second proves actual reorder, source5 still Stack/GY0/AP0 and Hand8/Arsenal0. Reload chooses actual non-Arrow Hand8, legally loads sameowned face-down Arsenal; final source5 owned GGY/GA AP1/R0, Deck7/6, Bow9 ready/queues clear.",
+      "Chosen card is explicitly placed top after shuffle, with only one other card; final observable order is deterministic independently of shuffle permutation. No shuffle-RNG implementation/counter correctness is certified and independent reveal-log coverage is not asserted. All queries persist; no author-only diagnostics."
+    ],
+    "limits": [
+      "Named positive Arrow search/top reorder plus accepted face-down Reload only. No general shuffle/RNG certification, reveal-log assertion, declined search/Reload, Arrow play/GoAgain/hit, hero/Bow activation, support/pitch sibling/full-card or prior-hold repair credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1067-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "944c2b1c3136174b3b00c9b1fc1edb6e553579f8765f52aac9b146df70f48ed5"
+  },
+  "full_suite_run": false
+}

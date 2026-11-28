@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "73028e99a224e1779e0b3d79123446d233f8f3888a8b3519e443afc3bc486a53",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2344855c8c10481ea3ab9bd410c73e7e0c336116348f54ac1a212abb9b940a62",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "1acec88669a89c48834da3ce33ae7c6833d1c7be5bdce71e9623fb0114414cbd",
+        "expected_final_gamestate.txt": "69a31587b2bde977074ea8882286a7e6fd1330b8ea0e7e298a809372f62f5791",
+        "meta.json": "c9d8f041cb9dad2bec05b2683bc3076df3bd61e41dddf65289157f909c8691da"
+      }
+    },
+    {
+      "slug": "card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "368dedaef38344639a578483f4d35cd42c8a1cbfef0b0038fe5290eb5053b97e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "595ae70853684157b165a1f412cc27e23380e494d05834a4c24bd229a5b5e65e",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "694c63b798540e9c8b4aeff34fc66f9010a85eacd84a8e609630435a2cfb0127",
+        "expected_final_gamestate.txt": "97db4ddb86e80b46c99906dfe71ddf77d9124ef3de357d8aacd713569f646b3f",
+        "meta.json": "cfada0b13a4f756c58ed31d05fd86bf524c4b70cca927ba8ce9957c806d8f93a"
+      }
+    },
+    {
+      "slug": "card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6cacb5f655e74dc99e0831886d61ecb83e29c64eb50f49bf2d5cf30fe59cadd8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0592d2a4e086db58d4ba104543919f1913f04b10a4eb7d98bb247dc0f35da998",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "c60ded68d479da4887a78219e0f79e5467fe164ff8910eceebf352702d17850c",
+        "expected_final_gamestate.txt": "e3d5cdf54923e82da721db0bf9609cd7328b9dc1b48abcde108d7b3334db99c6",
+        "meta.json": "51abb355639844e5651d470439c573adf5f0e3d4fa3987eb3e4149f17b43df53"
+      }
+    },
+    {
+      "slug": "card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "884807cce60f4659daa7ee75e496dbb80a7753c4ead4a9ddddde2f14d6391a7d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eefdd3ef2e5587ab38692a8b981ad757d6c945d12518983b16485920b3785789",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "1664096731b7b8392ee3af1d84a95b2b511b70a59bbb30a85c8978aa7ad9ae2b",
+        "expected_final_gamestate.txt": "acda9f31174c6dc780089694b0803cc41ef486e012c877ab42de843d62ca493e",
+        "meta.json": "f7a9bdf42ee479a5ff9b7ce45fd1d50c349f0f1c416254db9d8e6c6cc9f34ca6"
+      }
+    },
+    {
+      "slug": "card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse975-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ed7e62c12b3bdf917f6883d69c284af79058450fcf0d51b5c9edc670443ca483",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "533c0d9ebe304dc9db7625543a24c0820a187921be928b7a43f7411d04e06f29",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "ce5b6b9433245d10ae3a344e176343884ab56bc671a3a11c749da24a4ae5cb78",
+        "expected_final_gamestate.txt": "d7fa3acb7750fa66a122062df8588306af6d3fe4aafb2fcf8f008306c1e1cd17",
+        "meta.json": "3bb4eecbc9ab87f57766b8493b6d9700c7e3a07ad19e2e6fcd76507429f78b2f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

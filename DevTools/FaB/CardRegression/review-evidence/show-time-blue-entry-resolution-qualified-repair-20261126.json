@@ -1,0 +1,137 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+  "source_spec": "card-regression-repair-show-time-blue-entry-resolution-20261126.json",
+  "input_sha256": "91023ee334859d9fdc4b636a71f7fdb3f74d12e7c0fe52a7aa8bd1a26228c1f5",
+  "fixtures": [
+    {
+      "slug": "repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+      "card_id": "show_time_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b770b2cb0a8b72e1ad7da2d3fd36c4632516681848bd6cd1a8c2f2bdbb2fe416",
+        "actions.json": "0a913df1b39764af542a7120df34a262dd0ab148c6f4c1b2e37e3968feef70f8",
+        "assertions.json": "30f709f4bad3358983a8f146af9db3fa9b4042be00c8be4aeea19ada7df4d2f5",
+        "expected_final_gamestate.txt": "5afa82c984e2c739975628e753503c7d82af9d0ff224d609bc96f6e5635dcab5",
+        "meta.json": "f155f5f4e0572214c3af92a8c7f8261fe7acf50d19b9212c0d2bde7fa64a5281"
+      },
+      "fixture_sha256": "9915214b9ddbf7218f0a0a59137edbf09092950c9a90cf0a3a93e54e3c6b3d76",
+      "actions": 11,
+      "native_assertions": 119,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "runtime_sha256": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "source_spec": "card-regression-repair-show-time-blue-entry-resolution-20261126.json",
+      "input_sha256": "91023ee334859d9fdc4b636a71f7fdb3f74d12e7c0fe52a7aa8bd1a26228c1f5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+    "changes": [
+      {
+        "path": "FaBSim\\Custom\\GameLogic.php",
+        "before_sha256": "a92971196cc0b1d6a6a821bbc28a3a528ce28a87389576a5cddab3fc884f80cc",
+        "candidate_sha256": "d2e34d657816c46ea90a8cb48ed848144fa9d60ecc88b9aa8c4d773e159aaf8c"
+      },
+      {
+        "path": "FaBSim\\Custom\\SEARuntime.php",
+        "before_sha256": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+        "candidate_sha256": "356aec990d6758bd8cffeca1078e1c78a6831d25a27512d42dca7b28830e2b77"
+      },
+      {
+        "path": "FaBSim\\Custom\\MONAbilities.php",
+        "before_sha256": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+        "candidate_sha256": "dc485f3350a51239345c04f554d5909f589b04e75467c10e9bf4ca20010cf227"
+      },
+      {
+        "path": "FaBSim\\Custom\\ARCAbilities.php",
+        "before_sha256": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+        "candidate_sha256": "686b5a79b416732671661c43f3c0646095ca732ed79ae95645b3f8dbcadf025d"
+      }
+    ],
+    "scope": "206 normal ShowTime Aura entry queues existing real search ResolveCard as managed earned event.207 missing legacy Copper ResolveCard body uses existing entry/Crank initializer once on Stack\u2192Arena only while macrocount0.220 Library discards as cost, destruction removed from cost spec and performed at resolution on matching live original source; common goagain completion retained. No generated/Core edits."
+  },
+  "targeted_replays": {
+    "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+    "fixtures": [
+      {
+        "slug": "repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+        "passed": true,
+        "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "5402bd272d7cfa13099de4f501478b4a5d11592e327dfde4c5668d41d5d65dec",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+        "passed": true,
+        "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-time-skippers-four-live-sparse-actual-blue-pitch-three-destroy-gain-two-ap",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "a0dc336b001347b06fe1c8bde0ee6049a62f7470ee228da494a763770dbd50db",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+        "passed": true,
+        "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-overload-script-red-four-live-sparse1022-actual-steam-entry-accept-crank",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\show_time_blue\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "ef1235ae8111edc891b3b34031164488956399e7990e11ca31564cb9d3eae4af",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "ShowTime other non-play entry routes and source-departure responses not newnativequalifiedbranches.",
+    "Copper native normalplay+acceptCrank; no newreentry/doubleinitializer catalog audit.",
+    "Library originalforeignactivation and sourceownerfate tested; sourceleave/reenter or lateabilitysuppression branches unverified.",
+    "Primary-agent semantic/saved review; strict comparator unchanged, fullsuite unrun."
+  ],
+  "scope": "206 normal resolved ShowTime Aura earns managed owned ResolveCard search layer; search starts only after separate responses and actualchoicecompletes.207 missing legacy Copper ResolveCard normalStack entry calls existing steam/Crank initializer once.220 Library twoYellowdiscard remains cost, destructionremovedfromcostspec and occurs only on resolution; existinggoAgaincompletion preserved. Original11/6/6inputcases pass unmodified gameassertions.",
+  "additional_validation": null
+}

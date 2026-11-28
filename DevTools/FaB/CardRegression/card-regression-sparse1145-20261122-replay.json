@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1145-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1145-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "39a83b47331dc02d99a95f3a457ad4248726570a7a21dfb04fa9f081428b4a8f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e010b07b215ddbb248dc916b0004e32198c7aba14958908422826f7bcbdd2e7",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "5c84c4df614eb2f77e5b9a6f9a7b837f3e1c22484daa54c38f99b382fbde5270",
+        "expected_final_gamestate.txt": "c78f65a5f313cac9d97efa4c96f355200ca42e5da34b4866b3340e4f077b6d78",
+        "meta.json": "252efbcf773f19152eef2563d041714500b7b6161f5803fa2991c3d1c51b34a4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-levia-shadowborn-abomination-two-live-sparse1283-real-six-banish-suppresses-blood-debt-through-full-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-levia-shadowborn-abomination-two-live-sparse1283-real-six-banish-suppresses-blood-debt-through-full-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "00d492397ed48660fa58cfa5aa0c10a6b839b7b5f9fbdd846895fdc06c9ba65d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ed7e5f6e7256b14876578f3f9ff0ce9865a34d8780b112e3a28da84258212adb",
+        "actions.json": "1ed1526a12ee250753ede1468ecaa77c744586fa624c62582f7a516aeadc3d42",
+        "assertions.json": "697fb185221d9fb79512fc65388b086c990bc5eed7a79c7c47278a4f8054618a",
+        "expected_final_gamestate.txt": "b112275824bdb49274f248ea6aacf59d35488bd6434fecdf442cc593a0e0d042",
+        "meta.json": "728a1f2b45030e6565d1d02d510f3af28aecaa18bd2012f7e0ccd71092e78922"
+      }
+    },
+    {
+      "slug": "card-uzuri-switchblade-two-live-sparse1283-real-hidden-cost-stealth-swap-and-replacement-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-uzuri-switchblade-two-live-sparse1283-real-hidden-cost-stealth-swap-and-replacement-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1283-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "19f7800b1a25b0342468af372f462f91b70f5dcca8ce4442bf78eed431aa9d9a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f7f5f07ae7efaa4c4379e3d27db51d34da7aac0325222dbc667b81f89a159905",
+        "actions.json": "76904273f3754d9e3e3f174b760cfdbd6819204a16a4771b3f407e2e6cfb4ddc",
+        "assertions.json": "5d631e7554c7f69b143b05342bf857b3321ea4a5eda3b875f21f7ef5a9048c3a",
+        "expected_final_gamestate.txt": "f46e179394a96e20cc9462e020ea27a1d809ab38da7777116afa1a1d6f2c29bf",
+        "meta.json": "7c7d3a8b15f9d5fb9c322b471aa9db75bb97e31277897861568084c36d14350e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

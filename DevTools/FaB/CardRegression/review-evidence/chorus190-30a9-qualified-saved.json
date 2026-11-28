@@ -1,0 +1,53 @@
+{
+  "status": "CHORUS190_ORIGINAL37_4509_SINGLE_CLEAN_REPLAY_PASS_PARTIAL_CONTINUOUS_SCOPE",
+  "reviewer": "Root independent of b820 source/checker and original846 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+  "input_sha256": "c42f99b371b3fcd62f6c03a68158572368d262702cbfdcb439567e1e1c1e78c9",
+  "source_spec": "card-regression-repair-chorus190-current-aura-conditional-hit-draw.json",
+  "fixtures": [
+    {
+      "slug": "card-head-banging-chorus-yellow-four-live-first-guardian-empty-hand-earned-hit-draw",
+      "card_id": "head_banging_chorus_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94976470c3df0df84d871fe1ce029bd79abb748625de01549d0c9ea77e11fe4a",
+        "actions.json": "8738e04bf34f23dd7b739e4814fbaffca3627b2c9071dd6f7361994edf567e51",
+        "assertions.json": "b9437a13762d88d48d3ab4739d58e987fe6cc9bc1f68b117bb8b147794d8583b",
+        "expected_final_gamestate.txt": "91c21003179cfe8a57fff8f607a42cfe74f1d6f74e1071ec9c3389a4c63f9be0",
+        "meta.json": "c41e4a46a5c811d2236a0149b5f53876da49092c7e4912726eb66b3bbb5eedaa"
+      },
+      "fixture_sha256": "fcb07bc99d01192ff5a62eb50903d5037a1e8e7c989124294d4a3eb360d82446",
+      "actions": 37,
+      "native_assertions": 4509,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+      "runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+      "source_spec": "card-regression-repair-chorus190-current-aura-conditional-hit-draw.json",
+      "input_sha256": "c42f99b371b3fcd62f6c03a68158572368d262702cbfdcb439567e1e1c1e78c9"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-chorus190-replay.json",
+    "sha256": "e9ce1a533b72343a08041212410cc386db856380a23c4b0391b088ca013b71d7",
+    "passed": true
+  },
+  "source_review_sha256": "7b2df94ea63e20a46d9d5f8346095b8c080a405fd30ceb5d1fa914d5b1f92d08",
+  "components": 52,
+  "component_receipt_sha256": "96804ef95ddb842414065391d4656cf0098caad8865a4a362d851a3a2f34baab",
+  "basis": "Original37actions4509queries/setup unchanged. RealChorus5Instant1/Blue6pitch/fourresponses createsAuraSuspense2; realfirstGuardianRisingEnergy7cost2/AP1naturallyemptiesHand thenactuallydeals4HP4=16. CurrentfunctionalAura atHit permitscapturedhost7WHEN; freshfourresponses preserveHand0/Deck8, thenresolution-currentemptyHand permitsactualDraw8. FinalsameAura5ArenaSuspense2,7ownGY,6Pitch,HandRed8,Deck0/R0/AP0/fullfourlive/StackDQchainframesclear. ExistingIARPlayed/tagfirstgrant unchanged; no broader continuous-grant certification.",
+  "official_source": "https://fabtcg.com/rules-and-policy-center/release-notes/usurp-the-shadow-throne/",
+  "remaining_source_only_continuous_grant_findings": [
+    "LateAuraentry retroactivegrant toalreadyplayedfirsteligibleAA isunqualified underunchangedtagmodel.",
+    "Pre-capture playcontroller/attackcontroller identity aftercontrolchanges remainsunqualified.",
+    "MultipleAura copy-grant multiplicity remainsunqualified; no Native case orfixclaim."
+  ],
+  "limits": [
+    "Only original paid-Aura/first-Guardian-attack/unchanged-controller/empty-Hand hitdraw branch is Native-qualified; fullcardnotfixed. Source-only continuous-grant limits above remainexplicitlyopen.",
+    "52actual-function components separately cover currentfunctionalAura BEFOREcapture andpostcapturehost/Aura departure/blank/control independence, currentHandchanges, existingfirstAA/classordinalguards, malformedpayloads/context restoration. Primitive/type/hand/draw/peripheral adapters are isolated, not additionalNative branches.",
+    "General first-card trackingdesign remainsunapplied outsideR. No newglobalmetadata/Core/schema/generated/rawservice/generic094 change. No fullsuite/historicalcorpusreplay, otherdenialretry or breadth expansion."
+  ]
+}

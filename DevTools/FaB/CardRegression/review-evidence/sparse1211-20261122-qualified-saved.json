@@ -1,0 +1,88 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1211-20261122.json",
+  "source_spec_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+  "input_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+      "card_id": "volcanic_vice",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98d90af85ff3bb228963329baf6a3f6874384bc79a93e77eb6c546686a065e6b",
+        "actions.json": "2dd9ca9434981ed640aa398eeaa18b7dc72b259b8a59871032eb4089baed6f3d",
+        "assertions.json": "500a90abce04c44ad63c7c840843787c8e11661c612d4a3eb0dd29cff852ccd5",
+        "expected_final_gamestate.txt": "bf9a70b81743d4c05e4043765d88f2f1929d861da6007ca52b2a9caaaf20a458",
+        "meta.json": "b92289b7353afb42ff7791d9f2d1d3f54f447178d9dc82e0e102be12abaf028d"
+      },
+      "fixture_sha256": "02cb550105118c34c234a0893cb656472db7659b7e62a63caa49ce8b367478d5",
+      "actions": 16,
+      "native_assertions": 646,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 11,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1211-20261122.json",
+      "input_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1211-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+        "fixture_slug": "card-volcanic-vice-four-live-sparse1211-real-created-seismic-surge-enables-spellvoid-against-opposing-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "c864cfb979f432c73aa9017bda7c773778c283024242201e6b11dde0ddc5853d",
+    "case_count": 1,
+    "native_controls": 16,
+    "persistable_assertions": 646,
+    "author_only_checks_omitted": 0,
+    "card_id": "volcanic_vice",
+    "group_id": "identity:volcanic_vice",
+    "basis": [
+      "Exact frozen setup, all16 native controls and646 prospective persisted checks reviewed. Legal young Oldhim20/three other young heroes (Dorinthea20,Dorinthea20,Iyslander18), proper Guardian arms Vice5 and Guardian chest Tectonic6, real GenericBlue7Hand1 and non-Ice WizardZapBlue8facedownArsenal4. Primary types array is Guardian/Equipment/Arms; human type_text typo Gaurdian is neither used to relax admission nor changed. Group unrepresented and both exact/sibling hold ledgers clear.",
+      "Actual Tectonic native Equipment1 Action1 uses WTRAbilities10/414: firstPITCH/AP1/R0 then real Blue7pitch3 pays1 toR2/AP0 before four fresh source responses1/2/3/4. ABI9 is controlled1 with real owned source6, while primary5 and all Arena remain unchanged before resolution. No seeded surge, AP, prevention or history.",
+      "Tectonic body creates real SeismicSurge10. WTRCreateArena878 routes token through HVYToken20-28 and raw Arena creation, which dispatches PENAfterMove257-279 with from empty; this records actual PEN_SURGE_CREATED. Printed own go again returns AP1. Physical new token10/owner1/controller1/Arena1 and actual prior payment are persisted outcome guards, not a private flag-only producer.",
+      "PENCards1163 strips cache unconditional Spellvoid3 from Vice; PENCards684 adds it only when real PEN_SURGE_CREATED is positive. Thus the later native offer is a causal positive conditional witness. No Seismic beginning-action destruction/use or other phase event occurs.",
+      "After actual producer completes, ordinary empty ACTION passes1->2->3 reach4 before the fourth pass would advance phase. Iyslander4 then actually casts Blue non-attack Zap8 from Arsenal as Instant using EVRCards145, at AP4=0. Actual Hero1 formal target precedes source priority; source8 owner/controller4 stays held through fresh responses4/1/2/3. Zap has no Ice, so Iyslander Frostbite WHEN is not earned.",
+      "Exact ZapBlue binding8887/runner368e3583a35ca8e1a4b0 offers the original MZMAYCHOOSE with only p1Equipment-0. Primary Vice5, support6, realSurge10 and source8 remain before choosing. MONCards490-497 validates the actual available Spellvoid source, derives3 and destroys UID5 into ownedGY1. Zap case16 obtains prevention, and case13 at114249 subtracts it and clamps damage0 before dealing; the earlier1154 filtered-source concern was withdrawn, not repaired or reprobed here.",
+      "Actual min(3,1)=1 prevention leaves Hero1HP20; source8 ends ownedGY4, Vice5 ownedGY1, live support6 reindexes Equipment0, realSurge10 remains Arena1, actualBlue7Pitch1/R2/AP1/maxUID10, otherHP20/20/18 and empty Stack/decisions/CombatChains at ACTION1 complete endpoint are correct. The macro retains explicit caster and target variables; no caster-frame workaround or partial open-attack helper is needed.",
+      "All646 checks normalize to persisted assertions, with zero author-only diagnostics and no contradictory same-checkpoint literal. No after-use whole-counter snapshot drops unrelated bookkeeping."
+    ],
+    "limits": [
+      "Only positive availability after one actual paid Seismic creation and prevention of a real one-arcane packet. Not full capacity3, condition-false admission, decline, multiple prevention sources, later packet, reset/expiry, surge discount/use, future phase, producer identity, Hero/support or whole-card credit.",
+      "No new source bug/repair or replay of1154 claimed; known concerns outside this selected route remain open. Root native save, stored evidence validation and one clean targeted replay remain pending.",
+      "No native/PHP/T/source/framework/engine/Git/network/original-checkout action by reviewer."
+    ],
+    "source_note_sha256": "e7a1e2cc49dbb9bfe4e8600b960c7d9dad2174287884041cc8a187faf81220a7",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1211-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "374c451096e084b10b4db737db226b05a5246354fa629e07d1505a007f8e53f5"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-deathly-delight-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deathly-delight-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "42cfbffe9ef0ea957fde02480c212320d230e17159800912b34118126cb32626",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c008663a14eb034cec6d65aabf9a8477bdcc8febfd7a5c352afca71ec4821983",
+        "actions.json": "f51dfe8ab2f18d732232a2ff30b472f27b283e117e2e2f8ce0ee1d2f80b6cf36",
+        "assertions.json": "f317f69f5f8404ec996ab34ec6bd157426141d8aef8c6eddacc9f152c632f853",
+        "expected_final_gamestate.txt": "76a28976853f45cb86b807bcfc3eb9d3ea17579d1512b72b841eda24628574cb",
+        "meta.json": "e4d0da118fbabfce9f181d7bf9b8e8d143cc93537ab18d1cd487a46cdc878741"
+      }
+    },
+    {
+      "slug": "card-deathly-wail-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-deathly-wail-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c77fe0a7ddcdfa8edf858232a24c744fb853f209df1d75f59beb9d07f04f765b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51fa779c9c4873a76e92b9518271c46de30d1e60f9fcd79433b9ab8919e25aef",
+        "actions.json": "421a93195f2220f59ab4ffebc206cefcb71dd18c3c3929b3069333b95b60fdf9",
+        "assertions.json": "56b5e7a71bf4abeb9e6baef5802df9dbf74bfd898935ff71730a3cbcaf2b5c5f",
+        "expected_final_gamestate.txt": "c27c5bd55800b919df63cbee3c8f1b609f9ff6f50fd47d6370e03516ab4cd7f3",
+        "meta.json": "007636c9a5c81ac6b596a2307f0698cc769c5b895ac01ec1e50b515f740d6ecc"
+      }
+    },
+    {
+      "slug": "card-widespread-ruin-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widespread-ruin-red-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fe607fbac8bb83d2aa7ba24401e5a37a13f5cd7306c088512d121f5c62e27996",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f11c437819bb35320a741b6f76bb4affcb93afe5f119c47e1f5e1af9274dc459",
+        "actions.json": "f51dfe8ab2f18d732232a2ff30b472f27b283e117e2e2f8ce0ee1d2f80b6cf36",
+        "assertions.json": "3fcd1e72fc597f391328d8b488f0d4589aefd9230df7068d489b1bfae18f12cc",
+        "expected_final_gamestate.txt": "6d0596c194ce93e7f68a784f7b38407714de4365fb6dd075d456171a50a04926",
+        "meta.json": "bd2b503cc7fa8b1feede7571447c87a0ffd53f51152ba796069df485346a8852"
+      }
+    },
+    {
+      "slug": "card-widespread-destruction-yellow-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-widespread-destruction-yellow-four-live-sparse1437-real-rune-gate-resource-waiver-and-runechant-consequences-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1437-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6e1b7ebd9c32f853c260a907325bd11f6ff0642b6fa64b4d21c04221ac6e185f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80e70e1d95e6f264a9f89300e0860122aa1b37f79f118b4bc1e4ecff5123fb62",
+        "actions.json": "421a93195f2220f59ab4ffebc206cefcb71dd18c3c3929b3069333b95b60fdf9",
+        "assertions.json": "1770960ac0f3a4d03a1aa9e4513536b4e7268ca8a8ca88727cbc71313646fa7f",
+        "expected_final_gamestate.txt": "14fd0c7d4b06fd251565d6e2447c849d99705779fee2c9d26812b3ffb9f301a6",
+        "meta.json": "c4aa9509346026e16886f03e0227ece97f77422eff9d3309dbd03545f49150f5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

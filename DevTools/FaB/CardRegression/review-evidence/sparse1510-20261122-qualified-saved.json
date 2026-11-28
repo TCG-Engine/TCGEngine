@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1510-20261122.json",
+  "source_spec_sha256": "988e4769dffe78af3a9666012da9c87cd3b7d18eca0f0886ee9d82addf07d19e",
+  "input_sha256": "988e4769dffe78af3a9666012da9c87cd3b7d18eca0f0886ee9d82addf07d19e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-reinforce-the-line-red-four-live-sparse1510-real-defending-attack-reaction-is-not-defending-attack-action-target",
+      "card_id": "reinforce_the_line_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "356267392abac2048ba88c44e3a88e7d5ccc51052f352ea1a7d34fbc4d595a48",
+        "actions.json": "462003987e7d23b9b0f0118e7667d4b0170e0912ba28264408bef85f6320aac7",
+        "assertions.json": "4a5246547cfdf492995f0e9d11d3cf746dad53befcaeca53a9b070964dcab42f",
+        "expected_final_gamestate.txt": "78fba78e788264dd9a3c78dc0ae52929bebffe3ba961f799735245559e7ac432",
+        "meta.json": "13ac5ef9b5b78b92dfcb04345f1905ca804779c043f9dd63cb2c9b975a66ab5c"
+      },
+      "fixture_sha256": "dc52764987c4a0715171abf47233f774765b0fe45d57f1fab9a864530cda2c92",
+      "actions": 29,
+      "native_assertions": 418,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 11,
+          "check": {
+            "kind": "defense",
+            "value": 2,
+            "player": 4
+          }
+        },
+        {
+          "step": 15,
+          "check": {
+            "kind": "defense",
+            "value": 2,
+            "player": 4
+          }
+        },
+        {
+          "step": 16,
+          "check": {
+            "kind": "defense",
+            "value": 2,
+            "player": 4
+          }
+        },
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 2,
+            "player": 4
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1510-20261122.json",
+      "input_sha256": "988e4769dffe78af3a9666012da9c87cd3b7d18eca0f0886ee9d82addf07d19e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1510-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-reinforce-the-line-red-four-live-sparse1510-real-defending-attack-reaction-is-not-defending-attack-action-target",
+        "fixture_slug": "card-reinforce-the-line-red-four-live-sparse1510-real-defending-attack-reaction-is-not-defending-attack-action-target",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1510,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T07:00:22.766651+00:00",
+    "spec_sha256": "988e4769dffe78af3a9666012da9c87cd3b7d18eca0f0886ee9d82addf07d19e",
+    "source_note_sha256": "5e5f44d1a5f3463a0339ac5f22034d34c6d9a47006c86948a80e7ad206e8e594",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d"
+    },
+    "cases": 1,
+    "findings": [
+      "CRU target requires defending Role plus actualAttackAction. Wounding5 AA is ATTACK; Razor6 DEFENSE is AR, so no target exists.",
+      "Cost0GenericInstant legal at DEFEND_PRIORITY4/AP0, Dori20 and actualBlue3 otherwise eligible.",
+      "FinishDefendDeclaration resets passes0/Priority1; actual1/2/3 passes give3 at4. Invalid primary click must retain3, no expectation relaxation if reset.",
+      "Actual2defense and actual2damage/HP18 and exactphysicalfates pin no illegal+4defense. Positive target/timing hold remains unchanged."
+    ],
+    "limits": [
+      "Necessary defending-role plus AA-type rejection and unchanged illegal-click pass state only. Positive target admission/effects/timing/secondary abilities/siblings uncredited. Source/spec review, no reviewer games."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1510-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "74e96b13be7a093f0f44bdfa9ad036c5e8d73cae08ac6b69c6e98be27e0aa855"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-seismic-surge-four-live-sparse889-natural-action-start-reduces-real-guardian-cost-seven-to-six",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-seismic-surge-four-live-sparse889-natural-action-start-reduces-real-guardian-cost-seven-to-six",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "51777ccf6a4b9443ebffcb0e5281ba2132b85b58eab6c79c2ef878ba4a4a1a5e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5a8fbed8616e3d602a31ce395a5cec13960867456fa86e677205ba5aaf90acc1",
+        "actions.json": "58348e759d3d9d37762a984474fb430dfb8ec80556060b3db30942a9559b39db",
+        "assertions.json": "d386d9e6ffe791319cede4ef7a241dc3ae76459b6194683b535fa6fd295884f1",
+        "expected_final_gamestate.txt": "eeb0f9b4ce149348faad851c1b4ee57a4f0e961cdc7c0df4c8d3da568cf695b9",
+        "meta.json": "53f83708fe9f2e913fc8275138a418c7208d77f18ee40d1f6ea5c83d0744b5f9"
+      }
+    },
+    {
+      "slug": "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "da1576358439ede82b4827456f44b5893cccbc64f7ace4af47ede006e50d2965",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "974835120e2df1780c112bed58c9f3dd61408b29ec2e9c2deef85f50ce48c42a",
+        "actions.json": "c2d7a9614992a462e4e2243f9222316849a1ceff74e044698f642d7ebc3b88a6",
+        "assertions.json": "b0ab62ae23234c66287140652c6772d48fdd3970bcd86b1aa04bfb921f1d39d3",
+        "expected_final_gamestate.txt": "7fafca9859a626f042e5b31bd4bee1abe0db58ce329152b64d32a07bf6d1d1bd",
+        "meta.json": "d0df2d9b2e2c34f9a6ac100012c3337fed04661fe4a141e4c9217960e8fbba57"
+      }
+    },
+    {
+      "slug": "card-strong-yield-red-four-live-sparse889-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-strong-yield-red-four-live-sparse889-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse889-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fa18cf470ee1b5e5a5d269a7b87814b20c360b17b0c0b3ccbd686626dd2394d3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50813c2959da67aa5278847896727dac6a29b6676fe86d4a90a0985fc867d3c0",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "9f5b29db5319d4e520edee4b8152a8520ebc88db8b1d0bac9cc19fb02b9dc609",
+        "expected_final_gamestate.txt": "d876e35e36c595baa870208194805189c9ea6921a185c1d3cf89d0c5c083541a",
+        "meta.json": "38ab19c5f147746384b0729bed51e8b159cdd28dc44fc0e72bbb0ffad028c58a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

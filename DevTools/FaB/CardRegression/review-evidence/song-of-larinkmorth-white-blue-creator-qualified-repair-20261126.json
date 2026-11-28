@@ -1,0 +1,148 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+  "source_spec": "card-regression-repair-song-of-larinkmorth-white-blue-creator-20261126.json",
+  "input_sha256": "cf473c5b74b99274392227c9b4f18e19e22e4228378cab60a48a8fdaf4da56c3",
+  "fixtures": [
+    {
+      "slug": "repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+      "card_id": "song_of_larinkmorth_white_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a21f47818696132f6b50da7d4ff6b26b5562c610101aab86600b3f7de29def2",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "5291431c10b2eb8517548ec62d899e91888009a197789c4e8114418177dcfb29",
+        "expected_final_gamestate.txt": "859e449dcca9873fb3173d334e729ff94c6748446e9e311796bc33e6b6941e07",
+        "meta.json": "a446414cc0af2751806297b0c448aa07916d2fa3f22a50119ec8625d809ed2f7"
+      },
+      "fixture_sha256": "943d74797e16367313cae14d701c4915b694775a9dfb8ddb0a763001a793c6b4",
+      "actions": 5,
+      "native_assertions": 90,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "runtime_sha256": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "source_spec": "card-regression-repair-song-of-larinkmorth-white-blue-creator-20261126.json",
+      "input_sha256": "cf473c5b74b99274392227c9b4f18e19e22e4228378cab60a48a8fdaf4da56c3",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+    "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+    "files": [
+      {
+        "path": "DevTools/FaB/build_out_abilities.py",
+        "before_sha256": "b4132549dd0bdd54cc40ebc9ccd1760be5bec9af4888d466486e7312b171095a",
+        "candidate_sha256": "b76dbc702d6c4799048042dc66abd90e40d796e8da7a8f5f4cf6343acd32276a",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\build_out_abilities.py"
+      },
+      {
+        "path": "DevTools/FaB/build_dyn_abilities.py",
+        "before_sha256": "af31d1a7a5d1d0810da433d46a37005389cef0108fc1e65c0d12716d4617b734",
+        "candidate_sha256": "7641ba3af3d658aa74a1d03e1fb6d2d7a7297e5820a0f29ea1b7fea6daa2b76f",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\build_dyn_abilities.py"
+      },
+      {
+        "path": "DevTools/FaB/build_pen_abilities.py",
+        "before_sha256": "234e58150755d23cead0010f8f5321cf5e9c055eef886c771ae2abaa548f0ef1",
+        "candidate_sha256": "a0bb1991e5ba1de65f0ce6d3546c71311afdf88e355a12d1f51520b3666691d2",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\build_pen_abilities.py"
+      },
+      {
+        "path": "DevTools/FaB/out_abilities.json",
+        "before_sha256": "5032e327fc774f1ced5551c4528f503ad4df0e4bf6cbc85ba037bc0cad4e3e62",
+        "candidate_sha256": "23d2c5f2815d026da98bb70348d39f65ee3fc398ff18e59c0c91c1604468ae3b",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\out_abilities.json"
+      },
+      {
+        "path": "DevTools/FaB/dyn_abilities.json",
+        "before_sha256": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+        "candidate_sha256": "4d8201905bab7ca3d84b3346a598819c268d3c1b89dcc2d51e347f6310602f88",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\dyn_abilities.json"
+      },
+      {
+        "path": "DevTools/FaB/pen_abilities.json",
+        "before_sha256": "0559e242c0707ab3b73c7861eb7f64bf863cb6ea3f4a07baf057fd043176c684",
+        "candidate_sha256": "46c08f96ecd4674f742066d96252294072c016df95e2a830fc9949481759178a",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\DevTools\\FaB\\pen_abilities.json"
+      },
+      {
+        "path": "FaBSim/Custom/MPGCards.php",
+        "before_sha256": "26b6e140f8e882f2b99d625027acd693855c8dc922d93af22c1d81b115301fa2",
+        "candidate_sha256": "c97581de9b9e2fad7a4ca875fed1677026f5a3a86f939e29cff845a69507bde1",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\FaBSim\\Custom\\MPGCards.php"
+      },
+      {
+        "path": "FaBSim/Custom/CodeGeneration.php",
+        "before_sha256": "2c2674145d4c6c3791e8a1e815dcc97fb433bccf4c8b1496ac65961a5fcdb4ea",
+        "candidate_sha256": "ee3b879c77c40cacd14c3ad90ac260704fd2b3ca80968ac2c7890a8e795c154c",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\FaBSim\\Custom\\CodeGeneration.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "before_sha256": "b63a4ba571e1df0a1d4f1103e40fa2e896a8d01628c550cdb5ab7cad0f0d496b",
+        "candidate_sha256": "1562b3e9ea27765e08ffc064fc246dcb1cc22627868220af37eb6b5d1a49a98f",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCount.js",
+        "before_sha256": "3f9370291cbf8f75d0ce56208373f48fc5b6e21577e8f4e9d5b41fbc6b628814",
+        "candidate_sha256": "3672ef3f098155f0c346489cf67d4644bbc392f58ccee6aeb7b4c77bd85524cc",
+        "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\candidate\\FaBSim\\GeneratedCode\\GeneratedMacroCount.js"
+      }
+    ],
+    "scope": "Exact Codex caster scalar, Mindstate Hand owner/controller, Song explicit token owner and shared Jarl/FrostSpike creator/recipient helper. Real canonical builders and normal offline emitter; all other normalized generated sections unchanged; zero network."
+  },
+  "targeted_replays": {
+    "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+    "fixtures": [
+      {
+        "slug": "repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+        "passed": true,
+        "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\song_of_larinkmorth_white_blue\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "ed1530dc33ae8bf8066cecc40bd9ba50b58f5b247692e338b2a16f07242b3837",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Only named original branches; no additional pitch/coverage breadth.",
+    "Existing Mindstate usable-Tiger follow-through is an adjacent check, not a new coverage claim.",
+    "No blanket claim that all cross-player awaits or token producers are repaired.",
+    "Fifteen actual provider guard checks are isolated from gameplay.",
+    "Primary-agent semantic/saved review; fullsuite unrun; default strict comparator unchanged."
+  ],
+  "scope": "203 preserves original caster as serialized scalar across each live seat Codex await.205 Song explicitly passes creator owner to existing token helper.208 Mindstate Hand constructor explicitly sets owner/controller.209 shared Jarl/FrostSpike helper carries creator separately from recipient. Exact named original9/5/8/6-input native oracles retained, no expected failure weakened. Three real builder rows and guarded offline normal emission; all other normalized generated sections unchanged.",
+  "additional_validation": {
+    "provider_guard_checks": 15,
+    "normal_emitter_exact_scopes": 3,
+    "offline_remote_requests": 0
+  }
+}

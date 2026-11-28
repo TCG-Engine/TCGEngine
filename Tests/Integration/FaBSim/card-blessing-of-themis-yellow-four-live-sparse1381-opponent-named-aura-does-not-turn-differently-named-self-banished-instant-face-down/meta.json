@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Themis / a different named banished card stays face-up",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:05:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_THREEDORI20_LIGHTBOLTYN4_20. PrioropponentBoltyn4Themis7Arenaowned4readywithgenuinecompletedpriornamechoicepositionWoundingBlowstoredarcCards7.penThemisName; no currentNameCard/entry/startturnexecutionorprovenancecredit. Currentturn1ACTIONnotownturn4, soAuraAtStartYourTurnSoulbranchnotdue. ActualRemembrance5Instant0Hand/realWoundingRed6GY/Deck0/AP1R0. Allfourresponseshold5untilactual0to3Actionchooser; choose6GY\u2192DecksingletonRNG0. Thenprinted5SELF-BANISHNameRemembrance, NOTchosenWoundingBlow. PENCardsAfterMoveglobalAuraNamefiltermustNOTflipforeign5facedown: actual5BanishFaceDown0/PlayableFromBanish0sameUID/own1bothposteffectandfinal; source7name/Arena/UIDunchanged/noextraLayer/choice/HP/token. MatchingnamedWounding6existsbutwasrecycledtoDeck/notbanished, nopositiveNamedBanishbranch. FinalDeck6only/GY0/Banish5only/Hand0/AP1/R0/ownHP20/allHP20/Aura7onlyArena4/UID7RNG0/quietStackDQ. OnlywrongNamefilter/actualrecycle/selfBanishfates withpriornamestatecontrol; no positiveEntryNameCard/globalinitialflip/matchingBanish/WHENtiming/StartTurnSoul/provenance/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_themis_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/PENCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

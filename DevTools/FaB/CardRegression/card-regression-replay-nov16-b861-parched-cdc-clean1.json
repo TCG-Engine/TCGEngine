@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch861-parched-global-opponent-potion-positive.json",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T10:37:48.071850+00:00",
+  "fixtures": [
+    {
+      "slug": "card-parched-terrain-red-four-live-global-opponent-real-healing-potion-prevented",
+      "fixture_sha256": "f92a3377e802123d8979c623ba56bfcb6ef168864909f6dc755816a334ad672c",
+      "passed": true,
+      "result": "[PASS] Parched Terrain / real opposing Healing Potion gain is globally prevented"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-parched-terrain-red-four-live-global-opponent-real-healing-potion-prevented",
+      "returncode": 0,
+      "stdout": "[PASS] Parched Terrain / real opposing Healing Potion gain is globally prevented\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

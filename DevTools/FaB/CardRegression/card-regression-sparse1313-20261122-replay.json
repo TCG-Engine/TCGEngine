@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-turn-heads-blue-four-live-sparse1313-real-two-suspense-entry-and-instant-preserves-action-for-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turn-heads-blue-four-live-sparse1313-real-two-suspense-entry-and-instant-preserves-action-for-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1313-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1313-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d6cfc5c01028019e343dab1392b5ab0c00ef798076cfe188e9451ae4abc21b48",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01c3e49404309ca902a00ed20e5e66b3cf7d1dadc45149dab770edec17f76639",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "d10bd45dd9b84b8c624ab2d53f905c653f59bdc143c283d99b15e3bc5ea7828d",
+        "expected_final_gamestate.txt": "eb4c3a83a74a75804b46059cf605ff1b12ed3aba2a71d2d27b183e7bff97b17e",
+        "meta.json": "e88d9c514a9416df917e3255dfbce30909f4e0c60f4fcfd291dbcd8520911df0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

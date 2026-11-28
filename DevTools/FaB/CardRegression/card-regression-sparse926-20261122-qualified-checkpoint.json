@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T19:07:46.029469+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse926-20261122.json",
+  "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 114,
+  "native_assertions": 567,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4432,
+    "duels": 3075,
+    "four_live": 1357,
+    "recorded_primary_ids": 1580,
+    "identity_denominator": 5196,
+    "recorded_groups": 1454,
+    "group_denominator": 3324,
+    "four_live_groups": 1346,
+    "phase_qualified_scenarios_at_actual_contexts": 1069,
+    "phase_qualified_unique_groups": 1059,
+    "creation_replay_passes": 1811,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 230,
+  "scenarios": [
+    {
+      "card_id": "raydn_duskbane",
+      "group_id": "identity:raydn_duskbane",
+      "scenario_id": "card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+      "effect_branches": [
+        "actual_zero_cost_zero_damage_raydn_without_charge"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-raydn-duskbane-four-live-sparse926-actual-zero-cost-zero-damage-raydn-without-charge",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+      "review_evidence": "review-evidence/sparse926-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0cf7aefd91fd1ca47ddddd7ba6373cd585adf7d796b96dae5e59d49b0015aba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse926-20261122-replay.json",
+          "sha256": "3942c99cc3537fda908fc09107fc596a46d5f47ded7ebc45683f40bc7af00a1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "nerve_scalpel",
+      "group_id": "identity:nerve_scalpel",
+      "scenario_id": "card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "effect_branches": [
+        "actual_three_defense_blocks_one_power_dagger_and_printed_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-nerve-scalpel-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+      "review_evidence": "review-evidence/sparse926-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0cf7aefd91fd1ca47ddddd7ba6373cd585adf7d796b96dae5e59d49b0015aba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse926-20261122-replay.json",
+          "sha256": "3942c99cc3537fda908fc09107fc596a46d5f47ded7ebc45683f40bc7af00a1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "orbitoclast",
+      "group_id": "identity:orbitoclast",
+      "scenario_id": "card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "effect_branches": [
+        "actual_three_defense_blocks_one_power_dagger_and_printed_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-orbitoclast-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+      "review_evidence": "review-evidence/sparse926-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0cf7aefd91fd1ca47ddddd7ba6373cd585adf7d796b96dae5e59d49b0015aba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse926-20261122-replay.json",
+          "sha256": "3942c99cc3537fda908fc09107fc596a46d5f47ded7ebc45683f40bc7af00a1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "spiders_bite",
+      "group_id": "identity:spiders_bite",
+      "scenario_id": "card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "effect_branches": [
+        "actual_three_defense_blocks_one_power_dagger_and_printed_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-spiders-bite-four-live-sparse926-actual-three-defense-blocks-one-power-dagger-and-printed-go-again",
+      "source_spec": "card-regression-sparse926-20261122.json",
+      "source_spec_sha256": "5d001e0dda918796051e98e3a47261e89943066d4ed42699ce22f9be7e898f63",
+      "review_evidence": "review-evidence/sparse926-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0cf7aefd91fd1ca47ddddd7ba6373cd585adf7d796b96dae5e59d49b0015aba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse926-20261122-replay.json",
+          "sha256": "3942c99cc3537fda908fc09107fc596a46d5f47ded7ebc45683f40bc7af00a1e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

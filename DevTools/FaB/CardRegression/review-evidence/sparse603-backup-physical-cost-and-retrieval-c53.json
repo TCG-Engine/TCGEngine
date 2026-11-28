@@ -1,0 +1,307 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B603_BACKUP_POSITIVE_RETURN_BRANCH",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T11:58:47.380001+00:00",
+  "source_spec": "card-regression-batch603-backup-only.json",
+  "input_sha256": "29f9c5355bfae7a05ccfcd6e7c51fabf2335eb5ef8244e6efbbeeb67e6461e25",
+  "manifest_sha256": "a680a93d3449a4ff74274f9dd4285b110210d77b1e80b1d84aea59c885e28ea0",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-backup-independent-source-review.json",
+    "sha256": "384a05e1227bef6c9f780a74f752578d29b107ebc06a50c056476b1be5a525fc",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch603-backup-only-20261106T115442Z-6aedc00279601.json",
+    "sha256": "1e3d222ac56c69cbcbef47a2da8be9c454dd139b4f18122aee57c68d76e2aa04"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch603-backup-only.recording-results.json",
+    "sha256": "75e7700ab03fb545a95cee27ce18cd6260974cd27d452fd9c514b1a297d4d51a"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-backup-native-c53\\receipt.json",
+    "sha256": "43c36814a1d83802fad32652f3d4f9df450ab9fc5eb922cc719e47f4b873f032"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "backup_protocol_blu_blue",
+      "group_id": "identity:backup_protocol_blu_blue",
+      "slug": "card-backup-protocol-blu-blue-four-live-real-paid-destroy-and-graveyard-return",
+      "source_spec": "card-regression-batch603-backup-only.json",
+      "input_sha256": "29f9c5355bfae7a05ccfcd6e7c51fabf2335eb5ef8244e6efbbeeb67e6461e25",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PARTIAL_PAID_DESTROY_AND_BLUE_MECH_RETURN",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-backup-protocol-blu-blue-four-live-real-paid-destroy-and-graveyard-return",
+      "fixture_sha256": "059934270a57b41d5ae6cd5253a4db25624e80714aed0eb6a45c0d5c23140931",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "afe22d8eed6f8458f7e8d92b8a35587c23a906f47c39f83e9f22425b73e8c374",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "f8ceb7b06e4ecda880b575b773e039a844aeca4ca820d5301bbfb431db1455ab",
+        "expected_final_gamestate.txt": "9303abb2913a982203ad2d2eb99cf940ba1b7cab94c8cd2acbbee6505a78c37b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "afe22d8eed6f8458f7e8d92b8a35587c23a906f47c39f83e9f22425b73e8c374",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "f8ceb7b06e4ecda880b575b773e039a844aeca4ca820d5301bbfb431db1455ab",
+        "expected_final_gamestate.txt": "9303abb2913a982203ad2d2eb99cf940ba1b7cab94c8cd2acbbee6505a78c37b",
+        "meta.json": "a3aceb41c3d84c199c077e878e1aa06072a33923f66f94aceab1fbfbce3e524a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "afe22d8eed6f8458f7e8d92b8a35587c23a906f47c39f83e9f22425b73e8c374",
+        "actions.json": "dedb551573e49a6f1b7ed47a916f6356c86cc6e9fe7ac7233e81da7da510b61a",
+        "assertions.json": "f8ceb7b06e4ecda880b575b773e039a844aeca4ca820d5301bbfb431db1455ab",
+        "expected_final_gamestate.txt": "9303abb2913a982203ad2d2eb99cf940ba1b7cab94c8cd2acbbee6505a78c37b",
+        "meta.json": "a3aceb41c3d84c199c077e878e1aa06072a33923f66f94aceab1fbfbce3e524a"
+      },
+      "actions": 7,
+      "native_assertions": 755,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 212,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "backup_protocol_blu_blue",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "data_link_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "data_link_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "backup_protocol_blu_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "actual_resource_cost": 2,
+      "actual_pitch": 3,
+      "actual_source_destroy_cost_UID": 5,
+      "held_captured_virtual_UID": 8,
+      "actual_recovered_UID": 6,
+      "final_Hand1_exact_UIDs": [
+        6
+      ],
+      "final_GY1_exact_UIDs": [
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "17fdc3dfa1453e08b7ee74f42271fa2f85c7753d702cd32ddc08f6c58dde6334",
+      "native_assertion_mapping_sha256": "8602db2f273607f8eb7f290671dc43458dd648f0fe72eb3e8c36730b72a00b03"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 7,
+  "total_native_assertions": 755,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_schema_property_assertions": 212,
+  "subset_lineage": {
+    "original_input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch603-two-physical-item-activation-author\\batch603-two-real-captured-item-abilities-and-physical-zone-outcomes.json",
+    "original_sha256": "673f2e20a47e763fb496f418d8deebc9148fe39e8cb637931ae99fb0d34ebfd9",
+    "selected_original_index": 1,
+    "deep_object_exact": true,
+    "serialized_object_bytes_exact": true,
+    "original_whole_CRLF_inverse_exact": true,
+    "original_packet_source_approved": false,
+    "original_packet_uninstalled_unrun": true,
+    "Quantum_included": false,
+    "original_wire_model": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch603_source_readonly.py",
+      "sha256": "11b86f553616cdda17a53e7c70a460aa617f237d6c55ed276274a8fd1f676180",
+      "portion": "Complete original 13/1413/8/392 wire model only; no original source-approval artifact emitted."
+    }
+  },
+  "material_findings": [
+    "Actual COMPLETEexit0/stderr0/one newfixture/currentc53. Exact raw5/all7 native envelopes/755 ordered persisted checks/four actualmanual actors/raw48 preferences per endpoint/70 actual guards match originalcase1 independent model.",
+    "Actual source5Arena survives unpaidresource2 announcement; realBlue7pitch3pays2\u2192R1/AP1 then destroys same5ownerGY cost. Managed samevirtual8 SourceArenaUID5 remainsStack through freshfour/resolving MZMAYCHOOSE despite physical5GY; only answer returns sameBlueMech6GYHand and completesvirtual8. No addedAP/refund or second response round.",
+    "Full originalphysicalUID1..7/owner/controller, finalHand6/GY5/Pitch7/emptyArena, allHP20/R1AP1/counter8/RNG0/quietStack/chains/DQ/await/payment verified. ActualEVR_ACTIVATED1 retained, no cardplay/hit or unearnedOpt/Boost/producer inferred.",
+    "Positive return only; optionalPASS/fullmenu/recoveredcardplay/Crank/upkeep/nextturn/Hero/support/siblings/fullcard uncredited. Originaltwo-case/Quantum unrunpacket preserved; Quantumstrict diagnostic separate/no approvalhere. Root targetedreplays separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2396/",
+      "finding": "Current exact Instant2destroy/BlueMechAA return and maintenance."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AIO025.webp",
+      "local_path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\backup_protocol_blu_blue.webp",
+      "sha256": "266b879ff8410a603855f962ea08fbd302159e54e6c2338f02593dbd71b717ef",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.7",
+        "5.1.9",
+        "5.2",
+        "5.3.4",
+        "5.3.4a",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Costs before priority; resolving non-target choice completes before layer cleanup."
+    }
+  ],
+  "limits": [
+    "Only first positive existingBlueMechAA return after realcost2/source-destroy. No decline/fullmenu/emptyGY/alternativecolor/repeat/recoveredcardplay/Boost/Opt or fullcard certification.",
+    "Initial sourceSTEAM0 maintenance/Crank/creation and priorDataLinkHandblock are lawful fixture provenance only, not executedcurrentproducer/history or coverage. No nextturn/Hero/support/sibling credit.",
+    "Persistedcheckpoint+initial/final evidence only; no inventedper-input snapshots. Opaque undo data rawhashbound/excludedfromcurrentphysicalinventory. Reviewer noPHP/native/replay/R/source/fullsuite/remote/deniedretry."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch603_backup_saved_readonly.py",
+    "sha256": "d19b2c8f59a22d84e94961a8cb120eda5d7167ec0aa2c2d3f93cf4659adfb6fd"
+  },
+  "retained_independent_wire_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch603_source_readonly.py",
+    "sha256": "11b86f553616cdda17a53e7c70a460aa617f237d6c55ed276274a8fd1f676180",
+    "selected_original_index": 1,
+    "old_packet_approval_emitted": false
+  }
+}

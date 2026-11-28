@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T13:22:53.238954+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1555-20261122.json",
+  "source_spec_sha256": "dc8af0c75e7e9b721fd1cbff0df008fb72b244917a83d3547dc345eb5d465af5",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 22,
+  "native_assertions": 618,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 5648,
+    "duels": 3138,
+    "four_live": 2510,
+    "recorded_primary_ids": 2796,
+    "identity_denominator": 5196,
+    "recorded_groups": 2670,
+    "group_denominator": 3324,
+    "four_live_groups": 2499,
+    "phase_qualified_scenarios_at_actual_contexts": 2285,
+    "phase_qualified_unique_groups": 2275,
+    "creation_replay_passes": 3027,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1446,
+  "scenarios": [
+    {
+      "card_id": "overcrowded_blue",
+      "group_id": "identity:overcrowded_blue",
+      "scenario_id": "card-overcrowded-blue-four-live-sparse1555-ambush-arsenal-selection-ui-precommit-only",
+      "effect_branches": [
+        "UI_ADMISSION_ONLY_Ambush_permits_native_Arsenal_card_selection_during_uncommitted_defense_declaration"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-overcrowded-blue-four-live-sparse1555-ambush-arsenal-selection-ui-precommit-only",
+      "source_spec": "card-regression-sparse1555-20261122.json",
+      "source_spec_sha256": "dc8af0c75e7e9b721fd1cbff0df008fb72b244917a83d3547dc345eb5d465af5",
+      "review_evidence": "review-evidence/sparse1555-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75e6cef3351ad8eba682355f980722e4307b4990403eb8b2c59cb0637f9a6a0d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1555-20261122-replay.json",
+          "sha256": "4451efbc114679ce8f696ba8d303254f618deea64ef6324327907fcd243bebef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tiger_eye_reflex_yellow",
+      "group_id": "pitch-cycle:tiger_eye_reflex",
+      "scenario_id": "card-tiger-eye-reflex-yellow-four-live-sparse1555-ambush-arsenal-selection-ui-precommit-only",
+      "effect_branches": [
+        "UI_ADMISSION_ONLY_Ambush_permits_native_Arsenal_card_selection_during_uncommitted_defense_declaration"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tiger-eye-reflex-yellow-four-live-sparse1555-ambush-arsenal-selection-ui-precommit-only",
+      "source_spec": "card-regression-sparse1555-20261122.json",
+      "source_spec_sha256": "dc8af0c75e7e9b721fd1cbff0df008fb72b244917a83d3547dc345eb5d465af5",
+      "review_evidence": "review-evidence/sparse1555-20261122-qualified-saved.json",
+      "review_evidence_sha256": "75e6cef3351ad8eba682355f980722e4307b4990403eb8b2c59cb0637f9a6a0d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1555-20261122-replay.json",
+          "sha256": "4451efbc114679ce8f696ba8d303254f618deea64ef6324327907fcd243bebef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

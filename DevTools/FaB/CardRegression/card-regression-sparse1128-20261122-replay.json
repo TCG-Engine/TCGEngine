@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tuffnut-four-live-sparse1128-real-tap-pitches-actual-under-six-blue-top-card-and-gains-three-resources",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tuffnut-four-live-sparse1128-real-tap-pitches-actual-under-six-blue-top-card-and-gains-three-resources",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1128-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1128-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c27e28083f2217e1a860fa5d998cd9594c1f2439dd0b922fd1fb94b6093c6ef3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ad2ea1d826d13668a03c066317413a47893a145f3f8471726f0406168436140",
+        "actions.json": "a554307e66e216bc71b59e061718d65cd71e130124f20a8329663b0b453ceadf",
+        "assertions.json": "0223cad65946ae69e6cb8781cc67ac66ca0eac8721330dd169af819f3ce2de29",
+        "expected_final_gamestate.txt": "3dc7da08024af9a79a288d7b5613aa251f3f0f76f7ed8c2e7a3b6c09deae658d",
+        "meta.json": "848e7e5b9c07d77062b4058ac398ced38aa517fe555022e5f597ecb46c15e1d1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

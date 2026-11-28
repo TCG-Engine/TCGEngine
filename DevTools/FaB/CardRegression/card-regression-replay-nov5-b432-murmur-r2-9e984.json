@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch432.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T08:45:27.487557+00:00",
+  "fixtures": [
+    {
+      "slug": "card-murmur-of-iarathael-red-four-live-sparse-real-boost-banish-earns-conditional-go-again",
+      "fixture_sha256": "9a73b579e7b9e713640f0f8604c10fc4881b0834c8e22b4751147c27b4d0b88d",
+      "passed": true,
+      "result": "[PASS] murmur_of_iarathael_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-murmur-of-iarathael-red-four-live-sparse-real-boost-banish-earns-conditional-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] murmur_of_iarathael_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

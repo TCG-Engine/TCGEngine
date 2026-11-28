@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-turn-the-crowd-grateful-red-four-live-sparse930-actual-seven-against-non-reviled-hero-without-cheer",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turn-the-crowd-grateful-red-four-live-sparse930-actual-seven-against-non-reviled-hero-without-cheer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "443c24cd9c339414c6bcd9c8c8480369c5eecf42dbb952120c00abdc13ea4449",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef2e40922acbf3988d94094ac851c92453afe6788f820a1c31673c9a7038dc21",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2838a2631097614b4484e2aad96acd4d192db9cf7a8dc8bf186859419a21a40c",
+        "expected_final_gamestate.txt": "7a51ee9dc3bb70b708287d369bd38f1fb190b46179fb85eda059e833959b5c21",
+        "meta.json": "b06b1d16b99e5bfeba32f4b3fb88c51f2fbf870f528353d5230d323db441c131"
+      }
+    },
+    {
+      "slug": "card-turn-the-crowd-hateful-red-four-live-sparse930-lyath-base-three-against-non-revered-hero-without-boo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turn-the-crowd-hateful-red-four-live-sparse930-lyath-base-three-against-non-revered-hero-without-boo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4996c6b085796fb25435a2bfda91adc6c74c6a3abef2a461204fb0eb692c8bdb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3f646b9d1a926b478dc6d0e3caa00c9a114249bec431eca36d19b749f9633383",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "783d1592e9f649dfe4aa8d30d175c63b007d4b5f9811d4ad7eaa003d2c7ff4a2",
+        "expected_final_gamestate.txt": "3858b232469d1a1e51ac04fe480f52491a424229b28e0ebe0b44503931f26904",
+        "meta.json": "9548418492f033326ebdeaa03fc8f38883835090b36cd38ea6ba38bb5e4dccba"
+      }
+    },
+    {
+      "slug": "card-bash-brute-red-four-live-sparse930-actual-seven-hits-non-brute-hero-preserving-real-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bash-brute-red-four-live-sparse930-actual-seven-hits-non-brute-hero-preserving-real-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5c0159af87c8a89f69a98a05075e0b12165227b9f96ba292244b6ec184d0e223",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3402490022f46a6863dbe789e20f8edc4d4d4db157b16d3916266ab20ccbdd3f",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "416fc39709159d7e01b12f08e4d0fc8d52d5089db1cf280afad4f34c6ea0223f",
+        "expected_final_gamestate.txt": "3fe0af6154e587bf9571491170eb281d4e93dd2ccc215f784c2965e8e3ac2d6c",
+        "meta.json": "729aa3dd9cfe45bc7da2a0eb8e91520e49fd651eed5d5663e839976eb0bdb959"
+      }
+    },
+    {
+      "slug": "card-bash-guardian-red-four-live-sparse930-actual-six-hits-non-guardian-hero-preserving-real-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bash-guardian-red-four-live-sparse930-actual-six-hits-non-guardian-hero-preserving-real-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse930-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4fee1a233128a7b18aac00a5ad30b9dd9eddb3924547c6c593f215ead04f2833",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4268e979e41ee36de93bc3879a5a45bdb1134a26d0e262c7f6e63c1409073b29",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4a900935ad26a664673ce6b9b36e2d1e619a2a146eee253df0fe6a3c2d335210",
+        "expected_final_gamestate.txt": "07fedd0ae0e719ad51eeb74ad177fb1656bda965b9a49d86b69d4dc5d7f558fb",
+        "meta.json": "4111b174eb1a609e951c39819425f814883fdb4955b81a5b0fd9720d97d9bfa5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

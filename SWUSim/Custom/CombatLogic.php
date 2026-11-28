@@ -568,7 +568,10 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null, $isIndirec
             // Twin Suns' CR 12.6.2 heal.
             if ($damage > 0) $GLOBALS['gSWUSimulBaseKiller'][intval($targetPlayer)] = intval($damager);
         } elseif (!$spongeExempt && $base[$i]->Damage >= $baseHP) {
-            if (SeatCountForGame() > 2) {
+            if (SWUIsAlwaysTwo()) {
+                // Always Two: a base at 0 eliminates nobody — the board plays on. Its team falls when BOTH its bases are at 0.
+                SWUAlwaysTwoCheckTeamDefeat();
+            } elseif (SWUTwinSunsRulesActive()) {
                 // Twin Suns: eliminate the seat (heals $damager 5, defers most-HP scoring) — do NOT
                 // declare an instant winner. $damager was resolved above when $damage > 0.
                 SWUEliminateSeat(intval($targetPlayer), ($damage > 0 ? intval($damager) : null));
@@ -2224,6 +2227,14 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // was defeated this attack (the grant targets any unit, not the attacker). Rides the EffectStack.
     if (!empty($combatCtx['ash184GiveAdv'])) {
         AddTrigger($activePlayer, 'ASH_184', 'ASH_184', '');
+    }
+    // HMW_035 Hunter (Everyone Get to Cover!) — "Choose two": when the first mode is an attack, the second is chosen only once
+    // that attack has COMPLETED (bug report P-37). Armed by HMW_035#2 with the attacker's UID; matched here by UID because
+    // this runs on the fizzle path too (a $fizzCtx carries no turn-effect markers) and a dead attacker's slot is reused.
+    $hmw035Uid = intval(GetSWUVar('SWU_HMW035_NEXT_PICK', '0'));
+    if ($hmw035Uid > 0 && $hmw035Uid === intval($combatCtx['attackerUID'] ?? 0)) {
+        SetSWUVar('SWU_HMW035_NEXT_PICK', '0');
+        AddTrigger($activePlayer, 'HMW_035_NEXT', 'HMW_035', '');
     }
     // IC27_007 Asajj Ventress (leader front) — "After completing this attack, if the attacker survived, you may ready
     // a resource." Unlike Follow Me this one needs the attacker alive: looked up by its captured UID, since a dead
@@ -3991,7 +4002,8 @@ function _SWUUnitCantBeAttacked($u): bool {
 // base mzIDs) name that specific opponent's board. The union across all opponents is built by the wrapper
 // SWUGetAllValidAttackTargets, which calls this once per opponent — so per-opponent Sentinel (a Sentinel on
 // opponent A doesn't force attacks vs opponent B, CR §11.4.4) and per-opponent base both fall out naturally.
-function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName, bool $noBases = false, ?int $targetSeat = null): array {
+function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName, bool $noBases = false, ?int $targetSeat = null, ?bool &$sentinelLocked = null): array {
+    $sentinelLocked = false;   // set when this opponent's Sentinel restricts the attack (read by Always Two's team-wide union)
     $tp          = $targetSeat === null ? 'their' : "p{$targetSeat}";
     $opArenaZone = "{$tp}{$arenaName}";
     $oppUnits    = [];
@@ -4029,6 +4041,7 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
 
     if ($hasSentinelRestriction) {
         // Must attack a Sentinel; base and non-Sentinel units are off-limits.
+        $sentinelLocked = true;
         return $sentinels;
     }
 
@@ -4108,11 +4121,24 @@ function SWUGetAllValidAttackTargets(int $attackerCtrl, $attackerObj, string $ar
     if (SeatCountForGame() <= 2) {
         return SWUGetValidAttackTargets(OtherPlayer($attackerCtrl), $attackerObj, $arenaName, $noBases);
     }
-    $all = [];
+    $byOpp = [];
     foreach (OpponentsOf($attackerCtrl) as $opp) {
-        foreach (SWUGetValidAttackTargets($opp, $attackerObj, $arenaName, $noBases, $opp) as $t) {
-            $all[] = $t;
-        }
+        $locked = false;
+        $byOpp[] = [SWUGetValidAttackTargets($opp, $attackerObj, $arenaName, $noBases, $opp, $locked), $locked];
+    }
+    return _SWUUnionAttackTargets($byOpp);
+}
+
+// The union of per-opponent target lists ([targets, sentinelLocked] each). Twin Suns / Team Suns: every list (a Sentinel guards
+// only its own seat, CR §11.4.4). Always Two: SHARED Sentinels — "friendly sentinels protect your teammate's units and bases"
+// (spec 2026-11-20) — so once ANY enemy board is Sentinel-locked in this arena, only the locked boards' Sentinels are legal: the
+// unlocked teammate's units and base drop out. Saboteur never locks, so it still reaches everything.
+function _SWUUnionAttackTargets(array $byOpp): array {
+    $anyLocked = SWUIsAlwaysTwo() && (bool)array_filter($byOpp, fn($r) => $r[1]);
+    $all = [];
+    foreach ($byOpp as [$targets, $locked]) {
+        if ($anyLocked && !$locked) continue;
+        foreach ($targets as $t) $all[] = $t;
     }
     return $all;
 }
@@ -4207,7 +4233,8 @@ function _SWUHmw053AllowsAmbushBases($attackerObj): bool {
     return false;
 }
 
-function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName, ?int $targetSeat = null): array {
+function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName, ?int $targetSeat = null, ?bool &$sentinelLocked = null): array {
+    $sentinelLocked = false;   // see SWUGetValidAttackTargets
     $tp          = $targetSeat === null ? 'their' : "p{$targetSeat}";
     $opArenaZone = "{$tp}{$arenaName}";
     $oppUnits    = [];
@@ -4226,7 +4253,7 @@ function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName
     }
 
     $hasSentinelRestriction = !empty($sentinels) && !HasKeyword_Saboteur($attackerObj);
-    if ($hasSentinelRestriction) return $sentinels;
+    if ($hasSentinelRestriction) { $sentinelLocked = true; return $sentinels; }
 
     // HMW_053 Fett's Firespray widens the pool to include the defending base. Deliberately AFTER the
     // Sentinel return: Sentinel is a RESTRICTION on what may be attacked and Firespray is a PERMISSION
@@ -4247,11 +4274,12 @@ function SWUGetAllValidAmbushTargets(int $attackerCtrl, $attackerObj, string $ar
     if (SeatCountForGame() <= 2) {
         return SWUGetValidAmbushTargets(OtherPlayer($attackerCtrl), $attackerObj, $arenaName);
     }
-    $all = [];
+    $byOpp = [];
     foreach (OpponentsOf($attackerCtrl) as $opp) {
-        foreach (SWUGetValidAmbushTargets($opp, $attackerObj, $arenaName, $opp) as $t) $all[] = $t;
+        $locked = false;
+        $byOpp[] = [SWUGetValidAmbushTargets($opp, $attackerObj, $arenaName, $opp, $locked), $locked];
     }
-    return $all;
+    return _SWUUnionAttackTargets($byOpp);   // Always Two: shared Sentinels apply to Ambush too
 }
 
 // Declare an attack with a ready unit. Exhausts the attacker and queues

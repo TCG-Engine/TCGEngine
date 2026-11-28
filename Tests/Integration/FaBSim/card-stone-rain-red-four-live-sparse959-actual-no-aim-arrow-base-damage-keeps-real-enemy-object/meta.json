@@ -1,0 +1,7 @@
+{
+    "name": "Stone Rain / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:54:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has an aim counter, it gets **dominate** and \"When this hits a hero, they banish face-down a card from their hand. At the beginning of their next end phase, they return it to their hand.\" Lexi20legalRanger/realBow/FaceDownArsenal5. Stone/Hemorrhagehavezeroaim, staticallynograntedhitability; actual4/5damage/AP0 andretainedenemyHand/Arsenal. Endless/PathingactualtwoHandAAdef6block0damage/nohit/AP0/source5GY/Arsenal0, PathingrealeligibleHandArrow9retainednotloaded. Positivehit/aim/return/load branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#stone_rain_red"
+}

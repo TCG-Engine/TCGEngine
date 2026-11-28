@@ -5377,6 +5377,19 @@ function _SWUBotAbilityValue(array $ctx, array $action, array $W): float {
     if ($d === null && SWUBotFeatureOn('buffs') && isset($after['read'])) {
         $r0 = $readBefore; $r1 = $after['read'];
         if ($r1['theirs'] - $r0['theirs'] > 1e-6 && $r1['mine'] - $r0['mine'] <= 1e-6 && $after['hand'] == $handBefore) return -0.5;
+        // …and the same refusal when the enemy's gain is a CREDIT, which the board read above does not see. P-38 (2026-11-23):
+        // Vel Sartha's front Action ("Give an Experience token to a unit. An opponent creates a Credit token") used in R1 with
+        // both arenas empty — no unit to receive the Experience, so it resolved without a prompt and its only change was the
+        // opponent's Credit; the signature moved (so not a no-op), the read didn't, and it kept the flat W['ability'].
+        // Refused only when an opponent's Credits rose and NOTHING else in the signature moved. A Credit token sits in the
+        // resource zone, so it also counts in that seat's 'resources' — the strip takes it out of both.
+        $s1 = $after['sig']; $nOpp = count(SWUBotOpponents($seat));
+        $oppCredits = fn(array $s) => array_sum(array_slice($s['credits'], 1, $nOpp));
+        $strip = function (array $s) use ($nOpp) {
+            for ($i = 1; $i <= $nOpp; $i++) { $s['resources'][$i] -= $s['credits'][$i]; $s['credits'][$i] = 0; }
+            return $s;
+        };
+        if ($oppCredits($s1) > $oppCredits($before) && $strip($s1) == $strip($before)) return -0.5;
     }
     // …and the hostile mirror: it resolved on its own and all it did was HURT my units. Owner report 2026-10-07:
     // Tarkintown's Epic Action ("Deal 3 damage to a damaged non-leader unit") spent on the bot's own unit — the only

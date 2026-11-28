@@ -1,0 +1,7 @@
+{
+    "name": "Put on Ice / actual Arsenal draw and go again with zero allies",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:22:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_LEXI20_THREEDORI20. RealPutOnIceRed5initialfacedownArsenal, Blue6HandandWoundingRed7Deck. NativeArsenalclickspendsprintedcost1throughactualBlue6pitch3/R2/AP0/allfourpriorityresponses. ThereareNOalliesinanyArena, legalUPTO3chooseszero; freezeandtargetdeclarationuncredited. ActualArsenalsourceconditiontrue\u2192drawactualDeck7toHandretainingUID, printedGoagainAP1/5GY/Deck0/noearlydrawbeforeallresponses. Playactuallydrawn7HandAA0toadjacentP4/allfourmanualcombat/base4/noGA/real4damageP4HP16/fullclose. Final5GY0/7GY1/6Pitch/HandDeckArsenalempty/R2AP0/UID7RNG0/quietStackDQ. Arsenalplacementprovenance/positiveallyfreeze/duration/targetselection/otherpitches/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#put_on_ice_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/PENCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Volcanic Vice / actual created Seismic Surge enables Spellvoid against opposing arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T17:43:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungOldhim20/2Dori20/YoungIyslander18. ProperGuardianownsrealVice5Arms/Tectonic6Chest, actualBlue7Hand1,ZapBlue8Arsenal4. ActualTectonicAction1nativeBlue3pitchpays1R2/AP0beforefour1/2/3/4responses; realSurge10createdownedArena1andprintedGAAP1. No seededsurge/history/prevention/AP. EmptyACTIONmanual1/2/3passesreach4beforefourthpass/endphase. IyslanderactuallycastsnonIceWizardBlueZap8fromArsenalasInstant0,targetHero1beforefour4/1/2/3responses; noIceFrostbiteWHEN. RealSurgecreatedthisturngivesViceSpellvoid3: properactualMZMAYCHOOSEonlyEq0, same5destroyedtoownGY1andpreventmin(3,1)=1soHP1stays20. Spell8GY4, Tectonic6Eq1/realSurge10Arena1/Blue7Pitch1/R2/AP1 retained, HP4=18/others20/UID10/noStack/DQ/chains/phaseadvanced. SourceCore1154subtractionconcernalreadyresolved,nohistoryrerun/newfix. Scopepositiveconditionalavailability+actualonepacketonly; notfull3capacity/negativegate/secondpacket/expiry/surgeuse/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#volcanic_vice FaBSim/Custom/PENCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-booze-blue-four-live-sparse1406-actual-other-hero-start-no-booze-destroy-leave-boo-or-vigor",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-booze-blue-four-live-sparse1406-actual-other-hero-start-no-booze-destroy-leave-boo-or-vigor",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1406-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1406-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7d2546024e99d0539745608be57a298796591f3d24667b6aaa10610a19c6a29e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77ffa2a0f8d0335af98c8352a56d781ac77c1e1929e50b37bba253676c989b0c",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "41aa215860176b5e002e0a68c1c3cf54ca0e7c62603ab4323499321c05e78897",
+        "expected_final_gamestate.txt": "6dd7bb87efaaf750202b0feba0aada125d769898a0859064fbacc1d0fdd01a03",
+        "meta.json": "6eeed110a49689a4e8ff94210dff524469c170f84bfd4f178a215366cb7c79f4"
+      }
+    },
+    {
+      "slug": "card-confidence-four-live-sparse1406-actual-other-hero-start-keeps-confidence-token-until-controller-start",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-confidence-four-live-sparse1406-actual-other-hero-start-keeps-confidence-token-until-controller-start",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1406-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1406-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "55914833cf85da90a2ec656d26ac58fdc06826b0484e406247897e63948f9449",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "975a4e98a26cd3eab84b78666e0f3bb278ba32e00ed0c5fa22e83c767ba743e4",
+        "actions.json": "73ef51e215e1504678b3e0f836f4d2cf64bb9c544b0fe52aa164cd428e12e720",
+        "assertions.json": "3147037cf0b5f13eb31c43e9677e2d863a01aff10dd9e117950be078ed5bbef0",
+        "expected_final_gamestate.txt": "627f82b8ed685c12a70c66ae10aae89a37ac5593d952bbb4f009b8108604443e",
+        "meta.json": "4c9fb7a6a9c816f94c99df9ec475816247552279840fba87c72daedbc5f90bf1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

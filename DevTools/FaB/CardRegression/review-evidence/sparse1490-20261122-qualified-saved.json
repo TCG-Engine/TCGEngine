@@ -1,0 +1,136 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1490-20261122.json",
+  "source_spec_sha256": "8cc0d1daabd55c22a54deccffb711e717cdccf0dcbe246c2465666472a8b0e74",
+  "input_sha256": "8cc0d1daabd55c22a54deccffb711e717cdccf0dcbe246c2465666472a8b0e74",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-astral-etchings-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+      "card_id": "astral_etchings_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1e9da95ab889510074f7d5a338909deab3aff6e739e0fa9d7101f05ffa4221b6",
+        "actions.json": "d9bb888e6c28da679352a927e71740b0d1598ca6ee6d15a0e836cf365b61b195",
+        "assertions.json": "59dc6505e11174ca57ce8f3afe940073ddf5b65c443e34e1bae9fd7cbcb7409c",
+        "expected_final_gamestate.txt": "53bcf31890f2cedc269c6b89a4e98b01b98e3529beea34a2387e95bd7b853357",
+        "meta.json": "c60214f563d11835530778801652781fd16391378e3f7bc18fe74c6311df0df2"
+      },
+      "fixture_sha256": "c40f30651cf5fb5187510407364b8d09910ae284d7fe2e0b8a6209d7c9f95452",
+      "actions": 11,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1490-20261122.json",
+      "input_sha256": "8cc0d1daabd55c22a54deccffb711e717cdccf0dcbe246c2465666472a8b0e74",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-astral-etchings-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "fixture_slug": "card-astral-etchings-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cleansing-light-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+      "card_id": "cleansing_light_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d631ae200a069e80a762522aa3ec43b48562e481a11f5dc526702b4d3dfea2d0",
+        "actions.json": "d9bb888e6c28da679352a927e71740b0d1598ca6ee6d15a0e836cf365b61b195",
+        "assertions.json": "26dc3d8de5b5832cf3c9713b8ccf2a7bf16801b1695a0665ba4b59202f10b5f2",
+        "expected_final_gamestate.txt": "b55e3a24647b8443ef61bd98cc61a468f242941c18bf4138411cc0021d4d753c",
+        "meta.json": "6d5edde7a6aa5360f04c555ceb5992addda8941beb67ae5298a2db1da8b37ef4"
+      },
+      "fixture_sha256": "1f3ebd770e06b81ed87759bee433c34f0f8fbb58203ca97697ea71f4e2c5f576",
+      "actions": 11,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1490-20261122.json",
+      "input_sha256": "8cc0d1daabd55c22a54deccffb711e717cdccf0dcbe246c2465666472a8b0e74",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cleansing-light-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "fixture_slug": "card-cleansing-light-red-four-live-sparse1490-real-nonward-blue-aura-no-legal-target-spare-action",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1490,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T05:07:29.735953+00:00",
+    "spec_sha256": "8cc0d1daabd55c22a54deccffb711e717cdccf0dcbe246c2465666472a8b0e74",
+    "source_note_sha256": "c41863d7459159eb30e3e7c57fd74059cb53f670f3aaa007ef33fea5d0826a40",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209"
+    },
+    "cases": 2,
+    "planned_actions": [
+      11,
+      11
+    ],
+    "persistable_checks": [
+      373,
+      373
+    ],
+    "named_primary_ids": [
+      "astral_etchings_red",
+      "cleansing_light_red"
+    ],
+    "findings": [
+      "ActualTimesnapactivationconsumesinitialAP thenfourresponsesgains2AP; actualHazeActionconsumesone andseparatefourresponsesleavesAP1. HazehasnoGAorentryWHEN, nodestroyedAuraeffectearned.",
+      "RealBlue/nonWardHazeAura isanineligibleactualcandidate. LegalPrism/ACTIONpriority1/realspareAP1/availableBlue3 coversprimaryprinted1/3, soeligibilityguardsareisolated.",
+      "Primary7/Blue8Hand/Aura6/GY5/AP1/R0/UID9 unchangedafterclick; positiveprimarytargets/effectsnotattempted."
+    ],
+    "limits": [
+      "Rejection-onlyspecificWard/redAuraeligibility, no positiveeffect/targettiming/Instantpermissioncredit.",
+      "No enginechange/wholecard/siblings/faultcontrol/fullsuite.",
+      "Independent source/specsemantics only; primary checks exactsavedmapping and firsttargetedreplay."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1490-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b6e7bc6db03b52749b944fbee1d1382c13b3cd68ef7206ce3c1efb304f578dec"
+  },
+  "full_suite_run": false
+}

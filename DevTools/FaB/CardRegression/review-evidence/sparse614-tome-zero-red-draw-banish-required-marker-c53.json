@@ -1,0 +1,279 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_TOME_ZERO_RED_WITH_REQUIRED_HAND_BANISH_MARKERS",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T14:49:09.572398+00:00",
+  "source_spec": "card-regression-batch614-tome-marker-v2.json",
+  "input_sha256": "6bd0e6351596100ff55da712b2ee0ed8a14031885f2862ecbbc59dc42daa29b6",
+  "manifest_sha256": "c07aaef6447ce1e2b08eda877a36f8872e33d9e29d271a7b94db7333cf044819",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch614-v2-independent-source-review.json",
+    "sha256": "7ddde0ef0d83bc889d4aec44b13303e1d334060c4c98903c09a8da09e783f567",
+    "unchanged_semantics_reused": true
+  },
+  "original_normative_semantic_source_gate": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch614-independent-source-review.json",
+    "sha256": "2e434f9bcced9c45c0c49e2a7c2564bb1cc92ecc910a30f8397611842778e89a",
+    "unchanged_semantics_reused": true,
+    "historical_empty_counter_error_retained": true
+  },
+  "retained_original_oracle_error": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\tome614-hand-banish-marker-oracle-classification-c53.json",
+    "sha256": "1ea0ce57d6cb32091023019092603c9de4d3ce66d089b222133219143dee49a1"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch614-tome-marker-v2-20261106T144412Z-6aede7bcf1698.json",
+    "sha256": "9e07f4467933f66edbef68ebbad0887a576ff0fadd406503005a247a30ec0b76"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch614-tome-marker-v2.recording-results.json",
+    "sha256": "a8a8cf6a86511e3c161147f864e8470685bb2b6ef754f4fa0dd56b114a0aebdb"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch614-tome-marker-v2-native-c53\\receipt.json",
+    "sha256": "e35dbb1093f9b3835cb19887168d3a3c210de879d6e083d97a87182c5a853688"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "tome_of_imperial_flame_red",
+      "group_id": "identity:tome_of_imperial_flame_red",
+      "slug": "card-tome-of-imperial-flame-red-four-live-zero-red-draw-one-then-banish-both-blue-hand-cards",
+      "source_spec": "card-regression-batch614-tome-marker-v2.json",
+      "input_sha256": "6bd0e6351596100ff55da712b2ee0ed8a14031885f2862ecbbc59dc42daa29b6",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NONROYAL_ZERO_RED_DRAW_AND_TWO_BLUE_HAND_BANISH",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-tome-of-imperial-flame-red-four-live-zero-red-draw-one-then-banish-both-blue-hand-cards",
+      "fixture_sha256": "c9799076d78ef4c6f1a5ab0da7215b0eb1a3fef22fc7f24578ef674445b63968",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "72d9022062e31b35ee94b692666ea282923e17c22f7d48c28c9350bf43d5e8cb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6f13b238a84be1a9c510541d34fe6d57e6de76a091dc5d1e9a2b305ea584d0db",
+        "expected_final_gamestate.txt": "359fec38bf6ceeea5969b9da87047e696efe52aa8542665dd57bcaee280e29af"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "72d9022062e31b35ee94b692666ea282923e17c22f7d48c28c9350bf43d5e8cb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6f13b238a84be1a9c510541d34fe6d57e6de76a091dc5d1e9a2b305ea584d0db",
+        "expected_final_gamestate.txt": "359fec38bf6ceeea5969b9da87047e696efe52aa8542665dd57bcaee280e29af",
+        "meta.json": "30d511c62b08b9341da6db1512cd4b6611abe94e937756584490f9e8a8f49f5a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "72d9022062e31b35ee94b692666ea282923e17c22f7d48c28c9350bf43d5e8cb",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "6f13b238a84be1a9c510541d34fe6d57e6de76a091dc5d1e9a2b305ea584d0db",
+        "expected_final_gamestate.txt": "359fec38bf6ceeea5969b9da87047e696efe52aa8542665dd57bcaee280e29af",
+        "meta.json": "30d511c62b08b9341da6db1512cd4b6611abe94e937756584490f9e8a8f49f5a"
+      },
+      "actions": 5,
+      "native_assertions": 618,
+      "actual_manual_passes": 4,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 182,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "tome_of_imperial_flame_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "tome_of_imperial_flame_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "critical_strike_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "initial_Hand_UIDs": [
+        5,
+        6
+      ],
+      "initial_Deck_UIDs": [
+        7
+      ],
+      "final_Banish_exact_UIDs": [
+        6,
+        7
+      ],
+      "final_Banish_public_owner_controller": 1,
+      "final_Banish_Counters": {
+        "DTD_HAND_BANISH": 2
+      },
+      "generic_Banish_permission_granted": false,
+      "final_GY1_exact_UIDs": [
+        5
+      ],
+      "actual_nonRoyal_draw_count": 1,
+      "actual_optional_Red_pitch_possible": false,
+      "actual_Action_cost": 1,
+      "actual_resource_cost": 0,
+      "own_GA_refund": 1,
+      "transient_drawn_Hand_checkpoint_claimed": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "52fbc583581b32eaac17dbb9fc6c1bd74d94678ce8830a245cf0cfad3ff726ec",
+      "native_assertion_mapping_sha256": "9f89bc0d8d7e6a686e16e934be8832cc1d962089f4115a4399210eb925eaec66"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 5,
+  "total_native_assertions": 618,
+  "total_manual_passes": 4,
+  "total_schema_property_assertions": 182,
+  "material_findings": [
+    "ActualCOMPLETE0/stderr0/new1/currentc53. Exactraw5/all5nativeenvelopes618orderedchecks/4genuinemanualactors/raw48preferencesperendpoint/71guards/specificarchiveverified.",
+    "ActualordinaryTome5resource0spendsAP1to0beforefresh1,2,3,4responses. Firstthreeholdsource5Stack/oldBlue6Hand/Blue7Deck. OnlyfourthcompletesnonRoyalDraw1andunpaidwholeHandbanish: original7DeckendsBanishwithoriginal6; source5GY/allHP20/R0/ownGArefundAP1.",
+    "BothsameBlue6/7publicBanishOwnerCtl1/DTD_HAND_BANISH2/TurnEffects[] andexplicitallplayreturnflags0. Markerislegitimateexistingmovebookkeeping, not genericBanishpermission. CompletephysicalUID1..7/counter7/RNG0/HandDeckempty/StackDQpaymentawaitquiet.",
+    "ExactlyfourCounteroracleswerecorrectedversusoriginala5b5, withfullinverse/sourceproof7ddd andexternalappendixexplicitlyoverridinginheritedemptyCountershorthand. Originalfailed471/470passed/147unrunsuffix retainedhistorically; thisfreshnativealonepassedcorrected618. No enginebug/fix or runtimechange.",
+    "No separate nativecheckpointinside synchronousDraw7-toHandbeforebanish. ActualoldDeckUID7toBanishanddrawbookkeepingplusretainedsourceorder establishpositiveDraw1consequence; no inventedtransientHandphysicaldump. Roottargetedreplaysseparate/notclaimed."
+  ],
+  "limits": [
+    "OnlynonRoyalzeroeligibleRed/unpaidwholeHandtwoBluebanish/Actionspend+ownGArefundpositivebranch. EligibleRedchoice/partialchoice/successfultwoRedpitch/RoyalDraw2/resourcegain/Handkeep/followupAPconsumer/Hero/support/sibling/fullcardunqualified.",
+    "Internal synchronoussourceclearorderingandunmanagedeligibleRedawaitlifetimeareoutsidequalification; neither certifiednor repaired. No turnmarker expiry/Shadowpedepermissionbranch credit.",
+    "Originalfailedoracleevidence/sourceproofpreserved; thisSavedreviewdoesnotretagoldrunaspass. No reviewerPHP/native/replay/R/source/fullsuite/remote/deniedretry orgameplaybug/fix claim.",
+    "Opaqueundodatahash-bound/excludedfromcurrentphysicalinventory; onlyinitial/finalactualsnapshots pluspersistedper-inputassertionsused."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch614_v2_saved_readonly.py",
+    "sha256": "d96aed5369fe6ef81cd3004cfa2cf613c39f236810172730e5f8f8ebdeffd485"
+  }
+}

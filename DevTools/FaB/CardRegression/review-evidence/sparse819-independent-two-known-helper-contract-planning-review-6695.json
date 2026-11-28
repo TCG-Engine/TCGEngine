@@ -1,0 +1,375 @@
+{
+  "status": "INDEPENDENT_B819_TWO_SOURCE_ONLY_KNOWN_REQUIRED_LIFETIME_CONTRACTS_UNATTEMPTED",
+  "phase": "HELPER_ADMISSION_PLANNING_ONLY",
+  "batch": 819,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T04:47:43.956332+00:00",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch819-firm-reservation.json",
+    "sha256": "ebf9d50a72eea79d87e958ebb06ad82a9c9f10ce30e0feca95eaa081c77338a9"
+  },
+  "full_fixed_routes_read_before_selected_bodies": true,
+  "no_substitution": true,
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "source_preimages": {
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+    "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "FaBSim/Custom/MONCards.php": "3e855be139501d1b2f78524ab700bdcdedb503257c4f089bc1d1d7b16d82bfcc",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "DevTools/FaB/cru_abilities.json": "b4cd3462acf0484979b1d3321ed5357b65a7ed103cd84953dc921cf172bbf429",
+    "DevTools/FaB/evr_support_abilities.json": "a04f939273d8fe14c647ac6501137c40636ba039a07298cc643d24de45d2191d",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "DevTools/FaB/mon_abilities.json": "41ff76fda49bb17ddcce19fe71ace6302ccd8199ab155c88a5fff7285f4a4386",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+  },
+  "selected_and_direct_support_printed_metadata": {
+    "argh_smash_yellow": {
+      "id": "argh_smash_yellow",
+      "name": "Argh... Smash!",
+      "types": [
+        "Brute",
+        "Action"
+      ],
+      "cost": "3",
+      "pitch": "2",
+      "power": "",
+      "defense": "3",
+      "health": "",
+      "functional_text_plain": "Roll a 6 sided die. Destroy up to X items, where X is half the number rolled, rounded down.\nGo again",
+      "printing_ids": [
+        "CRU009"
+      ]
+    },
+    "painful_passage_red": {
+      "id": "painful_passage_red",
+      "name": "Painful Passage",
+      "types": [
+        "Shadow",
+        "Runeblade",
+        "Action"
+      ],
+      "cost": "0",
+      "pitch": "1",
+      "power": "",
+      "defense": "3",
+      "health": "",
+      "functional_text_plain": "You may banish an attack action card from your hand. If you do, it gets +3{p} or go again until end of turn.\nGo again",
+      "printing_ids": [
+        "SUP269"
+      ]
+    },
+    "ghostly_visit_red": {
+      "id": "ghostly_visit_red",
+      "name": "Ghostly Visit",
+      "types": [
+        "Shadow",
+        "Action",
+        "Attack"
+      ],
+      "cost": "1",
+      "pitch": "1",
+      "power": "4",
+      "defense": "3",
+      "health": "",
+      "functional_text_plain": "You may play this from your banished zone.\nBlood Debt",
+      "printing_ids": [
+        "CHN021",
+        "FAB038",
+        "IAR188",
+        "MON203"
+      ]
+    },
+    "ghostly_visit_yellow": {
+      "id": "ghostly_visit_yellow",
+      "name": "Ghostly Visit",
+      "types": [
+        "Shadow",
+        "Action",
+        "Attack"
+      ],
+      "cost": "1",
+      "pitch": "2",
+      "power": "3",
+      "defense": "3",
+      "health": "",
+      "functional_text_plain": "You may play this from your banished zone.\nBlood Debt",
+      "printing_ids": [
+        "FAB039",
+        "IAR189",
+        "MON204"
+      ]
+    },
+    "ghostly_visit_blue": {
+      "id": "ghostly_visit_blue",
+      "name": "Ghostly Visit",
+      "types": [
+        "Shadow",
+        "Action",
+        "Attack"
+      ],
+      "cost": "1",
+      "pitch": "3",
+      "power": "2",
+      "defense": "3",
+      "health": "",
+      "functional_text_plain": "You may play this from your banished zone.\nBlood Debt",
+      "printing_ids": [
+        "FAB040",
+        "IAR190",
+        "MON205"
+      ]
+    },
+    "energy_potion_blue": {
+      "id": "energy_potion_blue",
+      "name": "Energy Potion",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "cost": "0",
+      "pitch": "3",
+      "power": "",
+      "defense": "",
+      "health": "",
+      "functional_text_plain": "Instant - Destroy this: Gain {r}{r}",
+      "printing_ids": [
+        "1HP381",
+        "ASR027",
+        "FAB012",
+        "FAB223",
+        "KSU029",
+        "MPW146",
+        "SDO030",
+        "SFA035",
+        "TCC071",
+        "TEA028",
+        "WTR170"
+      ]
+    },
+    "potion_of_strength_blue": {
+      "id": "potion_of_strength_blue",
+      "name": "Potion of Strength",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "cost": "0",
+      "pitch": "3",
+      "power": "",
+      "defense": "",
+      "health": "",
+      "functional_text_plain": "Action - Destroy this: Your next attack this turn gets +2{p}. Go again",
+      "printing_ids": [
+        "1HP382",
+        "BVO028",
+        "FAB013",
+        "TCC073",
+        "WTR171"
+      ]
+    },
+    "potion_of_deja_vu_blue": {
+      "id": "potion_of_deja_vu_blue",
+      "name": "Potion of Déjà Vu",
+      "types": [
+        "Generic",
+        "Action",
+        "Item"
+      ],
+      "cost": "0",
+      "pitch": "3",
+      "power": "",
+      "defense": "",
+      "health": "",
+      "functional_text_plain": "Instant - Destroy this: Put all cards from your pitch zone on top of your deck in any order.",
+      "printing_ids": [
+        "EVR185"
+      ]
+    },
+    "rhinar": {
+      "id": "rhinar",
+      "name": "Rhinar",
+      "types": [
+        "Brute",
+        "Hero",
+        "Young"
+      ],
+      "cost": "",
+      "pitch": "",
+      "power": "",
+      "defense": "",
+      "health": "20",
+      "functional_text_plain": "Whenever you discard a card with 6 or more {p} during your action phase, intimidate.",
+      "printing_ids": [
+        "1HP002",
+        "HER005",
+        "HER054",
+        "HVY004",
+        "PEN334",
+        "RHI001",
+        "RNR002",
+        "RVD001",
+        "WTR002",
+        "XXX003"
+      ]
+    },
+    "chane_bound_by_shadow": {
+      "id": "chane_bound_by_shadow",
+      "name": "Chane, Bound by Shadow",
+      "types": [
+        "Shadow",
+        "Runeblade",
+        "Hero"
+      ],
+      "cost": "",
+      "pitch": "",
+      "power": "",
+      "defense": "",
+      "health": "40",
+      "functional_text_plain": "Once per Turn Action - Create a Soul Shackle token: Your next Runeblade or Shadow action this turn gets go again. Go again",
+      "printing_ids": [
+        "HER033",
+        "HER041",
+        "MON153",
+        "WIN012"
+      ]
+    }
+  },
+  "whole_selected_and_Ghostly_RGB_alias_printing_scan": {
+    "hold_rows": 264,
+    "named_issues": 182,
+    "exact_term_count": 25,
+    "matching_rows": [
+      {
+        "ledger": "holds",
+        "row": 8,
+        "id": null,
+        "card_id": "potion_of_deja_vu_blue",
+        "status": "fixed_bounded_four_live_representative"
+      },
+      {
+        "ledger": "issues",
+        "row": 5,
+        "id": "FAB-REG-006",
+        "card_id": null,
+        "status": "fixed_verified_partial_scope"
+      },
+      {
+        "ledger": "issues",
+        "row": 23,
+        "id": "FAB-REG-024",
+        "card_id": null,
+        "status": "fixed_verified_partial_scope"
+      },
+      {
+        "ledger": "issues",
+        "row": 153,
+        "id": "FAB-REG-154",
+        "card_id": null,
+        "status": "NATIVE_CONFIRMED_CHOICE_REFERENCE_FAILURE_UNFIXED"
+      }
+    ],
+    "limits": "Exact selected/support identities/aliases/printing metadata scan only; linked older source-lifetime holds are contract evidence, not new native reproduction."
+  },
+  "holds_snapshot": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "cc0637401d5206cf83f43a16e24bdc5d5bce68d68966a06fdf990363501ce2f4"
+  },
+  "issues_snapshot": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "sha256": "7f433c9f0f28cce95c3c41c0c7be37a57297b6b2ae26c9caacb221df5f7f2b28"
+  },
+  "known_required_contract_rows": {
+    "237": {
+      "card_id": "index_blue",
+      "group_id": "pitch-cycle:index",
+      "classification": "PLANNING_ONLY_EXISTING_UNMANAGED_PHYSICAL_SPELL_LIFETIME_DEPENDENCY",
+      "independent_review": null
+    },
+    "238": {
+      "card_id": "shadowrealm_solace_blue",
+      "group_id": "pitch-cycle:shadowrealm_solace",
+      "classification": "PLANNING_ONLY_EXISTING_UNMANAGED_SPELL_CHOICE_LIFETIME",
+      "independent_review": null
+    },
+    "245": {
+      "card_id": "tentacular_toll_blue",
+      "group_id": "pitch-cycle:tentacular_toll",
+      "classification": "INDEPENDENT_APPROVED_KNOWN_UNMANAGED_AWAITED_EFFECT_SOURCE_LIFETIME",
+      "independent_review": {
+        "path": "review-evidence/sparse801-toll-independent-planning-review-6695.json",
+        "sha256": "8a5371e097a81bb3f298e5cb7b37e7dacce92d59a75e0b319378f24c53b01db2"
+      }
+    },
+    "255": {
+      "card_id": "shadowrealm_strength_red",
+      "group_id": "identity:shadowrealm_strength_red",
+      "classification": "KNOWN_AWAITED_PHYSICAL_SOURCE_LIFETIME",
+      "independent_review": {
+        "path": "review-evidence/sparse810-shadowrealm-strength-independent-known-lifetime-planning-review-6695.json",
+        "sha256": "64927593d4fe105ef40c98c47b64f5d7bfe565659771c0fb6c14c5e65e881ccb"
+      }
+    }
+  },
+  "cases": [
+    {
+      "card_id": "argh_smash_yellow",
+      "group_id": "identity:argh_smash_yellow",
+      "disposition": "UNATTEMPTED_KNOWN_REQUIRED_SOURCE_LIFETIME_AND_UNAVAILABLE_SUPPORTED_SEED_SETUP",
+      "required_route": "Real paid3 action/Blue pitch, genuinely native die4/cap2, actual choose Energy2 and Strength4, two ownerGY destroys, DejaVu3stable, actualGA/AP1.",
+      "capabilities_present": [
+        "CRU canonical ResolveCard exists; EVR support canonical overrides roll call to FaBEVRRoll and actual compiled __RunAwait_eeabb20a761f85bd6522 at40339..40452 calls FaBEVRRoll at40441. No fabricated roll or blanket missing body claim.",
+        "FaBEVRRoll8..14 calls EngineRandomInt(1,6), with READY extra-roll absent in fixed quietscene. Roll4 would create legitimate HIGH_ROLL marker. Item chooser generated40370 has min0/maxfloor(roll/2); FaBCRUTargets113..122 includes actual Items on every live seat; fixed selection2and4 leaves3."
+      ],
+      "known_lifetime_gate": "Both current GL1571 KnownPlainSpell and full1637..1682 managed ordinary-spell predicates exclude Argh. Nonpersistent ACTION falls GL1823 physicalsource->GY before1824 awaited ResolveCard, then1827GA while required actual Item choice still pending. Same current Index237/Solace238/Toll245/Strength255 contract; no redundant native probe.",
+      "RNG_setup_assessment": "Current recorder FCRCaseSetup141..197 and setup241..261 provide heroes/health/resources/AP/state/zones/turn/priority, with no supported RNG seed or random-counter input. Core DeterministicRNG GetEngineRandomSeed uses only optional GetSWUVar(RNG_SEED); no GetSWUVar definition found in inspected FaBSim Custom/Core runtime. FaBSim otherwise hashes serialized engine state +counter deterministically. Arbitrary GameState seed/salt or hidden counter injection is not an established native seed option. No seed was selected and no die4 outcome observed; fixed firm says hold when supported seeded route unavailable.",
+      "no_alternate_die_or_item_or_RNG_injection": true,
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_bug": false
+    },
+    {
+      "card_id": "painful_passage_red",
+      "group_id": "identity:painful_passage_red",
+      "disposition": "UNATTEMPTED_KNOWN_REQUIRED_SOURCE_LIFETIME_PLUS_FIXED_ADULT_HERO_RECORDER_LIMIT",
+      "required_route": "P1 fixed adult Chane at explicitly currentHP20, actual cost0 Painful, choose actualGhostlyRedHand->Banish/+3, actualGArefund/APconsumer fromBanish paying1viaBlue3,7physicaldamageHP4=13/AP0.",
+      "capabilities_present": [
+        "SUP canonical and compiled __RunAwait_77d5cb1784f12f4c18d9 at79465..79524 implement actual optional Hand attack MZMultiChoose0..1 plus Power/Go_again modal; actual selected UID is moved to Banish and tagged WTR_POWER:3 for power mode. No absence claim.",
+        "MONCards43..51 recognizes GhostlyVisit native permission to play from Banish. Printed GhostlyRed ShadowAAcost1/power4/BloodDebt and physical source-copy path provide relevant consumer capability; fullroute blocked, no7damage/permission/lifetime outcome certificate."
+      ],
+      "known_lifetime_gate": "Same current both-list exclusion GL1571/1637: Painful ACTION is precleared at1823 before required awaited choices1824, GA1827 can refund before actual choices finish. Known Index/Solace/Toll/Strength required lifecycle contract, source-only UNATTEMPTED.",
+      "setup_limit": "Fixed chane_bound_by_shadow metadata is adult Hero with printed40, not Young. Root clarified currentHP20 is an allowed conceptual damaged-game state, not printed startingHP. Actual FCRCaseSetup156..157 still requires Hero AND Young for each four-live seat and therefore rejects this exact adult ID before game setup. No young substitution, recorder bypass or framework repair authorized.",
+      "downstream_ordering_limit": "Current canonical/compiled asks Power/Go_again mode BEFORE actual FaBMoveUID toBanish (generated79481..79483 versus79476..79477); no claimed correct native banish-before-mode observation. If ever admitted later, preserve original-correct event expectations and assess this source-order concern; do not fit assertions to current order. No diagnostic now because known required lifetime/setup gate already blocks fixed fullroute.",
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_bug": false
+    }
+  ],
+  "no_executable_input_authored": true,
+  "no_seed_or_die_outcome_injected": true,
+  "no_PHP_or_native_or_replay": true,
+  "no_R_source_write": true,
+  "no_source_fix": true,
+  "no_new_distinct_root_count": true,
+  "qualification": false,
+  "coverage_credit": false,
+  "B787_denied_operation_untouched": true,
+  "network_boundary_disclosure": "Reviewer mistakenly used one read-only official-card web search tool call after no-network task instruction; disclosed promptly to Root. No remote write/state action or credential access; no further network calls after correction. This is not authorization for future network access.",
+  "limits": [
+    "Only source/helper admission for exact two frozen routes; zero native execution/outcome or passing recipe credit. Existing effect bodies/helpers are present.",
+    "Current runtime6695 source preimages were verified at this planning checkpoint; pending Ebbing generation/new runtime needs its own later review, no broad audit claim.",
+    "Root alone retains compact planning proof/hold rows. No new source repair, support substitution, neutral route, forced random state or repeated probe."
+  ]
+}

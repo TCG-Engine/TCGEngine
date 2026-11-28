@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch445.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T10:29:05.457667+00:00",
+  "fixtures": [
+    {
+      "slug": "card-compounding-anger-red-four-live-sparse-real-draconic-link-earns-cost-three-to-two-reduction",
+      "fixture_sha256": "0892bc221187d601464813544d6a405d7504064570d20fef2d3e7881ba95a16a",
+      "passed": true,
+      "result": "[PASS] compounding_anger_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-compounding-anger-red-four-live-sparse-real-draconic-link-earns-cost-three-to-two-reduction",
+      "returncode": 0,
+      "stdout": "[PASS] compounding_anger_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

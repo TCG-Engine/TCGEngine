@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-temporal-manipulation-blue-four-live-sparse1190-real-leave-banish-and-action-as-instant-in-response",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-temporal-manipulation-blue-four-live-sparse1190-real-leave-banish-and-action-as-instant-in-response",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1190-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1190-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d1c2f66930715ed205ec0b50d236786fe20efa3d6223f6a73fe50bac4020899a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e354aef64582b3d5e4b31cf1175c2682238d7a335b64901d913c0483ff09ff4d",
+        "actions.json": "3fe1cd844402bfd65bdb948a5f53ed670308a3a3b39e18f69f425c4aa912953b",
+        "assertions.json": "db3597a378a0b9a091464016db52533c2cfdedda71a91630566bf90f24c4f9b0",
+        "expected_final_gamestate.txt": "404c7601988afa501d3c342ff823bc601a7681be8757514c8179f0e9f099e868",
+        "meta.json": "a8431543c29e6432fa02ffb761c4f515e762f587423ec3a052c808889642f3fd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

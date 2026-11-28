@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-scrap-compactor-red-four-live-sparse1355-unpaid-scrap-no-instant-evo-permission-real-base-chest-and-blue-funder-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scrap-compactor-red-four-live-sparse1355-unpaid-scrap-no-instant-evo-permission-real-base-chest-and-blue-funder-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1355-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1355-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e36137fab34014870f7bd767532ce974c23b9fa42c8eb0a3d4373d4940f3828a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef6b5916b0819c355698ddb5a13182877f790ddfa87fd7ce1b666edc278fddb6",
+        "actions.json": "21de819108125153dce2a487f60d94aa8d8b93ac95786dfae6d07bbe5c6cf478",
+        "assertions.json": "d4c1f350ad4f45e8dee5f1fe77a45efc07ca84922954d0cb1cd0bdd9026b6253",
+        "expected_final_gamestate.txt": "cc9da28201e63cd24d6dee3e2517366d285668022a7eb3ed4b77da6ef8455c57",
+        "meta.json": "2de0247b709f32e6e9d9ffaa1395e6e21320fd0f29c1b77684e8590985cbd423"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

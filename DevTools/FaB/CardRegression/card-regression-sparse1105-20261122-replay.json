@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-golden-glare-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-golden-glare-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8266b58480d0975bee8ea98210a8a217af45298f4b02e3b051ac4a18c326e709",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae2a84a6bf01b8e7394cc1f4ef8e6af61f9e00528c80ecd2290ea87ca548a105",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b50037b93b18ca111aa3f4eec526ae4d5d99a12a743c056fae22196d2bec1726",
+        "expected_final_gamestate.txt": "3bccc6938c1a9b19b5a66bb0a28e71d9dba5cd7b03a29736ed852312e2027765",
+        "meta.json": "3e07fe2e0da8ef95a6675ef1d49dad933e6a123016dd2c87695dba46adbe19df"
+      }
+    },
+    {
+      "slug": "card-face-purgatory-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-face-purgatory-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "68f6e7d49d856310ec2993a0d607023479c0a40ef9f0c1b7be7a9321695df8ea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14d88b89990eae76081616744066f40171dc143ca976fa75fdff4c909c71aa0e",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b239eb909b532b406480b93880c3a74b054325bdf43ade0ea83762fc5bd44190",
+        "expected_final_gamestate.txt": "255122f59d259c1e7a2303947cdee82e8530ccc265305fdf295f514d58da9498",
+        "meta.json": "b216b962065b4d92fde6909c5580ea0ce7500f72390d8afa58cf2535b57231ad"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

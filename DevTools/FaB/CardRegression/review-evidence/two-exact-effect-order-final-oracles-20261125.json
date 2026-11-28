@@ -1,0 +1,161 @@
+{
+  "status": "TWO_EXACT_ORACLE_REPAIRS_COMPLETE",
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "fixtures": [
+    {
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "passed": true,
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\final01.log"
+      ],
+      "complete_log_sha256": "9521002f8926d7d4d6643006f576ecb2e1f5415a888ba6b9e6938b3765dee3c6",
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "before_expected_sha256": "8bf39c9126be6c4645032a3a59d782e5742977409b594b2eda6a6b037ac6c073",
+      "expected_sha256": "c57de08266981ff56301f2b5797df07856c45ef67f405e04e02451a39e450f24",
+      "exact_grant_moves": [
+        {
+          "location": "line97/GameState",
+          "old_slot": 7,
+          "new_slot": 5,
+          "unchanged_grant": {
+            "type": "IAR_BLASMOPHET_ATTACK",
+            "amount": 1,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line106/Versions/v0/90",
+          "old_slot": 7,
+          "new_slot": 5,
+          "unchanged_grant": {
+            "type": "IAR_BLASMOPHET_ATTACK",
+            "amount": 1,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line108/Versions/v0/90",
+          "old_slot": 7,
+          "new_slot": 5,
+          "unchanged_grant": {
+            "type": "IAR_BLASMOPHET_ATTACK",
+            "amount": 1,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line110/Versions/v0/90",
+          "old_slot": 7,
+          "new_slot": 5,
+          "unchanged_grant": {
+            "type": "IAR_BLASMOPHET_ATTACK",
+            "amount": 1,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line112/Versions/v0/90",
+          "old_slot": 7,
+          "new_slot": 5,
+          "unchanged_grant": {
+            "type": "IAR_BLASMOPHET_ATTACK",
+            "amount": 1,
+            "uses": 1
+          }
+        }
+      ],
+      "four_companion_files_unchanged": true
+    },
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "passed": true,
+      "exit_code": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\ordering-oracles\\final02.log"
+      ],
+      "complete_log_sha256": "76f2afe71326fca7f1ede276f2fda095be5976c58a21876a8c70efd269ba0143",
+      "runtime": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "before_expected_sha256": "585fa596e105e33ae926e37ca1e8fd05472158138b4544eb10e9f2568f04b57f",
+      "expected_sha256": "bfe31d33eb02cfd83bba96982487f2da959eddd5bb5d2098300c1f39238551c4",
+      "exact_grant_moves": [
+        {
+          "location": "line90/GameState",
+          "old_slot": 6,
+          "new_slot": 4,
+          "unchanged_grant": {
+            "type": "EVO_NEXT_BOOST",
+            "amount": 2,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line99/Versions/v0/90",
+          "old_slot": 6,
+          "new_slot": 4,
+          "unchanged_grant": {
+            "type": "EVO_NEXT_BOOST",
+            "amount": 2,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line101/Versions/v0/90",
+          "old_slot": 6,
+          "new_slot": 4,
+          "unchanged_grant": {
+            "type": "EVO_NEXT_BOOST",
+            "amount": 2,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line103/Versions/v0/90",
+          "old_slot": 6,
+          "new_slot": 4,
+          "unchanged_grant": {
+            "type": "EVO_NEXT_BOOST",
+            "amount": 2,
+            "uses": 1
+          }
+        },
+        {
+          "location": "line105/Versions/v0/90",
+          "old_slot": 6,
+          "new_slot": 4,
+          "unchanged_grant": {
+            "type": "EVO_NEXT_BOOST",
+            "amount": 2,
+            "uses": 1
+          }
+        }
+      ],
+      "four_companion_files_unchanged": true
+    }
+  ],
+  "derivation": "Two named exact causal oracle corrections, including four embedded Versions undo GameStates each. Move the unchanged grant before exactly two later grave-accounting rows. No arbitrary order normalization, no copied observed values, no comparison changes. Entire complete captures match this prediction.",
+  "independent_review": {
+    "reviewer": "/root/breadth_review1457",
+    "status": "APPROVED_TWO_EXACT_FINAL_ORACLE_CORRECTIONS",
+    "proposal_sha256": "684e4c9e212a6bdea800d5199e82ba5ffb1bb4f05177c6c2c54581c0d381690c",
+    "script_sha256": "e92844b0770a21fbf89abbf62e96ac1b63513e5a5648c3b4f1920fe707cce8e7",
+    "scope": "Independently checked originals/candidates, source lifecycle and Versions serializer/restore, exactly five JSON grant moves each, complete actual byte match, unchanged four companion files. No broader normalization approval, no independent games or writes."
+  },
+  "engine_changes": false,
+  "comparator_changes": false,
+  "new_scenarios_or_groups": 0,
+  "full_suite_run": false,
+  "receipt_parser_correction": "Both native runs exited0 with summaryPass1/Fail0; initial local receipt mistakenly searched Passed:1 instead of supported Pass:1. No replay repeated."
+}

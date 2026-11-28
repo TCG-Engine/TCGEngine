@@ -1,0 +1,7 @@
+{
+    "name": "The Weakest Link / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:05:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, look at their hand and choose a card without base {d}. If you do, they discard it and you draw a card. ActualGenericHandblocks3+3fullyblock5/6, zeroactualdamage/nohit/AP0, physicalcardsownerGY. Positivehiteffects andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#the_weakest_link_red"
+}

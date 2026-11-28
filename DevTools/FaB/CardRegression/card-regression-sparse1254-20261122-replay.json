@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b9546680286b0e966dd24491e07704f2d4df004ea131c628b832e13b602bbdaa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a25e93ce9fcf881342e380a1dcabc8b525e8e689b39eff862f805eb8b0ab5e3",
+        "actions.json": "8cdb4ee03a8a0656d861a8d8df7d137be033749d9bf1b37fa1dd0aa0f513e98d",
+        "assertions.json": "42b4e1ebbb79dde0983c2043f441f2d284eead594e4be5ca858461a4bb5573be",
+        "expected_final_gamestate.txt": "db0f5f8f7c8df1b2139bb9125b5ccdd260b3761180a0d89d9f48ecbdf695d206",
+        "meta.json": "9f10651ec6f6e873c15530fb924794b8b917866a85124e871c6698480232e8d1"
+      }
+    },
+    {
+      "slug": "card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8aef52488cf286d507602d68e5414f7df591842d8196b7e5d16e588b6b5ddc64",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d8f8fdf40edcd0b587a12b0b758db7444b5233584d7bdb79b0a66af529f43a67",
+        "actions.json": "8cdb4ee03a8a0656d861a8d8df7d137be033749d9bf1b37fa1dd0aa0f513e98d",
+        "assertions.json": "5da1ab240fa23ddabbdc9b849195f53a396b9e7947b25700ab316d08f6017969",
+        "expected_final_gamestate.txt": "006699ec07e81b82463858b9d1a8eaae657a25f281a851cbd472006661025b59",
+        "meta.json": "7960a8732fb009ba6c2f21a2d6c0dc3c404070df34856bb1e4e3b4ab1f357d59"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-levia-four-live-sparse1280-real-six-power-banish-via-paid-ebon-fold-suppresses-blood-debt-through-turn-end",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-levia-four-live-sparse1280-real-six-power-banish-via-paid-ebon-fold-suppresses-blood-debt-through-turn-end",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1280-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1280-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "90ec635021ce2d5d82907bb8b21c0ae5164305f8feef0249cf7ee95d6deb0fd7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0550da29916732ce0f224d25686f61013d61b2f2d290371f6d3190242497a6ba",
+        "actions.json": "4af6f0d84793ccaa65aee0a0c184a66e93a2aa0439ce1255b4c080ca10790b14",
+        "assertions.json": "40edff674e7fd312a2a633c337cce9d39acfba4a03912b416cf415ca3876c8df",
+        "expected_final_gamestate.txt": "21d6fa1662c3c585732e812eef1b75483a15c58aca205c128cae0fab4cc8620a",
+        "meta.json": "f0fd95c2b22c9862dd85390860813e5aa3c03d13c9e01374dc047c18ca446f91"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

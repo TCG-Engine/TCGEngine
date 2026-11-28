@@ -1,0 +1,7 @@
+{
+    "name": "Spider's Bite / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:07:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: **Attack**. **Go again**\n\nWhen this hits a hero, the next time they defend with 1 or more attack action cards this turn, those cards get -1{d} while defending.\n\n**Piercing 1** Representative only: real_first_weapon_attack_uses_blue_pitch_and_deals_0_without_conditional_bonus. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Only first native attack ability; conditional weapon bonus, repeated attacks and end phase untested. Physical weapon stays Weapons; attack proxy has no asserted rules owner. Actual generic AA defense3, no equipment, blocks printed1 completely:0damage/HP20, no hit/debuff earned, printedGA still grantsAP1. Physical defender7 goes ownGY. No successful-on-hit debuff credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spiders_bite"
+}

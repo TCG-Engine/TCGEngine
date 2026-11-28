@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1409-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1409-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8f19338813b7d902c336ce1622dd0868a68964aa665183dc7f13efe85aaabd11",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "09a006558909c5e39482f0d0db74a1b04d5cf6f0ddc795f5ef0f54e40e58e3fa",
+        "actions.json": "1ef8eec5aed2154c7817a39af9ff3c09b288ce5243af0af010ba4466389c4188",
+        "assertions.json": "b20f753e81cda5a244c3fa057f8afe350913a73331e4fe8a22ddccd3e69f6932",
+        "expected_final_gamestate.txt": "9071085bfde3680bcd8babc994e39ed70fc18caa7d75d1e832952b486b715997",
+        "meta.json": "6adf7f337dc6cbb03b36cf5e992633e436dbd374ebb6d092fd6ad1b6622d2fbb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

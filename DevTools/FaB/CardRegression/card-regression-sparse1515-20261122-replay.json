@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bloodrush-bellow-yellow-four-live-sparse1515-real-resource-discard-six-draw-and-buffed-claw-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodrush-bellow-yellow-four-live-sparse1515-real-resource-discard-six-draw-and-buffed-claw-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1515-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1515-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a25f0286ab84b8993bbf50b76787081b140b1314440b849c6dbfccbb86e10e7e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16e8bc052ec336e909bbdc0c77077f48a71544ae01688a10dd513c18a8036582",
+        "actions.json": "70a2e83de08e311434e3c727158eed362a8ee6739a4962d2b1ccdd4dfb7125e9",
+        "assertions.json": "a5ff19b243f70d6be4290a4b2592ee8977d7948a6091ca48ab482f3b922c5b4b",
+        "expected_final_gamestate.txt": "5c8841c3d12353e739cfcf4b00db67bd7a8ba7b79042a5a90cab5342dcdcc6dc",
+        "meta.json": "3c179e14195acc7a61b07e57e645a66eea9080498ed0dbbd3783ab076ae352e1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

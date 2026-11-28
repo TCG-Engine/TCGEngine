@@ -1,0 +1,7 @@
+{
+    "name": "Scurv / opponent Gold cannot pay Hero cost; action and ready status retained",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:05:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGSCURV20_THREEDORI20. SourceHero1readyStatus2/AP1R0/ownArena0; realGold5ownedcontrolled2Arena2existsbutnotyoucontrol. NativeHeroActionclickmustrejectmandatoryownGoldcostbeforetap/AP/proxy/destruction/GoldkissRum/choice; sameGold5/Hero1ready/AP1/R0/UID6/emptyStackDQ. EarlyFaBSEAAbilityLegalownedGoldguard meansnoactualobjectcost/099routeperformed. ActualGenericWounding6Hand0costthenlegalHero4declaration/fourresponses/4power4damageHP16usesretainedaction\u2192AP0, Hero1stillready(noactivation), Gold5Arena2sameUIDOwnerControllerStatus2/noRum/newtokens/UID6RNG0. FullcloseWounding6GY1/allHandempty/onlyArenaGold2/StackDQquiet. Onlyownershipcostfailure/atomicnoTap-noAPspend/nativefollowupguard. PositiveownGoldpayment/destruction/activation/Rumcreation/RumresourceWHEN/timing/Herootherbranches/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scurv_stowaway FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SEARuntime.php FaBSim/Custom/SEACards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

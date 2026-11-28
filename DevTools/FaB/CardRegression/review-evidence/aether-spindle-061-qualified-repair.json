@@ -1,0 +1,47 @@
+{
+  "status": "FIXED_VERIFIED_NAMED_OWNED_RED_FOUR_LIVE_OPT_BRANCH",
+  "utc": "2026-11-03T00:01:25.085317+00:00",
+  "issue": "FAB-REG-061",
+  "related_existing_family": "FAB-REG-021",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "before": "review-evidence/aether-spindle-061-native-before.json",
+  "source_application": "review-evidence/aether-spindle-061-source-application.json",
+  "independent_source_review": "review-evidence/aether-spindle-061-independent-source-review.json",
+  "source_spec": "card-regression-batch266-aether-spindle-correct-probe.json",
+  "input_sha256": "c178ec1308581f2cfa87965eb4af2cc3c1450ffe849bc18cc89f8b28d6a706d5",
+  "passing_fixture": "card-aether-spindle-red-four-live-correct-probe-real-four-arcane-opt-four-retains-spell-until-final-choice",
+  "independent_exact_saved_review": "review-evidence/aether061-saved-f40e-independent-review.json",
+  "independent_exact_saved_review_sha256": "a037c799a9e324cf4604f103880255a9209df8efb5836dec81813226ac9f6697",
+  "two_clean_creation_replays": [
+    {
+      "path": "card-regression-replay-nov2-aether061-f40e-r1.json",
+      "sha256": "f9eac9243adf950f3533454b33c8daf174cdbdf527cabc3c21c7df9b5ee5fd75"
+    },
+    {
+      "path": "card-regression-replay-nov2-aether061-f40e-r2.json",
+      "sha256": "e8c3cdf2ad456aaef3894cd43e1d7d0127f6654e3d5cff5d6114ad9cfcd1876b"
+    }
+  ],
+  "native_actions": 8,
+  "native_persisted_assertions": 824,
+  "actual_manual_response_passes": 4,
+  "native_before_after_unchanged_input_and_first7_actions": true,
+  "verified_effect": "Real2cost/Blue3/targetP4/4responses; actual4arcane, physicalSpell5 retainedStack/GY0 through realOpt4; realanswer producesDeckUID10/9/8/7 then clearsSpell5 to ownGY; R1/AP0/HP4=16 and allqueues/framesclear.",
+  "source_change": "Exactly3AetherSpindleID entries in existing FaBPlainSpellResolutionIsManaged list; no effect macro, manager, Known-policy, generator, Core or other source change.",
+  "classifier_contracts": {
+    "actual_before": 33,
+    "actual_after": 33,
+    "intended_route_changes": 6,
+    "unchanged_per_version": 27,
+    "reused_validated_candidate_matches_actual_R": true
+  },
+  "gameplay_fix_count": "One named existing-family caller extension. Zero new shared infrastructure root.",
+  "coverage_credit": "One red representative for pitch-cycle:aether_spindle; no sibling or full-card credit.",
+  "remaining_unverified": [
+    "Yellow/Blue native gameplay",
+    "INSTANT play, Arcane Barrier/prevention, alternate Opt choices/counts",
+    "Foreign ownership/elimination and separate go-again/suppression policy"
+  ],
+  "full_integration_suite": "NOT_RUN_USER_OWNED",
+  "legacy_component_limit": "Last observed ARC Kano and3MON-prefix assertions failed identically at8920/ECCB; laterMONcontinuations/botsUNRUN. Not rerun or claimed passing atf40e after the card-specific registry change. See nov2-components-baseline-comparison.json."
+}

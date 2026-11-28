@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch370.json",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T20:49:30.178193+00:00",
+  "fixtures": [
+    {
+      "slug": "card-shiver-four-live-sparse-real-paid-instant-loads-owned-arrow-and-power-mode-fullblock",
+      "fixture_sha256": "35d03c605ee2fa9828839b413ce41daef40bf8a9ff1df4c287fa9ca165c8b5ef",
+      "passed": true,
+      "result": "[PASS] shiver / four live distinctive effect"
+    },
+    {
+      "slug": "card-glacial-horns-four-live-sparse-real-destroy-action-chooses-nonadjacent-hero-freezes-owned-arsenal-and-ally",
+      "fixture_sha256": "40a62cc8d58feef7f307151fe334a810b02309f819d0242801484e2da0149505",
+      "passed": true,
+      "result": "[PASS] glacial_horns / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shiver-four-live-sparse-real-paid-instant-loads-owned-arrow-and-power-mode-fullblock",
+      "returncode": 0,
+      "stdout": "[PASS] shiver / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glacial-horns-four-live-sparse-real-destroy-action-chooses-nonadjacent-hero-freezes-owned-arsenal-and-ally",
+      "returncode": 0,
+      "stdout": "[PASS] glacial_horns / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

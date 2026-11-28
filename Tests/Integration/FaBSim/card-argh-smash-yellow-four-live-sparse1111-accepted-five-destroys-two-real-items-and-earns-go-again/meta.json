@@ -1,0 +1,7 @@
+{
+    "name": "Argh Smash / four-live real two-owner item destruction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:44:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Roll a 6 sided die. Destroy up to X items, where X is half the number rolled, rounded down.\n\n**Go again** Named acceptedface5/twoeligibleItems positive. ActualAction3paidbyrealBlue6pitch3/R0/AP0; ownTalisman7andopponent4Potion8 remainuntilfourmanualresponsesandvalidacceptedEngineRandomInt/FaBEVRRoll5. Independentprintedrulefloor5/2=2 permitsbothactualItems. RealMZMultiChoose selectsown7andopposing8; physical7movesownedGY1,8ownedGY4, thenphysicalsource5ownedGY1/GAAP1/funder6Pitch/R0/allHP20/noextraUID/Random1. ProbeW-only adapter suppliesoneguardednativepass; fullcanonicalspec usesoriginalnative decisionpredicate, dispatchingidenticalonePassactor4 withidenticalinputs/assertprefix throughRNG. NoPRNGdistribution/otherfaces/rerolls/alternativequantities/floor-vs-eligibility-cap discrimination/nonadjacenttargets/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#argh_smash_yellow"
+}

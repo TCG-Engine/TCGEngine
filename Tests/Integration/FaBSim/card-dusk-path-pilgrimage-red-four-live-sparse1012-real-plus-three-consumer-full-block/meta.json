@@ -1,0 +1,7 @@
+{
+    "name": "Dusk Path Pilgrimage / four-live real +3 consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:25:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next weapon attack this turn gets +3{p} and \"When this hits, you may attack an additional time with this weapon this turn.\"\n\n**Go again** Actualuntargetedspell5cost1paidBlue6 resolvesafterfourmanualresponses/AP1/ownedGGY5. ThenactualDawnblade7nativecost1paidR2toR1 consumes+3: computedpower6 vsactualHandblocksDEF6 gives0damage/noHit/HP20, all4manual. Dawnbladebase3+3=6, noHitmeansnoDuskadditionalattack/DoriHero/Dawnbladehit event, AP0. Physicalweapon7usedstatus1/turn2attacks1retained, Blue6Pitch, NAA5GGY. No positiveHit/alternateconsumer/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dusk_path_pilgrimage_red"
+}

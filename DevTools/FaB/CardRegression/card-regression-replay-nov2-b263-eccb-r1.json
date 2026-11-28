@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch263.json",
+  "runtime_sha256": "eccb0e932251262e0a946fcca0fcdf03d3c8705eef951f11cd51acc8e38ab421",
+  "returncode": 0,
+  "completed_utc": "2026-11-02T22:40:35.351020+00:00",
+  "fixtures": [
+    {
+      "slug": "card-grille-of-repentance-four-live-sparse-real-destroy-cost-then-turns-owned-blood-debt-card-face-down",
+      "fixture_sha256": "e098c14d615919f375d6a2a2e85da9fba435ed859a71e3702cbe7c1f1f81737f",
+      "passed": true,
+      "result": "[PASS] grille_of_repentance / four live distinctive effect"
+    },
+    {
+      "slug": "card-grimoire-of-fellingsong-four-live-sparse-real-paid-destroy-creates-runechant-then-actual-one-arcane-and-four-physical",
+      "fixture_sha256": "be2dcccd20a9adae1ea1977182cdd8bb63556d904e8c271bbf0d1744965a92c3",
+      "passed": true,
+      "result": "[PASS] grimoire_of_fellingsong / four live distinctive effect"
+    },
+    {
+      "slug": "card-honing-hood-four-live-sparse-real-destroy-return-existing-arsenal-then-load-different-hand-card-face-down",
+      "fixture_sha256": "fb5e4c4082fe02046b0a0dec9b93d58206a6197d0f5b4689243a172f5e4a25a6",
+      "passed": true,
+      "result": "[PASS] honing_hood / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grille-of-repentance-four-live-sparse-real-destroy-cost-then-turns-owned-blood-debt-card-face-down",
+      "returncode": 0,
+      "stdout": "[PASS] grille_of_repentance / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grimoire-of-fellingsong-four-live-sparse-real-paid-destroy-creates-runechant-then-actual-one-arcane-and-four-physical",
+      "returncode": 0,
+      "stdout": "[PASS] grimoire_of_fellingsong / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-honing-hood-four-live-sparse-real-destroy-return-existing-arsenal-then-load-different-hand-card-face-down",
+      "returncode": 0,
+      "stdout": "[PASS] honing_hood / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

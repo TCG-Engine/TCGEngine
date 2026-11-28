@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T23:48:53.959032+00:00",
+  "runtime_sha256": "83b6a69edb6781cdfe55e5e53d596f6ba443b84a3ab23173a45a6b232a9ad6d1",
+  "source_spec": "card-regression-repair-searing123-captured-hit-life-loss.json",
+  "source_spec_sha256": "b8844719d94022c6a1de43eeec106324a3790e40d6c6b08fe2e35e08fc29e32b",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 31,
+  "native_assertions": 2623,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4145,
+    "duels": 3074,
+    "four_live": 1071,
+    "recorded_primary_ids": 1298,
+    "identity_denominator": 5196,
+    "recorded_groups": 1172,
+    "group_denominator": 3324,
+    "four_live_groups": 1064,
+    "phase_qualified_scenarios_at_actual_contexts": 782,
+    "phase_qualified_unique_groups": 777,
+    "creation_replay_passes": 1523,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "searing_shot_red",
+      "group_id": "pitch-cycle:searing_shot",
+      "scenario_id": "card-searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe",
+      "effect_branches": [
+        "searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-searing-shot-red-four-live-current-hero-hit-trigger-before-one-life-loss-correct-probe",
+      "source_spec": "card-regression-repair-searing123-captured-hit-life-loss.json",
+      "source_spec_sha256": "b8844719d94022c6a1de43eeec106324a3790e40d6c6b08fe2e35e08fc29e32b",
+      "review_evidence": "review-evidence/searing123-83b6-qualified-saved.json",
+      "review_evidence_sha256": "75c5f443ddcf47c6f02a4212d3548a5d4aca53478d5a305d6a49f88b6f8a118d",
+      "recorded_runtime_sha256": "83b6a69edb6781cdfe55e5e53d596f6ba443b84a3ab23173a45a6b232a9ad6d1",
+      "qualification_runtime_sha256": "83b6a69edb6781cdfe55e5e53d596f6ba443b84a3ab23173a45a6b232a9ad6d1",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-searing123-replay.json",
+          "sha256": "69a2e87486329d550013fdcec9ed5c353ac1ab490bca75ac2bf1a7641488770a",
+          "runtime_sha256": "83b6a69edb6781cdfe55e5e53d596f6ba443b84a3ab23173a45a6b232a9ad6d1",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

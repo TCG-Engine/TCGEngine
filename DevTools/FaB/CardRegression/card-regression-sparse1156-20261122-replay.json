@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chains-of-consecration-yellow-four-live-sparse1156-prevents-existing-nonshadow-ally-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chains-of-consecration-yellow-four-live-sparse1156-prevents-existing-nonshadow-ally-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1156-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1156-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "33ae64dd7eb4100104d9e7848956f0d421e37e835976197da6e43f4c969f6d8e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "73d5cc5f58f115e93c8832509a2373982eaca66122ebe7e98c3727a9b2e3feb5",
+        "actions.json": "2dd45e3070c0a18e5ca1ac7ec73d2d80c9f53e0c9ca2a97edced7fe56c6ef0c4",
+        "assertions.json": "533a9455f22d023d14be2ec0f94692eed00b39ae8c6d88bba0f28fb972c2a871",
+        "expected_final_gamestate.txt": "ec79dc07ee813862ca445c9353f785a55cf3a7afb8f4e1418e4feb3041fc1161",
+        "meta.json": "ad2398e216908766a434e6dc6a0774276bb20135f66b5269c5ee275db09c2791"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

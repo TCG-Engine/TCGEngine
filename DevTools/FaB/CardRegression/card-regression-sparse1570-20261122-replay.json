@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bravo-star-of-the-show-two-live-ll-sparse1570-real-own-start-three-element-reveal-nine-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bravo-star-of-the-show-two-live-ll-sparse1570-real-own-start-three-element-reveal-nine-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1570-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1570-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "54f8a5a68a25f0024cb6d7fae3025fb866427f9cf9428326f92859d8da362771",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6257ad0b617bec3aa7b9d573b534985c34b7725f2723ef3f43ead85642906f0f",
+        "actions.json": "135e1ff93a71a69657cc97c637a13324b52a960813b82132bd11c5ec2ffdca7f",
+        "assertions.json": "2915dd55f2a2d797ab2b8156f8f82329f961d2985886d76efb3785cdc162b86c",
+        "expected_final_gamestate.txt": "2e89ac665e3243e128358c13c81c6fa8f0697af976434feeed7430b6664c09f9",
+        "meta.json": "4ea5921fc131357794dbd42dcb394316d5ed112e972930340bf19bb53cd00541"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

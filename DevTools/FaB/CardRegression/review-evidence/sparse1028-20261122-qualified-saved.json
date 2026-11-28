@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1028-20261122.json",
+  "source_spec_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+  "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-affirm-loyalty-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+      "card_id": "affirm_loyalty_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ee57018b4428cb85e3c437fb4f8e93df2b7a9237c342d5173876d047ea41617",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "5c7d87808bba23c73b8f582ea24e36edbf1bba0b353cba4beaee0ace3b2c8f28",
+        "expected_final_gamestate.txt": "cf7f2565c8fdbef1c732fd5da74704117100009621daa1f24aa36ac133324a05",
+        "meta.json": "13c640dd9117f8e454d54e96a363113d7cf45f9893bb1ed674fb24e7a2ead850"
+      },
+      "fixture_sha256": "da78819bba0310612b8a396ba159b15c10a8bdca907d9990853227b93f29cbae",
+      "actions": 30,
+      "native_assertions": 225,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1028-20261122.json",
+      "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-affirm-loyalty-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "fixture_slug": "card-affirm-loyalty-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blistering-blade-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+      "card_id": "blistering_blade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51c16c2697777cc2bab1a3bae660f920277f928cb2a4232fa95776c0ba24ad25",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "547e673f59bdd59767648270a883e3508f26bb9148b3af295825b65d0f997017",
+        "expected_final_gamestate.txt": "73ef19dc75595152683a5a6e9425b18b2f4431fed775df52073dbc54fabf7682",
+        "meta.json": "8d679928ffc096437bed93aeed2bbfb78200f72dd626733870c792e0ec031f45"
+      },
+      "fixture_sha256": "f1de5da4a95b3d4befdd013f705ab5a46b58c2927cab04458a75a3ac954a565f",
+      "actions": 30,
+      "native_assertions": 225,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1028-20261122.json",
+      "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blistering-blade-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "fixture_slug": "card-blistering-blade-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dynastic-dedication-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+      "card_id": "dynastic_dedication_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "93fc4b95db02f28dfc5164162f479064d056c460efdb0cb02caafb30cfa6c925",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "76c5a33baba50d1fcfb3900fd6e7c16ef94ec7a31a090bfea5f267181d97ff61",
+        "expected_final_gamestate.txt": "3e37e913c568659ec723a300712f25d1397bb8ba919bd64282166c6bed7b1c57",
+        "meta.json": "8228ab1c27d8da006ed036765048aed36cbaa20c9d329d4540967add3aa92fc8"
+      },
+      "fixture_sha256": "ae902a070fa47849a999987666fa8c147ddcc89b80e9515541ca4e066f9f1ce9",
+      "actions": 30,
+      "native_assertions": 225,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1028-20261122.json",
+      "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dynastic-dedication-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "fixture_slug": "card-dynastic-dedication-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-endear-devotion-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+      "card_id": "endear_devotion_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86f55cc2f468347726951e3c91ed1e5131557704906189e4324d63d28b18e308",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "948de9c3ade50333310b070620b562b49cce45a1487fd26f201aa319c6dd52c6",
+        "expected_final_gamestate.txt": "1b5db1b27a8232456d07ffa1329505b4630f6685aca05aaba169805348738620",
+        "meta.json": "0fc52df7429ef9b347b8ea3617a1fff0bbec1baa9934e605d06833cc536cb085"
+      },
+      "fixture_sha256": "c141fcaa2375f272276640e256b6f73c1906d948c67b01e7144a37b255c55fc5",
+      "actions": 30,
+      "native_assertions": 225,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1028-20261122.json",
+      "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-endear-devotion-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "fixture_slug": "card-endear-devotion-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-imperial-intent-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+      "card_id": "imperial_intent_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4164d91ab0d484ed10f82a58dd9c98298e18dd7e4976395d60cad3209f6dcb31",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "1a749be03f758945a11005140b978efd5260f00c3351d173144a4483b96ce94f",
+        "expected_final_gamestate.txt": "b67ee92bf013005ee1af75d36a64890f5350aa1a03cb425c64def81f58098d47",
+        "meta.json": "ca1f19c32f490a32f6c7cc8668f0d027e305f32bfdc892bf15a31029599aadef"
+      },
+      "fixture_sha256": "5c7bb347e8775ebc637e439a46217cd7f91c65d88830430332e83c288de5406b",
+      "actions": 30,
+      "native_assertions": 225,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1028-20261122.json",
+      "input_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-imperial-intent-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "fixture_slug": "card-imperial-intent-red-four-live-sparse1028-dagger-only-reaction-rejects-real-current-sword-with-sufficient-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e1fd23a81f1826c83a875248a93df88c79cdc45006b7029fdc5f90378d4fb3da",
+    "reviewer": "breadth_review independent source/spec review",
+    "basis": [
+      "All five cached Draconic Warrior Attack Reactions explicitly Target dagger attack; printed base costs0/0/2/1/1 fit actual remainingR2. Legal natural20 Royal Draconic Warrior Fang supplies class/talent, not a dagger subtype to the current attack. The current owned actual Dawnblade6 is Warrior Sword, not Dagger.",
+      "Read HNTCanPlay generic printed Target dagger attack selector guard (no Choose syntax): FaBHNTAffectsAttack(DAGGER) must exist. Actual current Sword at own REACTIONpriority1 is a real attack, but is not an eligible dagger; no unrelated phase/assets/hero/class/affordability mask. No primaries have an additional mandatory play cost.",
+      "Reviewed unchanged1023 real-target/Blue7cost1/R2/one actual WarriorsValor8DEF3/full-four-manual reaction transport. Rejected primary5 remains ownedHand/Stack0/queuesempty/R2/AP0/priority1; actual Dawnblade3 vs NAADEF3 gives0damage/noHit/HP20, no Fang marked-hit/Fealty or Dawnblade/Dorinthea hit event. Final physicalweapon6used retained, actualBlue7Pitch and defender8ownedGY.",
+      "Queries persist source/target subtype, printed cost assets, exact physical fates/HP/damage/AP and all live seats; no author-only diagnostics."
+    ],
+    "limits": [
+      "Wrong-target-subtype admission rejection plus blocked real Sword followthrough only. No positive late-target/reaction body, power/discount threshold/Fealty creation/ownership, Draconic links, Fang/hero/support/sibling or whole-card credit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1028-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7bd4d42b78db8ebf2c3d9988edcc9aded99bd26e12b58004cbc0dcebcfef395b"
+  },
+  "full_suite_run": false
+}

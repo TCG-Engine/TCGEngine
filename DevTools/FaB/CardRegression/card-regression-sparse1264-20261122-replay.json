@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bde6b19f24b6cb9e0f71a7491858b31bbcb67124438c5bd6df7659aac6078c6e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69cd27a126ca25a5ae644e91bca5c7bd79795e4d81a12f94e460529ffd8dabcb",
+        "actions.json": "58f14f87a6f0339328d66eadd26fb12578ade0b64e4e3d68404faaed29347fa5",
+        "assertions.json": "562389516197138cff00d8b6645f485fcf460220d13b4a48731c7c5a80760c5a",
+        "expected_final_gamestate.txt": "5a972898c0414395cab1ebe9018058ae7e113f5616463af0dafbbaaab12faca2",
+        "meta.json": "ac93f695f05a8de0ae2cc948f5fe228b9754619a42338175604d0d4b9e990f72"
+      }
+    },
+    {
+      "slug": "card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d5641fa7f72c62bffd0cf02b343ac56fb24bb751653b22143523318e756fb55b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71489ba7189552d9f1a026b714e6fe2253562bd83b45ee3fc168727015cda54e",
+        "actions.json": "d864c7b450e1c8e9094f9d7892f6cd8d1d8e83c647eee762398be675e921357b",
+        "assertions.json": "5507933014e257f7c80bd6bddcb2c6907fe49415abcecb9e76a1efe7913863c0",
+        "expected_final_gamestate.txt": "37c2f6f223cffbd9140859bdeb5a93211a593c9abc529b50478256399bc9b123",
+        "meta.json": "eac86cab8fb12cde47ce35ca70c39a131cc725b974181b1a7e94b7e6d2c97fad"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

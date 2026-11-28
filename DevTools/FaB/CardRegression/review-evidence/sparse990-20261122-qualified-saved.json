@@ -1,0 +1,142 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse990-20261122.json",
+  "source_spec_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+  "input_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-inertia-trap-red-four-live-sparse990-actual-base-power-attack-no-typed-trap-trigger-or-inertia",
+      "card_id": "inertia_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36bbc0b9eafcb498d6f847ee1f852c19bdf00222a364dc1d8ab1d052ba28da0b",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "24969e1113b8fb84c6d6f6c95747a6ba3f5f0e838b485c55ec8f9c48d73bc968",
+        "expected_final_gamestate.txt": "040a2a857b37dbec249fe68c251a2f603ffbede4476926520237c5e79702bc64",
+        "meta.json": "b107b64bfd33a0c96ef250b1a1c6921b6e0f90a7efcd143a8eaeceee6b9039ac"
+      },
+      "fixture_sha256": "e80bfd28c83039032053eadf384c9dcbba8825f1856fe549e56e8c6d8505eb07",
+      "actions": 36,
+      "native_assertions": 293,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse990-20261122.json",
+      "input_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse990-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-inertia-trap-red-four-live-sparse990-actual-base-power-attack-no-typed-trap-trigger-or-inertia",
+        "fixture_slug": "card-inertia-trap-red-four-live-sparse990-actual-base-power-attack-no-typed-trap-trigger-or-inertia",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-frailty-trap-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-frailty",
+      "card_id": "frailty_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51c1e6a089f0e46861c6542e82dd4f1de9d647e495adf83ce9a8f8c37ca1cadd",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "8dc31052b3413081f2c482b7d1dd23845c703da1df1135f7199bdf4cf24286ca",
+        "expected_final_gamestate.txt": "fc88907430bb9d7d0a5a936cae386102522160cbd52edf27714faa34fc1a9b4a",
+        "meta.json": "76c3300116d0984fcdec2b619af268df031055c5a77c166dfaa291940ee559a3"
+      },
+      "fixture_sha256": "156b1d1ed494e82e7749d9cae2167b4dce70f58a57ef3eefb7bc7b119b96ee6f",
+      "actions": 36,
+      "native_assertions": 293,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse990-20261122.json",
+      "input_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse990-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frailty-trap-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-frailty",
+        "fixture_slug": "card-frailty-trap-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-frailty",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lair-of-the-spider-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-mark",
+      "card_id": "lair_of_the_spider_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a09c45cdd8be01e2b31576abc4ad8686c795dd3d172a8c9da6949a93d84bf42e",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "fdf6e1be456e1137dcc36b6baf93f6669b143611e1255745880d70cc89a4ef38",
+        "expected_final_gamestate.txt": "1c61fd8c7a6da69e07e522d8fad456787becb10e565b8cabf4ae6c4208472e4b",
+        "meta.json": "7b6c2e36988c15fbccd0a56002df279d06fafe101919f522bc18107e2194867d"
+      },
+      "fixture_sha256": "b1bd7f6413bc09a0e8aebf91e04146463693c3cbd1df6bdc713dc75548631081",
+      "actions": 36,
+      "native_assertions": 293,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse990-20261122.json",
+      "input_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse990-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lair-of-the-spider-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-mark",
+        "fixture_slug": "card-lair-of-the-spider-red-four-live-sparse990-actual-no-go-again-attack-no-typed-trap-trigger-or-mark",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-collapsing-trap-blue-four-live-sparse990-actual-no-go-again-attack-retains-real-attacker-hand-and-deck",
+      "card_id": "collapsing_trap_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4be641849b2798aee2d4749e5b586c3318220bf2c49bd5da27f80d444a4775b9",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "79d9a67aa513ba0d2c516acf62774161fb6101c4fbf6c23d0fbc54a5879de53c",
+        "expected_final_gamestate.txt": "69709f126c848316d842dae17ae89e6f1e81c4b9346c3626c2b958d400c128c6",
+        "meta.json": "44cdcc5b3d477cca710337bb7fe29f87f365e4d537d7c3db5ad354bf91b6c856"
+      },
+      "fixture_sha256": "95d5a72ea3782baafb28f8dc044a9c70155e62b8b942e746272202c053759d01",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse990-20261122.json",
+      "input_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse990-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-collapsing-trap-blue-four-live-sparse990-actual-no-go-again-attack-retains-real-attacker-hand-and-deck",
+        "fixture_slug": "card-collapsing-trap-blue-four-live-sparse990-actual-no-go-again-attack-retains-real-attacker-hand-and-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 990,
+    "spec_sha256": "51c09ff75fbd700b65c2763a1fa62446cd07118224b4cb34188f4a867a9fd4ea",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "findings": [
+      "Currentprintedcost0/defense3 all4; actualbase7 RagingOnslaught hasnoGoAgain/no>basepower. TypedWHEN events absent forInertia/Frailty/Lair/Collapsing: no token/mark/discard/trigger, RiptideHP19not20andnoearnedtrap1damage. True typed-trigger/tokenownership/hit branches notcredited.",
+      "ActualArsenal5Reaction/ownedchain/GY4, realattackerBlue8payment3, unuseddefenderBlue6Hand andattackerNAA9 retained. Collapsing hasrealHand9andDeck10/11 whichmustremainordered andowned, avoidingemptyassetfalseoracle. Fourmanualresponses allstages, no normalblocks; real4damageandHP16/16/16/15, R/AP/fates/cleanqueuespersist.",
+      "Namedbase-defense/typed-negative branches only, zeroauthor-onlyquery kinds. Nativeexecution andonetargetedreplay eachpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse990-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "323f8e2052fb6a716b1a700df64c87c73c5ae006d74c7383ed79e75bed2cd3ea"
+  },
+  "full_suite_run": false
+}

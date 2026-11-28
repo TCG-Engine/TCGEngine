@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b1826f4be057d3505ec40c230297b344bd4c4a50d7aa9179884e74b49679d32a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a483b080f2927549699d6b8ddbe6b813c5b2a332f14ad4e2da795404f729ab7",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "123aec3ce01d52bb728a128612d9a4bc3bbb93afcf2b21ad95a019c4620e840d",
+        "expected_final_gamestate.txt": "2c3384b39b9c1300e9d6639b5566428c7a0ab956d12b339f7cad379378482b0b",
+        "meta.json": "284d967903c8df27c4832e41660de6393e969f9a7689af034afac2aaf4318af6"
+      }
+    },
+    {
+      "slug": "card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "02dcdec5e6e051c31ac16953d4917e0c125a92f3bd53652f0766859927592f26",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9fa278155474b6e542fb49d0d54032c5018ae6a2625e0897e52af7ae933d2682",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7ccc082e42e1867b9346bef4cc12377a52c354857d19dba9d1c421214ed2b462",
+        "expected_final_gamestate.txt": "64dd9db435e5524103c2d8c2b73f7e36da671b0f1391095c7e7b57ef66d93cb6",
+        "meta.json": "b333699ac53b7f7c2b22f4fa2f6d47af30a4715f6846632c90e63bad1c3e4352"
+      }
+    },
+    {
+      "slug": "card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d82f0fda897d8855f342aed6fec0299279a87ae67b49e0238eabb4f9bf6dc9f1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e42c015ad441ac4107964df0bb86917be8ba02529b3f7997966df6a6bcbb14a2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "38034c5c8d13a293e5cb02313ab259456565c5e0289a2ca58bea9baa1ddac96f",
+        "expected_final_gamestate.txt": "b4823c619e8ad24ea180fef1b5090d787f64bb6e74023c566bf5e6422a80ccc6",
+        "meta.json": "4ea65d205df43c89fcfa90079841e5093b22fee82a6031bb38c7811ff234a0d8"
+      }
+    },
+    {
+      "slug": "card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d8b592755cac47d65f370123cf28d5994d34da6dd58230f899fc895b532d23c1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e543dd948723d1917ef37fa7c2400fffa8c49346ff2f2e349eb7f2ef0a0d4b3",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7c9a8dc3e3a1129ed9ff37f2a92f63791672c04fe1eacbcce51f668200aa901e",
+        "expected_final_gamestate.txt": "bd41ccb81989ae89fe67175cc01f3a1cd35840562401e2c352a796805c7a7bf9",
+        "meta.json": "2bb1cdc4446316c72e90faff77ec5743070ff313fbdb25c0a09b59979e97a1f5"
+      }
+    },
+    {
+      "slug": "card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4174ccdbecc53c0be152c7605f7dd055921a11dbb39f01ceee3681fff76c436d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c21d1b2f3163c84d8ff08c4255132eeea8b1deee8656cd5a993f03acbba597c9",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "7ebf2c1724a1bc207fa01a9006396fc71cf5d238fe1b09ba7f25d84eab143260",
+        "expected_final_gamestate.txt": "9ad4126bae3de4be382fa8bd118b5df2b9c3698561d2d8e34b619f85f4a65d54",
+        "meta.json": "3cc806a77d9d8f969777b6fd76a1f6e21145751b25269551e792deec3b47d962"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

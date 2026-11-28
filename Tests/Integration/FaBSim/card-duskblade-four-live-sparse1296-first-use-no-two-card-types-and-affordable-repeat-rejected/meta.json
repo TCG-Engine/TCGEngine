@@ -1,0 +1,7 @@
+{
+    "name": "Duskblade / first use without either prerequisite card type, then affordable repeat rejected",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:59:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_VISERAI20_MANUAL_UPF_FIRST_USE_NO_TWO_CARD_TYPES_AND_AFFORDABLE_ONCE_PER_TURN_REJECTION. RealPotion5Arena/primaryWeapon6Weapons/Blue7Hand/AP1R0/nohistoryseed. ActualPotionActiondestroy5/spendsAP1to0/proxy8/allfourresponsesearns2AP. An activatedPotionability is not playing a nonattackActionCARD; firstweaponactivationisnotattackActionCARD; neither requiredcardtypewasplayed. Firstactual6declaresHero4/paysnormal1fromactualBlue7pitch3/R2/AP2to1/proxy9controller1Source6(noOwnerassertiononvirtualframe). DuskbladeWHENifAAandNAAfalse\u2192noearnedcountertrigger/+1counter. NoanotherNAAcardplayedsoViseraipassiveRunechantconditionfalse, noRunechants. Actualfirstbase2/noGA/unblocked2HP4=18. Fullclosephysical6Status1/5GY/7Pitch/AP1R2stillaffordable; realrepeatCLICKmustrejectsameTurn2/noStack/choice/newUID/secondDamage/APRspent. Allfourresponseflow/cleanStackDQsCC/UID9RNG0. NopositiveAA+NAAcombo/triggerresponse/Viseraiability/Duskendphase/reset/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#duskblade FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php"
+}

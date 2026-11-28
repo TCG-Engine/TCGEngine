@@ -1,0 +1,93 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1493-20261122.json",
+  "source_spec_sha256": "ad78d36de02147b56f62875b1e5f03835d3ad646ad0e2f22d13770cc0081b54d",
+  "input_sha256": "ad78d36de02147b56f62875b1e5f03835d3ad646ad0e2f22d13770cc0081b54d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-luminaris-celestial-fury-four-live-sparse1493-real-non-angel-non-herald-attack-ability-rejection",
+      "card_id": "luminaris_celestial_fury",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "99551c977cfe40a41b64683341ab3e27a884c2e04c09e09da9487c91fec2228b",
+        "actions.json": "0c814bc074c8fd0339ed7928c53d3648fdafc3593f2a633ef2ae809620cf53ac",
+        "assertions.json": "eb7698a5b805f5d4d6aaa28868285755d07d08998fd0d37cb750df7ee623ee41",
+        "expected_final_gamestate.txt": "017119dfd025b13680360c661e923519ff3c21a06a9a7c988b5048cbb6e66de8",
+        "meta.json": "05ea6de82137bee49cf9b89aa6526bc32576f301d28b159239e57af86d1d600f"
+      },
+      "fixture_sha256": "606a812b1cdea2e02c1ff191e82ef54a79c471f4784f9ad1478cdaf6a80320e6",
+      "actions": 28,
+      "native_assertions": 363,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1493-20261122.json",
+      "input_sha256": "ad78d36de02147b56f62875b1e5f03835d3ad646ad0e2f22d13770cc0081b54d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1493-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-luminaris-celestial-fury-four-live-sparse1493-real-non-angel-non-herald-attack-ability-rejection",
+        "fixture_slug": "card-luminaris-celestial-fury-four-live-sparse1493-real-non-angel-non-herald-attack-ability-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1493,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T05:22:19.434575+00:00",
+    "spec_sha256": "ad78d36de02147b56f62875b1e5f03835d3ad646ad0e2f22d13770cc0081b54d",
+    "source_note_sha256": "ff238d645dc3ff62eeb45d9297a07e988e1bf538aa7a9be83eb47f30cac5e373",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 1,
+    "planned_actions": 28,
+    "persistable_checks": 363,
+    "named_primary_ids": [
+      "luminaris_celestial_fury"
+    ],
+    "findings": [
+      "The ready owned Scepter, legal Prism, available Blue3 and valid Instant priority isolate the Angel/Herald target guard. Actual generic attack is neither.",
+      "DTD ability legality rejects before ABI allocation, payment or once-per-turn marker. No competing native WTR/DYN/SEA attack or legacy ability route was found.",
+      "Weapon Counters[]/Status2, Blue Hand, UID7/AP0/R0 and actual four damage/no go again/full fates pin unchanged behavior."
+    ],
+    "limits": [
+      "Rejection-only activated-ability target admission; positive go again, formal target declaration and valid-use limit remain untested.",
+      "Independent source/spec review only; native save and first targeted replay required for credit.",
+      "No engine edits, full suite or sibling/whole-card credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1493-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a856b5ea22044f65fbd68b4b1e2133de3e026c8ce5046f8ad3fcfc52fc8c60e9"
+  },
+  "full_suite_run": false
+}

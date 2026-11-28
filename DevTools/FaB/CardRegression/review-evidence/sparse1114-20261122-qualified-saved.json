@@ -1,0 +1,66 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed attack and normal-Close banish review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1114-20261122.json",
+  "source_spec_sha256": "5f1497ca957e559ea1cd8588ef1661698fbfc369f46807c3941239e7eaf5e908",
+  "input_sha256": "5f1497ca957e559ea1cd8588ef1661698fbfc369f46807c3941239e7eaf5e908",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-hell-hammer-four-live-sparse1114-real-blue-pays-weapon-two-for-six-damage-then-owned-weapon-banishes-at-close",
+      "card_id": "hell_hammer",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96084a81e91ee927fc28730d7b788a1cffd2cfbba55c40b03072d2071c6f0aad",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "e3f59a20e3c7a9550f84b6645c6bee924c20c19c974940ea3cf9351a9e7618e9",
+        "expected_final_gamestate.txt": "feeb2e29b612d4ec8597e5fcd97265cb07fe66aa93c723240657cd2396548e4b",
+        "meta.json": "b928248af2cfd3887a03d915683ce4e220bc08b6fd94da4614471aed6993da96"
+      },
+      "fixture_sha256": "dd6c542caa04565b75e9fe37fd5c4e3d2d892de50e1ac3ca8b9f9564cab4f253",
+      "actions": 28,
+      "native_assertions": 251,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1114-20261122.json",
+      "input_sha256": "5f1497ca957e559ea1cd8588ef1661698fbfc369f46807c3941239e7eaf5e908",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1114-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hell-hammer-four-live-sparse1114-real-blue-pays-weapon-two-for-six-damage-then-owned-weapon-banishes-at-close",
+        "fixture_slug": "card-hell-hammer-four-live-sparse1114-real-blue-pays-weapon-two-for-six-damage-then-owned-weapon-banishes-at-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5f1497ca957e559ea1cd8588ef1661698fbfc369f46807c3941239e7eaf5e908",
+    "reviewer": "breadth_review independent printed attack and normal-Close banish review",
+    "basis": [
+      "Cached Hell Hammer is Shadow Brute Weapon Hammer2H/power6, Once per Turn Action2 attack with no go again. Young Levia20 is legal; her Blood Debt condition is not an earned attack/hit trigger and no end phase is entered.",
+      "DYNRuntime.php:25-44 explicitly supports cost2/ready physicalWeapon5/native early hero target. Actual Blue6 pitch3 pays2/R1/AP0; all four manually respond through source/combat. Unblocked actual damage6/HP4=14 occurs while physicalWeapon5 remains Weapons, including first Resolution checkpoint.",
+      "Printed When combat chain closes, if you attacked with this, banish it is isolated Close-step behavior. DTDRuntime.php:186-189 finds real ATTACK proxy WEAPON_UID5 and moves actualWeapon5 to owned Banish; GameLogic.php:2604-2607 invokes it during Close before generic proxy cleanup. CR7.7 Close has no player priority; this isolated banish postcondition does not omit a human response window. Final sameUID5/Owner1/Controller1 Banish, Weapons0/GY0/CC0 and funder6Pitch persist.",
+      "Exact setup/action/oracle delta from original is only pre-resolution ATTACK proxy Owner1 to raw Owner0, plus KindATTACK/SourceUniqueID5. DYNRuntime39 omits Owner; Stack constructor defaults0. CombatChain move normalizes owner to1 (GameLogic.php:814), so CC and physical finalBanish Owner1 guards correctly remain."
+    ],
+    "limits": [
+      "Only one real attack and isolated normal-Close banishment. No Blood Debt/end-phase/Levia ability, second attack, competing Close ordering, support identity or full-card credit.",
+      "Native recording and one clean replay pending; no fixture or qualification claimed by this review."
+    ],
+    "supersedes_spec_sha256": "acbbaba33972993368da53b47add799cedf17f33f4fc9945c502eb0984e5072e"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1114-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "797d85ec4bda45ff86e7d99bc3fa34ad55df300acad50f583927cc97ce316598"
+  },
+  "full_suite_run": false
+}

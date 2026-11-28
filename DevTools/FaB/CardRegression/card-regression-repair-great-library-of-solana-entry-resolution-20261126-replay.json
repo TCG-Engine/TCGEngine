@@ -1,0 +1,23 @@
+{
+  "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+  "fixtures": [
+    {
+      "slug": "repair-great-library-of-solana-four-live-20261126-discard-cost-then-destroy-on-resolution",
+      "passed": true,
+      "runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-great-library-of-solana-four-live-20261126-discard-cost-then-destroy-on-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\entry206-207-library220\\great_library_of_solana\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "4c6cb8968b9359f4d1887d22485da5cc6394c37fd919c26c971bf084fc027311",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

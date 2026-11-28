@@ -1,0 +1,127 @@
+{
+  "status": "APPROVED_INDEPENDENT_081_EXACT_TWO_SOURCE_TRIGGER_QUEUE_SEMANTICS_ROOT_COMPONENT_EXECUTION_SEPARATE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T18:27:40.808536+00:00",
+  "proposal_manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\manifest.json",
+  "proposal_manifest_sha256": "c16f380055a4066184a6eb06c6c724e438495ecdfc95e24894c632a08c0a785c",
+  "runtime_before_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "projected_runtime_after_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_guards_verified": 19,
+  "source_candidates": [
+    {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\MSTCards.php",
+      "before_copy": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\before\\FaBSim\\Custom\\MSTCards.php",
+      "before_sha256": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+      "after_sha256": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+      "application": "EXACT_GUARDED_TWO_SOURCE_CANDIDATE_NO_GENERATION"
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\candidates\\FaBSim\\Custom\\ROSCards.php",
+      "before_copy": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\before\\FaBSim\\Custom\\ROSCards.php",
+      "before_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+      "after_sha256": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+      "application": "EXACT_GUARDED_TWO_SOURCE_CANDIDATE_NO_GENERATION"
+    }
+  ],
+  "patch_sha256": "ce05b849feae5db4b2761906433c3c816f67b4a401b4c55580588aa9576a5f13",
+  "scope_validation": {
+    "only_two_exact_byte_hunks": true,
+    "inverse_reconstruction_exact": true,
+    "all_other_bytes_and_CRLF_preserved": true,
+    "existing_queue_function_unchanged": true,
+    "canonical_generated_builder_GameLogic_MSTRuntime_unchanged": true,
+    "projected_runtime_independently_reconstructed": true,
+    "extracted_function_hashes": {
+      "before-FaBMSTDeclared.php": "f79dd8c6215f1ca89db8a9f73c99ae3442417bf8ae9835c9710a5a9d532ef3a4",
+      "before-FaBROSResolveTrigger.php": "853379ef94a234c5355e858c22afc9c4fd921734cb6e8765ed6e045383329263",
+      "after-FaBMSTDeclared.php": "a91de8d05a13bb8824f163433a8c7f5b3088d236cea60256dff9e66701ddaafb",
+      "after-FaBROSResolveTrigger.php": "5cce2f4483a394a8e42beb80ff3550deefa55f25678795f604d5158c24d3efc8",
+      "unchanged-FaBROSQueue.php": "9f070a954197656639d14c5f02c004be68300f165563b39f44271ca8dbe6918a"
+    }
+  },
+  "native_before": {
+    "classification_proof": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-independent-native-before-classification.json",
+    "classification_sha256": "4fe1076332dd03a982ef92ce8136b4e0379226b77e21f0b2eb5171a6ae8e90df",
+    "archive_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch359-correct-trigger-probe-20261103T181428Z-6aea2484eb0f4.json",
+    "archive_sha256": "5ef6c12f72144c8711bb901b7238de97c863e14139d7fa2fecf70e377b2592ad",
+    "source_spec_sha256": "e2b9f56abdc973063166684c519eaabdd77529aca249aa1d6dad6fd9410951cb",
+    "attempted_inputs": 12,
+    "fixture_saved": false,
+    "actual_first_failure": "Expected p1Deck count 2, got 1.",
+    "scope": "Actual Deck count mismatch plus one Hand ref and ATTACK state; no unrecorded Stack/rawUID assertion. Original full future material oracles retained."
+  },
+  "rule_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Granted WHEN event produces a triggered layer before priority; earned layer resolves independently of later source disappearance/suppression."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "sections": [
+        "7.2.2a",
+        "7.2.3",
+        "7.2.4"
+      ],
+      "finding": "Actual card becomes attacking then attack-event trigger is created before priority."
+    }
+  ],
+  "printed_face": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\first_tenet_of_chi_moon_blue.webp",
+    "sha256": "1c52ad04671abe47327f1d4717125f2038d396f022a78847cd7a989b225d6ce2"
+  },
+  "independent_findings": [
+    "Actual First Tenet blue grants the next BLUE ATTACK a WHEN-this-attacks draw1 ability; correct source is the actual granted attack6/CardIDRagingBlue, not primary5 or a delayed primary-source event. Existing producer/consumer/color matching remain unchanged.",
+    "At actual attack-event entry GameLogic has already moved sameattack ontoChain and installed attack state. Exact named tag queues only if source currently has abilities. Existing FaBROSQueue captures current attack-controller/CardID/UID, uses ordinary rosTrigger layer and live-seat/window behavior, with no AP/resource/payment or source movement change. No new global manager/nonce/freshness/control pathway.",
+    "New exact event dispatch performs draw1 only when that earned layer resolves, for ABI captured controller supplied by existing GameLogic; no lookup/blue/source existence/suppression recheck is imposed after trigger earned. Normal ROS completion restores combat attack window and reset priority/pass, no target/await/new lifecycle required.",
+    "Only old inlineDoDrawCard replaced and one isolated ROS event arm inserted. All other MSTDeclared bookkeeping/Gully and ROS066/068/Briar/fallback branches remain byte-identical; no canonical/generated/source builder changes needed. Candidate preserves present tag-array occurrence loop. Existing generic tag grant dedup/multiple-grant limits are unchanged and not qualified."
+  ],
+  "component_harness_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-first-tenet081-queue-proposed\\components\\first-tenet081-extracted-contracts.php",
+    "sha256": "b1a4a1f7ca69c5ac603f9be6308a2d099d08ce65e8525ad6a025be2e7d831320",
+    "actual_before_after_and_queue_bodies_verified": true,
+    "planned_contracts": 13,
+    "contract_labels": [
+      "BEFORE_INLINE_DRAW_CHARACTERIZATION",
+      "AFTER_QUEUED_SOURCE_CAPTURE_NO_EARLY_DRAW",
+      "EARNED_TRIGGER_INDEPENDENT_OF_REMOVED_OR_SUPPRESSED_SOURCE",
+      "QUEUE_TIME_ABILITY_SUPPRESSION",
+      "UNTAGGED_NEIGHBOR",
+      "OTHER_TAG_NEGATIVE",
+      "UNCHANGED_QUEUE_LIVE_SEAT_GATE",
+      "UNCHANGED_QUEUE_PAYMENT_WINDOW_CONTRACT",
+      "PRESENT_TAG_OCCURRENCE_LOOP_PRESERVED",
+      "UNKNOWN_EVENT_FALLBACK_PRESERVED",
+      "INVIGORATING_DISPATCH_PRESERVED",
+      "SMASHING_DISPATCH_PRESERVED",
+      "BRIAR_DISPATCH_PRESERVED"
+    ],
+    "execution_by_reviewer": false,
+    "execution_status": "ROOT_ACTUAL_RECEIPT_PENDING_SEPARATE_GATE",
+    "limits": "Isolated actual-function contracts stub unrelated game hooks/HasNoAbilities/liveness/storage/draw; not full production/native/state serialization or repeated-grant gameplay proof."
+  },
+  "impact_lookup": "Independent Next evidence pending separately; no duplicate old-fixture scan by this reviewer.",
+  "native_after": "PENDING_ROOT_UNCHANGED_FULL_PROBE",
+  "reviewer_execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_write": false,
+    "generation": false
+  },
+  "holds": [],
+  "limits": [
+    "This approval is independent source semantics/byte scope only. Root actual component/lint receipt, guarded application, unchanged native37-input fullprobe, exactsaved and targetedreplays are separate gates; no source application/after-pass credit here.",
+    "Only named MST_DRAW_ATTACK response timing/source/controller and draw1. No multiple-grant/suppression-removal/fullcard/otherproducer/othercolor/weapon/emptyDeck/nativefaultroot inflation.",
+    "Oldten070079/SmashingItem/parkedconcerns unchanged; no R/source/PHP/native/gen/service/fullsuite by reviewer. B362draftremains unbound/notforinstall until stable source."
+  ]
+}

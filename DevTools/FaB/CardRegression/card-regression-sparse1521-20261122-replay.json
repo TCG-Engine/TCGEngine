@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-enigma-new-moon-four-live-sparse1521-ordinary-blue-pitch-is-not-chi-despite-real-cloaked-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-enigma-new-moon-four-live-sparse1521-ordinary-blue-pitch-is-not-chi-despite-real-cloaked-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1521-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1521-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "92a8625d177f93ca3a4edce351dc7eddaa57c266efc93431774fb2ab8bd091cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9486d4120555fc144216dcaced2a9769868218d33b7702d6b74cc15ae61f04f8",
+        "actions.json": "814e7718d72ddc7f7e93fdea11d66d9b31b6d4a9925eff4af8583a9daaef7559",
+        "assertions.json": "1ad43962bda0c65bdaf613259f5b239a1b3962a0adae0787f89fa7b04b6f9302",
+        "expected_final_gamestate.txt": "471e03bd540562b439775b7841af1c9b4fb28e26e26e709751cdc3b9759735c4",
+        "meta.json": "f7d3eff1ad5448e7920cd7d3988af99a0f43cf536f0f537903fc1e64538f2a4e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

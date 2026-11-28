@@ -1,0 +1,57 @@
+{
+  "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "fixtures": [
+    {
+      "slug": "repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+      "passed": true,
+      "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "c5eb8b6255fba16e35046871859e4e2e182eee612055740c0bb92f96c78808c9",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+      "passed": true,
+      "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "8c7edda5c4d170ff96602e021912a9785d348571376b683dca1c3f1e033e64f6",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+      "passed": true,
+      "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blood-splattered-vest-four-live-correct-probe-real-dagger-hit-trigger-retained-through-gain-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cloud_city_steamboat_red\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "13f66116bc780b03e8871659a5b27ae470ef70128fd5d4b7ad4e4f841cb64624",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

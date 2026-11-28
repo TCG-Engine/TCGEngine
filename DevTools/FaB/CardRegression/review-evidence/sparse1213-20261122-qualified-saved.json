@@ -1,0 +1,90 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1213-20261122.json",
+  "source_spec_sha256": "870a80f7c194e5e463337702e8f767e9e6cd96a06c84257112e8ad9d7b4c4250",
+  "input_sha256": "870a80f7c194e5e463337702e8f767e9e6cd96a06c84257112e8ad9d7b4c4250",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-astral-ambience-yellow-four-live-sparse1213-real-active-attack-taps-owned-shield-for-go-again",
+      "card_id": "astral_ambience_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ce97ee6c05f8c0940fb4a647727df2ac9032104dc0c54b6e44c43a2a9b8df91",
+        "actions.json": "6fdd9899a9dd99d5191dc76abf89c6615f5525ebef1b22959251205822dc6b29",
+        "assertions.json": "8869c6b66838d4fadb23cdbf5a32fba7200916177dd816462753cb7cc7ad8bae",
+        "expected_final_gamestate.txt": "4b82ac447596a0907e1bf21b69855db3d1dad04c79c05243802e872d4df72019",
+        "meta.json": "b84d9beb363124245c040d48c0c985a3a2a50472b23c7151ec434d47867ef63c"
+      },
+      "fixture_sha256": "fee425efb55cf92a6a88bf1c6820bbacfc7df7cdea32e8175ba1008be3d967e5",
+      "actions": 34,
+      "native_assertions": 549,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1213-20261122.json",
+      "input_sha256": "870a80f7c194e5e463337702e8f767e9e6cd96a06c84257112e8ad9d7b4c4250",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1213-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-astral-ambience-yellow-four-live-sparse1213-real-active-attack-taps-owned-shield-for-go-again",
+        "fixture_slug": "card-astral-ambience-yellow-four-live-sparse1213-real-active-attack-taps-owned-shield-for-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "870a80f7c194e5e463337702e8f767e9e6cd96a06c84257112e8ad9d7b4c4250",
+    "case_count": 1,
+    "native_controls": 34,
+    "persistable_assertions": 549,
+    "author_only_checks_omitted": 0,
+    "card_id": "astral_ambience_yellow",
+    "group_id": "identity:astral_ambience_yellow",
+    "basis": [
+      "Exact corrected frozen packet/all34 native controls/549 prospective persisted assertions reviewed. Legal young Prism20/threeDorinthea20; real primary5Hand1, actual GenericBlue6Hand1 and lawful prior ready owned SpectralShield7Arena1. Group unrepresented and both exact/sibling issue/hold guards clear. No Shield creation or Hero activation is claimed.",
+      "Current generic ATTACK Hero-target announcement occurs before moving physical5 (GL1022-1034 vsAddStack1048). Corrected checkpoint now pins physical5 inHand0 and Stack0. Reversing only those four mzIds and the added Stackcount0 assertion reproduces the original bd9640... frozen SHA byte-for-byte under its JSON serialization, proving the narrow pre-native correction. All actual costs, ability/tap/GA, damage and fates remain unchanged.",
+      "Normal card play then uses printed2 resources: real Blue3 pays2 toR1/AP0 before fresh source responses1/2/3/4 and actual6power attack inCC. Exact Prepare3094cb5c83c6e8684c43 tests FaBIARIsAbility; ordinary ATTACK bypasses the ability-only shield chooser. No inappropriate additional cost is imposed on normal play.",
+      "GL454-476 own printed keyword parser does not treat the activated clause This gets go again as a standalone own keyword despite cache metadata. ComputedGAfalse before activation, after cost and throughout upper responses is therefore correct and excludes an already-active grant.",
+      "IARRuntime10/21-35 supports Instant0 on the current CombatChain ATTACK source and requires an actual ready own Shield. Native CC5 activation creates ABI8. Its Prepare chooses real p1Arena0 Shield7; IAR270-271 sets Status1 as the printed tap cost before priority. This valid successful Instant0 has no resource/AP asset cost, so the selected tap path does not depend on099 asset-versus-effect-cost ordering or unpaid-cost rollback.",
+      "ARCAbilities128 captures SourceUID5 and194 binds penAbilitySource5. Exact ResolveAbility13556 else branch tags the actual still-existing attackUID5 GO_AGAIN, with no await/094 dependency. ABI8 rawOwner0/Controller1/Source5 is correct while all physical ownership stays1. Four fresh upper ATTACK responses precede resolution, then four fresh lower ATTACK responses follow; the packet correctly retains R1/AP0 and tappedShield before/after grant.",
+      "ComputedGA becomes true only after the ability resolves. With no opponent defenders, no Fragment event is earned, so the separate inline Whenever-fragments reward branch is not entered or credited. Actual6physical damage/HP4=14 arrives with AP0; only normal link resolution returns1AP. No other printed hit or Hero observer is earned.",
+      "Final physical5 ownedGY1, actualBlue6 ownedPitch1, same sole Shield7 ownedArena1/tapped1/no extra token/maxUID8, R1/AP1/otherHP20 and empty chains/Stack/decisions are coherent. All549 checks normalize to persisted forms with no author-only diagnostics or conflicting same-checkpoint literals."
+    ],
+    "pre_native_correction": {
+      "original_spec_sha256": "bd9640229cc430f98e1f6376a53f64a3d237c563c9cee503f1ade9af918b0a73",
+      "delta": "Only target-prompt four physical mzIds Stack0 toHand0 plus added Stackcount0; reverse serialization reconstructs original SHA. No native attempt."
+    },
+    "limits": [
+      "Only own active-attack Instant tap cost, resolved go-again grant and one actual unblocked attack/link-resolution AP reward. No Fragment/reward branch, Shield Ward/producer, repeat activation, other cost, failed cost, refund, expiry, Hero/support/sibling/full-card credit.",
+      "Known secondary-Fragment timing and all prior holds remain open; no generic parser or lifecycle repair is claimed. Root native save, stored evidence validation and one clean targeted replay remain pending.",
+      "No native/PHP/T/source/framework/engine/Git/network/original-checkout action by reviewer."
+    ],
+    "source_note_sha256": "e485fc06ff279ee033025c7705fc15baea55873f2d7d92bfd160259e532890e0",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1213-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c0fd1b465f199fc92e36dec449ee7f5ac1ef50171f2058abd93a99a266568fc0"
+  },
+  "full_suite_run": false
+}

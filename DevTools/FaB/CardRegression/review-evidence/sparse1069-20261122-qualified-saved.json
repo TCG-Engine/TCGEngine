@@ -1,0 +1,78 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent review of breadth_review-authored1069",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1069-20261122.json",
+  "source_spec_sha256": "48f281320f1d16520fdafcb6444d0124947aed2eecba3271c42a584ce4137c66",
+  "input_sha256": "c34a937f51f42f91a09011c9cf7d6b00ade22a1614ea09b92e001bbff7a9bd7b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-rippling-wave-four-live-sparse1069-already-revealed-three-defense-and-blade-break-close",
+      "card_id": "rippling_wave",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6a0af51773c4cf6a168528fc1da4b209f4e06b9adc70c03269d2860630144320",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "944b4922ea2e2fc51cf606d4bcdb5698daffe6252114ab379d3bcad6590988d5",
+        "expected_final_gamestate.txt": "8f8fb056664c78162507469539ecff207282c4b27935897ea6040750ad0fab6b",
+        "meta.json": "ec1cb2ab79831630c0a7587cea8209de2df2a42433785373d0e1e1a4612df5e2"
+      },
+      "fixture_sha256": "c93b2d8658a548ee08fe5d940808c07854d80178ac78226581cbedd411ace797",
+      "actions": 30,
+      "native_assertions": 271,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1069-20261122.json",
+      "input_sha256": "48f281320f1d16520fdafcb6444d0124947aed2eecba3271c42a584ce4137c66",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1069-local-20261122\\schema-corrected-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rippling-wave-four-live-sparse1069-already-revealed-three-defense-and-blade-break-close",
+        "fixture_slug": "card-rippling-wave-four-live-sparse1069-already-revealed-three-defense-and-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "48f281320f1d16520fdafcb6444d0124947aed2eecba3271c42a584ce4137c66",
+    "reviewer": "Root independent review of breadth_review-authored1069",
+    "basis": [
+      "Verified native setup recorder252/263-264 supports arcCards5.mstFlipped true plus FaceDown0 exactly matching MSTCards35 resolved-flip representation; young Mystic Nuu20 owns primary equipment5, natural health and four-live seat guards. PrintedDEF3/BladeBreak agrees with cached rules. No active flip/cost/return credited.",
+      "Actual Rhinar Club7 power4 and physicalBlue8 paid2/R1/AP0; allfour manual response windows. Primary5 provides3 then physical NAA6 provides2: total5 overblocks4, damage0 and HP20. Stored UID/ownedGGY[5,6]/Equipment0 pins BladeBreak fate. Reviewed full input steps and numeric checks against donor; no author-only diagnostics.",
+      "Initial zones, ready states, owners/controllers, primaryCounters empty, Chi unavailable and revealed-state pair are explicit. FreshTurn2 ACTION; no owner4start-phase or native equipping history claimed."
+    ],
+    "limits": [
+      "Checkpoint labels inherited exact_block refer to full block; actual assertion total5 vs4 correctly means overblock, no exact-equality claim.",
+      "No activation/Chi/reveal/return/timing/hero/support/sibling/whole-card or held-issue credit. One ordinary revealed defense branch only."
+    ],
+    "original_spec_sha256": "c34a937f51f42f91a09011c9cf7d6b00ade22a1614ea09b92e001bbff7a9bd7b",
+    "schema_correction_review": {
+      "result": "confirmed_exact_schema_only_correction",
+      "spec_sha256": "48f281320f1d16520fdafcb6444d0124947aed2eecba3271c42a584ce4137c66",
+      "original_authored_spec_sha256": "c34a937f51f42f91a09011c9cf7d6b00ade22a1614ea09b92e001bbff7a9bd7b",
+      "reviewer": "breadth_review review of Root-authored one-check correction only",
+      "basis": [
+        "Reversing the single initial mstFlipped check to its original type/path/value form reconstructs exact original c34a937f SHA; no action/setup/card/flag expectation/oracle changes. Correct rootName FaBSim/valueJson true matches persisted game_state_field argument convention used by recorder51-60 and Core RegressionStateFieldInput. Expected boolean true at arcCards/5/mstFlipped is unchanged.",
+        "Original wrong-schema attempt stopped before native actions/fixture per retained Root receipt; this is an authoring schema correction, not a gameplay defect. Full case independently reviewed by Root; this receipt does not self-approve the authored scenario."
+      ],
+      "limits": [
+        "Only Root-authored portable assertion syntax delta reviewed. Native execution/replay/qualification remains Root responsibility; no native/PHP/T/source/Git/original/network actions."
+      ]
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1069-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "55204849de5eb5cfe01680466132be4f827a4abdc0075db8518658eaf4368e0e"
+  },
+  "full_suite_run": false
+}

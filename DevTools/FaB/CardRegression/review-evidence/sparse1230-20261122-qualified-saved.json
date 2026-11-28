@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1230-20261122.json",
+  "source_spec_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+  "input_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+      "card_id": "embodiment_of_lightning",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd2713e9352a609f68224b39c987fbe4f688d2b422bfe69048fbdad7068f7a5c",
+        "actions.json": "721be4324791acac6e2f0d8a193b9bd806a993ef8c77b41601bb9b7edc4247aa",
+        "assertions.json": "aa0266c21d7d24c1ddfa474df66e1365808937a2d0fd5f6fae8366a3df1d9245",
+        "expected_final_gamestate.txt": "585ec337b7430c412dadbc93af0ca2dbcd27051af8ac683cbfcad80eeee16fcd",
+        "meta.json": "19986d7b38bc8dbeb7ada7350c93e05c64b7b6ce2443dc77e865749b1813edb8"
+      },
+      "fixture_sha256": "6f47d3b53ebc71acfa1dd203ace1aba0d881ce732515740f01f2abb775a9f154",
+      "actions": 58,
+      "native_assertions": 328,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 54,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1230-20261122.json",
+      "input_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1230-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+        "fixture_slug": "card-embodiment-of-lightning-four-live-sparse1230-real-trigger-destroys-token-then-grants-only-first-attack-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "b9c26fde070f4fa13798457924884e9a55a7629fea61460f0b71221a59f20402",
+    "source_note_sha256": "4059744fce012182d73d9bb21ba41b952477535340aa5d401bb1e38605edf097",
+    "case_count": 1,
+    "native_controls": 58,
+    "query_checks": 328,
+    "persistable_assertions": 328,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EXISTING_TOKEN_PLAY_TRIGGER_AND_SINGLE_ATTACK_GO_AGAIN",
+    "basis": [
+      "The exact 73-step frozen scene has 58 native controls and 328 queries. State, power and go_again checks normalize one-to-one to persistent assertions; the remaining query types persist directly. Four natural Young heroes satisfy recorder setup, and the primary token identity is unrepresented with no source-only hold.",
+      "The prior owned Elemental Aura token is a legitimate admitted permanent for Boltyn: cached Call Down the Lightning Unity text can create it under any number of heroes control. No producer is executed or credited. The two real Generic Wounding Blow cards cost zero, have power four and no intrinsic go again or hit ability.",
+      "Actual first play declares Hero4 before paying AP. ELEPlayed161 invokes EmbodimentPlayed116-128, which captures the actual Attack UID6/play epoch1 and queues virtual layer8 sourced from physical token5. The typed Stack parameters are rosTrigger=true, rosEvent=eleEmbodimentLightning, eleAttackUID=6, eleAttackEpoch=1. The attack remains owned Stack0 and the token is still in Arena when the earned trigger starts its four manual responses.",
+      "After those responses the named ROS route calls ResolveEmbodiment133-149, destroys token5 and grants GO_AGAIN only to the still-Stack ATTACK6 with the captured epoch. Token destruction has no graveyard export. The original attack then gets its own fresh four manual source responses, followed by normal combat; computed power4/go_again=true and actual damage4/HP4=16 precede the Resolution refund of one AP.",
+      "The first refund funds actual Wounding7 in the same turn. With the token gone, its own fresh source/combat response rounds produce computed go_again=false, actual damage4/HP4=12 and no second AP refund. This is an observable first-only grant, with no seeded go-again effect or Hero activation.",
+      "Final owned graveyard contains real attacks6 then7, without token or virtual-layer export. Same-turn ACTION/APR0, maxUID8/RNG0 and empty Arena/Stack/DQs/CC match the branch. Boltyn has no charge/Soul/defending AA event; other heroes and supports earn no active ability."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only, pending native saving and targeted replay. No native success or coverage credit claimed by reviewer.",
+      "Only one existing owned token and one ordinary captured play followed by a real ungranted second attack. No producer, multiple tokens, source removal before resolution, negation, epoch replay, other controller, support/Hero or full-card credit.",
+      "Only the W review receipt was written. No T/source/framework changes, native actions, PHP/tests/replays, Git, original-checkout access, network or authentication."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1230-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "abe12e37a3bf74f84df85606120203db17d970c6967c903cdf21d4fbbcd731fe"
+  },
+  "full_suite_run": false
+}

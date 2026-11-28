@@ -1,0 +1,7 @@
+{
+    "name": "Channel Icelock Glaze / conditional arsenal freeze in live responses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T22:06:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ACTUAL_CONTINUOUS_FREEZE_ONLY. NaturalYoungIyslander18/Dori20/Dori20/Iyslander18manualUPF. Real0costGlaze5Hand1\u2192Stack(fourresponses)\u2192Arena/APrefund1; actualWounding6opensnewpriority. P3nofrostbiteplaysrealfaceupArsenalSigil7, thenP4withownedpriorFrostbite9andrealBlue10availabletofundtaxhaspriority4butnativeclickonrealfaceupArsenalSigil8producesnomove/pitch/payment/prioritychange. Coremode10002FSMclickisnormalinput; no fabricated expectFailuremarkerorstrictAPIrejectionclaim. ActualP3Sigil7resolveshealing20\u219221/ownGY3, Wounding6getsfreshfourresponse/combatrounds/deals4toP4(18\u219214). EndsameACTIONGlaze5Arena1/frostbite9Arena4/blocked8Arsenal4/Blue10Hand4unchanged/source6GY1/7GY3/APR0/UID10/RNG0. PriorFrostbite9isalegalexistingownedtokenforIceHero4(e.g.priorArcticIncarcerationBlueownHerotarget), produceruncreditedandnoFrostbitecreationownershiporcosttriggerdependsontheknownproducerbug. Noend/upkeep, otherfrozenpermanent/conditionalremoval/ownerarsenal/exhaustive/card-supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#channel_iceloch_glaze_blue FaBSim/Custom/PENCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php Core/EngineActionRunner.php"
+}

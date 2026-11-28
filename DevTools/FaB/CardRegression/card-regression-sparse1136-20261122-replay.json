@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-web-of-deceit-four-live-sparse1136-real-mark-producer-and-blocked-stealth-static-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-web-of-deceit-four-live-sparse1136-real-mark-producer-and-blocked-stealth-static-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1136-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1136-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6c58ae90853e10d7682668561b4ab0aab14b259cc43988570c63d2ecc42c6f34",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "747d3b24a6f8dd3f5e36046e500ebef0c083bd7e66b9572f12d3aff02039d24c",
+        "actions.json": "b7626f17cf19868579e6dae92f016e2fa309d14d67905a5a1f6d318b159712da",
+        "assertions.json": "a21b4edb4cb8791fbb6bb12123b9352d3a739bb1667b3ddbdca9f1908f74552b",
+        "expected_final_gamestate.txt": "2b36126878c306816629a7b1ac17c8bb115296164172139f994d87ae6d58d7d0",
+        "meta.json": "3deb415abe1c9479203dc92756270bcb05bc535349fc8510662cc8f91476a4dd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

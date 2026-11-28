@@ -1,0 +1,153 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED_PAUSED_FOR_REVIEW",
+  "utc": "2026-11-22T03:51:48.764273+00:00",
+  "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+  "source_spec": "card-regression-repair093-20261122.json",
+  "source_spec_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+  "new_scenarios": 3,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 83,
+  "native_assertions": 426,
+  "manual_passes": 67,
+  "totals": {
+    "saved_registered_scenarios": 4202,
+    "duels": 3075,
+    "four_live": 1127,
+    "recorded_primary_ids": 1350,
+    "identity_denominator": 5196,
+    "recorded_groups": 1224,
+    "group_denominator": 3324,
+    "four_live_groups": 1116,
+    "phase_qualified_scenarios_at_actual_contexts": 839,
+    "phase_qualified_unique_groups": 829,
+    "creation_replay_passes": 1580,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "high_roller_red",
+      "group_id": "pitch-cycle:high_roller",
+      "scenario_id": "repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "effect_branches": [
+        "two_targets_announced_before_costs",
+        "four_live_manual_priority",
+        "late_native_instant_roll_5_enables_second_declared_instance",
+        "distinct_physical_owned_hand_banishes",
+        "go_again_real_followthrough_four_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-highroller093-four-live-late-roll-distinct-targets-and-real-damage",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "source_spec_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "review_evidence": "review-evidence/highroller093-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4264f14a207c4d9aaaba4fe81d127eb8d697c98c3f7d1892b7469b5d76606a01",
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "qualification_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repair093-20261122-replay.json",
+          "sha256": "c57b1d2d6e7f6b788e827d217cc2f38bc45e652646703a484a7d616cfee8e29d",
+          "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "Native accepted-roll-hook fault failed physical second-target outcome; exact runtime restored; see093proof"
+    },
+    {
+      "card_id": "high_roller_red",
+      "group_id": "pitch-cycle:high_roller",
+      "scenario_id": "repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "effect_branches": [
+        "two_targets_announced_even_without_roll",
+        "four_live_manual_priority",
+        "false_bonus_only_first_declared_instance",
+        "real_followthrough_four_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-highroller093-four-live-no-roll-second-target-ignored-and-real-damage",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "source_spec_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "review_evidence": "review-evidence/highroller093-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4264f14a207c4d9aaaba4fe81d127eb8d697c98c3f7d1892b7469b5d76606a01",
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "qualification_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repair093-20261122-replay.json",
+          "sha256": "c57b1d2d6e7f6b788e827d217cc2f38bc45e652646703a484a7d616cfee8e29d",
+          "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "Native accepted-roll-hook fault failed physical second-target outcome; exact runtime restored; see093proof",
+      "coverage_kind": "EXISTING_GROUP_FOCUSED_REPAIR_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false
+    },
+    {
+      "card_id": "high_roller_red",
+      "group_id": "pitch-cycle:high_roller",
+      "scenario_id": "repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "effect_branches": [
+        "two_live_single_adjacent_hero",
+        "same_target_in_separate_instances",
+        "two_declarations_before_costs_no_fastpath",
+        "native_Gamblers_Gloves_replaces_roll",
+        "doubled_physical_hand_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-highroller093-two-live-one-adjacent-opponent-same-target-twice",
+      "source_spec": "card-regression-repair093-20261122.json",
+      "source_spec_sha256": "c8ab8854abe6ad3ba86372610a961f0806d19a752e6d425f7752741742691455",
+      "review_evidence": "review-evidence/highroller093-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4264f14a207c4d9aaaba4fe81d127eb8d697c98c3f7d1892b7469b5d76606a01",
+      "recorded_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "qualification_runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repair093-20261122-replay.json",
+          "sha256": "c57b1d2d6e7f6b788e827d217cc2f38bc45e652646703a484a7d616cfee8e29d",
+          "runtime_sha256": "6b7f2a97759dc40b0c134278acd476c22d04a2d937c9d4041a20b33369034ecc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "Native accepted-roll-hook fault failed physical second-target outcome; exact runtime restored; see093proof",
+      "coverage_kind": "EXISTING_GROUP_FOCUSED_REPAIR_WITNESS",
+      "new_group_credit": false,
+      "new_primary_id_credit": false
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "existing_issue_repaired": "FAB-REG-093",
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "High Roller Red focused repair: two four-live plus one two-live; no sibling/support/full-card credit. Exact historical contexts retained. See093proof for actual native fault control. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 2,
+  "source_scenarios_not_in_this_qualification": [],
+  "native_fault_controls": 1,
+  "helper_component_checks": 40,
+  "focused_compatibility_passes": 2,
+  "selected_record_repaired": "FAB-REG-093",
+  "players": {
+    "four_live_manual": 2,
+    "two_live_manual": 1
+  }
+}

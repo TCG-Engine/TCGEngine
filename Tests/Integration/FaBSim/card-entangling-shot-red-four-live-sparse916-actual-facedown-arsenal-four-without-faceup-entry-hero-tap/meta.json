@@ -1,0 +1,7 @@
+{
+    "name": "Entangling Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:15:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is put face-up into your arsenal, you may {t} target hero. Representative only: actual_facedown_arsenal_four_without_faceup_entry_hero_tap. No face-up loading effect or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#entangling_shot_red"
+}

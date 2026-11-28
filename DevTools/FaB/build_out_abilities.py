@@ -45,7 +45,7 @@ for c in cards:
  if b=='melting_point':
   add('ResolveCard',"FaBOUTNext($player, 'arrow', 4, 'OUT_MELTING');")
   add('Hit',VICTIM+pick('FaBOUTMeltingTargets($victim)','Destroy_one_power_weapon',False)+"FaBDYNDestroyChoice($chosen);")
- if b=='spreading_plague':add('ResolveCard',VICTIM+"$n = count(FaBOUTDefenders()); FaBOUTToken($victim, 'bloodrot_pox', $n);")
+ if b=='spreading_plague':add('ResolveCard',VICTIM+"$n = count(FaBOUTDefenders()); FaBHVYToken($victim, 'bloodrot_pox', $n, null, null, false, $player);")
  if b in ['bloodrot_trap','frailty_trap','inertia_trap','boulder_trap','buzzsaw_trap','collapsing_trap','pendulum_trap','spike_pit_trap','tarpit_trap']:
   body=""
   if b in ['bloodrot_trap','frailty_trap','inertia_trap']:body="FaBOUTToken($victim, '"+('bloodrot_pox' if b=='bloodrot_trap' else b.split('_')[0])+"');"
@@ -131,10 +131,12 @@ for c in cards:
    zone='Hand' if b=='codex_of_bloodrot' else 'Graveyard';expr=f"implode('&', FaBChoiceRefs($seat, '{zone}'"+(", ['attackAction'=>true]" if zone=='Graveyard' else '')+"))"
    code+=pick(expr,'Put_card_in_arsenal',False,who='$seat')+f"$loaded = FaBOUTCodexLoad($seat, $chosen, '{zone}');"
   if b!='codex_of_bloodrot':code+="if ($loaded) { "+pick("implode('&', FaBChoiceRefs($seat, 'Hand'))",'Discard_card',False,who='$seat')+"FaBDiscardChoice($seat, $chosen); }"
-  code+=" } $i = $i + 1; } FaBOUTCodexTokens($player, '"+('bloodrot_pox' if b=='codex_of_bloodrot' else b.split('_')[-1])+"');";add('ResolveCard',code)
- if b=='bloodrot_pox':add('ResolveAbility',UID+"FaBMONDestroy($uid);"+pay(3,'Pay_three_to_avoid_damage')+"if (!$paid) { DoDamage($player, '', $player, 2, 'PHYSICAL'); }")
+  code+=" } $i = $i + 1; } FaBOUTCodexTokens($player, '"+('bloodrot_pox' if b=='codex_of_bloodrot' else b.split('_')[-1])+"');"
+  if b=='codex_of_bloodrot':code="$codexCreator = intval($player); "+code.replace("FaBOUTCodexTokens($player,","FaBOUTCodexTokens($codexCreator,")
+  add('ResolveCard',code)
+ if b=='bloodrot_pox':add('ResolveAbility',UID+"$poxDamageSource = FaBCaptureDamageSourceRecord($uid, 'pox', $player); FaBMONDestroy($uid); $poxDamageSource['departed'] = FaBFindUID($uid) === null;"+pay(3,'Pay_three_to_avoid_damage')+"if (!$paid) { FaBCapturedPoxDamage($player, $poxDamageSource, $player, 2, 'GENERIC'); }")
  if b=='bloodrot_pox':
-  code="$refs = FaBOUTEndTargets($player); while ($refs !== '') { "+pick('FaBOUTEndTargets($player)','Choose_end_phase_trigger',False)+"$uid = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID); $token = FaBIdentityFromMZ($chosen)['object']->CardID; FaBMONDestroy($uid); if ($token === 'ponder') { DoDrawCard($player, 1); } if ($token === 'bloodrot_pox') { "+pay(3,'Pay_three_to_avoid_damage')+"if (!$paid) { DoDamage($player, '', $player, 2, 'PHYSICAL'); } } if ($token === 'inertia') { $uids = FaBOUTInertiaStage($player); if (count($uids) > 0) { $param = FaBARCOrderParam($uids, 'Bottom'); $order = await $player.Rearrange($param); FaBARCFinishOrder($player, $uids, $order); } } $refs = FaBOUTEndTargets($player); }"
+  code="$refs = FaBOUTEndTargets($player); while ($refs !== '') { "+pick('FaBOUTEndTargets($player)','Choose_end_phase_trigger',False)+"$uid = intval(FaBIdentityFromMZ($chosen)['object']->UniqueID); $token = FaBIdentityFromMZ($chosen)['object']->CardID; $poxDamageSource = FaBCaptureDamageSourceRecord($uid, 'pox', $player); FaBMONDestroy($uid); $poxDamageSource['departed'] = FaBFindUID($uid) === null; if ($token === 'ponder') { DoDrawCard($player, 1); } if ($token === 'bloodrot_pox') { "+pay(3,'Pay_three_to_avoid_damage')+"if (!$paid) { FaBCapturedPoxDamage($player, $poxDamageSource, $player, 2, 'GENERIC'); } } if ($token === 'inertia') { $uids = FaBOUTInertiaStage($player); if (count($uids) > 0) { $param = FaBARCOrderParam($uids, 'Bottom'); $order = await $player.Rearrange($param); FaBARCFinishOrder($player, $uids, $order); } } $refs = FaBOUTEndTargets($player); }"
   add('EndTurn',code)
  if b=='inertia':add('ResolveAbility',UID+"FaBMONDestroy($uid); $uids = FaBOUTInertiaStage($player); if (count($uids) > 0) { $param = FaBARCOrderParam($uids, 'Bottom'); $order = await $player.Rearrange($param); FaBARCFinishOrder($player, $uids, $order); }")
  if b=='frailty':add('ResolveAbility',UID+"FaBMONDestroy($uid);")

@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact stack/counter/actor/outcome review of synchronous Hungry branch",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1174-20261122.json",
+  "source_spec_sha256": "e2ec5d528ea0a385d1c9c701b9e70ad0c6e44f0cb3aac294307fea88483f375c",
+  "input_sha256": "e2ec5d528ea0a385d1c9c701b9e70ad0c6e44f0cb3aac294307fea88483f375c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-hungry-for-more-red-four-live-sparse1174-paid-last-counter-separate-destroy-and-heal-triggers",
+      "card_id": "hungry_for_more_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3581aa9b8d245bd847c1f6f797d287001da1ca84e0e6933bf4991586d870a19",
+        "actions.json": "2bdab538d238a2f2154cc07f34dce6f45c811e8a6fec209064f33227048fecf0",
+        "assertions.json": "7210d8accac9715dcbb3c51a8cc3a4f11b4f4df91d4741d24891a767ed7359da",
+        "expected_final_gamestate.txt": "297d7d6354a00c0f6f6b9f0f6d21b63f2506a0782deb6bd9ab80ee155a35a72d",
+        "meta.json": "b8d61ce4f03b945cf1e3bc5296b38ae6ad8a5822a3ac71f2f46c3c10efee7e4e"
+      },
+      "fixture_sha256": "f65e9f135ec0d3ea170bfb3c8be29ff0d1425e501cac17e8a141eac4113aaa7e",
+      "actions": 14,
+      "native_assertions": 430,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1174-20261122.json",
+      "input_sha256": "e2ec5d528ea0a385d1c9c701b9e70ad0c6e44f0cb3aac294307fea88483f375c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1174-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hungry-for-more-red-four-live-sparse1174-paid-last-counter-separate-destroy-and-heal-triggers",
+        "fixture_slug": "card-hungry-for-more-red-four-live-sparse1174-paid-last-counter-separate-destroy-and-heal-triggers",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e2ec5d528ea0a385d1c9c701b9e70ad0c6e44f0cb3aac294307fea88483f375c",
+    "reviewer": "breadth_review independent exact stack/counter/actor/outcome review of synchronous Hungry branch",
+    "basis": [
+      "Guardian Hungry for More is legal under natural young Pleiades20. Initial admitted Aura5 has one SUSPENSE counter. JSON-string Counters is supported by Arena serialization and FaBObjectCounters367-370; no Aura entry/start producer is claimed. Actual Hero1 activation creates lower ABI6 and prepares advertised Aura5 removal as cost.",
+      "FaBSUPCounter removes1to0 and queues supZero7, not immediate destruction. FinishPreparedCard is UID-bound to lower6 and cost completion taps real Hero1 through ARC171/SUPPaid209 before response priority. FaBSetObjectCounter373-377 unsets zero-valued SUSPENSE, so correct post-cost raw map is [], while the semantic remaining count is0.",
+      "All four responders1,2,3,4 face Zero7 above Hero6 with physical Aura5 still present/HP20. The supported pass_until priority1/stackCount2 endpoint resolves exactly Zero7: its stored physicalUID5 is destroyed to ownedGY, fresh Leave8 replaces7 above lower6, HP still20. UID checks distinguish the two equal-height stacks.",
+      "All four fresh responders then face Leave8. Its synchronous generated body gains3 for controller1, giving actualHP23 while lowerHero6 remains the only Stack layer. Four further responders resolve lower6; no Aura remains, so its optional add-counter body completes without a chooser. Final sameAura5ownedGY/Hero1tapped/AP1/R0/HP23/maxUID8/noToken/RNG/Stack/queues are consistent.",
+      "The named supZero/supLeave dispatch structurally removes its virtual proxy before its atomic callback, but this exact branch never awaits or reads that proxy: zero uses stored physical5 inArena, leave uses controller1 and physical5 inGY. No other fixture observer depends on the intermediate removal. This review approves only correct observable destruction/healing/stack-before-and-after outcomes; it does not bless internal source lifetime or repair that structural caveat. No Cheer is earned on this source path."
+    ],
+    "counter_oracle_correction": {
+      "previous_frozen_spec_sha256": "5740d6b4e2ad5c76204c4ae8f1ef61e9a98f0826474e334f84e3df6e2e1dd41a",
+      "changed_paths": [
+        [
+          0,
+          "steps",
+          5,
+          "checks",
+          15,
+          "value"
+        ],
+        [
+          0,
+          "steps",
+          7,
+          "checks",
+          15,
+          "value"
+        ],
+        [
+          0,
+          "steps",
+          9,
+          "checks",
+          15,
+          "value"
+        ],
+        [
+          0,
+          "steps",
+          11,
+          "checks",
+          15,
+          "value"
+        ]
+      ],
+      "before": "{\"SUSPENSE\":0}",
+      "after": "[]",
+      "proof": "Reversing only these four values in memory and serializing with the original CRLF formatting exactly reproduces the prior frozen SHA. No synthetic original file/receipt was created. No gameplay input, rule amount, actor or other oracle changed."
+    },
+    "persisted_check_review": {
+      "controls": 14,
+      "normalized_assertions": 430,
+      "author_only_omissions": 0,
+      "until_support": "Native FCRReady225-234 supports window, priority and stackCount."
+    },
+    "official_rule_basis": {
+      "urls": [
+        "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/"
+      ],
+      "section": "CR8.3.42",
+      "basis": "Current official Suspense/action-phase timing content verified and supplied by Root, not fetched by reviewer."
+    },
+    "limits": [
+      "Named synchronous last-counter destruction, separate leave healing and lower-ability no-Aura completion only. No owned-frame/atomic virtual-source-lifetime/internal removal correctness, callback interleaving/observer, cancel, counter re-add, entry/start producer, other Aura, crowd, hero whole ability, token, sibling/support or full-card credit.",
+      "Previous broad lifecycle-based candidate rejection is withdrawn only for this nondependent synchronous branch; no engine fix or wider hold retirement is claimed.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1174-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b2690e1f080bd5887849c883bc2ced525c15a446f17b296d9f9c9bb7f6a3ed35"
+  },
+  "full_suite_run": false
+}

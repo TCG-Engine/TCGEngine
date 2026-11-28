@@ -1,0 +1,23 @@
+{
+  "status": "CONFIRMED_NATIVE_REPLAY_LIMITATION",
+  "kind": "HARNESS_RUNTIME_DETERMINISM_NOT_GAMEPLAY_RULE_DEFECT",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "phoenix_bannerman_arms_red",
+  "observed": "Native recording completed with all85 assertions. First clean replay passed card assertions but final snapshot line29 swapped the two distinct Generic cards left after search: expected Wounding Blow UID6 then Critical Strike UID8; actual reverse.",
+  "verified_code_path": [
+    "FaBSim/Custom/CardChoices.php:FaBFinishSearch -> FaBShuffleDeck -> EngineShuffle(deck,true)",
+    "Core/DeterministicRNG.php:EngineShuffle uses random_int for useStrongEntropy=true, bypassing deterministic RandomCounter"
+  ],
+  "gameplay_source_changed": false,
+  "affected_fixture_strategy": "Keep meaningful physical search/movement checks; use one irrelevant remaining deck card in these inspected first-pass fixtures. No shuffle-randomness or statistical fairness certification. Preserve original raw5 backups outside repo.",
+  "inspected_amended_cards": [
+    "call_to_the_grave_blue",
+    "lesson_in_lava_yellow",
+    "look_within_blue",
+    "phoenix_bannerman_arms_red"
+  ],
+  "historical_corpus_audited": false,
+  "complete_failure_log_sha256": "1f4cb9522e8e6e8539f8ce8289867cb560c9e96cec752b7b6830f0d038a46f2b",
+  "original_fixture_backups": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122",
+  "full_suite_run": false
+}

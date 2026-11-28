@@ -1,0 +1,7 @@
+{
+    "name": "Lunar Mirage / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:14:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When an attack action card with 6 or more {p} defends this, this becomes a copy of that card.\n\n**Go again**\n\n**Mirage** Representative only: actual_three_and_go_again_without_large_attack_defense_copy Sources: FaBSim/GeneratedCode/cardArrayCache.json#lunar_mirage_red"
+}

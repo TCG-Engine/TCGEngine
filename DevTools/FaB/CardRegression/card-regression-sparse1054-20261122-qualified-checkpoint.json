@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:11:23.512910+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1054-20261122.json",
+  "source_spec_sha256": "05d0b933559575d44fae66191af9ce9b7d18dfb0a233793b498c827a1e5c5908",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 59,
+  "native_assertions": 381,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4859,
+    "duels": 3075,
+    "four_live": 1784,
+    "recorded_primary_ids": 2007,
+    "identity_denominator": 5196,
+    "recorded_groups": 1881,
+    "group_denominator": 3324,
+    "four_live_groups": 1773,
+    "phase_qualified_scenarios_at_actual_contexts": 1496,
+    "phase_qualified_unique_groups": 1486,
+    "creation_replay_passes": 2238,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 657,
+  "scenarios": [
+    {
+      "card_id": "mark_of_the_huntsman",
+      "group_id": "identity:mark_of_the_huntsman",
+      "scenario_id": "card-mark-of-the-huntsman-four-live-sparse1054-actual-paid-unmarked-weapon-full-block-printed-go-again",
+      "effect_branches": [
+        "actual_paid_unmarked_weapon_full_block_printed_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mark-of-the-huntsman-four-live-sparse1054-actual-paid-unmarked-weapon-full-block-printed-go-again",
+      "source_spec": "card-regression-sparse1054-20261122.json",
+      "source_spec_sha256": "05d0b933559575d44fae66191af9ce9b7d18dfb0a233793b498c827a1e5c5908",
+      "review_evidence": "review-evidence/sparse1054-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b45bbba78d6f36a9c3d7092a6d3dbcdf37bd649dafb24037492ac304306d163b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1054-20261122-replay.json",
+          "sha256": "c4fe8bca5113fb2c9ae5f2fd847c2c0bfb256cc94845d684d5401b9991e6e7e7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "millers_grindstone",
+      "group_id": "identity:millers_grindstone",
+      "scenario_id": "card-millers-grindstone-four-live-sparse1054-actual-paid-weapon-two-hand-blocks-no-hit-or-clash",
+      "effect_branches": [
+        "actual_paid_weapon_two_hand_blocks_no_hit_or_clash"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-millers-grindstone-four-live-sparse1054-actual-paid-weapon-two-hand-blocks-no-hit-or-clash",
+      "source_spec": "card-regression-sparse1054-20261122.json",
+      "source_spec_sha256": "05d0b933559575d44fae66191af9ce9b7d18dfb0a233793b498c827a1e5c5908",
+      "review_evidence": "review-evidence/sparse1054-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b45bbba78d6f36a9c3d7092a6d3dbcdf37bd649dafb24037492ac304306d163b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1054-20261122-replay.json",
+          "sha256": "c4fe8bca5113fb2c9ae5f2fd847c2c0bfb256cc94845d684d5401b9991e6e7e7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -12,7 +12,8 @@ function FaBSEAAbilityRows(): array {
  $r['hammerhead_harpoon_cannon']=[['ACTION',4,false,true,false,0,'Aim cannon']];
  $r['goldkiss_rum']=[['INSTANT',0,true,false,false,0,'Drink Goldkiss Rum']];
  foreach(['amethyst','diamond','opal','platinum','ruby'] as $gem)$r[$gem.'_amulet_blue']=[['INSTANT',0,true,false,false,0,'Use amulet']];
- foreach(['onyx','pearl','pounamu','sapphire'] as $gem)$r[$gem.'_amulet_blue']=[['ACTION',0,true,true,false,0,'Use amulet']];
+ foreach(['onyx','pearl','pounamu'] as $gem)$r[$gem.'_amulet_blue']=[['ACTION',0,true,true,false,0,'Use amulet']];
+ $r['sapphire_amulet_blue']=[['ACTION',0,true,false,false,0,'Use amulet']];
  foreach(['anka_drag_under','chum_friendly_first_mate','chowder_hearty_cook','sawbones_dock_hand','shelly_hardened_traveler'] as $b)$r[$b.'_yellow']=[['INSTANT',0,false,false,false,0,'Use ally ability']];
  $r['moray_le_fay_yellow']=[['INSTANT',1,false,false,false,0,'Give ally a power counter']];
  $r['kelpie_tangled_mess_yellow']=[['ACTION',1,false,true,false,0,'Tap hero or ally']];
@@ -59,7 +60,7 @@ function FaBSEAPaid(int $p,object $o): void {
  if($id==='hammerhead_harpoon_cannon')FaBSEAAdd($p,'CANNON');
  if(FaBSEACogLimit($id)>0){$n=intval(FaBARCCard($u,'seaCogTurn',-1))===intval(GetTurnNumber())?intval(FaBARCCard($u,'seaCogUses')):0;FaBARCSetCard($u,'seaCogUses',$n+1);FaBARCSetCard($u,'seaCogTurn',intval(GetTurnNumber()));}
 }
-function FaBSEAPower(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$f=FaBFindUID(intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0));$n=$f?intval(FaBObjectCounters($f['object'])['POWER']??0):0;if(FaBSEAHighTide($p)){$n+=match($b){'battalion_barque'=>2,'conqueror_of_the_high_seas','hms_barracuda','hms_kraken','hms_marlin'=>1,default=>0};}if($b==='gold_hunter_longboat'&&FaBSEALessGold($p))$n+=2;return $n;}
+function FaBSEAPower(int $p,object $o): int {$b=FaBWTRBase($o->CardID);$sourceUID=intval(FaBObjectCounters($o)['MON_SOURCE_UID']??0);$f=FaBFindUID($sourceUID);$sameWeaponSource=$f!==null&&$sourceUID>0&&$sourceUID===intval(FaBObjectCounters($o)['WEAPON_UID']??0)&&FaBWTRIsWeapon($o);$n=$f&&!$sameWeaponSource?intval(FaBObjectCounters($f['object'])['POWER']??0):0;if(FaBSEAHighTide($p)){$n+=match($b){'battalion_barque'=>2,'conqueror_of_the_high_seas','hms_barracuda','hms_kraken','hms_marlin'=>1,default=>0};}if($b==='gold_hunter_longboat'&&FaBSEALessGold($p))$n+=2;return $n;}
 function FaBSEAGoAgain(int $p,object $o): bool {return $o->CardID==='limpit_hop_a_long_yellow'||(FaBSEAHighTide($p)&&in_array(FaBWTRBase($o->CardID),['swiftwater_sloop','conqueror_of_the_high_seas'],true));}
 function FaBSEAOverpower(int $p,object $o): bool {return (FaBSEAHighTide($p)&&in_array(FaBWTRBase($o->CardID),['hms_barracuda','hms_kraken','hms_marlin'],true))||(FaBWTRBase($o->CardID)==='gold_hunter_marauder'&&FaBSEALessGold($p));}
 function FaBSEACost(int $p,object $o): int {$n=0;if(FaBWTRBase($o->CardID)==='gold_hunter_ketch'&&FaBSEALessGold($p))$n-=2;if(FaBSEAWatery($o)&&FaBHasType($o,'Ally'))foreach(FaBWTREffects($p) as $e)if(($e['type']??'')==='SEA_QUARTER'&&intval($e['amount']??0)>0)$n-=3;return $n;}
@@ -72,15 +73,44 @@ function FaBSEAPlayed(int $p,object $o,string $from): void {
  foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SEA_NEXT'&&($attack||in_array($e['kind']??'',['naa','action'],true))&&FaBSEAMatches($o,$e['kind'])&&(!intval($e['source']??0)||intval($e['source'])===intval($o->SourceUniqueID??FaBObjectCounters($o)['WEAPON_UID']??0))){if($e['power'])FaBWTRTag($o,'WTR_POWER:'.$e['power']);if($e['tag']!=='')FaBWTRTag($o,$e['tag']);if(in_array($e['tag'],['SEA_RED_POWER','SEA_YELLOW_POWER','SEA_BLUE_POWER'],true)&&intval(CardPitch($o->CardID))===['SEA_RED_POWER'=>1,'SEA_YELLOW_POWER'=>2,'SEA_BLUE_POWER'=>3][$e['tag']])FaBWTRTag($o,'WTR_POWER:1');if($e['tag']==='SEA_HARPOON_OVERPOWER'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'OVERPOWER');if($e['tag']==='SEA_HARPOON_GOLD'&&str_contains($o->CardID,'harpoon'))FaBWTRTag($o,'SEA_GOLD_HIT');}else $remaining[]=$e;}FaBWTRSetEffects($p,$remaining);
 }
 function FaBSEAAfterMove(int $p,object $o,string $from,string $to,?object $source=null): void {
- if($to==='Graveyard'){FaBSEAGraveEntered($p,$o,$from,$source);if($from==='Arena'&&$o->CardID==='oysten_heart_of_gold_yellow')FaBHVYToken(intval($source->Controller??$p),'gold');}
+ if($to==='Graveyard'){
+  // Capture the dying object's functional ability and controller before other grave triggers.
+  $oystenController=0;$oystenUID=0;
+  if($from==='Arena'&&$o->CardID==='oysten_heart_of_gold_yellow'&&is_object($source)
+   &&$source->CardID===$o->CardID&&intval($source->UniqueID??0)===intval($o->UniqueID??0)
+   &&intval($source->UniqueID??0)>0&&!HasNoAbilities($source)){
+   $oystenController=intval($source->Controller??0);$oystenUID=intval($source->UniqueID);
+  }
+  FaBSEAGraveEntered($p,$o,$from,$source);
+  if(FaBSeatIsLive($oystenController))FaBROSQueue($oystenController,'oysten_heart_of_gold_yellow',$oystenUID,['rosEvent'=>'seaOystenDeathGold']);
+ }
  if($to==='Arena'&&$from!=='Arena'&&$o->CardID==='gold')FaBSEAAdd($p,'GOLD_GAINED');
  if($to==='Arena'&&$from===''&&$o->CardID==='golden_cog')FaBEVOEnter($p,$o);
+ // Legacy Copper has no ResolveCard body; use the existing item entry/Crank path once.
+ if($to==='Arena'&&$from==='Stack'&&$o->CardID==='copper_cog_blue'
+  &&CardResolveCardCount($o->CardID)===0&&!HasNoAbilities($o))FaBEVOEnter($p,$o);
 }
 function FaBSEADrew(int $p,int $n): void {
  if($n<1)return;FaBSEAAdd($p,'DRAWN',$n);if(GetCurrentPhase()!=='MAIN'||!empty(FaBGetState()['uprRefill']))return;
- foreach(FaBLiveSeats() as $v)foreach(FaBChoiceRefs($v,'Arena',['base'=>'escalate_bloodshed']) as $r)FaBARCLoseLife($p,$n,$v);
+ // Each card drawn earns a distinct trigger; the parent draw effect finishes first.
+ if(FaBSeatIsLive($p))foreach(FaBLiveSeats() as $v)foreach(FaBChoiceRefs($v,'Arena',['base'=>'escalate_bloodshed']) as $r){
+  $f=FaBIdentityFromMZ($r);$o=$f['object']??null;
+  if(!$f||$f['player']!==$v||$f['zone']!=='Arena'||!is_object($o)||!empty($o->removed)
+   ||intval($o->Controller??0)!==$v||intval($o->UniqueID??0)<1||HasNoAbilities($o))continue;
+  for($i=0;$i<$n;++$i)FaBSEAQueue($v,$o,'seaEscalateActionDraw',$p);
+ }
  if($p===intval(GetTurnPlayer())&&FaBMONHero($p,'marlynn'))for($i=0;$i<$n;$i++)FaBSEAQueue($p,GetHero($p)[0],'seaMarlynn');
  foreach(FaBOpponents($p) as $v)if(FaBSEACount($v,'ANKA')){FaBSEAClear($v,'ANKA');FaBROSQueue($p,'anka_drag_under_yellow',0,['rosEvent'=>'seaDiscard']);}
+}
+function FaBSEAResolveEscalateActionDraw(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $drawer=$params['rosTarget']??null;
+ if(($layer->Kind??'')!=='ABILITY'||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)
+  ||($layer->CardID??'')!=='escalate_bloodshed_red'
+  ||intval($layer->SourceUniqueID??0)<1||($params['rosTrigger']??false)!==true
+  ||($params['rosEvent']??'')!=='seaEscalateActionDraw'||!is_int($drawer)||!FaBSeatIsLive($drawer))return;
+ // Captured life loss does not depend on the Aura's later location, controller or abilities.
+ FaBARCLoseLife($drawer,1,$p);
 }
 function FaBSEACranked(int $p): void {FaBSEAAdd($p,'CRANK');if(FaBSEACount($p,'CRANK')===2&&FaBMONHero($p,'puffin'))DoDrawCard($p,1);}
 function FaBSEAStart(int $p): void {
@@ -142,4 +172,13 @@ function FaBSEAChumTargets(int $p,array $targets): array {$forced=[];foreach($ta
 function FaBSEAActionAbilityPaid(int $p,object $stack): void {
  if(($stack->Params['arcSpec']['timing']??'')!=='ACTION')return;$left=[];
  foreach(FaBWTREffects($p) as $e){if(($e['type']??'')==='SEA_NEXT'&&($e['kind']??'')==='action')$stack->Params['arcSpec']['goAgain']=true;else $left[]=$e;}FaBWTRSetEffects($p,$left);
+}
+
+/** An earned death ability uses its captured controller, not the later graveyard object. */
+function FaBSEAResolveOystenDeathGold(int $p,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ if(($layer->Kind??'')!=='ABILITY'||($layer->CardID??'')!=='oysten_heart_of_gold_yellow'
+  ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+  ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='seaOystenDeathGold')return;
+ FaBHVYToken($p,'gold');
 }

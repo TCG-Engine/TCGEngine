@@ -1,0 +1,323 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B577_QUELL_PAYMENT_AND_PREVENTION_PARTIAL_BRANCH",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T06:18:52.055362+00:00",
+  "source_spec": "card-regression-batch577.json",
+  "input_sha256": "d00c236425fcf646c187a39263411fd140130cdf530504137c11395949bc428d",
+  "manifest_sha256": "ae010eef56c4158ef0e00661a7d54426e40a7eb5612fc37e6dd0516e13579d22",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch577-independent-source-review.json",
+    "sha256": "5281bf35fd1e3b1f81aabdd58d40c562dbd6c1dcbd2286c6de06324a690171f0",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch577-20261106T061347Z-6aed701b2a7d3.json",
+    "sha256": "2033f1a6b1957df88ded26840de1fcd8220eb1e5288f13fe1a42dce87cf165ae"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch577.recording-results.json",
+    "sha256": "a44feac4816f8ab99d96bebd60c60a149f88983b7d1844a83372b6013b2d636d"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch577-native-r1-9fbaa\\receipt.json",
+    "sha256": "fb2d6d5878cf2551bfc08bc93f411aedf7c9ed6db561c96f7861680b3bcd7fce"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "mbrio_base_walkers",
+      "group_id": "identity:mbrio_base_walkers",
+      "slug": "card-mbrio-base-walkers-four-live-real-paid-quell-one-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch577.json",
+      "input_sha256": "d00c236425fcf646c187a39263411fd140130cdf530504137c11395949bc428d",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_QUELL_ONE_PREVENTION_AND_EARNED_FUTURE_OBLIGATION",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-mbrio-base-walkers-four-live-real-paid-quell-one-prevents-one-of-three-arcane",
+      "fixture_sha256": "36c2e0ebe4939f470274311d1f99495459355ada7eeae00a5089e2c5c55a4f47",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "180067d8e74eee3bfb804a8ac86cc95c793b156ece8f1132011c34fd884a8545",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "50f2483696b4ed75fb312184141c0458bfd55bc3f730b7710ac6f3ea6adbea5e",
+        "expected_final_gamestate.txt": "6ca8b56d96afe635204dd6cbd2c4dd66310f4072f9f39f08681df337ccabf136"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "180067d8e74eee3bfb804a8ac86cc95c793b156ece8f1132011c34fd884a8545",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "50f2483696b4ed75fb312184141c0458bfd55bc3f730b7710ac6f3ea6adbea5e",
+        "expected_final_gamestate.txt": "6ca8b56d96afe635204dd6cbd2c4dd66310f4072f9f39f08681df337ccabf136",
+        "meta.json": "4d4bbd48281a0e5d05070f631beb8f051c57a215416fdd6394ee48aa2620694d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "180067d8e74eee3bfb804a8ac86cc95c793b156ece8f1132011c34fd884a8545",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "50f2483696b4ed75fb312184141c0458bfd55bc3f730b7710ac6f3ea6adbea5e",
+        "expected_final_gamestate.txt": "6ca8b56d96afe635204dd6cbd2c4dd66310f4072f9f39f08681df337ccabf136",
+        "meta.json": "4d4bbd48281a0e5d05070f631beb8f051c57a215416fdd6394ee48aa2620694d"
+      },
+      "actions": 8,
+      "native_assertions": 798,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 232,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "mbrio_base_walkers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dash",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "mbrio_base_walkers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Pitch4_exact_UIDs": [
+        7
+      ],
+      "final_Equipment4_exact_UIDs": [
+        5
+      ],
+      "final_Equipment5_Counters": {
+        "UPR_DESTROY_END": 1
+      },
+      "final_Equipment5_Status": 2,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "actual_original_arcane_packet": 3,
+      "actual_prevented": 1,
+      "actual_arcane_damage": 2,
+      "actual_static_choice_boundaries": [
+        6,
+        7
+      ],
+      "actual_payment_damage_cleanup_boundary": 8,
+      "no_extra_ability_allocation": true,
+      "no_activated_history": true,
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "deb3de528f120ee51c8837bb732f7a5a13d1e25ce08e378d4d412511cb5679b3",
+      "native_action_mapping_sha256": "ad3b87c293ebf8b69fa1b1022501a00fbf1465e68701fb4271ea5a457a6c12e6",
+      "native_assertion_mapping_sha256": "6314784db2cc355b877cb5ac4968baf6ab2f7110c4ef3119ee209ce6c7c183ec"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 8,
+  "total_native_assertions": 798,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 232,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one new fixture at current9fbaa. Every8 native envelope/798 ordered persisted assertion matches the approved independent model. Exactly four actual manual actors1/2/3/4, all70 guards and48 actual preference settings per endpoint verified.",
+    "Real casterZap6 targets adjacentP4 before AP1-to0/zero resource cost. Same physical6 remains Stack through all four source responses and both real P4 resolving payment choices. Fourth response produces Quell Pay1 modal; actual index1 then awaits real Blue7 pitch. First two choice checkpoints retain HP20/R0/BlueHand7 and owned managed source6/controller1/PLAIN_SPELL. No priority opportunity is invented during unresolved decisions.",
+    "Actual Blue7 Hand4-toPitch4 generates3 and pays1, leaving P4R2. Actual original3 less Quell1 gives2 arcane/P4HP18, independently corroborated by final arcaneDealt1to4=2. Only after payment/damage completes does same6 reach public owner1GY. Same5 stays ready/Damage0/owner-controller4 and otherwise byte-equivalent parsed equipment properties, with earnedUPR_DESTROY_END1 as its sole changed field.",
+    "No activation ABI, EVR_ACTIVATED tag, extra response round or exhaustion is manufactured. Complete physicalUID1..7/no new object/RNG0, original four wholeHero objects, every exact zone/CardID/owner/controller, same turn MAIN and all DQ/Stack/Chain/await/payment/combat cleanup verified. Opaque undoVersions are file-hash-bound but excluded from current physical inventory.",
+    "The future destruction obligation is EARNED now; beginning-End event is UNREACHED/UNRUN, not unearned. Retain the source-only GL2161/UPREnd133/EndTurn2444 timing concern from the source review. No future destruction/priority timing or whole-Quell/whole-card qualification is granted. Root replay gates remain separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "kind": "issuer_face",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\mbrio_base_walkers.webp",
+      "sha256": "953c4f40ea3adc9de6fb3fd905c571a56ef536d8ad5702fdc984f874e2c7f38f",
+      "printing": "PEN061",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.19"
+      ],
+      "finding": "Optional static pay N/prevent N; successful use earns beginning-end destruction."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.4.10"
+      ],
+      "finding": "Selected prevention modifies the resolving damage event."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Resolution choices/effects precede source clearing and priority."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "rules": [
+        "9.3"
+      ],
+      "finding": "Chosen neighboring P4 is a legal multiplayer target; no complete target-menu certification."
+    }
+  ],
+  "future_end_phase": {
+    "obligation_earned_by_successful_payment": true,
+    "event_unreached_unrun": true,
+    "event_unearned": false,
+    "source_only_timing_concern": "GL END_PHASE transition queues Intimidate returns; flagged Quell equipment is directly destroyed later in FaBUPREnd called by FaBEndTurn.",
+    "native_bug_claim": false,
+    "destruction_or_priority_certified": false
+  },
+  "limits": [
+    "Only one positive paidQuell1 prevention of1/3arcane and earned future obligation. End-phase event/destruction/refill is unrun; second use, insufficient funds, decline, physical damage, other equipment/keywords, defense, transform, Hero/support/sibling/fullcard are untested.",
+    "Actual persisted assertions plus raw initial/final endpoints only; no invented per-input snapshots or instrumented callback execution.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/remote/denied operation; Root two targeted replay gates are separate."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch577_saved_readonly.py",
+    "sha256": "4be6c61943399cd22215a7bb4eb6108db243f18917299c58202e0afbcad0cb9b"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch577_source_readonly.py",
+    "sha256": "3cfda9a2410d370e8ee68bf13380e3a619eed6061ceb8a005c059b9a619b4232",
+    "portion": "Own declarative schema/action/assertion/checkpoint model only; no repeated source audit or author builder execution"
+  }
+}

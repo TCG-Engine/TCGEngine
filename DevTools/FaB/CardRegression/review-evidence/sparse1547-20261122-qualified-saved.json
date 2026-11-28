@@ -1,0 +1,85 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1547-20261122.json",
+  "source_spec_sha256": "ddd4a1056270366ccdfaf5fdb0c3cb18a7571a32a2a79214081d2d44cd13e753",
+  "input_sha256": "ddd4a1056270366ccdfaf5fdb0c3cb18a7571a32a2a79214081d2d44cd13e753",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-5lp3d-7hru-7h3-cr4x-two-live-sparse1547-first-real-stealth-attack-go-again-only",
+      "card_id": "arakni_5lp3d_7hru_7h3_cr4x",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "abd3d29e99c49abb086f55167ea6afdbdda9e53e287b7ac7133ba9481a9cced3",
+        "actions.json": "726b63283cf8887c5ab2b3525198396e5c116274a7c47594def592b02c0f3065",
+        "assertions.json": "83c12142fb7a99012a321c4bd29dc346a6bb88c6f796a66ed40e4ae8bb2a8736",
+        "expected_final_gamestate.txt": "a01f9716bd91f042d69b23eff1740f9c0ccc3afc5d71c0048d22a104001fa5f1",
+        "meta.json": "d3e6660aba2cd876a502f6c69a7840bb1fbf7ce0091c57e201fe1aacdb0dc129"
+      },
+      "fixture_sha256": "fc6e49991e0aafe81fa4de89ea5604ecf22977d4fafd1a0c10a2a0a0346de15d",
+      "actions": 30,
+      "native_assertions": 390,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 26,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1547-20261122.json",
+      "input_sha256": "ddd4a1056270366ccdfaf5fdb0c3cb18a7571a32a2a79214081d2d44cd13e753",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1547-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-5lp3d-7hru-7h3-cr4x-two-live-sparse1547-first-real-stealth-attack-go-again-only",
+        "fixture_slug": "card-arakni-5lp3d-7hru-7h3-cr4x-two-live-sparse1547-first-real-stealth-attack-go-again-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1547,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T12:22:00.723720+00:00",
+    "spec_sha256": "ddd4a1056270366ccdfaf5fdb0c3cb18a7571a32a2a79214081d2d44cd13e753",
+    "source_note_sha256": "8e80b7397876545177a30e7a436d0accae258b168d8c6d6301e55b214a80c8b7",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/OUTRuntime.php": "c0230fc9eb9948e3e2a93e2b33b6d1ebb588604957196b114991e23a19c22961",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "cases": 1,
+    "findings": [
+      "AdultArakni38/Dori40 two-live nativeCC legal. Static first-Stealth rule HNTRuntime56 global counter survives full Close; first actualInfectGA/refundAP1, secondnoGA/finalAP0. Actual3DEF fullyblocks both3power attacks so no hit/Pox/weaponhit triggers.",
+      "Two actual manual payment response passes2then1; source remainsStack untilresolution. Fullphase pairs/nonzero nativecontrols, UID6/GY3,4and5,6/finalHP38,40 consistent.",
+      "Before native, exactly2blockerRole schema values DEFEND correctedtoDEFENSE perFaBDeclareBlock; reversing them reproduces original spec hash, no gameplay expectations changed."
+    ],
+    "limits": [
+      "Only printed first-stealth same-actor positive/second-negative subset. Opponentfirst, suppression, turnreset, support, wholecard and historicalfour-liveformat branches untested. Source/spec review only; native still pending. Reviewer no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1547-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "15f1859223cc83ecb161f6d86292ec705792e9c69eae8242a5cdb12449d17596"
+  },
+  "full_suite_run": false
+}

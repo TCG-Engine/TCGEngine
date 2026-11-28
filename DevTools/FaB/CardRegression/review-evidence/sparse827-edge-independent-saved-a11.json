@@ -1,0 +1,104 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_FOUR_LIVE_EDGE_BLUE_ZERO_SEPARATE_LEAVE_REAL_SEVEN_DAMAGE",
+  "phase": "SAVED",
+  "batch": 827,
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T20:12:34.228466+00:00",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "source_spec": "card-regression-batch827-edge-real-zero-leave-consumer-positive-r2.json",
+  "input_sha256": "ab16919d7849efad237745bb5c34949acb16aa9beeb79418a72f7593830d37e1",
+  "manifest_sha256": "0c26e4528c24dec9c91d3cb712b50d55922e35ad6f227b9ef2f8a2c40d8c7bfd",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch827-edge-independent-normal-positive-source-review.json",
+    "sha256": "5284a3c8a5783d8ff9c619bde222e234a04a3f9310a9a09afd2d336dc9503f16"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b827-edge-r2-positive-native-save-a11\\receipt.json",
+    "sha256": "1615fc066eed7eff459c861bad9cca85ec39ed18b46b3c5e2bf60c6e548183e6"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch827-edge-real-zero-leave-consumer-positive-r2.recording-results.json",
+    "sha256": "7cd17dc60c71b43d75626fa3915db2ea2a5ebef8426a39bf2c6cbe1cedd991d0"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch827-edge-real-zero-leave-consumer-positive-r2-20261115T200942Z-6afa11860457b.json",
+    "sha256": "42bad5ff5ecd2a810f5d777f88a7ebdc034a478df620ce01d334dba03fbbe5dc"
+  },
+  "fixtures": [
+    {
+      "card_id": "edge_of_their_seats_blue",
+      "slug": "card-edge-of-their-seats-blue-four-live-real-zero-leave-and-seven-damage-consumer",
+      "actions": 41,
+      "native_assertions": 4609,
+      "manual_passes": 37,
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1618a625a4d10a3944eac8c72d215c6e35acd3eafca2840a78e27152f32c11e1",
+        "actions.json": "8e55ad0ca5aeb86a6d46859de5b88ccaab775b9f59108c70f128369e0c3ebf7e",
+        "assertions.json": "52685e7c9502ea95b24be75273fc8f99acfa3afbb14a256bc9f75167d963a501",
+        "expected_final_gamestate.txt": "4a25fee54c1fe9972f40bacb1314688ed3bd33843e2999c45637fd9726e5a16f",
+        "meta.json": "1a7051a65f152e8ca009e63c5c1d9da64fa27e6df20156ed7e672dfc33c56c27"
+      },
+      "fixture_sha256": "e03bb532e9aac9f584680e1e0d9cf2c80667b8ffdab34a9b6e5eef6f063a41a9",
+      "input_sha256": "ab16919d7849efad237745bb5c34949acb16aa9beeb79418a72f7593830d37e1",
+      "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "recorded_runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "genuine_four_live_manual_seats": true,
+      "initial_queries_independently_evaluated": 127,
+      "terminal_queries_independently_evaluated": 222,
+      "expected_original_41_controls_4609_queries_unchanged": true,
+      "native_fault_credit": 0,
+      "scope": "Exact Blue Edge pre-existing one-counter zero/leave and real7damage consumer only; no own cast/entry/startphase/pitch-sibling/general-layer-order coverage."
+    }
+  ],
+  "full_saved_action_and_query_order_matched": true,
+  "all_4609_native_queries_semantically_reviewed_against_approved_Edge_source": true,
+  "all_41_saved_native_envelopes_and_manual_actors_matched": true,
+  "checkpoint_count": 43,
+  "typed_property_queries": 814,
+  "source_guard_count": 82,
+  "selected_support_guard_count": 25,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "sibling_native_coverage": false,
+  "saved_review_only_not_replay_certificate": true,
+  "two_new_only_clean_replays_required": true,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "full_suite_run": false,
+  "historical_corpus_replay": false,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch827_actual_saved.py",
+    "sha256": "c44ac18204593e988aa63612fb9b8aae4d99b915ff3e671849ef2bf5ff96aaa7"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "semantic_witnesses": [
+    "Actual41EdgeNative envelopes and4609ordered assertions exactly match its own approved finalSource. All37manual inputs are persisted:9each seats1/2/3 and10seat4 including formaldefendfinish; no pass_until hides more inputs.",
+    "ActualHero1 click and choice pay physicalEdge6 SUSP1tozero[] and tapHero beforepriority; originalABILITY7/zero8 are separate. Fourzero responses physicallydestroy6toGY and createleave9withnoSUP_NEXT. Fourleave responses then addSUP_NEXT3; separatefourresponses finish originalHero7withouteligibleAura orrefund.",
+    "Exact source-derived history arrays are verified through actual persistedqueries: EVR_ACTIVATED/DTD_HERO_USED/EVR_GRAVEYARD/SEA_BLUE_GRAVE; next3appears onlyafterleavecompletion and remains through formalattacktargetrequest, then realRed5consumesit onceasWTR_POWER:3. No OMN turnEffects row or separate OMN-counter coverage is claimed.",
+    "ActualformalHero4target, Red5source and allAttack/Defend/Reaction/Damage/Resolution windows give power7/noGA and physicalHP4=13. Rawfinal independently shows sameEdge6andRed5publicGY1, Hero1tapped/RAP0, fourlivingYoung/UPF/manual, no Stack/queues/await/combat. All127initial and222terminal semanticqueries independently evaluatedonraw endpoints."
+  ],
+  "limitations": [
+    "Savedreview is not a replaycertificate. Two separate new-only clean replays and Rootregistration remain qualification gates.",
+    "Only Blue Edge pre-existing one-counter/zero/leave/real consumer. Owncast3/entry2/startphase/replenishment/otherlisteners/control/suppression/generalvirtualdeletionorder/heroCrowd/fullcard/nativepitchsiblings remain untested.",
+    "Edge ancestors f18/7bdb were unexecuted, not failed games; final own Edge source preserved all41controls4609queries with agreed complete source-derived encoding. Prior ActR2 oracle failure is separate historical evidence and supplies no Edge Native coverage.",
+    "Read-only W validator narrowly decodes native array TurnEffects wire and Counters JSON from schema. It changes no native query, rawfixture, or runtime. No nativefault/fullsuite/historicalcorpus credit."
+  ]
+}

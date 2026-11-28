@@ -1,0 +1,7 @@
+{
+    "name": "Beckoning Mistblade / sparse four-live paid weapon representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:57:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: **Attack**. **Go again**\n\nWhen this hits, your next blue attack this turn gets +1{p} and **go again**. Named paid weapon/fullblock branch only: actual_paid_nonstealth_weapon_full_block_printed_go_again. Actual legal natural20 nuu owns ready sole Weapon5; real GenericBlue6 pitch3 pays cost2, leavesR1/AP0. Native adjacent Hero4 announced before assets; four manual source/combat response seats. Real Wounding7 HandAA defense3 blocks printedpower1, actual persisted attackPower1/defenseValue3/damage0/attackHitfalse/HP20. Only actual printed GA returnsAP1 at Resolution; physicalWeapon5 retained, proxy linked by WEAPON_UID5 not opaque UID/owner, Blue6Pitch and defender7ownedGGY4. No hit effect, Aegis, buff, positive marked target, hero activation, creation bookkeeping or sibling/support/full-card credit. Actual Nuu20 MysticAssassin legal, but Mistblade has no Stealth, so Nuu does not grant its stealth chain-resolution banish ability. Actual defender7 goes owned graveyard/Banish0; no positive next-blue-hit buff/hero Banish play tested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beckoning_mistblade"
+}

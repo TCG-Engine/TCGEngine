@@ -1,0 +1,7 @@
+{
+    "name": "Call for Backup / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:45:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, choose 2 attack action cards with different names in your graveyard. An opponent chooses 1 of them. Banish that card and put the other on top of your deck. Representative only: actual_seven_hand_attack_without_defended_graveyard_choice. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. No positive Defended/Clash/Galvanize/Blood Debt branch or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#call_for_backup_red"
+}

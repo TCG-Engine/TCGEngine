@@ -1,0 +1,7 @@
+{
+    "name": "Dustup / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:49:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, create an Ash token, then **transform** up to 1 ash you control into an Aether Ashwing. Named main-path representative only: actual_full_block_no_hit_no_ash_or_transform. Real owned Hand5/cost0/AP0, adjacent Hero4 declared before assets, all four live seats respond manually. Source5 finishes in its owner graveyard. Positive hit/marked-target/additional-cost/transform/shuffle/token branches are untested. Actual Wounding Blow6 plus Critical Strike7 defend6, preventing the hit event entirely. No pitching occurs, so Dromai creates no Ash; Ash/dragon/transform positive behavior is untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dustup_red"
+}

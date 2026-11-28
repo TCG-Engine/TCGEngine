@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T01:46:53.347881+00:00",
+  "runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+  "source_spec": "card-regression-repair-chorus190-current-aura-conditional-hit-draw.json",
+  "source_spec_sha256": "c42f99b371b3fcd62f6c03a68158572368d262702cbfdcb439567e1e1c1e78c9",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 37,
+  "native_assertions": 4509,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 4151,
+    "duels": 3074,
+    "four_live": 1077,
+    "recorded_primary_ids": 1304,
+    "identity_denominator": 5196,
+    "recorded_groups": 1178,
+    "group_denominator": 3324,
+    "four_live_groups": 1070,
+    "phase_qualified_scenarios_at_actual_contexts": 788,
+    "phase_qualified_unique_groups": 783,
+    "creation_replay_passes": 1529,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "head_banging_chorus_yellow",
+      "group_id": "identity:head_banging_chorus_yellow",
+      "scenario_id": "card-head-banging-chorus-yellow-four-live-first-guardian-empty-hand-earned-hit-draw",
+      "effect_branches": [
+        "realAura1-Suspense2-firstGuardianAA-actual4damage-grantedHitLayer-fourResponses-emptyHand-actualDraw"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-head-banging-chorus-yellow-four-live-first-guardian-empty-hand-earned-hit-draw",
+      "source_spec": "card-regression-repair-chorus190-current-aura-conditional-hit-draw.json",
+      "source_spec_sha256": "c42f99b371b3fcd62f6c03a68158572368d262702cbfdcb439567e1e1c1e78c9",
+      "review_evidence": "review-evidence/chorus190-30a9-qualified-saved.json",
+      "review_evidence_sha256": "e42e0ae52c1b62ad5f0221cf7c4e68f828c59de0a9863108933a449727e47887",
+      "recorded_runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+      "qualification_runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-chorus190-replay.json",
+          "sha256": "e9ce1a533b72343a08041212410cc386db856380a23c4b0391b088ca013b71d7",
+          "runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

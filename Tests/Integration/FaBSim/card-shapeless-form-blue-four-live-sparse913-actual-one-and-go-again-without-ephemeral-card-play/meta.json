@@ -1,0 +1,7 @@
+{
+    "name": "Shapeless Form / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:11:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever you play an attack action card with ephemeral, choose a name. It gets the chosen name.\n\n**Go again** Representative only: actual_one_and_go_again_without_ephemeral_card_play Sources: FaBSim/GeneratedCode/cardArrayCache.json#shapeless_form_blue"
+}

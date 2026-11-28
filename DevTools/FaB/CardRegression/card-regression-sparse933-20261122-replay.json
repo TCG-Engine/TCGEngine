@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fight-fair-red-four-live-sparse933-actual-six-against-non-reviled-hero-returns-to-graveyard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fight-fair-red-four-live-sparse933-actual-six-against-non-reviled-hero-returns-to-graveyard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f5909dec1175bbc8a52a8e7b0c4ed53cd2038445756bccbe9e8fcb3f79294b80",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a4ce9cbba3203fd5821c4885aaedb908be255295c96b1f8deba30a0690a70171",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "6e9ce015e85ded4732eb08a26d4b2dba954f2746510c3ca47764ece28c1b38c6",
+        "expected_final_gamestate.txt": "4b177ff00b0884edc4d09ed04811d325be16369d4092aaac0acef7eca4e3c8a4",
+        "meta.json": "bb32df2196d94a1331c65df15d81e5e347a8aced66e862002ea47266d7d05146"
+      }
+    },
+    {
+      "slug": "card-fight-dirty-red-four-live-sparse933-lyath-base-four-against-non-revered-hero-keeps-real-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fight-dirty-red-four-live-sparse933-lyath-base-four-against-non-revered-hero-keeps-real-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "888a93a904404b0d1dadfe4ce7952119e6816426a8ebed5d58f884077259b262",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42f0c092b3814a1e8985e8a8bdd4386749f04432182ec1f47e9e38c3ac1c66ef",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a17c6bcc15cbd24d210c52a46cf4a13bd835e2470fbaeb944d3bbed84998ce1c",
+        "expected_final_gamestate.txt": "4518201882c962076e87cd0e699e934f4c72e730bc863b436d9027b4f93b31d4",
+        "meta.json": "22994be31757a6068dc61cbd657984304e24017ffe51f7e5b0ce5ef2610e6aaa"
+      }
+    },
+    {
+      "slug": "card-disturb-the-peace-red-four-live-sparse933-actual-six-against-non-guardian-hero-keeps-real-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-disturb-the-peace-red-four-live-sparse933-actual-six-against-non-guardian-hero-keeps-real-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3f41c67ff43a922e2cc839b03a3be3ff81c7ba55a7069b5e6124abf744b08661",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a59fc37ecdbe7b2d3ec9d93edaf743559349c6f81ca113e98e491555c891d3b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "136f363f4c5645892b71158b4abe24f2c940dc2be8700bf1f848f36ee113cec4",
+        "expected_final_gamestate.txt": "3411d700d872a8d705c9a352224dfc043e7ceb00f97506bb6b6b105bcf29b145",
+        "meta.json": "3e6d19c7634a98f9ab24e01053809cbcd1087262103d31edf495312bfa592a21"
+      }
+    },
+    {
+      "slug": "card-enact-vengeance-red-four-live-sparse933-actual-first-chain-six-without-combo-keeps-real-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-enact-vengeance-red-four-live-sparse933-actual-first-chain-six-without-combo-keeps-real-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f86db6cdaa45ec38408a4b4974a01c35e742865b9a6d5dc74a864f723523a434",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f91d284672bd5a49c7541ffb0edce2ab1da8855f5920bd30d94abf7738818b35",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "9b4fcc23ef034570706fafc7cb6a72f4830b148cd90226c504d14391197d8481",
+        "expected_final_gamestate.txt": "23d587cafbab58a13649d37c219b7738514e479f12a0bff7ebce747c6866fb9e",
+        "meta.json": "bca6b960a4191b624bcc676f5ae4cb3d1e5912bc85245eea2f17384d7b23037e"
+      }
+    },
+    {
+      "slug": "card-burning-blade-dance-red-four-live-sparse933-actual-first-draconic-link-three-without-granted-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-burning-blade-dance-red-four-live-sparse933-actual-first-draconic-link-three-without-granted-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse933-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "13493f1215c991e34fec213cd638c51ea89c9c211311d2262cd7f1cb8c8fa902",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "717cea8927c5f694e3282e0b650853bfa1f6e18668278de70f2b1164d9b4eee9",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "78c11fdd6857b8360385d37d9d196d2593a180ebf9ea05d1f0bf640023f486fd",
+        "expected_final_gamestate.txt": "ce841a385f93bda2f5ea66c614ec66e5a3af6e9c396e52aee64251081ddc272d",
+        "meta.json": "785dd913638346aacc48fa8bd2491e6ba41bff8df3ed67cf5e523aaf07a10e87"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

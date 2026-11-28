@@ -1,0 +1,246 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sap-red-four-live-sparse874-three-arcane-without-surge-preserves-energy-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sap-red-four-live-sparse874-three-arcane-without-surge-preserves-energy-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "141aad293c404c7690cd243666aa3357cc17fcc5c2d0796ee15b6261047eeedd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e29f3b897755c613755f8b2736c2d68fc0301dcec76cad8f862cecef9d8f0e92",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "fb849a56ad8328bae5cbed74c7e3d2be1656cddfb1f6339494c587452027b271",
+        "expected_final_gamestate.txt": "526d8b445da8fae3730bd90d69040db89703b7876487b01a7263324b97313db1",
+        "meta.json": "eb7b0103535f89ae8e07beef8b41ff89471ed2db0d6a2e228913b6bafc277a09"
+      }
+    },
+    {
+      "slug": "card-mind-warp-yellow-four-live-sparse874-two-arcane-without-surge-preserves-actual-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mind-warp-yellow-four-live-sparse874-two-arcane-without-surge-preserves-actual-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "78755e8169355d9a459591888428036a00b855bfb0168a8f1a9ec1f11c92b856",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a679903d8eb61f0e9490b6b085278cb8cf92a72302280b6c6e8fa02b2706b86",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "a343b562c48e3b0b8fc4e83f2d588a11e1c15b6359bf8d05527c057809b57320",
+        "expected_final_gamestate.txt": "67d68b217a1ef0bd3bab1ca163eb4e50641e8682ed6d423f0324d30f3aa3a229",
+        "meta.json": "1eda81bc270437b5ac3e5fa110027414ef1916daf95c9d6e90eee27706d26dbf"
+      }
+    },
+    {
+      "slug": "card-destructive-aethertide-blue-four-live-sparse874-one-arcane-without-surge-preserves-actual-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-destructive-aethertide-blue-four-live-sparse874-one-arcane-without-surge-preserves-actual-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5a67fcb8ca2eca6748c189f113ba4a8b001ce171133fa6c31896d4babdc6c729",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b5e1607d9ed53decc64ebf2596f703e9baa6caaf8bc3a10ee988d8f304144cb",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "8c97f74fe35ab1977380b4808e6e74944a4b35a6ce08e05e44858043c94eb14a",
+        "expected_final_gamestate.txt": "8fc5dd99cd9730677bf23c022181a660f3689e277732341c2bd6535fe5425a9c",
+        "meta.json": "bf08f7f8f3a80236a65bb0e6dd7790980f3106211f3feba97511c8432eeeb567"
+      }
+    },
+    {
+      "slug": "card-glyph-power-spell-red-four-live-sparse874-real-sigil-condition-and-blue-pitch-pay-for-six-arcane",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-glyph-power-spell-red-four-live-sparse874-real-sigil-condition-and-blue-pitch-pay-for-six-arcane",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "50f011bac7e6251b77e944ef3810ab7a5bfd3522dff93313550acc2720f9f9c7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7e96ad2b20fd5b80801ce23947d3d6e74ab9297681b46a9d317743933bd636c",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "79abb1e444a83d38bdbd85212c05f6726f7ea7cfb41876e0544d2e496bf45428",
+        "expected_final_gamestate.txt": "ba234d4189451d6c98bf932e194ca40c85a8c5757a926f1fcca9e8fab5df4700",
+        "meta.json": "00bd609f17a4fb92c6262b818a87496df7dfaf3b853ad343ec2cc031a6bcb785"
+      }
+    },
+    {
+      "slug": "card-foreboding-bolt-red-four-live-sparse874-three-arcane-then-actual-opt-one-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-foreboding-bolt-red-four-live-sparse874-three-arcane-then-actual-opt-one-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "85da397620e8c8437390b416055c0932020e42d3bfcb266fc601ce7286aa99aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "372ec925fcb7ac6fd2f8021a34fe60d290f81a5c1675a2410a90c9f6f960922c",
+        "actions.json": "b79227e4872344597d273fdc89a494f4737caadfacff27ea277d92807dcf695b",
+        "assertions.json": "5c4ff9cd40a267ca02ba11f51a19a5d645bc0e33a40f6c79bebeeecd0f4aa389",
+        "expected_final_gamestate.txt": "b0d30316dd450d19288d537f1eb3a3850a863f70da0b5f53aca31505ccb0c25e",
+        "meta.json": "794aa814a59b27317eb937fc9aa27fd79af36079b7ba0ece5169932b4d5b256c"
+      }
+    },
+    {
+      "slug": "card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "998c11296a1986ca618c18597f6465474d89f2e548d21c0aeb26f93f6f95d374",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e0685de2fe7a3ec14e0588bf7940a777f1538f743ae1e1e478688fcded20c5a",
+        "actions.json": "644b197909283aee716774870783b5b4f034abcc76d871bb1e01235369d623ab",
+        "assertions.json": "8660b3e324bdad1c81a241b6db34c2989edaa1da35543f60eefe27af1b7262c2",
+        "expected_final_gamestate.txt": "3083d110ed64c5a0287ed874b825dfec763a1b43bfaf5694757a5921d4d1ca87",
+        "meta.json": "be3a32dd20d65d7c334d24b231808e94a424c5121003dc8905d120b5f458fa4f"
+      }
+    },
+    {
+      "slug": "card-soul-food-yellow-four-live-sparse874-moves-itself-and-both-real-hand-cards-to-soul",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-soul-food-yellow-four-live-sparse874-moves-itself-and-both-real-hand-cards-to-soul",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "53b8623b2a74b72a036819f498aa0c03f60b9fce907e7a7224fed0361c26761c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "834af7f41e10e51d0b48e6f8ac88632f7f6fb525abe942de71c6cdf22918c296",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "794c8dcf0949aed6da0d4b4556915f94bf8be99005a8c3a3e90fde883b77ae6a",
+        "expected_final_gamestate.txt": "88f66868d9a054b6162e937b45ec85c6cfa9fb9659b9a84fa9cd9776cce7c3fb",
+        "meta.json": "de782bb82da5855a0ce905ba98bba19fdf6dc62b37f4e878e2d5d897515a8ef5"
+      }
+    },
+    {
+      "slug": "card-cog-in-the-machine-red-four-live-sparse874-creates-two-owned-cogs-then-real-tap-puts-source-on-deck-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cog-in-the-machine-red-four-live-sparse874-creates-two-owned-cogs-then-real-tap-puts-source-on-deck-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\07.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\07.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7aee726acd064ef731f95d01041617871cbb21ec61277c269c003da68107d13d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "584ec9a1e9d5214e247469af5c6a2fef81a85edeb03958782496c03c06157c9e",
+        "actions.json": "0de61cb7f55b803cbdebdd73a9ca5e165785c3ea81b94ffd0baa897aec76d587",
+        "assertions.json": "c0c9215a22ac913e614336ed3fd620ff86e7df4dd7820ad52ffe8065335739e0",
+        "expected_final_gamestate.txt": "819b6067163c3c3fbd07732e326e440144d2b0f5c30ffe273f226ba5e6388f4a",
+        "meta.json": "6eb3d3ec84a43749d92913b0b0c0aed7572d52e58f943134c1359faf7ffe3618"
+      }
+    },
+    {
+      "slug": "card-cogwerx-workshop-blue-four-live-sparse874-creates-golden-cog-and-adds-steam-to-two-real-cogs",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-workshop-blue-four-live-sparse874-creates-golden-cog-and-adds-steam-to-two-real-cogs",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\08.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\08.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f569ff8e621f54784ef7e9eab864137f49ed2bf926818bb3ac53a44c04d79d13",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ad585e055d5a78b0c2236d9b602abced3b0c42d794c961509f831eb28a240bf",
+        "actions.json": "ff5e142dfcc7428d1dfe6b17b39c22620058004efc6a0fb180d1fde106575bf6",
+        "assertions.json": "de77e2be9b17bbbb4f9dd4c2f12fa7d9373c17d1cddd75119720a49b91c1972e",
+        "expected_final_gamestate.txt": "31622543892fc9006961cbc7d7abaaa266d961b7ac29863c56cd1d712bbace16",
+        "meta.json": "f2b6f7a972cf0f8e87e44c530ea68c662b7acd7fce985c957fd64584f953b09a"
+      }
+    },
+    {
+      "slug": "card-index-red-four-live-sparse874-chooses-one-of-five-then-orders-remaining-four-on-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-index-red-four-live-sparse874-chooses-one-of-five-then-orders-remaining-four-on-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\09.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse874-local-20261122\\clean-replays\\09.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "47bea59b7092432bf9034c9a98f40a44e30fc2c0b0f9827cd5ab3517e508cea7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2499d1200e016b4b839d46ca3ff7154bf93a1e071515375aae7c5b301184269d",
+        "actions.json": "0465025297b85eab693db7d57756dcdafbb4e591f3e556ea9076dfb6f8e732dd",
+        "assertions.json": "c0e77da35a7aa3b4f5e1e54f1986fde8709eddf152287ca182424a7037297f3b",
+        "expected_final_gamestate.txt": "fe5381e6b74574d5af87a3f8c4fa3fc0aa96748bfe8e9a49b549b84b9dad3cbd",
+        "meta.json": "03701cb53f541fdbbcf3a03a1c0e2a6dce3bf0dc96b2393376f7932997c17183"
+      }
+    }
+  ],
+  "raw5_unchanged": true,
+  "amendment": {
+    "utc": "2026-11-22T14:34:19.012757+00:00",
+    "affected_slug": "card-call-to-the-grave-blue-four-live-sparse874-choose-real-deck-card-to-graveyard-then-shuffle-and-go-again",
+    "prior_receipt_backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\card-regression-sparse874-20261122-replay.json",
+    "reason": "Single irrelevant shuffle remainder; exact affected case rerecorded/replayed. Other nine replays reused unchanged."
+  }
+}

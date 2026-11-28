@@ -1,0 +1,206 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_CHANNEL_FIRST_DAMAGE_EARNED_DRAW_AND_REAL_DRAWN_CARD_CONSUMER",
+  "phase": "SOURCE",
+  "batch": 868,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch868-channel-first-damage-earned-draw-consumer-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\channel-first-damage-earned-draw-real-blue-consumer-full-probe.json",
+    "sha256": "ca0b73f1e9e99fb19217a1d447041cf2cb29a60e4adc973435246e7e89921b95"
+  },
+  "input_sha256": "ca0b73f1e9e99fb19217a1d447041cf2cb29a60e4adc973435246e7e89921b95",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\manifest.json",
+    "sha256": "5015be09f1aa8e61b00dd28a9d9dcae4cf58328a40cbe0e9c9f81b8aeecd3c44"
+  },
+  "manifest_sha256": "5015be09f1aa8e61b00dd28a9d9dcae4cf58328a40cbe0e9c9f81b8aeecd3c44",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-firm-reservation.json",
+    "sha256": "0bbf34fa2f600891793840a644c2959747a3aa12990b05cfdaeca4d5f5a093aa"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-firm-reservation-support-admission.json",
+    "sha256": "c0bfccfacea0a28fd8c5dc6d42a87b3c873a38621c3f4c1ec94d897f9e88eadb"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\preflight.json",
+    "sha256": "4c5e403f3ce3ae4d6bc941e92e3e5bcb35b62a5c57c8229fa9fdf745a81de819"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "a466f09a0cced0d9a6ac555995e2c63dc58b8c47932186835bb1b17af00ddf9a"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch868-channel-first-damage-earned-draw-real-second-attack-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "a56c12228f79f27c3c26a54e7d6e24aac57ffda6a42f2e929231e8d078f367a8"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 19,
+  "all_current_guards_independently_matched": true,
+  "actions": 57,
+  "declarative_controls": 57,
+  "planned_native_inputs": 57,
+  "assertions": 6898,
+  "native_assertions": 6898,
+  "planned_native_assertions": 6898,
+  "manual_passes": 54,
+  "pass_control_count": 54,
+  "legal_priority_response_controls": 52,
+  "expected_formal_defense_finish_inputs": 2,
+  "nonpriority_END_transport_controls": 0,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 13,
+    "2": 13,
+    "3": 13,
+    "4": 15
+  },
+  "expected_native_actor_counts": {
+    "1": 16,
+    "2": 13,
+    "3": 13,
+    "4": 15
+  },
+  "schema_property_checks": 1687,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "unsupported_computed_life_getter_absent": true,
+  "computed_power_getter_queries": 43,
+  "computed_go_again_getter_queries": 43,
+  "computed_getters_only_on_current_live_attack": true,
+  "expected_native_query_mapping_sha256": "06702a742a79a4de657c36215940b14e76a257addea9cc53628e50e6469d1a09",
+  "checkpoint_mapping_sha256": "e17ee8787ad6a0e42c1dc19dad6227cfdfc35a26ab3973a74597528a9de6348b",
+  "post_first_damage_public_frontier": {
+    "source_step_index": 46,
+    "after_control": 23,
+    "global_query_ordinal": 2664,
+    "first_queries": [
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Health",
+        "value": 16,
+        "viewerPlayerID": 1
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Hand",
+        "value": 0,
+        "viewerPlayerID": 1
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Deck",
+        "value": 2,
+        "viewerPlayerID": 1
+      }
+    ]
+  },
+  "independent_semantic_findings": [
+    "Legal Young Aurora20 EssenceLightning admits the preexisting Lightning Aura5; actual health17 is below opposing Heroes20. Generic ScarRed6 and WoundBlue7/Red8 are legal. Setup is current P1 ACTION/AP1, four active manual seats/UPF/no passive seats; no damage/GO_AGAIN/draw flag or extra Hand card is seeded. Prior Aura cast and beginning/end/upkeep clauses are explicitly outside the pre-firmed representative.",
+    "Scar played-WHEN is implemented by WTRCards584 -> WTRAbilities230..239, which queues a captured ABI above the physical paid ATTACK6. Exact full four responses precede GO_AGAIN grant, then four fresh responses resolve physical Scar Source; no repaired005 lifetime or trigger waiver. Source CardID/UID6/Owner1/Controller1/Kind/target descriptor and unmodified Deck7,8 are checked.",
+    "CR6.6.1 includes ordinal trigger conditions; CR6.6.5d limits the first-time event and CR6.6.6 requires the triggered layer before priority. Actual first unblocked physical Scar4 damage must yield Hero4 health16 while Hand1 remains empty and Deck remains physical Blue7 then Red8. These public queries lead the private layer/window/AP checks; the captured Channel Aura5/controller1/KindABILITY/sourceUID5 must remain through four fresh responses, then draw that same Blue7. No private virtual UID/event or marker-only draw certificate is invented.",
+    "Fresh literal ROSCards65..67 FaBROSDamaged records DAMAGE then VALLEY_HIT and calls DoDrawCard inline for each actual Channel Aura, without the earned layer. This is a Source concern, not confirmed Native failure or a newly allocated shared/Core root. The bounded current named ledger search identified no exact prior causal Channel/VALLEY_HIT producer contract. EndFlow/canonical StartTurn naming is not used to justify the first-damage diagnosis.",
+    "Actual all-seat DAMAGE responses are required after Channel resolves. GL2094..2103 enters RESOLUTION and only GL2099 refunds Scar go again; AP remains0 through the Channel and DAMAGE rounds and becomes1 after that actual transition. The drawn physical Blue7 is then played natively, cost0/AP0, on the same chain. GL176..182 restricts the existing chain to actual defender4 and GL727 accepts its sole legal target without a fabricated second menu.",
+    "The second physical WoundBlue7 attack has computed power2/noGA, deals real2 damage to Hero4 health14, and must not draw a second card; original Red8 is the sole remaining Deck card. Separate native Source/Attack/Defend/Reaction/Damage/Resolution rounds and both formal zero-defense finalizers lead real close, physical Scar6+Blue7 GY, persistent Aura5 and drained Stack/queues/payment/chain. No cached attackPower-only result substitutes for health and physical witnesses.",
+    "All 86 computed queries target only the current live ATTACK: CombatChain0/UID6 controls10..31 or CombatChain1/UID7 controls36..56, supported by actual ObjectCurrentPower1028..1033 and ObjectCurrentGoAgain1037..1041. No Stack/departed-row computed query or unsupported computed-life query is present. All1687 property fields match actual schema; exact 57 controls/6898 normalized queries and checkpoint mapping independently match the frozen model. Every pass_until requires a changed readiness condition; the fourth ATTACK passes additionally require DEFEND_DECLARE rather than swallowing a same-priority boundary.",
+    "54 planned pass inputs are52 genuine priority responses (13 per seat) plus2 defender4 declaration finalizers. Actual initial and final raw48 manual Young-seat profiles remain future actual/Saved gates; Source setup/all endpoint queries do not constitute observed raw or completed interaction coverage."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.5d",
+        "6.6.6"
+      ]
+    }
+  ],
+  "remaining_gates": "Root one full --probe-only/noSave even PASS run, then independent actual result review. No automatic promotion or qualification; any subsequent normal Source/Saved raw5/both endpoint profiles and two targeted replays require separate explicit gates.",
+  "limits": [
+    "Only first own opposing-Hero damage/once-per-turn draw and the real drawn-card second attack are tested. Prior Aura cast, upkeep/flow, end phase, siblings, other events, Hero activation, support/full-card coverage are uncredited.",
+    "No PHP/Native/R source writes/replays/new agents/repair or denied Reincarnate199/older source-operation retry by reviewer."
+  ],
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "repository_writes": false,
+  "reviewer_PHP_executed": false,
+  "reviewer_Native_executed": false
+}

@@ -1,0 +1,740 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_WIND_REAL_ITEM_HIT_EARNED_NEXT_IRA_TWO_KODACHI",
+  "phase": "SOURCE",
+  "batch": 856,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch856-wind-real-item-hit-earned-next-ira-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\wind-real-item-hit-earned-next-ira-two-kodachi-full-probe.json",
+    "sha256": "a6a1b8ab49cdab5510740db149527d5905a0ee9e9b70ee216792f84690c159f1"
+  },
+  "input_sha256": "a6a1b8ab49cdab5510740db149527d5905a0ee9e9b70ee216792f84690c159f1",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\manifest.json",
+    "sha256": "7986226ae5c4db27a941a44e2e719bc31e5aa1452869e9929e59013f92aa1b8c"
+  },
+  "manifest_sha256": "7986226ae5c4db27a941a44e2e719bc31e5aa1452869e9929e59013f92aa1b8c",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-firm-reservation.json",
+    "sha256": "394e84720896988ace39a6861bd2baff6c64571774b797f3b0c2f6d2ddaa703e"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\preflight.json",
+    "sha256": "2161b2fb3b0611aa9768938de14a0d1b5d393ce1d15fb90617e9f410908eca59"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\frozen-author-QA.json",
+    "sha256": "caf0b77bb3ed5a142341a9911bf7b3853543744c677aeb0cbfbe5e99330a98c2"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch856-wind-real-item-hit-earned-next-ira-two-kodachi-strict-probe-r2-pass-accounting-author\\ordered-control-query-model.json",
+    "sha256": "3d06edc47d81b0f5f5c7b9f586dcb287dcfa2cd92cb47dbc3dfbed9fe2add0b0"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 19,
+  "all_current_guards_independently_matched": true,
+  "actions": 111,
+  "declarative_controls": 111,
+  "planned_native_inputs": 111,
+  "assertions": 13746,
+  "native_assertions": 13746,
+  "planned_native_assertions": 13746,
+  "manual_passes": 103,
+  "pass_control_count": 103,
+  "legal_priority_response_controls": 88,
+  "defense_declaration_finalizer_controls": 3,
+  "nonpriority_END_transport_controls": 12,
+  "pass_controls_are_not_all_priority_responses": true,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3
+  ],
+  "expected_manual_actor_counts": {
+    "1": 27,
+    "2": 25,
+    "3": 25,
+    "4": 26
+  },
+  "pass_control_classification": [
+    {
+      "control": 4,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 5,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 6,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 7,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 8,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 9,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 10,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 11,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 12,
+      "actor": 4,
+      "classification": "DEFENSE_FINALIZER"
+    },
+    {
+      "control": 13,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 14,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 15,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 16,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 17,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 18,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 19,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 20,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 21,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 22,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 23,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 24,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 25,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 26,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 27,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 28,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 29,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 30,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 31,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 32,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 33,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 34,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 35,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 36,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 37,
+      "actor": 1,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 38,
+      "actor": 2,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 39,
+      "actor": 3,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 40,
+      "actor": 4,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 41,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 42,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 43,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 44,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 45,
+      "actor": 2,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 46,
+      "actor": 3,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 47,
+      "actor": 4,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 48,
+      "actor": 1,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 49,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 50,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 51,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 52,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 53,
+      "actor": 3,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 54,
+      "actor": 4,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 55,
+      "actor": 1,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 56,
+      "actor": 2,
+      "classification": "END_TRANSPORT"
+    },
+    {
+      "control": 60,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 61,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 62,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 63,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 64,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 65,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 66,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 67,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 68,
+      "actor": 1,
+      "classification": "DEFENSE_FINALIZER"
+    },
+    {
+      "control": 69,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 70,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 71,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 72,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 73,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 74,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 75,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 76,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 77,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 78,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 79,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 80,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 81,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 82,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 83,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 84,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 87,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 88,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 89,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 90,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 91,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 92,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 93,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 94,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 95,
+      "actor": 1,
+      "classification": "DEFENSE_FINALIZER"
+    },
+    {
+      "control": 96,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 97,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 98,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 99,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 100,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 101,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 102,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 103,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 104,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 105,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 106,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 107,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 108,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 109,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 110,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 111,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    }
+  ],
+  "checkpoints": 114,
+  "schema_property_checks": 3720,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "5f6db402aad006bda012253330602ad4aa7107f15258c94dbe9882d9c8863218",
+  "expected_native_query_mapping_sha256": "5048f0a5d5d246ba66480ccf118a29ac8ccf289480a270d8b1f3ffb4e2537220",
+  "checkpoint_mapping_sha256": "15005926c5b2166fe1eac2b53f9f6b5f138ead0e82cac71145fdad59de95a2cc",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Legal four manual Young Ira1/Betsy2/3/Ira4 all20. Ninja Item/Shuriken Wind5 is a valid prior-play Arena precondition, not a Weapon/type/attack/hit/lock seed. Ira second-attack passive does not add power to the first Wind attack. Blue6 actual3 pays printed1 to R2/AP0 and physical tapStatus1 via MON45/GL1146/CRUUseWeapon. PrintedGA supplied IARAllyAttacks264; no unprinted cost/extra AP is introduced.",
+    "After real Source/Attack/zero-defense/Defend/Reaction flow, actual Wind1 damage HP4=19 is frontloaded at control20, followed by captured ABILITY/source5/controller1 before fresh four21..24. No marker-absence-only iarWind oracle, virtual UID/CardID/event guess or invented exact trigger-window label. Native IARHit136\u2192WindLock355 is a fresh literal inline listener concern; ordinary own-Hit285/295 is not used as a blanket hold.",
+    "Actual MONAbilities72 records omnShurikenUsed. OMNClose442..444 scans real Arena Shuriken and destroys the used physical5 at automatic chain close after Resolution32. This resolves earlier tentative concern from IARWeapons-only branch; full correct GY identity remains required. Publisher Usurp release notes identify this deferred destruction as activation cost, so no extra responseable destruction quorum is invented.",
+    "Three turn transitions contain exactly12 pure END transport inputs, separately classified from88 real priority responses and3 defense finalizers. OldTurn/TurnNumber guards on intermediates and first newP2Turn3/P3Turn4/P4Turn5 guards prevent swallowing phase advancement; until criteria use priority alone, not an ACTION window that could skip a pending ability. There is no End/Start game-priority response claim. Normal P1 pitch-bottom/draw-up returns actual Blue6 toHand, not a seeded extra draw.",
+    "Next actual P4 Action starts AP1 with two distinct legal Ninja1H Kodachi7/8. Native first cost1 uses real HeadJab9Blue3/cost0 to R2/AP0; Pitch0cost gives both weapons printedGA. Actual firsthit1/P1HP19, refund1; second physicalweapon cost1\u2192R1/AP0 and real secondhit1/P1HP18, refund1. This is the mandatory passive-loss consumer, not a suppression flag. Unblanked Ira would add1 to second attack. Current implementation is located at CRUCards10..11/160 gated by WTRHeroActive42, so historical route-unlocated hold50 is not waived or falsely treated as missing.",
+    "PhysicalWind5 ownerGY, Kodachi7/8 Weapons4, Blue9Pitch4, Blue6Hand1 and Stack/queues/chain clear remain full terminal obligations. Next-phase delayed lock retention is an additional SOURCE_ONLY concern until Native, not a confirmed failure. All111 controls/13746 ordered queries/3720 actual-schema properties and current guards independently checked; metadata-only pass terminology successor has byte-identical input to original author packet."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1d",
+        "6.6.5",
+        "6.6.6"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/04-game-structure/",
+      "scope": "No priority in End/Start; END inputs solely current API phase transport."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/usurp-the-shadow-throne/",
+      "scope": "Official indexed text rechecked: deferred destruction is activation cost; suppression only next action phase. Direct page403 disclosed."
+    }
+  ],
+  "required_remaining_gates": [
+    "Root exact full --probe-only attempt; no Save even PASS.",
+    "Independent actual ordered trace/physical effect review; separate explicit promotion/fresh normal Source/actual Saved raw5/both48 and own focused replays remain necessary if later appropriate."
+  ],
+  "limits": [
+    "No Native result, confirmed issue, source fix, fixture, qualification or coverage.",
+    "Item prior casting, expiry/restored later Ira passive, other heroes/targets/siblings/support/fullcard and generic virtual-layer behavior untested.",
+    "No PHP/native/R writes/fullsuite/Git/remote/deferred Radiant or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T08:46:21.388939+00:00"
+}

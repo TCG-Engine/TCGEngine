@@ -1,0 +1,224 @@
+{
+  "status": "B423_NATIVE_BEFORE_CLASSIFIED_BOLTERS_TRIGGER_DEFECT_AND_TREMOR_PROTOCOL_ERRATUM",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "input_sha256": "b70efa1c30676215cbf3d770ab35c0e97755567f165d81dc57db95dfa34d1ed6",
+  "manifest_sha256": "5d84853585c6647b2028306eb46802a5e87eb96d692d35ecc22ffcd6af725e1a",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/984/",
+      "finding": "Current binarybanish+2/base4 unchanged; no current Tremor gameplay conclusion."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "Printed WHEN earns responseable layer before its optional resolution effect; source-gate current read reused."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Optional modal choice is part of resolving ability, not a replacement for the earlier trigger response round."
+    }
+  ],
+  "source_fix_applied": false,
+  "denied_operations_retried_or_integrated": false,
+  "independent_full_peer_sha256": "f5f2d74e0ce7daa68a261f498020d54dcda432eb8b0349d1f1122a99ae229de8",
+  "source_spec": "card-regression-batch423.json",
+  "retention": "Compact independent findings. Full raw diagnostics and initials retained in immutable native archive; preserved W copies are not runner dependencies.",
+  "native_recording_results": {
+    "path": "card-regression-batch423.recording-results.json",
+    "sha256": "cdac07ac8117e9fbe8d58763f15ef421ba3dccc58f9ef207adac1f0ba2a7130e"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch423-20261105T062401Z-6aec210171aeb.json",
+    "sha256": "6c1667e8c84c370bfef753fed6645604a1b280929b27258afd75cba8f2205ec1"
+  },
+  "bolters": {
+    "card_id": "refraction_bolters",
+    "slug": "card-refraction-bolters-four-live-original-correct-weapon-hit-layer-destroy-go-again-and-real-ap-consumer",
+    "fixture_saved": false,
+    "fixture_exists": false,
+    "accepted_inputs": 20,
+    "actual_action_prefix_sha256": "52d54973441d5589505ba72aaf4c4c082a0fbe4c521bbf149652ae22233e7295",
+    "manual_inputs": 17,
+    "manual_pass_actor_counts": {
+      "1": 4,
+      "2": 4,
+      "3": 4,
+      "4": 5
+    },
+    "first_failure": {
+      "error": "Expected decision queue for player 1 to be empty.",
+      "native_action_boundary": 20,
+      "source_step_index": 40,
+      "source_check_index": 6,
+      "failed_native_check_ordinal_1based": 1749,
+      "preceding_native_checks_passed": 1748,
+      "completed_prior_boundary_checks": 1742,
+      "same_boundary_checks_passed": 6,
+      "assertion": {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 6,
+        "type": "decision_queue_empty",
+        "player": "1",
+        "viewerPlayerID": 1
+      }
+    },
+    "classification": {
+      "category": "NATIVE_CONFIRMED_PREMATURE_INLINE_HIT_CHOICE_MISSING_RESPONSEABLE_WHEN_BOUNDARY",
+      "gameplay_defect_confirmed": true,
+      "oracle_error_at_first_failure": false,
+      "protocol_error_at_first_failure": false,
+      "finding": "After all4 real Reaction responses for the first Dawnblade hit, the next input-free expected boundary instead already offers the Bolters destruction chooser plus listener-await. The printed WHEN should first add an earned responseable layer and allow the fresh1/2/3/4 response round before asking this optional body choice. The failed P1 queue-empty assertion correctly detects that premature choice.",
+      "source_explanation": "Current canonical RefractionBolters Hit listener directly executes await Modal and then conditionally moves captured Equipment/sourceUID to Graveyard and grants captured attackUID GO_AGAIN. It has no separate responseable hit layer in that body. Observed Listener:Hit-await identifies this exact path. No source repair proposed/applied by reviewer.",
+      "allocation": "Root allocates issue/family attribution. This is an unqueued hit-producer timing boundary, not proof of denied094 already-earned genericROS completion. No global/Core/rootcount allocation here.",
+      "direct_observed_limits": [
+        "Passed prior prefix proves cost1/Blue3/R2/AP0, actual weapon proxy9 base3/noGA and physicalEquipment5 through the third Reaction response.",
+        "At failing boundary ONLY priority1/pass0/combatOpentrue/P1HP20/R2/AP0 passed before the queue failure. Actual state reports first weapon hit, damageDealt3/attackHittrue and the immediate chooser/callback.",
+        "Stack1 assertion, P4HP17 scalar, posthitEquipment5 location/current computed power/GA/sourcecapture assertions follow the first failure and were NOT executed. No actualStack0, physicaldestroyed5, physicalP4HP17, captured new ABI, later choice/GA/APrefund/followup/damage/cleanup claimed. No fullpostfailurephysical snapshot captured.",
+        "Cached attackPower3/attackGoAgainfalse are reported state only, not a postfailure fresh-computed query.",
+        "Unexecuted future Bolters chooser labels in original input also use MODAL/unprefixed Param/answer and must eventually be corrected to actual supported MZMODAL/1|1|... protocol. That separate representation erratum does not explain or invalidate the earlier correct missing-response-window witness."
+      ]
+    },
+    "observed_failure_decisions": {
+      "1": [
+        {
+          "Type": "MZMODAL",
+          "Param": "1|1|Keep_equipment&Destroy_for_go_again",
+          "Block": 1,
+          "Tooltip": "Refraction_Bolters",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 0,
+          "_sourceZone": null
+        },
+        {
+          "Type": "CUSTOM",
+          "Param": "refraction_bolters:0:Listener:Hit-await|refraction_bolters:0:Listener:Hit#1|2|choice",
+          "Block": 1,
+          "Tooltip": "",
+          "DontSkipOnPass": 0,
+          "removed": null,
+          "Location": "DecisionQueue",
+          "PlayerID": 1,
+          "mzIndex": 1,
+          "_sourceZone": null
+        }
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "same_boundary_passed_checks": [
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 0,
+        "type": "scalar_zone_equals",
+        "zone": "PriorityPlayer",
+        "value": 1,
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 1,
+        "type": "scalar_zone_equals",
+        "zone": "ConsecutivePasses",
+        "value": 0,
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 2,
+        "type": "game_state_field",
+        "rootName": "FaBSim",
+        "path": [
+          "combatOpen"
+        ],
+        "comparison": "equals",
+        "valueJson": "true",
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 3,
+        "type": "scalar_zone_equals",
+        "zone": "p1Health",
+        "value": 20,
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 4,
+        "type": "scalar_zone_equals",
+        "zone": "p1Resources",
+        "value": 2,
+        "viewerPlayerID": 1
+      },
+      {
+        "step": 20,
+        "source_step": 40,
+        "source_check_index": 5,
+        "type": "scalar_zone_equals",
+        "zone": "p1ActionPoints",
+        "value": 0,
+        "viewerPlayerID": 1
+      }
+    ],
+    "observed_state": {
+      "window": "DAMAGE",
+      "combatOpen": true,
+      "combatStep": "DAMAGE",
+      "chainLink": 1,
+      "attacker": 1,
+      "defender": 4,
+      "attackUID": 9,
+      "attackHit": true,
+      "damageDealt": 3,
+      "pendingPayment": null
+    }
+  },
+  "tremor_original_erratum": {
+    "accepted_inputs": 2,
+    "first_failure": {
+      "error": "Expected p1DecisionQueue-0.Type to equal 'MODAL', got 'MZMODAL'.",
+      "native_action_boundary": 2,
+      "source_step_index": 4,
+      "source_check_index": 52,
+      "failed_native_check_ordinal_1based": 245,
+      "preceding_native_checks_passed": 244,
+      "completed_prior_boundary_checks": 192,
+      "same_boundary_checks_passed": 52,
+      "assertion": {
+        "step": 2,
+        "source_step": 4,
+        "source_check_index": 52,
+        "type": "card_property_equals",
+        "mzId": "p1DecisionQueue-0",
+        "property": "Type",
+        "value": "MODAL",
+        "viewerPlayerID": 1
+      }
+    },
+    "native_card_effect_tested": false,
+    "corrected_UI_protocol_source": "card-regression-batch423-tremor-protocol-v2.json",
+    "corrected_UI_input_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+    "qualification_credit": false
+  }
+}

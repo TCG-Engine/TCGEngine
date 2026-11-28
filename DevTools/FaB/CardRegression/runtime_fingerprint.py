@@ -5,6 +5,8 @@ def runtime_fingerprint(repo):
  paths+=list((repo/'FaBSim').glob('*.php'))+list((repo/'FaBSim/Custom').glob('*.php'))
  paths+=list((repo/'FaBSim/GeneratedCode').glob('*.php'))
  paths+=[repo/'DevTools/RunIntegrationTests.php',repo/'Schemas/FaBSim/GameSchema.txt']
+ compatibility=repo/'DevTools/FaB/CardRegression/final_snapshot_compatibility.php'
+ if compatibility.is_file():paths.append(compatibility)
  digest=hashlib.sha256()
  for p in sorted(set(paths)):
   digest.update(p.relative_to(repo).as_posix().encode());digest.update(p.read_bytes())

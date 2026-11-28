@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch661.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T22:41:57.520973+00:00",
+  "fixtures": [
+    {
+      "slug": "card-long-shot-blue-four-live-real-barbed-bow-aim-and-three-arrow-damage",
+      "fixture_sha256": "23af103f9c5ff80444ee0905db00c07f2b510027f647f86ab4abbd493155da54",
+      "passed": true,
+      "result": "[PASS] long_shot_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-long-shot-blue-four-live-real-barbed-bow-aim-and-three-arrow-damage",
+      "returncode": 0,
+      "stdout": "[PASS] long_shot_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

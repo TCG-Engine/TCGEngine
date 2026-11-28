@@ -1,0 +1,122 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1519-20261122.json",
+  "source_spec_sha256": "28fca21f6ea25ab29a284cab7bd5e569b2ccddda6fdee4e042bd2de5efa07bc5",
+  "input_sha256": "28fca21f6ea25ab29a284cab7bd5e569b2ccddda6fdee4e042bd2de5efa07bc5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-perforate-yellow-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "perforate_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee01ad788f6588bac82dd3909817a1bac89afb4297430febde3970c5a6ed1ace",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "5b27f7bf0d485080093428df6a1ebaf9bc3eab0400695761f812544bf3331e45",
+        "expected_final_gamestate.txt": "c2512e098d9eab970584cc7a4c0673b35139e6de9624b20868231b1ef4d50ac3",
+        "meta.json": "e5088cb17c9684565f75955e5f5ebc4c55e45c76d4fc1afd38672b76a9318c2d"
+      },
+      "fixture_sha256": "1a60141aedbe8d94e5e9d9c2fb993f4698519ea5346b5b17e78c60c7accaf9fa",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1519-20261122.json",
+      "input_sha256": "28fca21f6ea25ab29a284cab7bd5e569b2ccddda6fdee4e042bd2de5efa07bc5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-perforate-yellow-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-perforate-yellow-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tarantula-toxin-red-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+      "card_id": "tarantula_toxin_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78272757259241f6ca6992809fbda1aefc8c48468dbd2fd9d480059cc01aef74",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "84f131c609ec3896e2f5fbd211fed65d2b58b131ead7dad5bc42d478000fa050",
+        "expected_final_gamestate.txt": "f8c3c49a4c233b005bbe24ea31faea5818c5fa850cf34e99cd1d6805e59c7597",
+        "meta.json": "c74761520109abdb204810533ea00b48589ee497564c0222c9905d1255882736"
+      },
+      "fixture_sha256": "8030d2ab1abcd2de0e8f50cd8fab4651de3407e9f2ba338617b9f1c35976a482",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1519-20261122.json",
+      "input_sha256": "28fca21f6ea25ab29a284cab7bd5e569b2ccddda6fdee4e042bd2de5efa07bc5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tarantula-toxin-red-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "fixture_slug": "card-tarantula-toxin-red-four-live-sparse1519-actual-generic-attack-fails-specific-reaction-target-guard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1519,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:42:46.157865+00:00",
+    "spec_sha256": "28fca21f6ea25ab29a284cab7bd5e569b2ccddda6fdee4e042bd2de5efa07bc5",
+    "source_note_sha256": "d68b41662daf4a4806b7c49a3473eee6244e8cce68ee87c80a88b0873ff3a6ff",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 2,
+    "findings": [
+      "Perforate mandatoryDaggertarget absentanywhere; equippedCintariSwordnotDagger. Futurepermission/discount/drawpositivepath untested.",
+      "Toxinchoose1orboth meansatleastone; actualGenericAA4/notStealth/nodefenders/readyDaggernotattacking hasneithereligiblemode.",
+      "EarlyWTRnonWeaponguardmaycauserejectionbeforeHNTselector, socreditnecessaryoutcomeonly,notlaterselectororfulltargetuniverse.",
+      "ExactlegalBoltyn/Uzuri20/funding/REACTION1/AP0/readyweapon8/noevent/damage4HP16/fullmanualfourfates sound. StaleHatchetmetadataonlycorrectedwithnocheckchanges."
+    ],
+    "limits": [
+      "Bothnegativeonly; no positiveeffects, selector path, targetownership, completeeligibility or siblingcredit. Reviewer source/spec only, no nativegames."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1519-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2e0653716c7f17f18c3a31e8181ac695c98833137dbe91708513e665cc48d02e"
+  },
+  "full_suite_run": false
+}

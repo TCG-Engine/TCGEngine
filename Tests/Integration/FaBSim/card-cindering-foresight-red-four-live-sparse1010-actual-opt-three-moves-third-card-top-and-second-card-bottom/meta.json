@@ -1,0 +1,7 @@
+{
+    "name": "Cindering Foresight / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:13:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If it's not your turn, you may play this as though it were an instant.\n\nThe next card you play this turn with an arcane damage effect, instead deals that much arcane damage plus 1.\n\n**Opt 3** Named own-turn Action/Opt3 branch only: naturalKano15/source5soleHand/cost0/AP0, fourmanualresponses. ActualDeck6/7/8 all stagedTemp3 with source5heldStack/AP0/GY0, realMZREARRANGE choosesTop8,6 Bottom7, finalDeck8,6,7 exactUID/order/source5ownedGY/Temp0/noGA/AP0. No shuffle or random search. Subsequent next-arcane buff and opponent-turn Instant permission untested; no hero/support/sibling/full-card claim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cindering_foresight_red"
+}

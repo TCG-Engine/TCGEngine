@@ -1,0 +1,87 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1515-20261122.json",
+  "source_spec_sha256": "1a50b5511f86fe4650c3fcd5aef142385354b4c7dc1bf18059dca3329965dcf9",
+  "input_sha256": "1a50b5511f86fe4650c3fcd5aef142385354b4c7dc1bf18059dca3329965dcf9",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bloodrush-bellow-yellow-four-live-sparse1515-real-resource-discard-six-draw-and-buffed-claw-hit",
+      "card_id": "bloodrush_bellow_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16e8bc052ec336e909bbdc0c77077f48a71544ae01688a10dd513c18a8036582",
+        "actions.json": "70a2e83de08e311434e3c727158eed362a8ee6739a4962d2b1ccdd4dfb7125e9",
+        "assertions.json": "a5ff19b243f70d6be4290a4b2592ee8977d7948a6091ca48ab482f3b922c5b4b",
+        "expected_final_gamestate.txt": "5c8841c3d12353e739cfcf4b00db67bd7a8ba7b79042a5a90cab5342dcdcc6dc",
+        "meta.json": "3c179e14195acc7a61b07e57e645a66eea9080498ed0dbbd3783ab076ae352e1"
+      },
+      "fixture_sha256": "345db2fdbf64d931deaa6309da47eba8482f4ce68ff952b268e930fea779367c",
+      "actions": 38,
+      "native_assertions": 618,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1515-20261122.json",
+      "input_sha256": "1a50b5511f86fe4650c3fcd5aef142385354b4c7dc1bf18059dca3329965dcf9",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1515-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bloodrush-bellow-yellow-four-live-sparse1515-real-resource-discard-six-draw-and-buffed-claw-hit",
+        "fixture_slug": "card-bloodrush-bellow-yellow-four-live-sparse1515-real-resource-discard-six-draw-and-buffed-claw-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1515,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T08:11:45.410936+00:00",
+    "spec_sha256": "1a50b5511f86fe4650c3fcd5aef142385354b4c7dc1bf18059dca3329965dcf9",
+    "source_note_sha256": "1ae9a9c7a45a943790ba86e7c557439397241b0a8889e9099be6c150e9d9cb14",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "Core/DeterministicRNG.php": "1dab74f1628bf52a89a1aca6941dfe5e4513fef660ef7b8b58fe057c70fa517a"
+    },
+    "cases": 1,
+    "findings": [
+      "CurrentGameLogic2045-2059 retainsownedordinaryAction throughfallbackWTRResolveCard652; oldc53/756concernsupersededbyexistingstructuraladmission, notdeniedaction.",
+      "Asset1/APpaidbeforeadditionalrandomdiscard, onlyWrecker6base6eligible; singletonRNGnoadvance. Primary+2/draw2/AP1noconditionalprintedGAduplicaterefund.",
+      "ExactPotion8ABI11/R2/AP1; primary5/R1/AP0/discard6prepriority;draw9/10/AP1;Claw7proxy12/R1+Blue9pitch3-cost2=R2/AP0;power3+2=5HP15/staticGA/fullcloseAP1.",
+      "NoRhinar/Romping/Reincarnate/attack/hitWHENearned. Allfourmanualresponses andphysicalfates sound."
+    ],
+    "limits": [
+      "Singleeligiblecostnotrandomdistributiontest. Noexpiry/repeat/wholecard/siblingcredit. PotionresourcefollowthroughdoesnotcertifyinternallegacyABIclearingorder. Reviewer read-only source/spec review only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1515-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "64809d752a1ae900e2cb951abeea59634d2e6986db1aa63a175d4f052dece163"
+  },
+  "full_suite_run": false
+}

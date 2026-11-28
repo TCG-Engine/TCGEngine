@@ -1,0 +1,7 @@
+{
+    "name": "Flood of Force / actual predecessor enables delayed Combo",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T00:53:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OfficialFlood text WHENattacks-if earns responseable layer even false. Source ordinary predecessor is captured before currentFlood can selfmatch. Falsefirst1power/1damage noReveal/put/GA. ActualTimesnapActiongivesAP2; firstFloodfalse1damage, KEEPchainOPENatResolution; secondFloodtrue usesactualpriorfirstFlood, noearlyeffects, CURRENTComboDecktopPUT(notdraw) intoHand then+3ownpower/GA. Actualsecond4damage/finalHP35, GAAP1atResolution, fullClose physicalfates. Sources:"
+}

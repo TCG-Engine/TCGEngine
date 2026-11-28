@@ -1,0 +1,7 @@
+{
+    "name": "Uzuri / actual hidden Hand cost then real stealth replacement and damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T02:33:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_MANUAL_UPF_UZURI20. RealWither5HandStealth0/power3, actualWounding6Hand0/power4, priorrealDecktopCriticalBlue7. Actual5attackdeclaresadjacentHero4andpaysAP1to0/allfoursource/combatpassesintoREACTION1/noDefenders. ActualHeroOnceReaction0ABI8nonTargetHandcostchoice6; actualanswerbanishesSAME6faceDownbeforeallfourresponses, uniqueactiveStealth5capturedbeforeprioritybyOUTBanishCost(outSwapTarget), notresolvedattacklookuplater. ABI8/old5CC/new6hiddenBanish/Deck7remainbeforefourthresponse. Onlyresolutionreveals6/eligible0AAC\u2192puts5bottomDeckAFTERuntouched7andmovesSAME6toCCasattackingcard(no play, noAction/resourcecost). Defender4unchanged, actualpower4/noGA, freshallfourReaction/Damagepassesgiveactual4damageHP16. OldWither5doesnothit/produceFrailty. Fullclose6ownedGY/Deck7then5/HandBanish0/APR0/UID8RNG0/StackDQsCCclean. OnlysinglelegalactiveStealthtargetpositiveeligibleswap; noalternateTargetBinding/retargeting/invalidorcost>2/nonAAC/onceRepeat/otherdefenders/reveal-log/adult/support/fullHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#uzuri FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OUTCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

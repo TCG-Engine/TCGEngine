@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-corrupted-corpse-four-live-sparse1148-real-zombie-attack-tap-and-intrinsic-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1148-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1148-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fef04b11c25336b0f44564029b258e235ed11d5c85aed17b53119da6ec030000",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "192be5c0daa6df7a046f64d3cfa19a2095b785a5fa569f2535901f20962ad166",
+        "actions.json": "a768bf0dcca7fe78ad4748b146f2162f29630c2be755b170d0430eecb855d1d5",
+        "assertions.json": "be2126f437979202ebee7f027295466a6b33f2e7bd0924ce23173d82ed15c9a7",
+        "expected_final_gamestate.txt": "7eb2ae0648c5a8ddaaaf14175f8da563e982c34c2964cb58f18859cf4910a094",
+        "meta.json": "c93e44e2895f90013181ddbb7798bee01cc5f0108971c14bfff54edd0bc61cac"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

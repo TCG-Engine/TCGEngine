@@ -1,0 +1,289 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1415-20261122.json",
+  "source_spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+  "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "card_id": "turn_to_mindfire_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb6356d025b03b619f9dc07a0fe0a474b50584662654c5923e958281b737d5b6",
+        "actions.json": "88a4c8243c4a0927d8ca460e2da6a3aa7a30b35a867ff4cb71ca24fc2803a7cd",
+        "assertions.json": "b0711389b852f4693dd94f89c8fb5c7025bd3444ef1fd2411d96c2ebb845f578",
+        "expected_final_gamestate.txt": "5baa1fee3e59b54750c1a2a6fcb2bd4891a1b422907d7b29b4c09b9140bbea75",
+        "meta.json": "42f33ceaf01aa5705ec4a8bf5f2f315a32f6eee8215d6a83f7827e2ff470fca3"
+      },
+      "fixture_sha256": "c45877845f4fd08eb36bc29ad0d2d3a7cab64d04b008b2d52f1aef61555332da",
+      "actions": 6,
+      "native_assertions": 218,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "fixture_slug": "card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "card_id": "enion_surge_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "00e012d6c22af11398b184e3aed6de0ac6bbd326f078e445115ed3b14012466b",
+        "actions.json": "139121d478e93360bd199dd3937ff2997e758e18f50e508345227f47bcaba186",
+        "assertions.json": "f573a2d68756a9f5b2d5d6b6d8114a1b2183fcfc57119d75711dbd9e7c81ba9b",
+        "expected_final_gamestate.txt": "91a1f773c37b9782b84ced77dd87b8bede0173ef1839d3c4e7b158b7e98ad33c",
+        "meta.json": "51bec8bda7c9b6d274a0e931764a09ee22adf836b224345c70d7c24575f72ee9"
+      },
+      "fixture_sha256": "31318b920728ada0c9768257dd91bb0f5c301f1e8ffa90e5ab5451871790de33",
+      "actions": 5,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "fixture_slug": "card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "card_id": "comet_collision_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc5b8570fa919724dfd5cd969714848108dfdaa38d702d80801465a70a43ae7a",
+        "actions.json": "0955e5ab8643dcccb62684e61e53d1c3424c299db377ed690506c8cdbb85f6dd",
+        "assertions.json": "43a120d8225aad3a860a93ee3217849fc0282f55c087d3ace0e3c46f9849458b",
+        "expected_final_gamestate.txt": "2dc6d2aa80f36e515dd72b352183683adcd6f8c1c8cfd79206ee5b9efe9f7230",
+        "meta.json": "4c63c472246e3a1fb0d49f2c3f683f2855acddfc819c96aa5a36aea2a1e19349"
+      },
+      "fixture_sha256": "9a5bbd38fab4e3c1fe16443dfb52c75b22f3b6cf4b15775e847eb55ce4cdab7e",
+      "actions": 7,
+      "native_assertions": 236,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "fixture_slug": "card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "card_id": "meteoric_impact_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22e52a1a815ac3fc0ea95e5e54ec2a1bcc9a11a3f5979906724553d6784feb7a",
+        "actions.json": "c114f92ef324ab4effef2a293482be508f9ee6573250b6908f0aa7d3de3d9070",
+        "assertions.json": "c2b21e97e9d88f11301d48cc8e3ab74a921d08b655e6bef1dab3b14ef60ff9ff",
+        "expected_final_gamestate.txt": "1d34bcb60e97650ec7bf1963a9ec2321a3fcb8441241dbed4e87286072183386",
+        "meta.json": "fe6a071826b911ce4908f044f04b90d6399c93a1ff623c4641c720d1f6cfcbae"
+      },
+      "fixture_sha256": "42f0352a17ea5bcd2e51c793fda91b05b4cf9add09a487cfa0baf11df6f4bcb0",
+      "actions": 8,
+      "native_assertions": 252,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "fixture_slug": "card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "card_id": "lightning_overload_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21701975a5b8984723813c412fba8850b802a64faa58d29b1344923198481fb5",
+        "actions.json": "c114f92ef324ab4effef2a293482be508f9ee6573250b6908f0aa7d3de3d9070",
+        "assertions.json": "5c27634ab501f2b4b066671c85f0ce9851f77c5638bdb707057baab9a61b35db",
+        "expected_final_gamestate.txt": "fe7e3b9eb74364233e42ae6b6817cb00ed03f8a62c1f982d023f269667a5be26",
+        "meta.json": "1550912f6818b6da1cc144218532d4ffff937945fc61f27b97a19ecf8eecc63a"
+      },
+      "fixture_sha256": "6df28e5bc9bfee4ff7b3f8b4a07cf6f0cabd6d507a2e63e731c85d5799f70a34",
+      "actions": 8,
+      "native_assertions": 257,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1415-20261122.json",
+      "input_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "fixture_slug": "card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c453630d9f9df45fc6179d0aa31083ddca715ee011992141dd1d71e429f94b3b",
+    "source_note_sha256": "c1f3fd7d9779b3fbfec90c637ad90cea374935527658b57d36a8c97e377a2314",
+    "case_count": 5,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 34,
+    "query_checks": 1165,
+    "persistable_assertions": 1165,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_ACTUAL_STARFALL_OR_HERO_TAP_REWARD_WITH_REAL_DAMAGE_AND_PHYSICAL_FATES",
+    "per_case": [
+      {
+        "card_id": "turn_to_mindfire_red",
+        "group_id": "identity:turn_to_mindfire_red",
+        "native_controls": 6,
+        "persistable_assertions": 218
+      },
+      {
+        "card_id": "enion_surge_red",
+        "group_id": "pitch-cycle:enion_surge",
+        "native_controls": 5,
+        "persistable_assertions": 202
+      },
+      {
+        "card_id": "comet_collision_red",
+        "group_id": "pitch-cycle:comet_collision",
+        "native_controls": 7,
+        "persistable_assertions": 236
+      },
+      {
+        "card_id": "meteoric_impact_red",
+        "group_id": "pitch-cycle:meteoric_impact",
+        "native_controls": 8,
+        "persistable_assertions": 252
+      },
+      {
+        "card_id": "lightning_overload_red",
+        "group_id": "pitch-cycle:lightning_overload",
+        "native_controls": 8,
+        "persistable_assertions": 257
+      }
+    ],
+    "basis": [
+      "Five unrepresented/unheld primaries, cachedCClegal/notbanned under genuine adultOscilioConstella36 EssenceLightning vs adultDori40, two manual seats/defaultgameMode empty. Reuse approved1413 fixed soleopposingHero2 damage-default/lifecycle only; each actualUIchoice repeats precommitted2, no target-binding/retargeting/UPF claim. No fake effect/history seeds or reused recording.",
+      "TurnToMindfire printed2cost actualBlue4pitch3 leavesR1/AP0, physical3held through both responses and initialtarget choice; generated109793 actual5arcane HP2=35 precedes optionaltap,109580 guards dealt>0 andHeroready, actualOMNtap then109568 oneownedPonder6. Enion printed0cost/R0/AP0, generated57906 actual3arcane HP2=37 then optionaltap57685 and oneLightningFlow5 at57681. Both prechoice sourceStack/HeroReady/noToken checks and finalHeroStatus1/oneownedToken pin printed order; futureTokenuse untested.",
+      "Comet/Meteoric/Overload each first truly playSigilBlue3 Instant0 through both responses, healing36->37/preservingAP1 and leavingphysical3GY before primary4. OMNCards18-19 actual InstantGY move recordsStarfall; subsequent card is Action, so cannot fabricate its own condition. These actual prior-card fates distinguish positiveStarfall from a seeded flag.",
+      "Comet0cost generated48345 replacement selects4 ratherthan3 damage, HP2=36/noToken/HeroReady. Meteoric1cost actualBlue5pitch3/R2 generated74291 replacement5 ratherthan3, HP2=35/noToken/HeroReady. Overload1cost actualBlue5pitch3/R2 generated72040 actual4damage HP2=36 then conditionalStarfall71827 creates oneownedLightningFlow7 at71823, HeroReady. No extra triggered-layer is bypassed: these are conditional resolution/replacement effects, not WHEN effects.",
+      "All primaryActions spendAP1->0 and originalsource staysStack/noearlydamage/reward through defaultPR2->PR1 and ownresponse, then actualtarget2. FinalprimaryGY (pluspriorSigilGY0 forStarfall), actualBluePitch where paid, preservedDeckUID5or6, exactownedTokenUID6/5/7 where earned, AP0/R1or0or2/ownHP36or37/opponent35or37or36, UIDmax/RNG0/quietStackDQs/combatclosed coherent. Per-case6/5/7/8/8controls and218/202/236/252/257checks total34/1165; unchanged duel tooling not re-audited or executed."
+    ],
+    "limits": [
+      "Only named positive damage/optionalHeroTap token rewards or actually earnedStarfall numeric replacement/Flow reward and physical fates. No conditional-false/declinetap/prevention/untapped invalidity controls, target binding/alternate targets/UPF, futurePonderdraw orFlowuse, token/priorposition provenance, secondaryHero/support identities/siblings/whole-card credit.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. All34 authored controls are planned one-native-input controls; only later persisted passing replays may receive coverage."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1415.py": "626483b1d95bd81854a19241a9fde7a951deccb5c3a88e4295c121936a180422",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1413.py": "907980f3c4884bd3fbd58b4dc812fe1d1fd1ab8d395826bbfae9f1c6676f9286"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+        "section": "5.14 Default Decisions",
+        "retrieval_scope": "Official public content retrieved during B1410 review: omitted effect-damage target defaults to opposingHero if soleopponent; with multipleopponents no default. Fixed sameHero2 choices here use that default, not delayed target-selection license."
+      }
+    ],
+    "four_player_or_target_binding_credit": false,
+    "unearned_condition_or_decline_credit": false,
+    "future_token_use_credit": false,
+    "positive_actual_starfall_scope": true,
+    "positive_hero_tap_token_scope": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "52118317a5e0474bff7114ef9d4b2bdba777609985481280b935fe1d92a2400f"
+  },
+  "full_suite_run": false
+}

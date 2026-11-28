@@ -1,0 +1,7 @@
+{
+    "name": "Run Roughshod / real discard7 satisfies prerequisite before legal funded Arsenal attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:08:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanualnatural20Levia/Dori/Dori/Dori, noequippedRompingClub/noRhinarorKayoWHEN. Primary8beginsownedFaceDownArsenal; onlyHandPrimeval6andSmash7. ActualPotion5InstantABI9source5/allfourresponses R0to2/AP1. ActualPrimeval6Action0AP1to0 THEN mandatoryRandomDiscard onlyremainingHandSmash7(base7)toGY1; sourceprovidedactualdiscardevent/history notseeded. SingletonRNGreturns0withoutcounteradvance. FourresponsesPrimevalNEXT_BRUTE+5 andownGAreturnsAP1. Nowprinteddiscard6+prerequisite genuinelyMET; primary8actualArsenalplaycost1/formalHero4/AP0/R2to1, base5+support5=10/noGA, actual10damageHP4=10/fullfourclose. Originalfalse-prerequisite212 isnotrerun/fixed/credited; onlylegalpositive-admission/use subset. Noenginechange. Positiveadmission/useonly, notnecessityguard enforcement, wholecardornegative212credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#run_roughshod_blue FaBSim/Custom/WTRAbilities.php#energy_potion_blue FaBSim/Custom/WTRCards.php#FaBWTRPayAdditionalCosts FaBSim/Custom/WTRCards.php#FaBWTRCardDiscarded FaBSim/Custom/WTRCards.php#FaBWTRResolveCard FaBSim/Custom/GameLogic.php#FaBTryCompletePayment Core/DeterministicRNG.php#EngineRandomInt"
+}

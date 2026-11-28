@@ -1,0 +1,7 @@
+{
+    "name": "Defang the Dragon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:50:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\n**Contract** - You are contracted to hit a **marked** hero named Fang. Whenever you complete this contract, draw a card. Representative only: actual_three_against_unmarked_dorinthea_no_named_contract Sources: FaBSim/GeneratedCode/cardArrayCache.json#defang_the_dragon_red"
+}

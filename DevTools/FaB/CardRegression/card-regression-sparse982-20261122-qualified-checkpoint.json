@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:49:21.197007+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse982-20261122.json",
+  "source_spec_sha256": "11c079cc667202dd9f53397e1de98ce3fe8c3a26f969214f41fd8dfd15a0f884",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 111,
+  "native_assertions": 702,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4670,
+    "duels": 3075,
+    "four_live": 1595,
+    "recorded_primary_ids": 1818,
+    "identity_denominator": 5196,
+    "recorded_groups": 1692,
+    "group_denominator": 3324,
+    "four_live_groups": 1584,
+    "phase_qualified_scenarios_at_actual_contexts": 1307,
+    "phase_qualified_unique_groups": 1297,
+    "creation_replay_passes": 2049,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 468,
+  "scenarios": [
+    {
+      "card_id": "dustup_red",
+      "group_id": "pitch-cycle:dustup",
+      "scenario_id": "card-dustup-red-four-live-sparse982-actual-full-block-no-hit-no-ash-or-transform",
+      "effect_branches": [
+        "actual_full_block_no_hit_no_ash_or_transform"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dustup-red-four-live-sparse982-actual-full-block-no-hit-no-ash-or-transform",
+      "source_spec": "card-regression-sparse982-20261122.json",
+      "source_spec_sha256": "11c079cc667202dd9f53397e1de98ce3fe8c3a26f969214f41fd8dfd15a0f884",
+      "review_evidence": "review-evidence/sparse982-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ae9e7bab80f332a0614b5684c00c7fdf0fd9e3090695eb30f8697f2904140313",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse982-20261122-replay.json",
+          "sha256": "81c88dcd0f1a4fca6e17711e40151a1f62ad4a92ef54e82a81f1c287ca8adc46",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lord_of_wind_blue",
+      "group_id": "identity:lord_of_wind_blue",
+      "scenario_id": "card-lord-of-wind-blue-four-live-sparse982-first-link-exact-full-block-no-mugenshi-additional-cost",
+      "effect_branches": [
+        "first_link_exact_full_block_no_mugenshi_additional_cost"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lord-of-wind-blue-four-live-sparse982-first-link-exact-full-block-no-mugenshi-additional-cost",
+      "source_spec": "card-regression-sparse982-20261122.json",
+      "source_spec_sha256": "11c079cc667202dd9f53397e1de98ce3fe8c3a26f969214f41fd8dfd15a0f884",
+      "review_evidence": "review-evidence/sparse982-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ae9e7bab80f332a0614b5684c00c7fdf0fd9e3090695eb30f8697f2904140313",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse982-20261122-replay.json",
+          "sha256": "81c88dcd0f1a4fca6e17711e40151a1f62ad4a92ef54e82a81f1c287ca8adc46",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "scuttle_the_canal_red",
+      "group_id": "pitch-cycle:scuttle_the_canal",
+      "scenario_id": "card-scuttle-the-canal-red-four-live-sparse982-actual-unmarked-hero-attack-has-no-earned-go-again",
+      "effect_branches": [
+        "actual_unmarked_hero_attack_has_no_earned_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-scuttle-the-canal-red-four-live-sparse982-actual-unmarked-hero-attack-has-no-earned-go-again",
+      "source_spec": "card-regression-sparse982-20261122.json",
+      "source_spec_sha256": "11c079cc667202dd9f53397e1de98ce3fe8c3a26f969214f41fd8dfd15a0f884",
+      "review_evidence": "review-evidence/sparse982-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ae9e7bab80f332a0614b5684c00c7fdf0fd9e3090695eb30f8697f2904140313",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse982-20261122-replay.json",
+          "sha256": "81c88dcd0f1a4fca6e17711e40151a1f62ad4a92ef54e82a81f1c287ca8adc46",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "whittle_from_bone_red",
+      "group_id": "pitch-cycle:whittle_from_bone",
+      "scenario_id": "card-whittle-from-bone-red-four-live-sparse982-actual-unmarked-hero-attack-equips-no-chelicera",
+      "effect_branches": [
+        "actual_unmarked_hero_attack_equips_no_chelicera"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-whittle-from-bone-red-four-live-sparse982-actual-unmarked-hero-attack-equips-no-chelicera",
+      "source_spec": "card-regression-sparse982-20261122.json",
+      "source_spec_sha256": "11c079cc667202dd9f53397e1de98ce3fe8c3a26f969214f41fd8dfd15a0f884",
+      "review_evidence": "review-evidence/sparse982-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ae9e7bab80f332a0614b5684c00c7fdf0fd9e3090695eb30f8697f2904140313",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse982-20261122-replay.json",
+          "sha256": "81c88dcd0f1a4fca6e17711e40151a1f62ad4a92ef54e82a81f1c287ca8adc46",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

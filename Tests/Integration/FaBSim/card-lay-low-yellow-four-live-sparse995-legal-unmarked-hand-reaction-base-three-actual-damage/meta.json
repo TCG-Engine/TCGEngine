@@ -1,0 +1,7 @@
+{
+    "name": "Lay Low / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:11:02+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you are **marked**, you can't play this.\n\nIf the attacking hero is **marked**, their next attack this turn gets -1{p}. Named partial branch: legal_unmarked_hand_reaction_base_three_actual_damage. Actual natural20 legal dorinthea defender4 plays real owned Hand5 in Reaction. Printedcost0 uses actualBlue6 if positive (R2) or retains unusedBlue6 if0; noAPcost. Actual Raging7/Blue8paid3/noGA/no normal blocks, allfour manual DR responses4,1,2,3 then fresh1,2,3,4. Persisted defenseValue3/damage4/HP16 and source5/RoleDEFENSE_REACTION/ownedGGY4, attack7ownedGGY1/attackerNAA9retained pin outcomes. No author-only diagnostics or seeded modifiers. Both actual heroes are unmarkedCounters[]: defender may legally play the Generic DR, attacker-mark future debuff branch is not certified. No positive marked-target/marked-defender or next-attack consumer credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lay_low_yellow"
+}

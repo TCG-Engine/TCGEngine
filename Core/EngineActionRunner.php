@@ -467,8 +467,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
 
   // Mode 10017 is normally only the browser-to-controller transport. The bot's
   // chosen gameplay action is executed recursively and recorded in its own
-  // right. A controller may explicitly request persistence when it recovers
-  // engine-owned static queue work that has no nested gameplay action.
+  // right. A controller that handles a move directly can request persistence.
   $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted && $mode !== 10017)
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;
@@ -480,11 +479,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   }
 
   $frameAnimations = [];
-  if ($result['updateCache']) {
+  if ($result['updateCache'] && $mode !== 10017) {
     SetFrameAnimationCache($gameName, []);
   }
-  // Bot transport mode is only a wrapper. Its nested gameplay action owns and
-  // commits the semantic frame because the wrapper itself never writes state.
+  // A nested bot gameplay action owns its semantic frame.
   if($mode !== 10017 && function_exists('GameLogBeginFrame')) {
     GameLogBeginFrame($action, $options);
   }
@@ -772,13 +770,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $botResult = ProcessBotControllerStep($playerID, $folderPath, $gameName);
         $result['success'] = !empty($botResult['success']);
         $result['message'] = strval($botResult['message'] ?? '');
-        // The bot's move ran through a NESTED EngineExecuteLoadedAction, which already wrote the gamestate, the frame-animation
-        // cache and the update marker. The wrapper must not commit again: echoing the nested flags here published update N+1
-        // with the SAME $frameAnimations, so a browser that polled between the two writes played the bot's attack twice
-        // (owner report 2026-10-04), and GameAfterEngineAction / goldfish automation ran twice.
-        // Guard: SWUSim/DevTools/tests/bot_step_single_update_test.php.
-        $result['writeGamestate'] = false;
-        $result['updateCache'] = false;
+        // Nested engine actions commit their own update. Controllers that apply
+        // and settle moves directly can ask this wrapper to publish the update.
+        $persistBotStep = $result['success'] && !empty($botResult['persistInWrapper']);
+        $result['writeGamestate'] = $persistBotStep;
+        $result['updateCache'] = $persistBotStep;
         $result['recordAction'] = false;
         $result['botStepApplied'] = !empty($botResult['applied']);
         $result['botStepRetryable'] = !array_key_exists('retryable', $botResult) || !empty($botResult['retryable']);
@@ -1120,7 +1116,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     MatchReplayCancelPotentialAction($matchReplayPendingAction);
   }
 
-  if ($result['success'] && $result['writeGamestate'] && function_exists('GameAfterEngineAction')) {
+  if ($result['success'] && $result['writeGamestate'] && $mode !== 10017 && function_exists('GameAfterEngineAction')) {
     GameAfterEngineAction($action, $result);
   }
 
@@ -1163,7 +1159,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       if ($fpBefore !== null && $fpBefore !== $fpAfter) {
         if ($seat >= 1 && !SWUSeatOwesDecision($seat)) {
-          PresenceStampAction(strval($gameName), $seat, time(), SWUSeatsOnTheClock());
+          // A sim whose seat plays several boards (SWUSim 1v1 Always Two) stamps the PERSON, not the board that acted.
+          $stampSeat = function_exists('SWUSeatOfBoard') ? SWUSeatOfBoard($seat) : $seat;
+          PresenceStampAction(strval($gameName), $stampSeat, time(), SWUSeatsOnTheClock());
         }
       }
     }

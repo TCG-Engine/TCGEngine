@@ -1,0 +1,138 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1408-20261122.json",
+  "source_spec_sha256": "a407090aea4facbfc1545f81fd41f26f57a7c5366919fb60e9b4796d6b07604a",
+  "input_sha256": "a407090aea4facbfc1545f81fd41f26f57a7c5366919fb60e9b4796d6b07604a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-path-of-same-ends-red-four-live-sparse1408-real-ally-attack-paid-self-instant-go-again-and-action-follow-through",
+      "card_id": "path_of_same_ends_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c8c580e75989d3949cb62ec96a7d0a352c083ddd6e584f7124d5ccd6ea044bd",
+        "actions.json": "3180ca530b7c91caceea14926d24de85c00bef716917c566185196b2915d7955",
+        "assertions.json": "eb74b46606a1f84272ebaa1413594fbfc2a7183877b84de892ddf7947c3c4ae4",
+        "expected_final_gamestate.txt": "737d1538fd4614fafc0cd45c46a7594841a3a499ae44c54a8e91067099ba2db5",
+        "meta.json": "2297093dd80cea3fb58ba099a951ee342ab0cae14c1dfcf663e9aeb35dbdb00e"
+      },
+      "fixture_sha256": "e2da8f9e9f422a451df65c09b80a15a8512acdcb69051736864b3752973c7447",
+      "actions": 38,
+      "native_assertions": 380,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1408-20261122.json",
+      "input_sha256": "a407090aea4facbfc1545f81fd41f26f57a7c5366919fb60e9b4796d6b07604a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1408-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-path-of-same-ends-red-four-live-sparse1408-real-ally-attack-paid-self-instant-go-again-and-action-follow-through",
+        "fixture_slug": "card-path-of-same-ends-red-four-live-sparse1408-real-ally-attack-paid-self-instant-go-again-and-action-follow-through",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a407090aea4facbfc1545f81fd41f26f57a7c5366919fb60e9b4796d6b07604a",
+    "source_note_sha256": "f3e91c07d04222d745635aec7191fa1d9cf1dd513a35d6da24ad0bbbf9bf2c95",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 38,
+    "query_checks": 380,
+    "persistable_assertions": 380,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_PAID_SELF_INSTANT_GO_AGAIN_AND_NATIVE_ACTION_FOLLOW_THROUGH_WITH_NONHERO_TARGET_CONTROL",
+    "per_case": [
+      {
+        "card_id": "path_of_same_ends_red",
+        "group_id": "pitch-cycle:path_of_same_ends",
+        "native_controls": 38,
+        "persistable_assertions": 380
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld red representative of PathSameEnds cycle: LightningRunebladeAA0/base3, legal under naturalYoungAurora20 EssenceLightning, twoDori20, YoungKassaiCintari20 with prior physicalCintariSellswordTokenAlly7 printedHP2. Initial5Path/6CriticalBlue/8Nimblism Hand1, no effect/history seed; cachedUPF allowed. Ally provenance/secondary identities uncredited.",
+      "Actual5AA0 declares real adjacentAlly7 before payment/spendsAP0; four-manual responses reachATTACK. GeneratedPath AttackDeclared case54 calls FaBFaiHeroHit, FaiCards68 requires targettypeHERO; Ally target earns no1arcane/no freeGO. Cached card_keywords includes grantedGO but GameLogic454-478 own-keyword parser requires standalone own clause; conditional grant and Instant-this-gets text do not confer intrinsicGO. Strictbeforeabilitypower3/GOFalse/allHeroHP20 coherent.",
+      "OMNCards214-215 explicitInstant1 row,221-237 SpecialZone/AbilityLegal requires current physicalATTACK UID5 onCombatChain and allowsPathselfability. ARCAbilities60 admits specialzone;128-129 creates virtualABILITY9 SourceZoneCombatChain/SourceUID5 and nativepayment. ActualBlue6Hand0 pitch3 pays1R2/AP0, no GO until fresh four responses. ResolveAbility generated16556-60 tags physicalsource GO_AGAIN, via ARC source binding, not proxyOwner assertion. AP remains0 until link completion; no earlyrefund expected.",
+      "Allfour combat windows match prior qualifiedAlly flow; actual3physicaldamage kills2HP TokenAlly7 which ceases rather thanGY, allHeroHP20. Link completion yields1AP from paidGO. RealNimblism8Action0 then spends thatAP, closes priorcombat/puts5GY, freshfour responses resolve8GY and its own printedGA returnsAP1. Final5then8GY/6Pitch/Allygone/UID9RNG0/R2/AP1/quietStackDQs/combatclosed rules-correct; no duplicateAP or assumedHero-hit benefit.",
+      "Narrow authoring-window correction independently verified by exact reverse transformation: remove three fresh responder checkpoints totaling24 guards, restore paid-stage windowPRIORITY, restore three responder goalsPRIORITY and remove final stackCount0; result exactly equals every original gameplay step/assertion. All non-step case fields unchanged. True cost/power/GO/damage/AP/fate expectations untouched. Original review semantic basis retained; its assumed PRIORITY label for paid combat ability is superseded here.",
+      "GameLogic1229-1239 intentionally preserves returnWindowATTACK for paid combatInstant;1259-1261 resets held actorpriority/passcount. FaBPassPriority2643-2661 completes fresh live-seat passes and resolves nonempty Stack before ATTACK phase advancement. Therefore corrected paidATTACK/ABI9/GOFalse/AP0, actual freshATTACK2/3/4 eachheldABI9/GOFalse/AP0/R2, finalATTACK1+stackCount0 thenGOTrue/AP0 are correct observable sequence. Recorder FCRReady225-229 supports stackCount. No missing response opportunity demonstrated by first attempt enum mismatch."
+    ],
+    "limits": [
+      "Only paid selfInstantGO, observable realAllykill and actual earned-action follow-through plus nonHero conditional arcane guard. PositiveHeroarcane/timing, repeated ability/otherpitches, Ally creation/provenance, future Nimblism consumer, secondaryHero/support identities/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation. If native differs, retain strict correct expectations and hold rather than seedGO or weaken damage/AP assertions.",
+      "Original unsaved attempt stopped after8inputs at first paid-window enum assertion; post-payment Stack/GO/AP follow-on queries, ability response/resolution, kill and follow-through unrun. Original failed source/review/receipt preserved; no passing fixture or replay repeated. This correction approves a fresh recording only, not an engine repair or retrospective native success."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1408.py": "3cad81ec10be6c6683725d9fa39092bac4002699a5028d5513c2134d25d7b7e1",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1297-local-20261122/proposed.json": "1b7efda933fdb5b7af8e0c4861327e344529e285e9abeb5755eabe21b81e1a40",
+      "sparse1408-local-20261122/oracle-correction.json": "d0ce4ed498b6476c6f04848381800db9dcd3d5bcd6fae52750bfe209b699d0f1",
+      "sparse1408-local-20261122/oracle-window-label-first-attempt/proposed.json": "65a592b9363227156b82f171a547e6d53ade2bd0a2d8480d59a97dc185b6f8cc",
+      "sparse1408-local-20261122/oracle-window-label-first-attempt/independent-review.json": "28685c4d9d5b7379761905e5ed0576d8ebb5e6890a178d3591b9d2a02d726bf9",
+      "sparse1408-local-20261122/oracle-window-label-first-attempt/save/receipt.json": "1c57028060a7be195f0dfae2950d3d17eb6e6107fd3339a5885621513080c27d"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_hero_arcane_trigger_credit": false,
+    "positive_hero_trigger_timing_credit": false,
+    "initial_ally_provenance_credit": false,
+    "positive_paid_self_go_again_scope": true,
+    "observable_earned_action_consumer_scope": true,
+    "correction_classification": "AUTHORING_COMBAT_WINDOW_LABEL_ORACLE_CORRECTION_NOT_NATIVE_BUG",
+    "original_attempt_inputs": 8,
+    "original_fixture_saved": false,
+    "effect_cost_damage_fate_expectations_changed": false,
+    "exact_reverse_original_steps_verified": true,
+    "new_guard_assertions": 24
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1408-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0e4eab4a04bb38ef42f8842d7f2303d9ebca78ac1b689e45ce03de6c6858dfdc"
+  },
+  "full_suite_run": false
+}

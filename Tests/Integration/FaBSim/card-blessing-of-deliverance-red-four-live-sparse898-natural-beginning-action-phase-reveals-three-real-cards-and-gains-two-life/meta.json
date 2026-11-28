@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Deliverance / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:58:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\nWhen this enters the arena, if you have a card with cost 3 or more in your pitch zone, draw a card\n\nAt the beginning of your action phase, destroy this then reveal the top 3 cards of your deck. Gain 1{h} for each card with cost 3 or more revealed this way. Representative only: natural_beginning_action_phase_reveals_three_real_cards_and_gains_two_life. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_deliverance_red"
+}

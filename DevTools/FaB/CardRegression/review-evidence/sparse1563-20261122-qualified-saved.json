@@ -1,0 +1,87 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1563-20261122.json",
+  "source_spec_sha256": "9e8a7aacdee3975ed5dde1a51855bad0df2c2b4195b37a48b4d5e1ff17d2f976",
+  "input_sha256": "9e8a7aacdee3975ed5dde1a51855bad0df2c2b4195b37a48b4d5e1ff17d2f976",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-puffin-four-live-sparse1563-first-real-crank-is-not-second-no-draw-with-live-deck",
+      "card_id": "puffin",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "afcba1d105dcac0e6dbfd92011ccafd44031c31b969fdae473cdd053530fc0cd",
+        "actions.json": "8c1449b40551750b98891bdeccfb0273620f2a6b7ecba97a99cdd27897a666f5",
+        "assertions.json": "080f08601742e868fae5eb28ba8e5060d3a61326f70caf71ce2b36c2ecb11d71",
+        "expected_final_gamestate.txt": "7037273f520712107585ccf233bc03b2c3f893cca166810d5fd91fd45f088cb6",
+        "meta.json": "a2a1d54af8a29661b7a5105e4e0c9d0b6283629ebcb0bab514fd5069cbdb7887"
+      },
+      "fixture_sha256": "692f915e8025f564cf1b1dbb768543f4410e383d4969c57a73e634628aab3ff5",
+      "actions": 6,
+      "native_assertions": 272,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1563-20261122.json",
+      "input_sha256": "9e8a7aacdee3975ed5dde1a51855bad0df2c2b4195b37a48b4d5e1ff17d2f976",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1563-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-puffin-four-live-sparse1563-first-real-crank-is-not-second-no-draw-with-live-deck",
+        "fixture_slug": "card-puffin-four-live-sparse1563-first-real-crank-is-not-second-no-draw-with-live-deck",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1563,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T14:13:17.880890+00:00",
+    "spec_sha256": "9e8a7aacdee3975ed5dde1a51855bad0df2c2b4195b37a48b4d5e1ff17d2f976",
+    "source_note_sha256": "619a66ba3d03cf707fe0c6f1a536a5fefad8b695f89b25081d041b9084cb21ca",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "Exact DissolvingShield entry dispatch exists, initializesSteam3 then realCrankModal; native0 removesoneSteam/addsAP and incrementsSEA_CRANK1, no second-time PuffinDraw earned. NonemptyDeck makesnoDrawnonvacuous.",
+      "Final exact diff includes only two source-correct FAB_PLAY_ORDER1 additions in ArenaCounters; firstplayedItem GL1057-1059 and entryhelperspreserve. Sixactualmanualinputs/272checks witheligibleproperHero20 andrealItem.",
+      "StaticCrank as-enters rule, no separateWHENlayer required; provisionalArena whileUIpending explicitlynotrules-levelzone/eventtimingcredit."
+    ],
+    "limits": [
+      "Source/spec review only; native execution/save/first targeted replay pending. No positive2ndDraw/timing, HeroGoldcost/Cog, adultHightail, nextturnmaintenance/prevention orsupport/fullcardcredit. No enginechange."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1563-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c0dbcabde29e0a19930a3ac6a6e66b335b4d410ffd48255bb32f1dc5fba6a39d"
+  },
+  "full_suite_run": false
+}

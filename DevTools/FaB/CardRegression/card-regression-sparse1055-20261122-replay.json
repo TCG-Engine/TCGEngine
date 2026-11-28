@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "savage-sash-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=savage-sash-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "97492d03df27a2052b79f510e86e711aa04b24311b7fcf7348be019e0ea90a17",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b748d26852323616b4b621e1613bfc4544a8347a57c2665cf2329d2cc886258",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cd40de5c0885c4a684931daeacb304b2aad732c56569b427a7ee03f66c302677",
+        "expected_final_gamestate.txt": "d5a80e4b4f8fe32818f0a55e23cbf2a7c72e700afc1d000d2ec8650525ea47b1",
+        "meta.json": "841646e6e174ac70d5d29d828dfd6d0a99a77e3ee16542cae15cb6ce6d35d68f"
+      }
+    },
+    {
+      "slug": "trampling-trackers-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=trampling-trackers-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3cb1bb320cb659043d5dfc6aca9e282ea359ac628f5eae692ad0ba963e28412a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b6b5c5ff04e8d3378f83947663daf74bfbf6d7b377d5a48deb40819d5c86180",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "80b978b41fb10c47696d5c2bf49ee1efa427d50a58f2d214dcd0c84deddcf123",
+        "expected_final_gamestate.txt": "ec20f83afe6432f07d03708661de725ede72f71522126d0a35c22bd3983e6a27",
+        "meta.json": "555a89cd0391dd1b1b0167fb25a0477c614e04d3c4e3d9f7143a2f1a8669966b"
+      }
+    },
+    {
+      "slug": "warband-of-bellona-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=warband-of-bellona-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "661fb7b4322291e44f164c4a7516c2745666aad5aaab4c0246dffdf51b7ca07d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b47a266961244b41e93705d5a8c9f9bee27502c072a3711ff7dcd4f5eecb3dba",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "8bad6a7c457d0d97d02adcc64dfa88ded96176088a56598e1e73f9d9972b0d6c",
+        "expected_final_gamestate.txt": "bc6c5d07f26b87b799a47e6908a89b105c5d0d77a401261955bfe13a6a8fe575",
+        "meta.json": "cc055b3af0af03f29ef0c3b07becb4c268c0e0f69f0ef120e43ad0f9a0beb866"
+      }
+    },
+    {
+      "slug": "paragon-plate-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=paragon-plate-four-live-sparse1055-actual-printed-two-defense-and-temper-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1055-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a7f70fd824a39d016b047d76339aa672c5bc908988eb72ce41b2ff3c7795c23e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a945b96fdb16c673a4df20dc145fce289accbc2198f5e6fc6fdf97ff3da22c80",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a78de27da1ec1e9e5cf34ec6822b9c5737cc0e21a0623880762b620f5fef44fe",
+        "expected_final_gamestate.txt": "9e8398c728c777f7bf158de1b0b9a1adafd085f8809bd2f42a261162782b3207",
+        "meta.json": "fcfb8a804fe257c40d1f06d0b7f8ba5ce3c8464d365fd74f98b0e88b691d2a31"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

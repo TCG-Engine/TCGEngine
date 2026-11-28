@@ -1,0 +1,7 @@
+{
+    "name": "Reinforce the Line / actual defending Attack Reaction is not Attack Action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T08:00:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young Dori20 Heroes. Real Wounding5AA4 targetsHero4; actualRazor6 fromHand blocks2 and is canonicalDEFENSE on CombatChain4, but it is an Attack Reaction, not Attack Action. At proper DEFEND_PRIORITY4, legal GenericInstant Reinforce7cost0 may be attempted with no Action point required and Blue3asset8 available. Mandatory defendingAA target does not exist: actualAA5 is attacking, actualdefender6 is AR. Refusal must leave real2defense and all physical cards/Stack/costs unchanged; actual4-2=2damage toHero4HP18 then fullclose. Old positive target-timing hold stays open. No positive buff/admission/timing or Razor ability credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reinforce_the_line_red FaBSim/Custom/CRUCards.php#FaBCRUCanPlay FaBSim/Custom/CRUCards.php#FaBCRUTargets"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-tribute-to-demolition-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-eight-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tribute-to-demolition-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "767eb3fdb9e0606a39bd3c05a8eff325f2dc83ae111b3b4bfa9f42c925ff79ba",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "82b9a3a99b7e7e3a4d28ef8e9fa21dc9ad055b8c71bfe09032a97b5b4b59aec8",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "13e1d71d6664a845eb025f7ecb14274562248c5f9352ca8ab467d8afc8620ca2",
+        "expected_final_gamestate.txt": "e27a5e57497ed6a0abbe503a62be792b01e1c91edeb7eca94f6ed6283f82d8df",
+        "meta.json": "2fd442437a3ddecc21f251cb09b5d62a86996474525036e54f1f8e7959eef9cb"
+      }
+    },
+    {
+      "slug": "card-tribute-to-the-legions-of-doom-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-nine-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tribute-to-the-legions-of-doom-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-nine-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse884-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "90369984afc623245be18e5995c3445684c9010bfa89bb3b713c3b334455a7d5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "326d280e726a594e77e8846c1294e975062db9bb036cf98013ddce2c80649566",
+        "actions.json": "9dc6f3d7ee2230e11d18d663d812f852981beb6f9aed04156dfa0d5bc551da3f",
+        "assertions.json": "95360ebed4320585d36f0c660c207610625ad515455c778475e2c5ba06248b6e",
+        "expected_final_gamestate.txt": "10fb7a8c87d680648ba41a2d87c403d4a5e2b1b6bf81340cb36a9cf9fbdc638c",
+        "meta.json": "62c18f3c065f92bd04d6c1a6fe9875f243bc6b4df8a763d21cff8ab9bf27811d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

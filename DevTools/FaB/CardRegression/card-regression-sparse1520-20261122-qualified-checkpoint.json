@@ -1,0 +1,69 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T08:55:05.935103+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1520-20261122.json",
+  "source_spec_sha256": "b214d4f326da7c39f92b46850785227f33c7cbddfe5227f9c53de287783fb0b3",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 30,
+  "native_assertions": 447,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5604,
+    "duels": 3135,
+    "four_live": 2469,
+    "recorded_primary_ids": 2752,
+    "identity_denominator": 5196,
+    "recorded_groups": 2626,
+    "group_denominator": 3324,
+    "four_live_groups": 2458,
+    "phase_qualified_scenarios_at_actual_contexts": 2241,
+    "phase_qualified_unique_groups": 2231,
+    "creation_replay_passes": 2983,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1402,
+  "scenarios": [
+    {
+      "card_id": "regurgitating_slog_red",
+      "group_id": "pitch-cycle:regurgitating_slog",
+      "scenario_id": "card-regurgitating-slog-red-four-live-sparse1520-pitched-sloggism-does-not-pay-graveyard-banish-two-hand-defenders",
+      "effect_branches": [
+        "limited_unpaid_optional_Graveyard_banish_cost_not_satisfied_by_real_Sloggism_in_Hand_then_Pitch",
+        "actual_two_distinct_Hand_defenders_are_admitted_and_fully_block_six_damage_without_unearned_dominate"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-regurgitating-slog-red-four-live-sparse1520-pitched-sloggism-does-not-pay-graveyard-banish-two-hand-defenders",
+      "source_spec": "card-regression-sparse1520-20261122.json",
+      "source_spec_sha256": "b214d4f326da7c39f92b46850785227f33c7cbddfe5227f9c53de287783fb0b3",
+      "review_evidence": "review-evidence/sparse1520-20261122-qualified-saved.json",
+      "review_evidence_sha256": "33ba1d50bb358b2ae414e1287a438a84f11cbf329f4145f75ca25e78aa3e0903",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1520-20261122-replay.json",
+          "sha256": "619e2945ee93d2beffe0f634328b2bf97b0a4c550bc04abb69977f4e07b2ebaf",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

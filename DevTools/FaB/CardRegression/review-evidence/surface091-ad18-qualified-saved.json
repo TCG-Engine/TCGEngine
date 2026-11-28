@@ -1,0 +1,56 @@
+{
+  "status": "SURFACE091_ORIGINAL_CORRECT_ENTRY_WHEN_QUALIFIED_SINGLE_CLEAN_REPLAY",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of source candidate author pox_snapshot_repair_review",
+  "runtime_sha256": "ad185f26d900d678d6c8a32f39e3646fdd652d3918e2b5bcea0c00592db9d8d7",
+  "source_spec": "card-regression-batch398.json",
+  "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd",
+  "fixtures": [
+    {
+      "slug": "card-surface-shaking-blue-four-live-correct-probe-real-aura-entry-trigger-before-three-seismic-tokens",
+      "card_id": "surface_shaking_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec9728c8ea5f1f6175b953e465c2af94a357e9c345b816ad1a31deb5f70d4e71",
+        "actions.json": "08b7c88dd560dd892dd1da00b1d8e0d9b8e5d04bddb0c383507c568ace9cd4b9",
+        "assertions.json": "fd7c6bf7887456ca7c033f835e22298e58e04a9b38f088f18aa43bafda01256f",
+        "expected_final_gamestate.txt": "3251967e1811128823e2f9c352e5f86090eb0a9f218b5f0e47354f68c5d6e68a",
+        "meta.json": "69751d8702c786e2119e7761543795c7cbf3cceba82997cdb60ac9f051189e56"
+      },
+      "fixture_sha256": "048a2838a47d38cf12697bb1b2e39df9c1c0b3d3e9ee0f63f4cda5e22b9dc14f",
+      "actions": 10,
+      "native_assertions": 933,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "ad185f26d900d678d6c8a32f39e3646fdd652d3918e2b5bcea0c00592db9d8d7",
+      "runtime_sha256": "ad185f26d900d678d6c8a32f39e3646fdd652d3918e2b5bcea0c00592db9d8d7",
+      "source_spec": "card-regression-batch398.json",
+      "input_sha256": "23687d1ee41fdb5f7b4965f874ed9b44e7d60f21761d8085f5ec8415979b4abd"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov20-surface091-ad18-replay.json",
+    "sha256": "74e65d5cde727c4ce4bcae825bc3e267bd10dd5a0c6d1352ace7320a3cdbc181",
+    "passed": true
+  },
+  "source_review": {
+    "path": "nov20-surface091-independent-root-source-binding.json",
+    "sha256": "6057a088e85d869ce701301fc2dda6278bd654f4db3e03d44f3297bb7645d003"
+  },
+  "application": {
+    "path": "nov20-surface091-guarded-application-and-emission/receipt.json",
+    "sha256": "e628894207b1f8aa8ebc740e82eda7ae565e9af4ad9282bd6888f39cab9c428e"
+  },
+  "components": 22,
+  "component_assertions": 61,
+  "component_receipt_sha256": "1fef097049188fbde88e4de215d4d793e70e29fff5abe5e69aa8bc4ec3dca989",
+  "basis": "Original selected10controls/933queries unchanged. Real Blue6pitch3 paysSurface5cost3/AP1. Sourcefour creates same ownedAura5, completes ownGA/AP1 then earns one capturedEntryABI with0Seismic. Freshfour manual responses retain source/state until actual3ownedSeismic8/9/10 create; no secondAPrefund, no inline creation. Allfourmanualpreferences/physicalUIDs/assets/queues/Stack/payment/frame cleanup exact-reviewed; clean replay1/1. Old Preach remainder retains its historical qualification and was not rerun.",
+  "limits": [
+    "Only original entry/create3 branch; no owner-start destruction/optional hand-bottom/draw, alternate token/prevention/control/Ripple/fullcard credit.",
+    "22isolated contracts do not Native-qualify source loss/controller/reentry/other-seat alternatives.",
+    "No094 lifetime change, full-suite run or historical corpus replay."
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Brilliance / actual opposing destruction and separate owned leave effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:11:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungBriar20caster1/2Dori20/youngoscilio18victim4. Priorownedcost0Sigil5Arena4, actualVaporize6Hand1. ActualLeftInstant0MZMODAL0beforecostandfourresponses; untargetedresolutionMZMULTICHOOSE0|1|p4Arena-0 choosesopposingreal5. FreshX0stilldestroysrealcost0permanent, noempty-effectbaseline. Aura5ownGY4/source6ownGY1, independentearnedSigilABI8controller4/source5, rewardnotbeforefresh1,2,3,4responses. OnlythenactualsameownedDeck7Blue->Hand4,notCaster1; specializationlegalOscilio18. Actualfates/HPnatural/AP1caster1others0/R0/UID/RNG0/noStack/DQs/otherzones. Noheldstartphase/sigilproducer/tokenfutureuse/negativeconditional/Revealfeed/Hero/support/wholecardcredit. NoShock/bothhalves/BriarWHENearned, allreceiverchoicesbelongtoseparatetriggercontroller4afterparent6completed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_brilliance_yellow FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

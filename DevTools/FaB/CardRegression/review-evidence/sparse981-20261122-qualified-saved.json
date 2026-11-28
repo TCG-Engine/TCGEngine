@@ -1,0 +1,93 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse981-20261122.json",
+  "source_spec_sha256": "b6413765b36040d8966e7f8084411b3c5e1dc8325d0480892c8b2568d960226c",
+  "input_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+      "card_id": "frightmare_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b1d000c4790756e419137e012891f3e796cea48b5328bede28b9fc114d8d157",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "8e147a447bf062cde84a172e20bbde6fcf9333a4af26b37dde9c58bb3f6950ca",
+        "expected_final_gamestate.txt": "c1e858d4116c4db5688886d4a3ae101646bc8ae4cdc7dadc465575be5399a5d8",
+        "meta.json": "dd6d5189080f2bbb4c3debeaeb4f150cb9f75e550583c21a6db928ff8d0ec498"
+      },
+      "fixture_sha256": "972f18655b83b0013eec485e2caee2e89fc3a42fac2bc6a395b17578d2b31cb4",
+      "actions": 28,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse981-20261122.json",
+      "input_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+        "fixture_slug": "card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+      "card_id": "even_bigger_than_that_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80f732da7fa3f6e8b0540ec9571953390c6e07bac11d1f818e9358e134995575",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "c93f7001bedd6e4f663b98b3140d9ab4d1819cba3cac63c233acc847ee8ff475",
+        "expected_final_gamestate.txt": "6913cff8992338ec5e5dad7cd70571cf88be55fcf193be0511421a56827a22c3",
+        "meta.json": "d5e690222d92919389ec139f3e3fbec438508be639321a638c9778abaa5bc66b"
+      },
+      "fixture_sha256": "4d68789cafad04628bd66976fad3aa0500ff5d1a54fe2b0648dc606dd1778efb",
+      "actions": 28,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse981-20261122.json",
+      "input_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+        "fixture_slug": "card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "51f0a0a8b823f3ce0a471625fe0fc932a04d9b80a81f4089c7b20c8d22229f61",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached printed text independently confirms four explicit Play this only if restrictions: Frightmare requires a controlled Illusionist attack destroyed by phantasm this turn; Run Roughshod requires a discarded 6+ power card; Rest Before Battle requires a prior weapon attack; Even Bigger Than That requires physical damage dealt. Fresh turn state/history makes each prerequisite false. Prism/Rhinar/Dorinthea are legal natural20 actors, and the Generic Wounding support earns no hero trigger.",
+      "Initial primary5 and support6 are actual owned Hand cards. Corrected Frightmare uses cost0/pitch3/power2 Wounding Blow Blue, making its printed cost3 affordable; Run Roughshod1 has Red1 available and the remaining primaries cost0. Thus insufficient pitch cannot independently explain rejection.",
+      "CanPlayCard/DoPlayCard GameLogic.php:969-1011 checks legality before execution; UPRCards.php:85 and EVRCards.php:140 contain the relevant zero-history guards for Frightmare and Even Bigger. No guard correctness is inferred for Run Roughshod or Rest Before Battle. Those remain minimal correct-expectation probes that must fail unsaved if native behavior violates the restriction.",
+      "Each rejection checkpoint immediately follows p1Hand-0 and requires both cards retained, primary UID5/Owner1, AP1/R0, Stack0/GY0/Pitch0/Arena0, no pending payment or decisions for any seat. Actual follow-through clicks unchanged support p1Hand-1, announces adjacent Hero4 before payment, spends AP for cost0, and uses25 explicit phase/seat pass controls. Support UID6/ATTACK reaches physical combat and owned graveyard, dealing2/HP18 for Blue and4/HP16 for Red; primary UID5 stays owned Hand. No stale UID5 Stack/CombatChain/GY query found."
+    ],
+    "limits": [
+      "Only named failed-prerequisite rejection plus independent legal support progression is approved. No positive prerequisite, primary resolution, printed opt/search/token/draw, phantasm, or full-card/pitch-sibling claim. Support adds no group credit.",
+      "Native games, rejected-input recording retention, fixture save and replay have not been run by reviewer. Root must verify the attempted illegal click remains in native raw actions. A wrong native result receives no fixture or qualification; no oracle weakening or engine repair.",
+      "No network/native PHP/tests/T/original/Git writes were performed. One W review receipt only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "72184ca217d04c5a5ea3a3838c2ca624d2bece4c0edde41e3501755b475d87ef"
+  },
+  "full_suite_run": false
+}

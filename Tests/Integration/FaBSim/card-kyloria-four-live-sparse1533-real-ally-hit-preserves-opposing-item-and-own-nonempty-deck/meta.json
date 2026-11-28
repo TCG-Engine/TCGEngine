@@ -1,0 +1,7 @@
+{
+    "name": "Kyloria / actual Ally hit neither steals an available Item nor draws from a nonempty deck",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:44:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalDromai20/Storm5/previouslyInvokedKyloria6canonicalfrontAshrepresentation. ActualDragonAction0declaresAshwing8AllyDromai4/AP0/taps6/proxy10power4/noGA(noRedhistory). Fourmanualresponses/allcombat/noDefenderPhantasm event. Actual4damagekillsTokenAlly; allHero20. RealopposingPotion9notstolen/owner4controller4 andownDeckBlue7notdrawn, noHero-hitlayerearned. Fullcloseprimary6Arena/tapped/Scepter5ready/Deck7/Potion9Arena4/UID10/APR0. No actualInvocationorpositiveHero-hitgaincontrol/draw/lifetime/secondarycredit; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kyloria FaBSim/Custom/UPRCards.php#FaBUPRInvoke FaBSim/Custom/UPRCards.php#FaBUPRHit FaBSim/Custom/MONAbilities.php#FaBMONArenaAttackSpec FaBSim/Custom/GameLogic.php#OnHit"
+}

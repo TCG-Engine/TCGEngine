@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-photon-rush-red-four-live-sparse915-actual-three-without-preceding-lightning-card-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8c62716279ba746532314d71a402b7cbe4a3fca60182ad4136754ca651e7c3ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eb3d2f5f2e6035cafc3bd5a2fc555b62cd85e1faef7eae2920e40491fcba43a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "263c5a999c36a205fa7a5c20c540d54dc9d7a9d0c5c346100cd0409fb81fa15a",
+        "expected_final_gamestate.txt": "3334102e04b6b8aaa66b5ced4e5579c42b169ed76757724f7f5e1796ac443bca",
+        "meta.json": "def78f3b2456030a011c70245243b928fef85eebf3debb84dfcb34aef75a40ec"
+      }
+    },
+    {
+      "slug": "card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lunar-mirage-red-four-live-sparse915-actual-three-and-go-again-without-large-attack-defense-copy",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f4bf36765925d32f3a8ca5d4f9c718fd77ce050aa8daedf77f036eef2e6e39b3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17b275e90a3564ccc4cb9d06e41111eef801b3f7d881bdab9a6adad61f13609a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f8bdd0a39a71fb33562e2efdc31bc7dbcf21d7488a5a7d395e77fb36d0b6e33f",
+        "expected_final_gamestate.txt": "480c9aaf40ff4b838644b3b0708e2ad23a8c699c52e96821898cf2428d2f588b",
+        "meta.json": "d683ae3ca79d746d42228bd8e55054a9c7e7cf37eafd1a2eec3262446fad42ad"
+      }
+    },
+    {
+      "slug": "card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vengeance-never-rests-blue-four-live-sparse915-first-attack-without-edge-of-autumn-combo-go-again-or-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c2acf571a891ba86aed7f61dc9469e00da7edfcbd7adfb6fa8efb2dbd54603e4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50a030b5f259a938d353e7d6327a840b4dbd111fb362d02da2235288ce7e2946",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5db3d852f0c3fb87db502e9fa48695f754ceffd65a9b802d077e37ee18d12965",
+        "expected_final_gamestate.txt": "4ff2061c186da3deb558afa541f5e8cc439cd6a826425579bb00c728b05a680e",
+        "meta.json": "e530379b46362dd5819792a6482974ca14a361fb58a6482103235ddb8a366ee9"
+      }
+    },
+    {
+      "slug": "card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-winds-of-eternity-blue-four-live-sparse915-first-attack-without-hundred-winds-combo-power-or-hit-shuffle",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse915-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9f620966b45875d37fed679eb504c1d7143793cfd466c9cb8731249b12549eab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "90271dbdc9c2ef6ac24fad3ee5ad1543a63410d9c7bb332769461c32dd1d3195",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "9a81c8202170ccc5b3e88c2de5912416f88f545af8979d314dbd8921fdbf03bf",
+        "expected_final_gamestate.txt": "12c5e73e2947d7fc01de410a45812adfaaa815c2276089107adf25e80040195a",
+        "meta.json": "d4124a4337cc814263ab582a9f85217d9a35d74dd0061c1534a577d3f9b1a5a3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,101 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1217-20261122.json",
+  "source_spec_sha256": "547c7d9135217f2e6571e503e0c7fc0e97ea6a515346601631067920f450d44b",
+  "input_sha256": "547c7d9135217f2e6571e503e0c7fc0e97ea6a515346601631067920f450d44b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-suraya-archangel-of-knowledge-four-live-sparse1217-ward-four-real-seven-physical-front-face-and-consumed-token-material",
+      "card_id": "suraya_archangel_of_knowledge",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "38db6b3bb8b7184d9e3dbd8aee471c9750dc44642ec7a8d50d9a77a88eda3dba",
+        "actions.json": "627e6257c48305183c5b1ac8f7a6299fb04cf2f4230c1d4013f63220cf0fd327",
+        "assertions.json": "d6e32b30dc1fef6d25c7810e640ad24a1b915bc18302589ff6ec91107481d166",
+        "expected_final_gamestate.txt": "4524509d453a769a658ddd2587fb45e9f7a28e83a3ec0aa9001f1eff263e85ec",
+        "meta.json": "0a9ebfd652c6ea68d9142238643a102a7ea964f76361a90b0186d6dcf37bd375"
+      },
+      "fixture_sha256": "cd9d5d8b9d3d53b4b17b77094546cc414a3d681b68fe90aeae6c77495297b970",
+      "actions": 29,
+      "native_assertions": 356,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1217-20261122.json",
+      "input_sha256": "547c7d9135217f2e6571e503e0c7fc0e97ea6a515346601631067920f450d44b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1217-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-suraya-archangel-of-knowledge-four-live-sparse1217-ward-four-real-seven-physical-front-face-and-consumed-token-material",
+        "fixture_slug": "card-suraya-archangel-of-knowledge-four-live-sparse1217-ward-four-real-seven-physical-front-face-and-consumed-token-material",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "547c7d9135217f2e6571e503e0c7fc0e97ea6a515346601631067920f450d44b",
+    "source_note_sha256": "983d0d54be6e0679580c74882c9eb5248eecf685c2eb8f1ac72043d6e64dbe87",
+    "case_count": 1,
+    "native_controls": 29,
+    "query_checks": 356,
+    "persistable_assertions": 356,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "runtime_verification_scope": "Root fresh isolation/runtime/HEAD verification reused; selected source/cache and exact frozen spec read independently. No engine/native/Git execution by reviewer.",
+    "coverage_category": "WARD4_AND_OWNED_INVOCATION_FRONT_ONLY",
+    "cases": [
+      {
+        "card_id": "suraya_archangel_of_knowledge",
+        "group_id": "identity:suraya_archangel_of_knowledge",
+        "physical_uid": 5,
+        "ward": 4,
+        "actual_incoming_physical": 7,
+        "actual_prevented": 4,
+        "actual_damage": 3,
+        "final_target_health": 17,
+        "final_front": "invoke_suraya_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 356
+      }
+    ],
+    "basis": [
+      "Exact frozen single-case 40-step packet has29 real controls and11 check-only checkpoints. All356 queries normalize to356 persistent assertions with no omitted author diagnostics. YoungPrism20 legally owns LightIllusionistSuraya5; three youngDorinthea20 peers and actual GenericRagingOnslaught6/BlueSigil7 are legal. Group is unrepresented; InvokeSuraya and Erudition groups are separate and receive no new credit.",
+      "Admitted prior Suraya5 is owned/controller4, ready2/Damage0 with DYN_SURAYA1 and exactly one SUBCARDS spectral_shield. DYNCards74 establishes this exact original-invocation-UID/encodedToken material state; no current transformation/producer is claimed. Source and material both owned4; no foreign nonToken material export path is entered.",
+      "Real Hero4 target is selected before source movement/payment; actualBlue7 pitch3 pays Raging cost3/AP1->0/R0, followed by explicit manual four-seat source/combat rounds. The real blank Generic AA has power7 and no on-hit or other card trigger; no physical defender or other prevention source is present. Pre-Damage power uses native computed kind:power7, while cached power/defense/damage are checked only at Damage.",
+      "MSTCards204-213 includes the Arena Ally with intrinsic Ward4, and36-46 reads printed Ward4. DTDCards235-241 begins actual pre-Damage replacement using real remaining7; dedicated radiant-forcefield runnerf68536da278e03553a52 at176980+, especially177042/177055, offers mandatory player4 MZCHOOSE with only p4Arena-0. Exact prompt/real source5 state/attack6CC/HP20/Stack0 are persisted before answer.",
+      "DTDCards221 reads Ward4 before destroying Suraya; runner177001-177004 stores consumed prevention and resumes FaBBeginDamageStep. Actual7minus4 gives damage3/HP17, checked with attackHittrue and physical owner-correct departure. Ward is a static replacement and Suraya neither attacks nor deals damage, so neither printed Suraya WHEN ability is earned; no missing response layer is assumed.",
+      "DYNRuntime261 changes departing Suraya to InvokeSurayaYellow before GameLogic849/861 exports subcards. The spectral_shield subcard is Token and is skipped, with SUBCARDS removed; no new object/UID is allocated. Same physical5 owned/controller4 is exactly the sole Graveyard4 card, maxUID7, source6 ownedGraveyard1/fuel7Pitch1, no Arena/Stack/DQs/chains and other health20 through full close."
+    ],
+    "limits": [
+      "Only existing intrinsic Ward4 preventing4 of actual7 physical and the all-owned invocation-front/token disappearance fate are approved pending native execution/save/replay. No native success or coverage claimed by reviewer.",
+      "No invocation play/material producer, Ally attack, Soul banish, damage/lifegain triggers, foreign material/nonToken owner export, expiry, Hero/support/sibling/whole-card credit. Existing partial136 and unrelated holds are not globally released.",
+      "Read-only T/source/cache review; only this W independent-review receipt was written. No native/PHP/tests/replay/source/framework/Git/original-checkout/network actions."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1217-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b6c05673a823a8adf08fa83e1a635249d356bbf32ecf035035d3e26f33e5d5b3"
+  },
+  "full_suite_run": false
+}

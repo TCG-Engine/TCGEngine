@@ -1,0 +1,7 @@
+{
+    "name": "Copper Cog / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T03:26:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Unlimited**\n\n**Crank**\n\nThis enters the arena with 2 steam counters. At the start of your turn, destroy this unless you remove a steam counter from it. Representative only: actual_two_steam_entry_then_positive_crank_removes_one_and_gains_action_point. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Copper direct-play entry route is unverified: first check the correct real2steam entry boundary before waiting for any Crank decision. Failure saves no fixture and receives no credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#copper_cog_blue"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Annexation of All Things Known / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:32:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a Guardian hero, until the end of your next turn, they can't play face-up cards from arsenal, and you may play face-up cards from their arsenal. ActualtwoBluepitches payprinted5or6, AP0/R1or0, fullunblocked8or10damage/HP12or10; targetDorintheaWarrior explicitlynotGuardian, so typedGuardianCrushneverearned despite4+damage. ActualFaceDownArsenal8retained/Arena0. PositiveGuardianeffects/Heaveunexercised. Sources: FaBSim/GeneratedCode/cardArrayCache.json#annexation_of_all_things_known_yellow"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T08:00:09.187701+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1514-20261122.json",
+  "source_spec_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 387,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5596,
+    "duels": 3135,
+    "four_live": 2461,
+    "recorded_primary_ids": 2744,
+    "identity_denominator": 5196,
+    "recorded_groups": 2618,
+    "group_denominator": 3324,
+    "four_live_groups": 2450,
+    "phase_qualified_scenarios_at_actual_contexts": 2233,
+    "phase_qualified_unique_groups": 2223,
+    "creation_replay_passes": 2975,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1394,
+  "scenarios": [
+    {
+      "card_id": "shift_the_tide_of_battle_yellow",
+      "group_id": "identity:shift_the_tide_of_battle_yellow",
+      "scenario_id": "card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+      "effect_branches": [
+        "rejection_only_Warrior_attack_power_greater_than_base_not_satisfied_in_correct_native_REACTION_window"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+      "source_spec": "card-regression-sparse1514-20261122.json",
+      "source_spec_sha256": "36cf7fd959634ba87376514894f165b578bcb219b1ac6d3524fcc0a3f8763e3d",
+      "review_evidence": "review-evidence/sparse1514-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bc572b327e2aa59944b7229545ea57e09b7ac153dd2d90deb96bc9ac2ec4cd1d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1514-20261122-replay.json",
+          "sha256": "a124a9ee6968eea1d559225eda96b9ed0be383ca2ad863fa08183e971992338c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

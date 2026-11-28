@@ -1,0 +1,7 @@
+{
+    "name": "Beckoning Light / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:40:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, you may **charge** your soul.\n\nIf a yellow card was **charged** this way, whenever an attack action card hits this combat chain, you may put an attack action card from your graveyard on top of your deck. Named partial branch: no_other_hand_card_uncharged_hit_keeps_eligible_graveyard_and_deck_order. Natural legal Boltyn20, only source Hand5, printed cost0/no Pitch. After source is announced there is no other Hand card to charge; no charged history or Soul card. AP0. Four live manual seats, adjacent target4 announced before payment, actual unblocked3 damage/HP17, same owned physical5 Stack-to-ATTACK-to-Graveyard. No go again or created token. Actual eligible old Graveyard AA6 remains before appended source5, and actual Deck7 remains top. No yellow-charge recursion ability is granted. No positive marked-hero/charge/Courage/Fealty/recursion, alternative hero ability, support identity, pitch sibling or full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beckoning_light_red"
+}

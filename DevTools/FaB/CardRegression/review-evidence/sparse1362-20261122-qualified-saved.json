@@ -1,0 +1,163 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1362-20261122.json",
+  "source_spec_sha256": "c80c136a6201bda2835e4586638015500bf25c6d41a192072ddd6dd161928b52",
+  "input_sha256": "c80c136a6201bda2835e4586638015500bf25c6d41a192072ddd6dd161928b52",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fools-gold-yellow-four-live-sparse1362-actual-pitch-funds-attack-not-discard-no-gold",
+      "card_id": "fools_gold_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a9611989c49b99c4c80016e3310b08e1461be70d324a2e9ea13ee85be93d8d5",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "ec502750d5305665d3c59f30016a537d49072d1b338fe0934759cb9d70653536",
+        "expected_final_gamestate.txt": "b7d5fd5aecbd9c33f440bf8aed0479cd9129c16329dc17260934ca445b71c0ca",
+        "meta.json": "d84d45545e44ff8260198cd5891bf100288081e8baf548bed8a2844d378444c7"
+      },
+      "fixture_sha256": "4e932c1a1fc28eac3eaefe8cb1855aa6b4c7a6b2409e891f318ac2329aba11ad",
+      "actions": 29,
+      "native_assertions": 431,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1362-20261122.json",
+      "input_sha256": "c80c136a6201bda2835e4586638015500bf25c6d41a192072ddd6dd161928b52",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fools-gold-yellow-four-live-sparse1362-actual-pitch-funds-attack-not-discard-no-gold",
+        "fixture_slug": "card-fools-gold-yellow-four-live-sparse1362-actual-pitch-funds-attack-not-discard-no-gold",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-heart-of-fyendal-blue-four-live-sparse1362-actual-pitch-funds-attack-equal-health-no-unearned-heal",
+      "card_id": "heart_of_fyendal_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a74fdfe9a2a17a43aeda113a85275f69a1ee4f35dbb46b552acca33d4471de7a",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "400e26f17301a4cfb7c5410af883be127b72849476133d5d33c055eadbcae90e",
+        "expected_final_gamestate.txt": "6fc4a1d280fa99f50ad4096ac9410b822f274b93a6c4aef289cb2c3775c9387f",
+        "meta.json": "b63a1c76df1f467dc7df17492eb59e74efac20cf6e0fc2b0f50b6c214ec8f899"
+      },
+      "fixture_sha256": "fe236f21e93b0178d1a6c4b5b35fed30913eac13a463ae12f8c9f090909d8174",
+      "actions": 29,
+      "native_assertions": 431,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1362-20261122.json",
+      "input_sha256": "c80c136a6201bda2835e4586638015500bf25c6d41a192072ddd6dd161928b52",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-heart-of-fyendal-blue-four-live-sparse1362-actual-pitch-funds-attack-equal-health-no-unearned-heal",
+        "fixture_slug": "card-heart-of-fyendal-blue-four-live-sparse1362-actual-pitch-funds-attack-equal-health-no-unearned-heal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c80c136a6201bda2835e4586638015500bf25c6d41a192072ddd6dd161928b52",
+    "source_note_sha256": "a60489caecd47304d20ead7cb9f30ef55c7a63016f016b4c9021d795764afa23",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 58,
+    "query_checks": 862,
+    "persistable_assertions": 862,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "RESOURCE_NATIVE_PITCH_EVENT_GUARD_AND_FUNDED_ATTACK",
+    "per_case": [
+      {
+        "card_id": "fools_gold_yellow",
+        "group_id": "identity:fools_gold_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 431
+      },
+      {
+        "card_id": "heart_of_fyendal_blue",
+        "group_id": "identity:heart_of_fyendal_blue",
+        "native_controls": 29,
+        "persistable_assertions": 431
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld standalone GenericResource groups, each legal under naturalYoungDori20/fourliveUPF/manualsource-combat response rounds. Local cached upf_banned=false, no current external policy assertion. One LegendaryHeart is legal singleton. Exact physical assetsCriticalRed5Hand, resource6Hand, FDArsenalWounding7, noDeck/Soul/earlierhistory/modifiers/Gold; source identity fragments bind actual cached printed text.",
+      "FoolsGoldYellow prints When discarded createGold, pitch2. GameLogic1169-1174 explicitly moves source6Hand toPitch, adds actualpitch resources and dispatches CardPitched rather than CardDiscarded. SEACards40-49 earns discarded-token source only from actualdiscard hook. Thus actualpitch2 fundsCriticalRedcost1/R1/AP0 without earningGold/WHENlayer/newUID. Fullfourresponses yieldbase5/noGA/fivephysicaldamageHP4=15; resource6 remains ownedPitch, allArena0/UID7/RNG0/ownHP20. Positive discarded trigger timing/token production not approved.",
+      "HeartFyendalBlue prints When pitched IF lesshealth than an opposinghero gain1life, pitch3. At actualpitch allfourherohealth20; WTRCards520-521 iterates opposingheroes and FaBPENLifeMore comparison is false, so no earnedheal/WHENlayer. Actualpitch3 fundsCriticalRedcost1/R2/AP0 and physicalfiveDamageHP4=15; ownHP20 throughout. Laterdefenderdamage does not earn a newpitch event. No positive unequal-life heal/timing route is approved.",
+      "Both exactfunding values and transformed resourceCardID/UID6 OwnerController1/finalPitchIndex0, source5Stack-toCC-toGY, Hand0/Soul0/Deck0/FDArsenal7/UID7/RNG0/allArena0 consistent. Actual zero-costArsenalWounding7 later rejects AP0 while resource-affordableR1/R2, preserving all fates/HP/resources/quietStackDQsCC. Counts29/431 each,58/862totalpersistable."
+    ],
+    "limits": [
+      "Only named negative pitch-event/health-condition guards, actual native resourcefunding/baseattack/damage/physicalfates and no-action consumer approved pending native execution. No game pass or coverage claimed.",
+      "PositiveDiscardGold, unequal-healthHeartheal, earnedWHEN timing/targetmatrix/resourceplay/supportidentities/siblings/full-card behavior untested/uncredited. Existing holds untouched; no physicaleffectcost or engine repair.",
+      "Only workspace review receipt written; no native game/test/replay, engine/repository edit, originalcheckout access, auth/network, fullsuite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1362.py": "994d3169cd44b468dfa22650f1934b8f77a14ca0a51d5febd85ff22b63522823",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1362-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "dcb1ed754742931dcd1f9dfd74179a6261d1655b019448b7718c35d4f6111820"
+  },
+  "full_suite_run": false
+}

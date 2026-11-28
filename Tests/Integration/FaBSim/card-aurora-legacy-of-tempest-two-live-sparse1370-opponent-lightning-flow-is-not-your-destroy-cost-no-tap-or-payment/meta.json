@@ -1,0 +1,7 @@
+{
+    "name": "Aurora, Legacy of Tempest / opponent Lightning Flow cannot pay your cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:58:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULT_AURORA_LEGACY_OF_TEMPEST_NATURAL_HP40. NativeGenericCriticalAAcost1paidactualBlue3/R2/AP0/base5, realextraGenericBlueHandretainedaseligibleDiscard/potentialresourcecontrol. ActualopponentLightningFlowArena9(or7duel)butOWNARENA0/noFlow. AtownREACTIONnativeHeroInstantclickwithfullyaffordable1(Oscilio)or2(Aurora)ordinaryresourcesandreadyHero rejectsnoownedFlow beforetap/payment/Destroy/choice/Discard/PonderorEmbodiment/newUID. HeroStatus2/R2/HandBlue/foreignFlowownedopponentreadyCountersEffectsunchanged/priority1/livesourcepower5. Allconfiguredmanualseatresponses/actual5physicaldamage/HPtarget15(or35duel), finalsourceGY/fundPitch/extraHand/Arsenal/foreignFlowexactretained andactual0ArsenalconsumerrejectAP0. Onlyownershiplegalityguard/nativefunding/damage/fates; positiveownFlowpayment/tap/Destroy/Discard/permission/Embodiment/Ponder/paidcosttiming/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aurora_legacy_of_tempest FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-aggressive-pounce-red-four-live-sparse905-actual-blue-cost-two-and-six-damage-without-unearned-intimidate-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aggressive-pounce-red-four-live-sparse905-actual-blue-cost-two-and-six-damage-without-unearned-intimidate-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9f9ef16b6a152e45f8ec966e77493b520c9565a5f5303b069e2cbee9a65b2258",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8013aa93385a31e2b1e2037994e7ca6d7fc9a3cac7396ec282cf88e8e04e56dd",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "9844e2f17b24230790bf8432b46030e87b3a4f306c50a688d1028cedaea54497",
+        "expected_final_gamestate.txt": "33ec253a7c7e23f16783829bdb2dd395b8560923d5c5cdabff34ac141990fea8",
+        "meta.json": "0494550e9cfd2af8c6ab8325d9a08228a02a2bd0de2fcc9073fba3ebfcadd6c7"
+      }
+    },
+    {
+      "slug": "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cf94e8949afdbad46f13777d74d50275b253ca92d5b7c87355340543daee38e3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "443fbbead988e2b7bec9c9148e6f92e24282e975e8d2b6efb80bac291d054b97",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e0aa59f07a494d87c53ead06048458f70659335fb9dfff52e198be63bd082a22",
+        "expected_final_gamestate.txt": "2318adaad817f2d11e35782ed8d551e8a96d82b3e4e382be9d8d58e5a8ec896e",
+        "meta.json": "5751c418d386e5e7bb14891694fe75d2fddc0f9f1ecdb38f506aeeac41aa0f12"
+      }
+    },
+    {
+      "slug": "card-valiant-thrust-red-four-live-sparse905-actual-blue-cost-one-and-four-damage-without-unearned-charge-power",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-valiant-thrust-red-four-live-sparse905-actual-blue-cost-one-and-four-damage-without-unearned-charge-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse905-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f43cfa3cff78644701315cc5e7590992a14ca26213394700d69093447b16f4cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "853d1421314f6d5c3410ced28db73e65492d4c4f880b1af16ddc4dc6139f92db",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "93f424ca8128b70905388b6138195b5c918422ef6bc1b2b8aacf55c5187f51fd",
+        "expected_final_gamestate.txt": "96a8c179f6d70c3d6b0593f8ba93f83d9f5a9fd611aaf2be8be15a44107ff868",
+        "meta.json": "1c82211eed6e510fa80a492589607e1bd0a2ea0fd544952b582393fc4a0d20e7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

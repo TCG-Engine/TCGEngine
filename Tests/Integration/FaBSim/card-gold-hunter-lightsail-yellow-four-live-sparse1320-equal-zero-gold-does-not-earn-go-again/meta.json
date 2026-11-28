@@ -1,0 +1,7 @@
+{
+    "name": "Gold Hunter Lightsail / equal zero gold does not earn go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:38:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_gravy_bones20_AND_DORI20. AllfourheroescontrolzeroGold/allArena0, so controllerdoesnotcontrolLESSGoldthananyopponent; noearnedGA. Primary5normalHandactualcost1/actualGenericRed6pitch1/AP1to0/formaladjacentHero4/allfourresponses. Actualprinted4HeroDamageHP16; noGA/noextraUIDorArena. RealzeroCostGenericWoundingBlow11remainsinHand1throughfullcloseAP0/R0/StackDQCCempty; actualnativeHandclickcannotplayActionwithoutAP despiteaffordability, fullstateunchanged. OpponentHandBlue8/ArsenalRed9/EquipmentLens7Counters[]/ownDeckBlue10retained. Positiveordinarypayment/damageandnegativecondition/refundwitnessonly; positivecondition/extraGA/power/typegrant/Boo/Vigor/Hero/support/sibling/fullcarduntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gold_hunter_lightsail_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/UPRCards.php"
+}

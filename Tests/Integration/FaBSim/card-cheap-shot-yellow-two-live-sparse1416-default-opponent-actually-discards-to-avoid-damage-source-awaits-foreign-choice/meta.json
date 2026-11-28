@@ -1,0 +1,7 @@
+{
+    "name": "Cheap Shot / real opponent discard avoids damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:59:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTCC_REVILEDKAYO40_DORI40. ActualCheapShot3ReviledNAA0/notbeenbooed(nohistory/effects)/AP1to0. Damage-effecttargetprecommittedsoleopposingHero2/TRP5.14default; laterUIrepeatssame2/noearlybindingorUPFcredit. Bothmanualresponsesholdowned3Stack/noDamage/noDiscard. ActualHero2choice0|1Hand4 isforeignseattoSource1;3muststayStack/KindACTION/AP0untilopponentanswer. Opponentactuallychooses4Hand\u2192ownGYUID4, satisfyingUNLESScost, soactualtwoDamageNOTdealt/bothHP40. Original3finishesownGY, Handempty/Deck2only5unchanged/noextraaction/token/R0/UID5RNG0/StackDQframesquiet. Positiveactualdiscard+avoidDamage/sourceforeignchoicecontinuationandnotBooedActioneconomy; positiveDeclineDamage/BooInstantpermission/targetbinding/pitches/Heroability/support/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cheap_shot_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

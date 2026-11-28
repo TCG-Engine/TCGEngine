@@ -1,0 +1,7 @@
+{
+    "name": "Null // Shock / real arcane threshold negates an opposing healing Instant",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T16:37:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungOscilio18actor1/threeDori20. ActualZap5Action0formalHero4target/AP1to0/allfourresponses dealsreal3arcaneHP4=17, noseededARCANE_OPP. ActualforeignSolace7Instant0playedby4duringemptyACTIONresponsewindowbeforelastpass; stillpendingStack0/noheal. P4passespriorityto1; actualNull6leftmode0announcedbeforeformalStack0targetandrealBlue8pitch3pay1/R2/AP0. Freshupper1/2/3/4responses resolvelegalpositive0cost<3arcane condition; actual7ownedGY4negatednotresolved/nohealHP17, actual6ownedGY1beside5. No lower response round afternegation/noShock1/noextradamage. AllotherHPnatural18/20/R0/AP0/UID8/noStackDQs/otherzones. No thresholdnegative/change-target/meldboth/right/othercost/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#null_shock_yellow FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

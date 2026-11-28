@@ -1,0 +1,7 @@
+{
+    "name": "Massacre / pitch and discard distinction with actual damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:45:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGRHINAR20_THREEDORI20. Noearlierdiscard/history; actualprimarysource5playedfromHand\u2014notdiscarded. Massacre5printed3paidCriticalBlue6pitch3/R0, noDISCARD_SIXhistory, interveningattackIFfalse/no+2/noIntimidate; actual6not8damageHP14. ItsownwhenDiscardedToBruteAACostnotperformed. RealvictimHero4HandCriticalRed8eligibleforIntimidateremainssameownedUIDthroughattack/damage/fullclose/noBanish/RNG. AllArena0/UID8RNG0/AP0/source5GY1/fund6Pitch1/FDArsenalWounding7retained/victim8Hand4. Actualresourceaffordable0ArsenalconsumerrejectsAP0beforetarget/payment/movement, fates/health/resourcesunchanged. OnlynoDiscard/pitch-vs-discard/basecost/power/damage/noIntimidate/refundguard. Positive6discard/RhinarWHEN/MassacreWHEN/timing/Intimidatereturn/secondarycosts/Herootherbranches/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#massacre_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CRUCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/HVYCards.php"
+}

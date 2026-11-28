@@ -1,0 +1,7 @@
+{
+    "name": "Jarl Vetreidi / actual Ice play earns a response layer even when every opposing equipment slot is occupied",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T17:25:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two genuine manual CC adult40/40 seats. Opponent1 has real Ironrot equipment in all four equipment slots; no exposed slot exists. Actual empty P1 turn ends to Jarl2 Start. Actual Potion7 funds2; actual IceQuake8 costs1 and AP1, retainingR1/AP0. The real Ice play earns separate Jarl ABI10 above the physical spell, even with no eligible slot. A complete response round resolves this earned layer without choice or Frostbite, preserving Ice8 on Stack and AP0. A fresh response round then resolves Ice8 and refunds its own go again/AP1. All armor remains ready; both source cards end in ownGY2, no Frostbite appears. No attack occurs, so the later IceQuake hit trigger is unearned. This qualifies only zero-eligible-slot behavior and earned trigger structure, not positive Hero payload or the held interactive continuation/ownership route. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#jarl_vetreidi FaBSim/Custom/MPGCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/ZoneAccessors.php"
+}

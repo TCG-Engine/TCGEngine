@@ -1,0 +1,145 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse953-20261122.json",
+  "source_spec_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+  "input_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bam-bam-yellow-four-live-sparse953-actual-two-hand-blocks-preserve-real-enemy-item",
+      "card_id": "bam_bam_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c1ec75ebf40743f4ce81c943ac0fbe950fa71207abbdd01f67b4c32b1278366",
+        "actions.json": "ec4751855611b71af8512336dca4a46fb793b63b2fcc2d184ee431d8b3e5152d",
+        "assertions.json": "16713d95d84ad2070316528fb1522e705b94d4d731bcb6ae2cbd6eb31abc35bf",
+        "expected_final_gamestate.txt": "2525aadfa5549531f2d6135adc26d72a8beb5277f937348bf1a94fe664347bb1",
+        "meta.json": "d51c187b0d4d945d7df8323b97e5f1abc36634490f4692eaca1f1685fb46649f"
+      },
+      "fixture_sha256": "99a5acd236ee155b7c99b00574f9ff5e3b1965a280081b0169a094788ca6a764",
+      "actions": 31,
+      "native_assertions": 186,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse953-20261122.json",
+      "input_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bam-bam-yellow-four-live-sparse953-actual-two-hand-blocks-preserve-real-enemy-item",
+        "fixture_slug": "card-bam-bam-yellow-four-live-sparse953-actual-two-hand-blocks-preserve-real-enemy-item",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-strength-rules-all-red-four-live-sparse953-actual-two-hand-blocks-preserve-real-high-power-arsenal",
+      "card_id": "strength_rules_all_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cfe457b8ded1067ea3e996181396cb3183b6e1c40532610f68fccdc7509cdd44",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "271fc5058a0c4f2495b95ca354b42f88f7835196592a92235afaf219528928f0",
+        "expected_final_gamestate.txt": "ead3dd8d96bd4b5a11dcf07497119a679bdc8dbb1e3bfd7f707861d38cccf06c",
+        "meta.json": "c005a1fb940328608acc7fbeaf77e5730e33b8f5828f37516fe6c08e324c08bc"
+      },
+      "fixture_sha256": "3b6a04a1108d32e89e3ba575d26293af29450c4fe6541ad7091d82c2ff0f527b",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse953-20261122.json",
+      "input_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-strength-rules-all-red-four-live-sparse953-actual-two-hand-blocks-preserve-real-high-power-arsenal",
+        "fixture_slug": "card-strength-rules-all-red-four-live-sparse953-actual-two-hand-blocks-preserve-real-high-power-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-caress-of-the-reaper-red-four-live-sparse953-actual-zero-damage-preserves-real-enemy-aura",
+      "card_id": "caress_of_the_reaper_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63de278e16fe77fd0007c3d2bf1dff95a4f047b8de63a2ed1ac76f4975601b93",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "086f48f0b1a6a454402db03b07264b19f99ac7d14dc31dd3897a908ad8e54e60",
+        "expected_final_gamestate.txt": "e5e5461a6964840e1acb79eaea984c2ff5944fc49c39f6e535444e8e7f497dff",
+        "meta.json": "2fab72885c00e4781d3afccfa9f80358809d4714b840914e0ce88c699948e711"
+      },
+      "fixture_sha256": "bc086659b4f47406588f7a97f9e1c83936699bcfce281b56b970f0180ce4f19b",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse953-20261122.json",
+      "input_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-caress-of-the-reaper-red-four-live-sparse953-actual-zero-damage-preserves-real-enemy-aura",
+        "fixture_slug": "card-caress-of-the-reaper-red-four-live-sparse953-actual-zero-damage-preserves-real-enemy-aura",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-snuff-out-red-four-live-sparse953-actual-two-hand-blocks-preserve-own-aura-and-enemy-hand",
+      "card_id": "snuff_out_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f65848fe250b9c9fe07ed47c93c3c5e88d28e9752cffdbd7cb7a7b0e242a2b2f",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "3a57cfff5b5f4f96440095465621413d5bc6bc810e0c499aeb542dc37391a181",
+        "expected_final_gamestate.txt": "95074be8a2b1717e0ee7e3d6cd2297aa132ea9c510add707bc22ea5b0b7b1577",
+        "meta.json": "64163f855d11c63977b83e58f8a790583f1f43e4759567209cbab90dbae3a965"
+      },
+      "fixture_sha256": "b475c1f60b1b29843a67f576fbcb914b0ffe0f5bafbeae7101ef03280e8fdb19",
+      "actions": 30,
+      "native_assertions": 187,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse953-20261122.json",
+      "input_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-snuff-out-red-four-live-sparse953-actual-two-hand-blocks-preserve-own-aura-and-enemy-hand",
+        "fixture_slug": "card-snuff-out-red-four-live-sparse953-actual-two-hand-blocks-preserve-own-aura-and-enemy-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "35bbbaf063c30c9d73e0fe64994864f8bec7d0f26dad1b3cf162bae32095a806",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached text/types confirm Rhinar20 Brute Bam Bam3/6 and Strength Rules All2/6; Chane20 Runeblade Caress of the Reaper1/5 and Snuff Out1/5. All relevant effects require a hit or damage; actual two Hand AA defenders each3 defense fully block6/6/5/5, so none of these events is earned. No unconditional attack/play event is omitted.",
+      "Final Bam Bam-only delta explicitly chooses PLAY via MZMODAL0 before the existing Hero4 target declaration. SEARuntime23/29/34/43 exposes its alternate discard Instant while in Hand; native menu guards retain physical Hand5, Stack0/AP1/R0 until PLAY selected. No alternate ability activation is credited.",
+      "Physical Blue6 pays printed cost, leaving R0/1/2/2 and AP0; actual two block clicks consume shifted Hand0 refs to blockers7/8, owner4 graveyard. Source5 owner1 graveyard, HP20/zero damage/attackHit=false/Stack0, and all four manual response windows remain intact. Initial zone counts agree with configured physical cards.",
+      "Real enemy Potion9 remains; Strength marker Raging Onslaught Red9 is power7 and remains facedown, which pins no spurious turn-up. Enemy Quicken9 is not consumed by declaring defense; own Ponder9 triggers at end phase, not reached. Snuff also retains real enemy NAA Hand10. All applicable CardID/UID/Owner/Controller or FaceDown guards are meaningful."
+    ],
+    "limits": [
+      "Only full-block/no-hit/cost/physical retention. No exact unblocked power, positive hit/targeted-aura declaration, destruction/discard, Bam Bam Instant, Ponder end phase, siblings or full-card certification. High-power Strength marker would not qualify for banish even if an incorrect reveal occurred; FaceDown1 specifically checks no reveal. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "abbbb7830f50c068b49a74fdf0e9510fef6b4f46818f3e046126d083f9205f10"
+  },
+  "full_suite_run": false
+}

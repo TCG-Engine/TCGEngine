@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-for-the-dracai-red-four-live-sparse991-unmarked-hero-no-fealty",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-for-the-dracai-red-four-live-sparse991-unmarked-hero-no-fealty",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse991-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse991-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "193516eae7eae99d7094ae3a40881fde48190d45bfa08acf52e27ee3e9037aa2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "867ce9bcaf06177b4e15d06df8754582107ecb7058c113396c0afe6564a18131",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4c572a1605073288fdd0b5261c9c2ec8b8f24ff6648e06bd76fd69aa20ec70f6",
+        "expected_final_gamestate.txt": "75c6023e6a8704d88000cfee9878ccc014c709def44b22d0448292be53735c29",
+        "meta.json": "eb1edb9c93bed7fa7dc613b3ccd72edf2864122aced1a35b124bfa630f6f158f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Chains of Mephetis / foreign Aura replaces real draw and grants usable Banish permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:28:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PriorownedChainsAura5controller4YoungChane20isadmittedArena, noentry/fromBanishproducer/doom/startuphistorycredit. Duringturn1actionphaseYoungChane1playsactualTomeTorment6cost0/AP1to0. AllfourliveplayersrespondwithDeckSigil7stillDeckuntilresolution. Printedglobaldrawreplacementappliesevenforopposinghero1: originaldrawdoesnotputHand; same7movespublicBanishOwnerController1. Itspermissionisnotmerelyaninternalflag: actor1thenactuallyplaysnonintrinsicBanishInstant7cost0atAP0andafterfourresponsesheals3toHP23. Physical6and7ownedGY1, Aura5retainedowned4; nobodyelsedraws/banishes/heals, noRNG/newUID. NoAuraentrydoom/startturn/destruction/BloodDebt/tax/expiry/multipleAura/fullcard/supportorHerocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chains_of_mephetis_blue FaBSim/Custom/DTDRuntime.php FaBSim/Custom/DTDCards.php FaBSim/Custom/GameLogic.php"
+}

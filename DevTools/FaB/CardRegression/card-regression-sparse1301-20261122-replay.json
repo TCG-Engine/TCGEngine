@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-electryn-mindmeld-yellow-four-live-sparse1301-no-go-again-no-quickstrike-ally-hit-keeps-real-graveyard-instant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-electryn-mindmeld-yellow-four-live-sparse1301-no-go-again-no-quickstrike-ally-hit-keeps-real-graveyard-instant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1301-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1301-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "658449138300418d15a244d4cad0888dd92175d8859107eceacedfe509d925f5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c480246c9566a9c5d2c8fba9c8482f5870af2c1ef863d1ebb819337c94cfd437",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "4aaf25b040999736ce8508c49378e46c6d7b88040a36a133ed855716362e1b2c",
+        "expected_final_gamestate.txt": "45b0dc8456f0705d6648450e4e71f9c63e500b0af071946f2a0d526ce9a37998",
+        "meta.json": "0ea4c32284c08fb1086ca71fe5db9b231caa19bf81fe360955d8e1b9d1c2dbea"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

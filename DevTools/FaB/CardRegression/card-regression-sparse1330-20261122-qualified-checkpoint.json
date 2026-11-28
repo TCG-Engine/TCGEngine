@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T07:08:38.042859+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1330-20261122.json",
+  "source_spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 84,
+  "native_assertions": 1302,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5284,
+    "duels": 3102,
+    "four_live": 2182,
+    "recorded_primary_ids": 2432,
+    "identity_denominator": 5196,
+    "recorded_groups": 2306,
+    "group_denominator": 3324,
+    "four_live_groups": 2171,
+    "phase_qualified_scenarios_at_actual_contexts": 1921,
+    "phase_qualified_unique_groups": 1911,
+    "creation_replay_passes": 2663,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1082,
+  "scenarios": [
+    {
+      "card_id": "essence_of_ancestry_body_red",
+      "group_id": "identity:essence_of_ancestry_body_red",
+      "scenario_id": "card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "effect_branches": [
+        "sole_ward_2_prevents_that_amount_from_real_unblocked_four_damage_and_destroys_owned_source_with_other_illusionist_aura_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "source_spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "review_evidence": "review-evidence/sparse1330-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0b4ddaf270f53d73843b618ea6346d513babdbeb0da5b1a529dc60085b25c360",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1330-20261122-replay.json",
+          "sha256": "4eaeb659c8d861412d7259f4477ef4e868dd35ac77fcfdf2c88750537f1b9252",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "essence_of_ancestry_mind_blue",
+      "group_id": "identity:essence_of_ancestry_mind_blue",
+      "scenario_id": "card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "effect_branches": [
+        "sole_ward_2_prevents_that_amount_from_real_unblocked_four_damage_and_destroys_owned_source_with_other_illusionist_aura_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "source_spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "review_evidence": "review-evidence/sparse1330-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0b4ddaf270f53d73843b618ea6346d513babdbeb0da5b1a529dc60085b25c360",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1330-20261122-replay.json",
+          "sha256": "4eaeb659c8d861412d7259f4477ef4e868dd35ac77fcfdf2c88750537f1b9252",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "waning_vengeance_red",
+      "group_id": "pitch-cycle:waning_vengeance",
+      "scenario_id": "card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+      "effect_branches": [
+        "sole_ward_3_prevents_that_amount_from_real_unblocked_four_damage_and_destroys_owned_source_with_other_illusionist_aura_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+      "source_spec": "card-regression-sparse1330-20261122.json",
+      "source_spec_sha256": "a363f2b4e5cb2f3c818380c770b7f4b27167f47fd2a3f254515ef2a108add840",
+      "review_evidence": "review-evidence/sparse1330-20261122-qualified-saved.json",
+      "review_evidence_sha256": "0b4ddaf270f53d73843b618ea6346d513babdbeb0da5b1a529dc60085b25c360",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1330-20261122-replay.json",
+          "sha256": "4eaeb659c8d861412d7259f4477ef4e868dd35ac77fcfdf2c88750537f1b9252",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

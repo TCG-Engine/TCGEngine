@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "seasoned-saviour-four-live-sparse1063-current-one-defense-normal-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=seasoned-saviour-four-live-sparse1063-current-one-defense-normal-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "32e1fee689266a17562c7e1aa73f398491ef5c1b7d262ad2dde96677d08c82a0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a1d60908661a9ac1f80f68c08b6291b6e4fbf2248c3d7d9950aa95e0056bf58",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "fc4b90dd8f8f4dacc4b835e85083a9aa190c0db11056419b0d9a7d4206fbdc7c",
+        "expected_final_gamestate.txt": "a82d8065c1c8e47707b987766bc2ec0e914982a778635d3cc5878ad2b7a6c68b",
+        "meta.json": "dff325e2f9631dff66e470f3936828d7ca74039bcbe38d668f24683e281e3a34"
+      }
+    },
+    {
+      "slug": "testament-of-valahai-four-live-sparse1063-current-one-defense-normal-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=testament-of-valahai-four-live-sparse1063-current-one-defense-normal-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1063-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c30807226376e25164174abd3498ce10e1b1c462d03e395326792d8294148086",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1c51622a7f89efca5a1af6bebf575bc395fbc0887fb5a21a47b6404a6e3e45e7",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "cfb5ddd0f2fafdb6707f334390411037f7af723c49c1322c27fcf7359ace8653",
+        "expected_final_gamestate.txt": "cbe32241a3d381678ed3ead0a62e5e0e5eea27aa2fdf3fb86da9f1068ea4405d",
+        "meta.json": "7ed4d38781121b84988528d743927c65d134a3d248850a34b544c209467d1224"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

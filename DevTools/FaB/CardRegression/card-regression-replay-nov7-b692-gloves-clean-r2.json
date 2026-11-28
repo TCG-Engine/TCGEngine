@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch692-gloves.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T03:33:05.574304+00:00",
+  "fixtures": [
+    {
+      "slug": "card-dark-arcanite-gloves-four-live-real-paid-generic-shadow-hero-damage-resist-one",
+      "fixture_sha256": "343ff68f1e40a68a3c527cc4e387c286c3d584ef835014f989ee56cab2ef6991",
+      "passed": true,
+      "result": "[PASS] dark_arcanite_gloves / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-dark-arcanite-gloves-four-live-real-paid-generic-shadow-hero-damage-resist-one",
+      "returncode": 0,
+      "stdout": "[PASS] dark_arcanite_gloves / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -3,7 +3,6 @@ Polling
 None
 None
 GamestateStorage: APCu
-Header: title=Home, link=/TCGEngine/SharedUI/Sites/FaBSim/MainMenu.php
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
 AssetReflection: FaBSim
 Layout: /Custom/GameLayout.php

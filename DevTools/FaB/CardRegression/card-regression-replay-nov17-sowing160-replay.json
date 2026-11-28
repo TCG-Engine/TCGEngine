@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-sowing160-existing-physical-lifecycle.json",
+  "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T00:45:40.339786+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sowing-thorns-red-four-live-empty-graveyard-no-self-choice-and-one-life",
+      "fixture_sha256": "2e37bd4d860caa56633ff2fff83bcbbe350095f48832afa806616ced4f96ffb1",
+      "passed": true,
+      "result": "[PASS] sowing_thorns_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sowing-thorns-red-four-live-empty-graveyard-no-self-choice-and-one-life",
+      "returncode": 0,
+      "stdout": "[PASS] sowing_thorns_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

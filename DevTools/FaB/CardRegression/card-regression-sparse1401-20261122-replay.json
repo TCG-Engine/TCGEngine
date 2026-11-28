@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-berserk-yellow-four-live-sparse1401-real-random-two-power-discard-below-six-no-banish-or-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-berserk-yellow-four-live-sparse1401-real-random-two-power-discard-below-six-no-banish-or-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1401-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1401-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "654d845b1187156a35ece892f48ce476904023cd49c14f1d98d2df5af64d84e1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b470bf45a12954a8aef275dd2620de513ab35354fd5b3f372087794925d3d03d",
+        "actions.json": "e7883609931cd292e15dd194be539d742c22db1e67454e7c307ad2e4b9037da2",
+        "assertions.json": "0e4afbdfb8e4df50e013d4d45cc09d068074ed1ccb7ac9aa2323767b154e997d",
+        "expected_final_gamestate.txt": "2da151333e570a4add66b312dd860bf255c3b1bdd2124e0ac5295f47c7db1533",
+        "meta.json": "81c3e6ddc9a66464292320405f8cc360cb3c324c179062d142dc27e5509d8ed8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

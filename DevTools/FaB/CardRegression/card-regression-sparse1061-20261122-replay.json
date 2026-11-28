@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "343e813258497a1691b7cd55e78d4f96fbef23955cf9819ab3eb92765817ccd8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "53cefb0c8781f054a55ff92e5149fcfa1c41095551270e98b441fdfd623060e0",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "650a6f1be96de784d4e23b35f6ae0cad4f0162575eca8383f94422fed936d652",
+        "expected_final_gamestate.txt": "f965a38cd1549879cd766b0f9b96742b34b101c8775a38aa2b1c38adb520884f",
+        "meta.json": "15653918d7476b0366c85e65d28743d85fe05ccf8770a24d8c9e65c326699a54"
+      }
+    },
+    {
+      "slug": "prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b6c43c5e582aefa516a998ff6b729f61c542a197919c7bc2edebce8da01c307a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da2359220746f04fd7f558cbae8cc965b8afc843d3985f5d9c21d903f16c685a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "7d98394bad5c10b5e6d1c0389c843887954d8f878fe1af0e88bc3e9bf18f4843",
+        "expected_final_gamestate.txt": "e1f73dfb75ef6540c7c11cfa25565abc67961155f2f95c69c3e46422e21a5d45",
+        "meta.json": "5da9338840134f47f7a95b39ff2df62eb60a6d6fcae0cfe37634343bc2b73462"
+      }
+    },
+    {
+      "slug": "prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ebd2d002831c4a3cb04d638b0fe3dd3edc64ed91e83a4ce5ab195b0a254f6f52",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e55594c2572559eb850439350d7e10d265fdbcb54c0da44a86d0158b447c6a8d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "31010f5847674095bbcc2d60e3e3a9c4acecf561f221477500d5f5c3ed7f00ba",
+        "expected_final_gamestate.txt": "7bfee6d86fc0884daa174129159abc95ad8d28f3723db7c426f87ba221793ca0",
+        "meta.json": "5871ba7ac2b27b20e287a53e30b0a311dce5ba4852aa66df316597f8638bd45d"
+      }
+    },
+    {
+      "slug": "smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e6308ad8c9dc204f8129a25b02383c18ce28cb2c09f6854f5d7f7d62663641d1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "afb3b31abd96d6a3cc171143bb28bbb26cf7fe97418bf9d4423ef2b95ffdb25a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a77e167c3eef774e969363cf78d4019b3f42c1ff452fb9be90e1c7aa34de5673",
+        "expected_final_gamestate.txt": "f1b28c7309ffc2d08b9a6ca8dbc4b5c9b52190d6e973317363812b280c50a3b7",
+        "meta.json": "cef3cba2e99244ad020d5e87aadb31c95ca4158ba906feafdfa84c5447fd982d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

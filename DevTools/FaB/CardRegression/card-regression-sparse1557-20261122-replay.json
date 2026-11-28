@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vynserakai-four-live-sparse1557-real-ally-hit-not-hero-no-three-arcane-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vynserakai-four-live-sparse1557-real-ally-hit-not-hero-no-three-arcane-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1557-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1557-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "09ff0b6a3fb980d323f507eb5840f310b659cf29e9e4b152a6dcf5006b532c46",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3aee6272c0459a4d1b2c6b4cd94ee17c4f76c9c8be5910f2e2f097bc51bdf937",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "1a604c078462cddfe8d2f0e2133614069aa19aeeabb77d6cffa08812cdff7add",
+        "expected_final_gamestate.txt": "12057708901378723a6ded7cc158c3683b276b6878beaea693dcab4aac9bbc24",
+        "meta.json": "4bb639452c36a81b5c1b2418797a130fea4e72b3464297805c6881b794c1b089"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:15:06.077350+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1058-20261122.json",
+  "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 150,
+  "native_assertions": 1345,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4876,
+    "duels": 3075,
+    "four_live": 1801,
+    "recorded_primary_ids": 2024,
+    "identity_denominator": 5196,
+    "recorded_groups": 1898,
+    "group_denominator": 3324,
+    "four_live_groups": 1790,
+    "phase_qualified_scenarios_at_actual_contexts": 1513,
+    "phase_qualified_unique_groups": 1503,
+    "creation_replay_passes": 2255,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 674,
+  "scenarios": [
+    {
+      "card_id": "danse_macabre",
+      "group_id": "identity:danse_macabre",
+      "scenario_id": "danse-macabre-four-live-sparse1058-real-defense-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/danse-macabre-four-live-sparse1058-real-defense-blade-break-close",
+      "source_spec": "card-regression-sparse1058-20261122.json",
+      "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+      "review_evidence": "review-evidence/sparse1058-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6f600a8abe5dc1a6f0cca35dbf80fcd641b7a8fd6658508a1fd8a5cd5e4fd77",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1058-20261122-replay.json",
+          "sha256": "999546800e5cb0ac20af13ffb2f9b416d8363598c866ecd4aa40f1ee78739b65",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "dyed_silk_sleeves",
+      "group_id": "identity:dyed_silk_sleeves",
+      "scenario_id": "dyed-silk-sleeves-four-live-sparse1058-real-defense-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/dyed-silk-sleeves-four-live-sparse1058-real-defense-blade-break-close",
+      "source_spec": "card-regression-sparse1058-20261122.json",
+      "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+      "review_evidence": "review-evidence/sparse1058-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6f600a8abe5dc1a6f0cca35dbf80fcd641b7a8fd6658508a1fd8a5cd5e4fd77",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1058-20261122-replay.json",
+          "sha256": "999546800e5cb0ac20af13ffb2f9b416d8363598c866ecd4aa40f1ee78739b65",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "flick_knives",
+      "group_id": "identity:flick_knives",
+      "scenario_id": "flick-knives-four-live-sparse1058-real-defense-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/flick-knives-four-live-sparse1058-real-defense-blade-break-close",
+      "source_spec": "card-regression-sparse1058-20261122.json",
+      "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+      "review_evidence": "review-evidence/sparse1058-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6f600a8abe5dc1a6f0cca35dbf80fcd641b7a8fd6658508a1fd8a5cd5e4fd77",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1058-20261122-replay.json",
+          "sha256": "999546800e5cb0ac20af13ffb2f9b416d8363598c866ecd4aa40f1ee78739b65",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hand_of_vengeance",
+      "group_id": "identity:hand_of_vengeance",
+      "scenario_id": "hand-of-vengeance-four-live-sparse1058-real-defense-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/hand-of-vengeance-four-live-sparse1058-real-defense-blade-break-close",
+      "source_spec": "card-regression-sparse1058-20261122.json",
+      "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+      "review_evidence": "review-evidence/sparse1058-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6f600a8abe5dc1a6f0cca35dbf80fcd641b7a8fd6658508a1fd8a5cd5e4fd77",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1058-20261122-replay.json",
+          "sha256": "999546800e5cb0ac20af13ffb2f9b416d8363598c866ecd4aa40f1ee78739b65",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "path_of_vengeance",
+      "group_id": "identity:path_of_vengeance",
+      "scenario_id": "path-of-vengeance-four-live-sparse1058-real-defense-blade-break-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/path-of-vengeance-four-live-sparse1058-real-defense-blade-break-close",
+      "source_spec": "card-regression-sparse1058-20261122.json",
+      "source_spec_sha256": "91f8c543f1a7a6a855985ab8cb2b9f1895105f94b6b030a2690262769ad65a1c",
+      "review_evidence": "review-evidence/sparse1058-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f6f600a8abe5dc1a6f0cca35dbf80fcd641b7a8fd6658508a1fd8a5cd5e4fd77",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1058-20261122-replay.json",
+          "sha256": "999546800e5cb0ac20af13ffb2f9b416d8363598c866ecd4aa40f1ee78739b65",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

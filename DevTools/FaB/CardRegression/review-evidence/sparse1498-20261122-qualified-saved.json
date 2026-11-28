@@ -1,0 +1,301 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1498-20261122.json",
+  "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+  "input_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "card_id": "fang_strike",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3251e1f63fe18fb34214dd5e00b1bd06b5ac4e3331eccd63809e5bb6e6a3c894",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "0ebe0f87733de529efbd5bdd1f941e93fd1c71ec25acd7a3141ac7fd230fafec",
+        "expected_final_gamestate.txt": "8e966de09e93fd5c9b12053dbfbbeca3a5e723bc58df72ef48a163d30469204f",
+        "meta.json": "e209eccc0672392b760d1080f86924e3c07c5ecd287515ab720d2bb85ab82ede"
+      },
+      "fixture_sha256": "693c99f73475de93169686d2d6564d6e83e7e24c3cb69f07f514509f31c3b960",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "input_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "fixture_slug": "card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "card_id": "slither",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "184c00bc3cb6cb7789b5febdb19fc966bdf0cf201aee92594a2e57b3a431e6b5",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "1fe936c0a4e7a1152fb639977dcbf0fc53e815e9422208bd1ca96357372af3e5",
+        "expected_final_gamestate.txt": "294dc57b139c09650571ff4c0865b9dd10aefd0f9a73982c4e0a23d0aca3f669",
+        "meta.json": "763d3ee329f41d4f43de409e97b4007e832fcfc8ddfaae15538938efdec1f97c"
+      },
+      "fixture_sha256": "0e04f25f7cb21ef0420b904808127179b4ee6b7b1180c850fb0c4c90faeec141",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "input_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "fixture_slug": "card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "card_id": "venomous_bite_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b620613d03de54518dcc237eb316aa18d1d670e8ee64d48f0566f847d17989e",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "bc8cd3b1dfe9e270789fc06ab9a76d3696e2ba6d0304134f2237a259090dc424",
+        "expected_final_gamestate.txt": "a8e9751557c6ea2b1b8eaabba2fc922c73c8d7982b2a9290a0b904a0dedfb766",
+        "meta.json": "c20e23dcb4759c73a848626c4cc41ad616491d10224ad7e5741e25b5d86e53ed"
+      },
+      "fixture_sha256": "a29d04843922c7c4186a4f57f09c834fc89144c29dda021f6b05e133ff46dc29",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "input_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "fixture_slug": "card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "card_id": "stains_of_the_redback_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fcd8cf28a5af6cdcb0604ab81b48a558fd4ef6175285280456f47d48c952f39",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "73c350c9abc4cab31b2829b8c37d1a19c9a57d152d2794d13f1d2863d80bf4de",
+        "expected_final_gamestate.txt": "19a082c8a34dae9953d139cf12e75f3f41144e85ce5a4ce46911a34f03c986f2",
+        "meta.json": "95e970ad241ea511d9b97df62110e221db860534596ce2cb7e2cd426329bf182"
+      },
+      "fixture_sha256": "1ee2941ed602137e3eb7045612d51516b8b28ce9d91fa0cc4bf5d047b0dc052a",
+      "actions": 35,
+      "native_assertions": 531,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "input_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "fixture_slug": "card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1498,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T05:55:13.037023+00:00",
+    "spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+    "source_note_sha256": "315c8db03b52e375393ed87306ef186004261d454087a27d12f5357d836b1339",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1"
+    },
+    "cases": 4,
+    "planned_actions": [
+      35,
+      35,
+      35,
+      35
+    ],
+    "persistable_checks": [
+      534,
+      534,
+      534,
+      534
+    ],
+    "named_primary_ids": [
+      "fang_strike",
+      "slither",
+      "venomous_bite_red",
+      "stains_of_the_redback_red"
+    ],
+    "findings": [
+      "Actual Assassin Dagger is not an attack Action or Stealth; appropriate MST/HNT target predicates reject the otherwise legal reaction. Venom true Blue-pitch condition cannot waive its mandatory AA target, and unmarked Stains costs1 affordable from actual R1.",
+      "Real Spider2 cost paid Blue3, canonical proxy WEAPON_UID8, no extra DYN counter. Razor2 is a legal Hand block, not Equipment, so no Piercing; actual0 damage earns no Spider hit or Nuu Stealth event.",
+      "Actual weapon go-again funds real Potion; same primary Hand, Pitch6/Weapon8/Potion7/block9 fates, no new card/token/UID agree with scope. Fang/Slither need no hidden private creator marker for this lawful prior-Hand branch."
+    ],
+    "limits": [
+      "Rejection-only primary ability targets. No positive effects, target timing, blue/Mark bonuses, created-card birth or Ephemeral departure credit.",
+      "Independent source/spec review; exact saved checks and one fresh targeted replay per fixture required. No engine change."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0271a54d30aa6806be61de77472916c0e2537315b39715bab9a1d86ec1ebdfa0"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Bravo, Star of the Show / real own Start reveals three elements then buffs an actual cost-three attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:03:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two genuine manual adult40/40 seats in explicitly retained LL mode, not CC: Star is CC Living Legend; all fixture cards LL legal/unbanned in local catalog and public TRP7.2 admits LL heroes. Midgame isolated legal card-state, not tournament deck-validation certification. P1 empty Hand/Deck ends actual turn2; nextP2Start3 runs real Hero producer with three actual elementalHand cards5/6/7, selected Earth/Ice/Lightning and revealed together, no seededSTAR/history. Actual Potions3/4 create ABIs9/10 and fundR4 without consuming nextAA effect. RealRagingOnslaught8cost3 consumesR3/AP1, retainedR1/AP0 and tags+2/dominate/GA. First realcost3AApower9 damagesHero1from40to31, GArefund1, fullClose physicalattack8/Potions3/4GY2, allthree revealedcardsretained. LLmode/actualmanualP1andP2priority/UID10RNG0 pinned. No other branches/support/wholecardcredit, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravo_star_of_the_show FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/EVRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php FaBSim/ZoneAccessors.php FaBSim/ZoneClasses.php DevTools/FaB/CardRegression/record_card_regressions.php https://rules.fabtcg.com/en/trp/07-constructed-formats/"
+}

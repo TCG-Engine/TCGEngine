@@ -1,0 +1,7 @@
+{
+    "name": "Astral Ambience / actual active attack taps an owned Shield for go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T18:03:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualYoungPrism20/3Dori20. Primary5Hand1/realBlue6Hand1/lawfulpriorownedShield7Arena1ready. NormalATTACKPreparebypassesabilitycostchooser; actualformalHero4andBlue3pay2R1/AP0beforefourresponses. Realphysical5CCprinted6hasGAfalse despiteactivatedclause/cachekeyword. Nativeclick5CCactivatesInstant0, actualMZCHOOSEownreadyShield7tapcost; ABI8Owner0Controller1Source5staysonStack/allfourfreshATTACKresponseswhileShield7tappedStatus1andGAstillfalse/AP0/R1. Onresolutiononlyactual5getsGAtrue, noAP yet. FreshnormalATTACKround/noopponentdefenders/normalcombatdealsreal6/HP14, noFragmenteventsosecondaryWHENfragmentnotearned. GAreturnsAP1atResolutiononly. Final5GY1/Blue6Pitch1/Shield7Arena1stilltapped/noextraToken/UID8/AP1R1/noStackDQsCC. Scopeownactivatedtap/grant/onehitGAonly; nofragment/reward/ShieldWard/creation/repeatedactivation/othercost/producer/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#astral_ambience_yellow FaBSim/Custom/IARRuntime.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

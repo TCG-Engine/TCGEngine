@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-scorpio-comet-tail-four-live-sparse986-reject-no-controlled-lightning-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2a8ba8e4843acb03c0391b8b64c19bdd3777740d408d4277658cc9532e40c301",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f8f4fdc42d9f6d9843c71971c36003ff8b88622e9b4071d654a47720b77cde06",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "5e09f1aee0c11b6c12a26b3f21a7eaf03da9243a19e25e0c1ac12b991fae8bb7",
+        "expected_final_gamestate.txt": "76174492a96650bba13dd50942d9682b7a0453e9210a88b4e44fd5ffb71e517a",
+        "meta.json": "a3a4be164330f7c1703af6d95c188ee0f810742976d0960fe1b046ad32efc7a0"
+      }
+    },
+    {
+      "slug": "card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bank-breaker-four-live-sparse986-reject-no-crank-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6907d6b5131d9f56be52c386be84af92a2980f1f034b99036b4b2c103ae4334d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc002776798e61444910b5d2bed1189abd2f2f2966f63b80a0a07356dbcf13fd",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "33bc1dba1f1d17e06ac16e2c50f7323b9fc3ec73ed9c03de1895af57f5242ed1",
+        "expected_final_gamestate.txt": "d8c0b14bcd553e50b44c8a1a4a54f093c47aa3c51740c5e5e058dd84ec355374",
+        "meta.json": "1ae832e921ca02d84c53c552568cda42dd12d8e14b64760db7ec700e93974a94"
+      }
+    },
+    {
+      "slug": "card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rugged-roller-four-live-sparse986-reject-no-six-roll-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e5eb75b8f30f96ccfcf876c3f104695bba6457e9e8a07c83bf0192fb07cadbce",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a7ebd3eacfeb468cef980a8f93c60130c54e6cf86d530b7c324b0b33761f7ce",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "00c48fbca268d593dd4e488a5327098af90865c9e7c3b1643302c27a2dff4f75",
+        "expected_final_gamestate.txt": "8204c4d820ad5386859e3b6696ea1da66ea4674fcb43e2ab02628985d36f25da",
+        "meta.json": "5511b2aa4824249a575c7af427f5bd94d80d943d4f530ad5a4ea4f152c25ad6c"
+      }
+    },
+    {
+      "slug": "card-rok-four-live-sparse986-reject-real-nonempty-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rok-four-live-sparse986-reject-real-nonempty-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse986-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ed2e2d06007add382e9af34a6570e1b067e6d1f8f12351a325951f932b2c8036",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be2aa18bd32624ca1c3abf65666ce8ecc87df67d47ac7f792c77f93768e0ee33",
+        "actions.json": "19b24ff11f47b70ecd3e4ab201d93ac34f752dc17bb1c0b9a0c494a066cb3b82",
+        "assertions.json": "b9eaa557cc6df249e83aa382e5e58d2d99f0d167320d9c594a500c1f989a3fb6",
+        "expected_final_gamestate.txt": "47a8913e7015798f0267e1fd348b21029cf735c44687fe20c6a89f133f98fa00",
+        "meta.json": "9df821eb405e5c6927fa37038ba7045a1a857c521778366b10b024a60b3d7a19"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

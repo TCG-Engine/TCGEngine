@@ -1,0 +1,302 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B795_ANGELS_GLOW",
+  "phase": "SAVED",
+  "approved": true,
+  "saved_approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/sand_saved_recovery",
+  "created_utc": "2026-11-14T21:34:08.513526+00:00",
+  "source_spec": "card-regression-batch795-luminaris_angels_glow.json",
+  "input_sha256": "d39bc1b6b37615009dbb3148ec3b7a5220c13e81523857af56b88a66ce91cfb3",
+  "manifest_sha256": "d47920e5bbb09cf2c634d357ce48a202fa0c980b9f0331f24e1095bc93557035",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch795-angels-glow-first-herald-yellow-pitch-earned-ga-physical-consumer-author\\manifest.json",
+    "sha256": "d47920e5bbb09cf2c634d357ce48a202fa0c980b9f0331f24e1095bc93557035"
+  },
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch795-angels-glow-independent-correct-positive-source-review.json",
+    "sha256": "ba815a36464ffd10fba61b8d100db0fdc2171e1234bf06ac88a1e406cb9de509"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b795-angels-glow-native-correct-earned-ga\\receipt.json",
+    "sha256": "f220f28e2594d2613fd118e5277872ff1ed0c074f2788e517591c757c090aa38"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch795-luminaris_angels_glow-20261114T213110Z-6af8d31e8da7f.json",
+    "sha256": "62b30381c42279d92dd7d3853d77f5004db148ab5383dfea544aed89341db71f"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch795-luminaris_angels_glow.recording-results.json",
+    "sha256": "dbc6be7387c1c9bfbf7371db384e3359865abd17acb85a77c71d01538b6f7807"
+  },
+  "fixtures": [
+    {
+      "slug": "card-angels-glow-first-herald-yellow-pitch-earned-ga-physical-consumer",
+      "card_id": "luminaris_angels_glow",
+      "group_id": "identity:luminaris_angels_glow",
+      "source_spec": "card-regression-batch795-luminaris_angels_glow.json",
+      "input_sha256": "d39bc1b6b37615009dbb3148ec3b7a5220c13e81523857af56b88a66ce91cfb3",
+      "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "recorded_runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+      "approved": true,
+      "semantically_approved": true,
+      "reviewer_independent": true,
+      "fixture_path": "Tests/Integration/FaBSim/card-angels-glow-first-herald-yellow-pitch-earned-ga-physical-consumer",
+      "fixture_sha256": "c66f0df80655b93265326a00e9498594696bfd3c7f88ae014db949873bcc3e03",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d8d319cf5b8236dbcfc509bc4c3d3ebd250404bdefb20f3656e3bda6ab0c741a",
+        "actions.json": "f98c93af12b98850ff4d3418938ff90b2756332cb892fe5a7ad9339c62398b56",
+        "assertions.json": "f272ed3ef2fb2d69f6d3018de4f632a3f93ba66717af95e62c70d961134c0e48",
+        "expected_final_gamestate.txt": "119922caffbd539713a3bcdd7c1dc531eb775367416ebea37627eafebbd8e819",
+        "meta.json": "53b7b227fedf6e9e812377d772311ad1a55a8b5c7edda132e5fc795ba06a7ed5"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "d8d319cf5b8236dbcfc509bc4c3d3ebd250404bdefb20f3656e3bda6ab0c741a",
+        "actions.json": "f98c93af12b98850ff4d3418938ff90b2756332cb892fe5a7ad9339c62398b56",
+        "assertions.json": "f272ed3ef2fb2d69f6d3018de4f632a3f93ba66717af95e62c70d961134c0e48",
+        "expected_final_gamestate.txt": "119922caffbd539713a3bcdd7c1dc531eb775367416ebea37627eafebbd8e819",
+        "meta.json": "53b7b227fedf6e9e812377d772311ad1a55a8b5c7edda132e5fc795ba06a7ed5"
+      },
+      "raw4_sha256": {
+        "initial_gamestate.txt": "d8d319cf5b8236dbcfc509bc4c3d3ebd250404bdefb20f3656e3bda6ab0c741a",
+        "actions.json": "f98c93af12b98850ff4d3418938ff90b2756332cb892fe5a7ad9339c62398b56",
+        "assertions.json": "f272ed3ef2fb2d69f6d3018de4f632a3f93ba66717af95e62c70d961134c0e48",
+        "expected_final_gamestate.txt": "119922caffbd539713a3bcdd7c1dc531eb775367416ebea37627eafebbd8e819"
+      },
+      "actions": 57,
+      "native_assertions": 5101,
+      "manual_passes": 50,
+      "actual_manual_passes": 50,
+      "actual_priority_response_passes": 48,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_manual_actor_counts": {
+        "1": 12,
+        "2": 12,
+        "3": 12,
+        "4": 14
+      },
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "schema_property_assertions": 2266,
+      "checkpoint_count": 59,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "endpoint_assertions_evaluated": {
+        "0": 142,
+        "57": 220
+      },
+      "all_actions_and_assertions_exact": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "herald_of_triumph_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "luminaris_angels_glow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "prism",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "luminaris_angels_glow",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "herald_of_triumph_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_yellow",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "betsy",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "betsy",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "betsy",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "native_action_mapping_sha256": "3c18b1204d4884d7c8528f585584ffcfb5327efaef759e431807fb99de2805d4",
+      "native_assertion_mapping_sha256": "9322537d3a665e902b4bf950d1c8f8d40c61f2aef3d1ac03e13ceb0e79aa1787",
+      "checkpoint_assertion_mapping_sha256": "ee95190586cd06e79d1d9f76a9fb192970d265f3f65ad4d2aa253c1a67139771",
+      "full_card_certification": false
+    }
+  ],
+  "source_guard_count": 82,
+  "selected_support_guard_count": 13,
+  "all_current_guards_matched": true,
+  "total_actions": 57,
+  "total_native_assertions": 5101,
+  "total_manual_passes": 50,
+  "total_schema_property_assertions": 2266,
+  "total_checkpoints": 59,
+  "total_endpoint_assertions_evaluated": 362,
+  "material_findings": [
+    "All actual57 native envelopes,50 manual actors and5101 persisted successful queries match the exact frozen Source. Actual raw endpoints independently confirm48 manual values EACH and complete original physical1..10 ownership.",
+    "Real Herald6 targets Hero4, cost2 is actually paid by Yellow7 toPitch/R0/AP0. Actual two Blue9/10 defenders give defense6 versus Herald5; same Herald survives formal finish, deals0/nohit, remains on Chain until true close toGY1, with no Soul transfer. Low-power Phantasm nonqualification follows the previously reviewed printed-source condition; individual defender power1 was not separately queried.",
+    "Actual computedGA1 and AP0to1 occur on entering Resolution control26, before first close. Real GenericBlue8 then spends that earnedAP, computes2/noGA, hitsHero4 for2/HP18 and closesAP0. Same weapon5 remains equipped, Yellow7 staysPitch,6/8GY1 and9/10GY4; all Stack/chain/queues/targets/payment/manager/await state clears."
+  ],
+  "limits": [
+    "Exact firstHerald/actualYellowPitch/weaponGA/realGenericconsumer only. No Angel, secondHerald, originalLuminaris Aura, Prism ability, positivePhantasm, hit/Soul, suppression/elimination/copy or full-card credit.",
+    "Native survival/nohit and physical endpoints verified; no separate native individual-defender-power query or broad Phantasm certificate.",
+    "Root focused replays/registration remain separate. Reviewer ran no PHP/game/native/replay/full-suite or R/source/Git/remote mutation/new agent/B787 operation."
+  ],
+  "qualification_credit_before_registration": false,
+  "replays_executed_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch795_glow_saved.py",
+    "sha256": "341eb6681b4c7d44cea848e5803ea34ca41f917f99758a092282f36477f173fd"
+  }
+}

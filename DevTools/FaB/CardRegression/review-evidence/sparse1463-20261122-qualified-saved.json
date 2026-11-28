@@ -1,0 +1,278 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1463-20261122.json",
+  "source_spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+  "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "sit_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd9d6f5620054309129ffc271a2ee0a7573f50d53d3fe22ca5607ebd6c7d9d4e",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "e8fb549415ab4e83501633e2cfcff5c0f1a7e2e57a04df2a0fee9a8ae0a0ef7d",
+        "expected_final_gamestate.txt": "eca4c535e0cfc03d2ff6c92a6018a97f9b5f7c3bce419f7e0e4c329faddf6262",
+        "meta.json": "4fbf8ab20610de09fb4a10f588166387e6c2d2b7d32fdc530cde65861c26e32e"
+      },
+      "fixture_sha256": "d86a2d3932e054505e3fef37c68ad38c9a572914b17cd8e4dfe02dd0f5c9141d",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-sit-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "teklonetic_force_field_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "628dd6ed79af9ac2d108ea26067ec1bbb53bd08c02c67b8b773874aded3cc156",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "ada6d66fd7bbd4873cee5a52297499d7485bb9851c874e46c461124207c609a5",
+        "expected_final_gamestate.txt": "8c62304729853c6fe54293e8191b76c6b34bb2eb403a165b0a97c501cc484f33",
+        "meta.json": "51f6a656a64b54a0287908bd1e33cd79329987c835f953ccb31fff2b25fa2092"
+      },
+      "fixture_sha256": "cd7c79a2db0467c3ecfa79229c4ba05c7f79359da292bcadb78f2d5ecc968141",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-teklonetic-force-field-red-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "clash_of_arms_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c03c5478814bd2ad1a15494284903faaf268207def1d37469fc8cf9995148820",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "b5d26ada3623a9f8c1136e886923e9fc678dcc3389126d656a282e6803d1c19b",
+        "expected_final_gamestate.txt": "d7dc920dd00420cdfc92b6c555e886cf184fbf553d9fa0ec1460f5c9f9b5a0b5",
+        "meta.json": "e36c7832d5f97f334bee4ea9506611260852618b4834f21aad6464a409a9897c"
+      },
+      "fixture_sha256": "67f264414598b6822d31d967473afaf680fc37ce247f46f0d9708c5aa0d24028",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-clash-of-arms-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "clash_of_chests_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "776900e9ce5013d69ad4c82e761b48c40805b6d9e8167ebffa694bd0fe0709ce",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "8ee0c95a9fd5386c1e39f4b67f7f1fe9181f656e1d013d4423629dfae712ced6",
+        "expected_final_gamestate.txt": "60275a92d4dc0af83e7bd5662b3d15a9ba5048f7fce274cae546d321b0851331",
+        "meta.json": "052eab71213018b92885dbe3034d4545d94f467b44b085f722d360528714883d"
+      },
+      "fixture_sha256": "94841ce1ac84978721dc356e99218cc06df08b1aca679102ece6e59865bbb147",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-clash-of-chests-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "clash_of_legs_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ad1735e0f547de1ee91686828c9791d61ae5bde01f1372d86a124ad9577e3e7",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "5c0e2a5f15a502cfb0cd903ebc5136771e34ddc178c32d1379a6084d6343d501",
+        "expected_final_gamestate.txt": "4f18a92750b236660959b1bcc81052999b9e7acd50c7f719da709140d0877235",
+        "meta.json": "18f44602d87c00c054d1e8796d93fa699fedac61d871d333acfd277f4748b34c"
+      },
+      "fixture_sha256": "9bd5dbd9d5e23d5b0dd103bf1f55cd8fb37ec65377b9e1815f5c0988b7d529bb",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-clash-of-legs-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "card_id": "clash_of_shields_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9542d4d3e4f927b30a86f8221d4112af03cb724350a3a2d7a40b8496f34c31c7",
+        "actions.json": "7f1369969f97aed5d86f58799e04f153711f5b54ba2a8e29ed493fe9985a8a01",
+        "assertions.json": "859e1a7126027a1a2aa52b0cbaa9aa8856a415eee67d9dd3b936ab1d51cb6f1e",
+        "expected_final_gamestate.txt": "88594bbfc9f83550ae09cbf7f452cea3d36d519aefd23afcff114e7a572f768f",
+        "meta.json": "c41960c3b815d29c539fdd8f7eeb28863b753ebf233871cc95972f8b7e395553"
+      },
+      "fixture_sha256": "d368a4e695dd9a8f869b16bdf62ea3358e750988fba5dc1d91ababaa7e7c3741",
+      "actions": 29,
+      "native_assertions": 428,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1463-20261122.json",
+      "input_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "fixture_slug": "card-clash-of-shields-yellow-four-live-sparse1463-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1463,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T02:11:29.432170+00:00",
+    "spec_sha256": "57e2861174ee67d2ae590819e48e58392f143ab049d7e0f69758c65d8407d0f7",
+    "source_note_sha256": "ffa5e74e48f2576f2ca45675e5fc07e3b88d790c746cba6d78112dc3a7f43941",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6"
+    },
+    "cases": 6,
+    "planned_actions": 174,
+    "persistable_checks": 2568,
+    "named_primary_ids": [
+      "sit_red",
+      "teklonetic_force_field_red",
+      "clash_of_arms_yellow",
+      "clash_of_chests_yellow",
+      "clash_of_legs_yellow",
+      "clash_of_shields_yellow"
+    ],
+    "findings": [
+      "Six distinct unrepresented/unheld groups, legal young Guardian Bravo or Mechanologist Dash defender4 with four manual young UPF seats. Deck4 witness corrected to Generic Raging Onslaught red printed7 before any native execution; all corrected bytes match only the requested replacement.",
+      "Actual Generic Wounding Blow red5 formally attacks adjacent Hero4 and spends action. Correct defender4 selects physical owned primary6 from Hand in DEFEND_DECLARE, producing native DEFENSE/Hand role.",
+      "Sit requires actual Brute attack; all Clash variants require actual Guardian attack. Helpers inspect attack object classes, which plain Generic Wounding does not have. Teklonetic requires FaBDYNOverpower, absent on plain4/no tags or history. Thus no printed qualifying defense WHEN is earned.",
+      "Native printed defenses2,3,4x4 produce actual physical damage2,1,0x4 and matching defender health. All actor health20, Deck UID/order retained, no equipment and real unequal7vs2 tops provide nonvacuous Clash-negative controls.",
+      "Complete four-seat priority flow and full close put attack5/primary6 in respective graveyards. Native AP0 Item click rejects while retained support/fates and empty queues/Stack remain."
+    ],
+    "limits": [
+      "Source/spec review only; no reviewer games/replays or passing coverage granted.",
+      "Basic defense plus limited negative qualifying-condition exclusions only. No positive conditional defense, Clash/reveal/penalty, earned trigger/target timing, sibling, support identity or whole-card credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1463-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b622da0dfc9c0b38696a815bf8061afe3640ead41b3de15cc5648d919cb22384"
+  },
+  "full_suite_run": false
+}

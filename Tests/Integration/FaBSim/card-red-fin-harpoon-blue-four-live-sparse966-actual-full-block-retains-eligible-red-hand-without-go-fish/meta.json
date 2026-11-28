@@ -1,0 +1,7 @@
+{
+    "name": "Red Fin Harpoon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:25:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go Fish** - When this hits a hero, they choose and reveal a card from their hand. If it's red, they discard it and you create a Gold token. If you've activated a cannon this turn, instead look at their hand and you choose the card. Representative only: legal Marlynn20 Pirate Ranger plays actual facedown Arsenal5 with owned Death Dealer9. Actual Blue6 pays2/R1/AP0; two real Hand AA3def each fully block4or6, damage0/HP20/nohit/Stack0. Eligible enemy Hand10 retained/Hand1, no Go Fish reveal/discard/Gold or cannon/draw activation. Physical source and defenders reach owner graveyards; no positive hit/Gold/ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#red_fin_harpoon_blue"
+}

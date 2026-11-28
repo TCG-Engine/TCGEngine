@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1434-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1434-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "48b8158196b57562865e0cf6dda7f082b4e97453f9373834ad0396b83f1085fd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8fc1212f1aaad8c7383e4d8f69786a72d3b7a96a182b00cd276f61e7c951f16c",
+        "actions.json": "3343b09147247150ff87f4dd8db79711420fac2e8a34c6c7ecfe67a4d2b892ac",
+        "assertions.json": "4bd56a58fa8a366ab345784df2fa181a1b31bfba55af2ed67fd579d4d5a3e7cc",
+        "expected_final_gamestate.txt": "5de46901e733b426ac4bb6a9410ffb14a06ccb761605a4f646fa27bea987a094",
+        "meta.json": "2785bba8f1e335f3c1a7c040936b729b66f621638ba86bfb4516e9b1cb0b2648"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

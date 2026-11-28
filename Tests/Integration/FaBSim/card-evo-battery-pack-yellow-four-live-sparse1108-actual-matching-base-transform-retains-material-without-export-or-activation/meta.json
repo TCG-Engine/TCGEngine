@@ -1,0 +1,7 @@
+{
+    "name": "Evo Battery Pack / four-live matching base transform",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:13:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base chest equipped, **transform** it into this, then equip this.\n\n**Once per Turn Instant** - Destroy a card under this: Put a steam counter on an item you control with **crank**.\n\n**Blade Break** Named positive matchingBase transform/equip only. LegalyoungTeklovossen20 owns realprimary5Hand andmatchingBaseteklo_base_chest Equipment, no priorhistory/turneffects. Printedcost0usesAP1to0withnoresources/pitch. Fourliveseatsmanuallyrespond whilebaseunchanged/primaryStack. Actualresolutionequipsprimary5readyowned/controller1withSUBCARDS exactly[matchingBaseID]; baseunderretained/notexported/noGY/Stack0/AP0/maxUIDunchanged. Noactivatedability/Crankcounter/weaponhitDraw/under-export/defense/BladeBreak/hero/support/pitchsiblings/fullcardcredit; knownmaterialexportownerholdunentered/unclosed. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_battery_pack_yellow"
+}

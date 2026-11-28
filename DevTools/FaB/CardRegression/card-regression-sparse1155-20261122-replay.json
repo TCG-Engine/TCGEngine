@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arcane-compliance-blue-four-live-sparse1155-real-declared-action-target-caps-produced-arcane-increase",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arcane-compliance-blue-four-live-sparse1155-real-declared-action-target-caps-produced-arcane-increase",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1155-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1155-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "93cee80bbc835e0c8a3250d438599c9b94a8079f42716dd583457b2f6b265940",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95c7e0880aac890891df022cd65406ad519cdbbf43c770908be38db187397140",
+        "actions.json": "6b466e5508af4233f014f3cdce0ec279de34a1b6407be0851e3af4abb68d783e",
+        "assertions.json": "8931241934b84b5933f596e1cf029ca71e2705f3815c49967d45c4ccf4340335",
+        "expected_final_gamestate.txt": "9d436283efd46b5e5283bd79114cf389b31bf9fae463379f41e7d352d688b821",
+        "meta.json": "a0d209aaad73b2fbbdf9edd1cb45d23807e2474c31f3e6963d75c9a05aedf576"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

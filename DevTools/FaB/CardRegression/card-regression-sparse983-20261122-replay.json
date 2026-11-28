@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-diabolic-ultimatum-red-four-live-sparse983-actual-four-seat-aura-choices-after-naa-pitch",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6760d624d36ecc384dba4d564f8c63640349d7f848d468a58535c876d375c442",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f85ffd0e8dfcae4152cd87509bfd9e3148e6c869866af46f88ed3641756c363",
+        "actions.json": "673971eb74fc7eec50a8ad92577bf145a73234950d65d12968444fe95f5f6a26",
+        "assertions.json": "943504785240d2d88c37035983854cd23f4d216e75d08fe962b5df8cb56d85b0",
+        "expected_final_gamestate.txt": "fa61f7ded2e5b3d87c77129bfca08415813a89965dad90a6ecd6bd7db6a423f9",
+        "meta.json": "93a1bb653c8811cc610cb4318f814324cbb1d80848dc546b6b7376161f98b532"
+      }
+    },
+    {
+      "slug": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse983-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3f2c6838fa75c2a45e137d3daaa2e88d606e36eba8f737eab5dd614c364b2e95",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95acbd2a626a7d98854b859e2f68cad7657104fb5e069ffc168e8a6218fb36ab",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "2ce69c9f325ab3c8b06f46806171df2a1522a544e0407855b8bf70387c4192d6",
+        "expected_final_gamestate.txt": "01ce826bca4b8d7afe1526402940a3458321bcc2539c453c474381426ddcf608",
+        "meta.json": "2bf18c7d676bd3268014bc1bc762fed12c883083037775e6625f8f922b2c5f49"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Focus / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:52:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this then **opt 3** and reveal the top card of your deck. If it's an arrow, put it face-up into your arsenal with an aim counter. Representative only: natural_start_opt_three_reorders_real_middeck_arrow_to_faceup_arsenal_with_aim. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_focus_red"
+}

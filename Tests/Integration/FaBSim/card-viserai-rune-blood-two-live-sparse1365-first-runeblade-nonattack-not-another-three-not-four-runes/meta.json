@@ -1,0 +1,7 @@
+{
+    "name": "Viserai, Rune Blood / conditional guard with actual Read the Runes creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:42:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TWO_REAL_MANUAL_ADULTVISERAI40_DORI40. NoearlierNAA/play/history/Arena. ActualReadRunesRed3firstRunebladeNAAcost0/AP0; itselfNOTanotherNAA, conditionalHeroWHENfalse/noextraRunechantbeforebothresponses. ActualspellcreatesexactthreeownedRunechants5/6/7NOT4/UID7/status2. Original3GY1/Potion4Hand1/allHP40/R0/StackDQquiet. RealGeneric0Potion4nativeconsumerrejectAP0same3tokens/fates/noadditionalplay. OnlyadultID/firstNAAself-exclusionguard/nativeRunecreation/control/noAPrefund; positivepriorNAA/WHEN/timing/Runechantattack/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#viserai_rune_blood FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php"
+}

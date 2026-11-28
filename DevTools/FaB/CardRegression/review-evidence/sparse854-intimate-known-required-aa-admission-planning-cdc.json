@@ -1,0 +1,91 @@
+{
+  "status": "INDEPENDENT_APPROVED_SOURCE_ONLY_UNATTEMPTED_INTIMATE_FIXED_AA_ADMISSION_AND_FORMAL_TARGET",
+  "phase": "PLANNING",
+  "batch": 854,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-intimate-required-known-contract-note-manifest.json",
+    "sha256": "d955e4eb07fc0dc51e4b0d714af05336ee714e9af14edcf9ad81b8f20d9f4d3b"
+  },
+  "manifest_sha256": "d955e4eb07fc0dc51e4b0d714af05336ee714e9af14edcf9ad81b8f20d9f4d3b",
+  "note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-intimate-known-aa-admission-target-unattempted-note.json",
+    "sha256": "28431b2a89e0916fe9402d30dda053b52ce914be8888840384921579370dd4c5"
+  },
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-firm-reservation.json",
+    "sha256": "58c054d61d77e4cfd6fb00bae0e241b029293d70b191b753ff2264e9bd9286ed"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 16,
+  "all_current_source_guards_matched": true,
+  "holds": [
+    {
+      "card_id": "intimate_inducement_blue",
+      "group_id": "pitch-cycle:intimate_inducement",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_FIXED_AA_ADMISSION_BEFORE_FORMAL_TARGET",
+      "classification": "EARLIER_KNOWN_WEAPON_ONLY_REACTION_ADMISSION_WITH_DOWNSTREAM_FORMAL_TARGET",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch854-intimate-known-aa-admission-target-unattempted-note.json",
+        "sha256": "28431b2a89e0916fe9402d30dda053b52ce914be8888840384921579370dd4c5"
+      },
+      "known_contracts": [
+        {
+          "id": "FAB-REG-148",
+          "evidence": {
+            "path": "review-evidence/sirens148-legal-generic-attack-reaction-native-before-c53.json",
+            "sha256": "a7ca7b0471a09210d21579874085bd86aa85c217aa8b536e717db959db4a2808"
+          }
+        },
+        {
+          "id": "FAB-REG-153",
+          "evidence": {
+            "path": "review-evidence/night153-stealth-aa-admission-c53-native-before.json",
+            "sha256": "9dc7043dd45e58b8d29d78c48e98791557ba065058c283f575d423464677cf44"
+          }
+        },
+        {
+          "card_id": "cut_to_the_chase_blue",
+          "row": 290,
+          "evidence": {
+            "path": "review-evidence/sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Legal Young Nuu20 Mystic Assassin admits Intimate Blue and Isolate Blue Assassin AA cost0/power1 with Stealth/Dominate. Other Young Betsy20 heroes have no wager event. No fictitious type/target, attack seed or support substitution is used.",
+    "Exact earliest required path WTRCards464..487 has no Intimate exception and falls back to FaBWTRIsWeapon(active Isolate)=false. CardChoices4..5 only admits Nip/Shred declared-target compatibility. This is the current native-confirmed148/153 admission contract, before MSTCanPlay181 hybrid checks or canonical resolution can make the selected AA route executable. No weapon-host evasion or new Native reproduction is approved.",
+    "Canonical ResolveCard exists and is implemented, but selects its formal qualifying target with MZChoose only during resolution; no PrepareCard/early declaration is installed. This later source-only requirement matches retained Cut290/Tarantula267 and remains UNRUN behind the earlier admission barrier. The actual selected note binds Cut290, whose exact current evidence bytes were verified.",
+    "Printed Blue Intimate looks at top2; current canonical literal4 is a distinct downstream SOURCE-ONLY concern. A future full correct route must retain three distinct Deck identities, choose actual Blue Wounding DEF3 and set baseDEF0 while preserving remaining top/tail, actual power1+1/damage2/HP4=18, positive choice/source lifetime/cleanup. No two-card Deck or observed4 workaround can hide the discrepancy.",
+    "Nuu Stealth chain-resolve granted WHEN is earned on this route. The chosen Blue action defender must later be banished to owner4 public Banish only after its actual captured response layer/four legal responses, before final cleanup. This is expressly an unrun future obligation, not an unused Hero-passive assertion. Only Nuu activated Chi3 ability remains unused.",
+    "All16 current source guards, frozen note/manifest/canonical row/printed primary and support metadata, named native148/153 and planning290 evidence, ledger snapshots and newness bindings independently matched. No executable or Native input was authored or run; no primary/fullcard/sibling/peek/DEFoverride/ownership/source cleanup result is certified."
+  ],
+  "limits": [
+    "Only accuracy of the compact source-only UNATTEMPTED planning note is approved, not Source/native/save admission.",
+    "All positive cost/target/top2/BlueDEF0/damage/Nuu granted-layer/Banish/physical source-cleanup requirements remain unrun behind the exact earlier known contract.",
+    "No Native bug/root/fixture/coverage/fix claim, PHP/R writes, full suite/Git/remote/deferred Radiant189 or denied188/184/B787 action."
+  ],
+  "created_utc": "2026-11-16T08:06:35.078828+00:00"
+}

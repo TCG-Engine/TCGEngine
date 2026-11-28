@@ -1,0 +1,203 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1344-20261122.json",
+  "source_spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+  "input_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+      "card_id": "high_pitched_howl_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b1eafbf172eea1af325ab7bc3ef70edcad8b8229b12654b87d5e73b28b5b34d",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "eb2ed892c9ab7146e638ff8f699a43bd53cd9a0cae568d6344ba2c6b46224d85",
+        "expected_final_gamestate.txt": "6bcdfa2f983dc47d3e7d5c806607674246a3a79386a852e6a493fc39cd7e8d75",
+        "meta.json": "90e4f4e1ed1f0d3f40c14c7349462b5b1c16eb9ad19d63b87131b134554756ac"
+      },
+      "fixture_sha256": "45a45f766a9b7f7209a37de4b1bc457b855766c789ef0a9daf73427e44643820",
+      "actions": 29,
+      "native_assertions": 471,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "input_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+        "fixture_slug": "card-high-pitched-howl-red-four-live-sparse1344-actual-three-power-card-pitched-below-six-threshold-no-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+      "card_id": "pound_town_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69f65de2c622efaa3b96a1495b4e1c31c7431ac08b90cca7912cf80f4352cde2",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "a72322ade7481cd691b807b46dde4060849a2e887c1ff1cd6057eb633fc600d0",
+        "expected_final_gamestate.txt": "98258f89f656a88204fd43f310cbac87f169671f56bf7b1663e80460eb31f017",
+        "meta.json": "6a06caf39bf43a8835d877344c8afe21a5e51c4e668fad7b31a28abbe14d9cb7"
+      },
+      "fixture_sha256": "0d604ebee8729ffa311a949eee7a386af76fefbc3a08b05645308aeb82db59db",
+      "actions": 29,
+      "native_assertions": 471,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "input_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+        "fixture_slug": "card-pound-town-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-no-might",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+      "card_id": "rawhide_rumble_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1111b512c9f33175ff8537deb311ca954dcde74de4c5a5363e62ee71cb88f149",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "cb4f2646ca3b0a16217899072ff475c6bf3ea1418d8e6db7b70dac19903be740",
+        "expected_final_gamestate.txt": "b75ad2117bb1b1a16a0ea6ea9662c6bbd70f104f1f6d78c0f838e29197c8578f",
+        "meta.json": "9d181aced1f55fa01502c56b7eb198744c85deb2bd9ca17ce7bedf757d35cc83"
+      },
+      "fixture_sha256": "f548efdc61497b8c237205351960debac57002f50b35be0520d95aae81bc337f",
+      "actions": 29,
+      "native_assertions": 471,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1344-20261122.json",
+      "input_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+        "fixture_slug": "card-rawhide-rumble-red-four-live-sparse1344-no-six-power-discard-available-beat-chest-unpaid-real-victim-hand-not-intimidated",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e898d6e8250ee18ee8125ad1b517421839eac1160a879e00583eaa032355ee4b",
+    "source_note_sha256": "a72395c891f3723511627a745eceda4b836e3956514fc913502da37206b0a8ee",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 87,
+    "query_checks": 1413,
+    "persistable_assertions": 1413,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CONDITION_FALSE_ATTACK_GRANT_WITH_REAL_BASE_DAMAGE_AND_NATIVE_ACTION_CONSUMER_REJECTION",
+    "per_case": [
+      {
+        "card_id": "high_pitched_howl_red",
+        "group_id": "pitch-cycle:high_pitched_howl",
+        "native_controls": 29,
+        "persistable_assertions": 471
+      },
+      {
+        "card_id": "pound_town_red",
+        "group_id": "pitch-cycle:pound_town",
+        "native_controls": 29,
+        "persistable_assertions": 471
+      },
+      {
+        "card_id": "rawhide_rumble_red",
+        "group_id": "pitch-cycle:rawhide_rumble",
+        "native_controls": 29,
+        "persistable_assertions": 471
+      }
+    ],
+    "basis": [
+      "Cached three Brute AA cycles are legal with naturalYoungRhinar20 plus three YoungDori20/manual4 UPF; groups unrepresented/unheld. Costs2/3/2, basepowers6/7/6 and own no unconditional GA match printed text. Real HeroUID1..4/primary5/CriticalBlue6Hand/faceDownWounding7Arsenal/opposingCriticalRed8Hand4; exact initial Owner/Controller/UID and original victim Hand control retained before damage and fullclose. No seeded BEAT/discard/history/Arena effects.",
+      "Howl AttackDeclared22122 calls HVYSix(player,Pitch), HVYCards41-44 filters actual owned power>=6. ActualRhinarCriticalBlue6 is power3 (noKayo modifiers), pitched to pay2; nonemptyPitch control below threshold, so no earnedVigorWHEN. Actualbase6damageHP14/R1/noGA, allArena0/no newUID.",
+      "Pound/Rawhide Prepare137866-137902 and139828-139864 call HVYBeatChoices then skip chooser if refs empty. DoPlayCard moves physicalprimary5 toStack before preparation; only remaining ownHandCriticalBlue6 has power3, not6, and Wounding7 is Arsenal notHand. HVYCards41-45 filters Hand six-power/affordability; source5 cannot pay itself. Chosen dash declares no discard and FinishPreparedCard resumes normal actualBlue6pitch3 funding2or3/R1or0/AP0. No physical099 effect-cost operation and no Rhinar6+discard event. Generated Pound22987/Rawhide23162 require BEATturncount, false, hence no earnedMight/Intimidate.",
+      "Real victimCriticalRed8 stays ownedController4 inHand through ATTACK/damage/final, giving nonvacuous Intimidate control; no Banish/UID/RNG changes. Exact actual6/7/6unblocked damage givesHP14/13/14, allArena0/noGA/refund after full four-seat responses. Fullclose primary5GY/funder6Pitch/Arsenal7 and opposingHand8 remain. Actual0costArsenal Wounding resource-affordableR1/0/1 click rejects atAP0 before newtarget/payment/movement; same physicalUID/FaceDown/health/resources/Stack/queues/pendingPayment and UID8/RNG0 before-after pin absent refund. Each29 controls/471 assertions, total87/1413 persists."
+    ],
+    "limits": [
+      "Approved only below6 actualPitch/unpaidBeatChest conditions, basecost/power/damage, noVigor/Might/Intimidate and native affordable followup rejection pending native save/replay. No native pass/qualified coverage claimed.",
+      "Positive6+Pitch, BeatChest discard/payment/cost ordering, granted attack triggers/timing/tokens, Rhinar trigger, Intimidate selection/return or alternate-target behavior, Hero/support/sibling/full-card coverage untested/uncredited. Emptyeligible path does not validate or retry physical099 cost route. Existing holds untouched.",
+      "Only W review receipt written; no native game/test/replay, T/source/engine edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/HVYRuntime.php": "2866849d60037455d66281b8ccd8cc8af4c647d28d76fd2ca0fa031f7652055f",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1344.py": "bcf09b25c83a294b54f2d6b5ed5644ebb64ee622432696db467fdb0cb4f8ca75",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1344-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "343a4590abc7a686550c3992fae48e06ca4d72f4091059bc5ac7f95cd1862572"
+  },
+  "full_suite_run": false
+}

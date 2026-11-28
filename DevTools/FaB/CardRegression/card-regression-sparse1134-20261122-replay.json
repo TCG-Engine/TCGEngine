@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cross-the-line-red-four-live-sparse1134-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cross-the-line-red-four-live-sparse1134-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1134-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1134-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e6d5f629bbfdcd4d50ebbca4bbc567fb7424f6225e2b96d99ce086c43c4be1b4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a4829b411a2d3ab5da83a99ae27e115ff866f1522e921f5b51a0c00e2da4a07f",
+        "actions.json": "5c916ab802234d09387548f1ef8e818f5391e1621124fa1efa6a1ccc0d81eb1e",
+        "assertions.json": "e0790946122da98315c83739ac57bfae402b85c9560ea1f0e6ad965b9bd99278",
+        "expected_final_gamestate.txt": "2888e8a569b7420eb8109b53348407db1eca10c7ec009c0ac0ce3c52e6087c9f",
+        "meta.json": "9470c6b7672fb30830540a3cb3c5dbff337e4313bf4d37afc3180399b83bc657"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

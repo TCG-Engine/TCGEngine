@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T06:06:39.153072+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1500-20261122.json",
+  "source_spec_sha256": "1118f5e0e44a0886ce55999da322478ad7979b5e363a8f2bc42a8a17bf79b2f0",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 12,
+  "native_assertions": 656,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 5549,
+    "duels": 3136,
+    "four_live": 2413,
+    "recorded_primary_ids": 2697,
+    "identity_denominator": 5196,
+    "recorded_groups": 2571,
+    "group_denominator": 3324,
+    "four_live_groups": 2402,
+    "phase_qualified_scenarios_at_actual_contexts": 2186,
+    "phase_qualified_unique_groups": 2176,
+    "creation_replay_passes": 2928,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1347,
+  "scenarios": [
+    {
+      "card_id": "edict_of_steel_red",
+      "group_id": "pitch-cycle:edict_of_steel",
+      "scenario_id": "card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+      "effect_branches": [
+        "rejection_only_real_owned_Axe_not_legal_Sword_target_at_own_Action_with_AP1_after_actual_Instant_resolution"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-edict-of-steel-red-four-live-sparse1500-actual-owned-axe-is-not-sword-target",
+      "source_spec": "card-regression-sparse1500-20261122.json",
+      "source_spec_sha256": "1118f5e0e44a0886ce55999da322478ad7979b5e363a8f2bc42a8a17bf79b2f0",
+      "review_evidence": "review-evidence/sparse1500-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8db230737adedfd0826856e15c29433599e13b2792cf210ca72357efce0dba6f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1500-20261122-replay.json",
+          "sha256": "ab3278bf6764c8b951d53fed99d8600ae8e27498535722621d3aa0a227948ce1",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "point_the_tip_red",
+      "group_id": "pitch-cycle:point_the_tip",
+      "scenario_id": "card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+      "effect_branches": [
+        "rejection_only_real_face_down_Arsenal_Arrow_not_face_up_target_at_own_Action_with_AP1_after_actual_Instant_resolution"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-point-the-tip-red-four-live-sparse1500-actual-arsenal-arrow-is-face-down-not-face-up-target",
+      "source_spec": "card-regression-sparse1500-20261122.json",
+      "source_spec_sha256": "1118f5e0e44a0886ce55999da322478ad7979b5e363a8f2bc42a8a17bf79b2f0",
+      "review_evidence": "review-evidence/sparse1500-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8db230737adedfd0826856e15c29433599e13b2792cf210ca72357efce0dba6f",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1500-20261122-replay.json",
+          "sha256": "ab3278bf6764c8b951d53fed99d8600ae8e27498535722621d3aa0a227948ce1",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,109 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1474-20261122.json",
+  "source_spec_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+  "input_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+      "card_id": "smoldering_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4ea6a2fdc31911a7256b663dfb4f2761ff1fd453e4d4b7719d6d39c5ffb4e7b",
+        "actions.json": "36f792c94e2c05c23b2c8c6b82c0069b0e6ff1c7b65b0156343e06f9f03d2f42",
+        "assertions.json": "c7b537084fdb402437c3d8348dd9d9f47cacb91d719360c285565943255929bb",
+        "expected_final_gamestate.txt": "21415ddb29b0670ea0c7386dd4ea0da025f50864ac9425b82fa0c19189dd4e8f",
+        "meta.json": "8412c20d5179231058b4fa14d4ecca3b2931863241f049298e2f64bfa1a0c4a4"
+      },
+      "fixture_sha256": "58234d095f05ecab182dbe5984c3097049aced0b7319b03b56c90497643547f7",
+      "actions": 37,
+      "native_assertions": 429,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 25,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        },
+        {
+          "step": 29,
+          "check": {
+            "kind": "defense",
+            "value": 5
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1474-20261122.json",
+      "input_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1474-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+        "fixture_slug": "card-smoldering-steel-red-four-live-sparse1474-real-ice-bond-frostbite-creation-replaced-by-graveyard-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1474,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T03:38:18.698682+00:00",
+    "spec_sha256": "22b0a2bab82a41929290ce62adfbab64cbbc2e42edfa6a707b389721a98eb574",
+    "source_note_sha256": "0065dd509a75b119c745dd44e3b58b514a140ccd0636bbb00229f3cfe975dad6",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+    },
+    "cases": 1,
+    "planned_actions": 37,
+    "persistable_checks": 431,
+    "named_primary_ids": [
+      "smoldering_steel_red"
+    ],
+    "findings": [
+      "Actual Ice pitch payment/native Bond condition and four-live reaction priority are correct; producer has no formal target or WHEN.",
+      "GameLogic managed DEFENSE_REACTION pending context must retain same physical Sheath on Stack through nested owned async replacement frame; intended strict assertion is appropriate.",
+      "Primary replacement optional banish precedes token allocation. Exact physical Steel5 banish, UID8/noFrostbite, R4=2 and actual zero damage from4-versus5 block are independent semantic endpoints.",
+      "Existing producer107 FIXED_QUALIFIED evidence supplies reusable secondary path; it does not imply Steel previously qualified."
+    ],
+    "limits": [
+      "Source/spec review only; reviewer did not run games/replays or read native output. Coverage requires saved first targeted replay.",
+      "Only primary graveyard replacement; targeted attackreaction body/hit/decline/tokenownership/otherproducer/multiplecard/priorentry/pitchsiblings/fullcard remain untested.",
+      "Defense computation is author-only; persisted physical fates, actual damage/health and snapshot complement it."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1474-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "127fcee53c9b5e69583d927cc5b7c4f53150e84efe05fcff86652741f788e2af"
+  },
+  "full_suite_run": false
+}

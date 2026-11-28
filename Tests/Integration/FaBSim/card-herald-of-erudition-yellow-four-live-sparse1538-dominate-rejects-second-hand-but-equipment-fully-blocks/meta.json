@@ -1,0 +1,7 @@
+{
+    "name": "Herald of Erudition / Dominate refuses second Hand defender, permits four equipment, actual zero damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:18:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RealYellowHerald5cost2paidBlue6pitch3/AP0/R1, fivepower/noGA/Prism20/fourmanualadjacentHero4attack. Dominate permitsfirstHandWoundingRed9thenrejectsrealBlue10secondHand, whileallowingallfourGenericIronrot11..14toCC, actual3+4=7defensevs5=0damage/allHero20. OnlydefendingAApower4below6, so noPhantasmevent; noHit/Soul/draw2 fromnonemptyactualDeck7/8. Fullcloseprimary5GY1, Handdefender9andBladeBreakequipment11..14GY4, rejectedHandBlue10retained/Pitch6/Deck2/UID14/noStackDQ. PositiveDominateandactualequipmentexception/fullblock; no positiveHit/Phantasm/primarySoul/lifetime or sibling/supportcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#herald_of_erudition_yellow FaBSim/Custom/GameLogic.php#FaBCanBlock FaBSim/Custom/GameLogic.php#FaBDeclareBlock FaBSim/Custom/GameLogic.php#FaBFinishDefendDeclaration FaBSim/Custom/MONCards.php#FaBMONPhantasm FaBSim/Custom/GameLogic.php#FaBCloseCombatChain https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/07-combat/"
+}

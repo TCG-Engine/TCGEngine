@@ -1,0 +1,7 @@
+{
+    "name": "Pay Day / four-live no current contract despite old Banish",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:34:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've completed a contract this turn, create 4 Silver tokens. Legalnatural20ArakniAssassin. ActualPayDay5cost0/AP1isplayednormallyandspendsAP0(noGoAgain); allfourmanualsourcepriority. No contractcompletedthisturn(initialturnEffects[]/freshturn/noactualcurrentcontractactions). RealopponentownedfaceupBlue6alreadyBanish4isoldhistoryandnotcurrentcompletedcontract; realopponentDeck7retainedmakesspuriousArakniContractlooknonvacuous. PayDayreferencesContractbuthasnoContractkeyword/abilityitself(cachecard_keywords[]), soHeroWhenPlayContracteventnotearned. PlainresolutionIFfalsecreatesnoSilver/allArena0; source5ownedGY/HP20/R0/AP0/markersretained/queuesempty. No actualcontractcompletion/positivepayout/Arakniability/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pay_day_blue"
+}

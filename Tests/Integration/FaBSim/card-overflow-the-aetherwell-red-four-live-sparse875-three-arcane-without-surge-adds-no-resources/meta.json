@@ -1,0 +1,7 @@
+{
+    "name": "Overflow the Aetherwell / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:14:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target hero.\n\n**Surge** - If this deals more than 3 damage, gain {r}{r}. Representative only: three_arcane_without_surge_adds_no_resources. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#overflow_the_aetherwell_red"
+}

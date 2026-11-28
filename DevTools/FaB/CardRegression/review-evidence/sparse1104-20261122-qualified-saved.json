@@ -1,0 +1,171 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root independent review of child-authored1104 solo-defending Unity gear",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1104-20261122.json",
+  "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+  "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "card_id": "bastion_of_unity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68cb0f8fb06de8a964e218f825a501fe2f0b8f10d5adf9d294f51069140a6461",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "0bff38d5b74be45528965dffe9aa1af8c250035a24fd21ed1fca6b28c8e5a024",
+        "expected_final_gamestate.txt": "9cf0d4c3fc45dc89dad63b6c793099c8339838be94e1fc2fcf543065cf7b134f",
+        "meta.json": "c73fc5e0a69325179176e009c00af2b91700696e7e6dcf1c03552ecb3b3c3b05"
+      },
+      "fixture_sha256": "3f5e92c2823269810094b206c27857e2e4898ff13032b39cee0bf6714722c7f3",
+      "actions": 29,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "fixture_slug": "card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "card_id": "gauntlets_of_unity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de60326e5321b2eebb289d6690916df4bbeb7645241c066c62b0799780170253",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "47fc75649aad9015a1793b672d2a65609d34af9f3f034288d5122d41a9e0437d",
+        "expected_final_gamestate.txt": "d5a2f7a339d4aa302911b0ac9aba26d7dbf38bf4604801e2894a2d610e0327bf",
+        "meta.json": "d6bd0ad4281da16ec46f65808cea2a825b4b3cf66a1ecf6edbcb72debfa29451"
+      },
+      "fixture_sha256": "7877f67058d907886b1cafa353e95e9e9668912695ad3278bfe5d19c3b503bf2",
+      "actions": 29,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "fixture_slug": "card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "card_id": "helm_of_unity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "067cd2d4a91bcc94af5abe1ab415bb5c0de897f31fd41d548cb9caf2140c990c",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "f37ac09a2c926b0d6c1156d50d27ee6582b8ee4380538af0712a154eb3fa2c69",
+        "expected_final_gamestate.txt": "7ffebb72c08944ea777fa72d73b13e17cf95cae3160fa9f3d979112f7fac1bc9",
+        "meta.json": "bc9966dfe61e584a3205489802fbb2820c9f34e4da2575f82202db91ae1b836c"
+      },
+      "fixture_sha256": "24392d7fa7fb1a4e22bd40e099ddd9de4d30860d7a9be043fd752daef1ceb7fa",
+      "actions": 29,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "fixture_slug": "card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "card_id": "pillar_of_unity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7cf56b4f205e8be22fe4ea8989613a4714eb8e5aafce8a850910707e1d93f2ad",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "0b50d7991b25470df1548d29bc4a827dcc9b7425626f9851fc301fab53875bb1",
+        "expected_final_gamestate.txt": "2a8470eb4ed237a8dd5b8518324d4bfc1410f45b6aba8c82ee74a47a5481b3a5",
+        "meta.json": "d747b8bfab9c63708dc6be6cfdf168f62e39f3b3ac45f37513c81b531967c1de"
+      },
+      "fixture_sha256": "464d85ee3c861c2e6a2ea7bd1117e9ae3f8e9345f9fbdf03ff11208d6aa0aca6",
+      "actions": 29,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "fixture_slug": "card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "card_id": "plating_of_unity",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d1c3a9300e6e317767153665d51729dc2894aee0f5e158ef06a33914633debeb",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "d998f134661aed6ce94634717af5233a72bdfff2fde3cd0bff329623194b0f24",
+        "expected_final_gamestate.txt": "96d53024e09c422191a8056be2534cf5ccbca8bb60fe895c6feb0dd898efe7cd",
+        "meta.json": "f7af5fc0fd5e6c91a95854bb52c8b6331ce40cea33d43ca83c2bcb03ca227ba5"
+      },
+      "fixture_sha256": "847d2e807d54f80be3c74bb461e6e7152460d5427edc25dcf7b93192b3be369d",
+      "actions": 29,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "input_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "fixture_slug": "card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+    "reviewer": "/root independent review of child-authored1104 solo-defending Unity gear",
+    "basis": [
+      "Allfive unrepresented naturalWarriorDori20 equipment have printedDEF1/Temper, conditionalUnityevent specifically requires a defending partnerfromHand. ActualonlyEquipment5 defends, GenericLeadChargeRed6 retained unusedHand; no earnedUnitylayer.",
+      "Compared29control native flow with qualified1057/1094Club carrier minusHanddefendclick/check and properchainindexrebinding. RealBlue8pitch3 paysClub2/R1/AP0; actualDEF1 yieldsdamage3/HP17, nofreeUnitybuff. Allfour manually respond.",
+      "Current BoltynUnity requires another Hand-defender; Tempercounterone lowers1to0 anddestroysownerEquipment atClose. No counterpersist-afterGY expectation. Exactroles/owners/source/cardID/actualunusedHand retained. Native/replay stillgates."
+    ],
+    "limits": [
+      "IntrinsicDEF1/zero-Temper destruction and absentUnityevent only; no Unitypositive/body orothertriggerordering/hero/support/fullcard credit."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1104-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2"
+  },
+  "full_suite_run": false
+}

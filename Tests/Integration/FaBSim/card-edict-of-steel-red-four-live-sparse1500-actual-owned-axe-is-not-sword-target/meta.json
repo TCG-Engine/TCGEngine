@@ -1,0 +1,7 @@
+{
+    "name": "Edict of Steel / owned Axe is not Sword",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:05:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuinely manual legal young natural20 Heroes. Actual owned ready Axe does not satisfy target Sword. First a real cost0 Instant is played and allfour seats respond, proving ACTION AP1 and HP21 before the primary cost0 click. Refusal is not caused by owner/class/AP/cost/window. Primary remains same physical Hand card, asset unchanged, no effect/cost/GA/token/newUID. No primary positive ability or target timing credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#edict_of_steel_red FaBSim/Custom/GameLogic.php#FaBCanPlayCard FaBSim/Custom/DYNRuntime.php#FaBDYNCanPlay FaBSim/Custom/DYNRuntime.php#FaBDYNAimTargets"
+}

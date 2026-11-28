@@ -1,0 +1,641 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B376_REAL_MARK_DAGGER_AND_BLUE_PITCH_DEFENSE",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-04T18:36:51.353084+00:00",
+  "source_spec": "card-regression-batch376.json",
+  "input_sha256": "898c0ad4527623cf6c27920797bc247828987bb6019ddf38f19cd384fd48f579",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch376-mark-and-blue-defense-author\\manifest.json",
+  "manifest_sha256": "f798a083fa7c4dbe95156cf6c5cfea658b4453e194a1e18a61f713730ebfcff8",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "source_guards_verified": 29,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch376-independent-source-review.json",
+    "sha256": "7de2d9c6e7ec8603f53daf740ee4f9900f456bfb90a2d764f05469bc20476a6e",
+    "reused_not_rereviewed": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch376-20261104T183214Z-6aeb7a2e26538.json",
+    "sha256": "652d11ac1c6c775b36c989743f9d98475a695ca66eac73d11f595b9497d0a70c"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b376-native-f751-r1\\receipt.json",
+    "sha256": "2aa86ddfbd36288fc817d88b33a455df2b7967d7e0d9de4a33ee1720416fa9b4"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov4_batch376_saved_readonly.py",
+    "sha256": "8c5b293f61b70c8deb417290598094187f73fd3f13bd855bdc2825bdabafe166"
+  },
+  "read_only_data_helpers": [
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+      "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov2-batch267-independent-saved-review\\audit_saved.py",
+      "sha256": "18467b1a90a4e58577665a006efd6b98b5696baba115c67f290b4f0737b142ba"
+    },
+    {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch357_saved_readonly.py",
+      "sha256": "94a5b29f9890db84aa54f7bb9e9b4e80088229dc9dfc56e4a129a27b7507c03e"
+    }
+  ],
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "cut_from_the_same_cloth_red",
+      "group_id": "pitch-cycle:cut_from_the_same_cloth",
+      "slug": "card-cut-from-the-same-cloth-red-four-live-sparse-real-reaction-reveal-marks-and-buffs-paid-dagger",
+      "source_spec": "card-regression-batch376.json",
+      "input_sha256": "898c0ad4527623cf6c27920797bc247828987bb6019ddf38f19cd384fd48f579",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_EXACT_PRINTED_BRANCH",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-cut-from-the-same-cloth-red-four-live-sparse-real-reaction-reveal-marks-and-buffs-paid-dagger",
+      "fixture_sha256": "4736b5b19b6ef1e6fd8b8395c38e30e47afa7bfc0401509db0251b079ef039c5",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "97fd255847dd01b92a7db142c0c9f0b5554e90a5445c1bd28c6bfb7ad45143a5",
+        "actions.json": "14d65ebe80bb133d8de09a595ee66b9c4358d1a5884b3e45597edf5c54f75a0c",
+        "assertions.json": "4cbfc94ad0c12c94c344e14dc04050c09c1399d49f12aad4236c63fce7c401cc",
+        "expected_final_gamestate.txt": "768d03bc99e8dc9f21ace51555c646f19b6b8fe70d40d1734262675848bd57a2"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97fd255847dd01b92a7db142c0c9f0b5554e90a5445c1bd28c6bfb7ad45143a5",
+        "actions.json": "14d65ebe80bb133d8de09a595ee66b9c4358d1a5884b3e45597edf5c54f75a0c",
+        "assertions.json": "4cbfc94ad0c12c94c344e14dc04050c09c1399d49f12aad4236c63fce7c401cc",
+        "expected_final_gamestate.txt": "768d03bc99e8dc9f21ace51555c646f19b6b8fe70d40d1734262675848bd57a2",
+        "meta.json": "64b4f579bef824ccbe3512bfc97a54ac8e8fe2245790ef8777fd21cf51aa453d"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "97fd255847dd01b92a7db142c0c9f0b5554e90a5445c1bd28c6bfb7ad45143a5",
+        "actions.json": "14d65ebe80bb133d8de09a595ee66b9c4358d1a5884b3e45597edf5c54f75a0c",
+        "assertions.json": "4cbfc94ad0c12c94c344e14dc04050c09c1399d49f12aad4236c63fce7c401cc",
+        "expected_final_gamestate.txt": "768d03bc99e8dc9f21ace51555c646f19b6b8fe70d40d1734262675848bd57a2",
+        "meta.json": "64b4f579bef824ccbe3512bfc97a54ac8e8fe2245790ef8777fd21cf51aa453d"
+      },
+      "actions": 36,
+      "native_assertions": 3645,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "cut_from_the_same_cloth_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "8": {
+          "card_id": "razor_reflex_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "uzuri",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "spiders_bite",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1,
+          "status": 1,
+          "counters": {
+            "WEAPON_ATTACK_TURN": 2,
+            "WEAPON_ATTACKS": 1
+          }
+        },
+        "5": {
+          "card_id": "cut_from_the_same_cloth_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {
+            "HNT_MARKED": 1
+          }
+        },
+        "8": {
+          "card_id": "razor_reflex_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "actual_damage_checkpoint": {
+        "step": 28,
+        "power": 5,
+        "defense": 6,
+        "damage": 0,
+        "hero4health": 20
+      },
+      "actual_final_blue_pitch_counts": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "checkpoint_assertion_mapping_sha256": "cf5a134b1ec7d2213f7776a9962e8009d3622b61a583133dd296acfa7f8065ca",
+      "native_action_mapping_sha256": "02193950ef1a22654e4eb2f8606fbe2a149fc95d1a4749193454a939e1a408cc",
+      "native_assertion_mapping_sha256": "439100d8afc8f8001f21e73c491940fd9bc820e5e8adf86a37dee84be08ea1a7"
+    },
+    {
+      "index": 1,
+      "card_id": "big_blue_sky_blue",
+      "group_id": "identity:big_blue_sky_blue",
+      "slug": "card-big-blue-sky-blue-four-live-sparse-real-paid-blue-pitch-adds-one-defense-to-physical-reaction",
+      "source_spec": "card-regression-batch376.json",
+      "input_sha256": "898c0ad4527623cf6c27920797bc247828987bb6019ddf38f19cd384fd48f579",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_EXACT_PRINTED_BRANCH",
+      "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "recorded_runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-big-blue-sky-blue-four-live-sparse-real-paid-blue-pitch-adds-one-defense-to-physical-reaction",
+      "fixture_sha256": "9a320c54a3a41aabed49b890016c5eb41797179623dfd26d7018e4d68ccb060d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "13937f3ad2d4d1ce01acb24ef8d6f6f87682bcd7b8a35144f75e11166ed1d28f",
+        "actions.json": "3c60a38e4234d47acc3613992679753c0685f43c09b6e07314ab899fc81509ff",
+        "assertions.json": "ca340405204d382b4a87350774ae325dc723357366ffc88c2f966d7793a52314",
+        "expected_final_gamestate.txt": "d1b77e89acb50551214885646417104a306715c31b071501d29e79a5b54bcefb"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "13937f3ad2d4d1ce01acb24ef8d6f6f87682bcd7b8a35144f75e11166ed1d28f",
+        "actions.json": "3c60a38e4234d47acc3613992679753c0685f43c09b6e07314ab899fc81509ff",
+        "assertions.json": "ca340405204d382b4a87350774ae325dc723357366ffc88c2f966d7793a52314",
+        "expected_final_gamestate.txt": "d1b77e89acb50551214885646417104a306715c31b071501d29e79a5b54bcefb",
+        "meta.json": "f7d2bdbf818d261c94f4e65406a4a00e55e54ab3ba017c1792fbcc28b5d127da"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "13937f3ad2d4d1ce01acb24ef8d6f6f87682bcd7b8a35144f75e11166ed1d28f",
+        "actions.json": "3c60a38e4234d47acc3613992679753c0685f43c09b6e07314ab899fc81509ff",
+        "assertions.json": "ca340405204d382b4a87350774ae325dc723357366ffc88c2f966d7793a52314",
+        "expected_final_gamestate.txt": "d1b77e89acb50551214885646417104a306715c31b071501d29e79a5b54bcefb",
+        "meta.json": "f7d2bdbf818d261c94f4e65406a4a00e55e54ab3ba017c1792fbcc28b5d127da"
+      },
+      "actions": 46,
+      "native_assertions": 4329,
+      "actual_manual_passes": 39,
+      "actual_priority_response_passes": 38,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_end_phase_inputs": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 10,
+        "2": 10,
+        "3": 10,
+        "4": 9
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "8": {
+          "card_id": "thunder_quake_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "zen",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "5": {
+          "card_id": "big_blue_sky_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "unmovable_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2,
+          "counters": {}
+        },
+        "8": {
+          "card_id": "thunder_quake_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2,
+          "counters": {}
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2,
+          "counters": {}
+        },
+        "4": {
+          "card_id": "zen",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2,
+          "counters": {}
+        },
+        "6": {
+          "card_id": "unmovable_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "big_blue_sky_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_UniqueIDCounter": 10,
+      "RandomCounter": 0,
+      "actual_damage_checkpoint": {
+        "step": 38,
+        "power": 10,
+        "defense": 8,
+        "damage": 2,
+        "hero4health": 18
+      },
+      "actual_final_blue_pitch_counts": [
+        2,
+        0,
+        0,
+        1
+      ],
+      "checkpoint_assertion_mapping_sha256": "550214d3b691e9535d0b776cd30de9e7ef20d9b767c7ea2198f1c48b0c4791ce",
+      "native_action_mapping_sha256": "556d0689cb11daeebc54d2583ab685ce2ae91daf39dee207d306e4db4fd3bbcb",
+      "native_assertion_mapping_sha256": "a586e4be2ab42cb5cf5c580f59954a73b9318c27bb512cde0acfd6eb1265c3b1"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 82,
+  "total_native_assertions": 7974,
+  "total_manual_passes": 68,
+  "total_priority_response_passes": 66,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_end_phase_inputs": 0,
+  "material_findings": [
+    "Cut5 chosenP4 actualRazor8 positive reveal branch: markHero4 only afterfourthresponse, ownGA/AP1. Same physicalSpider6 actualactivation2 fundedBlue7pitch3/R1AP0, usedStatus1, realproxy11power1+4=5/printedGA; two realDEF3blockers9,10 fullyblock/nohit; resolutionAP1/fullcloseproxyceases. Finalphysical5GY1/7Pitch1/6Weapon1used/8Hand4/9,10GY4, mark1/HPall20/R1AP1.",
+    "Sky: P1 realtwoBlue9,10 payactualThunder8cost6/R0AP0; P4 actualBlue7 paysUnmovable6fromHandcost3/DEF5, then actualSky5cost0/base2+oneownBlue1. Fourfreshresponses for each physicalreaction preserve sourceStack then actualdefendingUID6/5. StrictdamageDEF8/10power deals2/HP18. Raw finalbluepitch history P1=2 andP4=1; no otherplayer scaling, playedbluesnotpitches. GY1UID8/GY4UIDset5,6/Pitch1UID9,10/Pitch4UID7/RAP0/fullcleanup.",
+    "Allraw10, ordered82native input envelopes/7974persistedoracles,68actualmanual inputs, twelveinitial/finalfourliveguards and48manualpreferencespereachendpoint verified against unchanged approvedledger. Fullsnapshot schema consumed includinghistoricalVersionrecords; intermediate states are passednative assertions ratherthan separatelycapturedrawstates."
+  ],
+  "source_only_concerns": [
+    {
+      "card_id": "cut_from_the_same_cloth_red",
+      "classification": "SOURCE_ONLY_EXISTING_ORDINARY_NAA_SOURCE_LIFETIME_LIMITATION",
+      "native_confirmed": false,
+      "blocks_exact_endpoint_recipe": false,
+      "source": "FaBSim/Custom/GameLogic.php:1541-1543,1604,1781ff",
+      "finding": "Cut is absent from the managed plain-spell cohort. The ordinary fallback moves its physical source from Stack to Graveyard before calling ResolveRules. CR5.3 requires effects before source departure. The selected body is synchronous and this recipe has no intra-resolution source oracle or await, so endpoint reveal/mark/bonus/GA coverage remains meaningful; the proof does not approve the early-clear ordering or award source-lifetime/reveal-feed timing coverage. No repair, additional probe, new native defect or new root-cause count is claimed."
+    }
+  ],
+  "limits": [
+    "ExactselectedRedCutandstandaloneBlueSky branches only; no sibling/supportprimary/hero/fullcard/nativefault credit.",
+    "Cut intraresolutionsource-lifetime/revealfeed remains explicitly source-only/excluded, no sourcefix/nativebug/newgroupclaim; no Piercing/hitdebuff/secondDagger/markexpiry credit.",
+    "Sky onlyoneactualownbluepitch conditional defense; no zero/multiplepitch/ArsenalUnmovable/suppression/expiry matrix.",
+    "Replays and registration are Root-owned separate gates, not executed or newly claimed by this saved semantic proof. No PHP/native/R/source/service/generator/fullsuite/optionalmodel by reviewer."
+  ]
+}

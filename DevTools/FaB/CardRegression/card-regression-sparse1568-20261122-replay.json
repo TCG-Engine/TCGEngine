@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mindstate-of-tiger-blue-four-live-sparse1568-real-aura-next-own-start-creates-usable-ephemeral-tiger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mindstate-of-tiger-blue-four-live-sparse1568-real-aura-next-own-start-creates-usable-ephemeral-tiger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1568-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1568-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e5792ce237231a46d9688eb5ea6b41e59d6a9bbc1c4d140b01a531c825cfa620",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3fcadba9f0a5e8627811016a76bb8b66161f2465ac6f97ff6835d9bc8fe34d72",
+        "actions.json": "a54857f1bb11f37f0140b0790325380d87b07feb1aad870d0d5ccf2a69c22cea",
+        "assertions.json": "47bc9da7b3845acf74ab3dad1ac01f6d030b334b5d67f988a3fbe977126d2d6d",
+        "expected_final_gamestate.txt": "125f8cfbfb9a221ea300a80e21cef62980639a9b157264a8b57c45e5616e9db5",
+        "meta.json": "999529b998e13faa1515dba5dca76288d1db5082dbacd0a61c9e451605e85c96"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

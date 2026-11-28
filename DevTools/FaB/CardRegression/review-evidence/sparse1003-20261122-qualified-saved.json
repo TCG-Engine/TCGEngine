@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1003-20261122.json",
+  "source_spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+  "input_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+      "card_id": "frost_fang_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4b946d94fc6381e124ead3e521493567ae41e3f4b69808b48f61786593395611",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "2fbf124943ac09fabecdfcb3ea3d79ff6ed624f29574b1bf3cf753725ebef4a2",
+        "expected_final_gamestate.txt": "b2622678a878b76c9d3c26fb66a5f4b4d653b2c8edefff6116356a43f7b83514",
+        "meta.json": "2b610f687492c714ac45719056e2fdbc0f02b5fc9de5343b7afe9b9f0f8b3a54"
+      },
+      "fixture_sha256": "45b98738b97e1884fd646ed9dfe5b41315243a36ec6f0703ed2679bc91b11314",
+      "actions": 30,
+      "native_assertions": 199,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "input_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+        "fixture_slug": "card-frost-fang-red-four-live-sparse1003-no-hit-keeps-real-hand-without-discard-or-resource-tax",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+      "card_id": "rift_breaker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04fcd5f540b41589e76e08d8d996ef7f4b6eec8b61a5b27dd3eeac134da921be",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "7b7d681593768f9d0339f3859c84b4fe75b06fdf12049b604151cedff68d1694",
+        "expected_final_gamestate.txt": "5c25b6f4a6921c0a3db9375976657a4bb48b978625b8ec26269e0134eb84d531",
+        "meta.json": "fc667fe6f43c27c377ea3ae7dae3e40238c4a2b9ee32d7955f630ff19ed00c14"
+      },
+      "fixture_sha256": "6b979943071a0cd6895edbba6dfd66b2042220a19a945bdb4da9239677b08a7f",
+      "actions": 30,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "input_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+        "fixture_slug": "card-rift-breaker-red-four-live-sparse1003-no-hit-keeps-real-opponent-lightning-flow",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+      "card_id": "lunartide_plunderer_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "34f9fc9c101b474aa62c1ce0bb89dd8fca5e5e1c3379668d3ec639e00092d088",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "15aa4fe09de2f3fe4f71be9ea7cb8a849d6a78bd019c9cd486ca82ef5c43b006",
+        "expected_final_gamestate.txt": "f71af7c2dedbeb28d902aa7a737c41fa44b4be2b1e389186fa6dc1acc754d861",
+        "meta.json": "44a2ab537c8c7a217b4520f373af3680a2fcb86c291e5d265e3d401d35acb70d"
+      },
+      "fixture_sha256": "a18f3b402fcc573906831214d339ce254952baecd9626a40eb5ee14fdfa156f3",
+      "actions": 31,
+      "native_assertions": 214,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "input_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+        "fixture_slug": "card-lunartide-plunderer-red-four-live-sparse1003-no-hit-keeps-real-opponent-soul-and-source-in-graveyard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+      "card_id": "herald_of_judgment_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "de10e1c5e483ea82276b9a6954007d361f1e788fbad2587d7f8b372f3c473ab0",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "262093b2116c84ec3552153fe2f1404f234d726b278cf353e3dd2d5e41d592ea",
+        "expected_final_gamestate.txt": "54f2874e422c6c264b22ffeadf85aa49b884a70fb0fbf33caf83540054bf308e",
+        "meta.json": "3bad4fe75d4142395973c17feda2ea8683b1c88a05aab383ebabe233914fa222"
+      },
+      "fixture_sha256": "f125f59ae45ce70ea3ed2e377d01c162ade8247801847c8f4d756cf6bff836f6",
+      "actions": 30,
+      "native_assertions": 192,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1003-20261122.json",
+      "input_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+        "fixture_slug": "card-herald-of-judgment-yellow-four-live-sparse1003-two-low-power-hand-blocks-no-phantasm-or-soul-transfer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 1003,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2a78471fc0d470ff266f3f129476087f0b8ddfa3308b976d98fa58f8734fb2ad",
+    "findings": [
+      "Printedcost2/2/3/2,power5/6/7/6 andactualBlue6fundingR1/1/0/1; legalnatural20Oldhim/Aurora/Levia/PrismSpec. AllactualadjacentHerotargetsdeclaredbeforeassets,fourmanualseats,noearnedattack/playeventomitted bytheseplainmainpaths.",
+      "RealAAblocksDEF6/6/9/6 preventallHit events. FrostFang victimrealHand9retained(no discard/pay); RiftBreaker realenemyLightningFlow9retained(no destruction/creationcredit); LunartideactualenemyBoltynSoul10retained(no banishSoul); noemptyassetmask.",
+      "HeraldPrismSpecactualPrism20, bothrealAAblockershavebasepowers4/5(<6), so Phantasmtypeddefendeventabsent andcardmustremainactualATTACKthroughdamage/close, noSoulbecausezeroHit. Keywordpositivepop/enterSoulbranchesunrun.",
+      "PersistedDamageattackPower/defenseValue/zeroDamage/noHit/HP20, physicalcosts/roles/ownedfates/supportassetretention/AP0/cleanqueues pinbranches. Noauthor-onlyqueries, otherpositiveHit/hero/support/sibling/fullcardcredit. Onecleanreplayeachpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1003-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3831061fdb684f7eb023f1025f20e72de6adb6293c35fb10464e3a6876c48fa2"
+  },
+  "full_suite_run": false
+}

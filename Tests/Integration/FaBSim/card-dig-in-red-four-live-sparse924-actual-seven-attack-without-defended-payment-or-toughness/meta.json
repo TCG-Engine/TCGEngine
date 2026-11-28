@@ -1,0 +1,7 @@
+{
+    "name": "Dig In / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:58:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, you may pay up to {r}{r}{r}. Create that many Toughness tokens. Representative only: actual_seven_attack_without_defended_payment_or_toughness. Physical Hand attack, actual printed payment, four manual live seats, full unblocked combat and owned source in graveyard. Positive dormant effects and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dig_in_red"
+}

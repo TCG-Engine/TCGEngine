@@ -1,0 +1,7 @@
+{
+    "name": "Trap and Release / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:53:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, **mark** them.\n\n**Go again** Representative only: actual_full_block_preserves_printed_go_again_without_hit_effect. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#trap_and_release_red"
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "batch": 1522,
+  "issue": "FAB-REG-234",
+  "status": "CONFIRMED_NATIVE_EXPECTED_ACTIVATION_BOUNDARY_FAILURE_NO_FIXTURE",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "blossom_of_spring",
+  "group_id": "identity:blossom_of_spring",
+  "scenario_id": "card-blossom-of-spring-four-live-sparse1522-real-equipment-action-destroy-resource-and-go-again",
+  "native_runs": 1,
+  "submitted_native_inputs": 1,
+  "action": {
+    "playerID": 1,
+    "mode": 10002,
+    "buttonInput": "",
+    "cardID": "p1Equipment-0!FSM",
+    "chkInput": [],
+    "inputText": ""
+  },
+  "setup_completed": true,
+  "expected_first_boundary": {
+    "UniqueIDCounter": 6,
+    "window": "PRIORITY",
+    "ability_source_uid": 5,
+    "ability_uid": 6,
+    "ActionPoints": 0,
+    "physical_equipment_destroyed_as_cost": true
+  },
+  "observed_first_assertion": {
+    "error": "Expected UniqueIDCounter to equal 6, got 5.",
+    "UniqueIDCounter": 5,
+    "window": "ACTION",
+    "pendingPayment": null,
+    "decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    }
+  },
+  "limits": [
+    "The first post-input UniqueID assertion failed. Later AP, equipment fate, resource gain and go-again checks were not reached; do not claim they were individually observed.",
+    "Current source review found no named Blossom activation row/body, consistent with a missing implementation or registration. No shared root beyond this card is established.",
+    "No correct expectation was weakened; no passing fixture, replay, coverage or repair credit.",
+    "No engine, full-suite, authenticated, original-checkout or publication action."
+  ],
+  "source_spec": "card-regression-sparse1522-20261122.json",
+  "source_spec_original_sha256": "543bd1a2efbfcca5031b2f0f0a23cffd55777e09a2dc8c61fbf1eebcbad781c2",
+  "guarded_source_spec_sha256": "ef32d7625e251ba228643f197af5deb8b2a23778056bf704a52f984c375d8b72",
+  "source_note_sha256": "0bc851a0367ca4eea712143e72caf786e9adc2da13963227e3d84c36e923b9f8",
+  "independent_rules_review_sha256": "784066bf6e61a83535426f7d3702b419b249e2af2383a825724cab0c3d23d270",
+  "workspace_native_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1522-local-20261122\\save\\receipt.json",
+  "workspace_native_receipt_sha256": "60db5563a83d8b4e5592942e3de5f89c399d84ef057d198256d1b5edb16bb780",
+  "oracle_preserved": true,
+  "fixture_saved": false,
+  "first_targeted_replay_run": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "new_distinct_shared_gameplay_root_credit": 0
+}

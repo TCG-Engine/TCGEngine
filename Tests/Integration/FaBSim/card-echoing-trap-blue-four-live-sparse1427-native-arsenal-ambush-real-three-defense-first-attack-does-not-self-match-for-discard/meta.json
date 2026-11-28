@@ -1,0 +1,7 @@
+{
+    "name": "Echoing Trap / native Arsenal Ambush with no self-match discard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T18:22:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_MANUAL_UPF_DORI20_THREEDORIincludingYOUNGAZALEA4RANGER20/cachedflags. PrimaryEchoTrap7actualFD1Arsenal4/Hand4empty, actualattackerWoundingRed5Hand1/spareBlue6Hand1. NativeAA0formalHero4/AP0/all4responses/base4/noGA, onlyoneWoundingplayglobal(nofakehistory). Actualdefender4clickArsenal7positiveAMBUSHlegalmovesowned7toCCRoleDEFENSE/FromZoneArsenal, noHandpermissionseed. AtfinalizeDefendsearnedWHENconditionisFALSE: attacknamehascount1not>1(FaBIAREcho), so noDiscardchoice/layer/noattackerHandloss; exactBlue6Handretained. Real4power-3defense=1HP4=19/fullclose/primary7GY4/AA5GY1/Blue6Hand1/UID7RNG0/allAPResources0/quiet. PositiveAmbushArsenaldefenseandname-selfmatchconditionfalseonly; nopositiveEchoDiscard/WHENtiming/ambushHandnegative/othernames/pitches/support/herofullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#echoing_trap_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/WTRCards.php Schemas/FaBSim/GameSchema.txt"
+}

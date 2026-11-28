@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-escalate201-earned-draw-life-loss.json",
+  "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T00:40:00.800853+00:00",
+  "fixtures": [
+    {
+      "slug": "card-escalate-bloodshed-red-four-live-opponent-real-draw-earned-life-loss",
+      "fixture_sha256": "b2daef018265a0e633399d76657b2665ef71c33733083bf70c1dcdc5c5648a48",
+      "passed": true,
+      "result": "[PASS] Escalate Bloodshed / opponent actual draw earns delayed life loss"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-escalate-bloodshed-red-four-live-opponent-real-draw-earned-life-loss",
+      "returncode": 0,
+      "stdout": "[PASS] Escalate Bloodshed / opponent actual draw earns delayed life loss\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

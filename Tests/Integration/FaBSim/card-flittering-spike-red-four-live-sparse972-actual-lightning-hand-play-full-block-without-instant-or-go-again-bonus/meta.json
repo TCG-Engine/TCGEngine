@@ -1,0 +1,7 @@
+{
+    "name": "Flittering Spike / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:53:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've played an instant card this chain link, this gets +2{p}.\n\nWhen this hits, create a Lightning Flow token. Aurora20ElementalRunebladeEssenceLightninglegal, noHero/attackInstantactivation/nootherinstantplayed, ownArena0noGoAgain. Real0/1/2costBlue6ifpositive/R0/2/1/AP0, HandAADef6orFlitteringNAA2+2exact4/FleetfootAA3exact3, actual0HP/noHit/Stack0/sourceanddefendersownedGY/all4manual. NoLightningFlowcreated, FleetfoottargetrealenemyQuicken7retained. Positiveinstant/Quickstrike/hit/aura/tokencases untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flittering_spike_red"
+}

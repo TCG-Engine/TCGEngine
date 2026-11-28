@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-clear-conscience-red-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-clear-conscience-red-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1212-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1212-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "afebae89d9a998a45cedc47bba97038dba6dbd92d2871ac2dbab86c004907ea0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eaede534205569e6235bf8adf31f9c03b19044da207687f2d0b63501d7a3e04",
+        "actions.json": "4bc596ab813b621f857810544bb2a2ef2eb794679c88dcad902fe796061f40ee",
+        "assertions.json": "be5348d06a687c5022cfefcbb1dd41716e63d527824a3bb1c17d64ee7c55c699",
+        "expected_final_gamestate.txt": "3d0c7111041ab16149e2ebfaf9dacba8eff61e41ec2c34536d3eeb32b4309aed",
+        "meta.json": "1acc130fd2d1788900089e9fd962cc5585b1b10660f20b16c8da255c2be295a3"
+      }
+    },
+    {
+      "slug": "card-fractal-creation-blue-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fractal-creation-blue-four-live-sparse1212-two-real-blockers-two-separate-intrinsic-fragment-layers",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1212-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1212-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "df3d6513d9f782cb53e319609fb2ff665c3b53fb6d85f1dcf21e81d83c65c7ec",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "51257383c128a74cffb7573cdb6a82b90e814a1170bf7ac693292ac22b581739",
+        "actions.json": "4bc596ab813b621f857810544bb2a2ef2eb794679c88dcad902fe796061f40ee",
+        "assertions.json": "cc2b0be155e5841535e4e58335062447572f1b4c775d08229c97aeec76b0229e",
+        "expected_final_gamestate.txt": "73f14407751260fa18cf18dedff2ff7e61f8a3862d63c892f40b2ff475ed1f50",
+        "meta.json": "0a0d106b669b145612e2102ab5b7df599d433cb0493503a114846151c176c6e4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

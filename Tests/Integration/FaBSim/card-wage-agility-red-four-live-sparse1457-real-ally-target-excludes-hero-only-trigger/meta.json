@@ -1,0 +1,7 @@
+{
+    "name": "Wage Agility / actual Ally target does not earn Hero-only trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T02:36:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFdorinthea1/Dori2/3/Dromai4all20. Realwage_agility_red5formallytargetsrealAshwing9Arena4withnativePERMANENTdescriptor/notHero4. CanonicalpriorAshmaterialUPR_ASH1/DYN_ASHash andMight10; actualController4HandPotion11/Razor12andDeck13nonempty. Printedcost3paidactualBlue6/7ifneeded\u2192R0/AP0; printedpower7; Hero-onlyWHENnotearned. Actual7physicalkillsAllyonly, allHeroHP20anduntouchedMight/Hand/Deckfatesretained.  NoGO/refund; actualretainedWounding8zero-costclickrejectsAP0. LimitednegativeHero-eventconditiononly. NoAllycreation/history/support/siblings/fullcardcredit/enginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#wage_agility_red FaBSim/GeneratedCode/GeneratedMacroCode.php#wage_agility_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-channel-the-skybreaker-yellow-four-live-sparse1238-native-turn-transition-earns-action-phase-trigger-before-two-might-appear",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-channel-the-skybreaker-yellow-four-live-sparse1238-native-turn-transition-earns-action-phase-trigger-before-two-might-appear",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1238-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1238-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4154e6e24cacfa844aaf64e69cffedb3c195bade94c24f833f834ac5940bc2b7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f142d8fdeab59f390be8a74901987570db631f764f7c820f0bac804cb5a16a60",
+        "actions.json": "b42b5da35fca394076be5f44a86c9d458716323d5b609e99c2124ec8e60fa215",
+        "assertions.json": "0848ff9744ce19547d1bad66d7946b1805e2e1011a959ed3aec0b068ddd6f070",
+        "expected_final_gamestate.txt": "cd5b65df782deb2eca79ad4e576a5bc4211ac9bd2fcdda3f4be2e106a960ec28",
+        "meta.json": "0db2911f82f891b247000bb12fbb10958b425a8b568ed30b819c7eb713c75cb4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

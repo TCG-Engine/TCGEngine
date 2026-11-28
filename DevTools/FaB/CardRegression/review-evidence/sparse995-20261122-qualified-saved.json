@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse995-20261122.json",
+  "source_spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+  "input_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+      "card_id": "chain_reaction_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3ff2207ba8da05096d17fa64c2b546286d1722bfb52aeefb323e34a88cb1d4b",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "a4ce1a89a3128b3e4056ff686c9e5a0f7fe55058c87ca51fb476923253acd7d2",
+        "expected_final_gamestate.txt": "c1539d69213cf6d0200d631f13f325e819252a81268bb3aa8bfd520a613b62d0",
+        "meta.json": "38c6c6272b2c9201fb379775cc64507fcaffc8ca47ed453fa31032d4ad7b455b"
+      },
+      "fixture_sha256": "e77430844c633f66918a0dd9cfa25b496ada3f8cc2956923a0f3fa5428bee15a",
+      "actions": 36,
+      "native_assertions": 305,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "input_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+        "fixture_slug": "card-chain-reaction-yellow-four-live-sparse995-hand-reaction-no-go-again-retains-eligible-facedown-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+      "card_id": "lay_low_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ec91bc37299f4d65389172241fb8ed9092a9acaf8662d1db41f8315a461184f9",
+        "actions.json": "93ad6559c1b2c82dd9900dba764ab7b3cf99bbf52753639a30c04b5b402401f5",
+        "assertions.json": "dc72d61f6dd65adf17f5edb5f931e49054d25e3842979e2431dc1883b3c8132b",
+        "expected_final_gamestate.txt": "1438e2214065b43207cb57880a3038c9fd04e8464aa48eab48f14ff7f33768b3",
+        "meta.json": "4d0eb2b4a98f8c54df204fcce5a45018c1e4da0ba7256e0b3c49da75a1ab0d68"
+      },
+      "fixture_sha256": "ce1ca9f6b06cd0659137ed5455496ae79d9ca5ce61d0bf3a8bf8735d1695bddb",
+      "actions": 36,
+      "native_assertions": 299,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "input_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+        "fixture_slug": "card-lay-low-yellow-four-live-sparse995-legal-unmarked-hand-reaction-base-three-actual-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+      "card_id": "sigil_of_permafrost_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1de809bbbbef5d1047f13ee812edfe395d98d2a2f13791d11452b72e2c677300",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "86641264256828d2fab78231e12f0ecfbfb9cb9cb02d39b1efade23958ab3183",
+        "expected_final_gamestate.txt": "3cbad762f12321095bc874bcfa1e7ed9ce582ffec00c2000960507bd61112c79",
+        "meta.json": "a5a8a912a135f26f69d5adaed249ae53c67572a1bb8cdcaeb5f3e590eecb333c"
+      },
+      "fixture_sha256": "8b138dc47b1ffddc49bdd2a0c432d69fe8da5c8011fb58bd40cbbee0e3153b02",
+      "actions": 37,
+      "native_assertions": 301,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse995-20261122.json",
+      "input_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+        "fixture_slug": "card-sigil-of-permafrost-red-four-live-sparse995-unfused-real-blue-payment-base-four-three-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 995,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e95e9fdfad1f0f770a4965d8d160566cd00205a52e7da905e42f97fd22b6d172",
+    "findings": [
+      "ChainReaction typedWHENdefendsGA absent againstrealRaging7(noGA); actualHandDR5/realunusedNAAArsenal10faceDown1 retained provepositivechoiceassetpresent. Lexi20legal, 0costDEF3, 4damage/HP16.",
+      "LayLow actualDori20unmarkedHero4Counters[] islegal; attacker1alsoCounters[] so no nextattack\u22121 granted. 0costDEF3/4damage/HP16, nofutureeffectbranchcredit.",
+      "SigilPermafrost ElementalWizard (notIcecardtype) legalIyslander18; realBlue6pays1/R2, noIceinHand=>unfusedDEF4 vs7=>3damage/HP15. IyslanderIcecardpassivenotearned bynonIceDR orGenericBluepitch; knownFrostbitepositivefamilyavoided.",
+      "All4manual/actualcost/physicalroles/ownedGYfates/realnegwitnesses/persistentDamageandHP/cleanqueues. Noauthor-onlyqueries, no triggerpositive/hero/siblings/fullcard/supportcredit. Native+onecleanreplaypending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse995-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "332786189e294c801a8b42ae7d1d355fa3ca54df55e4137ee71e180d6feb980b"
+  },
+  "full_suite_run": false
+}

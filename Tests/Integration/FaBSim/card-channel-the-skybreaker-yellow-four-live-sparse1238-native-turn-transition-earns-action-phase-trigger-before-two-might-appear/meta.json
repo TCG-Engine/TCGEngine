@@ -1,0 +1,7 @@
+{
+    "name": "Channel the Skybreaker / native beginning-action-phase trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T22:34:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_AURA_BEGINNING_ACTION_ONLY. FourmanualYoungDori20/Terra20/Dori20/Dori20. LegitimateisolatedmidP1ACTIONAP0/R0; priorownedSkybreaker5Arena2withrealFLOW1, priorproducedMightnotpresent/productionorremovaluncredited. Noqueuedtriggerorhistoryflagseed. AllfourpassACTIONandallfourpassP1END_PHASE, actualturnadvances1\u21922/Turn2\u21923. P1EnddoesnotupkeepP2Channel. NativeStartOfTurnPhase\u2192DTDBeginAction\u2192PENActionPhaseearnsactualability6Source5, onlyAura5existsbeforeitsownfreshfourresponses2/3/4/1. ResolvecreatesactualownedMight7/8Arena2, whileAura5/FLOW1persists andAP2=1comesfromnewactionphase, notGA. NoDeckcards/draw/otherstartobserver orTerraEarthpitchendtrigger. FinalACTION2/noStackDQCC/GY/Pitch/RNG/AP1onlyplayer2/UID8. NoAuraentry/Mainplay/GA/upkeep/repeatedturn/Mightactivation/secondary/fullcardcredit. Flowislegitimatepersistentpriorcounter, notfakedcurrentTurnhistory. Sources: FaBSim/GeneratedCode/cardArrayCache.json#channel_the_skybreaker_yellow FaBSim/Custom/PENCards.php FaBSim/Custom/DTDCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

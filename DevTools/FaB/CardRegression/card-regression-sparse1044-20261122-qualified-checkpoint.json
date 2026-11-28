@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T03:37:28.325558+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1044-20261122.json",
+  "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1078,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4825,
+    "duels": 3075,
+    "four_live": 1750,
+    "recorded_primary_ids": 1973,
+    "identity_denominator": 5196,
+    "recorded_groups": 1847,
+    "group_denominator": 3324,
+    "four_live_groups": 1739,
+    "phase_qualified_scenarios_at_actual_contexts": 1462,
+    "phase_qualified_unique_groups": 1452,
+    "creation_replay_passes": 2204,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 623,
+  "scenarios": [
+    {
+      "card_id": "breakwater_undertow",
+      "group_id": "identity:breakwater_undertow",
+      "scenario_id": "card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "effect_branches": [
+        "actual_armor_block_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-breakwater-undertow-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "review_evidence": "review-evidence/sparse1044-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d23f34a2057175968e90e6fc340deff111539fcb0b87edd5cc7be5602f36defe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1044-20261122-replay.json",
+          "sha256": "d9b6fdf6ce79f00c4612660936477c53f25e706227c1f8c3323018587ab070f5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "torc_of_vim",
+      "group_id": "identity:torc_of_vim",
+      "scenario_id": "card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "effect_branches": [
+        "actual_armor_block_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-torc-of-vim-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "review_evidence": "review-evidence/sparse1044-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d23f34a2057175968e90e6fc340deff111539fcb0b87edd5cc7be5602f36defe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1044-20261122-replay.json",
+          "sha256": "d9b6fdf6ce79f00c4612660936477c53f25e706227c1f8c3323018587ab070f5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "undead_grasp",
+      "group_id": "identity:undead_grasp",
+      "scenario_id": "card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "effect_branches": [
+        "actual_armor_block_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-undead-grasp-four-live-sparse1044-actual-armor-block-and-battleworn-close",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "review_evidence": "review-evidence/sparse1044-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d23f34a2057175968e90e6fc340deff111539fcb0b87edd5cc7be5602f36defe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1044-20261122-replay.json",
+          "sha256": "d9b6fdf6ce79f00c4612660936477c53f25e706227c1f8c3323018587ab070f5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tremorshield_sabatons",
+      "group_id": "identity:tremorshield_sabatons",
+      "scenario_id": "card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "effect_branches": [
+        "actual_armor_block_and_blade_break_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tremorshield-sabatons-four-live-sparse1044-actual-armor-block-and-blade-break-close",
+      "source_spec": "card-regression-sparse1044-20261122.json",
+      "source_spec_sha256": "5bad83062c048d14050cfd96faed58597a825721345ecb838f6394c70fa6aad8",
+      "review_evidence": "review-evidence/sparse1044-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d23f34a2057175968e90e6fc340deff111539fcb0b87edd5cc7be5602f36defe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1044-20261122-replay.json",
+          "sha256": "d9b6fdf6ce79f00c4612660936477c53f25e706227c1f8c3323018587ab070f5",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

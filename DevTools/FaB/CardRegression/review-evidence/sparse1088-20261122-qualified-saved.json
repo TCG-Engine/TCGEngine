@@ -1,0 +1,205 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text and source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1088-20261122.json",
+  "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+  "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+      "card_id": "tome_of_necrosis_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d81a859efa84e750cf645068587ca2c65ee6b0b6961a83647e5535084c37aff5",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "41b4d3efa9d066ca72e711555e92dadb43d35248b6c105246ada227b95ca16ea",
+        "expected_final_gamestate.txt": "dad67c5bca3cea4f436218f1fb7efa6d87d000cb419f2a71c64f507490899828",
+        "meta.json": "2816ecd817289981efc7625100f6333bfffc258dd5d47d077a673fdd02da6125"
+      },
+      "fixture_sha256": "6cec887d15e5c88018e5218445f5e644a2445cac820a9b089e1b1241fe196a10",
+      "actions": 6,
+      "native_assertions": 268,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+        "fixture_slug": "card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "card_id": "convulsions_from_the_bellows_of_hell_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b975413bef996e03d262203c4f06fc20913c347c367858a56064e2a556b24b2a",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "4b7fe6e14c49981064191f0190dda9a074ace2604683a77edbbf539bba018426",
+        "expected_final_gamestate.txt": "4e03815cd0ccc702a17cde0410f4929d139332ef3dd49cb8d496ef0fe92e4375",
+        "meta.json": "ef882b29b600efc62071401958d78b130871b3fdace86c731d208d7e9dae194d"
+      },
+      "fixture_sha256": "ce3b0bca95a7fc25cee6a9af14da9f892efe5cce01b05926a13ec31245210979",
+      "actions": 6,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "fixture_slug": "card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "card_id": "boneyard_marauder_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6abe218862db2a6805d6e1279c88329da9505dfbfeba344875d684af34d8c3ef",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "79562e53949159e26316dac153d60e76eb6ec2676cbf4c6e4faf16c583fc56a4",
+        "expected_final_gamestate.txt": "42a8911db0e902378c156d1ccd7d57b930aed89f87a6930d5c1f6adde74daf8d",
+        "meta.json": "4c51900c48e64075bb262a38772cb2b28a8064bf7f77d52dd51fecd28c7313f9"
+      },
+      "fixture_sha256": "518cfbc30f79963d51a07090773883d534edd517a53d2ab381c285b137b54771",
+      "actions": 6,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "fixture_slug": "card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "card_id": "hungering_slaughterbeast_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9d5b6a6b47ff1acf3a7faba94b6b524846b37842d210c38435999098630cdc47",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "d7dd4cdb32b3aa2a61c31c9a3fe56a3c50518536adeb3efc2ef19b81239cd963",
+        "expected_final_gamestate.txt": "0fd69fd4087ef588129614e276a49a8bad6c5059a43ec30b1888c92c7d8fb900",
+        "meta.json": "c56b6b15f81af2b50163599d66f23667254757cb926bb5906c7d63ff055926cb"
+      },
+      "fixture_sha256": "2cbd255e1d1ff8b18e67b53e46d029ad9494914a53801e24380af27e741ffb80",
+      "actions": 6,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "fixture_slug": "card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "card_id": "writhing_beast_hulk_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "526f46d57aa4dda289c047e010a7b45aadce1ee5617f179f5c7c74b023ce6e5f",
+        "actions.json": "861a192f87f7de9b14e134b563b3147dff3f7480763d1c065ddc150843ceac39",
+        "assertions.json": "6c2843f8e05550626a3555c81adb08f33f4c06cecb6aa00c5f96c3f43f487a06",
+        "expected_final_gamestate.txt": "152fcd32633b9c503f1ceb064354d84a8b5576ca853db2c7d9f50f3e8cf615ef",
+        "meta.json": "5d3c4147971cb3b5b6a55cf53324b49334c1382fb3a8f63cc14fc8501feea831"
+      },
+      "fixture_sha256": "419cb3d2dae1b129b49fa8988f2cea75702607fa631df839a0d694b140eda4cb",
+      "actions": 6,
+      "native_assertions": 300,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "input_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "fixture_slug": "card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+    "reviewer": "breadth_review independent printed-text and source/spec review",
+    "reviewed": [
+      {
+        "card": "tome_of_necrosis_red",
+        "branches": [
+          "no_ally_cost_available"
+        ]
+      },
+      {
+        "card": "convulsions_from_the_bellows_of_hell_red",
+        "branches": [
+          "only_two_graveyard_cards_for_mandatory_three_banish"
+        ]
+      },
+      {
+        "card": "boneyard_marauder_red",
+        "branches": [
+          "only_two_graveyard_cards_for_mandatory_three_banish"
+        ]
+      },
+      {
+        "card": "hungering_slaughterbeast_red",
+        "branches": [
+          "only_two_graveyard_cards_for_mandatory_three_banish"
+        ]
+      },
+      {
+        "card": "writhing_beast_hulk_red",
+        "branches": [
+          "only_two_graveyard_cards_for_mandatory_three_banish"
+        ]
+      }
+    ],
+    "basis": [
+      "Printed mandatory additional costs are impossible in each exact fixture: Tome of Necrosis has no controlled or hand Ally; four Shadow Brute cards have exactly two graveyard cards for a mandatory three-card banish. Natural Gravy Bones/Levia20 satisfy class and talent. Real Blue6 pitch3 covers every printed resource cost (0/2/1/2/2), so no resource mask.",
+      "IARRuntime.php:78 and :359 establish Tome unavailable-Ally admission guard; MONCards.php:62 explicitly guards all four named graveyard counts below three. These are supported rejected-play routes, not absent-handler clicks.",
+      "Initial primary5/Blue6/Nimblism7, Deck8/9 and graveyard10/11 are actual physical assets. Post-primary checks require ACTION, no pending payment/attack target, unchanged Hand3/Deck2/graveyard/economy, Stack0 and all queues empty. Unchanged physical cards are guarded through final followthrough.",
+      "A separate legal Nimblism7 cost0/printed go again supplies actual four-seat manual response flow and final AP1; rejected primaries have no response window. All checks use persisted type/state kinds, with no defense/can_play/can_activate diagnostics."
+    ],
+    "limits": [
+      "Negative mandatory-cost admission only. No positive primary play, cost-payment ordering/random selection, buffs, dominate, draw/untap, Blood Debt/end phase, contract/ownership behavior or whole-card credit.",
+      "Known positive additional-cost timing/source-only holds remain unrun and unrepaired. Nimblism identity/future buff is uncredited support. Native execution/replay still pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1088-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978"
+  },
+  "full_suite_run": false
+}

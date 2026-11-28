@@ -1,0 +1,7 @@
+{
+    "name": "Just a Nick / actual attack fails either_small_base_attack_action_or_Stealth_mode",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:41:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legaluzuri20/manual4. RealWounding5attackcost0declaresHero4/AP0, currentbasePower4/noStealth/Weapon/LightWarrior/Tiger, primary6+Blue7Handavailable3; ownreadyHatchet8whenpresentisnotattacking. AtactualREACTIONpriority1 primaryclickmustrejectspecificeither_small_base_attack_action_or_Stealth_mode targetrestriction, preservingprimaryHand/realattack/funding/APR/UID/noStackDQ/modal/payment/effect. Fullcombatactual4Hero4damage/HP16 noGO/token/refund, correctphysicalclose. No positiveprimarytarget/effect/timing/secondaryconsumer/siblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#just_a_nick_red FaBSim/Custom/WTRCards.php#FaBWTRCanPlay FaBSim/Custom/HNTRuntime.php#FaBHNTCanPlay FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/HVYRuntime.php#FaBHVYCanPlay"
+}

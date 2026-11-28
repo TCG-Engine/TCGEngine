@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch401.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T00:08:44.361015+00:00",
+  "fixtures": [
+    {
+      "slug": "card-swell-tidings-red-four-live-sparse-real-target-and-blue-pays-two-for-five-arcane-no-surge",
+      "fixture_sha256": "926ac00f9d77465b096f86cbdb178c2f6858d9952e5e020a8172f4ba55649515",
+      "passed": true,
+      "result": "[PASS] swell_tidings_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-lace-with-bloodrot-red-four-live-sparse-real-next-arrow-plus-three-and-granted-hit-tag-full-block",
+      "fixture_sha256": "1c3d5c99fff56282ab024a21c973a93502bffa27538db03cf6beecdba026fc5a",
+      "passed": true,
+      "result": "[PASS] lace_with_bloodrot_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-swell-tidings-red-four-live-sparse-real-target-and-blue-pays-two-for-five-arcane-no-surge",
+      "returncode": 0,
+      "stdout": "[PASS] swell_tidings_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-lace-with-bloodrot-red-four-live-sparse-real-next-arrow-plus-three-and-granted-hit-tag-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] lace_with_bloodrot_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

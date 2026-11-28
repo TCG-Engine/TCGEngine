@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T13:16:45.589914+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1554-20261122.json",
+  "source_spec_sha256": "ff37b1ef0a71ff8aec6c05ef939948307ee3cd99a4e8d4f392c31d1fa20b32fb",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 22,
+  "native_assertions": 984,
+  "manual_passes": 14,
+  "totals": {
+    "saved_registered_scenarios": 5646,
+    "duels": 3138,
+    "four_live": 2508,
+    "recorded_primary_ids": 2794,
+    "identity_denominator": 5196,
+    "recorded_groups": 2668,
+    "group_denominator": 3324,
+    "four_live_groups": 2497,
+    "phase_qualified_scenarios_at_actual_contexts": 2283,
+    "phase_qualified_unique_groups": 2273,
+    "creation_replay_passes": 3025,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1444,
+  "scenarios": [
+    {
+      "card_id": "teklo_trebuchet_2000_blue",
+      "group_id": "identity:teklo_trebuchet_2000_blue",
+      "scenario_id": "card-teklo-trebuchet-2000-blue-four-live-sparse1554-paid-boost-banish-and-source-grant-before-attack-resolution-prefix",
+      "effect_branches": [
+        "limited_positive_Boost_declaration_fixed_assets_actual_Mechanologist_banish_and_source_go_again_grant_before_primary_attack_layer_resolves"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-teklo-trebuchet-2000-blue-four-live-sparse1554-paid-boost-banish-and-source-grant-before-attack-resolution-prefix",
+      "source_spec": "card-regression-sparse1554-20261122.json",
+      "source_spec_sha256": "ff37b1ef0a71ff8aec6c05ef939948307ee3cd99a4e8d4f392c31d1fa20b32fb",
+      "review_evidence": "review-evidence/sparse1554-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f7844bd2f9e5df0427f074cb786c758e508201b0c39c5824db787584d8af0906",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1554-20261122-replay.json",
+          "sha256": "e1bca301ffd60d6cafbb09ddce27244b74d405a3ca23d581b8d40e837d35d959",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "zoom_in_red",
+      "group_id": "pitch-cycle:zoom_in",
+      "scenario_id": "card-zoom-in-red-four-live-sparse1554-paid-boost-banish-and-source-grant-before-attack-resolution-prefix",
+      "effect_branches": [
+        "limited_positive_Boost_declaration_fixed_assets_actual_Mechanologist_banish_and_source_go_again_grant_before_primary_attack_layer_resolves"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-zoom-in-red-four-live-sparse1554-paid-boost-banish-and-source-grant-before-attack-resolution-prefix",
+      "source_spec": "card-regression-sparse1554-20261122.json",
+      "source_spec_sha256": "ff37b1ef0a71ff8aec6c05ef939948307ee3cd99a4e8d4f392c31d1fa20b32fb",
+      "review_evidence": "review-evidence/sparse1554-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f7844bd2f9e5df0427f074cb786c758e508201b0c39c5824db787584d8af0906",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1554-20261122-replay.json",
+          "sha256": "e1bca301ffd60d6cafbb09ddce27244b74d405a3ca23d581b8d40e837d35d959",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

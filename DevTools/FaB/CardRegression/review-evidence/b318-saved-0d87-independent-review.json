@@ -1,0 +1,135 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B318_CLOAKED_PUBLIC_DESTROY_BEFORE_RESPONSES_AND_ONE_PREVENTION_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T10:13:36.875610+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch318.json",
+  "input_sha256": "2bfb4a0e54117bdd376090fa1de017dff7eecf9046120ffce8545d0f5fe67509",
+  "manifest_sha256": "e9ea5a3e0e6760a49e5a539e4e4ff651da2b4885ae428357b6e8c2892d17cd59",
+  "fixtures": [
+    {
+      "slug": "card-skycrest-keikoi-four-live-sparse-real-face-down-destroy-prevents-one-of-seven",
+      "card_id": "skycrest_keikoi",
+      "group_id": "identity:skycrest_keikoi",
+      "fixture_sha256": "88ad3bc55fd1e86e7480e7113b8f93c14e88f13576a4399403c441b2c418090b",
+      "behavior_sha256": "88ad3bc55fd1e86e7480e7113b8f93c14e88f13576a4399403c441b2c418090b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e5b4236128e7c7cd9eca3200f324d40ac321960f61d62659e3a17c147252ba8",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "ee68fbc9f405d8fb17223c8c2f1d3b2b07dfecad9488162059ab16e18298db07",
+        "expected_final_gamestate.txt": "78593a3fcc014b0dff0cf8ffed1cba05439b61a603333fcd24dff47364195210",
+        "meta.json": "124d1b5ebba9673daeee08b460091e70493fb6bcda659ec15ff26dd5a263676c"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3e5b4236128e7c7cd9eca3200f324d40ac321960f61d62659e3a17c147252ba8",
+        "actions.json": "3a9956973de917fca024920a8fed81812eebc72b76d6d583f57de4fb9b34ebad",
+        "assertions.json": "ee68fbc9f405d8fb17223c8c2f1d3b2b07dfecad9488162059ab16e18298db07",
+        "expected_final_gamestate.txt": "78593a3fcc014b0dff0cf8ffed1cba05439b61a603333fcd24dff47364195210",
+        "meta.json": "124d1b5ebba9673daeee08b460091e70493fb6bcda659ec15ff26dd5a263676c"
+      },
+      "actions": 36,
+      "native_assertions": 2730,
+      "actual_manual_pass_inputs": 32,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_pass_inputs": 31,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "priority_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 7
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_proxy_uids_absent": [
+        8
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uids": [
+        7
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualP4youngZen20 ownsreadyMysticHead5FaceDown1. RealP1Raging6targetP4/Blue7pitch3pays3/AP1\u2192R0AP0. Allfourmanualsource/combatresponsesthenP4priorityinReaction. Nativeinput20activatescloakedInstant0/destroysSAME5: immediatelypublicownedP4GYFaceDown0, Equipmentempty/Hero4ready/HP20/R4AP4=0. FreshactualsourcePassactors4,1,2,3 inputs21-24 retaincapturedKindABILITY/Controller4/SourceEquipmentUID5throughfirstthree; fourthclearssource/REACTIONP1/HP20. FreshReactioninputs25-28deal7minus1=6/P4HP14, noGA. FullDamage/Resolutioncleanup givesGY4UID5/GY1UID6/Pitch7/allRAP0/Hero4ready/allfourlive, originalUID1-7conserve/virtual8ceases/Stackqueuespaymentownedframesclear.",
+      "qualification": "Onepositivecloakedface-downactivation/publicdestroycost/realonepreventionbranch; no separateunobservableflip-substep/entry/faceuprejection/block/otherKeikoi/Zenhero/Chi/Transcend/otherpackets/suppression/unpreventable/expiry/fullcard/supportprimary/controlcredit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch318-independent-source-review.json",
+    "sha256": "0e871937c635da259d9999c8ff19052a394d18963999e05e373d7c21ed7b61ff",
+    "manifest_sha256": "e9ea5a3e0e6760a49e5a539e4e4ff651da2b4885ae428357b6e8c2892d17cd59"
+  },
+  "source_guards_verified": 18,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch318-20261103T101137Z-6ae9b3595bb7e.json",
+    "sha256": "cccfb40c16cd02df9e5a30753394cf1511afcbf0bd4af53f41774e740806418d"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch318.recording-results.json",
+    "sha256": "773c501f64ecb1fe9f120b1e0b214758f789312d02590dc9b94dcf58f20e0202"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch318-native-r1\\receipt.json",
+    "sha256": "b1f5af7d21b2b6629f6a5c42aebc3499f27011a5c1d95d4f91c25c722b329e7e"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "behavior_digest_definition": "SHA256orderedfilenames+rawbytesinitial/actions/assertions/expected_final; rawfiveindividualhashesalsobound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Sourceapprovedfrozen2bfb318only; actualnativeCOMPLETE0exit/stderr0/read-onlyexactfivefilematch, notsimulatedindependentnativeexecution.",
+    "Reuseofficialcloaked/reveal/sourcepermissionrulemodelin0e871sourceproof; nocurrentoutputusedtoalteroracles.",
+    "ReplayqualificationbelongsseparateactualRootreports; nofaultcontrolcredit.",
+    "No R writes, native/PHP execution, source changes, generator/enginebackend/service/fullsuite by reviewer."
+  ]
+}

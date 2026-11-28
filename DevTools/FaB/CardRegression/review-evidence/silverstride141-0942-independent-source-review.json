@@ -1,0 +1,132 @@
+{
+  "status": "APPROVED_SOURCE_PROPOSAL_ONLY",
+  "approved": true,
+  "source_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-06T04:11:27.708755+00:00",
+  "issue": "FAB-REG-141",
+  "card_id": "silverstride_dodgers",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\manifest.json",
+  "manifest_sha256": "7b2921007c11427929a2dfe6469def09016aaaadb4ec6fcd926a2af6c237d78d",
+  "delta": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\exact-delta.json",
+  "delta_sha256": "5f55a7a3e51762cf6ea0686023210b6da8d1099e6b1c757961ace6601d6b0863",
+  "runtime_before_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "projected_runtime_active": false,
+  "source_guard_count": 72,
+  "all_actual_preimage_source_guards_match": true,
+  "changes": [
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "preimage": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\before-WTRCards.php",
+      "preimage_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\WTRCards.php",
+      "candidate_sha256": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "whole_byte_inverse_exact": true
+    },
+    {
+      "path": "FaBSim/Custom/BoltynCards.php",
+      "preimage": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\before-BoltynCards.php",
+      "preimage_sha256": "8c2b3c11db2405e6b1890b3a008a0a9ea041ca3541b3b3d60bc502835153606c",
+      "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\BoltynCards.php",
+      "candidate_sha256": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d",
+      "whole_byte_inverse_exact": true
+    }
+  ],
+  "exact_scope": {
+    "WTRCards": "OneexistingFaBWTRDefenseModifieraggregate addsoneFaBBoltynDefensecall; alloldterms/order/otherbytesretained.",
+    "BoltynCards": "OneappendeduniquelynamedFaBBoltynDefensefunction; oldfileexactprefix/alloldfunctionsunchanged.",
+    "whole_byte_inverse_exact": true,
+    "GameLogic_unchanged_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "no_Core_canonical_generated_schema_changes": true,
+    "regeneration_required": false,
+    "existing_helper_loaded": "ExistingBoltynTemper/Flurrycallers alreadydependonBoltynCards; no newload/lifecycle mechanism."
+  },
+  "independent_semantic_review": [
+    "PrintedAHA006baseDEF1/staticIFcontrolaFlurrytoken gets+1DEF. Helper is exactSilverstrideCIDonly andreturns0whenprimaryHasNoAbilities, preservingownstatic-suppressionbehavior. No needforFlurrytohavefunctionaltriggeredabilities: blankFlurry stillhasname/type/controllerandmustcount.",
+    "PrimarycurrentControllerisused, notOwnerorcaller/storeseat; invalid/nonlivingcontrollergives0. AlllivingArena storesaresearchedand actualtokenController matched, permittingforeignowned/foreignstored butcontrolledFlurry andexcludingownownedbutforeigncontrolledFlurry.",
+    "ActualCardChoices123-141 removesremovedrecords, usesFaBHasType(object) forcurrenteffectiveToken, andexistingbaseFlurryidentityconvention. FaceDown/privateFlurry-like records areexcluded. Oneormany qualifyingFlurries yieldbinary1, neverper-tokenstacking. No history/cache/tag/state/buffiswritten.",
+    "EffectiveToken restriction is warranted bytheprintednoun Flurrytoken: currentCR1.3.2b defines token-cardthroughToken type, and2.15.1/2.15.5 typesdeterminecategoryandcanchange. AcontrolledrecordwhosecurrenttypeexcludesTokenisnot a FlurryTOKENmerelybecauseitsbaseCIDstringisflurry. ThisisnotanunwrittenrequirementfortheFlurryabilitytofunction.",
+    "FullFaBCurrentDefense351-367remainsunchanged: hiddenEquipmentearlyreturn, printedbase/wear subtraction, existingcompiled/per-setdeltas, existingcannot-gain-defenseclamp afteraggregation andmax0. CallerFaBDefenseValue1894-1902 filtersremoved/noncurrentdefenders; newhelperdoesnotreplaceglobalzone/lifecyclepolicy.",
+    "ExistingBoltynTemper53-59andClose2095-2129remainrawunchanged. Temper askscurrentdefenseafteronewear: retainedFlurry givesbase1\u2212wear1+bonus1=1, so survives; withoutFlurry gives0andexistingdestroyflag. Loss/return/recontrolofFlurryisreflectedbyeachfreshgetter, notstalegrant. No prematuredestructionevent/newpriority/source-lifetime machinery added.",
+    "Addingthepassive+1atnativeper-setdefenseaggregation is consistentwiththeexistinghandwrittenhookpatternand fixes selectedmissingdelta without alteringoldattackmath, noDefenseGain, othergear ortokenproduction/consumption."
+  ],
+  "Token_gate_rule_assessment": {
+    "required_by_printed_token_noun": true,
+    "primary_rules": [
+      "https://rules.fabtcg.com/en/cr/01-game-concepts/ (1.3.2b)",
+      "https://rules.fabtcg.com/en/cr/02-object-properties/ (2.15.1,2.15.5)"
+    ],
+    "actually_opened": true,
+    "component_case_effective_nonToken": "Controlleddata-boundarycontract; noactuallegalFlurrytype-removal/copy/transformrouteisclaimed orrequiredforthispatch.",
+    "identity_limit": "ExistingcanonicalbaseFlurryselectoracceptedfortheselectedcurrentFlurrymechanics. Generalcopied/renamedobjects/effective-nameenginecompletenessareNOTcertified; no broadcopier/producersearchperformed."
+  },
+  "component_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-static-defense-proposed\\focused-component-plan.json",
+    "sha256": "1c90311c5834caf01f389d1926cfba3a35686c61a71ff65a3c897b9b43f411c6",
+    "contract_count": 17,
+    "status": "PLAN_ONLY_NOT_EXECUTED",
+    "semantic_cases_reviewed": true,
+    "no_PHP_lint_or_component_PASS_claim": true,
+    "boundaries": "foreignstore/nonToken/private/blank records arecontrolledfixtureboundarycases, notnewnativecoverage/legalsetupcertificates. Actualrootcontrolledtests/nativeafter/Saved/replaysremainrequired."
+  },
+  "evidence_context": {
+    "native_before_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-silverstride141-independent-native-review.json",
+      "sha256": "2deba1344227dbc150794d7d8814e61a9e2a86d036c1e3d363ff5671dde1d806"
+    },
+    "original_correct_source_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch563-independent-strict-r2-source-review.json",
+      "sha256": "c41530133d139e438fd5bcca691748f5045061bbe49c76176e0e7c36a9e22aef"
+    },
+    "original_correct_input_sha256": "42bf938e60b26782df9013663c34b4b6a6209da1409d3c9b25c341881e3b639d",
+    "native_before_reused_not_rerun": "Independentexisting141proof reports20inputs/physicalHP17vs18; originalstrictprobe remainsunchanged. Thisreviewdoesnotallocateanotherissue/rootorcount."
+  },
+  "primary_sources": [
+    {
+      "path": "FaBSim/WebpImages/silverstride_dodgers.webp",
+      "sha256": "920e47ae70da29960fea632065430db20a0037fa2de8f9cafcdc893fbbd2b6b7",
+      "issuer": "AHA006",
+      "viewed_in_B563_review": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.4.1",
+        "5.4.2"
+      ],
+      "basis": "StaticcontinuousconditionfromcompletedB563primaryrulesreview."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.10"
+      ],
+      "basis": "Temper/blank-presencelogic retainedfromcompletedB558/B563rulesreview."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.7.1",
+        "7.7.3",
+        "7.7.4"
+      ],
+      "basis": "Automaticno-priorityClose preserved."
+    }
+  ],
+  "material_limits": [
+    "SOURCEproposalapprovalonly; nooperational/applyapproval, noPHP/lint/componentexecution/nativeafter/fixqualificationclaimed.",
+    "No generalcopy/name/type-change/lifecycle/hidden-Auratransport or othercard/trigger/source repair certificate; componentcontrivedboundariesmustnotbecreditedasnativebranches.",
+    "Existingglobalcallerfilters/hiddenEquipmentguard/suppression/noDefenseGain/Temperpreserved. No historyseeds or primary/tokenproducercoverage.",
+    "NoRsourcewrite/PHP/native/replay/fullsuite/codegen/service/remote/git/held-deniedretry. Allunrelatedheldoperationsremainuntouched."
+  ],
+  "corrections_required": [],
+  "component_executed": false,
+  "PHP_executed": false,
+  "source_applied": false,
+  "operational_approved": false,
+  "native_after_executed": false,
+  "fix_qualified": false,
+  "repository_writes": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Leave Em Speechless / existing Hand name restriction allows actual same-name Arsenal attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:07:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_LEAVE_SPEECHLESS_PERSISTENT_NAME_ONLY. FourmanualnaturalYoungDori20/2Dori20/YoungReviledKayoStrongArm20; actualReviledAura5ownedArena4frompriorcontrollerturn, priorpersistentarcCards5penProhibitedNameWoundingBlowexactnormalnameformat. Noentry/NameCard/conditionalInstanttestorcurrentturnflagseed; produceruncredited. OwnWounding6Hand1affordable0/AP1mustberejectedbyactualnativeclickwhileforeignAura5remainsactive. OwnsameNameWounding7ArsenalFaceDown1isnotHandandmustactuallyplay: realtarget4beforecost, StackKindATTACK7/CardID/owner/controller, AP1to0/R0, fourfreshresponses/fullcombatpower4damage4HP4to16. PrimaryAura5remainsArena4/Counters[], originalHand6unchanged, source7GY1/Arsenalempty. ActualHand-versus-Arsenalscopedprohibitionpinpositivefollowthrough, notjustflagorbasicAuraentry. NoCrowdBoo/steal/heroability, soKayoWHENnotearned. Noentry/naming/healthconditionInstant/upkeep/pitch/defend/othernames/otherownership/support/fullcardcredit. No dedicatedrendervisibilityclaim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#leave_em_speechless_blue FaBSim/Custom/ARCCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/EVOCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/PENCards.php"
+}

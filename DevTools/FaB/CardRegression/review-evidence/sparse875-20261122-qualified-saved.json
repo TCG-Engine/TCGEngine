@@ -1,0 +1,342 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse875-20261122.json",
+  "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223",
+  "fixtures": [
+    {
+      "slug": "card-burn-bare-four-live-sparse875-printed-six-arcane-with-real-blue-pitch",
+      "card_id": "burn_bare",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d6148ce2c7ff3b717a3e3aa99cc12a21de9625cc4cacaaea6da4d49f0258b035",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "c1e50446c377c4c49c85a8ebb38879faddc998ea9504c58ff080fc2958e32304",
+        "expected_final_gamestate.txt": "0b4adfd53691395adc4d14a469d145c419beddd461cba1a190ba2b111afcf07d",
+        "meta.json": "1a1068e4de859c35ee88c5c5635c3c6ec1b7641f530a3b9d7bbfcdb0d17f838f"
+      },
+      "fixture_sha256": "42a46e228c8214ca994b1af4aefb9f63718f87777e6683116266b39d302dd0df",
+      "actions": 7,
+      "native_assertions": 91,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-aether-icevein-red-four-live-sparse875-unfused-five-arcane-preserves-real-opponent-hand",
+      "card_id": "aether_icevein_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "60203aec8bd1d801be690d9aea4bfcbf97d590db3bebb29b995df049dd18ae65",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "7476ade35b97c5dd90c12e4d80f5d714a169a696f3dee7157af19303e96603fe",
+        "expected_final_gamestate.txt": "01e8136dab0b1d0484efc0f511c03e12794ab63b446533254110cff6c4106612",
+        "meta.json": "9c5b09b5de2efae3625f97270f8df99631133fa16a6390bd114de3016eedc45e"
+      },
+      "fixture_sha256": "9897ea22f1189ed8a78a3fde2d1afe7f802995a8bceb8d1ce21a94d3eea26958",
+      "actions": 7,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-freezing-point-red-four-live-sparse875-unfused-printed-five-arcane",
+      "card_id": "freezing_point_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0f2411ea0cb14c02b97bb2176625b25677c0d3bd1bf3c7a05f1cbbed60c7056f",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "d9837a618b3cc92777cacc756f92c88597e2c0d40e275df21a0833cfb348f143",
+        "expected_final_gamestate.txt": "ffd02f5f7cc55af76067e535355f0586e30e11712b3672a7db41a8f013405721",
+        "meta.json": "0afcf8ba8439908f06686eefc407266e03d6a3277c67fd7b7d68c46ba7fc7cd3"
+      },
+      "fixture_sha256": "d89bc454c90ba3917df24636598d576a4ea57395d1d0a86664ff05611ed777df",
+      "actions": 7,
+      "native_assertions": 91,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-icebind-red-four-live-sparse875-unfused-three-arcane-preserves-unfrozen-arsenal",
+      "card_id": "icebind_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fa7d89daf60fa96d54b609310d1c66ae1a85744d512ec4a4e243e87a74336575",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "fa810d460bfdfcca4d634916b54811f1a681ec060fa8b4f1215cf3a4690fa485",
+        "expected_final_gamestate.txt": "607903f9f7fe8f98d0befb3cbbc2a620bd52b7ff075a72f438556f612b2581ec",
+        "meta.json": "4d604eba1d862a2f59b55c10b8e7e657c80ce747d8118d04d0f6d5dae7d28ac9"
+      },
+      "fixture_sha256": "9b55d40a3874173ef9af6d4b26838c13ecd5b4fb27df8c2603b309269c24f116",
+      "actions": 6,
+      "native_assertions": 92,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-polar-cap-red-four-live-sparse875-unfused-four-arcane-creates-no-frostbite",
+      "card_id": "polar_cap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6437bb6989047d163b057361f8bc0fa8e8816c3897d224382ac8c57b2ff7188",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "91fca45627526eef1ac3101e9b3fa57e14c586026421a9df563ad0da06422d20",
+        "expected_final_gamestate.txt": "37291ee430b489336353dec7e4df0a7568bb1adcab06f575ad8c16efc405446f",
+        "meta.json": "396a85077582359bce7c7e8914479ee9cabeab865eae92652d5f9df734d34fd3"
+      },
+      "fixture_sha256": "25c863069c125bf6ff2e2adc2712f2dab9098a57c06829b4618309f1ad7d1b39",
+      "actions": 7,
+      "native_assertions": 92,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-etchings-of-arcana-red-four-live-sparse875-three-arcane-without-surge-preserves-real-graveyard-sigil",
+      "card_id": "etchings_of_arcana_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3728104b95553e7eb6929934e7656781339bb2112949c79302c59b617f60eb49",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "0a3b541a754f413487bb7b44fa16ea035f747d00c216ebb213f4b6640f7a7034",
+        "expected_final_gamestate.txt": "fb9586638aae32bd682d116078ea62d3025f3210fcca2a9c61768a39b9f7e2ec",
+        "meta.json": "d8b3a6c5cc13ab41feea7f8b65f50732199fe6496e98f9cc106ab92ff204d3e7"
+      },
+      "fixture_sha256": "5819efedb8504835cae34431ed33ff69ce18971dade904bfe50ed6e1f684a2e0",
+      "actions": 6,
+      "native_assertions": 90,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-eternal-inferno-red-four-live-sparse875-four-arcane-without-surge-finishes-in-graveyard",
+      "card_id": "eternal_inferno_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a52e28bb6de01a45b846d3e714160d50066b3ac0df49cb3d9368b4331292f693",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "b6e4fd1d7f6b441985669042acc6ad819cfd8ea7c3cb94cb46fd111b30ab5434",
+        "expected_final_gamestate.txt": "a58cd5f6647dee53d1206b22ec7f5cd5165ba4c513b1abc7d6ae7b2ef1397315",
+        "meta.json": "a719ef88c4f25011d3bdbf52a1d44f20470621178f28b59968275ea65c6b219a"
+      },
+      "fixture_sha256": "bf2d9cd7cf357649b08c350b32f0fb653914ec6814daae83bc00a60f231f9ad8",
+      "actions": 7,
+      "native_assertions": 91,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-overflow-the-aetherwell-red-four-live-sparse875-three-arcane-without-surge-adds-no-resources",
+      "card_id": "overflow_the_aetherwell_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "962ab0569ffb62d04cb571162f2aef4c154c101d70099487a4ea8e13bf002ecd",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "832fd26a4d833a5e95d54e8a8d5d18852510d25fb501422491803f3ebb5b3e9f",
+        "expected_final_gamestate.txt": "235211ad9ae3bf0153309d0ec1b8020426b5ede035bd1df84c1fc6be2347a929",
+        "meta.json": "d925760a73b58e3895c80d7d6db4e4063a16ffe4364c8d78af3577321d203627"
+      },
+      "fixture_sha256": "cff3eb36789b75b397928082ded0df835de258a1f0da321ef88322fd37d77a66",
+      "actions": 6,
+      "native_assertions": 88,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-gaze-the-ages-blue-four-live-sparse875-actual-opt-two-split-top-bottom-without-prior-wizard",
+      "card_id": "gaze_the_ages_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be1fc1928ad9f3e9249843f134d2608c009fea459bcf47a3f5d2ab2fc2744a2c",
+        "actions.json": "9b0d44a90211bb7719ea4a1ec27df529bf8c4c569d019399f08a1b383b4997e9",
+        "assertions.json": "4e6e5304a218782db394c86dd049bd405bc85397a833d4f39286c6d053215085",
+        "expected_final_gamestate.txt": "566904a93b407d6a8b7b1a58bd10b217ebcd50004c19a62ef35fb684a5b05a91",
+        "meta.json": "ae12aedcddea5aed62668abcdc29c99cd2d91287e204a326dece6dced3155497"
+      },
+      "fixture_sha256": "032aec4984d3338d9c10c8e001a4311194c4ab1faddabcc3c181b71592291738",
+      "actions": 6,
+      "native_assertions": 88,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223"
+    },
+    {
+      "slug": "card-lesson-in-lava-yellow-four-live-sparse875-three-damage-selects-real-eligible-middeck-wizard-to-top",
+      "card_id": "lesson_in_lava_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "06dc3e97c9ef414b700cf28e1d0cf88d72bf782e220a453d17e6545550cfaa05",
+        "actions.json": "fec5f8e40b2145ba129cafdf942535a3a9f4103b1723ed9a47de0815879ce3d7",
+        "assertions.json": "8188cf8b4d157e36b403b7efff29f36ebd6035cc33ff07205aef87558ac15482",
+        "expected_final_gamestate.txt": "23decee44bf90ad5283bdd7347848430e82bd328d19bbbf18c3bb767306c3a4c",
+        "meta.json": "24be4432767132824a408ce9274b4a4ea027c63ffff6ed514980e4ccd27e2685"
+      },
+      "fixture_sha256": "f0e9bbc51910a185b65476b8f1e9cfe5c88a37678df6a1156d6df5b339d6f15b",
+      "actions": 8,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse875-20261122.json",
+      "input_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\amended-four.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2ff52eba53015c686e5fe6cf0e658861025e1020f7707ede742bd6859c5db223",
+    "source": "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122",
+    "reviewed": [
+      {
+        "card": "burn_bare",
+        "branch": "printed_six_arcane_with_real_blue_pitch"
+      },
+      {
+        "card": "aether_icevein_red",
+        "branch": "unfused_five_arcane_preserves_real_opponent_hand"
+      },
+      {
+        "card": "freezing_point_red",
+        "branch": "unfused_printed_five_arcane"
+      },
+      {
+        "card": "icebind_red",
+        "branch": "unfused_three_arcane_preserves_unfrozen_arsenal"
+      },
+      {
+        "card": "polar_cap_red",
+        "branch": "unfused_four_arcane_creates_no_frostbite"
+      },
+      {
+        "card": "etchings_of_arcana_red",
+        "branch": "three_arcane_without_surge_preserves_real_graveyard_sigil"
+      },
+      {
+        "card": "eternal_inferno_red",
+        "branch": "four_arcane_without_surge_finishes_in_graveyard"
+      },
+      {
+        "card": "overflow_the_aetherwell_red",
+        "branch": "three_arcane_without_surge_adds_no_resources"
+      },
+      {
+        "card": "gaze_the_ages_blue",
+        "branch": "actual_opt_two_split_top_bottom_without_prior_wizard"
+      },
+      {
+        "card": "lesson_in_lava_yellow",
+        "branch": "three_damage_selects_real_eligible_middeck_wizard_to_top"
+      }
+    ],
+    "evidence": [
+      "Cached functional_text matches every proposed printed_text; costs 3,3,3,0,2,0,1,0,0,1 and natural hero health Kano15/Iyslander18/Dorinthea20 independently checked.",
+      "Blue Critical Strike pitch3 funds nonzero costs; expected residue0,0,0,1,2,2 and AP1 to0 are correct. Zero-cost Actions consume the sole AP.",
+      "Target p4 is a live opposing hero; target declarations precede payment, all four live manual seats retain response opportunities, and no seeded resources or damage bonuses occur.",
+      "Unfused Icevein preserves real opponent hand; unfused Icebind preserves actual facedown unfrozen Arsenal; unfused Polar Cap creates no Frostbite. Freezing Point covers printed base5 only.",
+      "Etchings retains an actual eligible Sigil aura in graveyard at damage3; Eternal Inferno remains graveyard at damage4; Overflow gains no resources at damage3. Surge-positive branches are excluded.",
+      "Gaze stages actual top two UIDs6/7, then requested Top=UID7 and Bottom=UID6 yields deck7,8,6; no previous Wizard means source graveyard and no return to hand.",
+      "Lesson on Kano deals3 to opposing hero and stages only real Wizard Zap(cost0), excluding both Generic attacks; revised initial middeck UID8 becomes actual top. Native source performs reveal, search completion/shuffle, then top placement."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no tests, recordings, shared game-state operations or network performed.",
+      "Parent separately owns queue schema, actual object representation, native execution and replay verification.",
+      "No independent assertion of Lesson reveal log or shuffle execution/randomness; approval covers eligible middeck search and top placement only.",
+      "No credit for pitch siblings, fusion/surge-positive cases, prevention, alternative targets, phantasm discard mode, Gaze return-positive condition, search decline, exact max-cost boundary, illegal-target controls or target-loss branches."
+    ],
+    "mutation_scope": "Only this independent-review.json written."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "card-regression-sparse875-20261122-replay.json",
+    "sha256": "f1284f3fb9989a65bb2dafa10f8877f55d1e6fc9522fde415a753be0ef3c6e79"
+  },
+  "full_suite_run": false,
+  "source_spec_sha256": "83f0df2e5e09a312f509baa5456285c301ecc757533c8b4f97675364267cfde7",
+  "search_input_amendment": {
+    "utc": "2026-11-22T14:34:19.012757+00:00",
+    "affected_slug": "card-lesson-in-lava-yellow-four-live-sparse875-three-damage-selects-real-eligible-middeck-wizard-to-top",
+    "independent_delta_review": {
+      "review_type": "independent_static_search_input_delta_review",
+      "result": "approved_reduced_inputs_pending_targeted_requalification",
+      "spec_sha256": "6ce8967f8b3deaa78c2796e285b068a63996dcd60bc545951b01f61baaf76ad6",
+      "batch878_spec_sha256": "37900f02ce9e28b52dcf511525e705c95f04a50a792f3c53e155b0bef368efd6",
+      "reviewed": [
+        "call_to_the_grave_blue",
+        "lesson_in_lava_yellow",
+        "look_within_blue",
+        "phoenix_bannerman_arms_red",
+        "phoenix_bannerman_chest_red",
+        "phoenix_bannerman_head_red",
+        "phoenix_bannerman_legs_red",
+        "ominous_excavation_blue"
+      ],
+      "evidence": [
+        "Compared four amended specs with manifest source-spec backups and four changed B878 specs with 878-before.json. Each loses exactly one irrelevant initial Deck card. Native actions and all unrelated top-level fields remain unchanged; assertion deltas only reduce corresponding staged/deck counts and remove deleted filler existence checks.",
+        "Call to Grave retains two real selectable cards and chooses second to graveyard, leaving actual first card in deck. Source/selected UID and go-again checks remain.",
+        "Lesson and Look Within retain real ineligible first card plus eligible actual middeck Wizard/Chi, preserving eligibility discrimination and causal middeck-to-top outcomes.",
+        "Four Bannerman variants retain actual middeck Flame and one non-Flame, preserving eligible search, hand movement and correct distinct token outcomes.",
+        "Ominous retains actual graveyard Instant, moves it to initially empty real deck(count1/existence), preserves AP and requires no false Ponder; only irrelevant initial deck filler removed.",
+        "Twenty raw fixture backup hashes independently checked against manifest; all20 match.",
+        "Read-only RNG source confirms strong-entropy EngineShuffle uses random_int; reducing irrelevant remainders makes final fixture observations stable without changing runtime behavior."
+      ],
+      "oracle_or_flow_errors": [],
+      "engine_concerns": [
+        "Native multi-card strong-entropy shuffle remains outside deterministic snapshot certification; this amendment does not repair or certify it."
+      ],
+      "limitations": [
+        "No game execution, native tests, source edits, recordings or network performed.",
+        "Only named physical search/movement branches approved. No shuffle randomness/distribution or reveal observability claim.",
+        "Prior B874 Call and B875 Lesson require targeted requalification; this static review adds no coverage count. Other affected cases remain subject to actual record/replay results.",
+        "All prior named-branch exclusions remain, including token timing, later combat/buffs and alternate selections."
+      ],
+      "mutation_scope": "Only this independent-review.json written; original fixture backups preserved."
+    },
+    "backup_manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\search-replay-boundary-20261122\\manifest.json",
+    "backup_manifest_sha256": "354a16caa8ca1277cb10105f3c7748b0456600001827e3655e5851f9ebd3f0f6",
+    "limits": "Search movement/eligibility, not shuffle-randomness certification. Unchanged nine fixtures/replays reused."
+  }
+}

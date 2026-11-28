@@ -1,0 +1,7 @@
+{
+    "name": "Already Dead / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:31:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish opponents' non-action cards. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top card of their deck and a defending card. Representative only: actual_two_hand_blocks_prevent_hit_deck_and_defender_banish. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#already_dead_red"
+}

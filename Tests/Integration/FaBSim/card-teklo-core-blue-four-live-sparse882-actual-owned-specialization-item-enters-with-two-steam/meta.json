@@ -1,0 +1,7 @@
+{
+    "name": "Teklo Core / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:17:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Dash Specialization**\n\nThis enters the arena with 2 steam counters. When this has none, destroy it.\n\nAt the beginning of your action phase, remove a steam counter from this and gain {r}{r}. Representative only: actual_owned_specialization_item_enters_with_two_steam. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#teklo_core_blue"
+}

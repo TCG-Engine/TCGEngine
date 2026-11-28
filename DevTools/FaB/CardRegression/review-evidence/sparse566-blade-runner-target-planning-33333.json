@@ -1,0 +1,109 @@
+{
+  "status": "APPROVED_SELECTED_FORMAL_TARGET_PLANNING_LIMIT_ONLY",
+  "approved": true,
+  "planning_review_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/b106_semantic_review",
+  "reviewed_utc": "2026-11-06T04:01:40.572978+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch566-blade-runner-two-real-sword-attacks-author\\planning-hold.json",
+    "sha256": "15872aaa72ecf467e3b348d6568a17d0431a51f2e1377fb44ed8f94e33ef1408"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch566-blade-runner-two-real-sword-attacks-author\\manifest.json",
+    "sha256": "479966d2d988467e8335f207ea26959960a2c81e20521a2be759af0bb859e36b"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch566-blade-runner-two-real-sword-attacks-author\\frozen-author-QA.json",
+    "sha256": "aadd36ff004e592ec49db505bba5be4019e214b6174cf94786a4f8e34491fd93"
+  },
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guard_count": 69,
+  "all_actual_source_guards_match": true,
+  "baseline_manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-after140\\manifest.json",
+    "sha256": "6eccd65bad5d11ee6e8410abafe31e9f115dbd20b79b8a87a477b083d1b7a754"
+  },
+  "selected_source_guards": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/EVRCards.php": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "card_id": "blade_runner_red",
+  "group_id": "pitch-cycle:blade_runner",
+  "normative_basis": "Currentofficial1335+viewedEVR060: WarriorAttackReactioncost1/pitch1/DEF3. Its formalresolutiontarget is a1Hweaponattack; thattarget receivesgoagain, while nextweaponattack+3 is a separatenontargetfuturemodifier. CR5.1.4a declaresformalresolutiontargets beforeassetcostcalculation/payment/completedplayandresponses.",
+  "source_evidence": [
+    {
+      "path": "FaBSim/Custom/EVRCards.php",
+      "line": 48,
+      "finding": "ActualCanPlaychecksnonemptyeligible1HAttackrefs, but doesnotbind/store/formallydeclareatarget. Existencecheck isnot formalbinding."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "923-991,1264-1296",
+      "finding": "Unchangedfullordinaryplay/Preparedispatchreused fromcompletedselecteddeclarationreviewB556. Attack/LungingbranchesdonotbindthisWarriorreactiontarget. PrepareoverrideonlyusesexactNip/Shredpredicate; selectedgeneratedPrepareentryabsent. Neitherlatermanagedlifetime norARCabilityinfrastructure suppliesearlyformalbinding."
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "lines": "4-12,37-56",
+      "finding": "ExistingearlytargetinfrastructureadmitsNipBlue/Shredcycleonly; BladeRunnernotadmitted. Thisiscurrentselectedadmission, notglobalinterfaceincapability."
+    },
+    {
+      "path": "DevTools/FaB/evr_abilities.json",
+      "finding": "SelectedimplementedResolveCardbodyexists; it recomputes1HAttackrefs, awaitsGrant_go_again, tagschosenattackGO_AGAIN andregistersnextWEAPON3."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "830-835,42379-42419,254361,255820",
+      "runner": "__RunAwait_ce615c387d9f2b6d032c",
+      "finding": "ActualResolveclosurestartsrunnerPC6; PC6acquirescurrenttargets, PC4queuesMZCHOOSEduringresolution, PC2grantsGA andPC1recordsnextWeapon+3. CompleteexactCIDmentions showResolveentry/count, no selectedPrepareentry. Bodyandtransportexist."
+    }
+  ],
+  "classification": "SOURCE_ONLY_UNATTEMPTED_SELECTED_FORMAL_REACTION_TARGET_DEPENDENCY",
+  "finding": "Selectedcurrentpathasksformal1Hattacktargetduringresolutionandnoearlierselectedbindingwasestablished. Retainknownhelddeclarationdependency; do not releasea late-targetpassingrecipeortryanempty-effect/futurebuff-onlysubstitute. No nativewrongchronologyhasbeenobservedforthisnewselectedcase.",
+  "important_interface_boundary": "Rulesrequiretargetdeclaration, notnecessarilyaUIpopup. Asolelegal target may be automaticallydeclaredbyanestablishedinterface. Thisreviewdoesnotinventanearlymenu/privatefield, claimalltargettransportisimpossible, or approvea concrete nativeprobe withunestablishedfields.",
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1335/",
+      "actually_opened": true,
+      "finding": "CurrentRednormaltext/stats independentlyread."
+    },
+    {
+      "path": "FaBSim/WebpImages/blade_runner_red.webp",
+      "issuer": "EVR060",
+      "sha256": "ad05a54d7e0923c9fc5363891821113b6e7efec2cd76f415a08a9f620d3db2bd",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.1",
+        "5.1.4",
+        "5.1.4a",
+        "5.1.6",
+        "5.1.7"
+      ],
+      "evidence": "CurrentprimarytimingrulesreadinongoingB564/B556reviews; reusedunchanged."
+    }
+  ],
+  "limits": [
+    "REDselectedformal-targetrouteonly; bodyexists. No whole/globalabsence, totalinterfaceinability, newnativebug/issue/root/Core/fixture/coverageclaim.",
+    "TwoSword/quietFangpositiveconceptisnotanapprovedsupportsetup/nativeledger. Noactualpayment/target/GA/refund/power/damage/HP/zone/abilitylifetimeobserved.",
+    "No sibling, targetuniversecompleteness, alternativeproducer/body/pool or historicalfixtureaudit; no deniedhelddependencyretry.",
+    "No recipe/currenthistory/permission/APseed/unsupportedmenuorprivateparameter/sourceworkaround authored. No PHP/native/replay/Rwrite/sourcefix/fullsuite/codegen/service/remote/git."
+  ],
+  "source_spec_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "installable": false,
+  "recipe_count": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_engine_bug": false,
+  "issue_allocated": false,
+  "coverage_credit": false,
+  "repository_writes": false
+}

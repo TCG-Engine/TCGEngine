@@ -1,0 +1,372 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B674_MONEY",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T01:11:25.896202+00:00",
+  "source_spec": "card-regression-batch674-money.json",
+  "input_sha256": "a86d1b4477d1794dcfc834175eced7e7b14bab1635777c754c2aee2becb502cf",
+  "manifest_sha256": "80098df5585ac355a0cad67d1fce6f05e4f2d44a834577ccb6216cb4267718f2",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch674-money-independent-source-review.json",
+    "sha256": "978027a1fdd7a6541eeedc52e62fcc213a17dfb85290a7e432e9ffccf4dda785",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch674-money-20261107T010901Z-6aee7a2d3fe9a.json",
+    "sha256": "6432925425f8e57e5d09701b2c3b530019b9e8fe03e72272c0b4069164522228"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch674-money.recording-results.json",
+    "sha256": "06de434782b38fb0fd1f6313e6ddd37fc96d4adb2d5cffc3f1e5f9321c7a2db9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b674-money-native-recording\\receipt.json",
+    "sha256": "b9217fc68694d679eebc53d56abdfca0049b8c651f02d84299c075875ab6c7cc"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "money_where_ya_mouth_is_blue",
+      "group_id": "pitch-cycle:money_where_ya_mouth_is",
+      "slug": "card-money-where-ya-mouth-is-blue-four-live-real-paid-next-attack-and-opposing-ally-damage",
+      "source_spec": "card-regression-batch674-money.json",
+      "input_sha256": "a86d1b4477d1794dcfc834175eced7e7b14bab1635777c754c2aee2becb502cf",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PAID_NEXT_ATTACK_BOTH_GRANTS_REAL_ALLY_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-money-where-ya-mouth-is-blue-four-live-real-paid-next-attack-and-opposing-ally-damage",
+      "fixture_sha256": "99dc2cd276c4eb8c002b916d09a584d007dad4ed8db8c6a286c51b7cdb044939",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "3808c8480f3e909e4bac4849d346cc9c15bae8c55698a6cc809fc00a9cd9495d",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "f49f13d549fb52a9b598960992da81cd92ca1d54a5e96b74e989e766c6aa12e6",
+        "expected_final_gamestate.txt": "e3ba179d81fcf0e76ea83f815fe6db8dde4cbaa075cc5d25e43ce0826443bc8d"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3808c8480f3e909e4bac4849d346cc9c15bae8c55698a6cc809fc00a9cd9495d",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "f49f13d549fb52a9b598960992da81cd92ca1d54a5e96b74e989e766c6aa12e6",
+        "expected_final_gamestate.txt": "e3ba179d81fcf0e76ea83f815fe6db8dde4cbaa075cc5d25e43ce0826443bc8d",
+        "meta.json": "bd2f7b31f18046f76ab2e9202c938c406458830cd73b44aeec1f8308c41c64f1"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3808c8480f3e909e4bac4849d346cc9c15bae8c55698a6cc809fc00a9cd9495d",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "f49f13d549fb52a9b598960992da81cd92ca1d54a5e96b74e989e766c6aa12e6",
+        "expected_final_gamestate.txt": "e3ba179d81fcf0e76ea83f815fe6db8dde4cbaa075cc5d25e43ce0826443bc8d",
+        "meta.json": "bd2f7b31f18046f76ab2e9202c938c406458830cd73b44aeec1f8308c41c64f1"
+      },
+      "actions": 33,
+      "native_assertions": 2538,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 664,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "money_where_ya_mouth_is_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "kassai_cintari_sellsword",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "quicksilver_dagger",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "money_where_ya_mouth_is_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "chane",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "ursur_the_soul_reaper",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "9": {
+          "card_id": "eclipse_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "fasting_carcass_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "fasting_carcass_yellow",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "15": {
+          "card_id": "fasting_carcass_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "final_UniqueIDCounter": 16,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "6b24ee040cf44fe34007c9061255a59ecefb55d6dbd9e56fabe6c02882adbce3",
+      "native_assertion_mapping_sha256": "22fbb662430e737ac042c09ac1ade4353d575681fa5e66d4ad3421e22ec71ff3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2538,
+  "total_manual_passes": 29,
+  "total_schema_property_assertions": 664,
+  "material_findings": [
+    "Actualrawfive/33envelopes2538orderednativechecks/29manualactors/48preferences perendpoint/current70c53ab33 match Source978027 exactly. Fullphysicalendpoints and allterminalqueries independently parsed.",
+    "Actualprimary1/Blue7pitch3→R2AP0, fourfreshsource responses then ownGAAP1. RealDagger6 choosesAlly8 BEFOREproxy16 and pays1 fromfloatingR2/AP1→R1AP0. Both WTR_POWER1 and HVY_WAGERgold tags retained on actual16Stack/Chain; computedpower2/noGA.",
+    "Firstmaterialdamagewitness is SAMEUrsur8 Damage2, surviveslife6; allHeroHP20. ActualPERMANENT8 target leaves Hero-only wagerWHEN unearned; no simulateddecline/no earnedtrigger omitted/noGold. FullClose retains5GY/7Pitch/used6/Ally8Damage2/priorGY9..15, conservesphysicalUID1..15 and clearsvirtual16/counter16/RNG0/fullquiet."
+  ],
+  "limits": [
+    "Only BLUE next-attack scalar/grantedability transfer and actualAllydamage branch. Hero-attack wager/Gold/decline/other targets/secondweapon/futureEndreset/grantexpiry/siblings/fullcard remain untested. Bothprintedgrants retained, Hero-onlytrigger unearned.",
+    "Prior Chane/Eclipse/sixFasting provenance unexecuted/uncredited; no supportingHero/weapon/Ally/producer coverage. Knick remains a separate source-only planning limit. No ordinary synchronouspreclear timing certificate.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote/deniedretry. Rootfocusedreplays/registration/qualification separate. RawVersions hash-bound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch674_money_saved_readonly.py",
+    "sha256": "0af9ff36500f5a2ab29988f9676317ddb2d59d7a2be0f909ca2d7a70d93de1c5"
+  }
+}

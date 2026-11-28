@@ -1,0 +1,107 @@
+{
+  "status": "QUALIFIED_FOCUSED_TWO_CARD_FOUR_LIVE_MANAGED_COMPLETION_EXTENSION",
+  "issue": "FAB-REG-171",
+  "runtime_sha256": "0a5d4bf40e91dfeeafc2589480fa480630b3b5b32887dfb438e10964a5fc00eb",
+  "extends_existing_named_records": [
+    "FAB-REG-165",
+    "FAB-REG-168"
+  ],
+  "gameplay_files": [
+    "FaBSim/Custom/GameLogic.php"
+  ],
+  "change": "Only Pound and Tectonic are added to the existing managed ordinary-spell completion list. Existing kinds/ownership, completion machinery, other IDs and writer-barrier behavior are unchanged.",
+  "before_native": {
+    "path": "review-evidence/managed-lifetime171-pound-tectonic-native-before-cd734.json",
+    "sha256": "f1052a75c942ab19b7bb144554de4e8f8fc6c1b8b6cd9e10bf5d757af85da503"
+  },
+  "application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch782-two-id-managed-application.json",
+    "sha256": "086b5894adccf5689873cde4239d1a0f736f23d3c40223032b0821024eb236f7",
+    "role": "External preparation/receipt; not a replay dependency"
+  },
+  "independent_patch_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch782-two-id-managed-independent-source-review.json",
+    "sha256": "fa8f9ce964c4b05beafb5a001c3519af58bc6343b04f42871e67b40df0c06ba8",
+    "role": "External preparation/receipt; not a replay dependency"
+  },
+  "component": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch782-two-id-managed-component.json",
+    "sha256": "552af4aeff62d77576d6a7121ab5aaaedf3f2ca2205900745b783886bf50ee53",
+    "role": "External preparation/receipt; not a replay dependency"
+  },
+  "pure_kind_owner_comparisons": 62352,
+  "native_game_coverage_from_component": 0,
+  "qualified_cases": [
+    {
+      "card_id": "pound_of_flesh_blue",
+      "scenario_id": "card-pound-of-flesh-blue-four-live-all-four-real-choices-and-earned-go-again-actual-blank-consumer",
+      "source_spec": {
+        "path": "card-regression-batch782-pound-full.json",
+        "sha256": "1955cbc5572ee1cf0c172fde61f3277c366fa13c702161ecf1cb4ee7c992436b"
+      },
+      "native_after": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b782-pound-full-native-after-0a5d\\receipt.json",
+        "sha256": "7ad5a5c10325c34d218bcb8efe36b7443e8fddb75820bd251d3ce17aaf1acfa3",
+        "role": "External preparation/receipt; not a replay dependency"
+      },
+      "native_inputs": 36,
+      "native_assertions": 2272,
+      "independent_saved_review": {
+        "path": "review-evidence/sparse782-pound-independent-0a5d.json",
+        "sha256": "4dc6dbef0a6045990de23fffe79407b7a7b8bf1a74eb64e84fa366c9df69fa21"
+      },
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov14-b782-pound-clean1.json",
+          "sha256": "f60fb7ee37240f09cef31c2bacc350baebee370f97981cc6306e1e14cd082efe"
+        },
+        {
+          "path": "card-regression-replay-nov14-b782-pound-clean2.json",
+          "sha256": "5e99f246d0840fadf550c4634fbc97abe6d3b59c24cddd461de0114a8dd47a49"
+        }
+      ]
+    },
+    {
+      "card_id": "tectonic_instability_blue",
+      "scenario_id": "card-tectonic-instability-blue-four-live-all-four-real-choices-and-earned-go-again-actual-blank-consumer",
+      "source_spec": {
+        "path": "card-regression-batch782-tectonic-full.json",
+        "sha256": "32be5b011296a3ef8932c14d57f066f822fa0465e4dbe1c03282d7162082b2df"
+      },
+      "native_after": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b782-tectonic-full-native-after-0a5d\\receipt.json",
+        "sha256": "587dc2121d0c4ff0deb0916451f4bce76811df72511ca665a0f94d49f2b278f3",
+        "role": "External preparation/receipt; not a replay dependency"
+      },
+      "native_inputs": 36,
+      "native_assertions": 3054,
+      "independent_saved_review": {
+        "path": "review-evidence/sparse782-tectonic-independent-0a5d.json",
+        "sha256": "5b47089b92d0a3faafd7db20be2c12ba7f0d16fe3366e2ff14df82ed6eedab52"
+      },
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov14-b782-tectonic-clean1.json",
+          "sha256": "4ebc5e8ac6a21457985248b87204428e092ca02ea0c62c3482c5b61773ccfc53"
+        },
+        {
+          "path": "card-regression-replay-nov14-b782-tectonic-clean2.json",
+          "sha256": "84443caf002c2d4d8371e5e47d085a7c800368cc810d7b129d506b89ef3b73f5"
+        }
+      ]
+    }
+  ],
+  "gameplay_expectations_changed": false,
+  "full_suite_run": false,
+  "historical_corpus_replayed": false,
+  "historical_rows_retagged": false,
+  "globally_new_root_claim": false,
+  "global_counter_reallocation": false,
+  "limits": [
+    "Direct before observations: both Stack0 during actual pending first choice;327/311 prior checks persisted. No post-zone/AP export exists, so before GY/AP inferences are not claimed as direct observations.",
+    "After cases actually exercise all four choices, correct final life/card/token/ownership changes, source retention and completion, earned-AP consumers and cleanup.",
+    "One representative per standalone group only; no alternate choices, declined choices, empty-source cases, prevention, intermediate cross-seat movement/visibility ordering, future Surge discount, end-phase or full-card certification.",
+    "This is a bounded known enrollment-family extension, not a general automatic async detector or a globally new engine root. No other held/denied repair is retried.",
+    "All earlier qualification rows keep their actual runtimes. No historical or full-suite replay; the component is scalar predicate comparison, not card gameplay."
+  ]
+}

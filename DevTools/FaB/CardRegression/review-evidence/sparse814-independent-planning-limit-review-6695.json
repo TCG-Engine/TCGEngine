@@ -1,0 +1,257 @@
+{
+  "status": "B814_BOTH_INDEPENDENT_PLANNING_LIMIT_REVIEW",
+  "phase": "PLANNING",
+  "batch": 814,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T02:50:41.530636+00:00",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch814-firm-reservation.json",
+    "sha256": "5225d4be14fad63e3bd70feb9a2cad0b32bb303c628c8ad74b09a39385c09dc0"
+  },
+  "full_family_printing_alias_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch814-selected-helper-preflight.json",
+    "sha256": "ad476821a30f770905f7ade704b7bf1724858f60a991ac9a65e531348d8bd844"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "all82_base_and25_selected_actual_preimages_current": true,
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-that-all-real-two-versus-three-automatic-close-draw-author\\manifest.json",
+    "sha256": "fe5a37c4b7491e08b2cc250a70070d9f3d1c8a8d1b35591776f545155e226edf"
+  },
+  "required_source_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/PENCards.php": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+    "FaBSim/Custom/SUPCards.php": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/HVYRuntime.php": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+    "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "FaBSim/Custom/WTRAbilities.php": "08b6d572e83e797848eaee02f9288bbe2bdc7de1dbe1ce522de0cd95a6c94d5c",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "DevTools/FaB/sup_abilities.json": "92ca6f5909da4af9dcb9350b3d1f9e793611cae5326dce97e25a1a1d7c8fb85e",
+    "DevTools/FaB/arc_abilities.json": "ba33c47315cb5dd2a8116497b5525ec6d1b0fa917a0a3ee9424af5ccee16dce6",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf",
+    "DevTools/FaB/hvy_abilities.json": "8efacf3b7fc39648144096451ba5b181b7d04f90896a8203eacbcd9ac98a146a",
+    "DevTools/FaB/wtr_abilities.json": "1a1f6021e29d88fddc5ab6d8e656e55929e0fd8e708dd0ee5ad459b8b0b7a49b",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9"
+  },
+  "full13_selected_support_family_metadata_sha256": "f22f9e6a8d3b87942aca8da1d0c395176d97bffd8aa2a89203eba0f0a845cc2f",
+  "actually_viewed_faces": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\stadium_security_blue.webp",
+      "sha256": "03bb773049424f5634bebb5bddaf028073de7c98fe2393f34f5cfbd4ad7d784f"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\what_happens_next_blue.webp",
+      "sha256": "7856c29e1aae71151c5e4100f79884bd13a9f78222ad4dd0c7e1d9135cf9879c"
+    }
+  ],
+  "current_holds": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "d14ce217e437d20f488c7dccd4350786df918761039b83d5518ba1ab2019f467"
+  },
+  "known_Voltic229_row_sha256": "ab3b72449118581cacad2badb9caa0a34b1b6eecb2d9bd32dcfa41faed54019f",
+  "official_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.28",
+        "8.3.42"
+      ],
+      "finding": "Ambush permits Arsenaldefense. Suspense enterswithtwo, removesatownStart, destroysatzero. No currentToughness continuousdefensebonus."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4-7"
+      ],
+      "finding": "Effects thenGA precede ordinarysource departure/clear, including straightlineeffects."
+    }
+  ],
+  "cards": [
+    {
+      "card_id": "stadium_security_blue",
+      "group_id": "pitch-cycle:stadium_security",
+      "members": [
+        "stadium_security_red",
+        "stadium_security_yellow",
+        "stadium_security_blue"
+      ],
+      "classification": "UNATTEMPTED_FIXED_FIXTURE_DERIVED_CONTROL_HISTORY_MODEL_NOT_ESTABLISHED",
+      "author_planning_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch814-stadium-fixture-history-unattempted-planning-hold.json",
+        "sha256": "38c65baabce80d90a74c55767da178f4774117b2fee8a9af1e2d0e46479df4c8"
+      },
+      "independent_planning_review_complete": true,
+      "trace": [
+        {
+          "path": "FaBSim/Custom/PENCards.php",
+          "lines": "672-676",
+          "sha256": "3e7a54b0fe8426e65e7d2baadec53bbda7caff5c0a8e48f79b2832e0b2376a94",
+          "finding": "ActualwhileArsenalAmbush requires HVY_CONTROLLED_toughness only; no currentArena OR."
+        },
+        {
+          "path": "FaBSim/Custom/HVYCards.php",
+          "lines": "3;20-29",
+          "sha256": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+          "finding": "History is turneffect; actualtokencreation establishes it."
+        },
+        {
+          "path": "FaBSim/Custom/HVYRuntime.php",
+          "lines": "33",
+          "sha256": "e133c543240f428e8d7f8488971dcfd929720b066342d0d72b4f8cdbb64faa73",
+          "finding": "Separate Controlled helper includes currentlivepresence, but Stadium does not call it."
+        },
+        {
+          "path": "FaBSim/Custom/SUPCards.php",
+          "lines": "35-50",
+          "sha256": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+          "finding": "Ordinaryarenaentry and actualStart establishcontrolhistory."
+        },
+        {
+          "path": "DevTools/FaB/CardRegression/record_card_regressions.php",
+          "lines": "242-261",
+          "sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+          "finding": "FixedalreadyACTIONturn2 initialordinaryToughness directAddArena; initialemptyhistory; noStart or producer."
+        },
+        {
+          "path": "FaBSim/ZoneAccessors.php",
+          "lines": "130-151",
+          "sha256": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+          "finding": "Generated AddArena storescardandUID only; noSUPAfterMove/historyhook."
+        },
+        {
+          "path": "Core/EngineActionRunner.php",
+          "lines": "913-920",
+          "sha256": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+          "finding": "Mode11000 startsrecording only."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "2005-2035",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "AfteractiondoesnotreconstructcontrolhistoryforlivecurrentArena."
+        }
+      ],
+      "reason": "Legal-world currentToughnesscontrol satisfies printed controlled-this-turn, but this fixed initialfactory cannot establish required internal derivedhistory. Rootfirm explicitly requires fixture/history classification before gameplaybug. UNATTEMPTED setup-model limitation, no observed Ambush/CanBlock defect.",
+      "limits": [
+        "No actualArsenaldefense/FromZone/2damage/HP18/GY/Toughnessretention outcome; plannedonly.",
+        "No fakehistoryflag, Start, alternateproducer, Handblock, cost3attack, tokencreation/bonus or Pleiadesability fallback."
+      ],
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_root_cause_group": false,
+      "source_fix": false,
+      "repair_proposal": false
+    },
+    {
+      "card_id": "what_happens_next_blue",
+      "group_id": "identity:what_happens_next_blue",
+      "members": [
+        "what_happens_next_blue"
+      ],
+      "classification": "UNATTEMPTED_KNOWN_REQUIRED_FIXED_COME_SUPPORT_PHYSICAL_SOURCE_LIFETIME",
+      "author_planning_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch814-what-next-known-support-lifetime-unattempted-planning-hold.json",
+        "sha256": "71aefc05c0f0e6ecad42e27c0f970e12c333dd24b7fc940b20901e5c561c36da"
+      },
+      "independent_planning_review_complete": true,
+      "actual_fixed_support_canonical_entries": {
+        "DevTools/FaB/arc_abilities.json": {
+          "cardId": "come_to_fight_yellow",
+          "abilities": [
+            {
+              "macroName": "ResolveCard",
+              "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_AA', 2);",
+              "isImplemented": true
+            }
+          ]
+        },
+        "DevTools/FaB/out_abilities.json": {
+          "cardId": "come_to_fight_yellow",
+          "abilities": [
+            {
+              "macroName": "ResolveCard",
+              "abilityCode": "FaBWTRAddEffect($player, 'ARC_NEXT_AA', 2);",
+              "isImplemented": true
+            }
+          ]
+        }
+      },
+      "known_required_context": {
+        "index": 229,
+        "row_sha256": "ab3b72449118581cacad2badb9caa0a34b1b6eecb2d9bd32dcfa41faed54019f",
+        "card_id": "voltic_vanguard",
+        "reason": "Voltic's real played-Instant condition and prevention body exist. The fixed Sigil Blue support is outside the managed plain-spell cohort and its actual selected path moves the physical source from Stack to Graveyard before resolving gain-one-life instructions. A matching end-of-input life total would not certify the required source lifetime. The selected Voltic route remains unattempted; no alternative producer, seeded history, native attempt, fixture, coverage, confirmed gameplay bug, repair or primary-body absence claim. Original two-case proposal is preserved and unapproved; exact unchanged healthy Dance case proceeds independently in its mixed successor."
+      },
+      "trace": [
+        {
+          "path": "FaBSim/Custom/SUPCards.php",
+          "lines": "35-40;82-84;133-136",
+          "sha256": "24c0fd00537f40209632e8386c8571db993d6d452b38061f93bae9c2d7acaf74",
+          "finding": "ActualSuspenseentrytwo/firstprintedcost>=1tracker/WhatNextdiscount exist; primarybody notabsent."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1571-1573;1637-1682",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "BothcurrentordinarymanagedpredicatesexcluderealComeYellow/RGB."
+        },
+        {
+          "path": "FaBSim/Custom/GameLogic.php",
+          "lines": "1823-1827",
+          "sha256": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+          "finding": "NonpersistentActionphysicalsource movesStacktoGYbefore actualResolveRules+2instructions, thenGA. ExactVoltic229straightlinepreclear contract; noawaitexception."
+        }
+      ],
+      "reason": "Fixed route explicitly requires correct physical Come source lifetime. Actual straightline buff exists, but source clears before it. Same known Voltic229 Sigil straightline gainLife seam; matching laterAP/buff/damage would not certify lifetime. No new root or nativebug claim.",
+      "limits": [
+        "Entry2Suspense/discount1to0/actualComeGA+2/Red6damageHP14 remainUNRUN/uncredited.",
+        "No partial0Aura/countersonly/noqualifier/alternatefunding/basicRed4/fakecosthistory/StartEndexpiry fallback."
+      ],
+      "executable_cases": 0,
+      "native_attempted": false,
+      "diagnostic_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false,
+      "new_issue_claimed": false,
+      "new_root_cause_group": false,
+      "source_fix": false,
+      "repair_proposal": false
+    }
+  ],
+  "independent_planning_review_complete": true,
+  "source_executable_approved": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "ONEcompactcombinedproof/twoplanningrows only; no executableSource/Save gate, Native/replay/partialfallback/repair/R/source/Git action by reviewer.",
+    "Currentguardpreimages and fixedpaths verified; no historicalfixture/fullcorpus/currentwholecoveragecertificate."
+  ],
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "source_fix": false,
+  "repair_proposal": false
+}

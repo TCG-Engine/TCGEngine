@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "status-marked-four-live-sparse1581-foreign-instant-marks-hero-cleared-by-different-opponent-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=status-marked-four-live-sparse1581-foreign-instant-marks-hero-cleared-by-different-opponent-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1581-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1581-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a8794c1313895983f75817443fbf68d556f3fd58ff604b3ac984be7fcccce71e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c1d6e8676338186ecc9130dfc20ac52ef0ea5e4317c00c05ccbe2c77dc9b48e9",
+        "actions.json": "37f4ae46804b5b8528939b0717f749b2e1aea1e7bd806773b1071a7ea928895c",
+        "assertions.json": "572f207fb4701af3f7afc828b926260cfd4f0301a23ea95d58f602a2624da82d",
+        "expected_final_gamestate.txt": "ea060f3cdb417abdd5cf3e36d244c47f3596a901e0d2789e1b51b49f38b5c1d0",
+        "meta.json": "85289fd63400466d3298595baed734c0239f14cee48d2f0ae7d5a215daa765bb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

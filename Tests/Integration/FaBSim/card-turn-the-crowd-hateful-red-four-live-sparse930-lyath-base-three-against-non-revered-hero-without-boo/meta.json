@@ -1,0 +1,7 @@
+{
+    "name": "Turn the Crowd Hateful / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:26:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks a Revered hero, this gets +3{p}.\n\nWhen this hits a Revered hero, **the crowd boos** you. Representative only: lyath_base_three_against_non_revered_hero_without_boo. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#turn_the_crowd_hateful_red"
+}

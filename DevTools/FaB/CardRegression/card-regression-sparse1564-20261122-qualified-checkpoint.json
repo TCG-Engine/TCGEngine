@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T14:18:00.584109+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1564-20261122.json",
+  "source_spec_sha256": "5a417b51167317e2085af45b21cc01e51570443084779c03da2a9cf4feaa26bd",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 15,
+  "native_assertions": 292,
+  "manual_passes": 13,
+  "totals": {
+    "saved_registered_scenarios": 5657,
+    "duels": 3139,
+    "four_live": 2518,
+    "recorded_primary_ids": 2805,
+    "identity_denominator": 5196,
+    "recorded_groups": 2679,
+    "group_denominator": 3324,
+    "four_live_groups": 2507,
+    "phase_qualified_scenarios_at_actual_contexts": 2294,
+    "phase_qualified_unique_groups": 2284,
+    "creation_replay_passes": 3036,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1455,
+  "scenarios": [
+    {
+      "card_id": "katsu_the_wanderer",
+      "group_id": "identity:katsu_the_wanderer",
+      "scenario_id": "card-katsu-the-wanderer-two-live-sparse1564-first-own-aa-fully-blocked-no-hit-search-trigger",
+      "effect_branches": [
+        "own_first_real_attack_action_deals_zero_damage_so_first_Hit_discard_search_trigger_unearned"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-katsu-the-wanderer-two-live-sparse1564-first-own-aa-fully-blocked-no-hit-search-trigger",
+      "source_spec": "card-regression-sparse1564-20261122.json",
+      "source_spec_sha256": "5a417b51167317e2085af45b21cc01e51570443084779c03da2a9cf4feaa26bd",
+      "review_evidence": "review-evidence/sparse1564-20261122-qualified-saved.json",
+      "review_evidence_sha256": "71936d16b4231c1ef6e0d62498af750e1cde0db4b7050f3075e3911361dd5d78",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1564-20261122-replay.json",
+          "sha256": "c43837b8100c549cda4d2a93e815b7da07717f147a4e56889b4104509219f88e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

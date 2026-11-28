@@ -1,0 +1,7 @@
+{
+    "name": "Mask of Momentum / four-live ordinary defense and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:13:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Once per turn, when an attack action card you control is the third or higher chain link in a row to hit, draw a card.\n\n**Blade Break** Named ordinary DEF2/Blade Break close only. Legal natural20 Fai owns ready Equipment5 and Generic LeadCharge6 DEF2. Actual Rhinar1 Club7 power4, real Blue8 pays2/R1/AP0; all four live seats manually respond. Primary5 then Hand6 actually enter CombatChain RoleDEFENSE, exact totalDEF4 gives damage0/noHit/HP20. After normal close Blade Break destroys own Equipment5, then real Hand6 goes owned graveyard: p4GGY[5,6], Equipment0, no banish. Physical Club7 used/retained and Blue8Pitch. No own attack hits or activated body, no discard/search/banish/rename/Whirling/Vengeance/third-hit/Tiger/draw/hero ability event, no trigger-timing or prior-hold repair credit. No author-only diagnostics; Root independent review/native/save/replay pending. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mask_of_momentum"
+}

@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T23:03:52.888104+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1249-20261122.json",
+  "source_spec_sha256": "ab83f699406954f13a0a2728b1905e3ea1d5a216380556b4fcbe3cd5069176ba",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 66,
+  "native_assertions": 583,
+  "manual_passes": 57,
+  "totals": {
+    "saved_registered_scenarios": 5154,
+    "duels": 3075,
+    "four_live": 2079,
+    "recorded_primary_ids": 2302,
+    "identity_denominator": 5196,
+    "recorded_groups": 2176,
+    "group_denominator": 3324,
+    "four_live_groups": 2068,
+    "phase_qualified_scenarios_at_actual_contexts": 1791,
+    "phase_qualified_unique_groups": 1781,
+    "creation_replay_passes": 2533,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 952,
+  "scenarios": [
+    {
+      "card_id": "chains_of_eminence_red",
+      "group_id": "identity:chains_of_eminence_red",
+      "scenario_id": "card-chains-of-eminence-red-four-live-sparse1249-existing-global-name-lock-foreign-destruction-unlocks-real-attack",
+      "effect_branches": [
+        "existing_prior_named_permanent_rejects_actual_other_hero_hand_play_then_real_destruction_removes_global_lock_and_same_card_really_plays_and_deals_four"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-chains-of-eminence-red-four-live-sparse1249-existing-global-name-lock-foreign-destruction-unlocks-real-attack",
+      "source_spec": "card-regression-sparse1249-20261122.json",
+      "source_spec_sha256": "ab83f699406954f13a0a2728b1905e3ea1d5a216380556b4fcbe3cd5069176ba",
+      "review_evidence": "review-evidence/sparse1249-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a42572fcd5abf492efb70927fa4c844e916beae9a26f0d2fc8ac580e0a6a185c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1249-20261122-replay.json",
+          "sha256": "8ac30c42600f17a6491f9b11ddab38238ba106ad5b61981b172655fcc06ce807",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "null_time_zone_blue",
+      "group_id": "identity:null_time_zone_blue",
+      "scenario_id": "card-null-time-zone-blue-four-live-sparse1249-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+      "effect_branches": [
+        "existing_prior_named_permanent_rejects_actual_other_hero_hand_play_then_same_named_card_really_plays_from_arsenal_and_deals_four_while_named_item_persists"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-null-time-zone-blue-four-live-sparse1249-existing-hand-name-lock-allows-same-name-from-real-arsenal",
+      "source_spec": "card-regression-sparse1249-20261122.json",
+      "source_spec_sha256": "ab83f699406954f13a0a2728b1905e3ea1d5a216380556b4fcbe3cd5069176ba",
+      "review_evidence": "review-evidence/sparse1249-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a42572fcd5abf492efb70927fa4c844e916beae9a26f0d2fc8ac580e0a6a185c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1249-20261122-replay.json",
+          "sha256": "8ac30c42600f17a6491f9b11ddab38238ba106ad5b61981b172655fcc06ce807",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

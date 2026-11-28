@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T13:48:37.470604+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1394-20261122.json",
+  "source_spec_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 40,
+  "native_assertions": 381,
+  "manual_passes": 37,
+  "totals": {
+    "saved_registered_scenarios": 5394,
+    "duels": 3113,
+    "four_live": 2281,
+    "recorded_primary_ids": 2542,
+    "identity_denominator": 5196,
+    "recorded_groups": 2416,
+    "group_denominator": 3324,
+    "four_live_groups": 2270,
+    "phase_qualified_scenarios_at_actual_contexts": 2031,
+    "phase_qualified_unique_groups": 2021,
+    "creation_replay_passes": 2773,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1192,
+  "scenarios": [
+    {
+      "card_id": "talisman_of_balance_blue",
+      "group_id": "identity:talisman_of_balance_blue",
+      "scenario_id": "card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+      "effect_branches": [
+        "native_item_play_and_equal_empty_arsenals_no_end_trigger_real_top_deck_normally_drawn_then_next_seat_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-talisman-of-balance-blue-four-live-sparse1394-equal-empty-arsenals-no-end-load-normal-draw-then-next-seat-attack",
+      "source_spec": "card-regression-sparse1394-20261122.json",
+      "source_spec_sha256": "69db727b18ae881d7c3e23e49c7bafa3410bad402714fb15f663e4147bf8c386",
+      "review_evidence": "review-evidence/sparse1394-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bc045eff2b902a48a4de4c2f75276374152fe0102a156c8d3d9061bb6929e3c3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1394-20261122-replay.json",
+          "sha256": "1e3be07b7f00240cbb740ba554948f32707e7933de251321761ddecb90fb5646",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

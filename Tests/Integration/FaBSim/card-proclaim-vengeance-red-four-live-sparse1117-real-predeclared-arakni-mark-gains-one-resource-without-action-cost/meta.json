@@ -1,0 +1,7 @@
+{
+    "name": "Proclaim Vengeance / actual four-live mark effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:13:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Mark** target opposing hero. If that hero is Arakni, gain {r}. Named actual branch only. Natural young Fai20, four live UPFmanualresponses, no preseeded effects/history/marks. Formal adjacent opposingHero4 choice before cost/priority. Real zero-cost Instant against actual young Arakni20 marks onlyHero4 and gains1resource while AP1unchanged, source5ownedGY1. No alternatehero/negativecondition/pitchsibling/secondconsumer/expiry/supporthero/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#proclaim_vengeance_red"
+}

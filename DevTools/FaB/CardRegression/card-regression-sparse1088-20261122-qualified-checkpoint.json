@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T06:02:29.052399+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1088-20261122.json",
+  "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 30,
+  "native_assertions": 1468,
+  "manual_passes": 20,
+  "totals": {
+    "saved_registered_scenarios": 4948,
+    "duels": 3075,
+    "four_live": 1873,
+    "recorded_primary_ids": 2096,
+    "identity_denominator": 5196,
+    "recorded_groups": 1970,
+    "group_denominator": 3324,
+    "four_live_groups": 1862,
+    "phase_qualified_scenarios_at_actual_contexts": 1585,
+    "phase_qualified_unique_groups": 1575,
+    "creation_replay_passes": 2327,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 746,
+  "scenarios": [
+    {
+      "card_id": "tome_of_necrosis_red",
+      "group_id": "identity:tome_of_necrosis_red",
+      "scenario_id": "card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+      "effect_branches": [
+        "no_ally_cost_available"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tome-of-necrosis-red-four-live-sparse1088-no-ally-cost-available",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "review_evidence": "review-evidence/sparse1088-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fb3377488f47c1401c7cec4e59a2c8f5c8c2f480e4b5890534ef0628c9b13127",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1088-20261122-replay.json",
+          "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "convulsions_from_the_bellows_of_hell_red",
+      "group_id": "pitch-cycle:convulsions_from_the_bellows_of_hell",
+      "scenario_id": "card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "effect_branches": [
+        "only_two_graveyard_cards_for_mandatory_three_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-convulsions-from-the-bellows-of-hell-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "review_evidence": "review-evidence/sparse1088-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fb3377488f47c1401c7cec4e59a2c8f5c8c2f480e4b5890534ef0628c9b13127",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1088-20261122-replay.json",
+          "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "boneyard_marauder_red",
+      "group_id": "pitch-cycle:boneyard_marauder",
+      "scenario_id": "card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "effect_branches": [
+        "only_two_graveyard_cards_for_mandatory_three_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-boneyard-marauder-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "review_evidence": "review-evidence/sparse1088-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fb3377488f47c1401c7cec4e59a2c8f5c8c2f480e4b5890534ef0628c9b13127",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1088-20261122-replay.json",
+          "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hungering_slaughterbeast_red",
+      "group_id": "pitch-cycle:hungering_slaughterbeast",
+      "scenario_id": "card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "effect_branches": [
+        "only_two_graveyard_cards_for_mandatory_three_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hungering-slaughterbeast-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "review_evidence": "review-evidence/sparse1088-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fb3377488f47c1401c7cec4e59a2c8f5c8c2f480e4b5890534ef0628c9b13127",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1088-20261122-replay.json",
+          "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "writhing_beast_hulk_red",
+      "group_id": "pitch-cycle:writhing_beast_hulk",
+      "scenario_id": "card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "effect_branches": [
+        "only_two_graveyard_cards_for_mandatory_three_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-writhing-beast-hulk-red-four-live-sparse1088-only-two-graveyard-cards-for-mandatory-three-banish",
+      "source_spec": "card-regression-sparse1088-20261122.json",
+      "source_spec_sha256": "f1c8bc9739408a35fd2007da04b9a12eea5d7022a9e2e790acd403d580df1210",
+      "review_evidence": "review-evidence/sparse1088-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fb3377488f47c1401c7cec4e59a2c8f5c8c2f480e4b5890534ef0628c9b13127",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1088-20261122-replay.json",
+          "sha256": "e0f49d4c81f0457bf37d0bafead5e48985324839221f82b8be1c31cace588978",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

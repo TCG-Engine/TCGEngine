@@ -1,0 +1,7 @@
+{
+    "name": "Fang Strike / actual Dagger does not satisfy reaction target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:55:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalNuu20/manual4. Primary5preexistingHand (createdFang/Slitherbirthuncredited). RealSpider8targetHero4/Blue6pitch3pays2R1/AP0/proxy10source8. ActualDaggerAssassinweapon1/GA, Razor9Handdefense2(noequipment/Piercing), REACTION1 primary0or1affordable. DaggerisnotAttackAction; VenomclassisAssassinbutstillnotAA, trueBluepitchdoesnotwaiveformalAAtarget. ClickmustrejectsameHand5/BluePitch6/PotionHand7/UID10/StackDQ/1power2defense/GApreserved. Actual0damage/falsehit earnsnoSpiderHit/NuuStealthlinkeffect. FullcloseweaponGAAP1 thenactualPotion7Action/all4responsesspendsAP0. Endprimary5Hand/weapon8tapped/Pitch6/ArenaPotion7/opGYRazor9/R1/allHP20/noextraFang/Slither/Agility/UID/await. Rejection-onlyprimarytargetguard; no primarypositiveeffect/targettiming/creation/Ephemeral/conditionbonus/siblingscredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fang_strike FaBSim/Custom/MSTCards.php#FaBMSTCanPlay FaBSim/Custom/HNTRuntime.php#FaBHNTCanPlay FaBSim/Custom/DYNRuntime.php#FaBDYNWeaponAttack"
+}

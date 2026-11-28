@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch784-kiss-full.json",
+  "runtime_sha256": "d3356696c3bb58e9c0b201aa4c74cfb855e870ddb3bac86e13f91e710d23a977",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T05:13:12.732217+00:00",
+  "fixtures": [
+    {
+      "slug": "card-kiss-of-death-red-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "fixture_sha256": "868f7b8fb4f377871299bfa3daaaf6b4702f02e612f59da168470ffd238d57b0",
+      "passed": true,
+      "result": "[PASS] Kiss of Death / actual responseable trigger and complete combat"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-kiss-of-death-red-four-live-responseable-trigger-real-effect-and-combat-cleanup",
+      "returncode": 0,
+      "stdout": "[PASS] Kiss of Death / actual responseable trigger and complete combat\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

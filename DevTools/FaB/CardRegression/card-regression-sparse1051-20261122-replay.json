@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "hyper-x3-four-live-sparse1051-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=hyper-x3-four-live-sparse1051-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8805e3194f80feba8ee03a84c78a65284f70bd91d2cef57c43c7dd8f284ab557",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14be84dd5e72132583f353b933570df383676a19f43442b9c13dd6093c2f47bc",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "91e2d2c893b478fd2f6d38fcaa064519945ee6c0827044f74a43e4ac2435451c",
+        "expected_final_gamestate.txt": "944bf3c8d0096bcf0c94a171d06dcbf6195425cc28ff559feda642f12caa913a",
+        "meta.json": "9258414f995f07e67be187d9a43840f46a5191b5c1629d0847f708d53eff33ab"
+      }
+    },
+    {
+      "slug": "hood-of-red-sand-four-live-sparse1051-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=hood-of-red-sand-four-live-sparse1051-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6148587f71f1aefe06dd61b3eeabe7931518c336b2c56b8538432cd5c54f4019",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cb9d6168727916f5854e2f3779fde4c3b6d3b40f7740c3352a465d4ffc39ba97",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "4a68669ef87b6e2299fd8c00ab0c337b9e51400410c29ec68333c8bea7cd9efb",
+        "expected_final_gamestate.txt": "05b123b8d9e394ac8f700ed626d04de432f6db460cb62b44ac6a25f014336fbb",
+        "meta.json": "77b4c155ce97182c8a0fb70387e1b5370a675944f2e0fb281137ad4aa733f515"
+      }
+    },
+    {
+      "slug": "valiant-dynamo-four-live-sparse1051-real-defense-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=valiant-dynamo-four-live-sparse1051-real-defense-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1051-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7d3e324e42d59f4b8152fb5d481dcc2320abf0bf0741b00b8303c021439cea67",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da6c170260968bc97706fe2e77a46f8267f0cac6b310099ed5ef12c6975d8225",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "24ffc0490c7d15fee28278466fe8027e0ede525f2338bb8f73ad3c46fcfb9bd8",
+        "expected_final_gamestate.txt": "2632eb73a1ff333f65d9af92b9d5d5a36caa7d4c53b1e85a25890d6083918edf",
+        "meta.json": "3859a090aa1c120ca1142bc53968c20c005c2dc26aedb40ab8d1ae7baa1529c3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

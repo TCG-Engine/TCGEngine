@@ -1,0 +1,7 @@
+{
+    "name": "Azalea Ace in the Hole / real arsenal swap and Dominate rejects second Hand defender",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:27:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_AZALEA40_TWO_LIVE_NATIVE_DUEL_ONLY. NaturalAzaleaAce40/Dori40; realTakeAim3faceDownArsenal1/topSearingBlue4Deck1, actualBlock5andSecond6Hand2, nohistory/permission/attackbonusseed. HeroAction0AP1to0/ABI8beforebothresponses; ownarsenalbottomingisresolutioneffectnotcost, so3and4stayuntilbothrespond. ActualnonTargetchoose3withABI8Stack/AP0; 3goesonlyDeckbottomandoriginal4becomesfaceupArsenal. OnlychoicecompletionreturnsGAAP1. Actualsame4Arrowcost0fromArsenalplays/spendsreturnedAP, autoonlyHero2; realbase2(noTakeAimplayed/nobuff). ActualBlock5Hand3defends, actualSecond6HandattemptrejectsunderprimarygrantedDominateandstaysHand6. Actual2vs3deals0/noHit/HP40soSearinghitWHENunearned. Final4GY1/3Deck1/5GY2/6Hand2/APR0/UID8RNG0/emptyStackDQCC. NoYoung/four-live/nonArrow/emptyDeck/extraArsenal/expiry/onceRepeat/Arrowhit/TakeAim/support/fullcardcredit. ActualinactiveDeathDealer7Weapons1isrequiredlegalBowpresenceforArrowplay; noBowactivation/draw/producercredit. HeroABIis8aftertwoheroesandfiveassets, original3/4/5/6identitiesandallspell/Dominate/damageexpectationsunchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#azalea_ace_in_the_hole FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php"
+}

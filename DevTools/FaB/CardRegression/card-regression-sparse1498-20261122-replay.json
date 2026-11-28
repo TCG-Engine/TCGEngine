@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d5ee449e3aa713865ef74f15a60666996b3373230b6efd5b2f02cee57e2f2659",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3251e1f63fe18fb34214dd5e00b1bd06b5ac4e3331eccd63809e5bb6e6a3c894",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "0ebe0f87733de529efbd5bdd1f941e93fd1c71ec25acd7a3141ac7fd230fafec",
+        "expected_final_gamestate.txt": "8e966de09e93fd5c9b12053dbfbbeca3a5e723bc58df72ef48a163d30469204f",
+        "meta.json": "e209eccc0672392b760d1080f86924e3c07c5ecd287515ab720d2bb85ab82ede"
+      }
+    },
+    {
+      "slug": "card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "04ebe4014eba7f7388765e4ec49c795c0c937005e362b16d2a3c1d6fb195b0bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "184c00bc3cb6cb7789b5febdb19fc966bdf0cf201aee92594a2e57b3a431e6b5",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "1fe936c0a4e7a1152fb639977dcbf0fc53e815e9422208bd1ca96357372af3e5",
+        "expected_final_gamestate.txt": "294dc57b139c09650571ff4c0865b9dd10aefd0f9a73982c4e0a23d0aca3f669",
+        "meta.json": "763d3ee329f41d4f43de409e97b4007e832fcfc8ddfaae15538938efdec1f97c"
+      }
+    },
+    {
+      "slug": "card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2281adb69488bbf46ca456578ea8e7153f0d04ccec6449b067f7f523e035f3eb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b620613d03de54518dcc237eb316aa18d1d670e8ee64d48f0566f847d17989e",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "bc8cd3b1dfe9e270789fc06ab9a76d3696e2ba6d0304134f2237a259090dc424",
+        "expected_final_gamestate.txt": "a8e9751557c6ea2b1b8eaabba2fc922c73c8d7982b2a9290a0b904a0dedfb766",
+        "meta.json": "c20e23dcb4759c73a848626c4cc41ad616491d10224ad7e5741e25b5d86e53ed"
+      }
+    },
+    {
+      "slug": "card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1498-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ae2cc2fabc632ff6b7e7f6168d0940c57468c3b47eca8920c1af6b714b89a306",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7fcd8cf28a5af6cdcb0604ab81b48a558fd4ef6175285280456f47d48c952f39",
+        "actions.json": "1d34c5e77da0688715e90a995077fa0a116813ce5268121d53d42df11f1b65b2",
+        "assertions.json": "73c350c9abc4cab31b2829b8c37d1a19c9a57d152d2794d13f1d2863d80bf4de",
+        "expected_final_gamestate.txt": "19a082c8a34dae9953d139cf12e75f3f41144e85ce5a4ce46911a34f03c986f2",
+        "meta.json": "95e970ad241ea511d9b97df62110e221db860534596ce2cb7e2cd426329bf182"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

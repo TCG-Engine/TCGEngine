@@ -127,7 +127,11 @@ for c in json.loads((HERE/'hnt_catalog.json').read_text()):
   add('Defended',"FaBHNTDefended($player, '"+b+"');")
  if b=='mask_of_deceit':add('Defended',"$attacker = intval(FaBGetState()['attacker']); if (FaBHNTMarked($attacker)) { $options = implode('&', FaBHNTAgents()); $mode = await $player.Modal(1, 1, $options, \"Choose_Agent_of_Chaos\"); FaBHNTBecome($player, intval($mode)); } else { FaBHNTBecome($player); }")
  if b in ['misfire_dampener','enchanted_quiver','tremorshield_sabatons']:add('ResolveAbility',"FaBWTRAddEffect($player, 'ARC_PREVENT', "+{'misfire_dampener':"FaBARCEffect($player, 'ARC_BOOSTED') > 0",'enchanted_quiver':"FaBDYNAimTargets($player) !== ''",'tremorshield_sabatons':"FaBHNTCount($player, 'SEISMIC') > 0 || count(FaBMONArena($player, 'seismic_surge')) > 0"}[b]+" ? 2 : 1);")
- if b in ['reapers_call','tip_off']:add('ResolveAbility',mark_target())
+ if b in ['reapers_call','tip_off']:
+  if id=='tip_off_blue':
+   add('PrepareCard','$tipUID = intval(FaBIdentityFromMZ($mzID)[\'object\']->UniqueID ?? 0);\n$tipDeclaration = FaBHNTBeginTipTarget($player, $tipUID);\n$tipRefs = strval($tipDeclaration[\'refs\'] ?? \'\');\n$tipToken = intval($tipDeclaration[\'token\'] ?? 0);\nif ($tipRefs !== \'\') {\n $tipChosen = await $player.MZChoose($tipRefs, "Choose_opposing_hero");\n if (FaBHNTBindTipTarget($player, $tipUID, $tipToken, $tipChosen)) { FaBFinishPreparedCard($tipUID); }\n}\n')
+   add('ResolveAbility','FaBHNTResolveTipTarget($player, intval(DecisionQueueController::GetVariable("arcAbilityUID")));\n')
+  else:add('ResolveAbility',mark_target())
  if b=='shelter_from_the_storm':add('ResolveAbility',f"FaBHNTAdd($player, 'CALM', {v});")
  if b=='under_the_trap_door':add('ResolveAbility',choose("FaBROSRefs($player, 'Graveyard', 'Trap')",'Banish_trap',False)+"if ($chosen !== '-') { FaBHNTTrap($player, FaBUPRUIDs($chosen)[0], false); }")
  if b=='thick_hide_hunter':

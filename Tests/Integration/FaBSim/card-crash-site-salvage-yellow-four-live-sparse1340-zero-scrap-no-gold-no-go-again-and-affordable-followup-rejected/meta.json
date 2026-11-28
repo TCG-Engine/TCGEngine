@@ -1,0 +1,7 @@
+{
+    "name": "Crash Site Salvage / real base attack and false conditional action-refund guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:26:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DASH20_THREEDORI20. Crash5cost0/AP1to0, emptyGYandnoeligibleScrapobject/noobjectcostactuallyperformed/no099seam. Scrappedfalse\u2192interveningWHENnotearned/noGA/noCogGold. Real3damageHP17/Arenaall0/noBanish/UID6RNG0. Afterfullcloseactual0costGenericWounding6FACEDOWNArsenalcanbeplayedfromthatlegalzoneandisresourceaffordable(R0),butAP0soactualnativeclickrejectswithsameownedUID/FaceDown/emptyStackDQ/noTarget/pendingPayment/resources/HP/uniqueIDsunchanged. ThispinsnounEarnedgoAgainthroughnativeconsumerfailure. Primary5GY1/Wounding6Arsenal1/otherzonesempty/AP0/StackDQCCquiet. OnlyactualbaseattackandfalseCombo/Scrap/noRefund/tokenGuard; positiveCombo/Scrap/GA/grantedtoken/trigger/secondary/Hero/siblings/fullcardUNTESTED_UNCREDITED. Sources: FaBSim/GeneratedCode/cardArrayCache.json#crash_site_salvage_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MSTCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

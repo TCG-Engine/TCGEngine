@@ -105,7 +105,7 @@ for c in cards:
  if base=='seek_and_destroy':add('ResolveCard',nxt('ARROW',3,['ELE_SEEK_DESTROY']))
  if base=='tear_asunder':
   add('ResolveCard',nxt('GUARDIAN',1,['DOMINATE','ELE_TEAR']))
-  add('ResolveAbility',"$target = intval(FaBGetState()['defender']);"+discard(2))
+  add('ResolveAbility',"$target = FaBELECapturedTearVictim($player);"+discard(2).replace("$maximum = min(2, FaBHandCount($target));", "$maximum = $target > 0 ? min(2, FaBHandCount($target)) : 0;"))
  if base=='over_flex':add('ResolveCard',nxt('ARROW',v+1)+reload())
  if base=='pulse_of_volthaven':add('ResolveCard',nxt('ELEMENT',4))
  if base=='pulse_of_isenloft':add('ResolveCard',eff('PULSE_DEFENSE'))
@@ -118,13 +118,14 @@ for c in cards:
  if base=='blizzard':add('ResolveCard',UID+"$attackUID = intval(FaBGetState()['attackUID']); $target = intval(FaBGetState()['attacker']);"+pay(2,'$target')+" if (!$paid) { FaBTagUID($attackUID, 'ELE_NO_GO'); }")
  if base=='lightning_press':add('ResolveCard',choice("FaBELECombatChoices('AA', '', 1)",'Empower_attack',False)+f" if ($chosen !== 'PASS') {{ FaBTagUID(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID), 'WTR_POWER:{v}'); }}")
  if base=='summerwood_shelter':add('ResolveCard',choice("FaBELECombatChoices('DEFENSE', 'Earth|Elemental')",'Empower_defense',False)+f" if ($chosen !== 'PASS') {{ FaBTagUID(intval(FaBIdentityFromMZ($chosen)['object']->UniqueID), 'WTR_DEFENSE:{v+1}'); }}")
- if base in ['emerging_avalanche','strength_of_sequoia']:add('ResolveCard',fused(target()+"FaBELEFrost($target);" if base=='emerging_avalanche' else "FaBWTRCreateArena($player, 'seismic_surge');"))
+ if base=='emerging_avalanche':add('ResolveCard','/* Entry trigger parameters and payload are owned by the native Emerging layer. */\n')
+ if base=='strength_of_sequoia':add('ResolveCard',fused("FaBWTRCreateArena($player, 'seismic_surge');"))
  if base=='embolden':add('ResolveCard',"if (FaBELEOtherAura($player, intval(FaBIdentityFromMZ($mzID)['object']->UniqueID))) { DoDrawCard($player, 1); }")
  if base=='break_ground':add('AttackDeclared',choice("implode('&', FaBChoiceRefs($player, 'Arsenal'))",'Bottom_arsenal_to_draw')+" if ($chosen !== 'PASS') { FaBMoveChoice($player, $chosen, 'Arsenal', 'Deck'); DoDrawCard($player, 1); }")
  if base=='rites_of_replenishment':
   add('AttackDeclared',"if (FaBCRUArcane($player)) { "+retrieve('','NAA','Deck')+' }'+fused(retrieve('','AA','Deck')))
  if base=='vela_flash':add('CardPlayed',fused(eff('NEXT_INSTANT')))
- if base=='snap_shot':add('CardPlayed',fused(eff('SNAP')))
+ if base=='snap_shot':add('CardPlayed',"/* Attack trigger is queued by FaBELEAttack. */")
  if base=='blossoming_spellblade':add('ResolveAbility',choice("FaBELESelect($player, 'Graveyard', '', 'NAA')",'Banish_non_attack_to_play')+" if ($chosen !== 'PASS') { FaBELESpellblade($player, $chosen); }")
  if base=='tome_of_harvests':
   add('PrepareCard',UID+choice("implode('&', FaBChoiceRefs($player, 'Arsenal'))",'Bottom_arsenal_as_cost',False)+" if (!FaBDeclarePreparedEffectCost($player, $uid, 'ARSENAL_BOTTOM', $chosen)) { return; } FaBFinishPreparedCard($uid);")

@@ -1,0 +1,7 @@
+{
+    "name": "Bridge of Damnation / play, persistence and actual go again only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:29:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PLAY/PERSISTENCE/GOAGAINONLY. FourmanualnaturalYoungmalice20/3Dori20. Realprimary5Hand1cost0 plusrealGenericWounding6Hand1. Nativeplay5chargesAP1to0andkeeps5Stack/Arena0/AP0throughallfourfreshresponses. Resolutionmovesownedphysical5Arena1andreturnsoneAPbyitsownprintedGA. ActualsubsequentWounding6click/adjacentHero4formalchoiceusesexactlythisAP1to0; fourfreshsource/combatroundsdealreal4/HP16. WoundinghasGAfalseandnoAPrefund. CurrentTurn1/Number2ACTIONremainsbefore/aftercombat, so noStartorEndphaseeventforprimaryisearned. NoZombie dies/Maliceevent, noBlueGYpermissionfromGravy, noEarthBanish/FlorianAuraTokenreplacement. Final5Arena1/6GY1/UID6/RNG0/emptyotherzones/StackDQs/APR0. Explicitlimitedbaseline: notBridgeupkeep, Shiftingpitch/bottomordestroy, Doomsayingdoomcounter/forcedAuradestruction, anyphaseholdrelease, Hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bridge_of_damnation_blue FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

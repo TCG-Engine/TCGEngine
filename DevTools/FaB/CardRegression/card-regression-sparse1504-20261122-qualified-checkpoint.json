@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T06:27:04.215108+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1504-20261122.json",
+  "source_spec_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 720,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5585,
+    "duels": 3136,
+    "four_live": 2449,
+    "recorded_primary_ids": 2733,
+    "identity_denominator": 5196,
+    "recorded_groups": 2607,
+    "group_denominator": 3324,
+    "four_live_groups": 2438,
+    "phase_qualified_scenarios_at_actual_contexts": 2222,
+    "phase_qualified_unique_groups": 2212,
+    "creation_replay_passes": 2964,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1383,
+  "scenarios": [
+    {
+      "card_id": "gesture_of_goodwill_blue",
+      "group_id": "identity:gesture_of_goodwill_blue",
+      "scenario_id": "card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+      "effect_branches": [
+        "limited_negative_ordinary_own_Hero_block_does_not_protect_another_Hero_or_earn_token_gift_with_real_relevant_token_present"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gesture-of-goodwill-blue-four-live-sparse1504-actual-own-hero-block-is-not-protecting-another-hero-with-token-available",
+      "source_spec": "card-regression-sparse1504-20261122.json",
+      "source_spec_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+      "review_evidence": "review-evidence/sparse1504-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1c9cde5faa4fcc5335df17e5addf2b988e409d841e13ec0880ffadac97442d4c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1504-20261122-replay.json",
+          "sha256": "67d887487896936172f00e5cea774f143473cea6db35a755dc60d158d20d231a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "not_so_tuff_blue",
+      "group_id": "identity:not_so_tuff_blue",
+      "scenario_id": "card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+      "effect_branches": [
+        "limited_negative_non_Revered_Hero_attack_does_not_earn_Toughness_destroy_or_Might_creation_with_real_relevant_token_present"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-not-so-tuff-blue-four-live-sparse1504-actual-non-revered-attack-does-not-destroy-real-toughness-or-create-might",
+      "source_spec": "card-regression-sparse1504-20261122.json",
+      "source_spec_sha256": "bdb01a54503b750403e4c34eb8f374b111c51070dd5f55fa38159de095b79d16",
+      "review_evidence": "review-evidence/sparse1504-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1c9cde5faa4fcc5335df17e5addf2b988e409d841e13ec0880ffadac97442d4c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1504-20261122-replay.json",
+          "sha256": "67d887487896936172f00e5cea774f143473cea6db35a755dc60d158d20d231a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

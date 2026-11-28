@@ -1,0 +1,7 @@
+{
+    "name": "Edge of Their Seats Blue / real zero, separate leave and seven-damage consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T21:09:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact Blue Edge new pitch-cycle representative. Reuses unchanged independently Source-reviewed Act-R4 control flow at the same a11 runtime; only new source identity and printed+3/actualpower7/actualdamage7/HP13 differ. Legal pre-existing physicalEdge6Arena SUSP1/no buff, Pleiades1ready/R0/AP1, Red5Hand, four live/manual Young. Native hero click/remove1 pays TAP and counter before priority; zero8 receives four responses, rechecks0 and destroys6; separateearnedLeave9 receives four responses before SUP_NEXT3; originalHero7 independently receives four responses and resolves with no eligibleAura/no counter addition/APrefund. NativeRed5 formalHero4target/cost0 consumes+3 into POWER3tag, fullfourlive source/combat givespower7/noGA/actual7physicalHP13 and full physical6+5ownGY/emptyArenaStackqueueschains/RAP0/Hero1Tapped. Exact turnEffects history is EVR_ACTIVATED, DTD_HERO_USED, EVR_GRAVEYARD and SEA_BLUE_GRAVE; SUP_NEXTamount3 appears only after the leave layer resolves. OMN counters use separate state and are unclaimed by this fixture. No own castcost3/entry2/naturalstartphase, sibling/fullcard/control/suppression/otherlistener/genericvirtualdeletionorder credit. Sources: https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/ https://rules.fabtcg.com/en/cr/05-layers/"
+}

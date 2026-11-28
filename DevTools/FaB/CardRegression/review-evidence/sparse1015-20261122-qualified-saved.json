@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent review of breadth_review authored source-spec; exact printed constraints and current activation rows/guards inspected",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1015-20261122.json",
+  "source_spec_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+  "input_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-graven-gaslight-four-live-sparse1015-already-equipped-with-two-real-silver-rejects-graveyard-only-activation",
+      "card_id": "graven_gaslight",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "773e657430760632249d49dab72d3fadece25edb04ee266aac5401c00f22e7f3",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "792733ee84e1c7afff132a68040b2c3d82cff93636bf6514ae73f09a4999cae5",
+        "expected_final_gamestate.txt": "de0ce6aec2cb8980a9ca6122d1b66c00fffef22ff34ef18af24bc291d6ea77ca",
+        "meta.json": "1158c1c8c5ce8df0070f98e2fff4d8a26402a9a983cf3ce6097f2ff580434249"
+      },
+      "fixture_sha256": "c9d1bc806f31c1b50552447828c611c04b736a1129f45b12d7c717a6c31a0f26",
+      "actions": 28,
+      "native_assertions": 198,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1015-20261122.json",
+      "input_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1015-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-graven-gaslight-four-live-sparse1015-already-equipped-with-two-real-silver-rejects-graveyard-only-activation",
+        "fixture_slug": "card-graven-gaslight-four-live-sparse1015-already-equipped-with-two-real-silver-rejects-graveyard-only-activation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wind-cutter-four-live-sparse1015-real-reaction-ready-source-and-shuriken-but-zero-chain-hits",
+      "card_id": "wind_cutter",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "40f5bec86ea6b0919521297d8bd8806b1906dde725c13958fd493042d35981ff",
+        "actions.json": "a35c59d2c69e1a2df994b0b24692ac4efc98987b57c72d2eb349640d4b5e0955",
+        "assertions.json": "34ee788c60bcf152ff2d656a22b884be91e65540b840532d3720e7846066f0ff",
+        "expected_final_gamestate.txt": "ef2a65c2c72c6875dd15c43d52502f1bba3f8758629d1a075554cb54a3d9e5a2",
+        "meta.json": "55aa0122397b4108135a74e5cdc9f302ca71a2ed3064c3ee3c3e49e1b472e754"
+      },
+      "fixture_sha256": "d206f74e8f2043b0248cbd902a4d5c738f4943a979c2bf90f1e30846838400b5",
+      "actions": 28,
+      "native_assertions": 235,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1015-20261122.json",
+      "input_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1015-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wind-cutter-four-live-sparse1015-real-reaction-ready-source-and-shuriken-but-zero-chain-hits",
+        "fixture_slug": "card-wind-cutter-four-live-sparse1015-real-reaction-ready-source-and-shuriken-but-zero-chain-hits",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-starting-point-four-live-sparse1015-real-reaction-current-attack-but-no-earlier-reaction-step-event",
+      "card_id": "starting_point",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1e1749694b7de0c7ba607c4dfd7be824cfaf8a107edc485525709b7fe724cde",
+        "actions.json": "a35c59d2c69e1a2df994b0b24692ac4efc98987b57c72d2eb349640d4b5e0955",
+        "assertions.json": "9e7728cd25a48327b22003008a005d87bbb57142d44e441d219390c1419f8091",
+        "expected_final_gamestate.txt": "6aae75b36fc06d29885e3a630482d3298529ef476710d654c0bcc03b80ec8889",
+        "meta.json": "0f639a6abe1632f1018dd6b60c4b3d5d4708f803a1ac67e521f183482a4ad0ca"
+      },
+      "fixture_sha256": "7337303ccade133bafb6c4808d5ffdbd8f099157bd12b81be2bc7ebd8e5d3b45",
+      "actions": 28,
+      "native_assertions": 235,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1015-20261122.json",
+      "input_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1015-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-starting-point-four-live-sparse1015-real-reaction-current-attack-but-no-earlier-reaction-step-event",
+        "fixture_slug": "card-starting-point-four-live-sparse1015-real-reaction-current-attack-but-no-earlier-reaction-step-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crown-of-reflection-four-live-sparse1015-opponent-turn-instant-rejects-own-action-phase-only-with-real-aura",
+      "card_id": "crown_of_reflection",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7205751ee742794df6a68daa0b1269e04eb6b6c7346990f0f72c8312c29c45e6",
+        "actions.json": "4964390741924b991bbbfcbb5d3c61e008169675414fbee9b05cb6a24f15b0aa",
+        "assertions.json": "3547efdb0923ffaec3a03b656c1618f6e43f42ab03d03e83085044e9c0719807",
+        "expected_final_gamestate.txt": "87a8bd223b6bc2ce44279c5f38fbd9788778ff89b35d8f0f0cdbe914257e33ba",
+        "meta.json": "19472369311b5b956675675ae27020af24cc7c9442430b0bd72805561ed2c19a"
+      },
+      "fixture_sha256": "664e31fb5bec2b23b98492b9a422d538c74b3d5ee4f2fdef7e6d424efacf7183",
+      "actions": 29,
+      "native_assertions": 281,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1015-20261122.json",
+      "input_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1015-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crown-of-reflection-four-live-sparse1015-opponent-turn-instant-rejects-own-action-phase-only-with-real-aura",
+        "fixture_slug": "card-crown-of-reflection-four-live-sparse1015-opponent-turn-instant-rejects-own-action-phase-only-with-real-aura",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "Root independent review of breadth_review authored source-spec; exact printed constraints and current activation rows/guards inspected",
+    "spec_sha256": "7f38cd7dfd4ef3f5433533fdbc8ec078e65579eac0f0e77a30eb7f100f73cbb2",
+    "basis": [
+      "GravenalreadyEquipment failsGraveyardonlyevenwith2realownedSilver; Instant0legitimatewindow and Uzuri20. Source5/Silver7/8retained through actualGeneric6fourdamage.",
+      "WindlegalREACTION1/R1/ready5/currentAA6/eligibleShurikenDeck10, chainHits0 isolatedfalse. StartingPointcurrentAA6andavailable0destroycost, noearlierREACTIONevent: priorAAplayedbeforestepdoesnotqualify. Noquietunsupportedclickcredit.",
+      "Crownowner4Prism20Equipment5/realPassingMirageIllusionistAura6 atREACTION4 duringopponentturn; onlyownActionphasefalse. AuraSpectra notWard/noownattackevent. ActualRaging7damage/HP13/nativefourmanual follows, noexchange/destroy.",
+      "Positivecallbacks/creator/phaseactivation/GA/Barrier/Spellvoid/shuffle/hero/support/siblings/fullcardunrun; allchecksrequiredpersisted."
+    ],
+    "final_review_scope": "Root fresh final-spec semantic review, current source guards, setup and query consistency. Final Wind uses real trace no prior hit; no raw uninitialized chainHits query. Earlier draft save guards failed before T/native. A byte-exact delta reconstruction was not established, and is not claimed."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1015-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "94aea8739a9e81a2ca81b650beed96485569ff4fd2ced064b91864a38d917e5a"
+  },
+  "full_suite_run": false
+}

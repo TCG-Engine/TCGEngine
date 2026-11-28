@@ -1,0 +1,137 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B326_REAL_PAID_SIX_DISCARD_CONDITIONAL_GO_AGAIN_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T11:05:23.622622+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch326.json",
+  "input_sha256": "c7cf5cca9e20e53cb1a74f2755188f2308fdd8e49b09d22067429b0e19bfb2cb",
+  "manifest_sha256": "dda02211c410884c24912945a0d527b948be0b2a18ce16fe7ebac28533167f91",
+  "fixtures": [
+    {
+      "slug": "card-breakneck-battery-red-four-live-sparse-real-paid-six-power-discard-earns-conditional-go-again",
+      "card_id": "breakneck_battery_red",
+      "group_id": "pitch-cycle:breakneck_battery",
+      "fixture_sha256": "400b44403b2b4b4bdd43314766e1a9395e8f1ff52450b6679edb2f4d7a8008fa",
+      "behavior_sha256": "400b44403b2b4b4bdd43314766e1a9395e8f1ff52450b6679edb2f4d7a8008fa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8dc5aeac327742526653570769cf9003178727dbb0a7374289ca2c443f193f54",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "b31cbe3e6ba7119a87c5650b08335fff7b1e4a459d9af1e83c3f0d4e33d4dd71",
+        "expected_final_gamestate.txt": "95af19f54959c67e8eaed585744b296ca03081fdccdf9edfd44e6658a69ed8de",
+        "meta.json": "410ff66753d788845366738747522ae4d897676a302180325fed0348c6751cbd"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "8dc5aeac327742526653570769cf9003178727dbb0a7374289ca2c443f193f54",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "b31cbe3e6ba7119a87c5650b08335fff7b1e4a459d9af1e83c3f0d4e33d4dd71",
+        "expected_final_gamestate.txt": "95af19f54959c67e8eaed585744b296ca03081fdccdf9edfd44e6658a69ed8de",
+        "meta.json": "410ff66753d788845366738747522ae4d897676a302180325fed0348c6751cbd"
+      },
+      "actions": 28,
+      "native_assertions": 2173,
+      "actual_manual_pass_inputs": 25,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "priority_pass_inputs": 24,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "priority_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 6
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "no_virtual_uids_introduced": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uids": [
+        6
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual primary5 freshP4target while stillHand, targetanswer physical5Stack/PITCH2/R0AP1 withBlue6/Six7Hand andGYempty. RealBlue6pitch3 pays2/AP1 before sole real6power7 random discard; postpayment R1AP0/Pitch6/same7publicownGY, source5heldthroughfourresponders. Onlyfourth actual5ChainRoleATTACK/link1/printedpower6/earnedGO_AGAIN/computedGAtrue, no separate WHEN layer. Fullfour-live combat/emptydefender/reaction deals6/P4HP14 atinput20/AP0. Inputs21-23 firstthreeDAMAGE stillAP0; onlyinput24 fourthDAMAGE\u2192Resolution givesAP1. Fullclose input28 publicownGY exactUIDset5,7/Pitch6/R1AP1, alloriginalUID1-7 conserved/counter7/no virtuals/allheroesready/live/otherHP20/RAP0/Stackqueuespaymentownedframesclear.",
+      "qualification": "Only Red positive realpaidmandatorysixdiscard/base6damage/conditionalGA/cleanup. Actual sole-candidate discard is a real native cost; no RNG-distribution/alternatecandidate/control credit. No non6/no-discard/secondplay/pitchmatrix/sibling/hero/supportprimary/fullcard credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch326-independent-source-review.json",
+    "sha256": "bdfcb7782f23279d053129f8892661475e9871dceabbfc56777fa9e3265c3c3e",
+    "manifest_sha256": "dda02211c410884c24912945a0d527b948be0b2a18ce16fe7ebac28533167f91"
+  },
+  "source_guards_verified": 18,
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch326-20261103T110302Z-6ae9bf6656d7f.json",
+    "sha256": "3f80aac150c889e783d2331b76ada967f8d60d5473ebbc8da1b00bcc8cc2f5df"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch326.recording-results.json",
+    "sha256": "287bdef5b62c1cfc74c42023d8ff3c0b80c03508555fb86e23654802086a198a"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch326-native-r1\\receipt.json",
+    "sha256": "28a6f48fbf3c5fb654e8743db29ff7116d6397c0d70ad54bdfe91d4d85c6ae62"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813"
+  },
+  "reused_raw_five_review_prefix": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov3_batch318_saved_readonly.py",
+    "sha256": "e52ffe6e9d7e82c8c129d6fa83edb1909f7e6db0db43b47c6c30b111d455dedc",
+    "scope": "Only hash-bound read-only source/wrapper/archive/rawfive/meta/action/assertion-equality prefix; B326 own physical checks follow."
+  },
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes of initial/actions/assertions/expected_final; raw-five individual hashes also bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Actual Root native COMPLETE0/stderr0/exact-five-file match, no reviewer PHP/native execution.",
+    "Reuse source proofbdfc post-assets cost and conditional-GA model; no output-fitted oracles or unsupported Stack computed-GA claim.",
+    "Replay qualification belongs to separate actual Root reports; no fault-control credit.",
+    "No R/source edits, gameplay proposals, generation/engine backend/service/full suite or authorization retry."
+  ]
+}

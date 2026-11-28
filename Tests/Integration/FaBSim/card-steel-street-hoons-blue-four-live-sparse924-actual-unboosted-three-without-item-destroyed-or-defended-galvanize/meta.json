@@ -1,0 +1,7 @@
+{
+    "name": "Steel Street Hoons / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:58:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Boost**\n\nIf an item you control has been destroyed this turn, this gets +2{p}.\n\n**Galvanize** - When this defends, you may destroy an item you control. If you do, this gets +2{d}. Representative only: actual_unboosted_three_without_item_destroyed_or_defended_galvanize. Physical Hand attack, actual printed payment, four manual live seats, full unblocked combat and owned source in graveyard. Positive dormant effects and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#steel_street_hoons_blue"
+}

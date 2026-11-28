@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-13T23:44:52.476526+00:00",
+  "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+  "source_spec": "card-regression-batch775-name64.json",
+  "source_spec_sha256": "f3549e43d46d9b97646d684ea887dbf6a41eefd45b8fa4ee9a6ebafb7bddf00e",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 78,
+  "native_assertions": 6771,
+  "manual_passes": 71,
+  "totals": {
+    "saved_registered_scenarios": 4034,
+    "duels": 3074,
+    "four_live": 960,
+    "recorded_primary_ids": 1188,
+    "identity_denominator": 5196,
+    "recorded_groups": 1062,
+    "group_denominator": 3324,
+    "four_live_groups": 953,
+    "phase_qualified_scenarios_at_actual_contexts": 671,
+    "phase_qualified_unique_groups": 666,
+    "creation_replay_passes": 1342,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "mask_of_many_faces",
+      "group_id": "identity:mask_of_many_faces",
+      "scenario_id": "card-mask-of-many-faces-four-live-paid-name-next-head-jab-enables-real-gustwave-combo",
+      "effect_branches": [
+        "mask-of-many-faces-four-live-paid-name-next-head-jab-enables-real-gustwave-combo"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mask-of-many-faces-four-live-paid-name-next-head-jab-enables-real-gustwave-combo",
+      "source_spec": "card-regression-batch775-name64.json",
+      "source_spec_sha256": "f3549e43d46d9b97646d684ea887dbf6a41eefd45b8fa4ee9a6ebafb7bddf00e",
+      "review_evidence": "review-evidence/sparse775-mask-lossless-name-real-combo-independent-eca.json",
+      "review_evidence_sha256": "d1b3cc3fe2b372efc0e80275965385a3f2107dcb2ff9307e58773ddcef58cf14",
+      "recorded_runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+      "qualification_runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov13-b775-name64-clean1.json",
+          "sha256": "5d16970283575ff51011fd598ae828347b05c2cb1c2513f0cf49ec2753632b3f",
+          "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov13-b775-name64-clean2.json",
+          "sha256": "0180c272ba0ec89ce67f822fa027176c59b0a8c7a41bcf249d18b1f30dfe2652",
+          "runtime_sha256": "eca72e03725eb315a8ce3aee29fab90d2f6bb11b8382c094df100118c347fca5",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

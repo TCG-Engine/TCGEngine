@@ -1,0 +1,7 @@
+{
+    "name": "Channel the Bleak Expanse / foreign static prevents actual effect draw after real bottoming",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:07:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Existing foreign IceChannel8 is a legitimate admitted Arena fixture under young Lexi4; its producer/play/upkeep is unrecorded. Actual GenericSift5 cost0 consumesAP1, allfour respond, physicalsource holds during MZMULTICHOOSE. Choose realHand6: actual bottoming puts6 below preexistingtop7. Sift would draw1 for1bottomed; Channel forbids all effectdraws, so both remainDeck in order7/6, Handempty. Source5ownedGY1/GAAP1/R0, originalAura8owned4 retained, no extraUID/RNG/health. No source Aura entry/goagain, upkeep, search/reveal, owner-self separate direction, immunity/ability removal, Sift/other support or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#channel_the_bleak_expanse_blue"
+}

@@ -1,0 +1,149 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1376-20261122.json",
+  "source_spec_sha256": "743cf70e04daf03f6c53dc5545f9a4936d8fa0cf959cc2fc22eb37f7add3daed",
+  "input_sha256": "19b7741d1caca03eda04eb8277f05b830ec87a53e92ba894d99f1f832a48ce66",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-ring-of-roses-yellow-four-live-sparse1376-real-first-physical-damage-not-arcane-no-unearned-heal",
+      "card_id": "ring_of_roses_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2ba6c03d6eb182ad978bdc76148321e8612f0ecce7e175d43ce36a568b566332",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "7430569388fd566e1e2c30cc722b1a9891c67e2d5651a0693dfdece32d0fb3b1",
+        "expected_final_gamestate.txt": "c6591bdf5c04cc2642573aec5122ec5ba27bf46849a95e9c2ac64285f3975432",
+        "meta.json": "4dc07d75e201e79c3eddeb606502bdd0d7d117dd4843dca64c6c2f06acce1b63"
+      },
+      "fixture_sha256": "0a1682402e8caec2e29f371e2d277d6cb8dc6d4aee157744d14eb81ad1d37e3d",
+      "actions": 29,
+      "native_assertions": 498,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1376-20261122.json",
+      "input_sha256": "19b7741d1caca03eda04eb8277f05b830ec87a53e92ba894d99f1f832a48ce66",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1376-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ring-of-roses-yellow-four-live-sparse1376-real-first-physical-damage-not-arcane-no-unearned-heal",
+        "fixture_slug": "card-ring-of-roses-yellow-four-live-sparse1376-real-first-physical-damage-not-arcane-no-unearned-heal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "743cf70e04daf03f6c53dc5545f9a4936d8fa0cf959cc2fc22eb37f7add3daed",
+    "source_note_sha256": "0825a59740a3d70ac14105c1c43987724a66d9200df12d2cdd018075245abcfe",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 29,
+    "query_checks": 498,
+    "persistable_assertions": 498,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "AURA_DAMAGE_TYPE_FILTER_GUARD_WITH_ACTUAL_FUNDED_PHYSICAL_ATTACK",
+    "per_case": [
+      {
+        "card_id": "ring_of_roses_yellow",
+        "group_id": "identity:ring_of_roses_yellow",
+        "native_controls": 29,
+        "persistable_assertions": 498,
+        "native_primary_play_credit": false,
+        "native_primary_entry_credit": false,
+        "native_primary_go_again_credit": false
+      }
+    ],
+    "basis": [
+      "ExactRing-onlysubset retainedfromoriginalexecutedtwo-caseinputcase0, currentcaseJSONdeep-equalwithnoquery/control/oraclechange. Originalsemanticapproval4d72786a andallactualruntime/sourcehashes verifiedunchanged; nolegacysemanticre-review. NativeReceiptRingstatusrecorded_semantically_checked/29inputs498assertions; currentrawfivefilespresent/actions29/assertions498, no reviewerre-record/replay. recording-inputs mapsRingtooriginalexecutedinputSHA19b7741d, notnewsubsetinput.",
+      "Retainedscopeunchanged: YoungVerdance20/manual4UPF, actualfundedGenericCritical5fivePHYSICALdamageHP4=15/nofirstArcaneRingheal/ownHP20, originalRing8fates/UID8/RNG0/zeroArsenalconsumerAP0reject. NewcanonicalsubsetSHA743cf70e permitsonlythisonecase; nativeprefixsuccessdoesnotclaimcleanreplayalreadyrun.",
+      "ExcludedStingfailedafter10nativeinputs atPotionCounters expectedFAB_PLAY_ORDER2 observed1, ACTION/cardsPlayed=[Sting,Potion]/serializedcombatPlaySequenceabsent. Expectedordinal2wascode-inferredinternalinvariant, notprintedStingrule. Source1057-1059localincrement/tag then1061reloadbefore1069persiststronglyexplainslostsequence. NoincorrectStingarcane/HP/GA/finalconsumerbehavior demonstrated; checksafterfirstfailureunrun.",
+      "HeldStingdiagnosticdeep-equaloriginalcaseexceptexplicitdiagnostic_onlytrue/qualificationfalse/coveragefalse/holdreason; alloriginalCounter2expectationspreserved. NoStingfixtureexists/evidenceholdzeroqualifiedcoverageornewgameplayrootcredit/noenginechange, no broaderincarnationconsumerimpactverified. Standardrecorderrejectsdiagnosticwithoutprobe-only. Ring-onlyqualificationshouldreuseoriginalsavedrawfilesandrunfirstcleanRingreplay, notrerecord."
+    ],
+    "limits": [
+      "Only unchangedRingnamedphysical-versus-Arcaneguard approvedforretainedfixturequalification/pendingfirstcleanreplay. No replaypass/registeredcoverageclaimedbyreviewer.",
+      "RingpositiveArcane/heal/earnedWHENtiming/entry/support/fullcarduntested; Stingentirecaseunqualified/noFixture/noCredit/heldbookkeepingwitness, notconfirmedprintedcardbug. Potentialincarnationguardimpactnotexercised. Sourcefailureexplanationisinferencefromdirectwrite/readordering.",
+      "Only W reviewreceiptreplacedafterexactoldhashguard. No nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1376.py": "279fedb2b59f931ad58a41213be1e36ae9701387eea9c312676de9e3ed81564d",
+      "select_ring_subset1376.py": "a8c00b1375989e5b4be86ef8caa35d0ace545d652ee36b88789d77a0a0f6f630",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1376-local-20261122/recording-inputs.json": "3c4e76f226a4a7d5c305aae0c9897319c79d352ca54c141911b2a276909cca3b"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false,
+    "initial_token_provenance_credit": false,
+    "retention_provenance": {
+      "original_spec_sha256": "19b7741d1caca03eda04eb8277f05b830ec87a53e92ba894d99f1f832a48ce66",
+      "original_review_sha256": "4d72786ae269ba9db325b26aa0c38fe9f985a0b4f77345ac2f1cdbc5e7e467d9",
+      "native_receipt_sha256": "5c36573f06adf81d3d0487e9bcaa93186935336141cd316782c95ca53272629f",
+      "recording_inputs_sha256": "3c4e76f226a4a7d5c305aae0c9897319c79d352ca54c141911b2a276909cca3b",
+      "native_status": "recorded_semantically_checked",
+      "clean_replay_status": "NOT_RUN_BY_REVIEWER",
+      "raw_fixture_current_sha256": {
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "7430569388fd566e1e2c30cc722b1a9891c67e2d5651a0693dfdece32d0fb3b1",
+        "initial_gamestate.txt": "2ba6c03d6eb182ad978bdc76148321e8612f0ecce7e175d43ce36a568b566332",
+        "expected_final_gamestate.txt": "c6591bdf5c04cc2642573aec5122ec5ba27bf46849a95e9c2ac64285f3975432",
+        "meta.json": "4dc07d75e201e79c3eddeb606502bdd0d7d117dd4843dca64c6c2f06acce1b63"
+      },
+      "diagnostic_source_sha256": "3e5a30a3d29628a3e517a6c507d98f69773ca62f9ab497c5d2c23acdc8f3d210",
+      "held_evidence_sha256": "949eae9fe27d300aec074a71779620f97c63e9e7e1550a57063ae602def945fd",
+      "new_distinct_gameplay_root_credit": 0
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1376-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "64754856ede71b502c2fef60986800c7b2b7b555d62867d1ebc98514792c8f42"
+  },
+  "full_suite_run": false
+}

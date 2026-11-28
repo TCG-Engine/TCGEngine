@@ -1,0 +1,7 @@
+{
+    "name": "Brothers of Flame / four-live actual dagger prerequisite",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:14:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play this only if you control 2 or more Draconic chain links.\n\nTarget dagger attack gets +4{p}. Namedfalseprerequisite only. LegalFangRoyalDraconicWarrior20, actualprimary5Hand, currentQuicksilverDagger6Warrior/Dagger, cost1reallypaidBlue7leavesR2. WeaponabilitynotDraconiccard; nootherweaponhasgainedGA, noFealty/noDraconicchainlinks/nohistoryflagsseeded. ActualREACTION1/ownDaggerattacktarget/realNAAdefender8/R2coversBrothers1orothers0. Printedrequires2Draconicchainlinks, actualonlynonDraconicQSDaggerlinkdoesnotqualify. ExplicitHNTguardrejectsbeforetarget/cost/Stack, thenfourmanualbase1vsactualNAADEF3/fullblock/0damage/noHit/HP20/AP0. Primary5Hand/Dagger6used/Pitch7/defender8ownedGGY retained, noFangmarkedhittrigger. No positivecondition/reactionbuff/targets/Fealty/grantedGA/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#brothers_of_flame_red"
+}

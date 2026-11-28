@@ -1,0 +1,7 @@
+{
+    "name": "Fai, Rising Rebellion / adult two-live actual Draconic discount and spent once-use",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T11:28:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "TwoLive12 naturaladultFaiRising40/DoriIronsong40, notUPF4. ActualFlame3defaultssoleHero2/AP0\u2192onecontrolledDraconiclink/Power0/GA. FaiABI6Source1Instant3minus1 paidBlue4pitch3\u2192R1/AP0/once2; opponent2thenactor1freshresponses explicitlypreserveABI6. EmptyGYreturnfinisheswithouttouchingactiveFlame3. Fullzero-damagecombat/allHP40/GAAP1/Flame3GY; realR1+Blue5Hand3fundsfull3yetspentonce rejects eligibleGYreturn. Positivecostreduction/onceonly; nopositiveactualreturn/awaitlifetime/UPF/young/siblingcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fai_rising_rebellion FaBSim/Custom/WTRAbilities.php#FaBWTRAbilityCost FaBSim/Custom/WTRAbilities.php#FaBWTRAbilityLegal FaBSim/Custom/WTRAbilities.php#FaBWTRPayAbilityCosts FaBSim/Custom/GameLogic.php#FaBFaiChainCount FaBSim/GeneratedCode/GeneratedMacroCode.php#fai_rising_rebellion:0:ResolveAbility"
+}

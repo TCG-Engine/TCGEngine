@@ -1,0 +1,7 @@
+{
+    "name": "Short Shrift / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:51:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has {p} greater than its base, it gets +1{p}.\n\n**Crush** - When this deals 4 or more damage to a hero, they discard a card. Representative only: actual_base_three_below_four_damage_crush Sources: FaBSim/GeneratedCode/cardArrayCache.json#short_shrift_yellow"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Coalescence Mirage / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:13:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Phantasm**\n\nWhen this is destroyed, you may put an Illusionist aura with cost 0 from your hand into the arena. Representative only: actual_unblocked_seven_without_phantasm_destruction. Real printed cost, four manual live seats, actual unblocked damage and physical source in graveyard. Only named Hand-origin main attack; Banish-origin, phantasm destruction and Blood Debt end-phase branches untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#coalescence_mirage_red"
+}

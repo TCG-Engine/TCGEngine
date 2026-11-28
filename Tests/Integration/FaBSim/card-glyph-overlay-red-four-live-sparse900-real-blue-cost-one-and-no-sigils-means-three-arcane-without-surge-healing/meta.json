@@ -1,0 +1,7 @@
+{
+    "name": "Glyph Overlay / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:02:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal X+3 arcane damage to target hero, where X is the number of aura permanents you control with Sigil in their name.\n\n**Surge** - If this deals more than 3 damage, gain 1{h}, then shuffle all aura permanents you control with Sigil in their name into their owner's deck. Representative only: real_blue_cost_one_and_no_sigils_means_three_arcane_without_surge_healing. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#glyph_overlay_red"
+}

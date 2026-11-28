@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T10:50:36.357281+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1368-20261122.json",
+  "source_spec_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 35,
+  "native_assertions": 827,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5353,
+    "duels": 3107,
+    "four_live": 2246,
+    "recorded_primary_ids": 2501,
+    "identity_denominator": 5196,
+    "recorded_groups": 2375,
+    "group_denominator": 3324,
+    "four_live_groups": 2235,
+    "phase_qualified_scenarios_at_actual_contexts": 1990,
+    "phase_qualified_unique_groups": 1980,
+    "creation_replay_passes": 2732,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1151,
+  "scenarios": [
+    {
+      "card_id": "plasma_mainline_red",
+      "group_id": "identity:plasma_mainline_red",
+      "scenario_id": "card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+      "effect_branches": [
+        "actual_generic_item_entry_is_not_mechanologist_despite_hero_class_mainline_five_steam_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-plasma-mainline-red-four-live-sparse1368-actual-generic-item-entry-not-mechanologist-no-steam-transfer",
+      "source_spec": "card-regression-sparse1368-20261122.json",
+      "source_spec_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+      "review_evidence": "review-evidence/sparse1368-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b3ac6bff4df2d690c242d9e1317191e406c3f1a7f1de660bc28adebd3c12b087",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1368-20261122-replay.json",
+          "sha256": "e6cf7eeef4cee3f18a6b1a706e79ff2ed6f43c204a0f62ef8be198604989b016",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hyper_driver",
+      "group_id": "identity:hyper_driver",
+      "scenario_id": "card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+      "effect_branches": [
+        "actual_non_boost_attack_keeps_two_steam_and_no_extra_resource"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hyper-driver-four-live-sparse1368-actual-unboosted-generic-attack-no-steam-removal-or-extra-resource",
+      "source_spec": "card-regression-sparse1368-20261122.json",
+      "source_spec_sha256": "ec93939d60502b3996c13e565a446aa4520c1628f9c79bf69af15beb2dafbcad",
+      "review_evidence": "review-evidence/sparse1368-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b3ac6bff4df2d690c242d9e1317191e406c3f1a7f1de660bc28adebd3c12b087",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1368-20261122-replay.json",
+          "sha256": "e6cf7eeef4cee3f18a6b1a706e79ff2ed6f43c204a0f62ef8be198604989b016",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

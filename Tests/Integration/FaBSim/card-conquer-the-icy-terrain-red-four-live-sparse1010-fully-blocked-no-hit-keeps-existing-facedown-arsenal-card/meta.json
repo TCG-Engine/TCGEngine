@@ -1,0 +1,7 @@
+{
+    "name": "Conquer the Icy Terrain / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:13:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, they may pay {r}{r}. If they don't, you may destroy a frozen card in their arsenal or a frozen non-hero permanent they control. Named main/full-block branch only. Legalnatural20oldhim, actualHand5/Blue6 paysprinted3 beforefourmanualsource/combatresponses. Printed7 fullyblockedbyrealHandAA defense9/0damage/HP20/noHit/Stack0/AP0; samephysicalsource5andallblockersownedGY, realfacedownenemyArsenal10retained. No earned hit ability, payment/discard/tax/destruction. Existing facedown card is NOT asserted IntimidatedThisTurn; Arsenal is NOT asserted frozen. Neither eligibility prerequisite/positivehit is isolated or credited. No hero ability/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#conquer_the_icy_terrain_red"
+}

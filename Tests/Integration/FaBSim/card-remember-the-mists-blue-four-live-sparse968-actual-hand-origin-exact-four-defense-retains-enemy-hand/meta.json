@@ -1,0 +1,7 @@
+{
+    "name": "Remember the Mists / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:41:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, look at their hand and banish a card. They may play the banished card until the end of their next turn.\n\nIf this wasn't played from hand or arsenal, it gets +2{p}. Representative only: actual Hand5 play, printed0or2 cost/realBlue6 ifpositive/R0or1/AP0, full four-live manual combat with real Hand Action defenses, zero damage/nohit/Stack0, source and defenders in owned graveyards. Physical eligible markers/counters retained; no positive hit/banish/heal/Mark/dagger-hit or ownership credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#remember_the_mists_blue"
+}

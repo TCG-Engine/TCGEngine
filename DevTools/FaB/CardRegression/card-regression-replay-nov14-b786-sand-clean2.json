@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch786-sand-full.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T18:11:56.367369+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sand-cover-blue-four-live-early-owned-ash-target-ward-two-prevents-real-four-damage",
+      "fixture_sha256": "296743026b6c7327e681b90656b6068cc927ed43849d484aa1ad496d57efd77e",
+      "passed": true,
+      "result": "[PASS] Sand Cover Blue / early target and real Ward two prevention"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sand-cover-blue-four-live-early-owned-ash-target-ward-two-prevents-real-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Sand Cover Blue / early target and real Ward two prevention\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

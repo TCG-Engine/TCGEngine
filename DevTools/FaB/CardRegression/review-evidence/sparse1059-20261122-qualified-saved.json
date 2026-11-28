@@ -1,0 +1,170 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1059-20261122.json",
+  "source_spec_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+  "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "mask-of-malicious-manifestations-four-live-sparse1059-real-defense-blade-break-close",
+      "card_id": "mask_of_malicious_manifestations",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "26400a0789023120c9c6613b6661b11e46d87afa29096d0fd39ad7bda8c11712",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "55db6fb08e79af880b0fc011940410808a650ea0a04bbb8b92b2b3eb1c565f2b",
+        "expected_final_gamestate.txt": "b4548871654fb3ee37429154ccaac7d8e1d89072d9e88d5dcc66b1bd07fc3b11",
+        "meta.json": "cb7af5878af451a678ce9ba15c6d973041b17194b2f18b3ebbb7de5a642281e3"
+      },
+      "fixture_sha256": "e69b1cbd1684ef80e02623c29fd10736714be264067bd2e5e68742a0a3c45cb4",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1059-20261122.json",
+      "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "mask-of-malicious-manifestations-four-live-sparse1059-real-defense-blade-break-close",
+        "fixture_slug": "mask-of-malicious-manifestations-four-live-sparse1059-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "mask-of-shifting-perspectives-four-live-sparse1059-real-defense-blade-break-close",
+      "card_id": "mask_of_shifting_perspectives",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5781dd58ba32d56d4be992efd814e91409a87642b1edc8401768aaa6caacec50",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "6248e5b959b0e97f1a67c16c4e3932a15ae793a8d02785a22badc44c51c4b345",
+        "expected_final_gamestate.txt": "2713147b3d107078b0f9a457c901824b9c401e19632b89a9bda5aa59ab3b6cf7",
+        "meta.json": "7d3234076ac125960cf96c96529f9ab8d238cd07c9ace819414fa2ebcef13ea6"
+      },
+      "fixture_sha256": "ea9ede2254068648dae8d322942709e5a19eff760cbd6dcd5e115106d47d9162",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1059-20261122.json",
+      "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "mask-of-shifting-perspectives-four-live-sparse1059-real-defense-blade-break-close",
+        "fixture_slug": "mask-of-shifting-perspectives-four-live-sparse1059-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "misfire-dampener-four-live-sparse1059-real-defense-blade-break-close",
+      "card_id": "misfire_dampener",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8c0d81a1d2073965a08a3145eb54c8691ed401b53169c36ff88c37a828ea1bff",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "6c87d7b1574fe9b971fb73ede28dceadc4ee6ca5e85997e8413c692fe781b155",
+        "expected_final_gamestate.txt": "60d6775b5cfdb47103981bad912fd3b79669b3687be7728adb090d109436d6f4",
+        "meta.json": "d4cb4bfb58d58529e5782ef575b833d14263f4f10592894888c42f68fea40e52"
+      },
+      "fixture_sha256": "ce016cb0780948a2da8737b4e72ef4f20ffb72b9e9c68ac2f7318a049751dcc4",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1059-20261122.json",
+      "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "misfire-dampener-four-live-sparse1059-real-defense-blade-break-close",
+        "fixture_slug": "misfire-dampener-four-live-sparse1059-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "toxic-tips-four-live-sparse1059-real-defense-blade-break-close",
+      "card_id": "toxic_tips",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f0f1a72634291b3912d0590c6d8ad8ea9c275f750b651b4e551acde1ed16b93d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "b369b1d7fb0e3d07bfd76733a888aef1797b0a3ab8b968b126fcf3d9382f5b17",
+        "expected_final_gamestate.txt": "f199d8c1e1d0da0b5b98d720e731f2d1bebc66ddcc4daddcdb3e978ccc6c0e33",
+        "meta.json": "585225e459661e8793a82496885dcb4264c3bb7f98b54d2e95318163174b7716"
+      },
+      "fixture_sha256": "98da1850dffb952e7e031a68d3b7fe33acdc83d2f63c3207159347d4b9fd1b7e",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1059-20261122.json",
+      "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "toxic-tips-four-live-sparse1059-real-defense-blade-break-close",
+        "fixture_slug": "toxic-tips-four-live-sparse1059-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "rage-baiters-four-live-sparse1059-real-defense-blade-break-close",
+      "card_id": "rage_baiters",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ef1ce453c8efd32be3b756ae748bd0c739fb25b4b1f4329e8dd17fc42ed433a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9c62ad0cab18e0a4852eb5e2895d7eda5cdccdc132683da8e4262d2b248518dc",
+        "expected_final_gamestate.txt": "406bff75894e18dfca5ae9f5aa0ea44a2817bfb263f1ff4b7f76232ece6c9925",
+        "meta.json": "9e0be0a15e493a635cc22362073ec6ed24f0f559a70243f44870ffd54769b96a"
+      },
+      "fixture_sha256": "c43e5eb6563253984a0b9aec0e90966f63651fa98df87ddbc5ca1d3566c3c5db",
+      "actions": 30,
+      "native_assertions": 269,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1059-20261122.json",
+      "input_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "rage-baiters-four-live-sparse1059-real-defense-blade-break-close",
+        "fixture_slug": "rage-baiters-four-live-sparse1059-real-defense-blade-break-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "637a0c9388dcc72fd727b76cba37b8758737f5d57f4b8f416c18a123cd4f91c1",
+    "reviewer": "breadth_review independent cached-text/spec delta review",
+    "basis": [
+      "Malicious/Shifting/Misfire/Toxic/Rage bodies are unactivated; no actual owned hit, arcane damage, boost, stealth/mark or token event occurs. Assassin/Ranger dual-class cards legal on Arakni or Lexi, other owners match current classes. Malicious cached keyword Blade break differs only by case; actual FaBHasKeyword GameLogic357-364 uses strcasecmp, so Blade Break destruction remains the intended observable, not a quiet no-op fallback.",
+      "All five DEF1/Blade Break and natural20 hero guards checked against cache. Exact qualified1040 Vestige controls/persisted queries after only primaryID/hero4/descriptive fields rebound. Real Eq5 DEF1+NAA6 DEF2 versus Dori Sword7 power3; actual Blue8 pays1/R2/AP0, all four seats manual, zero damage/noHit/HP20. Blade Break normal close gives owned GGY[5,6]/Equipment0, physical weapon7 used and Blue8 Pitch. No author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary printed defense and first Blade Break close only. Activated bodies, hit/creation/ownership/target/hero/future timing, repeated attacks/defenses, support/siblings/full-card and prior-held branches uncredited. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1059-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d9505927860c055ed89f495046200bca02c367a81396a011f2b619e70c6b5605"
+  },
+  "full_suite_run": false
+}

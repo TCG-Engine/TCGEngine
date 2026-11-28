@@ -1,0 +1,200 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1294-20261122.json",
+  "source_spec_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+  "input_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "card_id": "bloodsong_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bff0f5785a4cb88adc3dc4798c093981862f5014b182e9b618a36ad5487a9b7",
+        "actions.json": "a09495e43563fba29c459e183eddff8a35ea02c2ffa7ea70b7d11c144277743e",
+        "assertions.json": "a289f3981717b4845685bb685a5456d3cf8c45262386e27b7b1f57925cc7606b",
+        "expected_final_gamestate.txt": "df20fd4487e4cf04d8f960e42cc7dccaec3b0a561ce76db95ed79cbe09516c49",
+        "meta.json": "2d681871407b42ef79f278e00d5389c75284e0f94aad41d87a6ca5dd43e8389b"
+      },
+      "fixture_sha256": "215cc772ff888a267bf68369293a7be56ffe41b25f9f1f519838f658d6e202f3",
+      "actions": 27,
+      "native_assertions": 421,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1294-20261122.json",
+      "input_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "fixture_slug": "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "card_id": "vexing_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98ff6a512dbc1528c5df62de7ffb91a32e30337cc56643b783f98eaabcd0197f",
+        "actions.json": "13509f240346f662d5d411d817421960ad1a4520677479912648b84b8dd0b375",
+        "assertions.json": "4cc8ed663ad3c68841dae89686faf865235a5b524db7947ee4f1a98db1f21af7",
+        "expected_final_gamestate.txt": "59f2c9ac5248877b3824e3478113208e98b44f97cc6390bd4b95e43b9c29bbc6",
+        "meta.json": "51a0de191cf4c102811996c7be4e46f9a2080eec968b0e1d71b17e66fa34076a"
+      },
+      "fixture_sha256": "30e0569dc2976de5981a083071201356ea27ddb27d953eb42684dac9f9d95463",
+      "actions": 28,
+      "native_assertions": 453,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1294-20261122.json",
+      "input_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "fixture_slug": "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+      "card_id": "shadowake_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71abb564d15e666f114046fa2e9d12b411aad51184d95c2dd1a3d414530686bf",
+        "actions.json": "c1aef4d402cd720ce3c4f90096179bef3f3892fbc157979790b610710b6912c9",
+        "assertions.json": "0e64a3ebc7dd1c597ef1a1d23d5eb57e9ff2e8e380bf564ad0b21b555c6f0f92",
+        "expected_final_gamestate.txt": "08e14aaad1a738c7449c47ad5703a962fca989b80450036c2248117cb868701f",
+        "meta.json": "d5b733c401a50f0b1e82d2f4fec8cf74047d7dc447c88507d68b22bb4821b4bd"
+      },
+      "fixture_sha256": "70f9a65ee7bdc8dea317b45775d2b9b4e4c6235660fb01457322e8b4090b602c",
+      "actions": 30,
+      "native_assertions": 432,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1294-20261122.json",
+      "input_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+        "fixture_slug": "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2fb34d5197be7cef33225817a68d022073a30e18dde1aaf96b1220e7edff6809",
+    "source_note_sha256": "9f1898dca00686d7f241784c5c6a48e2c6ab813f17c31efdbb512318900bacb0",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 85,
+    "query_checks": 1306,
+    "persistable_assertions": 1306,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_INTRINSIC_BANISH_PLAY_NORMAL_PAYMENT_WITH_PRECISE_FALSE_HIT_GUARDS",
+    "usurp_paid_credit": false,
+    "hero_hit_or_gate_positive_credit": false,
+    "blood_debt_end_phase_credit": false,
+    "per_case": [
+      {
+        "card_id": "bloodsong_gloomblade_red",
+        "group_id": "identity:bloodsong_gloomblade_red",
+        "native_controls": 27,
+        "persistable_assertions": 421
+      },
+      {
+        "card_id": "vexing_gloomblade_red",
+        "group_id": "pitch-cycle:vexing_gloomblade",
+        "native_controls": 28,
+        "persistable_assertions": 453
+      },
+      {
+        "card_id": "shadowake_gloomblade_red",
+        "group_id": "pitch-cycle:shadowake_gloomblade",
+        "native_controls": 30,
+        "persistable_assertions": 432
+      }
+    ],
+    "basis": [
+      "Three distinct uncovered ShadowRunebladeRed groups are legal under naturalYoungVynnset20 with three legalYoung20 opponents/exact1234/manualUPF/no passives. Faceuporiginalprimary5Banish starts genericPlayableFromBanish0/no externalpermission or history; currentIAR intrinsic activegloomblade suffix permission supplies actualentry. Samephysical5 SourceZoneBanish/OwnerController1 is checked through realStack/CombatChain/GY; these are physicalsource ownership checks, not virtualproxy assumptions.",
+      "Bloodsong printedcost0 needs no funder. Vexing printedcost3 requires realGenericBlue6pitch3 and Shadowakecost2 realGenericYellow6pitch2; intrinsicpermission is not resourcewaiver. Each spendsAP1to0/R0 before allfourresponses and preserves exact realfunders inPitch. NoRunechant exists under anyseat, so previously supplied officialUsurp mandatoryadditionalcost is unable and earns no+2; no responseable trigger is suppressed by that cost absence.",
+      "Bloodsong actualAlly6/Hand7/Arsenal8/opposingAgility9 and Vexing actualAlly7/Hand8/Arsenal9/opposingAgility10 allocate correctly. Initial/liveAshwing is Arena4index0 and eligibleAura index1; after actual2/5physicaldamage kills1lifeTokenAlly, originalAura9/10 correctly becomes index0 with retainedOwnerController4. Token ceases/noGY4, Hand and faceDownArsenal stay unchanged, noHeroHPspillover.",
+      "Bloodsong and Vexing printed trigger events require Hero hit, not Ally hit. Generated await guards FaBFaiHeroHit skip actualAura-banish/2arcane paths on selected Allytarget. EligibleopposingAura plus realHand/Arsenal controls and allHeroHP20 make falseHero outcomes observable. No trueHit layer or target-declaration behavior is certified.",
+      "Shadowake trigger requires any hit, so it targets realHero4 and is fully blocked by actualGeneric3defense cards7/8. Correctactualpower4/defense6/damage0/allHeroHP20 means no hit and no Gate trigger/token/UID. Realarsenalcontrol9 staysfaceDown; defenders7/8 finishownGY4. This avoids falsely using an Allyhit to suppress its non-Hero-specific hit effect.",
+      "Finalprimary5GY1/Banish1empty, exactPitch and controls, Allycase Arena4count1 versus blockedcaseArena4count0/GY4count2, APR0/UID9,10,9 respectively/RNG0/cleanStackDQsCC agree with each setup. All1306 query/state/power/go_again assertions persist across85 single native controls: Bloodsong27/421,Vexing28/453,Shadowake30/432."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed. OfficialUsurp check is existing parent-supplied evidence, with no reviewer network request.",
+      "Only positive intrinsicBanish play and actualnormalpayment plus selected falseHit guards. No paidUsurp, trueHeroHit Aura-banish/arcane, Gate producer/trigger timing, BloodDebtend, support/sibling or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1294.py": "6e95104196931ba22a8557475285551b58a910d04536c9c27d11c506584bcf48",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "061bf3c8ae962a886f24ecb4bae6c7bd59c321160cd10b3b2915506fe8f35cc8"
+  },
+  "full_suite_run": false
+}

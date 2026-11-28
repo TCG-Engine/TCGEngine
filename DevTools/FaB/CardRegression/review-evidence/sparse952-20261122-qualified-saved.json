@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse952-20261122.json",
+  "source_spec_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+  "input_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-challenge-the-alpha-yellow-four-live-sparse952-actual-six-against-non-brute-without-typed-attack-hit-events",
+      "card_id": "challenge_the_alpha_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1505449190fe38006a9043eb2a521900afaf7b2f09c0c7029af118fdd136858",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "be9a746e4229f55682fe52df35fb36de2959e09cb301bcadf5f4576cc7d8d82b",
+        "expected_final_gamestate.txt": "b833b8b4bf347251ce024015338d4bf780ca0de8c841fa3f41157034f850faa1",
+        "meta.json": "0bfd5d4f368a53d4d982f2bdc74e0577ef060310cc672da37328f50910ed8515"
+      },
+      "fixture_sha256": "0f94439d8665c24c5f16daef3904ece1cf85cfd2ad37ead927794d394e4256a7",
+      "actions": 28,
+      "native_assertions": 175,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse952-20261122.json",
+      "input_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse952-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-challenge-the-alpha-yellow-four-live-sparse952-actual-six-against-non-brute-without-typed-attack-hit-events",
+        "fixture_slug": "card-challenge-the-alpha-yellow-four-live-sparse952-actual-six-against-non-brute-without-typed-attack-hit-events",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mist-hunter-red-four-live-sparse952-actual-four-against-non-mystic-without-typed-search-or-contract",
+      "card_id": "mist_hunter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "08c0c479ad02b2be8c326dd29e3ee3d19c0fcfac8d3c5c90b07bdef955b21058",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "63840b1a23bbcbcf92beb90d7cf23de4c75ec51690a7ceb282d84ece2641f360",
+        "expected_final_gamestate.txt": "3ebb150d4681b1a99d2097bf6d3bf4863d8a77f67ef80ed9acf5699eb1fe8323",
+        "meta.json": "c0143925371601d3f7584da663616fa5009ca8fd407ca426d5374dddb8f308a3"
+      },
+      "fixture_sha256": "0ecccc65d80cbd59ef0454e83148c36559cfbeae8b455c1449e9d1c7a0ee8471",
+      "actions": 27,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse952-20261122.json",
+      "input_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse952-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mist-hunter-red-four-live-sparse952-actual-four-against-non-mystic-without-typed-search-or-contract",
+        "fixture_slug": "card-mist-hunter-red-four-live-sparse952-actual-four-against-non-mystic-without-typed-search-or-contract",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mark-of-the-black-widow-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-hand",
+      "card_id": "mark_of_the_black_widow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "088d14c8573d10ecd727f237ab09c49e46b576e739f999cbd8235987788eb4f1",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "24c333354ebc6557e11f4a859c33ec92e658e21a11e2549c7e3cb259dfd77de7",
+        "expected_final_gamestate.txt": "bf82ec61b1e7ac91535d3867ede0d08c6c9a4f3a46b7a75088c9a05be5996e92",
+        "meta.json": "2a1035926877e0c9519c62ad668bbbecbb7ffc0ace1a54a8233d970c325abc1f"
+      },
+      "fixture_sha256": "6701454c7c5907cc3fa1334cf11cfd24cbeca596eea5a1d64a152da5765ab74d",
+      "actions": 27,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse952-20261122.json",
+      "input_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse952-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mark-of-the-black-widow-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-hand",
+        "fixture_slug": "card-mark-of-the-black-widow-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mark-of-the-funnel-web-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-arsenal",
+      "card_id": "mark_of_the_funnel_web_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b51501038d745b5494c5d9ba766febf439a33af989e7e7171a7ab3641a75da8",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c4ef5db70f15bc0b5a603270802de9343d3c66a5b067ac4b4a0adadb5daba0ce",
+        "expected_final_gamestate.txt": "01e06a227c23c4a409714b487c6daa14ed3b0948d5ec0581ef9631368cb98585",
+        "meta.json": "42f196c81baaab5d779d7f26430a4be0928e4c5d8e83f23641536124aeefebc9"
+      },
+      "fixture_sha256": "0636e97fdbf27ec252b1560247df8ce4cf60e17b2990493bb7ecebc5ef313a5b",
+      "actions": 27,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse952-20261122.json",
+      "input_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse952-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mark-of-the-funnel-web-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-arsenal",
+        "fixture_slug": "card-mark-of-the-funnel-web-red-four-live-sparse952-actual-three-against-unmarked-hero-keeps-real-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "575470fd25680cacdda53e7d35b38d6a4ee6f0ca69fb95dea5304568fae682b7",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached types permit Rhinar20 Brute Challenge the Alpha and Uzuri20 plain Assassin other three; Mist Hunter is not Mystic-talented. Target Dorinthea20 is neither Brute nor Mystic. Mark attacks require the hit event to be against a marked hero; initial Hero4 Counters[] and fresh history make it unmarked. These are typed event predicates, not unconditional WHEN with a later IF.",
+      "SUPCards102 gates Challenge attack power on Brute type; generated continuation gates discard likewise. Mist continuation checks Mystic hero. Black Widow and Funnel Web continuations check FaBHNTHitMarked; HNTCards18-21 captures actual mark at hit before clearing it. GameLogic373 removes zero counters, so no irrelevant HNT_MARKED:0 is required in final Hero Counters[].",
+      "Actual Hand5 source, adjacent target before costs, real Blue6 pays Challenge3/R0; other costs0/R0. Full manual four-seat unblocked combat yields6/4/3/3 damage/AP0 and owned UID5 graveyard. Actual enemy Hand, facedown NAA Arsenal and ordinary Blue Deck markers retain IDs/UIDs/owner4; initial counts match setup, no unearned banish/discard or Contract completion."
+    ],
+    "limits": [
+      "Only main payment and non-Brute/non-Mystic/unmarked event exclusion. No positive typed trigger, marked hand/Arsenal banish, Inner Chi search, Contract/Silver ownership, hero activation, siblings or whole-card certification. Mist Hunter has no eligible Inner Chi marker, so actual search suppression is not independently observed. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse952-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1b93f632935447bb1829040c77d09217957e53082f7359048ee534d60cfe3cf7"
+  },
+  "full_suite_run": false
+}

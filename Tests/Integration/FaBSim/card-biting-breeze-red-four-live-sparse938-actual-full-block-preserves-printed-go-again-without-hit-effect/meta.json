@@ -1,0 +1,7 @@
+{
+    "name": "Biting Breeze / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:53:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, create a Crouching Tiger in your banished zone. You may play it this turn.\n\n**Go again** Representative only: actual_full_block_preserves_printed_go_again_without_hit_effect Sources: FaBSim/GeneratedCode/cardArrayCache.json#biting_breeze_red"
+}

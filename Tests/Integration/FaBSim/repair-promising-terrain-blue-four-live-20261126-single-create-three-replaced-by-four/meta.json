@@ -1,0 +1,7 @@
+{
+    "name": "Promising Terrain / actual main play then one create-three instruction becomes four",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:55:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CORRECT_CREATION_REPLACEMENT_EXPECTATION. FourmanualnaturalYoungBravo20/threeDori20, onlyactualAura5/StirRed6/Blue7Hand. NoArena/counter/effecthistoryseed. Actualprimary0APcost/fourresponses->Aura5Arena1/GAAP1. ActualStirRedcost2paidbyBlue7pitch3/R1/AP0, fourfreshresponseswithArenaonlyAura5. PrintedStirRedoneinstructioncreates3Surges; primarysaysifwouldcreate1ormoreinsteadthatmanyplus1, sooneinstruction3becomes4, notthreeindependent1->2replacements. CorrectendpointmustbeAura5andfourrealownedSurges8..11, source6GY1/Blue7Pitch1/R1/AP1. Namedphysicalfirst4Surges/sourcecostfatescheckedbeforeexactArena5count/UID11. Nootherreplacementobserver/permanent. Beginning-actiondestruction/draw/lifegain neverearnedmidAction. SourceFaBEVRCreatecurrentlyloops3individualfactorycallsmayfailas6; expectationmustnotbechangedtosixandnosaveonfailure. Noenginefix/secondary/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#promising_terrain_blue FaBSim/Custom/EVRCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/HVYCards.php FaBSim/Custom/MPGCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

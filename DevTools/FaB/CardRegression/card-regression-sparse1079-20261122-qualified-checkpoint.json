@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T05:17:39.949004+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1079-20261122.json",
+  "source_spec_sha256": "ddfea16e3530da44db85b00178e484b7bf53e771e030f92022bfafbe9f7c0ea0",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 36,
+  "native_assertions": 1168,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 4933,
+    "duels": 3075,
+    "four_live": 1858,
+    "recorded_primary_ids": 2081,
+    "identity_denominator": 5196,
+    "recorded_groups": 1955,
+    "group_denominator": 3324,
+    "four_live_groups": 1847,
+    "phase_qualified_scenarios_at_actual_contexts": 1570,
+    "phase_qualified_unique_groups": 1560,
+    "creation_replay_passes": 2312,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 731,
+  "scenarios": [
+    {
+      "card_id": "widow_back_abdomen",
+      "group_id": "identity:widow_back_abdomen",
+      "scenario_id": "card-widow-back-abdomen-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-widow-back-abdomen-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1079-20261122.json",
+      "source_spec_sha256": "ddfea16e3530da44db85b00178e484b7bf53e771e030f92022bfafbe9f7c0ea0",
+      "review_evidence": "review-evidence/sparse1079-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2efea9721e6b23f624dc380e27301a375781d99288207d5a7afaa7f276a9da69",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1079-20261122-replay.json",
+          "sha256": "3a3e7903a548f285091c4e05244c9051311886e0f0683ca7686af25ffb2f7c59",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "widow_claw_tarsus",
+      "group_id": "identity:widow_claw_tarsus",
+      "scenario_id": "card-widow-claw-tarsus-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-widow-claw-tarsus-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1079-20261122.json",
+      "source_spec_sha256": "ddfea16e3530da44db85b00178e484b7bf53e771e030f92022bfafbe9f7c0ea0",
+      "review_evidence": "review-evidence/sparse1079-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2efea9721e6b23f624dc380e27301a375781d99288207d5a7afaa7f276a9da69",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1079-20261122-replay.json",
+          "sha256": "3a3e7903a548f285091c4e05244c9051311886e0f0683ca7686af25ffb2f7c59",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "widow_veil_respirator",
+      "group_id": "identity:widow_veil_respirator",
+      "scenario_id": "card-widow-veil-respirator-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-widow-veil-respirator-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1079-20261122.json",
+      "source_spec_sha256": "ddfea16e3530da44db85b00178e484b7bf53e771e030f92022bfafbe9f7c0ea0",
+      "review_evidence": "review-evidence/sparse1079-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2efea9721e6b23f624dc380e27301a375781d99288207d5a7afaa7f276a9da69",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1079-20261122-replay.json",
+          "sha256": "3a3e7903a548f285091c4e05244c9051311886e0f0683ca7686af25ffb2f7c59",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "widow_web_crawler",
+      "group_id": "identity:widow_web_crawler",
+      "scenario_id": "card-widow-web-crawler-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "effect_branches": [
+        "real_arcane_barrier_one_paid_by_blue_pitch_equipment_retained"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-widow-web-crawler-four-live-sparse1079-real-arcane-barrier-one-paid-by-blue-pitch-equipment-retained",
+      "source_spec": "card-regression-sparse1079-20261122.json",
+      "source_spec_sha256": "ddfea16e3530da44db85b00178e484b7bf53e771e030f92022bfafbe9f7c0ea0",
+      "review_evidence": "review-evidence/sparse1079-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2efea9721e6b23f624dc380e27301a375781d99288207d5a7afaa7f276a9da69",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1079-20261122-replay.json",
+          "sha256": "3a3e7903a548f285091c4e05244c9051311886e0f0683ca7686af25ffb2f7c59",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

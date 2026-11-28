@@ -1,0 +1,7 @@
+{
+    "name": "Amulet of Echoes / four-live activation history restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:19:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Go again**\n\n**Instant** - Destroy this: Target hero discards 2 cards. Activate this only if they have played 2 or more cards with the same name this turn. Named history restriction only. Legalnatural20Dori/actualownArena5ready/R0/0destroycost available. Nohero hasplayedtwo same-namecards, realHero4HandNAA7retained. Initialfalseadmissionrejectswithoutdestroy/Stack/chooser, thenactualWounding6deals4throughfourmanualseats/AP0/ownedGGY6. No positive discard/replace/GGA/target-timing/hero/support/sibling/fullcardcredit. No author-onlydiagnostic kinds. Sources: FaBSim/GeneratedCode/cardArrayCache.json#amulet_of_echoes_blue"
+}

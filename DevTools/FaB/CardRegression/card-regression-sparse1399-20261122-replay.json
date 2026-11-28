@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-put-on-ice-red-four-live-sparse1399-actual-arsenal-play-zero-allies-draw-go-again-and-drawn-card-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-put-on-ice-red-four-live-sparse1399-actual-arsenal-play-zero-allies-draw-go-again-and-drawn-card-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1399-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1399-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "64ab149ee3d0575402215cff07b838220f228746a93ddb0e9946f88f9b986ff2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6631d9cec4e77533750b8d627cf733de0315e3e24147b627e0b1c3505d261f76",
+        "actions.json": "15bf6f0bbc5c309d9430f00622a65cf369d696b92b2a82cb20781ec9ac1cbdff",
+        "assertions.json": "7536943d38deea44555281ca7c8b437d1fed13645c6dc8d4d6a77995c81cd6b4",
+        "expected_final_gamestate.txt": "147535e9fb91b345482621d6acfd6ba79a2ea0d667b1074361d003130be94cd9",
+        "meta.json": "b7097a8874f8b228e0021a782425ed56df167fb0705ddbbe8a2b1225845017a9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1529-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1529-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "776c1f5f430fec41a97bfcc3d19c34f5858d605fb07bb8ebacfa651e4f454f51",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "114282d7a18c5da87beda957cc15fac33d5bd70d5eb2de9034cb2b2cb6d10797",
+        "actions.json": "b7c8d39ae48b2921bb5c96411355ec3105a0fa2f7b4c43bcb51298a3cc150442",
+        "assertions.json": "32c57c9deb328ea19e3312910e1c1b168148e2482f2af49bb6dc4b0f24acb9e3",
+        "expected_final_gamestate.txt": "11d4bf7bcadf01a7e29048c74ff56dcdfb84e04312ffee79bc460a9be70f36dc",
+        "meta.json": "6d7dab64afe4b6475c3c1424cbb032b6ebfef5fd523c0773d4175c4242bc6565"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

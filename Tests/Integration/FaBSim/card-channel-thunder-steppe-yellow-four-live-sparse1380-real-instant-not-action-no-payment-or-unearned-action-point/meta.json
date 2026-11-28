@@ -1,0 +1,7 @@
+{
+    "name": "Channel Thunder Steppe / real Instant is not Action",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T12:58:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNGAURORA20_THREEDORI20. ExistingLightningChannel7ArenaFLOW1isvalidmaintainedpriorposition/noentry/maintenanceprovenance; realLightningElectrify6Handcontrolunplayed, floatingR1initialaffordabilitycontrol. ActualGenericSigilRed5INSTANT0(fromHand) isNOTActiondespiteanActionphaseandLightningHero. ELEPlayedChannelbranchrequiresFaBHasTypeAction, soWHENunearned/noLayer/Pay1choice/GoAgainorAPrefund. Native5INSTANTStackbeforeallfourresponses/HP20/R1/AP1; actualeffectheal3HP23afterfourresponses,5GY1/6sameHand/Channel7sameownedreadyFLOW1/UID7RNG0/Deck0/StackDQquiet/allothersHP20/Arena0. R1(not0)andAP1(not2)unchangedprovesnoincorrectoptionalpaymentorInstantGA. No Action followup entersknownpositiveWHENroute. OnlyInstant-vs-Actionguard/native3heal/fates/countereconomy; positiveChannelActionWHEN/timing/pay1/GA/entry/EndPhaseFlowmaintenance/Lightningpitch/support/initialprovenance/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#channel_thunder_steppe_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

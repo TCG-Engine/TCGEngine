@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch400.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T23:32:10.120231+00:00",
+  "fixtures": [
+    {
+      "slug": "card-steam-canister-blue-four-live-sparse-real-self-bottom-cost-and-owned-crank-item-steam-counter",
+      "fixture_sha256": "01f98877e98ccf435bd5e2dec9feb31b1e0ccf93068288ba1151ff280938dc71",
+      "passed": true,
+      "result": "[PASS] steam_canister_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-steam-canister-blue-four-live-sparse-real-self-bottom-cost-and-owned-crank-item-steam-counter",
+      "returncode": 0,
+      "stdout": "[PASS] steam_canister_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-heroic-pose-red-four-live-correct-probe-real-crowd-cheer-hero-trigger-before-confidence-and-seven-power-attack"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

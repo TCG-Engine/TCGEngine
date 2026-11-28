@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-brothers-of-flame-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-brothers-of-flame-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c8aad4563a48aa43c8386cad03ff0dbd5958914d38c3594844625b4f406a2504",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e8efb5ba707c6c9d6450db83e57c2a45cc69b2cf70e894889cded368f3ef8cdc",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "dab2de51f0a7f661e0fb26ebd01b0b9ffe75e8ef6ff2761995a4b5929eee546f",
+        "expected_final_gamestate.txt": "0a1999b028dfada768f973eda0e2501227499e53ba2d01d74bd5d85a5e5c6f40",
+        "meta.json": "b0c289ead8762dc655820fc6ea079460f3d65ef5ce8addf33d7920e39e90386a"
+      }
+    },
+    {
+      "slug": "card-sisters-of-fire-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sisters-of-fire-red-four-live-sparse1025-real-dagger-target-without-two-draconic-chain-links",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "192d51eb282dbe69aaf12b86c87cc7a67cbdf7375e317ee2b77934ba31fe33b8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "16b22fd91ee3de021e1f0658ac9cf5f689c67528ce16a8046234eb83c01edd72",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "bd9d451f7187f8fe79b8208baee5bd61a6a05e310ca2af21537e02b0a47383f0",
+        "expected_final_gamestate.txt": "380d1a9ec15f0e7dc38d8b044e1f45e3a1ef83212cfdbf0327c73affce02b6fe",
+        "meta.json": "9080921fac14234d69624ad8b0d32b02cf4988ffa3561eb78d57c5b3f10dedfc"
+      }
+    },
+    {
+      "slug": "card-hunts-end-red-four-live-sparse1025-real-dagger-target-without-three-fealty-tokens",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hunts-end-red-four-live-sparse1025-real-dagger-target-without-three-fealty-tokens",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1025-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "482f8b9e6caa9c8d1e0594bad0f5450e70e139b6e1c5f07161a2a2358a544e9f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d92dbc0da78ada5bb2bfffddb023a1b156727e81d25e2a61844dc9a20a47058c",
+        "actions.json": "0dd64dbd975d38bfa553d9e02d440fa38f1f621d52a78bfeec6695534975d7f8",
+        "assertions.json": "a00543422274c993ccfb67e7f4778f4d268c73e339a5bc50a43908bafa627849",
+        "expected_final_gamestate.txt": "23a6785538d6c3e0c857f1f8525c0e24651bfa825d98b1d0e6eadb99a216dabe",
+        "meta.json": "229bf2265eff471cef060c6aab7d4f5ce40ebcc935b6cbd5e49d472c905e7d00"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

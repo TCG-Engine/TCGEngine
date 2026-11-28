@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hurricane-technique-yellow-four-live-sparse939-actual-first-chain-four-without-rising-knee-thrust-combo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hurricane-technique-yellow-four-live-sparse939-actual-first-chain-four-without-rising-knee-thrust-combo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f86072a751c2b0435c7b319c1326ed19a0e02be98f92af2a18ad36e27f09cd42",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d498a92b6fe1d4adf4b6907d7eb1504a0f2819a4fc6f32c435a1ad3e5ea682b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "25783c891639df0210891d316947e9a16967397583fa02db5fca6e7121f4c84d",
+        "expected_final_gamestate.txt": "7ae6d585b5e0d7cdf290c246dd36fdcebb5287a0811d187f41399b8cb1ae7172",
+        "meta.json": "3177c10b469c1fedac9033bb1916a94f9df3e7c7e4105e2f463b5d6394ad28ab"
+      }
+    },
+    {
+      "slug": "card-stoke-vengeance-red-four-live-sparse939-actual-first-chain-four-without-edge-of-autumn-combo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stoke-vengeance-red-four-live-sparse939-actual-first-chain-four-without-edge-of-autumn-combo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ad2b3fa6a53b57aa175757091b20ab702ad88f85e8af1421338532c1a2e6bcb9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68befee64fed2da90b886d381eef3cbf37a6fbfe12648cbcccf8bee9ca5b8a84",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4ed24fb67dc3906351090442d65459be3900667cbe2cd467ce9c7eb615dfdf3f",
+        "expected_final_gamestate.txt": "58ca9dba2194cd242edfa6e220fc6cfc8e71ce9fcd27084516821862f7654796",
+        "meta.json": "0a75de8e273c72c4fd60916c47a33339906ffb30b421fc3e08994f212d5b0167"
+      }
+    },
+    {
+      "slug": "card-tiger-swipe-red-four-live-sparse939-actual-first-chain-two-without-crouching-tiger-combo",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tiger-swipe-red-four-live-sparse939-actual-first-chain-two-without-crouching-tiger-combo",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "60372ee4350dd8c0fc24fdb207152a42e9fef97db229693bf050e964f95849da",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5d25b682842b17c6ae5281e4786b9f8006959996e87e4047bd945a9fba8e0b3",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "abed2a25ebb56fb1b354d97a6a5418ac1855a3fa0bbf85cacbd8077011411e59",
+        "expected_final_gamestate.txt": "1a050214d1ee335a4420cfe4e2ce4380606dc31a21dbf0004affdf7327459446",
+        "meta.json": "24d21415910793b0c8e239d29e4157e5ccfb1c2faf64645ba58834a7af8a6c3b"
+      }
+    },
+    {
+      "slug": "card-phoenix-form-red-four-live-sparse939-actual-three-with-no-phoenix-flame-keeps-real-own-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-phoenix-form-red-four-live-sparse939-actual-three-with-no-phoenix-flame-keeps-real-own-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "853bece7974cb26945583d5031f650787e41b119d264d9028ec4fbd523e9bc5e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fcf9d63d9d0f5ed5788cd3eacebd26340f32f8eae573c951245306fd11dd43ef",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "1344d1f9235da67bd9b86eb06df09f643e2d94890d148d0be8dd102c9646d6f2",
+        "expected_final_gamestate.txt": "04cefa713bd413feb326813e141319b4c859d2b63198fcfc62fd3a22cb8d82fd",
+        "meta.json": "ed3ffd0637336b7e3e0b64122299b3dec9dfc71beac59f4204c12b376989a3ca"
+      }
+    },
+    {
+      "slug": "card-goon-tactics-blue-four-live-sparse939-actual-one-with-zero-auras-keeps-real-enemy-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-goon-tactics-blue-four-live-sparse939-actual-one-with-zero-auras-keeps-real-enemy-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse939-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "46c5d6cde57726cd5af2d1074ac7d86a14f1619fdb50fce7b98094a95b269b2c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b09f39e86c83c1c207f320e61254d0ee6ad87306ecfea9fef8efde1332adcf5",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "be1cc26e6e222ee287ec82a2575667b0a4be1b6133657e3de2e30d7e8e836c44",
+        "expected_final_gamestate.txt": "e67ee608dce574c37ed7be85cd04bbdf74ade641cbf516c169dbcbbcb20d6e9f",
+        "meta.json": "7c390eab550c9cbc4e2d9b8e511bbad206426cc0676a0b10159f474e30aaddb7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

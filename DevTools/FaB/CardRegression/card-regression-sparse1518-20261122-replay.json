@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-crown-of-seeds-four-live-sparse1518-real-face-up-arsenal-card-cannot-pay-face-down-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-crown-of-seeds-four-live-sparse1518-real-face-up-arsenal-card-cannot-pay-face-down-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1518-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1518-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f3a3741c9d648504249d86d0c4a80213358121f32a4ab2b903e3ffe159baa0fc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78c916701aadea9c50f0a40fcd258fd95752f4a0b3061a0c1ac96498d119012c",
+        "actions.json": "02e014fcbc767be35abb52b1fba8950f602a853b060793ec33880f9f114fa6e5",
+        "assertions.json": "d467a5dca3e094e80314f8dd50b9a7cf489efb5bde3a13c5633649db011ea283",
+        "expected_final_gamestate.txt": "40ac853a9eb8e085cf0a980d2a1e9e915bdc792466f10125cd6dc8e98cd1124d",
+        "meta.json": "e6d9850de0a7533a43eeda002293c5c0877bef8d33ab1c94a1f3f599a15c4a96"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

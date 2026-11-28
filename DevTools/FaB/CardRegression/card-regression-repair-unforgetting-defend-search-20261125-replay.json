@@ -1,0 +1,74 @@
+{
+  "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-unforgetting-unforgiving-red-two-live-20261125-false-counter-condition-still-earns-defend-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean1.log"
+      ],
+      "complete_log_sha256": "2d56e3f77018c7e070a58056233f5092db56e2307d9c4f27b8d68e8d59d661f3",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-unforgetting-unforgiving-red-two-live-20261125-current-wear-search-owned-mangle-next-action-paid-two-damage",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-unforgetting-unforgiving-red-two-live-20261125-current-wear-search-owned-mangle-next-action-paid-two-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean2.log"
+      ],
+      "complete_log_sha256": "79fc8f04d0200a9af46f328eab67dc1c96230384a0e6711256809ba0fe7d9d5c",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean3.log"
+      ],
+      "complete_log_sha256": "51052e12d38e4212e5213d000e687d829ae3b20e3704e1de4a8fc2aa50117e63",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+      "passed": true,
+      "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unforgetting-trigger\\clean4.log"
+      ],
+      "complete_log_sha256": "ba2770a93e79d5334235980a0e17a8fdbab20490d6a0e0418db4a095929dcd0d",
+      "raw5_unchanged": true
+    }
+  ]
+}

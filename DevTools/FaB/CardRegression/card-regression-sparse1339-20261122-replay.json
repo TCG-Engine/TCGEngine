@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hurl-red-four-live-sparse1339-unpaid-optional-cost-real-attack-go-again-followup-and-retained-dagger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hurl-red-four-live-sparse1339-unpaid-optional-cost-real-attack-go-again-followup-and-retained-dagger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "84228c582b11893ba54a6c895ec713eb0f123a61f9a43db63ef3f500288cb9d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "edd482f39f4d92b4effe0f254721b8ee5904062e2572f07b9e7367db7305d3ba",
+        "actions.json": "a404bbdd50e156713c718aeef289592ff72ef1751c77a69b73f45adf82bd1725",
+        "assertions.json": "fc1cda3f40c752d48969c42e2d6b627cf2812cb09cdc52a72145ec1f6c4dd4fa",
+        "expected_final_gamestate.txt": "20da6a1e9364bdcd9a002ac0790d9f30af5a1c0bc7d1ced31f5c7d94a7f07bb0",
+        "meta.json": "cf2afe4e4c45525cd4dc66ff887aabebfb182c7bb6e6a2a460024fa08c50a9ec"
+      }
+    },
+    {
+      "slug": "card-the-golden-son-yellow-four-live-sparse1339-unpaid-optional-cost-real-attack-two-hand-action-blocks-no-overpower",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-the-golden-son-yellow-four-live-sparse1339-unpaid-optional-cost-real-attack-two-hand-action-blocks-no-overpower",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f82179de04aaaa2e6d325f3013cb9a44672289cc157f247cb8c8e5788c19bb8a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0a2dade93546a185164fa59d7a29bdf26645b30a0b8b5c9e11a5666b07f3fbb6",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "23c4f43ef370422c2307f2d02ab3718285231f50747ef9dbc24336eae0de1da6",
+        "expected_final_gamestate.txt": "455151d14f9c1ecce07c2ec28fa75f64f9517cc4b414afdca0f7e68d7a2c0235",
+        "meta.json": "b6962deb1794e59d2953fbf009fee9810603eda6d2ebdc6b496f080b4b79bcab"
+      }
+    },
+    {
+      "slug": "card-hydraulic-press-red-four-live-sparse1339-unpaid-optional-cost-real-attack-two-hand-action-blocks-no-overpower",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hydraulic-press-red-four-live-sparse1339-unpaid-optional-cost-real-attack-two-hand-action-blocks-no-overpower",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1339-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fa816665a4cd16a58a283273306827a80e0040760838f90af3f47d56edb650c3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "548f4acdd6f207275abd5a10131b6dc1574355c333d1875abe6903b7f249fec8",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "569736bbb1d2f539605519c9f583332ff0e119c521e3514756a1ec7bef5da62b",
+        "expected_final_gamestate.txt": "34150e5420a115d0639a59ef4128bb7d5f454c38433a8c3b9948bcb5d14ff1d0",
+        "meta.json": "09b64e9ce1dd4ebc6dd074065f8b0c2a9bd33f33bb50e572be86b278294f6991"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

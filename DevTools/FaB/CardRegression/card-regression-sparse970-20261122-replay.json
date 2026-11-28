@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-conqueror-of-the-high-seas-red-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-conqueror-of-the-high-seas-red-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2c5108f679764adb1ef0d49676f16dc16a52148671a646523ea431cc9f803449",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b2fe738ce3e7e25cbcfcbe56b0fd1aa8b895ac3a27f3c733f4ae30c48833c47",
+        "actions.json": "400c7ef141316ef795234399abbf4c39ff912cb043b7eeb5490a65df81f266b4",
+        "assertions.json": "727ea4fb60e272c43d5025a6d75769b6d797808f09498fe9fc3582a5ffacaba4",
+        "expected_final_gamestate.txt": "c9af943acb54511f24369c06de27e483ece22eadf9b8e8a8f5251e52bb714034",
+        "meta.json": "234fa6f7d3be59fb28d26e323d5a9fb00ae3f0bcc75bc2b4d78e81548bd267e9"
+      }
+    },
+    {
+      "slug": "card-hms-barracuda-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hms-barracuda-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d75c8331dbaa84a0690d4543158cdba2ea1a1d7fd30a52f4258c99c4246eaef2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f50adbf71b57d0aa02cedb319a2f40bb5e518f965221f63f067f5be52ba5ae6b",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "80147c566941ed7340771c03592aebb55069e4ec610bc67b2ea254cb88fe0fa5",
+        "expected_final_gamestate.txt": "8af5131ad2a9d2af05eb1caf792eff7df6e9e2a637d9d5b05d10b10fe03a34c1",
+        "meta.json": "6fb7f462fef80816e277071868bef97c95672013afe46aa8c8e10eca888cf6ee"
+      }
+    },
+    {
+      "slug": "card-hms-kraken-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hms-kraken-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "14dc78b02a3be366571caab7d79e500af6ccba49bd99a68dd25085993d81f9af",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89448b98e37c2ac0b8a7cff351cf5cb7dec266d1517eebd6896fa0b42fd59c5c",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "608af144db2a784495f9dee8cf78f028aba1c6ddaa24428e406337352b940043",
+        "expected_final_gamestate.txt": "8ec1cb0d20fb8cde6b077b86cbc0ee87543dad8d39608e99f1aa29e78ae924f3",
+        "meta.json": "dc7ca31d4fa3f629deb7f3ac723acb4d226749d06e0de0cbcda3d4491cdc72ec"
+      }
+    },
+    {
+      "slug": "card-hms-marlin-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hms-marlin-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse970-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fa33d9bcd7d0643d19bcd90262ceacc43de379fa8749a601569bb2ec39498492",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "70c98c278c6adca0792efe5e4e605d53388e7205ddba385e197fd4b37e01a93b",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "5ee2d417ff3b9afed59a8075b00a8eb1f29215d8f3ec4ae5ee0a9e3fd5b412b8",
+        "expected_final_gamestate.txt": "bd2acf891a47dbd80cb03aa9f44605a93fab55879785bf712373289221ab20f5",
+        "meta.json": "dc63b6efe8420ee5879b3cb24860c9d87fb17c0ca7819465931c13c2119ed7a4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

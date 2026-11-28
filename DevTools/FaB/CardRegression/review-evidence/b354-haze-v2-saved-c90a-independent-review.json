@@ -1,0 +1,152 @@
+{
+  "status": "APPROVED_EXACT_SAVED_B354_HAZE_V2_PAID_WARD4_SUPPORTED_CHOICE_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T17:57:01.902233+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch354-haze-v2.json",
+  "input_sha256": "32d1b722df2770c26c48e01110d943c78711bac83f79bb9536cec2bbd50417e3",
+  "fixtures": [
+    {
+      "slug": "card-haze-shelter-red-four-live-sparse-real-blue-paid-aura-ward-four-prevents-four-of-seven",
+      "card_id": "haze_shelter_red",
+      "group_id": "pitch-cycle:haze_shelter",
+      "fixture_sha256": "96dbb2a9ab8f222f69942b289a7cda7a797d87266668adaef0c76e6f7a3c72a1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c16484992379a839259316d6b41e0fba4768c800713a57b0b6140db9081a91cc",
+        "actions.json": "cfc62b4b8f32b4ac4dcf4f7b60968e55b677c17a30ad5c373c3d78a4a6b89b1c",
+        "assertions.json": "2bada4f5556f2466e2c045c4716ba1a99ed1388b080264bf8c2ca90ecc60c588",
+        "expected_final_gamestate.txt": "18d85606b62247a5d9421832a07a011f17aeca3f8e9ccde81f87ef21c096e094",
+        "meta.json": "5c9785afd516b8548ec4779af9f2b65f26e2910c8c799f372ef9d44c8b0cc2d6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "c16484992379a839259316d6b41e0fba4768c800713a57b0b6140db9081a91cc",
+        "actions.json": "cfc62b4b8f32b4ac4dcf4f7b60968e55b677c17a30ad5c373c3d78a4a6b89b1c",
+        "assertions.json": "2bada4f5556f2466e2c045c4716ba1a99ed1388b080264bf8c2ca90ecc60c588",
+        "expected_final_gamestate.txt": "18d85606b62247a5d9421832a07a011f17aeca3f8e9ccde81f87ef21c096e094",
+        "meta.json": "5c9785afd516b8548ec4779af9f2b65f26e2910c8c799f372ef9d44c8b0cc2d6"
+      },
+      "actions": 38,
+      "native_assertions": 3225,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          6
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "no_remaining_positive_packet_prevention": true,
+      "physical_findings": "ActualP1Raging7cost3/Blue8pitch3/APspent. P4realHaze5INSTANT2/actualBlue6pitch3 pays2 beforefresh4,1,2,3 source responses; same5heldStack first3 thenownedreadyundamagedAuraArena onlyfourth. FreshReaction1,2,3,4 stopsatmandatoryP4MZCHOOSEp4Arena-0 whileactualsameAura5Arena/HP20/R4=1/Stack0/GY4empty. ActualP4mode100answer selects5; Ward4capturesownBluecondition/destroys5 andprevents4ofactual7, onlythen3damageHP17/DAMAGEpriority1/noGA. Alloriginalmaterialchecksretained. FullDAMAGE/RESfourmanual rounds close7ownGY1/5ownGY4/Pitches8and6/P4R1/allAPChi0/UID1-8conserved/noextraobject/counter8RNG0/StackChainsDQawaitpaymentclear.",
+      "qualification": "OnlyactualpaidownBlueWard4/one7packet andsupportedmandatorysourcechoice. NoWard1/multipleprevention/hero/Chi/expiry/sibling/fullcard/supportprimary/controlcredit. Original29-inputHazeattemptremainsfailedunqualified; Rowdyseparatelyqualifiednotrecredited."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch354-haze-v2-independent-source-review.json",
+    "sha256": "fc432e935cc56d1508ae92dc1e323ae65d525ed7786c0061aac45bbcd873b35d",
+    "manifest_sha256": "15a2d3f3f3af64be8b6078b13e75075236bae6732ee9991dbc4f5cf94c1d89e7",
+    "current_source_guards_verified": 23,
+    "prior_material_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch354-independent-source-review.json",
+      "sha256": "edc073e0c642bf897e42fee6edc50f5b9d4d4656f15d801dc299ef714883aa3f",
+      "scope": "Reused original printed/legal/cost/material findings only; original Haze native transport omitted the mandatory selection and was not qualified."
+    }
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch354-haze-v2-20261103T175507Z-6aea1ffb591f6.json",
+    "sha256": "486729ffa6d63313b058880ef5a446f9c52667d42e989498b842d9f5fa4c1b67"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch354-haze-v2.recording-results.json",
+    "sha256": "f67d5cac35034143c9bd027d13062290393af8fdc4719d832d39bb4c4b09e733"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch354-haze-v2-native-r1\\receipt.json",
+    "sha256": "9207ced1ef924bbf79724e6a47472061ee49e9d5afa73653b621d1e6ea0f50e4",
+    "stdout_sha256": "c1298d8ee87217e77dc720f5076d05fc42c45aba86054239b6c967d8362986a5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+    "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3"
+  },
+  "original_attempt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch354-20261103T173903Z-6aea1c37c772f.json",
+    "sha256": "d34ff5a24043903cd383aaba76fba2ce3c80b4ffbb304c060c5b2f69fad7f651",
+    "status": "blocked_or_incorrect",
+    "attempted_inputs": 29,
+    "fixture_saved_in_original_attempt": false,
+    "passing_credit": false,
+    "reason": "Original recipe omitted supported mandatory Ward selection; no gameplay bug. V2 uses distinct unchanged material expectations and this new native archive."
+  },
+  "method": "Independentactualrawfive/fullschemaendpoints/every38nativeactor-mode-payload and3225orderedpersistedassertions matched exact32d1approvedV2. VerifiedactualBluepayments/Instantheldthroughfreshfour/Aura5physicalretentionatmandatorychooser/actualP4answer/same5destroyand7minus4=3/fullUIDmanualeconomycleanup. PurePythonreadparsers/normalizer/actionhelpers only; noauthorbuilder/PHP/native/R/replay/source mutation.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofreshHazeV2-onlyreplaysareseparate/notreviewerexecution.",
+    "All3225checks persisted/no recorder-onlyhooks. One HazeRed ownBlueWard4 packet; nootherwise1/multipleWard/hero/Chi/expiry/sibling/supportprimary/fullcard/controlcredit.",
+    "OriginalfailedHazearchiveandtwo-caseinputremainimmutable/separate; Rowdyalreadyqualifiedseparately/no recredit. Noenginebugclaimfromoldtransportomission; unrelatedholdsuntouched."
+  ]
+}

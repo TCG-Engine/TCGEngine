@@ -1,0 +1,158 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1293-20261122.json",
+  "source_spec_sha256": "26f44305bd5b7d7b2ca2b5fad1cbf515077169ea337fd0ceb32eefc89b20ad0c",
+  "input_sha256": "26f44305bd5b7d7b2ca2b5fad1cbf515077169ea337fd0ceb32eefc89b20ad0c",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cullingsong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+      "card_id": "cullingsong_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "18b0bef8274726996aecf55ab676e896f893029384dc07e201ef2094503f4998",
+        "actions.json": "a09495e43563fba29c459e183eddff8a35ea02c2ffa7ea70b7d11c144277743e",
+        "assertions.json": "f61620dd6a03b7bbc4ccc471d5544c12bcf3999f4806212f927dcb0cbbc1700f",
+        "expected_final_gamestate.txt": "601e9abddb2a962eaab8bb1720e400b9112e60b6ff4377ccbbfc9660af9591fd",
+        "meta.json": "6f79d43524f21ddc95f31a622a32063d1250ed386273bf2413d243a312c21c60"
+      },
+      "fixture_sha256": "4a9731183e5655ecd9098fc00f4a64cd4d27dc821abacf8a13673efcbd5876e2",
+      "actions": 27,
+      "native_assertions": 383,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1293-20261122.json",
+      "input_sha256": "26f44305bd5b7d7b2ca2b5fad1cbf515077169ea337fd0ceb32eefc89b20ad0c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1293-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cullingsong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+        "fixture_slug": "card-cullingsong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-plundersong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+      "card_id": "plundersong_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a9027a7bf81f79bb521beb6b50fffa2c9fa1264ac8d706a33014719439ada2a7",
+        "actions.json": "a09495e43563fba29c459e183eddff8a35ea02c2ffa7ea70b7d11c144277743e",
+        "assertions.json": "676226cbba330f4e64c69a28797c1fa42adf4fc8943689bbff70e141b98136df",
+        "expected_final_gamestate.txt": "f7c3e5cc91dd9fc561d4c738aaa980b95e8fba573d58a2b6fe9b32bd028825ba",
+        "meta.json": "3bc06a0923c5c2fb5dcf529840c35f3fe2741152eef11968ee7399a33e77445f"
+      },
+      "fixture_sha256": "67e49d58d58c1df7ffbe0b1a3d3975da8a5c1816044898aacb18fb583984a607",
+      "actions": 27,
+      "native_assertions": 383,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1293-20261122.json",
+      "input_sha256": "26f44305bd5b7d7b2ca2b5fad1cbf515077169ea337fd0ceb32eefc89b20ad0c",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1293-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-plundersong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+        "fixture_slug": "card-plundersong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "26f44305bd5b7d7b2ca2b5fad1cbf515077169ea337fd0ceb32eefc89b20ad0c",
+    "source_note_sha256": "c8963b53f548a5c790eb8db68abced2ab6a968d2ec4a3b684ebcddb634f55ac8",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 54,
+    "query_checks": 766,
+    "persistable_assertions": 766,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_INTRINSIC_BANISH_PLAY_WITH_ALLY_NOT_HERO_HIT_ONLY",
+    "usurp_paid_credit": false,
+    "hero_hit_banish_credit": false,
+    "blood_debt_end_phase_credit": false,
+    "per_case": [
+      {
+        "card_id": "cullingsong_gloomblade_red",
+        "group_id": "identity:cullingsong_gloomblade_red",
+        "native_controls": 27,
+        "persistable_assertions": 383
+      },
+      {
+        "card_id": "plundersong_gloomblade_red",
+        "group_id": "identity:plundersong_gloomblade_red",
+        "native_controls": 27,
+        "persistable_assertions": 383
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented ShadowRunebladeRed groups are legal under naturalYoungVynnset20, with YoungDorinthea20 seats2/3 and adjacentYoungDromai20 seat4/exact1234/manualUPF/no passives. Physicalprimary5 is admitted actualownfaceupBanish asset with defaultPlayableFromBanish0 and no externalpermission/history flags. RealenemyAshwing6/priorAsh material, ResourceBlue7Hand4 and realfaceDownArsenal8 match four-hero allocation. No other Arena, especially no Runechant under any seat, exists.",
+      "Both cached cards explicitly permit play from banished zone. IARCards252\u2013260 recognizes faceup active gloomblade intrinsically, separately from explicit permission flags; GameLogic982 admits this path despite genericPlayableFromBanish0. ActualBanish click must reach targetdeclaration, then samephysical5 entersStack ATTACK/SourceZoneBanish/OwnerController1 after actualAlly6 choice and pays printedcost0/AP1to0/R0 withoutHand/Pitch. Physicalsource ownership checks are appropriate here, unlike newly created weapon proxies.",
+      "Parent supplied official CR8.3.49 check establishes Usurp as mandatory additional-cost Runechant destruction if able, not an unconditional When-trigger. Absence of anyRunechant makes cost destruction impossible and earns no+2; no optional cost decline, paidUsurp or suppressed responseable layer is claimed. Native preparer/Runechant selector permits unable path; noRunechant is destroyed and correctpower remains printed2/noGA.",
+      "Actualfour source/combat responses carry same5 into realattack and deal2unblockedphysicaldamage to1lifeAlly6; overkill is not capped, token ceases withoutGY4 and allHeroHP20 remain. Trigger event When this hits a hero is false on Ally hit; FaBFaiHeroHit guard therefore earns no Hero-hand/arsenal banish layer. ActualHand7/faceDownArsenal8 retain owner/controller4, noBanish4/choice/RNG, making absence of trueHerohit effect observable.",
+      "Complete same5ownedGY1/oldBanish1empty, originalcontrol7Hand4/8Arsenal4, APR0/UID8RNG0/cleanStackDQsCC match named scope. No endphase or Vynnset ability is entered, so BloodDebt and HeroRunechant creation/nonattack ability are unearned. All766 query/state/power/go_again assertions persist across54 single native controls,27/383 each."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed. Official Usurp check is supplied by parent/source-note; reviewer made no network request.",
+      "Only positive intrinsicBanish play and Ally-not-Hero hit guard. No paid/crossseatUsurp, trueHeroHit banish or timing, BloodDebt endphase, Hero support, otherpitch or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1293.py": "ad3140d53b7df047b3eb3e9a93475eca4284e892eb48d5a39a72c9d91655a068",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1293-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "415ad96a2ae8ef99f633ac0e4fbcec2a6ef1e465cd3e54a734b811d4f68ab699"
+  },
+  "full_suite_run": false
+}

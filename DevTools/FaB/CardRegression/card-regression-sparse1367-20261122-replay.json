@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-snap-fingers-four-live-sparse1367-generic-active-attack-is-not-lightning-no-resource-or-destruction-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-snap-fingers-four-live-sparse1367-generic-active-attack-is-not-lightning-no-resource-or-destruction-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "daa4213887d8ae3e9ecf6661ce902841733e21e6957cbf4dec7065235dd58741",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f2152ab38e0c6fa3801ce76bf51597ca67ae4beff499dc71bc15d29dc90cdae",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "60f968067f203956a2700c17003ca6b823646c59468736cae2b2523181d69f9b",
+        "expected_final_gamestate.txt": "f930770e71564d203170729f994244bb232dfe745c4e611c0bfc8a4c7decdd46",
+        "meta.json": "a2462fefb821c5e7ccb38cc24371f499afbab1fde16969431dac3e6b11a5c52e"
+      }
+    },
+    {
+      "slug": "card-meridian-pathway-four-live-sparse1367-real-non-chi-blue-pitch-and-five-ordinary-potential-resources-cannot-pay-three-chi",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-meridian-pathway-four-live-sparse1367-real-non-chi-blue-pitch-and-five-ordinary-potential-resources-cannot-pay-three-chi",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "68684b9988ea61e4bf72f8b6e24e9be471457db279d5b2d424b66b9a883e3f69",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b65f816e12f9a85e69725c25853d9fe87d59899ce3e95c727515cc68e4e1e8fc",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "41d93ba5ea303d7bf329af7d6573c25fce81a54d1144892c47551370d84e6934",
+        "expected_final_gamestate.txt": "9620ef74c94c20068da7c423b027a10664e38e7055b14096b98a10d79781593f",
+        "meta.json": "2cf8575e6b3937c03596ccfa94d9f9817dbfba3786b27811c188abf1ef0fda8a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

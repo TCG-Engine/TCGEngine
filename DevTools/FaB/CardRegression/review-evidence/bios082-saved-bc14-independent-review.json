@@ -1,0 +1,181 @@
+{
+  "status": "APPROVED_EXACT_SAVED_BIOS082_ORIGINAL_CORRECT_V3_REPLAYS_SEPARATE",
+  "approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T20:21:38.800133+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch363-correct-delayed-trigger-v3.json",
+  "input_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+  "manifest_sha256": "878318c4b2c7648961df719ddfcdaaa56104f1702f8c76402793afa40ec951c0",
+  "fixtures": [
+    {
+      "slug": "card-bios-update-red-four-live-original-correct-delayed-item-relocation-and-boost-power-probe",
+      "card_id": "bios_update_red",
+      "group_id": "identity:bios_update_red",
+      "fixture_sha256": "b22034b672119101f2b83b315ddd4e6ae37a5771e568362513b217e3fddd9a84",
+      "behavior_sha256": "b22034b672119101f2b83b315ddd4e6ae37a5771e568362513b217e3fddd9a84",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba2fec56685fec92640ce62e39bcfd1579033937f8205d4a36205e97b795c34b",
+        "actions.json": "f57bde49ff817c8f48fab09a94cf519000eef5db3e4287479e7339a5e07e2f19",
+        "assertions.json": "33d5afd13aff88a275a6d152169243c0ec6da0a185e0ee8ba17d5be49f9704ad",
+        "expected_final_gamestate.txt": "b62d7b981aeeb9b20b218fc2251d5e55469fa5fada5e1866b99ad28cee9df4a7",
+        "meta.json": "3e8a0223c3ed76a081954d44dbe337d00597ffccb03619ec0cb7b4c8263ca7ba"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "ba2fec56685fec92640ce62e39bcfd1579033937f8205d4a36205e97b795c34b",
+        "actions.json": "f57bde49ff817c8f48fab09a94cf519000eef5db3e4287479e7339a5e07e2f19",
+        "assertions.json": "33d5afd13aff88a275a6d152169243c0ec6da0a185e0ee8ba17d5be49f9704ad",
+        "expected_final_gamestate.txt": "b62d7b981aeeb9b20b218fc2251d5e55469fa5fada5e1866b99ad28cee9df4a7",
+        "meta.json": "3e8a0223c3ed76a081954d44dbe337d00597ffccb03619ec0cb7b4c8263ca7ba"
+      },
+      "actions": 40,
+      "native_assertions": 3881,
+      "actual_manual_pass_inputs": 33,
+      "actual_manual_passes": 33,
+      "manual_passes": 33,
+      "priority_pass_inputs": 32,
+      "defending_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 9
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_original_correct_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "all_four_live_and_all_48_manual_preferences_verified": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "terminal_assertions_independently_checked": 214,
+      "final_original_physical_uids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          8,
+          9,
+          10
+        ]
+      },
+      "final_arena": [
+        {
+          "CardID": "induction_chamber_red",
+          "Status": 2,
+          "Owner": 1,
+          "Controller": 1,
+          "Damage": 0,
+          "UniqueID": 7,
+          "TurnEffects": [],
+          "Counters": []
+        }
+      ],
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual primary5 pays AP1 at printed0 and remains Stack through three source responses, then enters ownGY/earns ownGA. Actual AA6 declaration/target/Boost acceptance pays AP1 and banishes real top Item7. At inputs8..11 same7 is public owned Banish while realAA6 remains lower Stack and earned ABI above captures source5/controller1; only fourth fresh response12 moves7 to Arena. Four new responses13..16 resolve same6 as actual Hand attack link1/power7/BoostGA. Actual three NAA defenders8,9,10 DEF3 each fullyblock9: zero damage/nohit/allHP20. AP0 through three DAMAGE passes, fourth36 grants AP1. Fullclose finalArena7 ready/Damage0/Counters[] (zeroSteam), ownGYset5,6/P4GYset8,9,10, all originalUIDs1..10 conserved, virtual11 ceased, no positive BIOS power/item residue.",
+      "qualification": "One original correct BIOS eligibleItem2 delayed relocation plus nextBoost+3 positive only. No sibling/secondBIOS/expiry/suppression/foreigncontroller/otherItemcost/activation/hit/hero/supportprimary/controlmatrix credit."
+    }
+  ],
+  "blocked_attempts": [],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch363-v3-independent-source-review.json",
+    "sha256": "1bfc72b6ddfffeb8916e2dd74fa2a7278d0e43d9d254c82a42abc92d14c8467a",
+    "manifest_sha256": "878318c4b2c7648961df719ddfcdaaa56104f1702f8c76402793afa40ec951c0",
+    "original_context_runtime": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+    "original_input_unchanged": true
+  },
+  "effective_source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+    "FaBSim/Custom/DYNRuntime.php": "f521482b11084e2befb4a712cd47cf481b9139cc63d4ddb2027aa45047f3d89e",
+    "FaBSim/Custom/EVORuntime.php": "e38af5f56cd9ecc3c87e5ef6eb81fc03850151833fde02af8a4ae1a29600962b",
+    "FaBSim/Custom/MSTCards.php": "52e9e34fbc2734c4b1b7b6040ebb4d784a27f32f748b53b961dd46c9f843e1ef",
+    "FaBSim/Custom/ROSCards.php": "fd52fcc1ce037db4c8204509713c6d743e494a5ffd26cd6ed71348efd76c4a9d",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "d914a1e15dc334dd4951fea75c1ccaa14f67ff5b85d3a0f2e5ebcdbc8125e4e3",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/dyn_abilities.json": "0357acaa6e9b2ca3dfb895106270c4dc8f71515e7ff4b26801400bf5637247fe",
+    "DevTools/FaB/arc_abilities.json": "ca670664228ddd31ad2a9475434ecb2bc95b83721503772f091c75239e1aa909"
+  },
+  "source_application": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-guarded-application-generation\\receipt.json",
+    "sha256": "7cc2641fda8144858db19984c4ad60f39448f8fcd472b818373c8f9e738850bb"
+  },
+  "actual_emission_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-actual-emission-independent-review.json",
+    "sha256": "aab46698b8c6f043eeba48d682e9e156245df5586470559dfc41d3d9c4b0b6b8"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch363-correct-delayed-trigger-v3-20261103T201755Z-6aea4173f3b19.json",
+    "sha256": "3267849ed8a440a541a153c86a05177fdc8de58660bf10ae0969e6e6d69588c5"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch363-correct-delayed-trigger-v3.recording-results.json",
+    "sha256": "9358c4e9da9b04d5bf9ce4ee05eb4ea7f8f69204568f044b578b0fb52ef13a37"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-bios082-native-after-bc14-r1\\receipt.json",
+    "sha256": "1b584718d342c53447b28e5171627093de485fdd9573757f996a6c12c51363cd",
+    "stdout_sha256": "239b95f99a9bd0abbe247cabf0c7dfb3b228cbd5f46ce809be66291f52e138e9",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+    "runtime_after": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b"
+  },
+  "reused_pure_readonly_helpers": {
+    "review_nov3_batch269_saved_readonly.py": "e339d37f4f4da91e01b26ae282f6302b1b1c4c6ec4a13715e4f7726016fb0641",
+    "review_nov3_batch270_saved_readonly.py": "16278de0c810a2c4909430c44e4d3e76dc4e716e92172eb403b4e33089adf8a0",
+    "review_nov3_batch271_saved_readonly.py": "e3b66ee7901ab0c0b5ebbec9176e4b29c02b97b67a93254d6dee572237058813",
+    "review_nov3_batch364_saved_readonly.py": "1b973180271e4a817d1db729d9fb41454faa13205a492d76b0259d5243338f56"
+  },
+  "method": "Independent read-only exact five-file review; all40 actual inputs and3881 persisted assertions matched immutable original V3. Complete initial/final parsed, each terminal oracle independently checked, every material checkpoint physical/economy/HP/manualactor/timing mapped to prior source model. No builder or game execution.",
+  "behavior_digest_definition": "SHA256 ordered filenames and raw bytes initial/actions/assertions/expected_final; all five individual file hashes separately bound.",
+  "focused_controls": "NOT_RUN_NOT_CLAIMED",
+  "replays": "NOT_CLAIMED_BY_THIS_SAVED_REVIEW",
+  "limits": [
+    "Original V3/source-review runtime98e3 preserved, not retagged; actual after recording reviewed only at verified bc14. Only known082 source/emission deltas substituted for effective guards.",
+    "No PHP/native/replay/source/generated/backend/R writes/full-suite by reviewer. Root focused replay evidence remains separate.",
+    "No additional branch/full-card/support-primary/new global root or Core count claimed. Ten held070079 and optional SmashingItem branch untouched."
+  ]
+}

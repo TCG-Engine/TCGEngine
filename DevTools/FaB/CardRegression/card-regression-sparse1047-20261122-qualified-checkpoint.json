@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T03:46:54.460170+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1047-20261122.json",
+  "source_spec_sha256": "a47649e1fe8a3e9ce7b442ef9e2736a0024bf1db0cd206ac16b352e4aeaf887a",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1080,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4833,
+    "duels": 3075,
+    "four_live": 1758,
+    "recorded_primary_ids": 1981,
+    "identity_denominator": 5196,
+    "recorded_groups": 1855,
+    "group_denominator": 3324,
+    "four_live_groups": 1747,
+    "phase_qualified_scenarios_at_actual_contexts": 1470,
+    "phase_qualified_unique_groups": 1460,
+    "creation_replay_passes": 2212,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 631,
+  "scenarios": [
+    {
+      "card_id": "heavy_industry_gear_shift",
+      "group_id": "identity:heavy_industry_gear_shift",
+      "scenario_id": "heavy-industry-gear-shift-four-live-sparse1047-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/heavy-industry-gear-shift-four-live-sparse1047-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1047-20261122.json",
+      "source_spec_sha256": "a47649e1fe8a3e9ce7b442ef9e2736a0024bf1db0cd206ac16b352e4aeaf887a",
+      "review_evidence": "review-evidence/sparse1047-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0c2ae76382417f8d49bc19cde97508fac7d37cedf7d51fdc248c81bd8de18ca",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1047-20261122-replay.json",
+          "sha256": "08746f9470d3d95fbdbd14de3778f85f756236c3eaf5ad2ce72266ec4ab2990e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mask_of_perdition",
+      "group_id": "identity:mask_of_perdition",
+      "scenario_id": "mask-of-perdition-four-live-sparse1047-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/mask-of-perdition-four-live-sparse1047-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1047-20261122.json",
+      "source_spec_sha256": "a47649e1fe8a3e9ce7b442ef9e2736a0024bf1db0cd206ac16b352e4aeaf887a",
+      "review_evidence": "review-evidence/sparse1047-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0c2ae76382417f8d49bc19cde97508fac7d37cedf7d51fdc248c81bd8de18ca",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1047-20261122-replay.json",
+          "sha256": "08746f9470d3d95fbdbd14de3778f85f756236c3eaf5ad2ce72266ec4ab2990e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "shriek_razors",
+      "group_id": "identity:shriek_razors",
+      "scenario_id": "shriek-razors-four-live-sparse1047-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/shriek-razors-four-live-sparse1047-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1047-20261122.json",
+      "source_spec_sha256": "a47649e1fe8a3e9ce7b442ef9e2736a0024bf1db0cd206ac16b352e4aeaf887a",
+      "review_evidence": "review-evidence/sparse1047-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0c2ae76382417f8d49bc19cde97508fac7d37cedf7d51fdc248c81bd8de18ca",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1047-20261122-replay.json",
+          "sha256": "08746f9470d3d95fbdbd14de3778f85f756236c3eaf5ad2ce72266ec4ab2990e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "longsword_leggings",
+      "group_id": "identity:longsword_leggings",
+      "scenario_id": "longsword-leggings-four-live-sparse1047-real-defense-battleworn-close",
+      "effect_branches": [
+        "actual_printed_one_defense_and_battleworn_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/longsword-leggings-four-live-sparse1047-real-defense-battleworn-close",
+      "source_spec": "card-regression-sparse1047-20261122.json",
+      "source_spec_sha256": "a47649e1fe8a3e9ce7b442ef9e2736a0024bf1db0cd206ac16b352e4aeaf887a",
+      "review_evidence": "review-evidence/sparse1047-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b0c2ae76382417f8d49bc19cde97508fac7d37cedf7d51fdc248c81bd8de18ca",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1047-20261122-replay.json",
+          "sha256": "08746f9470d3d95fbdbd14de3778f85f756236c3eaf5ad2ce72266ec4ab2990e",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

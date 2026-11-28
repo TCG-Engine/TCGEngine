@@ -1,0 +1,7 @@
+{
+    "name": "Burning Blade Dance / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:41:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control 2 or more Draconic chain links, this gets **go again** and \"When this hits a hero, you may have target dagger you control deal 1 damage to them. If damage is dealt this way, the dagger has hit. Destroy the dagger.\" Representative only: actual_first_draconic_link_three_without_granted_go_again. Actual printed payment, four manual live seats/full unblocked combat, real health loss and physical owned source in graveyard. No positive typed-hit/Combo/Draconic threshold or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#burning_blade_dance_red"
+}

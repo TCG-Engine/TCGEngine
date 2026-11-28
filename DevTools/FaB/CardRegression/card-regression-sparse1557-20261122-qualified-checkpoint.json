@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T13:43:40.146729+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1557-20261122.json",
+  "source_spec_sha256": "03af632e97eb8eb7dae4f6519535603b0400ca02c8fc39bf9b2a6d857ab21a13",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 345,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5651,
+    "duels": 3138,
+    "four_live": 2513,
+    "recorded_primary_ids": 2799,
+    "identity_denominator": 5196,
+    "recorded_groups": 2673,
+    "group_denominator": 3324,
+    "four_live_groups": 2502,
+    "phase_qualified_scenarios_at_actual_contexts": 2288,
+    "phase_qualified_unique_groups": 2278,
+    "creation_replay_passes": 3030,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1449,
+  "scenarios": [
+    {
+      "card_id": "vynserakai",
+      "group_id": "identity:vynserakai",
+      "scenario_id": "card-vynserakai-four-live-sparse1557-real-ally-hit-not-hero-no-three-arcane-trigger",
+      "effect_branches": [
+        "actual_positive_Ally_hit_is_not_Hero_hit_so_three_arcane_Hero_hit_event_unearned"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vynserakai-four-live-sparse1557-real-ally-hit-not-hero-no-three-arcane-trigger",
+      "source_spec": "card-regression-sparse1557-20261122.json",
+      "source_spec_sha256": "03af632e97eb8eb7dae4f6519535603b0400ca02c8fc39bf9b2a6d857ab21a13",
+      "review_evidence": "review-evidence/sparse1557-20261122-qualified-saved.json",
+      "review_evidence_sha256": "2f9f0bad7dc3f3d9cd29dd97e7a6a2da7223e9022a0f6716d86287b36dbe96c6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1557-20261122-replay.json",
+          "sha256": "12ee43a4d9c1265c1f67291fa2aba6f00e027b23dc94979e29210654d0731e0b",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

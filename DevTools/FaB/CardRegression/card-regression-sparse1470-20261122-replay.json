@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-arakni-trap-door-four-live-sparse1470-native-initial-trigger-search-face-down-banish-non-trap-cannot-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-arakni-trap-door-four-live-sparse1470-native-initial-trigger-search-face-down-banish-non-trap-cannot-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1470-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1470-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ac898e9842294ceabab16c74844e7752502e097356237e0303b88c5824510c7c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c2ed6cbabf80cd932376de9c074b0b97eaeee0e6d7a4ea06e6b89938711fd1ce",
+        "actions.json": "0a8b760b4bb3810b7b625c731e1b56b083d2a55cdb516808727974400f1d6ed1",
+        "assertions.json": "ff99cdf9064982df50ebff68170df6b748ba46b5f250555775a82fae3ca697b9",
+        "expected_final_gamestate.txt": "c1b8d725711f7ceb6a0a1e4e73e06a11de6d1aaa78890fb3feef80006e57c261",
+        "meta.json": "5a4af421331bbcb0dad76de6638656bdd651e8597207e22eef4e2d9d7a4f3e2c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

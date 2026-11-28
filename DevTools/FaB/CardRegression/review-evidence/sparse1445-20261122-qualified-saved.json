@@ -1,0 +1,151 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1445-20261122.json",
+  "source_spec_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+  "input_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+      "card_id": "restless_shieldmaiden_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6077715f83a395edad41c82006da984b798d6b3cbb07dd4a18b134e4db185475",
+        "actions.json": "9f25e65f825937a2eda9643d116981a99957d00bce9450b53b4cd007f90d636c",
+        "assertions.json": "5cc519881f9aefcda6eba86020f744240b0603f956858017861db21a0c535ccd",
+        "expected_final_gamestate.txt": "50f7e5bf84c697ac8eb80c67277a15d4a23e2113176adcf1ede5589250df4de2",
+        "meta.json": "61d1297022008ed37cecef0e760f906bcedbbb773b76e2966219e7eefa64e0da"
+      },
+      "fixture_sha256": "803407e5f77c04b5c7bf92813a9ed16db7a7f5ffd1dc32c2a71da1bad5b4667d",
+      "actions": 32,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1445-20261122.json",
+      "input_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1445-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+        "fixture_slug": "card-restless-shieldmaiden-red-four-live-sparse1445-real-shadow-controlled-generic-damage-prevention-destruction-and-malice-followthrough",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "f437a7e4338edb87f89c563a0ceee8e9da1f02ab453714cff6dac3aaf4798d27",
+    "source_note_sha256": "dabdf2aef3e540a2b4c7b955cf6a3648d5e27dab91bebbe821d7142253ff7b0f",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual_young_natural20_UPF",
+    "native_controls": 32,
+    "query_checks": 307,
+    "persistable_assertions": 307,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "primary_group": "identity:restless_shieldmaiden_red",
+    "coverage_category": "POSITIVE_SHADOW_RESIST_ONE_ACTUAL_DESTROY_PREVENTION_WITH_EARNED_DEATH_TRIGGER_FOLLOWTHROUGH",
+    "approved_qualification_endpoint": "COMPLETE",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "basis": [
+      "Cached Shieldmaiden is a non-Incarnate Shadow Necromancer Zombie Ally with Shadow Resist1 and Decay. Malice4 is legal Shadow Necromancer20, attackerVynnset1 legal ShadowRuneblade20; otherDori20/actualGenericWounding4power0cost admitted. Primary group independently unrepresented and unheld.",
+      "Resist tests controlling source Hero supertype, not attack-card supertype. IARRuntime416-422 resolves damage source controller/fallback attacker1 and sees Shadow Vynnset, then offers actual controlled Shieldmaiden6. Printed Generic Wounding is eligible; no card-talent substitution was invented. Source-note records publisher indexed excerpts and directHTTP403 limitation, consistent with already retrieved CR8.3.47.",
+      "Formal four-seat target chooser includes adjacent Hero2/Hero4 and actual Ally6; selects Hero4. NativeWounding5 uses AP1to0/R0 and all four responses before real4power/noGO attack. Shieldmaiden6 remains ready and present until prevention choice.",
+      "DTDCards211-242 and generated Radiant helper16903/176980-177078 offer optional MZMULTICHOOSE0|1|p4Arena0 because onlyShadowResist is available, no Ward/Forcefield mandatory source. Selection destroys actual non-Incarnate6 via MONDestroy, reduces exactly1, stores prevention packet and resumes actual damage4to3; Hero4HP20to17. No unrelated life loss/heal/source effect is earned.",
+      "Actual source death captures/queues Malice via GameLogic864-876 and IARRuntime167-205. Shieldmaiden6 goes ownedGY4, separate Malice7 Controller4/SourceHero4 remains unresolved. Callback then re-enters DamageStep, so native UI window becomes DAMAGE1 while Stack7 persists; this does not remove the layer or responses.",
+      "EngineActionRunner512-514 answers callback directly. GameLogic2512/2538 sets DAMAGE/priority1/passes0. FaBPassPriority2643-2660 validates live seat/noDQ and resolves nonemptyStack after four fresh passes before the DAMAGE combat-advance branch2670. Corrected goals DAMAGE2,3,4 thenDAMAGE1+Stack0 require actor1/2/3/4 responses; gameplay outcomes remain unchanged.",
+      "Malice resolution uses same captured owned6 to face-downBanish4/Playable0 and creates distinct new ownedCorpse8 face-upBanish4; no Incarnate death is asserted, newCorpse never dies. Exact original/newUIDs and fullcloseWounding5GY1/emptyArena,GY4,CC,Stack,DQs/UID8RNG0/APR0/Heroesready/HP17,20 pinned. Decay/endphase/allyattack never reached."
+    ],
+    "protocol_correction": {
+      "classification": "pre_native_source_derived_UI_label_correction_no_engine_bug",
+      "record_sha256": "8502bbe9859beb61b5ddb948ee82c62df17e8bdb7bec304816ab8c5ff935498a",
+      "original_unexecuted_spec_sha256": "8fb817daf466a54b556db18259aa89382dcb5bc58249d9ef4f59f10f27fb3fb0",
+      "scope": "Only post-choice window PRIORITY\u2192DAMAGE, three fresh pass goal labels, added explicit Stack0 completion predicate and explanatory oracle prose. All damage/HP/ownership/UID/death/final-effect assertions unchanged.",
+      "ordered_authoring": [
+        "author_breadth1445.py",
+        "correct_breadth1445_damage_window.py"
+      ]
+    },
+    "official_source_access_scope": [
+      {
+        "url": "https://fabtcg.com/rules-and-policy-center/release-notes/usurp-the-shadow-throne/",
+        "access": "Search-index primary-source excerpt available; direct open HTTP403; no retry."
+      },
+      {
+        "url": "https://fabtcg.com/articles/rules-reprise-usurp-the-shadow-throne-limited/",
+        "access": "Search-index primary-source excerpt explicitly includes all sources controlled by Shadow hero; direct open HTTP403; no retry."
+      }
+    ],
+    "limits": [
+      "Decay_end_phase",
+      "primary_ally_play_or_attack",
+      "non_Shadow_source_ineligibility",
+      "declining_optional_prevention",
+      "other_pitch_siblings",
+      "No native game, saved pass, replay or coverage credit is certified by this pre-native review.",
+      "No secondary Malice/Corpse/attacker identity or whole-card credit.",
+      "No source/engine/recorder changes or tests by reviewer; do not relax any unexpected result."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1445.py": "e3d55cc325f51acba232043051b7d1e5cd6d579a4208097f19fa2c4b773fa4a8",
+      "correct_breadth1445_damage_window.py": "78953b98c179364aa7468d50239452f71202fd55eb2b39fd99d003fc332af805",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "breadth_batch.py": "3ad13a8ed683f119314c3b978a8bc10c2833fa5daa3c14b9672ad675bf5179b2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    },
+    "official_rules": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "sections": [
+          "8.3.47",
+          "8.3.45"
+        ],
+        "scope": "Resist is optional static destruction prevention against the specified Hero supertype. Decay is a separate beginning-end-phase triggered-static branch, unentered and uncredited. Publisher indexed Rules Reprise clarifies all controlled sources; direct article403 pages were not retried."
+      }
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1445-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "680699759a2d54644afc2f5e9d0b275afda10bc9730cb72a71f83fcb38d120f0"
+  },
+  "full_suite_run": false
+}

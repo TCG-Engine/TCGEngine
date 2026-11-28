@@ -1,0 +1,83 @@
+{
+  "status": "APPROVED_EXACT_GORGON080_ONLY_AVAILABILITY_ALLOWANCE_NATIVE_QUALIFICATION_PENDING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewed_utc": "2026-11-03T17:19:39.798979+00:00",
+  "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon080-candidate\\WTRCards.php",
+  "candidate_sha256": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+  "before_source": "FaBSim/Custom/WTRCards.php",
+  "before_sha256": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+  "runtime_before_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "proposal": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon080-candidate\\proposal.json",
+    "sha256": "d5b95183e46fee580ce75c4b7d93feab75d2428b7003ea23990a6ec9ada4b6be"
+  },
+  "exact_delta": {
+    "old": "if(in_array($base,['spreading_plague','knives_out'],true))return true;",
+    "new": "if(in_array($base,['spreading_plague','knives_out','gorgons_gaze'],true))return true;",
+    "occurrences": 1,
+    "all_other_body_bytes_identical": true
+  },
+  "native_before": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon350-independent-native-before-classification.json",
+    "sha256": "e5804fb9c56ceb8d04ab022e580c8e99c76ce49389041f778ab33c0f46b7f23f",
+    "accepted_inputs": 17,
+    "fixture_saved": false
+  },
+  "independence": "Root authored candidate/components; reviewer authored neither, and independently classified the nativebefore failure.",
+  "findings": [
+    "PrintedGorgon is legal MysticAssassinAR2 on the actualGenericAA, with no weapon-only/mandatoryChi play restriction. Chi affects only later optional foreignplay. The original frozen nonChi recipe remains correct.",
+    "Adds ONLY gorgons_gaze to existing unconstrained spreading_plague/knives_out allowance INSIDE already-checked ReactionPriority/attacker/liveattack path. No broadfallback, timing/priority/payment/target/effect change; all other source bytes identical.",
+    "OutforBlood actualprintedface independently viewed: TargetWEAPONattack+3, Reprise laternextattack+1. It remains outside this allowance, and component actualAAfalse/weapontrue stay unchanged. No target-declaration or Reprise-effect approval follows.",
+    "Root components extract/evaluate ACTUAL WHOLE FaBWTRCanPlay with isolated dependencies. Only GorgonGenericAA changesfalse-to-true; weapontrue/nonattackerfalse/missingattackfalse and oldweaponrestriction controls remain. Reviewer verified harness/results, executednoPHP."
+  ],
+  "component_evidence": {
+    "harness": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\gorgon080-legality-component.php",
+      "sha256": "9b3ee30eaf8d2a6209fb9d30bf7956cb5f810e1b8e41535c2d7c787c46baae17"
+    },
+    "before": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon080-candidate\\component-before.json",
+      "sha256": "f9160db51be39866171f33719107d9486153a5d636642de337b215105ab81d7b"
+    },
+    "candidate": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon080-candidate\\component-candidate.json",
+      "sha256": "a77b1cad176a1c442cd783183e57f7d2a68bdbaacaa1219b76d2749bfa3a5d44"
+    },
+    "checks_each": 6,
+    "only_changed_result": "Gorgon GenericAA false to true",
+    "executed_by": "Root",
+    "executed_by_reviewer": false,
+    "scope": "Extracted availability helper only. Type/ReactionPriority/FindUID/IsWeapon dependencies isolated; not fullengine timing/assets/Chi/target/UI or native coverage. Missingattack is a defensive helper contract, not a reached native scenario.",
+    "baseline_meaning": "Before expectedfalse records the known buggy behavior for comparison, not a replacement for original printed-correct native oracle.",
+    "comment_clarification": "Neither ID is in current FaBUsesDeclaredReactionTarget, which is what the harness comment means. OutforBlood DOES print Targetweaponattack; its target processing is not tested or approved here."
+  },
+  "printed_faces": {
+    "gorgon": {
+      "path": "FaBSim/WebpImages/gorgons_gaze_yellow.webp",
+      "sha256": "85dcbe3e469805df5d34baa9e428724ea18f32686dfbd1a675b5cf5883765980",
+      "viewed_in_original_source_review": true
+    },
+    "out_for_blood": {
+      "path": "FaBSim/WebpImages/out_for_blood_red.webp",
+      "sha256": "6b2bc8cf1238089c0f02e0af3b9bb3db26c9bf63c9d61da4254b907eae250ab2",
+      "actually_viewed_now": true
+    }
+  },
+  "candidate_lint": "Root reports fullcandidate lintPASS; reviewer didnot executePHP. Actualcomponent eval parsed the changed function; Root application must retain syntax/guard/rollback checks.",
+  "required_native_gate": {
+    "source_spec": "card-regression-batch350.json",
+    "input_sha256": "ee14fa689e808febb7cc581fa778fbb1e0238c6e5d1dee0065b604f7d20ce407",
+    "original_material_expectations_unchanged": true,
+    "guard_rebind_after_application_required": true,
+    "required": "OriginalnonChiGenericAA case: realAR2/Blue3 beforefreshfour, ownedSlither9, actualdefender8publicBanishOwner4Controller4, real4damage/fullcleanup; independentexactsaved/twofocusedreplays beforequalification.",
+    "no_passing_fixture_before_gate": true
+  },
+  "limits": [
+    "SOURCE_CANDIDATE_APPROVAL_ONLY; no applied/native/saved/replay/control/fullcard claim. No generated/canonical/backend change needed or approved.",
+    "NoChi/freeforeignplay/Slitherplay/otherARcohort/multilink/targettiming/suppression/Stackawait/oldfixturematrix. Existing070079 andSmashItemawait holds untouched.",
+    "NoPHP/native/R/sourceapplication/generator/service/replay by reviewer. Root soleapplier/executor after existing1f512 qualification gates."
+  ]
+}

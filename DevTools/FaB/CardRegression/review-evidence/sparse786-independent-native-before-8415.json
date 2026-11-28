@@ -1,0 +1,205 @@
+{
+  "status": "NATIVE_CONFIRMED_B786_SMOKE_PREMATURE_MARK_AND_SAND_MISSING_EARLY_TARGET_UNSAVED",
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth774_author_crossreview",
+  "created_utc": "2026-11-14T06:17:59.252053+00:00",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "cases": [
+    {
+      "card_id": "smoke_out_red",
+      "issue_id": "FAB-REG-174",
+      "source_spec": "card-regression-batch786-smoke-mark-probe.json",
+      "input_sha256": "789500ba990e5a7e2fc7522fcdab5a6d7edbdc4bd967d502dd24f6f1a0d3de59",
+      "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-smoke-independent-strict-diagnostic-source-review.json",
+        "sha256": "8f2ca3a481da480f5aa73bb9457186de8d267f92dbb1f191ae9b66dd098b59b0"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-smoke-original-correct-native-before\\receipt.json",
+        "sha256": "c4044d93be2d79c5f8db1f576cdf6eab775b2f7b5134601ef9ceba9ac255e9f8"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch786-smoke-mark-probe.recording-results.json",
+        "sha256": "c3160b28c52a5f1518c74e51428c52f52a45294856511d3eff1c0b527c9409c4"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch786-smoke-mark-probe-20261114T061226Z-6af7fbcad3cf5.json",
+        "sha256": "f9a951b020ce0a20e142dff9ce23ef1ab833edece94811527111349041c65be4"
+      },
+      "actual_native_inputs": 23,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "post_boundary_response_or_targetanswer_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 1390,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 1391,
+      "failed_query": {
+        "step": 23,
+        "type": "card_property_equals",
+        "mzId": "p1Hero-0",
+        "property": "Counters",
+        "value": "[]",
+        "viewerPlayerID": 1
+      },
+      "first_failed_observation": "Expected p1Hero-0.Counters to equal '[]', got '{\"HNT_MARKED\":1}'.",
+      "direct_observed_mark_counter": {
+        "HNT_MARKED": 1
+      },
+      "direct_observed_own_DQ_empty": null,
+      "direct_observed_physical_attack_UID": 5,
+      "direct_observed_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "direct_observed_defending_UID_bookkeeping": [
+        6
+      ],
+      "direct_observed_queues": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "unexecuted_queries_after_first_failure": 59,
+      "following_Stack1_observer_not_executed": true,
+      "direct_post_Stack_count_claim": null,
+      "post_zone_Stack_target_Params_raw_snapshot_available": false,
+      "normalized_target_or_post_asset_claim": null,
+      "source_derived_causal_explanation": "SelectedSmoke Defended\u2192FaBHNTDefended directlymarks currentattacker; selectedSand canonical targetchooser is late insideResolveCard. These source paths explain each confirmed direct timing failure but are not instrumented call traces or raw poststate observations.",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 125,
+      "initial_raw_sha256": "41a45ba6ba3ee470183614dff2aa0341c4d9098e3d26b84f91367fe6f9dc360c",
+      "native_confirmed_correct_expectation_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "sand_cover_blue",
+      "issue_id": "FAB-REG-175",
+      "source_spec": "card-regression-batch786-sand-target-probe.json",
+      "input_sha256": "9a26f3fe95770540bd93e9ff06a50e37600524e94add6b5d1832b4af5ef56216",
+      "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+      "independent_Source": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch786-sand-independent-strict-diagnostic-source-review.json",
+        "sha256": "0ffe85b37dee285d2bac373147c3fe213ff5f6dd75e220d294baad081c6aba9c"
+      },
+      "root_receipt": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-b786-sand-original-correct-native-before\\receipt.json",
+        "sha256": "49600f5d46a10a58866607f7939f41d3d85fc2d36dcbb3a431e2e7bbb927358a"
+      },
+      "native_result": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch786-sand-target-probe.recording-results.json",
+        "sha256": "5d08f7ad47157aa47fe9e86bb5b323e10ecf38e9ba257576b96339034a9c6f6f"
+      },
+      "immutable_archive": {
+        "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch786-sand-target-probe-20261114T061503Z-6af7fc677aeb0.json",
+        "sha256": "ec02d14d0ddeb605cdbffcb7171041ba4c215bfed11332c78ca65fc065848840"
+      },
+      "actual_native_inputs": 19,
+      "actual_actions_exact": true,
+      "actual_manual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3
+      ],
+      "post_boundary_response_or_targetanswer_inputs_consumed": 0,
+      "persisted_prior_successful_queries": 1444,
+      "persisted_prefix_exact": true,
+      "successful_prefix_count_is_direct_recorded_evidence": true,
+      "failed_ordered_query_ordinal": 1445,
+      "failed_query": {
+        "step": 19,
+        "type": "card_property_equals",
+        "mzId": "p4DecisionQueue-0",
+        "property": "Type",
+        "value": "MZCHOOSE",
+        "viewerPlayerID": 1
+      },
+      "first_failed_observation": "Expected p4DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+      "direct_observed_mark_counter": null,
+      "direct_observed_own_DQ_empty": true,
+      "direct_observed_physical_attack_UID": 5,
+      "direct_observed_attack_target": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "direct_observed_defending_UID_bookkeeping": [],
+      "direct_observed_queues": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "unexecuted_queries_after_first_failure": 72,
+      "following_Stack1_observer_not_executed": false,
+      "direct_post_Stack_count_claim": null,
+      "post_zone_Stack_target_Params_raw_snapshot_available": false,
+      "normalized_target_or_post_asset_claim": null,
+      "source_derived_causal_explanation": "SelectedSmoke Defended\u2192FaBHNTDefended directlymarks currentattacker; selectedSand canonical targetchooser is late insideResolveCard. These source paths explain each confirmed direct timing failure but are not instrumented call traces or raw poststate observations.",
+      "actual_initial_manual_booleans_checked": 48,
+      "actual_initial_queries_evaluated": 140,
+      "initial_raw_sha256": "27aef43202a8d707a42ceff3c087389eef3952160e148bd0fc67819bf16d559f",
+      "native_confirmed_correct_expectation_failure": true,
+      "fixture_saved": false,
+      "qualification": false,
+      "coverage_credit": false
+    }
+  ],
+  "total_native_inputs": 42,
+  "total_direct_persisted_successful_queries": 2834,
+  "fixture_saved": false,
+  "passing_coverage": false,
+  "source_application_approved": false,
+  "limits": [
+    "Both fail on their FIRST final observer. No raw postStack/zone/targetParams export; remaining asset/window/Stack queries were not executed, so no direct Stack0 or postsource/target binding claims.",
+    "Successful1390/1444 prefixes are actual persisted records. Each initial48manual flags independently parsed; no finalrawpreferences claim.",
+    "Bounded direct failures only: Smoke marked attacker before any freshWHEN responses; Sand no own declaration choice before any response to announced Instant with two eligibleAsh. No full positive route, siblings/full-card/globaltarget/oldheld repair qualification.",
+    "Root alone executed no-save native probes; reviewer ran noPHP/native/game/replay/R/source/Git/remote actions."
+  ],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch786_actual_before_failures.py",
+    "sha256": "6367b53c7d383339ab895051446beb0399ae5e48021baf164cfd525bedfffa7e"
+  },
+  "blockers": []
+}

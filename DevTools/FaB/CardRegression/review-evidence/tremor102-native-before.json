@@ -1,0 +1,116 @@
+{
+  "status": "NATIVE_CONFIRMED_TREMOR_COMPUTED_POWER_DUPLICATION_NO_DAMAGE_SUFFIX_EXECUTED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "input_sha256": "191a50829b8e997bae2be9ed512c496c15de2bcff3512aa05b3b0dbd93f49c56",
+  "manifest_sha256": "2d7407250a082114df90168de254de6f6b97bcbf44755dcccca3f7356eeb0453",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 66,
+  "card_id": "tremor_of_iarathael_red",
+  "group_id": "pitch-cycle:tremor_of_iarathael",
+  "slug": "card-tremor-of-iarathael-red-four-live-original-correct-real-boost-banish-earns-two-power-once",
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "passing_fixture_or_coverage_credit": false,
+  "first_failure": {
+    "error": "power  expected 6 got 8",
+    "native_action_boundary": 35,
+    "source_step_index": 70,
+    "source_check_index": 54,
+    "ordered_check_ordinal_1based": 2659,
+    "preceding_ordered_checks_passed": 2658,
+    "completed_prior_boundary_checks": 2604,
+    "same_boundary_checks_before_failure": 54,
+    "expected_power": 6,
+    "actual_power": 8,
+    "raw_source_check": {
+      "kind": "power",
+      "value": 6
+    },
+    "note": "Recorder FCRState power directly calls FaBAttackPower and throws BEFORE adding its persisted computed_power_equals assertion. This is an actual computed getter failure, not a cached attackPower field or a replay snapshot mismatch."
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 35,
+    "action_prefix_sha256": "a8fe352841270b9ef26fead841165a2d356b2ff96e5076e8931524d4dc1f779a",
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "manual_inputs": 29,
+    "priority_response_inputs": 28,
+    "defender_finish_inputs": 1,
+    "manual_actor_counts": {
+      "1": 7,
+      "2": 7,
+      "3": 7,
+      "4": 8
+    },
+    "initial_manual_settings_verified": 48,
+    "initial_gamestate_sha256": "92f6d836264e80dd122f80ed2098b859eee45fc252fdd36ac4c0dc729bff959d",
+    "same_initial_as_original_failed_protocol_attempt": true,
+    "proved_support_route": "ActualBoostMZMODAL0 accepted; sole Deck becomes0, support6 boostedtrue and actual MON_BANISHED1/ARC_BOOSTED1 observed; realZero4 damage/P4HP16 and fullclose ownGY6/AP1 passed.",
+    "proved_primary_route": "Actualsame5Hand targetP4, realBlue8Pitch3 pays1/AP0/R2; currentChainUID5 owner/controller1 fromHand/ATTACK, Stack0/Hand0/allqueuesempty/P4HP16 proved before first power failure."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_CURRENT_ATTACK_POWER_INCORRECT",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "With actual current-turn banish condition earned by realBoost, native FaBAttackPower returns8 for printedbase4+singleconditional2=6. This violates the current printed conditional static bonus.",
+    "source_explanation": "Current canonical Tremor AttackPowerModifier invokes FaBMONOwnPower, which adds2 for MON_BANISHED. Shared FaBAttackPower later separately adds FaBIARPower, whose Tremor clause adds the same2 under the samecondition. Native8 is consistent with these duplicate selected contributions; no source edit or generated analysis blanket certification is claimed.",
+    "damage_getter_relation": "Persisted ObjectCurrentPower assertion hook and actual FaBBeginDamageStep both use FaBAttackPower. This establishes a shared code path, NOT execution of the later physical damage suffix.",
+    "root_attribution": "Only this Red realBoost positive is native-confirmed; Root issue102 relation/global distinct family allocation remains Root responsibility."
+  },
+  "source_evidence": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "FaBSim\\Custom\\IARCards.php": "fbad88fd363bf6a776f70150e8aa9468cbed9112a4257ce512c453bc2a96af0c",
+      "DevTools\\FaB\\CardRegression\\record_card_regressions.php": "1cae8e955665e2dde73f2eb92d34e191036dbaa87f379b5d5ce015303e0ecb15",
+      "Core\\RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    },
+    "anchors": [
+      "Recorder FCRState power reads FaBAttackPower and fails before FCRCheck persistence",
+      "ObjectCurrentPower current attack hook -> FaBAttackPower",
+      "FaBBeginDamageStep power -> FaBAttackPower before DoDamage",
+      "MONCards FaBMONOwnPower Tremor condition +2",
+      "IARCards FaBIARPower Tremor same condition +2",
+      "GameLogic FaBAttackPower canonical EvaluateAttackPowerModifier plus separate FaBIARPower"
+    ]
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/984/",
+      "finding": "Fresh current official4/base,+2once conditional text already independently read in originalsourcegate; no perbanish/perproducer multiplier."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.2.3"
+      ],
+      "finding": "Conditional static continuous printed effect applies one specified+2 while conditionholds."
+    }
+  ],
+  "limits": [
+    "Primary noGA assertion follows the firstfailed power check and was NOT executed at boundary35. Cached attackGoAgainfalse is reported only, not a freshpostfailure query.",
+    "No primary combatdamage occurred in the recorded prefix: state attackHitfalse/damageDealt0/ATTACK, no declaration/Reaction/Damage suffix inputs. Never claim actual8damage/P4HP8, correct6damage/P4HP10, finalprimaryGY/fullcleanup, or any later outcome.",
+    "Native passed soleDeck7 beforeBoost thenDeck0 afterBoost and observedMON_BANISHED1/boostedtrue. Exact originalUID7 publicBanish location/Owner/Controller/FaceDown/Playable properties are only authored in the FINAL unexecutedcheckpoint; their selected identity is source-derived from the sole initialDeck object, not a separately capturedpostfailure physicalBanish array.",
+    "Printedbase4 is primarytext/guardedcatalog evidence, not a separately captured nativebase scalar. Actual8 is the failed freshFaBAttackPower result, not statecachedattackPower0.",
+    "Originalprotocolfailure and V2three-leaferratum remainpreserved. No companionrun, expectationchange, sourcefix, PHP/native/R/source/service/gen, deniedrepairretry/reroute, fullsuite or sibling/control/fullcardcredit."
+  ],
+  "source_fix_applied": false,
+  "source_spec": "card-regression-batch423-tremor-protocol-v2.json",
+  "independent_full_peer_sha256": "f166f27225c3617980238af0920d13c9c29c297e4b3e5b1c41b3cd50ba0acb7c",
+  "native_recording_results": {
+    "path": "card-regression-batch423-tremor-protocol-v2.recording-results.json",
+    "sha256": "0555cc3d316d9be21daf7ce50dd90827c93665a80a95fa502ca189023328f1c6"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch423-tremor-protocol-v2-20261105T063133Z-6aec22c5a8318.json",
+    "sha256": "33de5521eecee8ee1206d83288b315a02995353f94cdd96f0512ce3bee6313d2"
+  },
+  "retention": "Compact semantic findings with repository-native exact replay-input and failed-recording archive. No incorrect fixture is in the passing corpus."
+}

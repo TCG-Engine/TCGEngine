@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-proto-base-arms-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-proto-base-arms-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "65df560960b706bf111c3be5a21b990f88f9519a1531d4e9151c568f34f9614f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "88c5d9095282a165a5070e798a3d77b5721f8f2651d29e5d31593420b5db7044",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "0517d031c374ce1b8823a1deefb6385c54a594cfb98342b995d2ecca1bcd747c",
+        "expected_final_gamestate.txt": "128c109321863ef10db227d6f05d519bfe941fd62158b655eb894cb58f57a9c2",
+        "meta.json": "66e68fe24ae53b8d05e04247f234d185a871361089223d82a7c1b2699aaadc3e"
+      }
+    },
+    {
+      "slug": "card-proto-base-chest-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-proto-base-chest-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "af788d1fc39c18de2d5180b9ef814811efde68201084a8102df719cbee4e6d76",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0b3227380e904813bd4bcbb1d4975e437876318da720a65aa9537d0fae40c564",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "af56fc5bfdb12867517b8aa51ab5d7f6564d6f22573a143b97bbcb5405634bb7",
+        "expected_final_gamestate.txt": "68f8930530ab6528f3dd5c2f3eec3d2059042682c908c3949cbb96633cdd3aac",
+        "meta.json": "e267224ae711dbc89c7d44f2a08731d08d89a580f9c6563edf4c13c339da63a2"
+      }
+    },
+    {
+      "slug": "card-proto-base-head-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-proto-base-head-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5d589e00cf7422fe1eeb2b29f7812cfc51b0a3b4ab123d4c51c90e74ffbb8feb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5794d8e2eb10fc437412de42657e052390328e5bc0247c2349cee2046805f5db",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "9d1a0ddf43ecf01a62496676af256a9dfde3c031383e368c4208e98f244ad318",
+        "expected_final_gamestate.txt": "d9c3e2eca0f3ec3618017690eaa8e3b5db386daecf60ca4c21bae08fc4ecc710",
+        "meta.json": "1439f3c1ea86836d1bd2c693724df5542e5af98d29ae46e5cbd49d281144a262"
+      }
+    },
+    {
+      "slug": "card-proto-base-legs-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-proto-base-legs-four-live-sparse1218-native-matching-slot-evo-transform-keeps-base-under-owned-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1218-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a7c16645d87b05e635c45a28f1e66da2ae607b55ce789551f9468a63764729bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80d2af0b3e0d1202520e8653ee2bafabc1274a43bbd3fcc1a75204104c984c84",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "3d9d92f4206b489d1970a32da2811cf981ed107b56f429b459637a8f66e88c02",
+        "expected_final_gamestate.txt": "2facf41b4fd70cc5615003015e4980ffe11095049d7d5783986944db0e18786e",
+        "meta.json": "2a106684b24679e3fcb21f89628341487816a52014ac3eaeab814bb739db5835"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1036-20261122.json",
+  "source_spec_sha256": "1bfd83b4d9ceaeddaf69f8d75b739811d15dc94546a17e70b5fe6b62a1fcab4b",
+  "input_sha256": "1bfd83b4d9ceaeddaf69f8d75b739811d15dc94546a17e70b5fe6b62a1fcab4b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-germinate-blue-four-live-sparse1036-declared-zero-x-real-runechant-one-life",
+      "card_id": "germinate_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "77d52b46bbb6e9433f06da62e244db1f4e95b0dfa71f955823b0b81aeb9b924d",
+        "actions.json": "39321a2afa33b33a593359cad516f019f051f3b7bcb590316edaffa9a79abdf9",
+        "assertions.json": "8c103481c1ff6d6232e6605246cb532b84f610f6827b466c269df6c5dc868c6e",
+        "expected_final_gamestate.txt": "c6248da6432008ce1b51b751b532bd8f96c277e1de3cf60b0b75924dcb954aed",
+        "meta.json": "4feda3bfef1c0ce90de2c6e5c87ac7148b718b8eddbfab74455d9f67b55806d1"
+      },
+      "fixture_sha256": "83c5085743e16bd6a7cbeb6b995d0af98a1f95c78b185b6c5f4d79057513a425",
+      "actions": 7,
+      "native_assertions": 167,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1036-20261122.json",
+      "input_sha256": "1bfd83b4d9ceaeddaf69f8d75b739811d15dc94546a17e70b5fe6b62a1fcab4b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1036-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-germinate-blue-four-live-sparse1036-declared-zero-x-real-runechant-one-life",
+        "fixture_slug": "card-germinate-blue-four-live-sparse1036-declared-zero-x-real-runechant-one-life",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "1bfd83b4d9ceaeddaf69f8d75b739811d15dc94546a17e70b5fe6b62a1fcab4b",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "Germinate Blue printed XX: create Runechant or EmbodimentEarth, repeat X more times, gainX+1life. AtX0 this is exactly one token and one life. Token-type selection belongs to resolution; it is not a printed modal Choose-N effect requiring mode declaration when playing. ExplicitGeneratedResolve loopi<=x/optionsRunechant0 and finalGainLife(x+1) match that behavior.",
+      "LegalFlorian20/current19 is an explicitly wounded starting state, not a different base health; EssenceEarth/specialization legal. Banish0 leaves Florian four-Earth replacement ability absent, so one token rather than two. NootherAura/prevention/healmodifier. ActualBlue6 provides availablepitch3, so choosingX0 is voluntary/affordable, not missing-assets forcing0.",
+      "ExplicitPrepare NUMBERCHOOSE0 announced beforecost/physicaleffect; actualXX0 leavesBlue6Hand/R0/AP0. Allfourmanualsourcepriorityresponses before tokenTypeMZMODAL0, source5ownedStack/GY0/HP19/Arena0 untilchoice. Final one actualownedRunechant7Arena1 and actualHP19\u219220, primary5ownedGY/Blue6retainedHand/queuesempty/AP0 are persisted. Noauthor-only diagnostics."
+    ],
+    "limits": [
+      "X0/Runechant/one-life branch only. No positiveXXpayment/X>0/EmbodimentEarth/fourEarthFlorian/token replacement, Runechant attack/other-seat creator, healing maximum, hero/support/sibling/wholecardcredit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1036-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d6c47ef8402655e1166c27ad5b82eb48ccbf12c8abf6307add77dc39c2d383c5"
+  },
+  "full_suite_run": false
+}

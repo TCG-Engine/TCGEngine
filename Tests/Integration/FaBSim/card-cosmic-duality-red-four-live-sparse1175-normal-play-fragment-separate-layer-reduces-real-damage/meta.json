@@ -1,0 +1,7 @@
+{
+    "name": "Cosmic Duality / actual defense earns intrinsic Fragment layer before damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:42:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungZyggy20LightningIllusionist/3Dori20manual. Actualprimary5Handdualusemenu explicitly choosesPLAY0 notalternateInstant, normaltargetHero4beforeassets, GenericBlue6pitch3pays2/R1/AP0. Four source and attackresponses; actualbasepower7/noGA. Actualdefender4declaresrealWoundingAA7DEF3, earningoneFragmentABI8(Source5) atDEFEND_PRIORITY1. Fourresponses keep7power/HP20; resolveintrinsicFragmentonce -2->5, nosecondaryprintedWHENand noarcane/Flow. Fournewdefensepriority and reactionresponses yieldactual5-3=2damage/HP18, fullcombatcleanup5ownGY1/7ownGY4/6Pitch1/AP0/R1/maxUID8/noTokens/RNG/Stack/DQs. CR8.3.43 requiresdefense2+; real3satisfies. Bodygenerated58->57->56->0 returnsonomnFragment, soalternateInstantnotexecuted. Namedphysicalreduction/response/damageonly; internalatomicvirtualsourcelifetime, secondaryHandInstanttarget/arcane/Flow, otherblockthreshold/multiplefragments/Hero/support/sibling/fullcardcredit untested. No213secondaryfragmenttriggerclaim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cosmic_duality_red FaBSim/Custom/OMNCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

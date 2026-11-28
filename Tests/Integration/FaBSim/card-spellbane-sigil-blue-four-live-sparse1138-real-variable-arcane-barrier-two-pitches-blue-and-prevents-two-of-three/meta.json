@@ -1,0 +1,7 @@
+{
+    "name": "Spellbane Sigil / actual Arcane Barrier X chooses two and prevents two damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T11:01:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the beginning of your action phase, destroy this.\n\n**Arcane Barrier X** NamedArcaneBarrierX=2positiveonlyfromvalidexistingLightningAura6underLexi4 withactualBlue7Hand. InitialAuraplay/entryunrecorded/uncredited; itsp4nextActionStartnotreached. NaturalWizardVerdance20castsactualZapRed5cost0andformaltarget4announcedbeforeAP1\u21920. FourmanualresponsesprecedeArcaneBarrierdecision4. Currentlegacyplanslegalcost0/1/2/3withinBlue3/incoming3; chooserordinal2pays2notCardPitch3. Source5remainsStackthroughvictim4MZMODALandactualHandBlue7MZCHOOSEpitch; nofreeprevention. Blue7pitch3/spend2\u2192R1, actual3arcane-2prevention=1changesLexi20\u219219, originalcaster1Health20/source5ownedGY1/allAP0; Aura6retainedowned4/noextraUID. NoQuell/Spellvoid/Unpreventable/otherbarrier/expiry/sourceplay/otherX/hero/fullcard/supportidentitycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spellbane_sigil_blue"
+}

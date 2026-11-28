@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1351-20261122.json",
+  "source_spec_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+  "input_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+      "card_id": "viserai",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95baa96a42211aa3262416044a8560d4fb0997b8190eb8b1b9be9a02df630d60",
+        "actions.json": "2fc498690b4373cb4bfedec828403596e6afc9cf12487c75e6b03be6d20cbc46",
+        "assertions.json": "1198ca02504a86ef7fccba4da610bdaa6a50146e42d5616bc64b7c0b6b98625e",
+        "expected_final_gamestate.txt": "c6e5cda619d907cbc2b6ed6868dd3f915ff1a3132d6ac8d183554afc617ea4d9",
+        "meta.json": "4da8fb81d0ac6c98db0321f06ad20a9ec323d1f4e7d3286567642dbd54e34fbe"
+      },
+      "fixture_sha256": "59ec1d2d37efc88d4055c1250f61f3ac4142c0d2754b8c580d87e7341bb1ee83",
+      "actions": 6,
+      "native_assertions": 321,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1351-20261122.json",
+      "input_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+        "fixture_slug": "card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+      "card_id": "verdance",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3cf5e5d92a78e1c06dae2f45a557cb8bd5cd1443f9f085358c1c860fd3273e85",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "3aed63154ab44915c274df9c0702964ef04d8c6294155e32aec9e15f16095105",
+        "expected_final_gamestate.txt": "335969a2ef270a0055905545be8358bd5c9d2f66d9fc171d8a8e1bbe496d4bc5",
+        "meta.json": "5b357073665023785d006b2d263c2d164b76f062da96eb23be135914284e0291"
+      },
+      "fixture_sha256": "2d2e5ad658f2342f04ac9e0e26d777c4654566811b331213a7485e32c6624239",
+      "actions": 33,
+      "native_assertions": 543,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1351-20261122.json",
+      "input_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+        "fixture_slug": "card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d3a195700d1e3abb17f41d8a3727e5f13f9b8a2e392990df83ed844ea685b905",
+    "source_note_sha256": "a95b703b820ce193febe5ae681f0dd0e7d5a60cf08d4b6435ffa3029f0a3a8b9",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 39,
+    "query_checks": 864,
+    "persistable_assertions": 864,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_CONDITIONAL_GUARD_WITH_NATIVE_OBSERVABLE_SPELL_EFFECT",
+    "per_case": [
+      {
+        "card_id": "viserai",
+        "group_id": "identity:viserai",
+        "native_controls": 6,
+        "persistable_assertions": 321
+      },
+      {
+        "card_id": "verdance",
+        "group_id": "identity:verdance",
+        "native_controls": 33,
+        "persistable_assertions": 543
+      }
+    ],
+    "basis": [
+      "Two cached naturalYoung20Hero identities, ViseraiRuneblade and VerdanceElementalWizard/EssenceEarth, each withthreeYoungDori20/manual4UPF; groupsunrepresented/unheld. RealRunebladeReadRunes andGenericPotion/Sigil/CriticalStrike/Banishcards legal under appropriateHero, no manualhistory/permission/healthseed. PrimaryHeroUID1 remainsrealHero; only namedpassiveguards are represented, no activatedHero ability oradultaliascredit.",
+      "Viserai actualfirstReadRunesRed5HandAction0 spendsAP1to0 beforefourresponses, Potion6Hand remains. ARCCards397-399 getsplayedNAAthen popsowncurrentNAA, leavingnopreviousNAA; printed another conditionfalse, no earnedHeroRunechantWHEN. GeneratedReadRunes5927 invokesCreateRunes3, ARCCards26-30\u2192HVYToken20-29 createsbase3 withnoFlorian/PromisingTerrain/Mordred/otherreplacementconditionsin this scene. Confirmed217 involves activecreationreplacement and is not a dependency of this unmodifiedbatch. Afterfourresponses expectexactRunechant7/8/9ownedController1Status2 andsource5GY/Potion6Hand/UID9RNG0/noearlytokens. NoRunechantattacktrigger occurs: none existedatspellplay and noactualAttack/weaponactivation follows.",
+      "ActualPotion6 is GenericActionItem0 inHand; printedInstant is onlyitsArenaactivation. AP0 blocksnormalnativeHandplay beforepayment/source movement, notanactivation. ExactthreephysicalRunechants/fates/resources/health/quietStack/queues remain afterignoredclick, providing no-refundconsumer and noextraViseraitoken. No positiveotherNAA/Runechanttrigger timing credited.",
+      "Verdance actualfaceupownBanish8..11 areGenericnonEarth(WoundingBlue/ComeFightBlue/RagingBlue/WoundingRed), notfourEarthbyHeroEssence. ROSCards12 filtersEarthtypeandfaceup, Active13 requiresYoung4(actual0), Life110 queuesHeroonlywhenactive/ownturn. ActualGenericSigil5INSTANT0/APpreserved1 heals20\u219223 afterfourresponses/source5GY, allotherHeroes20/noability/targetqueue/arcane. ThresholdfalsegrantmeansnoearnedHeroWHEN. No positiveface-downEarth exclusion orlaterthresholdchange certified.",
+      "ActualCriticalRed6Hand0thenHero4target/pitchBlue7Hand0 pays1/R2/AP0/printed5/noGA/fourfreshresponses/actual5damageHP4=15 followsheal, demonstratingnoerroneousblockedchooser. Fullclose5then6GY1/7Pitch1/Banish8..11sameownedUIDorderFaceDown0/allArena0/UID11RNG0/health23,20,20,15/quietStack/DQs/CC. Handindices/KindINSTANT/UIDs/physicalfates checked. Counts6/321+33/543=39/864persistable."
+    ],
+    "limits": [
+      "Only firstNAAself-exclusion Viserai and nonEarth-threshold-false Verdance guards through actualsupportspelleffects/nativeconsumers approvedpendingnative save/replay. No nativepass/qualifiedcoveragecredit claimed.",
+      "PositivepriorNAA/extraHeroRunechant/WHENtiming, Runechantattackdamage/creationreplacement, fourEarth/positiveVerdancearcane/target/timing/thresholdchanges/face-downEarth/adultthreshold/Essencelegality effects, activatedHero/supportidentity/sibling/fullcardcoverage untested/uncredited. Existingholdsuntouched/noenginerepair.",
+      "Only W reviewreceipt written; no nativegame/test/replay, T/source/engineedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/MPGCards.php": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1351.py": "697850e9483cb802ba255211d97a8747168b939b03e025b4d6739819157fe4d6",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d73bc20c0c40d76e236fc1492b553f4658c13b13ba190480f1e30fbaa2b68f78"
+  },
+  "full_suite_run": false
+}

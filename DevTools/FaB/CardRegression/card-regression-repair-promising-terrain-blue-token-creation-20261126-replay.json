@@ -1,0 +1,23 @@
+{
+  "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+  "fixtures": [
+    {
+      "slug": "repair-promising-terrain-blue-four-live-20261126-single-create-three-replaced-by-four",
+      "passed": true,
+      "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-promising-terrain-blue-four-live-20261126-single-create-three-replaced-by-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\token-creation216-217\\promising_terrain_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "bf542959501e48e58e31d9db1a165d8b28ddefddf6250d2018e09e2b11c40b22",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

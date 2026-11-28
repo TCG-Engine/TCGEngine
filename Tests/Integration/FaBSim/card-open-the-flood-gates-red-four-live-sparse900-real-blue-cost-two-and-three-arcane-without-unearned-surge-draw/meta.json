@@ -1,0 +1,7 @@
+{
+    "name": "Open the Flood Gates / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:02:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 3 arcane damage to target hero.\n\n**Surge** - If this deals more than 3 damage, draw 2 cards. Representative only: real_blue_cost_two_and_three_arcane_without_unearned_surge_draw. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#open_the_flood_gates_red"
+}

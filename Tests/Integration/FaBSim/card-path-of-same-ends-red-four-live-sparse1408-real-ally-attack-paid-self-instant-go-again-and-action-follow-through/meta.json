@@ -1,0 +1,7 @@
+{
+    "name": "Path of Same Ends / paid self ability earns action after real ally kill",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T16:16:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_AURORA20_DORI20_DORI20_KASSAICINTARI20. ActualRedPath5AA0targetsrealadjacentAlly7CintariSellswordHP2(notHero), AP0/all4responses/base3/noGOandallHeroHP20. PrintedattacksHEROconditionfalse/nounownedarcaneorgrantedGO. InATTACKactualphysical5selfInstant1activated(proxy9Source5CombatChain)paidrealCriticalBlue6pitch3/R2/AP0; GOmustremainfalseuntilall4responses. Actualabilityresolves\u2192GOtrue/base3/APstill0. Real3physicaldamagedealslethaltoAlly7Token(ceases,notGY), allHeroHP20. LinkcompletionearnsAP1frompaidGO, thenactuallyplayNimblism8Action0spendingAP1to0withphysical5clearedtoGY; all4responsescomplete8GYanditsownprintedGAAP1. Final5GY0/8GY1/6Pitch/Ally7gone/UID9RNG0/R2/AP1/StackDQquiet/combatclosed. This pairsnonHeroWHENnegativewithpositivepaidselfGOandactualactionfollowthrough, notonlysnapshot. Hero-triggerpositivearcane/timing/otherpitches/allyorigin/secondarycard/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#path_of_same_ends_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T21:14:46.037052+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse965-20261122.json",
+  "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 147,
+  "native_assertions": 855,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4592,
+    "duels": 3075,
+    "four_live": 1517,
+    "recorded_primary_ids": 1740,
+    "identity_denominator": 5196,
+    "recorded_groups": 1614,
+    "group_denominator": 3324,
+    "four_live_groups": 1506,
+    "phase_qualified_scenarios_at_actual_contexts": 1229,
+    "phase_qualified_unique_groups": 1219,
+    "creation_replay_passes": 1971,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 390,
+  "scenarios": [
+    {
+      "card_id": "dishonor_blue",
+      "group_id": "identity:dishonor_blue",
+      "scenario_id": "card-dishonor-blue-four-live-sparse965-actual-first-chain-exact-two-block-without-combo-power",
+      "effect_branches": [
+        "actual_first_chain_exact_two_block_without_combo_power"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dishonor-blue-four-live-sparse965-actual-first-chain-exact-two-block-without-combo-power",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "review_evidence": "review-evidence/sparse965-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0897e82021051e8976ab08d260f8f216291a7905781d2d92c4155e6e42ddbed",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse965-20261122-replay.json",
+          "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mugenshi_release_yellow",
+      "group_id": "identity:mugenshi_release_yellow",
+      "scenario_id": "card-mugenshi-release-yellow-four-live-sparse965-actual-first-chain-exact-four-block-without-combo-power-go-again",
+      "effect_branches": [
+        "actual_first_chain_exact_four_block_without_combo_power_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mugenshi-release-yellow-four-live-sparse965-actual-first-chain-exact-four-block-without-combo-power-go-again",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "review_evidence": "review-evidence/sparse965-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0897e82021051e8976ab08d260f8f216291a7905781d2d92c4155e6e42ddbed",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse965-20261122-replay.json",
+          "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mauling_qi_red",
+      "group_id": "identity:mauling_qi_red",
+      "scenario_id": "card-mauling-qi-red-four-live-sparse965-actual-full-block-no-hit-or-multiplayer-combo-damage",
+      "effect_branches": [
+        "actual_full_block_no_hit_or_multiplayer_combo_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mauling-qi-red-four-live-sparse965-actual-full-block-no-hit-or-multiplayer-combo-damage",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "review_evidence": "review-evidence/sparse965-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0897e82021051e8976ab08d260f8f216291a7905781d2d92c4155e6e42ddbed",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse965-20261122-replay.json",
+          "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "whirling_mist_blossom_yellow",
+      "group_id": "identity:whirling_mist_blossom_yellow",
+      "scenario_id": "card-whirling-mist-blossom-yellow-four-live-sparse965-actual-first-attack-exact-two-block-printed-go-again-no-draw",
+      "effect_branches": [
+        "actual_first_attack_exact_two_block_printed_go_again_no_draw"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-whirling-mist-blossom-yellow-four-live-sparse965-actual-first-attack-exact-two-block-printed-go-again-no-draw",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "review_evidence": "review-evidence/sparse965-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0897e82021051e8976ab08d260f8f216291a7905781d2d92c4155e6e42ddbed",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse965-20261122-replay.json",
+          "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "take_the_tempo_red",
+      "group_id": "identity:take_the_tempo_red",
+      "scenario_id": "card-take-the-tempo-red-four-live-sparse965-actual-full-block-preserves-real-top-deck-without-hit",
+      "effect_branches": [
+        "actual_full_block_preserves_real_top_deck_without_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-take-the-tempo-red-four-live-sparse965-actual-full-block-preserves-real-top-deck-without-hit",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "review_evidence": "review-evidence/sparse965-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a0897e82021051e8976ab08d260f8f216291a7905781d2d92c4155e6e42ddbed",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse965-20261122-replay.json",
+          "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-soul-reaping-red-four-live-sparse1221-regular-six-resource-payment-and-real-opposing-soul-earns-go-again-for-second-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-soul-reaping-red-four-live-sparse1221-regular-six-resource-payment-and-real-opposing-soul-earns-go-again-for-second-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1221-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1221-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0d6cbd138610dfaa95bee3ddc95e7a7eb4e896b65d2eb752b735759fe0886485",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ca3d02abc9202ad6a7c1464f9750198eca9fdeeac0f824a9d25eed937ed5f7f",
+        "actions.json": "a37fa68215a0a557019bf7d6a38d055e6b3d15e39709108fd201cb8daf2f4438",
+        "assertions.json": "09b9d88de9d04078e73512ed2fcb8de11984df5aff71df7fe3ccfe54cae9ef46",
+        "expected_final_gamestate.txt": "45d05eaf107ff4f8b67c9e2e05362820c29465e0807a0c132a3714bcdae0f1bc",
+        "meta.json": "f61b3af6c2ea1b1678d2d6caa68165314bb0580d5bc87abb17caabba3bead0d5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

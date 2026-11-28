@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ollin-ice-cap-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ollin-ice-cap-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b2e9e79f616f73ce2d1c6cc052556fa6c240bc9daef3647f26b957e45e22f14",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2e23f053f72f2233bbf24fd73795ea7bdb1401f1fa92381934b5980f4fb9ef8",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "a854f739f2afdbb165f2fa482b7ade2c3ed0da38a55e6a724f2c92b45f075ffb",
+        "expected_final_gamestate.txt": "f29decdabaad8de3d300628fb841a8c87a17f4e3eedf39af2ea930fbfe657bc3",
+        "meta.json": "ef00363ee6226b3e0ddb818a99d2354e98532c35086751bdcb1ef416e3fb9c21"
+      }
+    },
+    {
+      "slug": "card-root-bound-trunks-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-root-bound-trunks-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "916bd3968f019e01e26d2f46a6cee78e6488490dd93a0c08852f762d7abf8946",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efca7bac7728f13a7018c2a50ac473344dc5f99acdb8acc4c9ff5f9dc7d14d7c",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b0e31500ee704c77340333fdf4aba8415d1b15a58c07d537c4554fea70a08bed",
+        "expected_final_gamestate.txt": "266416b4e00ab309adcabcc85fe6232ac84cbe3be5f62ecdb3dc389653212b6d",
+        "meta.json": "f03524a8e008e995e7ddb6f11fcacb6c5177df3677b37527bd274a9754963cd5"
+      }
+    },
+    {
+      "slug": "card-stonewall-gauntlet-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stonewall-gauntlet-four-live-sparse1106-actual-ordinary-block-and-blade-break-with-strictly-absent-body-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "863edc802bf1678cb27969917d4f37433162fe10da0d6a5f76eb528335f779e2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "56ddff05e0b590edcda3fee232978af440ee5291c66112831a6691c592ff0c8f",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "4a6eced246fdf47b54ba29fa771827f2f5038f4713ba01c60924fba47ad0ad57",
+        "expected_final_gamestate.txt": "79cf968a9421fb310c6041fcd15458f39c543df8dbb4dc43329ab62766844713",
+        "meta.json": "480ff99439819128fefb9da672e049d99e9281179504d25c8b71bef22462849c"
+      }
+    },
+    {
+      "slug": "card-grains-of-bloodspill-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-grains-of-bloodspill-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d2e7b092ed4fb13f61009773a7387241bb49fca0dc83c4b60dee8d82f712a1d9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "421ea14d558c61aace0b850ea76824a4d14a6b87303d0ac5e61df6ebd752c0db",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "5117da38d2db02eb244ebe23f4fe7a7acfa296af743ac177d5080b3d5b5cb857",
+        "expected_final_gamestate.txt": "75f6e32c70f2447f333b9d9c04536e93e2fe5b5b1b41a238a41f7c588424f6f4",
+        "meta.json": "7211dfe70e0a8629e0359604c853c0ac0d5940f93607dfcd4a09135628e98301"
+      }
+    },
+    {
+      "slug": "card-tectonic-crust-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tectonic-crust-four-live-sparse1106-actual-ordinary-block-and-temper-with-strictly-absent-body-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1106-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b1fd1c1d53f17e293c19874ec1acb4aedf5c8948894f953e951b01d8cfeba380",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0971bbf76140cd18ddd1b79d0d09c6d747af78780641090db8f6fa168cd7380f",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "aa41d1084e3ea9e669586d88171b3bd4cca8002208630b2676c804df8c972ee1",
+        "expected_final_gamestate.txt": "a754cf5d5ff0c802aaf860923f3324c58b9916ac391d0ea45397bcb83698db39",
+        "meta.json": "7c0d6f1b824cd94c3555e14469dc43532a61394c2c2a1a54719939af0ad3e186"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

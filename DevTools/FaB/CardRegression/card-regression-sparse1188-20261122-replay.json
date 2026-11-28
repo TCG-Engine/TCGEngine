@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-forethought-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-token-leave-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-forethought-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-token-leave-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cc8e307c359833101a1a16ba85db8b9877ecc173e801f0e3d01b7c4af6f53d44",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "254cc64566b2937c792ec1ba2922b4cd2e014dde1a30a77d43f35c9215a8d839",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "b8a14eb593beaadbcd19aabe928c553398597a81a97d844bcdef3283d1f4a051",
+        "expected_final_gamestate.txt": "237ea6420b8c0afe4d3294e45bd655d7862ec6e7e2c6edc71aba3ae7b94a9464",
+        "meta.json": "fe13bb7fd2af60ca864737b65c5bf3cdcbc59ed0a43c19b2bfc7c82b6fa112ad"
+      }
+    },
+    {
+      "slug": "card-sigil-of-brilliance-yellow-four-live-sparse1188-opposing-vaporize-then-separate-owned-draw-leave-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-brilliance-yellow-four-live-sparse1188-opposing-vaporize-then-separate-owned-draw-leave-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41a75548116cbd4effa85f862e522bcf1be51a0b9fd2d1d5137ed25dd647afcc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2fcbfb4414c5201675088c867a23c77053f01912975bd9d8343f6117192d68f9",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "81326c9cfe4c06ffc2e5f28375e2c5471040cc0ed08c7b0247c8ccf817870e73",
+        "expected_final_gamestate.txt": "2e3da225d9ed60016dbf1d1086da9fe8374a8803936d110fed9303741948c45f",
+        "meta.json": "068c47e3c4a6d0030cc205a1d9fd914081c8469ef437376776f072f56564b995"
+      }
+    },
+    {
+      "slug": "card-sigil-of-cycles-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-cycle-leave-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-cycles-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-cycle-leave-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e886326e00bb55cc4e70e7f7523d97c5e5f2f5475c9b731859983365f4677f09",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "55f9e9aa559c8ffa01142fe1ef437f0b09e6aa304615c80c8c875c992d76aa78",
+        "actions.json": "b248b076565155b86171bd3770b2d54f762212147866b12939e310d648f2b64a",
+        "assertions.json": "a0ff3d941c1b413966391d424566a69a5fd3c7e12836863ed0c458f45a2772e6",
+        "expected_final_gamestate.txt": "0bec88599ce1ddcc0d9446700e874bebd15169a07f222241994f096f43070d04",
+        "meta.json": "ffa5704cba8f215357e5c9b68bbe9cf616f6edab1b53fc4a5ff3d596fd0fc4c1"
+      }
+    },
+    {
+      "slug": "card-sigil-of-the-arknight-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-aa-leave-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-the-arknight-blue-four-live-sparse1188-opposing-vaporize-then-separate-owned-aa-leave-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1188-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a9ff8e388e9bc838973cc37062a8f45c36cd5b689cfa99dfd999b689e5fa07f6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccbb0d6a4f8e239824928a7fa2a531766cef13af4828eab2bbd082eea2654671",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "f5be5cf1a7743bf5d29623d9498ff6f54b6ecb398c904230cbd79dd6a19c3829",
+        "expected_final_gamestate.txt": "bc3dd822e66c4c3d72ab9dbc36e40df472c4c72a395f5cd19d27c27fc6732568",
+        "meta.json": "42202f1b6f8c23513c95ce516bc77dd66b6fc61d8aadbf87d16eae4bfc8dbe45"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

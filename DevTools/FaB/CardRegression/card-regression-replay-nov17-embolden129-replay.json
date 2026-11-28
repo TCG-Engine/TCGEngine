@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-embolden129-entry-draw.json",
+  "runtime_sha256": "a250b39ad6290e18738239bb54829d9d24cd3c96b713d744c511cc084cceaa3d",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T05:13:45.359908+00:00",
+  "fixtures": [
+    {
+      "slug": "card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+      "fixture_sha256": "de5038993029f5c8268c6d69b0b4a032a31d891da68887979705f059627ae8ab",
+      "passed": true,
+      "result": "[PASS] embolden_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-embolden-red-four-live-original-correct-responseable-entry-draw-with-retained-deck-tail",
+      "returncode": 0,
+      "stdout": "[PASS] embolden_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

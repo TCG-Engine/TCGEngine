@@ -1,0 +1,35 @@
+{
+  "status": "HELD_UNRUN_SOURCE_AND_RULES_REVIEW_TARGET_DECLARATION",
+  "card_id": "astral_bridge_red",
+  "group_id": "identity:astral_bridge_red",
+  "source_spec_sha256": "90bc21ccf789bf7469f8f7872f5567bfa1da639b876853f1cd19c8026de1bf66",
+  "reviewer": "/root/breadth_review1252",
+  "reason": "Conditional Starfall has a targeted resolution effect; target must be declared before milling. Active generated ResolveCard asks for a target only during conditional resolution. Four-live UPF has multiple opposing heroes, so the official single-opponent default cannot repair the omitted declaration. Do not record this unreviewed four-live packet.",
+  "official_evidence": [
+    {
+      "url": "https://rules.fabtcg.com/en/trp/05-gameplay-logistics/",
+      "scope": "Default Decisions explicitly uses Astral Bridge pre-mill target; no default where several opposing heroes exist. Current page heading5.14, not an assumed stable numbered5.12."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "scope": "5.1.4a declare legal targets when playing, including targeted conditional resolution effects."
+    }
+  ],
+  "source": {
+    "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+    "sha256": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "function": "__RunAwait_643f687a1e407a65dcd0",
+    "boundary": "ResolveCard starts by mill; STARFALL conditional and later MZCHOOSE are resolution decisions, not declaration."
+  },
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "new_confirmed_native_issue": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "repair_attempted": false,
+  "limits": [
+    "Source-supported known declaration family, not a new native failure or root attribution.",
+    "A distinct two-player default-decision case could be considered later, but no test was created and no two-player/default or positive Starfall credit is claimed."
+  ]
+}

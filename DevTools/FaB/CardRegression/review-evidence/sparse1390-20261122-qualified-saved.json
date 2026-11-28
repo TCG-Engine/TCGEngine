@@ -1,0 +1,168 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1390-20261122.json",
+  "source_spec_sha256": "1c7e97d20cbb881ec202bddc95721c8b47ef6b14d2c42736c4a5462b67719692",
+  "input_sha256": "1c7e97d20cbb881ec202bddc95721c8b47ef6b14d2c42736c4a5462b67719692",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-ponder-four-live-sparse1390-ordinary-draw-in-action-phase-does-not-destroy-ponder-then-drawn-card-attacks",
+      "card_id": "ponder",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8e5a0f5b37522e25c8d25956e7788e097f99ccf167e47666417de8a2e9df96d0",
+        "actions.json": "2eb6ebee3f21d5d4b43ba88d60dab521af3bb137fad3d8f72dad95ba030fa1d1",
+        "assertions.json": "985ffa0bd30020acf42c9abe933837155ef28264890f22ef3d0891a127490669",
+        "expected_final_gamestate.txt": "09beda54e1666fb3f7914214622babca49e9c29e0d5f9f1c38c0cc2753a8cef5",
+        "meta.json": "6836c555ead7e4648c8f73b6ba7a99a6db4cb8708b3fb810ce47190889bc1725"
+      },
+      "fixture_sha256": "3a3abab24d1e104ac8792407189ef2bcdb77d3c614b7d2eb86eccd9ddad34284",
+      "actions": 32,
+      "native_assertions": 321,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1390-20261122.json",
+      "input_sha256": "1c7e97d20cbb881ec202bddc95721c8b47ef6b14d2c42736c4a5462b67719692",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ponder-four-live-sparse1390-ordinary-draw-in-action-phase-does-not-destroy-ponder-then-drawn-card-attacks",
+        "fixture_slug": "card-ponder-four-live-sparse1390-ordinary-draw-in-action-phase-does-not-destroy-ponder-then-drawn-card-attacks",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-soul-shackle-four-live-sparse1390-native-chane-cost-token-created-after-action-phase-began-no-immediate-top-deck-banish",
+      "card_id": "soul_shackle",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "626909fd330628e7e9d748c804fb5ededbdf0a90dbf99a8ac24bd017413f21db",
+        "actions.json": "69d27b28d135e2c57984529d79948c865b348f12b9873e6adbc4b0f616f96d47",
+        "assertions.json": "edf2e971daffba009528c8dfee641cd940c52f4d90b9380c78420456ca4cd02b",
+        "expected_final_gamestate.txt": "36b9f03d0a8ad5c47b070add629c773540f0ca9652070514f38603e7c0068a06",
+        "meta.json": "d139500856333b977a002fab9c7d6a3bf15f854ca4285d6b7c3d7a48cc0c068b"
+      },
+      "fixture_sha256": "3e1804dc24c013da7eb23e2aa0060cd253452e5256cc97df41a9c1b1109381f0",
+      "actions": 10,
+      "native_assertions": 277,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1390-20261122.json",
+      "input_sha256": "1c7e97d20cbb881ec202bddc95721c8b47ef6b14d2c42736c4a5462b67719692",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-soul-shackle-four-live-sparse1390-native-chane-cost-token-created-after-action-phase-began-no-immediate-top-deck-banish",
+        "fixture_slug": "card-soul-shackle-four-live-sparse1390-native-chane-cost-token-created-after-action-phase-began-no-immediate-top-deck-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "1c7e97d20cbb881ec202bddc95721c8b47ef6b14d2c42736c4a5462b67719692",
+    "source_note_sha256": "ab0d95146ffba3a29fc384489d0ddd098a22630e1185e3b7d3efdc7a0ee2346a",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 42,
+    "query_checks": 598,
+    "persistable_assertions": 598,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "TOKEN_FUTURE_PHASE_GUARDS_WITH_NATIVE_DRAW_OR_NATIVE_COST_CREATION_AND_CONSUMERS",
+    "per_case": [
+      {
+        "card_id": "ponder",
+        "group_id": "identity:ponder",
+        "native_controls": 32,
+        "persistable_assertions": 321,
+        "native_primary_token_creation_credit": false
+      },
+      {
+        "card_id": "soul_shackle",
+        "group_id": "identity:soul_shackle",
+        "native_controls": 10,
+        "persistable_assertions": 277,
+        "native_primary_token_creation_credit": true
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented/unheld TokenAura groups; naturalYoungKano15 orChane20 versusthreeYoungDori20/fourmanualUPF/cachedUPFallowed. Ponder existingposition currentAction valid before futureendphase; SoulShackle noinitialtoken orseededhistory. Printed Ponder beginningownEndphase and SoulShackle beginningownActionphase not ordinarydraw or creation events.",
+      "Ponder5 remains after actualLuck6InstantDestroy/sourceGY/virtualABI8/fourresponses, actual soleFDArsenalWounding7 shuffletoemptyDeck then draw7Hand (EVRShuffleHandArsenal132, generatedPotionLuck16710). No extraPonderdraw/destruction is due. Actuallydrawn7AA0formalHero4target/spendsAP1/full4sourceandcombatrounds/base4/noGA/4damageHP4=16; finalPonder5Arena/Potion6then7GY/UID8/RNG0/AP0/R0/HandDeckArsenalempty and naturalKano15 pinned.",
+      "Chane printed cost createsSoulShackle and resolves nextRunebladeOrShadowActionGA plusownGA. ARCAbilities121-148 declares preparedcreationcost; CardChoices730-737 createsownedtoken beforepriority. ActualABI7/sourceHero1 thenSoul8OwnedArena match physicalUID5ReadHand/6Deck beforeHeroactivation. Fourresponses laterAP1/nextgrant; no currentbeginActionphase repeats, noDeck6banish owed oncreation.",
+      "MONCards189-192 applies MON_CHANE to RunebladeAction including NAA ReadRunes5 and grantsGO_AGAIN despitezero poweramount. ActualReadRunes5cost0spendsAP thenfourresponses creates3Runechants9/10/11 and refundsAP1. NAA does not fireRunechants. OriginalSoul8/Deck6/Banish0/Read5GY/Hand0/UID11/RNG0/allHP20/R0/quietStackDQs coherent; futureSoulShacklebanish not qualified."
+    ],
+    "limits": [
+      "Only Ponder futureEndphase negativeguard with realotherdraw/drawncardattack; noPondercreation/enddraw/timing/provenance. SoulShackle actualcosttokencreation/ownership plusfuturebeginActionphase negativeguard and realgrantedGA consumer; futurebanish/timing/stacking/endphase/otherHeroorCardbranches/supportidentities/wholecard untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1390.py": "687b0cb58a67fa0c3f0ad2a6a3a3a7437ceb0c31d7822b7233a79c0174900842",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_future_phase_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1390-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "084a8772cb80bec77aaa31dce65cfebb446e681c8a947c291ec3ca0c40c98cb5"
+  },
+  "full_suite_run": false
+}

@@ -7,7 +7,7 @@ $checks = [];
 
 // Premier baseline unchanged.
 $premier = SWUGetFormat('premier');
-$checks['premier sets'] = $premier['legalSets'] === ['JTL','LOF','SEC','IBH','LAW','ASH','HMW'];   // HMW released 2026-09-16
+$checks['premier sets'] = $premier['legalSets'] === ['JTL','LOF','SEC','IBH','LAW','ASH','HMW','IC27'];   // HMW released 2026-09-16, IC27 2026-11-21
 $checks['premier copyEx'] = ($premier['copyExceptions']['JTL_256'] ?? null) === 15;
 
 // '*' resolves to all printed sets (includes SOR and ASH).
@@ -18,8 +18,12 @@ $checks['eternal has ASH'] = in_array('ASH', $eternalSets, true);
 // Eternal is the released-only list. The divergence is intentional — see AppCore/SWU/PreviewSets.php.
 $openSets = SWUFormatLegalSets('open');
 $checks['open is a superset of eternal'] = empty(array_diff($eternalSets, $openSets));
-$checks['open includes preview sets eternal excludes'] = in_array('IC27', $openSets, true)
-                                                      && !in_array('IC27', $eternalSets, true);
+// Amended 2026-11-21 (owner: "Preview season is over since IC27 was officially released"): nothing previews between
+// windows, so the divergence is EMPTY — every preview set Open lists is one Eternal excludes, and today there are none.
+$previewingNow = (array)(require './AppCore/SWU/PreviewSets.php');
+$checks['open includes preview sets eternal excludes'] = empty(array_diff($previewingNow, $openSets))
+                                                      && empty(array_intersect($previewingNow, $eternalSets));
+$checks['IC27 released: in open and eternal'] = in_array('IC27', $openSets, true) && in_array('IC27', $eternalSets, true);
 
 // Open has no bans; defaults fill missing keys.
 $open = SWUGetFormat('open');
@@ -148,9 +152,15 @@ foreach ($previewBases as $pf => $bf) {
     // The point of existing: the preview pool must add the preview sets on top of the base's pool.
     $checks["$pf pool is a superset of $bf"] =
         empty(array_diff(SWUFormatLegalSets($bf), SWUFormatLegalSets($pf)));
-    $checks["$pf is flagged preview"] = SWUFormatIsPreview($pf) === true;
+    // Between preview windows (owner, 2026-11-21: IC27 released) nothing is flagged preview and every preview pool is off.
+    if (empty($previewingNow)) {
+        $checks["$pf is off between preview windows"] = SWUFormatIsPreview($pf) === false && empty($P['enabled'])
+            && !array_key_exists($pf, SWUListFormats());
+    } else {
+        $checks["$pf is flagged preview"] = SWUFormatIsPreview($pf) === true;
+    }
     if (in_array($bf, $previewCarryingBases, true)) {
-        $checks["$bf carries the preview pool itself"] = SWUFormatIsPreview($bf) === true
+        $checks["$bf carries the preview pool itself"] = SWUFormatIsPreview($bf) === !empty($previewingNow)
             && SWUFormatLegalSets($bf) === SWUFormatLegalSets($pf);
         $checks["$pf is disabled (its base carries the pool)"] = empty($P['enabled'])
             && !array_key_exists($pf, SWUListFormats());
@@ -158,8 +168,9 @@ foreach ($previewBases as $pf => $bf) {
         $checks["$bf is NOT flagged preview"] = SWUFormatIsPreview($bf) === false;
     }
 }
-// Premier and Eternal stay preview-free (owner, 2026-11-04: "Premier and Eternal remain the same for now").
-foreach (['premier', 'eternal'] as $f) $checks["$f keeps IC27 out"] = !in_array('IC27', SWUFormatLegalSets($f), true);
+// Premier and Eternal stayed preview-free (owner, 2026-11-04: "Premier and Eternal remain the same for now") until IC27
+// released into both (owner, 2026-11-21). Amended from "keeps IC27 out".
+foreach (['premier', 'eternal'] as $f) $checks["$f includes IC27 (released 2026-11-21)"] = in_array('IC27', SWUFormatLegalSets($f), true);
 // A map that outlives its entries rots into a check nobody is running. Every enabled preview format
 // must appear above — otherwise a newly added one is silently unguarded, which is the whole bug.
 foreach (array_keys(SWUListFormats()) as $f) {

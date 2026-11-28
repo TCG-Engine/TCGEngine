@@ -34,6 +34,12 @@ $check(!in_array('metapremier', SWUStatsFormats(false), true), 'metapremier is n
 foreach (array_keys(SWUFormatDefinitions()) as $id) {
     if ($id === 'metapremier') continue;
     $f = SWUGetFormat($id);
+    // Always Two restricts itself to Bo1 through queueTypes (1v1: its Bo3 game 2 cannot carry a second deck; 4P: the spec's Room is
+    // Bo1) — and nothing else.
+    if (SWUFormatAlwaysTwoMode($id) !== '') {
+        $check($f['rated'] === false && $f['queueOnly'] === false && SWUFormatAllowedQueueTypes($id) === ['bo1'], "$id is Bo1-only, otherwise default");
+        continue;
+    }
     $check($f['rated'] === false && $f['queueOnly'] === false && $f['queueTypes'] === null, "$id keeps defaults");
 }
 

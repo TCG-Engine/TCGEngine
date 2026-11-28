@@ -30,7 +30,7 @@ async function makeGame() {
   }
   return String(j.gameName);
 }
-const url = (gn, pid) => `${BASE}NextTurn.php?folderPath=SWUSim&gameName=${gn}&playerID=${pid}&authKey=testschema`;
+const url = (gn, pid) => `${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${gn}&playerID=${pid}&authKey=testschema`;
 
 // One tile's state: the two target cues and the two count badges.
 const readTiles = (page) => page.evaluate(() => {

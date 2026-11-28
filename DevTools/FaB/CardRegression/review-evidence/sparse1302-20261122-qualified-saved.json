@@ -1,0 +1,279 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1302-20261122.json",
+  "source_spec_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+  "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dashing-flashfoot-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "card_id": "dashing_flashfoot_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "726189becd0b66531e99c21b0b46f146da27297b1dbd0660887280fe9e2008a2",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "d3e3f0f33992c7dbf6a295f63c4acefcfacb3c98f6c5fef8de6239ca093115f1",
+        "expected_final_gamestate.txt": "f6ad68df6cf47e183305ec01047081e8b6ff886aac8e9180906e9ae00b3cea3a",
+        "meta.json": "feda2038b9390c83a6398c704ea246b56e2f00830705e0866ec556cc1fb055d6"
+      },
+      "fixture_sha256": "e65a1ea71d6c33c8546868a3eeea46a81811998ed9c67b4003f0c903d20bbd2d",
+      "actions": 28,
+      "native_assertions": 364,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1302-20261122.json",
+      "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dashing-flashfoot-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "fixture_slug": "card-dashing-flashfoot-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-prophetic-quickstep-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "card_id": "prophetic_quickstep_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5703a9b3fba404b3cd082b0d52e3d6875add48d4a55e5547d551a29409f885ff",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "5ef491f7df29b91b86e530c40e3991c19a4da38c992048db115c840e58eca4cc",
+        "expected_final_gamestate.txt": "0af6f03739a60abe9bb3408880b0c7dd26cc90bb0a63cd329d37b855a998253c",
+        "meta.json": "e90f5103b8808a43d5d011d3d7227a01c5f4457babd48b6b654e60836f4b799b"
+      },
+      "fixture_sha256": "4f910a2ea0987de23bba0671a950c0b64a0db64005d83e2fd886d0b874a79fd1",
+      "actions": 28,
+      "native_assertions": 364,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1302-20261122.json",
+      "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-prophetic-quickstep-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "fixture_slug": "card-prophetic-quickstep-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-singeing-flowstride-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "card_id": "singeing_flowstride_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3546153ec5973c7d8e49385f597bb2971a5bc525f87b7f17b0a5ae49468233d4",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "72ec7b8f88bba8fdbfea174cf21546751218c22657717e8b3d9f9ed7c11d2d8e",
+        "expected_final_gamestate.txt": "89cff951a8cae18809d2a6eff3675910b41b3246f9d688182d097b016d310fb8",
+        "meta.json": "f0289ea23e4953735b794571cafba62726fc9179a8a789282f86b4c018244518"
+      },
+      "fixture_sha256": "e779cb4ba58889b7af694f6942970925b5d7b3babf5887005a92476f8683103d",
+      "actions": 28,
+      "native_assertions": 364,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1302-20261122.json",
+      "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-singeing-flowstride-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "fixture_slug": "card-singeing-flowstride-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stunning-swipe-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "card_id": "stunning_swipe_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1661e8bd27d7cab771f00eee1c2cb99b3d0e2a0b2c48b4248a1ff44523f0e75d",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "3cd1307e1234a9fe1ce44b36c5bee5a0a073dee68f534f037b8376ae57968a76",
+        "expected_final_gamestate.txt": "42e15b4ce12d09b799e74ebf3ef4e1bd0e29f367fbc9ef420dd57afdf006c32d",
+        "meta.json": "506fa3450dcb435663240ffecd2c1e6cc0a0825259eb69fddf9055bdfd15808d"
+      },
+      "fixture_sha256": "c0cecb4ddce40acb1c8cda70f900e4df9ceddaad9fbf4e8866c7f8ecdc9ab0bc",
+      "actions": 27,
+      "native_assertions": 329,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1302-20261122.json",
+      "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stunning-swipe-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "fixture_slug": "card-stunning-swipe-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tempestuous-kiss-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "card_id": "tempestuous_kiss_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "67346eab25790a4811b13d082d63c47ada8cd5b651e0ca4ccf47fa4f34dbf5c7",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "e0f755f123b5ab002a59eb2c4ad45fe772879e1456f5849a0be8907b7fe70410",
+        "expected_final_gamestate.txt": "cd2001344c392ac82a5145a8038ef01dc549d4143e378b7e3fe7b40e40220c9e",
+        "meta.json": "2618ce5e451dc089cf2c22cd2806e237d3e52a8f647d3af52a42ff19cf191790"
+      },
+      "fixture_sha256": "d918d96835c521cf729afc11a5d735911cffb6606d38c3c1a234d556b0c6cf78",
+      "actions": 28,
+      "native_assertions": 364,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1302-20261122.json",
+      "input_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tempestuous-kiss-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "fixture_slug": "card-tempestuous-kiss-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "5b830b3f2d2db3cbda0daf32f05328e5a5a269b7258661f47504d7dc57927780",
+    "source_note_sha256": "753b57a98dccde6dd8ec0dfc16dba6dce2f8696f79e3d3647f60047d68b036e0",
+    "case_count": 5,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 139,
+    "query_checks": 1785,
+    "persistable_assertions": 1785,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NO_GO_AGAIN_QUICKSTRIKE_AND_ALLY_NOT_HERO_DAMAGE_GUARDS_ONLY",
+    "positive_quickstrike_credit": false,
+    "positive_hero_damage_effect_credit": false,
+    "positive_briar_producer_credit": false,
+    "per_case": [
+      {
+        "card_id": "dashing_flashfoot_yellow",
+        "group_id": "identity:dashing_flashfoot_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 364
+      },
+      {
+        "card_id": "prophetic_quickstep_yellow",
+        "group_id": "identity:prophetic_quickstep_yellow",
+        "native_controls": 28,
+        "persistable_assertions": 364
+      },
+      {
+        "card_id": "singeing_flowstride_red",
+        "group_id": "pitch-cycle:singeing_flowstride",
+        "native_controls": 28,
+        "persistable_assertions": 364
+      },
+      {
+        "card_id": "stunning_swipe_red",
+        "group_id": "pitch-cycle:stunning_swipe",
+        "native_controls": 27,
+        "persistable_assertions": 329
+      },
+      {
+        "card_id": "tempestuous_kiss_red",
+        "group_id": "identity:tempestuous_kiss_red",
+        "native_controls": 28,
+        "persistable_assertions": 364
+      }
+    ],
+    "basis": [
+      "Five uncovered LightningRuneblade representatives are legal under YoungBriar20/EssenceLightning, versus YoungDori20/20 and adjacentYoungDromai20; exact1234/manualUPF/no passives. Primary5 and exactGenericfunder6 where costed, actualpriorAshwing7/controlHand8 (or6/7 for zero-cost Stunning) match all initial/source/finalUID guards. Normalcosts1/1/1/0/2 are paid by actualGenericRed1/Yellow2, AP1to0/R0 beforefourresponses; noGA/history/modifier seeded.",
+      "Quickstrike has no unconditionalGA. Current own-keyword parser/OMNQuick evaluate actualearnedGA, absent here. Correctprintedpowers3/3/4/3/5/noGA retain no conditional+1 where printed and no acquired Hero-attack arcane. Singeing/Stunning do not print conditional+1, and none is claimed.",
+      "Actualtargets are realAlly, notHero, so primary firstHero-damage token/discard/tap events and BriarHero-damage producer are not earned. OMN firstHeroDamage handler is reached fromHero damage path; UPRAlly damage handles fullphysicaloverkill3/3/4/3/5, kills1lifeTokenAlly withoutgraveyard export orHeroHPspill. AllHero20/UIDstable/allArena0/noStack/queues make no producer/arcane/APrefund observable.",
+      "RealeligibleenemyHandBlue remains for Tempestuous discard guard; Hero4 remainsStatus2 for tap guard. Stunning also faces non-LightningDromai, so this compound-negative setup does not isolate Lightning-Hero subtype correctness. Fullsamephysicalprimary5GY/funderPitchifany/controlHand retained, APR0/RNG0/cleanStackDQsCC and completefourmanual windows match selected scope. All1785 checks persist through139 controls: four28/364 cases and Stunning27/329."
+    ],
+    "limits": [
+      "Semantic/spec review only pending native save and targeted replay. No nativepass, replay or coveragecredit claimed.",
+      "Only noGA/falseQuickstrike and Ally-not-Hero guards. No trueGA/Quickstrike/arcane/Hero token/discard/tap/Briarproducer, isolatedLightning subtype, support/sibling/whole-card credit. No prior fixtures re-reviewed.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git ororiginalcheckoutaccess."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1302.py": "08735ff12d68037107b8e0778bfaf4bf79fa70320b17faabd9fa0a28c4d724ec",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2bb6b1dfd19bd027f66742b00518ff961be07d02fbe1163e6d70178e4d99d9a0"
+  },
+  "full_suite_run": false
+}

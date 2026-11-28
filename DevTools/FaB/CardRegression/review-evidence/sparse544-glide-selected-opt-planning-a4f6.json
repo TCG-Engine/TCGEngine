@@ -1,0 +1,112 @@
+{
+  "status": "APPROVED_AS_PLANNING_LIMITS",
+  "approved": true,
+  "approval_scope": "selected_unattempted_nonempty_Opt_route_planning_limit_only",
+  "planning_limits_approved": true,
+  "source_approved": false,
+  "gameplay_approved": false,
+  "semantically_approved": false,
+  "runnable_approved": false,
+  "installable": false,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "reviewed_utc": "2026-11-06T00:40:57.793373+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch544-glide-path-selected-opt-planning-limit\\planning-hold.json",
+    "sha256": "ffc8c3a10ac31de8c397f06b103f117ca1f769fe0d2570902ea824c268b123b2"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch544-glide-path-selected-opt-planning-limit\\manifest.json",
+    "sha256": "d3fd1a6907d66348c495779569e5b327486f3fab14e41d12d6ee3cbf3bdb25de"
+  },
+  "manifest_sha256": "d3fd1a6907d66348c495779569e5b327486f3fab14e41d12d6ee3cbf3bdb25de",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "baseline_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch543-v2-dyadic-correct-protocol-and-empty-counters\\manifest.json",
+    "sha256": "161ff57d9ca20af7a12fd5b2d2a2e70c4875e164f75ca92a374e3f3ecdd457d9"
+  },
+  "source_guards_verified": 69,
+  "selected_readset_count": 5,
+  "selected_readset_is_baseline_subset": true,
+  "relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/ROSCards.php": "881b788c96ac6fe7382461b82c23c0fc28a40c393f92784401bf5d8955ae8dfa",
+    "FaBSim/Custom/ARCCards.php": "e8839553781cb4c3725eac1953d622a6f7bbd6998e375261813c4c4e249691e1",
+    "DevTools/FaB/evr_abilities.json": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "catalog": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\cardArrayCache.json",
+    "sha256": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "selected_entries": [
+    {
+      "card_id": "read_the_glide_path_blue",
+      "group_id": "pitch-cycle:read_the_glide_path",
+      "representative": "BLUE",
+      "planning_limit_approved": true,
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_gameplay_bug": false
+    }
+  ],
+  "independent_findings": [
+    "Fresh official1377 agrees RangerAction0, next-arrow +1, Opt1 and own go again. Current CR5.3.4/4a requires resolving effects and their undetermined choices before go again and source leave/clear under5.3.5-.7. A real nonempty Opt has a choice to complete; an empty-Deck substitute would not test the selected route.",
+    "Actual canonical ResolveCard is implemented and the current generated wrapper/frame exists. Actual stage/order/finish helpers also exist. The nonempty branch stages top1 and yields MZREARRANGE with a continuation; there is no total-card or global implementation-absence finding.",
+    "Full actual resolution dispatch was read. Ordinary owned ACTION is neither ABI/trigger, attack/reaction, Meld-first nor persistent. Its CardID is absent from both managedplain admission lists and specialTome branch. The selected path statically calls FaBMoveStackUID to ownGraveyard before FaBResolveRules invokes the existing awaited body. This supports the known unmanaged physical-spell lifetime planning limit.",
+    "This is source-derived ordering only. No native action, prompt, Stack/GY/Temp/AP/power/damage outcome or observed failure is established; no issue/global-root/Core allocation or passing fixture/coverage is approved. The broad source file is not changed and a repair is not proposed.",
+    "All69 currenta4f6 guard hashes verified; selected five are their subset. Only this blue/nonempty-Opt route is assessed. No empty-Deck omission, assertion weakening, seeded history/AP/permission, handwritten transport or duplicate known-family native probe is authorized by this review."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1377/",
+      "finding": "Current selected Blue cost0/+1nextarrow/Opt1/goagain/DEF2."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.3.4",
+        "5.3.4a",
+        "5.3.5",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Resolving choices/effects before GA and source clearing."
+    }
+  ],
+  "source_evidence": {
+    "actual_canonical_resolve_sha256": "9ff8e66985e9fa113d0b1e452633d32695d49ef8b032ca455f0bf25b065eb414",
+    "compiled_helper": "__RunAwait_b6487b0733051e7304e1",
+    "compiled_helper_normalized_text_sha256": "96b5df9b42a88b95e81e8bd22e57def90fe27f89df15b68f95427311c6704f23",
+    "helper_execution_claimed": false,
+    "dispatch_kind": "ACTION",
+    "earlier_dispatch_checked": true,
+    "managed_plain_admission": false,
+    "persistent": false,
+    "meld": false,
+    "source_move_before_body_static": true
+  },
+  "selected_newness_current_metadata": {
+    "cycle-coverage-current.json": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+    "coverage-additions-after218.json": "558f389693f184dea2f9776cf244935b856d9d0947548666f4a6967408eb469c"
+  },
+  "executable_cases": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_engine_bug": false,
+  "new_issue_allocation": false,
+  "source_fix_proposed": false,
+  "denied_operation_retried": false,
+  "limits": [
+    "Selected blue and real nonempty Opt route only; no sibling, whole-group/every-route/card/full-catalogue verdict.",
+    "Printed primary text/current rule and static dispatch evidence only. No executable/gameplay/semantic/runnable/installable approval or native bug/control/coverage credit.",
+    "Publisher face locator retained without a new image-view claim. No legacy hold/corpus rewrite, PHP/native/replay/R/source/service/generation/fullsuite/other denied repair action. Authorized135 is only current baseline context."
+  ],
+  "blockers": [],
+  "comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch544_planning_limit_readonly.py",
+    "sha256": "609869a7181193347755488d1f75d811cfc78eebeef456f400391c6a9004f7b7"
+  }
+}

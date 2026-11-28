@@ -1,0 +1,148 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1562-20261122.json",
+  "source_spec_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+  "input_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-frost-lock-blue-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "card_id": "frost_lock_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cc579102e5b2c4fde8740cef52c9b9eccfe5d6588cd920fee4e961defde67a9",
+        "actions.json": "4d1098bc885119adbc1b3c613ca27ae851c68749c0d07e7230a6e813964ca422",
+        "assertions.json": "81939a1ad035c93706a20f0a8d0c012af4f5488b816bf09395660bf434f2e87f",
+        "expected_final_gamestate.txt": "ce709454bd5b873044851b55550c804aa0122d19c0df80ae5aa255e3771c36db",
+        "meta.json": "3f563b376a1e45b363cdfb46fbb05a46273f4b6f68d61fce6f311492e6f77366"
+      },
+      "fixture_sha256": "79f11f7f66e27a30ffe38054a24d33479784c1ccc02408ab626295c3d1574aa7",
+      "actions": 11,
+      "native_assertions": 574,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 7,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1562-20261122.json",
+      "input_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+      "coverage_endpoint": "UNFUSED_DECLINE_PRE_ATTACKING_LAYER_BOUNDARY",
+      "covered_abilities": [
+        "Limited actual optional Fusion decline with eligible Hand offered, fixed assets paid and unfused Arsenal source retained"
+      ],
+      "prefix_limits": [
+        "Positive Fusion and its cost-order hold1558 remain unrun/uncredited",
+        "No primary attack-layer resolution/becoming attacking/WHEN effects or damage/Close/full-card credit",
+        "Fourth primary response unrun; four live seats manually passed Potion responses",
+        "No direct RevealCard Events-feed assertion or rules-level combatOpen certification"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1562-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-frost-lock-blue-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+        "fixture_slug": "card-frost-lock-blue-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-explosive-growth-red-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+      "card_id": "explosive_growth_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "997d09a0bcfb21e5c9920de6b18c3e1c8908d5e3f392e1950af5eecbcdd7a2ed",
+        "actions.json": "4d1098bc885119adbc1b3c613ca27ae851c68749c0d07e7230a6e813964ca422",
+        "assertions.json": "6c8b7d410f0f12243611282f4e546768b69e66b8dffa82efaf91d48eab630284",
+        "expected_final_gamestate.txt": "9600696bdd837f0720200debce0d6f10af7c7b9d4a752d72f85c2200978256df",
+        "meta.json": "3aeba7bb02064ebeec1407c4efb8920eb0e275bfc6c6c55147004b9c59e5f525"
+      },
+      "fixture_sha256": "d804647385799bb3587825978fc5666be155f8fa93965685f6e121163d482f32",
+      "actions": 11,
+      "native_assertions": 524,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 7,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1562-20261122.json",
+      "input_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+      "coverage_endpoint": "UNFUSED_DECLINE_PRE_ATTACKING_LAYER_BOUNDARY",
+      "covered_abilities": [
+        "Limited actual optional Fusion decline with eligible Hand offered, fixed assets paid and unfused Arsenal source retained"
+      ],
+      "prefix_limits": [
+        "Positive Fusion and its cost-order hold1558 remain unrun/uncredited",
+        "No primary attack-layer resolution/becoming attacking/WHEN effects or damage/Close/full-card credit",
+        "Fourth primary response unrun; four live seats manually passed Potion responses",
+        "No direct RevealCard Events-feed assertion or rules-level combatOpen certification"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1562-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-explosive-growth-red-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+        "fixture_slug": "card-explosive-growth-red-four-live-sparse1562-eligible-hand-fusion-declined-paid-arsenal-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1562,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T14:08:58.762272+00:00",
+    "spec_sha256": "96395f0b1d376c069eb355d9d509c2e79c020765e3307a9fe85878812019683f",
+    "source_note_sha256": "12066d06e314524156abab2c23f1595fcda879724b92be7612c7777e73972f6e",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209"
+    },
+    "workspace_source_sha256": {
+      "nov25_unfused_decline_prefix_review1562.py": "443692ef222ec76c9e9bd234793f733a5dc6eb1252ded7ce9c45a4377d3a1c19",
+      "sparse1562-local-20261122/endpoint-binding.json": "07aa161e69482fd04aaac2624181fadf7114421a7c3735f15184c56aff717ce5"
+    },
+    "cases": 2,
+    "findings": [
+      "Both real eligible Hand0UID7 offered thenPASS, no valid fusionref/RevealChoices; falseper-element/eleFused. Resource/AP fixedassets thenpaid, distinctfromheld1558positiveFusion.",
+      "Frost properShiverBow/Arsenal source, GrowthArsenalavoidsHandrefshift231. Threefreshprimaryresponses stopbeforeattacking/ALL attackWHENs, nativecost/retainedphysicalHand/source observed.",
+      "Exact adapter retainsraw5/action/assertion/manualseat/setup/source/flags/endpoint checks; rawStackTurnEffects dash fromZoneClasses1109. Driverdiff onlynamed1562dispatch/guards, originalUTF8CRLFpreserved."
+    ],
+    "limits": [
+      "Source/spec and W proofadapter review only; native/save and firsttargetedreplays pending. No positiveFusion, Eventsfeedabsence, attack/WHEN/damage/Close, wholecard/sibling/supportcredit. No engine/nativeframeworkchange."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1562-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e718406f14318320758bd7a262abf635663530c4a4296b4b01c354853810a284"
+  },
+  "full_suite_run": false
+}

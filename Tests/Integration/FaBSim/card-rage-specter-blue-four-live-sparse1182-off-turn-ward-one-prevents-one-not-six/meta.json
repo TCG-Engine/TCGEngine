@@ -1,0 +1,7 @@
+{
+    "name": "Rage Specter / off-turn Ward1 only",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:30:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "OFFTURNWARDONLY: PrimaryAura5owned/controller4underlegalYoungPrism20, actualTurnPlayer1YoungVerdance20/2Dori20allmanual. PriorlawfulAuraentryproducernotrecorded, currententryWHENnotearned. PrintedWard6onlyduringitscontrollersownturn; actualvictim4notturn1soWard1, independentlyimplementedMSTCards44controllercomparison. ActualforeignZap6Action0preparesHero4beforeAP0andfourresponses. ActualmandatoryWardchoiceAura5destroys5ownGY4/prevents1of3, actualHP18(excludeswrongWard6HP20); source6ownedGY1/noextraAP/token/otherzones/RNG/UID6/Stack/DQs. Noown-turnWard6/entryAP/producer/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rage_specter_blue FaBSim/GeneratedCode/cardArrayCache.json#zyggy FaBSim/Custom/DTDCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

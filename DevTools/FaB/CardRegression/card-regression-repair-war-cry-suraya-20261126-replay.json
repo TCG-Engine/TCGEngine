@@ -1,0 +1,91 @@
+{
+  "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+  "fixtures": [
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+      "passed": true,
+      "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "bc06877013bd7fcfba12a16e9f1c05f928c182fc56866f35e9e91d0c3657324e",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+      "passed": true,
+      "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-war-cry-themis-yellow-four-live-20261126-suraya-soul-choice-draw-two-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "18951cc39d97274aabe31855c27a2f6338dc74e13d7c245ea8b52dce7b87df00",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+      "passed": true,
+      "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dual-threat-yellow-four-live-sparse-real-weapon-attack-earns-next-attack-action-three-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "dc9c7b821c5e14c58cf585c22dadd07a408a8e2622d0f47a6619b2641605c6cd",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+      "passed": true,
+      "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-trot-along-blue-four-live-sparse-real-zero-cost-action-grants-go-again-to-next-real-base-two-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a4a27803a257a3cb24cf3603b43e1e6d8086edd59daa1c5b79ddb0c94359bc9d",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+      "passed": true,
+      "runtime": "a8c26a317373c6eea6408db573adb6b481fb21ac24d570adbbeb4a7e2e827155",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-flood-of-force-yellow-four-live-20261125-first-link-false-owned-layer-no-early-reveal-one-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\war-cry-themis218\\strict5.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "47b82a01bc9491d92bc23ba76abc33ebf077275e2048c32c32f5562629b99a45",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

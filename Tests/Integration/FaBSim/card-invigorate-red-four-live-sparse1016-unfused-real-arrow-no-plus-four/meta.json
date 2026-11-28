@@ -1,0 +1,7 @@
+{
+    "name": "Invigorate / four-live actual arrow follow-through",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:44:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The next attack you **fuse** this turn gets +4{p}.\n\n**Go again** LegalLexi20Elemental, actualcost0spell5/GA1, realArsenalBoltNShot6andDeathDealer7. NoFusionactionperformed, GenericArrowhasnofusion: conditionalnextfusedbonusmustnotapplytoit. Actualbase4vsDEF9=0damage/noHit/HP20, powerdoesnotexceedbase soBoltstaticGAfalse/AP0. 5/6ownedGGY/Bow7ready, all4manualnativecost/target/defend/physicalfates/queuespersist. PositiveFusion/unconsumedfuturebonus/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#invigorate_red"
+}

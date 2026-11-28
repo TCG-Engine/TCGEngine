@@ -1,0 +1,23 @@
+{
+  "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+  "fixtures": [
+    {
+      "slug": "repair-mindstate-of-tiger-blue-four-live-20261126-original-creator-and-recipient",
+      "passed": true,
+      "runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-mindstate-of-tiger-blue-four-live-20261126-original-creator-and-recipient",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\creator203-205-208-209\\mindstate_of_tiger_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "fce56a100018ef921466225fe69c3742e71b758d8c3f7c28f32e03200c4df296",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

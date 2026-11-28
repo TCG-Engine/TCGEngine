@@ -1,0 +1,7 @@
+{
+    "name": "Vela Flash / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:48:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Lightning Fusion**\n\nIf this was **fused**, you may play your next non-attack action card this turn as though it were an instant. Representative only: actual_unfused_hand_five_without_instant_permission. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vela_flash_red"
+}

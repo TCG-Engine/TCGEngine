@@ -1,0 +1,112 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+  "source_spec": "card-regression-repair-peaceful-sanctuary-red-token-creation-20261126.json",
+  "input_sha256": "2f78ef4289d32b91f73cf825454dd2dc30da354108fda71599b0261f9559a685",
+  "fixtures": [
+    {
+      "slug": "repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+      "card_id": "peaceful_sanctuary_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "804c88fc05e7d2d19ce55cf33ce3ab9893ce60e502fed2f24878418ce8ebc563",
+        "actions.json": "fa5a764ab33a9ce6e5740cd02b9d67d525fe8d85df6a80ba5a85e0f2b7279033",
+        "assertions.json": "e7a18e4012fc9d8df085c22370d8c86076d7504f6dc03448d663f3d2c93e7c83",
+        "expected_final_gamestate.txt": "5ef778c82098c4c32bff4f05fc75d9a07f16ff3f4c74f16526c556add202b9bd",
+        "meta.json": "046dbce60fe28a2612ace1a56259e542557f325e59415f5f7fe5b5415bb99780"
+      },
+      "fixture_sha256": "9853055a7c741543a72ff4e5fb5b2494e707fbc666cb53e3201ddf835fa5f39a",
+      "actions": 14,
+      "native_assertions": 262,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 11,
+      "recorded_runtime_sha256": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "runtime_sha256": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "source_spec": "card-regression-repair-peaceful-sanctuary-red-token-creation-20261126.json",
+      "input_sha256": "2f78ef4289d32b91f73cf825454dd2dc30da354108fda71599b0261f9559a685",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_TWO_NATIVE_CALLER_QUALIFICATIONS",
+    "runtime_before": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+    "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+    "changes": [
+      {
+        "path": "FaBSim\\Custom\\MPGCards.php",
+        "before_sha256": "75bacd40bf08b76f2a5af3d6c1a8b033d6b942bdcf52045a73a4244f992eeca6",
+        "candidate_sha256": "26b6e140f8e882f2b99d625027acd693855c8dc922d93af22c1d81b115301fa2"
+      },
+      {
+        "path": "FaBSim\\Custom\\EVRCards.php",
+        "before_sha256": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+        "candidate_sha256": "a7a1118825c9fe1fab49a5e5ce0b5696d8c1c82fca8bd137ed28c0727826b54d"
+      }
+    ],
+    "scope": "216 active unsuppressed Sanctuary prohibits AuraToken creation in common token count path, including cardeffects.217 EVR createN token instruction delegates once to existing batch token constructor so Terrain applies+1 once. NonToken construction path unchanged."
+  },
+  "targeted_replays": {
+    "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+    "fixtures": [
+      {
+        "slug": "repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+        "passed": true,
+        "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\token-creation216-217\\peaceful_sanctuary_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "8004a462cc51b0e11b343c972858b038ae976af4b1f7bf72781a7a86f9a8ac55",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+        "passed": true,
+        "runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\token-creation216-217\\peaceful_sanctuary_red\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "b9852ce8e1e20cf44ba9a7950dccf623e5bbb476072583fdf21f40fbcbb1dde2",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Only two named native routes; no catalog-wide token producer audit.",
+    "Terrain startAction draw/heal and Sanctuary startAction destruction not added/tested here.",
+    "Twelve isolated instruction/restriction controls, distinct from native fixtures.",
+    "Primary-agent source/saved review; strict comparator unchanged; fullsuite notyet run."
+  ],
+  "scope": "216 common token count applies active Sanctuary prohibition to AuraToken creation by any player, including othercardeffects; cost remainsfullypaid.217 EVR createN token entry delegates once to existing batch token constructor, applying Terrain plusone once; nonToken path unchanged. Exact original14/11-input oracles retained for respective witnesses.",
+  "additional_validation": {
+    "actual_token_instruction_restriction_checks": 12
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "name": "T-Bone / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:04:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you control a card on the combat chain that was **boosted**, the defending hero must defend this with an equipment they control if able.\n\n**Boost** Representative only: actual_empty_deck_unboosted_hand_attack_deals_three. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#t_bone_red"
+}

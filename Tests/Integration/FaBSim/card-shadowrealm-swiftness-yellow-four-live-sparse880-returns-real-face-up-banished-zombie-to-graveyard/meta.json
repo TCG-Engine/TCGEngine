@@ -1,0 +1,7 @@
+{
+    "name": "Shadowrealm Swiftness / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:45:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may put a card from your banished zone into your graveyard. If it's a zombie, your next attack this turn gets **go again**.\n\n**Go again** Representative only: returns_real_face_up_banished_zombie_to_graveyard. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shadowrealm_swiftness_yellow"
+}

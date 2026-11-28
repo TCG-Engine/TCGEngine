@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1489-20261122.json",
+  "source_spec_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+  "input_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-angelic-descent-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+      "card_id": "angelic_descent_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1623fc30ace3e8d157638e0930144f8acd43772d2a356a073c96d6911540b49e",
+        "actions.json": "f5c46fd08ca735edc325a7c4fb58ca57ba9c85540fa43bac37f6e50572274b07",
+        "assertions.json": "19f0be37967716caee160ad8e9c6ddbd43664b7c54848e8562513fe1880cf979",
+        "expected_final_gamestate.txt": "fb1a1367bfecbd3d3c3e59caac3fd79b99193c9ba27ed334e2c566b6866b3e46",
+        "meta.json": "10db934b8edf6508b2f9f379378d3c453b399204bec42405acb3c3597cf703d1"
+      },
+      "fixture_sha256": "0032417fcfeccd21f37422ae80e0ff9f25f726ed66a1543a776c1674deb09acd",
+      "actions": 28,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1489-20261122.json",
+      "input_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1489-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-angelic-descent-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "fixture_slug": "card-angelic-descent-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-angelic-wrath-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+      "card_id": "angelic_wrath_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ad4a6dd56eada8706c7450b258eeef3b3e0c5585450d71ef2e270aa3f7ffdc8",
+        "actions.json": "f5c46fd08ca735edc325a7c4fb58ca57ba9c85540fa43bac37f6e50572274b07",
+        "assertions.json": "0864bd2f7ade104984bbfe71bb320544cc79abcdfd3cd0ede2773b9145036c09",
+        "expected_final_gamestate.txt": "7bafafd757391a9ce62d9ce755078f06b5bedf42f397b4760767cd9617945f39",
+        "meta.json": "b4208808e065c257e3f5a03315296ed94cde517e449af05d83136226eba36304"
+      },
+      "fixture_sha256": "9724eedf5e840af0c84cf97cf7ef8236787d0335ccb5f64a211e4c3a4a0078a4",
+      "actions": 28,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1489-20261122.json",
+      "input_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1489-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-angelic-wrath-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "fixture_slug": "card-angelic-wrath-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-celestial-resolve-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+      "card_id": "celestial_resolve_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "060bcde62a3b15c17e2d847bf942e1999e657a5a6602ddaf0d5fc62c71fe421b",
+        "actions.json": "f5c46fd08ca735edc325a7c4fb58ca57ba9c85540fa43bac37f6e50572274b07",
+        "assertions.json": "e208c9716df4e398f834c62be2b5e0c0c47d155c531512b35e92f461b089cfd5",
+        "expected_final_gamestate.txt": "2b422b3e5452580bb2ad1d66dfde8ce053327e1e366100024988874668d4ae1d",
+        "meta.json": "ab832ef3708bb7107baa9f2023c8d117f9cea03eac6b604c2c5665bfe8a0cadc"
+      },
+      "fixture_sha256": "3c28e3155ab0ebc77974a289d23b33158296fcc81d837795429855911c85b74f",
+      "actions": 28,
+      "native_assertions": 318,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1489-20261122.json",
+      "input_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1489-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-celestial-resolve-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "fixture_slug": "card-celestial-resolve-red-four-live-sparse1489-real-non-herald-attack-ineligible-target-rejection",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1489,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T05:03:07.139484+00:00",
+    "spec_sha256": "6a7b6dd2ad36a2d4f222a0880e6aca6e2fafd1a2f83e99b429e72895c29af7ea",
+    "source_note_sha256": "12ba9bae68a2a7328027390a09d2fcca92622cab13830e5acd55742ab0c92f98",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0"
+    },
+    "cases": 3,
+    "planned_actions": [
+      28,
+      28,
+      28
+    ],
+    "persistable_checks": [
+      318,
+      318,
+      318
+    ],
+    "named_primary_ids": [
+      "angelic_descent_red",
+      "angelic_wrath_red",
+      "celestial_resolve_red"
+    ],
+    "findings": [
+      "Allthreeactualcyclesuncovered/unheld. LegalLightIllusionistPrism20/costzeroInstant/actualATTACKpriority1/AP0R0 excludesclass/timing/resourcewrongownerexplanations.",
+      "RealWoundingAttackCC5 lacksHeraldname, exactDTDCanPlayguards reject; DescentcannotbeplayedsolelyforsecondaryAngelbuff. GenericInstantdiscardactivationunavailablewithoutabsentPEN_STORMWEAVER.",
+      "SameprimaryHand6/CC5power4noGA/emptyStackDQ/AP/R beforeafterclick, thenactual4damageHP16/fullclosearenarrowcorrecttargetadmissionevidence."
+    ],
+    "limits": [
+      "Rejection-only; no primarypositivebuff/GA/defense/legal-targetdeclarationorresolutiontimingcredit.",
+      "Independent source/specsemantics; primary verifies exactsavedmapping + firsttargetedreplay. No secondindependentsavedreview or newfaultcontrol.",
+      "One representativeperdistinctcycle, notRGBsiblings/wholecards. No engine changes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1489-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "47fb27c733c4e8d717f11a397ae4d3f0a37a99c7ea15092b40cd3aed1959d827"
+  },
+  "full_suite_run": false
+}

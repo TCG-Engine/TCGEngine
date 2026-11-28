@@ -1,0 +1,7 @@
+{
+    "name": "Aggressive Pounce / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:36:07+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've intimidated an opponent this turn, this gets **go again**. Representative only: actual_blue_cost_two_and_six_damage_without_unearned_intimidate_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aggressive_pounce_red"
+}

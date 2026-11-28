@@ -1,0 +1,7 @@
+{
+    "name": "Mark of Lightning / actual Hand block of non-Lightning attack earns no ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:44:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_LEXI20_THREEDORI20. MarkLightning9Armsready; actualGenericCriticalRed5cost1paidBlue6pitch3/R2/AP0/base5. ActualdefenderHandCriticalRed7movesHand\u2192CCroleDEFENSE/base3whilevictimBlue8retainedHand; attackGenericNOTLightning/ElementaldespiteactorHeroLightningtrait. MarkWHENconditionfalse/nooptionalDestroy/chooser/layer/1extraDamage. Actual5minus3=2physicaldamageHP4=18not17; fullcloseattacker5GY1/6Pitch1/defender7GY4/8Hand4/Mark9sameEquipmentready/UID9RNG0/allArena0/HP1=20. OnlynonLightningattacktypefilterwithactualHandblock/physicaldamage/fates; positiveLightningElementalWHEN/destroy/extraDamage/timing/fullcard/supportuncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mark_of_lightning FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DTDRuntime.php FaBSim/Custom/MONCards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

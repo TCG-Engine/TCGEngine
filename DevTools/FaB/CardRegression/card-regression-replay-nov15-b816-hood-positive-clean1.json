@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch816-hoodwink-self-discard-three-arcane-prevention.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T03:41:22.797191+00:00",
+  "fixtures": [
+    {
+      "slug": "card-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention",
+      "fixture_sha256": "800f2c5c02658b13d9ad1a284f1892865bded9f57ae9160f0c969b44ce3089f5",
+      "passed": true,
+      "result": "[PASS] Hoodwink Blue / self-discard cost prevents three arcane damage"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hoodwink-blue-real-hand-self-discard-zero-extras-three-arcane-prevention",
+      "returncode": 0,
+      "stdout": "[PASS] Hoodwink Blue / self-discard cost prevents three arcane damage\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

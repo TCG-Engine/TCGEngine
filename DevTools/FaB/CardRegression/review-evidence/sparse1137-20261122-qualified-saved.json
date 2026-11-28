@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent Baalghor static own-Banish attack bonus review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1137-20261122.json",
+  "source_spec_sha256": "81ae656eecd11c3241ad680c1192a1e97e0829b4faee7d5859bcd6cf69e59f85",
+  "input_sha256": "81ae656eecd11c3241ad680c1192a1e97e0829b4faee7d5859bcd6cf69e59f85",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+      "card_id": "baalghor_omen_of_the_end",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80e8ea0960344f2d4f5159df2976265f45a7f6d9facf9071761d52cb795b95dd",
+        "actions.json": "f5dc4733045507ccdf810018d928d9d19918c64cc4f2c93d20aa18d4bbb15a24",
+        "assertions.json": "116d467b0a1ce1e3e3f246f47c407447ba6b40b283a9d6ac35e0542f6e2abaa2",
+        "expected_final_gamestate.txt": "3b7033c0d2e2d0993aa7638ef1721ed1bcc109cf1f078474c7800bc5b753ea15",
+        "meta.json": "02bfe4bf71a9285c45561ebc8654e65a78aa4c2102d8fcddaa387a6bef17025f"
+      },
+      "fixture_sha256": "3096d9677f47ec9707ca0ddb041c62d73c8c841de63fa5857c8ce30bcdf311a8",
+      "actions": 27,
+      "native_assertions": 229,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1137-20261122.json",
+      "input_sha256": "81ae656eecd11c3241ad680c1192a1e97e0829b4faee7d5859bcd6cf69e59f85",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1137-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+        "fixture_slug": "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "81ae656eecd11c3241ad680c1192a1e97e0829b4faee7d5859bcd6cf69e59f85",
+    "reviewer": "breadth_review independent Baalghor static own-Banish attack bonus review",
+    "basis": [
+      "Cached BaalghorOmenOfTheEnd is legal Shadow YoungDemonHero with natural33health; GhostlyVisitRed is legal ShadowAAcost1/base4 with unconditional own-Banish play permission and no played/attack/hit trigger. All four live heroes and native initial33/20/20/20 are explicit.",
+      "Actual faceup owned Ghostly5 has genericPlayableFromBanish0; MONCards56 self-permission establishes legal native Banish play. IARPlayed119-120, called by GameLogic1292 with actual fromZoneBanish, tags actual AA+3 under Baalghor. IARRuntime365/372 preserves own-origin check; no fake permission or boost flag is seeded.",
+      "Admitted floatingR1 is actually consumed by printedcost1 before four manual source responses, leavingR0/AP0. No card is pitched, so Baalghor pitch-WHEN event is strictly absent, not a false resolution condition. Computedpower7/noGA and actual7damage/victimHP13 establish positive intrinsic bonus, with full manual combat.",
+      "Final physical5 ownedGY, Hero1same/33health, noPitch/noBanish/noArena, AP0/R0 and same maxUID5 pin normal fate; no endphase is entered and no BloodDebt effect occurs. Persisted checks only."
+    ],
+    "limits": [
+      "Own-Banish static+3 branch only. No production of initial floatingresource, Hero pitching/banish trigger, alternative attack permissions, BloodDebt/endphase, support or full-Hero/card credit.",
+      "Native Save and one clean replay pending; reviewer performed no T/native/engine/Git/network/original actions."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1137-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2cd3527d849f00501ee5333b820e58aa150a9db851361cd630dc5d759d3c2cd7"
+  },
+  "full_suite_run": false
+}

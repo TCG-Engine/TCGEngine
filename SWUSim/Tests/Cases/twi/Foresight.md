@@ -104,8 +104,8 @@ WithP1Deck: [SOR_046 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 - P1>Pass
 - P1>AnswerDecision:Consular Security Force
 - P1>AnswerDecision:YES
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 ## EXPECT
 P1HANDCOUNT:3
 P1DECKCOUNT:3

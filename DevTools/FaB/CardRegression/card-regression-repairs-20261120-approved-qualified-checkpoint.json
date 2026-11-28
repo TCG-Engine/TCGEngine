@@ -1,0 +1,272 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T20:46:16.815150+00:00",
+  "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+  "source_spec": "card-regression-repairs-20261120-approved.json",
+  "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+  "new_scenarios": 8,
+  "new_groups": 8,
+  "new_primary_ids": 8,
+  "actions": 270,
+  "native_assertions": 24123,
+  "manual_passes": 240,
+  "totals": {
+    "saved_registered_scenarios": 4196,
+    "duels": 3074,
+    "four_live": 1122,
+    "recorded_primary_ids": 1347,
+    "identity_denominator": 5196,
+    "recorded_groups": 1221,
+    "group_denominator": 3324,
+    "four_live_groups": 1113,
+    "phase_qualified_scenarios_at_actual_contexts": 833,
+    "phase_qualified_unique_groups": 826,
+    "creation_replay_passes": 1574,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 8,
+  "scenarios": [
+    {
+      "card_id": "tear_asunder_blue",
+      "group_id": "identity:tear_asunder_blue",
+      "scenario_id": "card-tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two",
+      "effect_branches": [
+        "tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tear-asunder-blue-four-live-correct-probe-real-guardian-five-hit-earns-responseable-discard-two",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "99d28683a607f51c1039455435fe84a776a7d720e4eaf70d50418948a1c97689",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "flicker_trick_red",
+      "group_id": "identity:flicker_trick_red",
+      "scenario_id": "card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+      "effect_branches": [
+        "flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-flicker-trick-red-four-live-original-correct-probe-responseable-mirage-before-defender-destruction",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "974598ad6690f6f49e30e93c5c8c6692730a8e61418f99ada8f85db5d099f3a2",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "elliptical_conflux_yellow",
+      "group_id": "identity:elliptical_conflux_yellow",
+      "scenario_id": "card-elliptical-conflux-yellow-four-live-repair-ward-two-responseable-leave-token",
+      "effect_branches": [
+        "actual-instant-one-cost-blue-three-funding-ward-two-atomic-damage-then-responseable-leave-token"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-elliptical-conflux-yellow-four-live-repair-ward-two-responseable-leave-token",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "216eec76b54bd10a78576b769c7085701beef61480928a89fe61a19cb42a3915",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "fluttersteps",
+      "group_id": "identity:fluttersteps",
+      "scenario_id": "card-fluttersteps-four-live-repair-ward-earned-offturn-aura-permission",
+      "effect_branches": [
+        "real-ward-one-destruction-trigger-four-responses-before-next-aura-offturn-zero-ap-permission-consumption"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fluttersteps-four-live-repair-ward-earned-offturn-aura-permission",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "216eec76b54bd10a78576b769c7085701beef61480928a89fe61a19cb42a3915",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "illuminate_red",
+      "group_id": "pitch-cycle:illuminate",
+      "scenario_id": "card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+      "effect_branches": [
+        "illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-illuminate-red-four-live-current-when-hit-correct-probe-retains-source-before-own-soul",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "6a5f8fa1d6fef9e29638cbdfd147dcd3339527f6a09308fc8dd1fb6c81a831cf",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "quantum_processor_yellow",
+      "group_id": "identity:quantum_processor_yellow",
+      "scenario_id": "card-quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice",
+      "effect_branches": [
+        "quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-quantum-processor-yellow-four-live-strict-mechanologist-only-item-choice",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "9bd6a0d62fd5ed1ce553cb66787361210854c7f099e0caffa046c514638d135a",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hellbound_assault_blue",
+      "group_id": "pitch-cycle:hellbound_assault",
+      "scenario_id": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "effect_branches": [
+        "hellbound-assault-blue-four-live-earned-hit-layer-before-self-banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "vexing_malice_blue",
+      "group_id": "pitch-cycle:vexing_malice",
+      "scenario_id": "card-vexing-malice-blue-four-live-early-attack-trigger-target-two-arcane-then-one-physical",
+      "effect_branches": [
+        "vexing-malice-blue-four-live-earned-attack-layer-before-arcane-target-resolution"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-vexing-malice-blue-four-live-early-attack-trigger-target-two-arcane-then-one-physical",
+      "source_spec": "card-regression-repairs-20261120-approved.json",
+      "source_spec_sha256": "40d73ea6006852b34eac53b262b7628c7edbc88e879d9cc5a7df6af2e1c2c4aa",
+      "review_evidence": "review-evidence/repairs-20261120-approved-qualified-saved.json",
+      "review_evidence_sha256": "c288951bb560e70d9cb7f6d4b8d5bbf9497726ac5fdff3c3cd534b671e2a0c34",
+      "recorded_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "qualification_runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-repairs-20261120-approved-replay.json",
+          "sha256": "131ac1071388165e85070057253b26ffa24c4c3be9981a0bf61f8b53b90219b0",
+          "runtime_sha256": "63922af5c7c3825f55e4e341bab330830cd84fef937ef2b7b01b7346e77061ec",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 0,
+  "source_scenarios_not_in_this_qualification": []
+}

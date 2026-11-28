@@ -1,0 +1,7 @@
+{
+    "name": "Viserai / conditional passive guard through real spell effects",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:25:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGVISERAI20_THREEDORI20. NoearlierNAAorplayedcard/history/Arena. ActualReadRunesRed5isfirstRunebladeNAA/cost0/AP1to0; sourceitselfisNOTanotherNAA, soHerointerveningIFfalse/noHeroWHENorRunechantbeforefourresponses. ActualspellresolvescreateexactthreeRunechants7/8/9ownedcontrolled1/status2; NOT4/noHeroextra. Original5GY1/Potion6Hand1/UID9RNG0/allotherArena0/allHP20/AP0R0/StackDQquiet. ReallegalGeneric0costPotion6nativeattemptrejectsAP0beforetarget/payment/movement/noadditionalNAAorRunechant, sameUIDfates. Onlyself-exclusionconditionalHeroGuard/nativeReadRunes3creation/control(noTokentrigger)/noRefundconsumer. PositivepriorNAA/ViseraiRunechantWHEN/timing/Runechantattackdamage/Heroadult/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#viserai FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T18:44:51.719290+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1221-20261122.json",
+  "source_spec_sha256": "af44e8dcc6e94c5c99138fdcb246d889aac892379630cdffcc525bb6a3037b02",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 57,
+  "native_assertions": 472,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 5131,
+    "duels": 3075,
+    "four_live": 2056,
+    "recorded_primary_ids": 2279,
+    "identity_denominator": 5196,
+    "recorded_groups": 2153,
+    "group_denominator": 3324,
+    "four_live_groups": 2045,
+    "phase_qualified_scenarios_at_actual_contexts": 1768,
+    "phase_qualified_unique_groups": 1758,
+    "creation_replay_passes": 2510,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 929,
+  "scenarios": [
+    {
+      "card_id": "soul_reaping_red",
+      "group_id": "identity:soul_reaping_red",
+      "scenario_id": "card-soul-reaping-red-four-live-sparse1221-regular-six-resource-payment-and-real-opposing-soul-earns-go-again-for-second-attack",
+      "effect_branches": [
+        "regular_six_resources_paid_no_alternative_banish_then_real_soul_target_static_go_again_earns_actual_second_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-soul-reaping-red-four-live-sparse1221-regular-six-resource-payment-and-real-opposing-soul-earns-go-again-for-second-attack",
+      "source_spec": "card-regression-sparse1221-20261122.json",
+      "source_spec_sha256": "af44e8dcc6e94c5c99138fdcb246d889aac892379630cdffcc525bb6a3037b02",
+      "review_evidence": "review-evidence/sparse1221-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c63fd7e798dd48b59cdd5161291172d5ac47d0b9801fdf4044fbbad98e56e2df",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1221-20261122-replay.json",
+          "sha256": "5bdc6de61008d0399c7515a2642bfc3e57894114cba2355a4548c11e5f95ee58",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

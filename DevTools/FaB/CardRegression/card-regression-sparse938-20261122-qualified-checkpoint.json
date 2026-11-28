@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T19:53:31.580376+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse938-20261122.json",
+  "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 118,
+  "native_assertions": 640,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4480,
+    "duels": 3075,
+    "four_live": 1405,
+    "recorded_primary_ids": 1628,
+    "identity_denominator": 5196,
+    "recorded_groups": 1502,
+    "group_denominator": 3324,
+    "four_live_groups": 1394,
+    "phase_qualified_scenarios_at_actual_contexts": 1117,
+    "phase_qualified_unique_groups": 1107,
+    "creation_replay_passes": 1859,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 278,
+  "scenarios": [
+    {
+      "card_id": "biting_breeze_red",
+      "group_id": "pitch-cycle:biting_breeze",
+      "scenario_id": "card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "effect_branches": [
+        "actual_full_block_preserves_printed_go_again_without_hit_effect"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-biting-breeze-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "review_evidence": "review-evidence/sparse938-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d28d6d0f6a3a8abbc4f6aab3ac7833394d0f9a41576825a8379c28871933797",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse938-20261122-replay.json",
+          "sha256": "38a4138bb77e810d67324efb95b2f5b7c464f893ef10846e9601e202d9b373a9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "bittering_thorns_red",
+      "group_id": "pitch-cycle:bittering_thorns",
+      "scenario_id": "card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "effect_branches": [
+        "actual_full_block_preserves_printed_go_again_without_hit_effect"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bittering-thorns-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "review_evidence": "review-evidence/sparse938-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d28d6d0f6a3a8abbc4f6aab3ac7833394d0f9a41576825a8379c28871933797",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse938-20261122-replay.json",
+          "sha256": "38a4138bb77e810d67324efb95b2f5b7c464f893ef10846e9601e202d9b373a9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "trap_and_release_red",
+      "group_id": "pitch-cycle:trap_and_release",
+      "scenario_id": "card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "effect_branches": [
+        "actual_full_block_preserves_printed_go_again_without_hit_effect"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-trap-and-release-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "review_evidence": "review-evidence/sparse938-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d28d6d0f6a3a8abbc4f6aab3ac7833394d0f9a41576825a8379c28871933797",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse938-20261122-replay.json",
+          "sha256": "38a4138bb77e810d67324efb95b2f5b7c464f893ef10846e9601e202d9b373a9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "be_like_water_red",
+      "group_id": "pitch-cycle:be_like_water",
+      "scenario_id": "card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "effect_branches": [
+        "actual_full_block_preserves_printed_go_again_without_hit_effect"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-be-like-water-red-four-live-sparse938-actual-full-block-preserves-printed-go-again-without-hit-effect",
+      "source_spec": "card-regression-sparse938-20261122.json",
+      "source_spec_sha256": "5dbc144fff075f174e756e08a8705b85742c36c14a02225d9e23658ba6dadf8d",
+      "review_evidence": "review-evidence/sparse938-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5d28d6d0f6a3a8abbc4f6aab3ac7833394d0f9a41576825a8379c28871933797",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse938-20261122-replay.json",
+          "sha256": "38a4138bb77e810d67324efb95b2f5b7c464f893ef10846e9601e202d9b373a9",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,180 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1291-20261122.json",
+  "source_spec_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+  "input_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "card_id": "edge_ahead_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "edd0b51671d9fe4a41fb8052586e2121d75d65c7026e42de5380b90ca33b0240",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "90f3742e2391809b26e8c8cf124fc9ad4c92161c9eec70d2235773f14589af0d",
+        "expected_final_gamestate.txt": "70cc29100bfe0739caeb1732194ed5dd905cb4d1b41b41a8bf9bd96e4f1ddd83",
+        "meta.json": "5044d51774e18f84abf6f388afdb6b2fbacc6d2a1c0255d8b801aa781dab5a40"
+      },
+      "fixture_sha256": "59e5b645ac956367df94cc5eefa816a562d59f10f6dc9945f48c95e23a2440c4",
+      "actions": 33,
+      "native_assertions": 555,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1291-20261122.json",
+      "input_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "fixture_slug": "card-edge-ahead-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+      "card_id": "hold_em_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "11c98db0b73f5113c25e944a78f46ec496543bab7e3a654239865685a0893367",
+        "actions.json": "3f766d8b7dc7c4fad6a06f0c70c2906c502f986a0bb9c1df568a7a64e95120c4",
+        "assertions.json": "cc0eb9f4a55ae61dfe987db67c977659d1f621cc065ab1675b9dad537c51e19a",
+        "expected_final_gamestate.txt": "913e06f216e83181790f256f892afdee0c4f9776a4b2ae0169972e19c94c529b",
+        "meta.json": "e48ec6f076796982f8529ac2255a12a9d35ec8824ad7324cb87ebcd9845e7354"
+      },
+      "fixture_sha256": "f7e865625cee123c2f8ef1e6164eb63a337e40580394d18efd52b3ac16d45bf5",
+      "actions": 33,
+      "native_assertions": 555,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1291-20261122.json",
+      "input_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "fixture_slug": "card-hold-em-red-four-live-sparse1291-real-paid-next-warrior-attack-bonus-versus-ally-no-wager",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "9749e9e29a755591ada720d0455f90c64f6942e621dd9b5721cffc90b7b7faed",
+    "source_note_sha256": "2380e6d43df436acb0b7a56d79375bf5552237b6f7153f72af7dc1d5ce52ef60",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 66,
+    "query_checks": 1110,
+    "persistable_assertions": 1110,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NEXT_WARRIOR_ATTACK_BONUS_VS_ALLY_ONLY",
+    "wager_credit": false,
+    "hero_target_credit": false,
+    "per_case": [
+      {
+        "card_id": "edge_ahead_red",
+        "group_id": "pitch-cycle:edge_ahead",
+        "native_controls": 33,
+        "persistable_assertions": 555
+      },
+      {
+        "card_id": "hold_em_red",
+        "group_id": "pitch-cycle:hold_em",
+        "native_controls": 33,
+        "persistable_assertions": 555
+      }
+    ],
+    "basis": [
+      "Two distinct unrepresented WarriorRed pitch-cycle groups are legal under natural YoungKassai20, with YoungDorinthea20 seats2/3 and adjacentYoungDromai20 seat4, exact1234/manualUPF/no passives. UIDs primary5Hand/realGenericBlue6Hand/actualCintariSaber7Weapons/realAshwing8Arena4 with priorAsh material/controlResourceBlue9Hand4 agree with four-hero allocation. No bonus/AP/resource/discount/draw history is seeded.",
+      "Printed primaryActioncost1 is paid by actualBlue6pitch3, leavingR2/AP0 before allfour responses while physical5 ACTION remainsStack. Only completed resolution moves same5GY and printed go-again refundsAP1. Generated ResolveCard grants nextWarriorAttack+3 with the respective Hero-only wager text, not a new immediate trigger or payout.",
+      "ActualSword7 once-per-turnAction1 declares adjacentenemyALLY8, notHero4, paysR2to1/AP1to0 and creates actualvirtualproxy10 SourceUID7/SourceZoneWeapons; physicalSword staysWeapons and becomesusedStatus1. No card was drawn, so Kassai sword discount is false; no heroGold ability activated. Freshfourresponses precede actualWarriorweapon base2+primary3=5power/noGA. Empty Allydefense means Cintari defended-by-AA +1 trigger is unearned.",
+      "Granted trigger event When this attacks a hero is not met by realAlly target. Current HVYAttackDeclared229 gates all HVY_WAGER tags on FaBFaiHeroHit, reading actualattackTargettype, so no wager layer/choice is earned. This selected false Hero-event guard does not test or excuse timing of a true Hero wager and does not relax existing wager hold.",
+      "Actualunblocked5damage is not capped at Ashwing1life; tokenAlly8 ceases withoutGYexport, noHeroHPchanges, and no spillover/payout/tokencreation occurs. Full cleanup expects ownedprimary5GY/real6Pitch/physicalSword7usedWeapons/real9Hand4/R1AP0/UID10RNG0/cleanStackDQsCC. All1110 query/state/power/go_again assertions persist across66 single native controls, 33/555 per case.",
+      "Corrected oracle distinction: virtual Cintari attackproxy10 is not physicalSword7. FaBWTRActivate WTRCards924 AddStack omits Owner and sourceObject, while ZoneAccessors641 and Stack schema180 default Owner0. Removing this implementation-only ownership assumption leaves physicalSword ownership/controller, proxyController1/SourceUID7 and every cost/target/power/damage expectation intact."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed.",
+      "Only positive primarypayment/go-again and nextWarrior+3 againstAlly. No actualHero wager/payout, true-trigger response/timing, secondattack/bonus-consumption negative, alternate targets/pitchsiblings/support or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/HVYRuntime.php": "2866849d60037455d66281b8ccd8cc8af4c647d28d76fd2ca0fa031f7652055f",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1291.py": "2d92b4c628193ff4eb449d75599ea0fdf9620ffd03205c36cae55a35d151a047",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "oracle_correction_review": {
+      "classification": "AUTHOR_ORACLE_VIRTUAL_PROXY_OWNERSHIP_ASSUMPTION_NOT_ESTABLISHED_GAMEPLAY_BUG",
+      "original_spec_sha256": "454af492fd8d6b9c5cdfa2041a9cadc80fb2d8abcbad95e35f70487cdf3cfb9f",
+      "original_source_note_sha256": "5a96fb97e366c99b0dc929553a84fd6d546c58a7562c1936f03ff9801e2b6f0d",
+      "original_semantic_review_sha256": "025d5fdb4745aa253a3e517e0efc2940c8c859d0af3dadc277bd2640f5326a0c",
+      "failed_native_receipt_sha256": "fae9dba5c1ac25280276e9a7dfb8f9b541bf0363c5b33fc9153fe076d4902e39",
+      "correction_note_sha256": "588b833ab156eff521241507398bce54ae6d369b913b7b533b388712a3f48b4e",
+      "exact_removed_checks": 8,
+      "remaining_physical_primary_stack_owner_checks": 10,
+      "remaining_physical_sword_owner_checks": 26,
+      "all_other_spec_fields_and_checks_identical": true,
+      "failed_attempts": 2,
+      "attempted_actions_each": 8,
+      "exact_first_failure": "Expected Stack-0.Owner to equal '1', got '0'.",
+      "later_power_damage": "UNRUN",
+      "completed_fixture_directories_found": 0,
+      "native_or_replay_execution_by_reviewer": false,
+      "corrected_native_run_pending": true,
+      "explanation": "Read-only exact deep comparison removed only Stack0.Owner1 where same checkpoint identifies virtual CintariSaber proxy, four checkpoints per case. No replacement Owner0 assertion added, no engine or other behavior changed. Prior recordings failed at wrong owner assertion after8 actions; no completed fixture/replay or coverage credit. Fresh corrected execution remains necessary."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1291-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8420e807dcdaca8b07b5e8f74ce09fb8afb57c68b79c4f03c58f0dabb2814c1a"
+  },
+  "full_suite_run": false
+}

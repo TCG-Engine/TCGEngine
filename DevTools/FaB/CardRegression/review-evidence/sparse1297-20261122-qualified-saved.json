@@ -1,0 +1,112 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1297-20261122.json",
+  "source_spec_sha256": "1b7efda933fdb5b7af8e0c4861327e344529e285e9abeb5755eabe21b81e1a40",
+  "input_sha256": "1b7efda933fdb5b7af8e0c4861327e344529e285e9abeb5755eabe21b81e1a40",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dread-scythe-four-live-sparse1297-real-ally-attack-no-hero-arcane-affordable-repeat-rejected",
+      "card_id": "dread_scythe",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee40b6811ad00f08c115e898e4ca773ea5d988bdd182118b2a9b4b8afefb52f0",
+        "actions.json": "494a5f250a7edd5f218fa9af9ca07b073addabdf6d4b1e37b4d770b751838486",
+        "assertions.json": "0390960905f0dbdace2efcd535f92c567141c0e3ceb3be80de4998f9e6d856f7",
+        "expected_final_gamestate.txt": "118be848a0fa16ce08b355923f7611a42315d5543ced50a9236608b7795d83a9",
+        "meta.json": "2a92425da7fb1dbaf2e1d16e93965353588d636f25e6c9c53b3a62193ed8605d"
+      },
+      "fixture_sha256": "e661a6bd4fe527352fc62de975b155ac6d72105a6d53b7a5876ca18e9abdfdbd",
+      "actions": 34,
+      "native_assertions": 673,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1297-20261122.json",
+      "input_sha256": "1b7efda933fdb5b7af8e0c4861327e344529e285e9abeb5755eabe21b81e1a40",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1297-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dread-scythe-four-live-sparse1297-real-ally-attack-no-hero-arcane-affordable-repeat-rejected",
+        "fixture_slug": "card-dread-scythe-four-live-sparse1297-real-ally-attack-no-hero-arcane-affordable-repeat-rejected",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "1b7efda933fdb5b7af8e0c4861327e344529e285e9abeb5755eabe21b81e1a40",
+    "source_note_sha256": "0329b070f36f0be7efc766a1fa6d05c138946de3e079c668f472998e0cb83ccc",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 34,
+    "query_checks": 673,
+    "persistable_assertions": 673,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ALLY_NOT_HERO_ATTACK_AND_AFFORDABLE_ONCE_PER_TURN_REJECTION_ONLY",
+    "hero_arcane_credit": false,
+    "healing_restriction_credit": false,
+    "turn_reset_credit": false,
+    "basis": [
+      "UnrepresentedRunebladeScythe2H is legal under naturalYoungViserai20 versus YoungDorinthea20 seats2/3 and adjacentYoungDromai20 seat4/exact1234/manualUPF/no passives. Correctallocation actualPotion5Arena/physicalScythe6Weapons/twoGenericBlue7and8Hand/realAshwing9Arena4 with admittedpriorAsh material gives initialUID9, PotionABI10 and weaponATTACKproxy11. No AP/resource/bonus/history seeded.",
+      "ActualPotionAction destroys5/spendsAP1to0 beforeallfourresponses, then resolution earns2AP. NativeScythe6 declares actualAlly9 before normalcost3; WTR costtable has3, actualfirstBlue7pitch3 paysall/R0/AP2to1 while sameunusedBlue8 remainsHand. Physical6OwnerController1 is separate from virtualproxy11Controller1/SourceUID6/SourceZoneWeapons; no virtualOwner assumption.",
+      "Printed attack-trigger event requires attacking a hero, notAlly. GeneratedDreadScytheAttackDeclared await case34 checks exactattackTargettypeHERO and skips all arcane paths on selectedAlly target, so no responseable1arcane layer or targetchoice is earned. Correctactualprinted3power/noGA and3unblockedphysicaldamage kill1lifeTokenAlly9 withoutcapping/spillover, noGY4 export and allHeroHP20 remain strict.",
+      "No hero was damaged and noheal attempt occurs, so printedantiheal effect anditspositivebehavior receive no credit. Potionability is notNAAcardplay and weapon isnotAAcardplay, so ViseraiRunechant prerequisite is also unearned; noRunechant/extraUID expected. Allfourfreshresponses/combatwindows preserve physicalfunding and boundsource throughactualfirstattack.",
+      "FullsameTurn2/ACTION1 afterchainclose retainsphysical6usedStatus1/Potion5GY/firstBlue7Pitch/secondactualBlue8Hand/AP1/R0. LegalunusedBlue8 suppliesavailable3, so secondactivation wouldotherwisebeaffordable. Realclicksame6 mustrejectonce-per-turn beforetarget/PITCH/payment/UIDallocation: exactsameHand8/AP1/R0/UID11/HP20/Stack0/pendingPaymentnull/pendingAttackTargetnull/queuesempty/cleancombat. ExistingnativeFSM click supports no-legal-action no-op and persistedunchangedchecks. All673 query/state/power/go_again assertions persist across34 single native controls."
+    ],
+    "limits": [
+      "Semantic/source review only pending native save and targeted replay; no native pass, replay or coverage credit claimed.",
+      "Only firstAllyattack/normal3cost/falseHeroattack guard and affordableonce-per-turn rejection. No actualHeroarcane, antiheal, turnreset, Viserai/support or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1297.py": "e4cbd60f58fb689ef5d8d554a7202332f582b0df0fcec20a3bf324849eb6572c",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1297-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6d6cac444c21a4d6b309ded943d77a06fe3a042a791a6af93287f5bcd0f6b641"
+  },
+  "full_suite_run": false
+}

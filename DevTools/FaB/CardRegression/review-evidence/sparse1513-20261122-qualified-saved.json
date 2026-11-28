@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1513-20261122.json",
+  "source_spec_sha256": "42b3829221f763bf0cb211fa8ce6619e680713771a78a06a0e91f4b5d5c62be4",
+  "input_sha256": "42b3829221f763bf0cb211fa8ce6619e680713771a78a06a0e91f4b5d5c62be4",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-a-bit-off-the-side-red-four-live-sparse1513-real-decimator-axe-hit-earned-layer-victim-discard",
+      "card_id": "a_bit_off_the_side_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ef5b0e148dedf813e79134db3af9545c7bc096b7e82320a4cf6ad2820e2a45f",
+        "actions.json": "7f3e8023029af8e300a3c0fa28936a54eaba63835d69c1ac4e128305cd80ebe0",
+        "assertions.json": "4ecce5fdda38fbbeb38ecd9d5d4cb0d7b6187f2fb4010efebbe17c93a734393c",
+        "expected_final_gamestate.txt": "e62677056f9ccd8c2ba26f6ddb339d715a5fc981922ce1350a273f6b3565dc8d",
+        "meta.json": "f1fc4ffa62a2a6fa1e42dc0d105b88349343e422eeee6cfef6a7c94fee115613"
+      },
+      "fixture_sha256": "3425c6606d4e4083f6d9bd44e7d4ea84e09f1e45eb594489388091e26b6e34b3",
+      "actions": 38,
+      "native_assertions": 695,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1513-20261122.json",
+      "input_sha256": "42b3829221f763bf0cb211fa8ce6619e680713771a78a06a0e91f4b5d5c62be4",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1513-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-a-bit-off-the-side-red-four-live-sparse1513-real-decimator-axe-hit-earned-layer-victim-discard",
+        "fixture_slug": "card-a-bit-off-the-side-red-four-live-sparse1513-real-decimator-axe-hit-earned-layer-victim-discard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1513,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T07:58:26.375182+00:00",
+    "spec_sha256": "42b3829221f763bf0cb211fa8ce6619e680713771a78a06a0e91f4b5d5c62be4",
+    "source_note_sha256": "7017c0e9bad2773f16da69efc990265b5b0bf06a38ff72027b1ab3029347064c",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "Decimatorlegal2HAxe4/activation3; noattacktrigger andnodefendtriggerwithoutdefender. Blue6pays3/R0/AP0 normalATTACKproxy10/WEAPON_UID7.",
+      "Independent exactoraclesno staleR2/2damage/HP18, expectedR0/power4/damage4/HP16. Primary5actualGAspentweaponAction/Boltynuncharged.",
+      "OMNHitABI11/sourceproxy10 earnsseparatelyafterdamage; allfourresponses/sameABIthroughvictim4choice thenRed8GY/Potion9Hand/fullclose sound.",
+      "Withdrawn1487/233archive remainsrejectedhistoricalevidence; this isnewcorrectsupport route."
+    ],
+    "limits": [
+      "Noenginechange, repeat Axe hits/Decimatordefendability/expiry/siblingcredit. Reviewer read-only source/spec review, no games."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1513-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f7e6461d4c89abfdf4f60ad4e8a952fc9e5987b6f2204eaa102c1022772feed5"
+  },
+  "full_suite_run": false
+}

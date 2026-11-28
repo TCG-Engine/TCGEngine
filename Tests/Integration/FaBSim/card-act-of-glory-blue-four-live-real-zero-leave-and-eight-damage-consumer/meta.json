@@ -1,0 +1,7 @@
+{
+    "name": "Act of Glory Blue / real zero, separate leave and eight-damage consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T20:57:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Exact Blue leave/consumer only, not castcost4/entry2/naturalstartphase. Legal pre-existing physicalAct6Arena SUSP1 with no buff; four live/manual Young, Pleiades1ready/R0AP1 and actualRed5Hand. Actual Hero click and actual remove-counter choice pay HeroTAP/ActSUSP1->0 before priority; physicalAct6remainsArena with separate zero8 above originalHero7. First actual four responses resolvezero/recheck0/destroy6ownGY and earn separateLeave9 above originalHero7, with noNext4 yet. Nextfour responses resolveLeave before granting actualSUP_NEXT4, then originalHero7independentlyreceivesfourresponses/resolves with no eligibleAura/no counterchange/APrefund. NativeRed5 formalHero4target/cost0 consumes +4 as singlePOWER4tag, AP1to0, source4responses then actualattackpower8/noGA. Full Attack/zeroDefend/DefendPriority/Reaction/Damage/Resolution windows give actual8physicalHP4=12/others20 and physical6+5ownGY/allRAP0/Hero1stillTapped/emptyArenaStackqueueschains. No counter/buff editing after recording, fake destroy, alternativeAura, genericvirtualdeletionordering, otherlistener/control/suppression/sibling/fullcard certificate. Sources: https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/super-slam/ https://rules.fabtcg.com/en/cr/05-layers/"
+}

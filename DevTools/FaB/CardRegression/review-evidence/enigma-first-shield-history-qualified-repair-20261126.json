@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+  "source_spec": "card-regression-repair-enigma-shield-history-20261126.json",
+  "input_sha256": "d6b56fabb741b1e4d89dc90f4c4c9582ba5913ffbf0c06362b59076c2b579ef7",
+  "fixtures": [
+    {
+      "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+      "card_id": "enigma_ledger_of_ancestry",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97a0b42368018034e8ad496b8b672059e1b704d9827955575a16a59ea946678c",
+        "actions.json": "1e900a36dee21286e13fb3da28b124c89dd5976b7bf6f12becb50a7052dcb000",
+        "assertions.json": "aa3f7469d068c3cec7889ccb863ae2da9e05a9b2cb63a8edd005e83529fc8e6a",
+        "expected_final_gamestate.txt": "a9ad825f2ad41c46522d0a35661e054ce20a21e3b284e2b3d5268704a537b67a",
+        "meta.json": "9994462f6517374a25bce412219502e7057f6b8cc2aa2186d4491834aa02908e"
+      },
+      "fixture_sha256": "27a6b2e8c661d48b354524e8d654f6a020473f8f3fba406e538b8cddced99d88",
+      "actions": 18,
+      "native_assertions": 273,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "runtime_sha256": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "source_spec": "card-regression-repair-enigma-shield-history-20261126.json",
+      "input_sha256": "d6b56fabb741b1e4d89dc90f4c4c9582ba5913ffbf0c06362b59076c2b579ef7",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "runtime_before": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+    "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+    "before_sha256": "72f1e1b7784e592bb1cba31281a73028aa94aeddd913c154190f48256afab400",
+    "candidate_sha256": "91e6ef44302d944f13fde9d096e30b73fcc20d5f8a3f8ee538fcccccbb84eb17",
+    "scope": "Refresh current state after payment/weapon hooks, guard identical pending source UID, then complete same payment. Preserve hook-written turn history rather than stale overwrite."
+  },
+  "targeted_replays": {
+    "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+    "fixtures": [
+      {
+        "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+        "passed": true,
+        "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "da261e692378a02ff52b6bce791aade3324257ff95ccec0ba9d41caa9dd79063",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "passed": true,
+        "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "e17b01ba38a7e04e3257ee1789756b0eeb4fd9ceb14427a5fd15799474d4c7e2",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "passed": true,
+        "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "b317d7b65ad5c3cdc5af22f05f4aaa7c0e651cb86a0865d9dd159fc31364b68a",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Adult natural duel, not four-live.",
+    "No blanket claim that all first-only counters share this cause.",
+    "Default strict comparator; no fullsuite yet.",
+    "Primary-agent semantic/saved review; no separate-agent approval."
+  ],
+  "scope": "FaBTryCompletePayment now reloads current state after payment/weapon hooks and guards the same pending physical UID before clearing payment. Original18-input Enigma/Cosmo case fails before and passes unchanged after: first real Shield attack free, fullclose1damage, second fresh Shield atAP1/R0/noHand rejected without new attack. No assertion weakened.",
+  "additional_validation": null
+}

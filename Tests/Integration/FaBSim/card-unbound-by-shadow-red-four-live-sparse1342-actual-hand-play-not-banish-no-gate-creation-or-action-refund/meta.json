@@ -1,0 +1,7 @@
+{
+    "name": "Unbound by Shadow / real base attack with false grant condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:47:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_CHANE20_THREEDORI20. ActualsourceHand5playandmovementpinned/Banishinitialandthroughout0; monFromBanishfalseinterveningIFmeansnoearnedGateWHEN/creation; actualbase4damage/noGate/Arena0/UID6. Endphaseneverentered/BloodDebtnotexercised. Allfourmanualsourceandcombatresponses/nativeactualbasepower4/damage4/HP4=16/AP1to0/R0. Originalprimary5GY1/legalFDGenericWounding6Arsenal1/sameUIDandFaceDown/otherzonesempty/UID6/RNG0. Fullcloseactual0costArsenalresourceaffordablebutnativeclickrejectsAP0beforeTarget/StackDQ/payment/movement; finalresources/HP/physicalassetsunchanged. Onlynamedfalsecondition/baseattack/nativeconsumerGuard; positivecondition/WHENtiming/grants/GA/tokens/bloodDebt/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#unbound_by_shadow_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ROSCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/EVOCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php"
+}

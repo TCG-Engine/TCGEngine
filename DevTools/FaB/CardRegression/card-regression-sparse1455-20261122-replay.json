@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-weeping-battleground-red-two-live-sparse1455-real-aura-banish-one-arcane-and-three-defense",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-weeping-battleground-red-two-live-sparse1455-real-aura-banish-one-arcane-and-three-defense",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1455-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1455-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1bffb538a5040c2296a08690db842bd573515f34d1fae3e3a2617109c8706b20",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01fd03ccb43f23155d1abdfa604ea9726583a2261b632d46a92d7733b8e56061",
+        "actions.json": "9b40de19b5caccb93835ac574a315e412a3fd4afcb7bb21e8290005723924ded",
+        "assertions.json": "a77b69e30fc0f4727f322d2dd433198fcd974f7ad7d4853dc8b1a54617a0aa40",
+        "expected_final_gamestate.txt": "5014a4d7d272e48558db492eaac21ac1f881520e8e10771d5e51526d98f2fc73",
+        "meta.json": "7697f9750107ac2492079879d39fdec98e35db50624b35168a9fe8192d2df83e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

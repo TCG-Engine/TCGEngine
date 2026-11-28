@@ -1,0 +1,65 @@
+{
+  "status": "COURIER121_56_5229_SINGLE_CLEAN_REPLAY_PASS_WITH_SOURCE_VERIFIED_PROTOCOL_ERRATUM",
+  "reviewer": "Root independent of b820 source/checker and original470 recipe author; protocol corrected with independent source/rule review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+  "input_sha256": "3f554241b1b9ac2696b6c0e634e6ce3d9e7d266c143a40ff38ecfd9a5cb4cf5e",
+  "source_spec": "card-regression-repair-courier121-current-chain-oracle-v2.json",
+  "fixtures": [
+    {
+      "slug": "card-combustible-courier-yellow-four-live-current-hit-trigger-before-real-next-boost-plus-three-and-five-damage",
+      "card_id": "combustible_courier_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3599eb1a02e79c87906947da233248e51613c0d4b3f3f971494ee91527146861",
+        "actions.json": "d49022bf12757ccaa689798dde56d6156db5b64a16506a1d8684a7ba525f4865",
+        "assertions.json": "979a1e3376e990f7d7961156330bf0f54b007877ca30da6a65f387a7661af4ad",
+        "expected_final_gamestate.txt": "ea04063fa3b321377de036f17b3b9a45bd632d50203f913314c16b5cd785deba",
+        "meta.json": "c2adeab24d8e5848a82341048f3012a523457a5e07ffebb56b967f9c40039a48"
+      },
+      "fixture_sha256": "a06c4d3d1cb6bdeaf895c03af49d1715b32bd2581dcd9f0add6a1d9f8d88f78d",
+      "actions": 56,
+      "native_assertions": 5229,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+      "runtime_sha256": "2f72b9957b6352d688a4471d2345bb4803ae91a5e865979e745bd8ac4f973b81",
+      "source_spec": "card-regression-repair-courier121-current-chain-oracle-v2.json",
+      "input_sha256": "3f554241b1b9ac2696b6c0e634e6ce3d9e7d266c143a40ff38ecfd9a5cb4cf5e"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-courier121-replay.json",
+    "sha256": "40d50fd8b8dcf0f2fa9627c74d5fa41fdb361003b8667ff424f0c6a37496f021",
+    "passed": true
+  },
+  "source_review_sha256": "d5ac165c91edda2521f75916193acec0d4fb68e7ba7b2eaa9867f70b9f8ace37",
+  "components": 62,
+  "review_normalization_note": "W-only reviewer defaulted power/goagain to firstCC index; actualrecorder correctlyresolvedcurrentattackUID. Reviewer now derives per-checkpointref from Source assertedattackUID plus physicalUniqueID. NoSource/Saved/assertion/engineedit or replayneeded.",
+  "component_receipt_sha256": "32ee36ceb282fc74e1ab03ee22c5c0e0b785f042dd05db672ab7b8c3f55c3ef3",
+  "oracle_correction": {
+    "review_sha256": "1dd2cdeebba0bd6b0cc2e686cf2bf873860797d60638b5502b8669d02e358469",
+    "first_failed_native_inputs": 30,
+    "first_saved_fixture": false,
+    "removed_controls": 1,
+    "removed_duplicate_assertions": 77,
+    "replaced_invalid_protocol_assertions": 8,
+    "old_controls_queries": [
+      57,
+      5314
+    ],
+    "new_controls_queries": [
+      56,
+      5229
+    ],
+    "description": "OpenUPFchain targets focusedHero4 only; actual single-target auto-selection leads straight to correct existing62Boostcheckpoint. Removeold60/61impossibleHeroMenu checkpoint/answer; all othersteps byte-identical. Eight invalid state/UI guesses removed,77correct duplicates retainedat62. Everyunique normative gameplay expectation preserved."
+  },
+  "basis": "RealCourier5paid2withBlue7, boostedactualThrottle8, deals3toHP17; capturedWHENlayer receivesfreshfour before CRU_COURIER3 earned. Actual nextZero6same-chain auto-target/Boost9 consumes+3, dealsreal5toHP12, printedBoostGArefundsAP1/R1. Same5/6ownedGY,7Pitch,8/9faceupunplayableBanish; fullfourlive/frame/Stack/DQ/chaincleanup, includingchainTokenabsence, verified. Source-life-independent earnedgrant staysboundto originalchain token.",
+  "limits": [
+    "ExactYellow representative only. Ally-hit, source-gone/control/blank, closed/reopened/reusedsourceUID cases have isolated components only, not Native branch credit. Otherprintings untested.",
+    "Component actualeffectwriter/Boost/Close/tagboundary is not standaloneNativepower/damage; fullnativeconsumer above supplies that evidence.",
+    "No generic094, generated, Core/schema, service or broadframework edit. PriorSearing/token branches preserved with actualcomponent compatibility. No fullsuite/historicalcorpusreplay or newbreadth."
+  ]
+}

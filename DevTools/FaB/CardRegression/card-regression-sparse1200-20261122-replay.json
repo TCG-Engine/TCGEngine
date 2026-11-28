@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-null-shock-yellow-four-live-sparse1200-real-arcane-threshold-negates-opposing-heal-left-half",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-null-shock-yellow-four-live-sparse1200-real-arcane-threshold-negates-opposing-heal-left-half",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1200-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1200-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fd8b8a1154e96b0dd68f00196775c36dd006401d71a9e77a3cad2586c475e2c2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d41ee778863ff03ee34e2a77a5d398a2f9bb4b2add693b6f699f98718b0b0850",
+        "actions.json": "2594f0e6153f75366f26ff151213a5ec8d106f074ab32f2d4825761d313488d5",
+        "assertions.json": "780e1e5ac159ec12daa874452da0ca40de4caf7bf3e479f1f7dc819ff1dd5539",
+        "expected_final_gamestate.txt": "f137ab300aa5ff2dbb850f8322fd9183c026c7b2bac344b0a3f40dc8dd0bb0a2",
+        "meta.json": "f4f6c7d041b5055756a46ba912ee77011bb453752acf9d89d196a979270799ad"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

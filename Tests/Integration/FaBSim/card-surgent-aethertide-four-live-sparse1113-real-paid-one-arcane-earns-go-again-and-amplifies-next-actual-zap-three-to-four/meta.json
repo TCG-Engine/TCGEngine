@@ -1,0 +1,7 @@
+{
+    "name": "Surgent Aethertide / four-live real arcane and next-spell amplifier",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:46:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: Deal 1 arcane damage to an opposing hero. **Go again**\n\nThe first card you play each turn with an arcane damage effect, instead deals that much arcane damage plus X, where X is the damage dealt by this card this turn. Named paidstaff1arcane/abilityGA/firstcardamplifierpositive. LegalnaturalVerdance20 owns staff5andrealBlue6/ZapRed7; nopreseededhistory/effects/equipment/arcane modifiers. ActualActioncost2paidBlue3/R1/AP0, allfourmanualresponses before nontargetresolutionherochoice4, ABI8holdsphysicalSource5. Actualstaffdamage1 changesHP4to19 thenGArestoresAP1. PlayrealZap7cost0withformaladjacenttarget4announcedbeforeAPcost, fourfreshmanualsource responses. Firstplayedarcane-effectcard getsplusactualstaffdamage1: printedZap3becomes4, HP19to15. ActualZapownedGY1/funder6Pitch1/staff5readyretained/noAP/unusedR1/noRNG. No preventedstaffdamage/zeroamp/secondcard/extradamage/otherheroes/alternatechosenhero/expiry/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#surgent_aethertide"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-what-happens-next-blue-four-live-sparse1476-real-first-cost-one-discount-and-buffed-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-what-happens-next-blue-four-live-sparse1476-real-first-cost-one-discount-and-buffed-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1476-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1476-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "65179654e78adef19df82653a7814d5fc8a5a7610851f293490981873732e39e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0751ca1f6137876c71708ee5ced1c43c257ee68517de995bcc65a10933657035",
+        "actions.json": "74a76b586b7c24d2b6f5cc427fa31d80538e0a8016fe759a03d70fd6a0ec55fd",
+        "assertions.json": "adf3e36abdb99c5ce14351102aaf5fb2fbab9e80d2b9b365b48b3be9ff9bc4a8",
+        "expected_final_gamestate.txt": "ae3fa8f8d389cb169a073700912bd50ae0ab8279deaa6c8ea6ee8fb9b60e07e4",
+        "meta.json": "800b45b2cb74f761369988613b2a0f72808878447f0428ef42589b858d09c7c0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

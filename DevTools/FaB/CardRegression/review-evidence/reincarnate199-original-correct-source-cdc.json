@@ -1,0 +1,303 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_REINCARNATE_GENUINE_RANDOM_COST_EARNED_BOTTOM_FULL_ROUTE",
+  "phase": "SOURCE",
+  "batch": 864,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch864-reincarnate-random-cost-earned-bottom-probe.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\reincarnate-real-random-cost-earned-bottom-deck-full-probe.json",
+    "sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32"
+  },
+  "input_sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\manifest.json",
+    "sha256": "4fab02ab46d5a14979a01c2c3ac574ebf852518fc047d715e320db6e58933e60"
+  },
+  "manifest_sha256": "4fab02ab46d5a14979a01c2c3ac574ebf852518fc047d715e320db6e58933e60",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-firm-reservation.json",
+    "sha256": "c1f4be6511118f01a85569e14568b672e61a296261475acb1cfceb5a793b6929"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-firm-reservation-support-admission.json",
+    "sha256": "06375d0a4b5113bec73879bf6e6b0a8a51371fdc106a7544817c9c801a1c8ae0"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\preflight.json",
+    "sha256": "7874a0364d7a461def0d1ba096651c9e2a82d4f138bedc0572481d70235cc176"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\frozen-author-QA.json",
+    "sha256": "33c75a2d4da1e7e545686f971c10f7765b73fc080bc82b1dfc00d015e429cc93"
+  },
+  "ordered_control_query_model": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch864-reincarnate-real-random-cost-earned-bottom-deck-strict-probe-author\\ordered-control-query-model.json",
+    "sha256": "7aa998db1fb6ea41459e8f1d749a66037bf8eb2a6cc32c908a9e71ab963c5524"
+  },
+  "source_guard_count": 72,
+  "additional_guard_count": 10,
+  "selected_support_guard_count": 17,
+  "all_current_guards_independently_matched": true,
+  "actions": 32,
+  "declarative_controls": 32,
+  "planned_native_inputs": 32,
+  "assertions": 3965,
+  "native_assertions": 3965,
+  "planned_native_assertions": 3965,
+  "manual_passes": 29,
+  "pass_control_count": 29,
+  "legal_priority_response_controls": 28,
+  "expected_formal_defense_finish_inputs": 1,
+  "nonpriority_END_transport_controls": 0,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 7,
+    "2": 7,
+    "3": 7,
+    "4": 8
+  },
+  "pass_control_classification": [
+    {
+      "control": 4,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 5,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 6,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 7,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 8,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 9,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 10,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 11,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 12,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 13,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 14,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 15,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 16,
+      "actor": 4,
+      "classification": "DEFENSE_FINALIZER"
+    },
+    {
+      "control": 17,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 18,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 19,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 20,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 21,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 22,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 23,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 24,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 25,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 26,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 27,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 28,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 29,
+      "actor": 1,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 30,
+      "actor": 2,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 31,
+      "actor": 3,
+      "classification": "PRIORITY_RESPONSE"
+    },
+    {
+      "control": 32,
+      "actor": 4,
+      "classification": "PRIORITY_RESPONSE"
+    }
+  ],
+  "checkpoints": 34,
+  "schema_property_checks": 966,
+  "all_typed_properties_checked_against_actual_schema": true,
+  "native_expected_envelope_mapping_sha256": "e86a52dd4f4fa9d932fe5ec68324d7416c71d99fa10bfdf95b606d0b984727a7",
+  "expected_native_query_mapping_sha256": "fd494b170e8d81a59952407cb9ab556c62329bab5e722c4615b1fc6ee0341229",
+  "checkpoint_mapping_sha256": "1005012fbf1c533c9a38ac86323fcf15052c55b959743f309f8aaf6b41af4f08",
+  "initial_final_raw48_each_remaining_actual_gate": true,
+  "independent_semantic_findings": [
+    "Exact setup is four manual YoungRhinar20/Betsy20 seats,no passive/bot/RNG/buff/AP/damage/trigger seed. LegalBrute ReincarnateBlue5/WreckerRed8 and actualBlue3Hand,nonemptyorderedDeckRed8thenBrutal9 are physical. PrimaryBluepower5 does not earn Rhinar>=6 Intimidate and noTrackers/Berserk gear/effect is seeded or entered. Priorcardcasting/playingReincarnateasAttack5 is not the tested route.",
+    "Root first printed Wrecker support06375 is preserved, no Skullhorn switch orBloodrush218 waiver. Native formalHero4 target then actualBlue7pitch3 pays printed2/R1/AP0. Current GL1123..24 pays assetcosts before1178 WTRAdditionalCosts520..526 invokes realRandomDiscard497..506; pitch leaves soleHandUID5. Random algorithm is genuinely called with singleton eligibleHand, without RNGseed/cursor mutation or asserted cursor advance. Physicalparent6 ATTACK remains on Stack through its proper fullattack lifecycle.",
+    "Printed WHEN discardedAT RANDOM is triggered, not a replacement. Correct discard first places physicalUID5 publicownerGY1; CR6.6.5/6 requires earned controller1/source5 layer before next priority, above the already paid parent. No response is invented during costpayment. Frozen firstpostcost checks lead R1/AP0 then GYcount/identity before privatewindow/payload; child Kind/controller/sourceUIDonly avoids guessed virtualUID/CardID/event. Four freshchild responses before movingUID5 preserve first meaningful physical witness.",
+    "Correct full child resolution puts SAME physical5 at absoluteDeckbottom[8,9,5], preservingtop8then9/owner/controller/noShuffle/noDuplicate/noHandGYresidue. Parent6 staysphysicalStack and receives its own freshfourSource responses afterward; realunblocked8damageHero4HP12/noGA/R1/AP0/parentGY6/BluePitch7/completechainStackDQ cleanup remain mandatory. No shorter discard-only/bottom-only/attack8-only route is approved.",
+    "Current DYNRandomDiscard167 directly calls ARCToDeckfalse on Reincarnate after real discard; ARC122..125 false appendsbottom. This fresh literal timing concern has no exact earlier causal contract identified by author scan; it is Source-only until this original-correct Native diagnostic. Existing6+Trackers source concern/held218 cannot be used to waive the required fullsupport, and neither is entered by this physicalATTACK/Blue5 route.",
+    "All32controls/3965orderedqueries/966supported schema properties/current72+10+17guards independently matched. UnsupportedDeckFaceDown is absent in frozen packet, supportedDeckidentity/order/owner/controller and publicGYFaceDown0 remain mandatory; no normative timing/movement/parent completion expectation was dropped. Author caught that incidentalfield before writing a candidate, so no nonexistent prior packet or inverse-delta proof is invented.",
+    "Only one full --probe-only diagnostic is admitted. No Save even if all assertions PASS; separate independent actual-result review, explicit promotion and fresh positive Source are required before any future normal recording/Saved/raw5/bothraw48/twoownreplay qualification."
+  ],
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.1",
+        "6.6.5",
+        "6.6.6"
+      ],
+      "reuses_recent_independent_official_trigger_review": true
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/dynasty/",
+      "direct_fetch_status": "403",
+      "not_relied_on_as_newly_read_evidence": true
+    }
+  ],
+  "required_remaining_gates": [
+    "Root exactly this full diagnostic with --probe-only and noSaveevenPASS.",
+    "Independent actualresult review; Source concern alone is not a confirmed gameplay defect or coverage.",
+    "Explicit Root promotion/newpositiveSource/normalSave/Savedraw5+bothraw48/twoownreplays only after valid complete diagnostic pass."
+  ],
+  "limits": [
+    "Blue genuine randomdiscard child only; otherpitches/chosen-discard/otherRNGoutcomes/6+interactions/Berserk/repeated/suppression/reset/support/fullcard untested.",
+    "Source admission is diagnostic-only, no Native/Saved/coverage/qualification/fix approval or new issue/root allocation.",
+    "No PHP/native/Rwrites/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry by reviewer."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch864_reincarnate_source.py",
+    "sha256": "307506e9e2405bd1e1684b2b55c0b0b85be8189fe36bf89f50fccca1310668e2"
+  },
+  "created_utc": "2026-11-16T11:21:52.162871+00:00"
+}

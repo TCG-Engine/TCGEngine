@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T10:18:43.400782+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1144-20261122.json",
+  "source_spec_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 236,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 5016,
+    "duels": 3075,
+    "four_live": 1941,
+    "recorded_primary_ids": 2164,
+    "identity_denominator": 5196,
+    "recorded_groups": 2038,
+    "group_denominator": 3324,
+    "four_live_groups": 1930,
+    "phase_qualified_scenarios_at_actual_contexts": 1653,
+    "phase_qualified_unique_groups": 1643,
+    "creation_replay_passes": 2395,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 814,
+  "scenarios": [
+    {
+      "card_id": "farflight_longbow",
+      "group_id": "identity:farflight_longbow",
+      "scenario_id": "card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+      "effect_branches": [
+        "existing_bow_static_all_opponents_allows_actual_arrow_to_target_opposite_live_hero"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-farflight-longbow-four-live-sparse1144-actual-arrow-targets-opposite-live-seat-and-deals-four",
+      "source_spec": "card-regression-sparse1144-20261122.json",
+      "source_spec_sha256": "f1f729f8e486e2b926cdb55b610ca94c18762ceff30977c32140465d5f6b3e90",
+      "review_evidence": "review-evidence/sparse1144-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5ab6d91b99912ccec1383b39b84c8ea15ba3cd4047bd0512a58ec22d28bb5566",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1144-20261122-replay.json",
+          "sha256": "1530d18195df1735ea2456b77550ac876ae7c19e294a2cf1eca5fdf11787f2ae",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

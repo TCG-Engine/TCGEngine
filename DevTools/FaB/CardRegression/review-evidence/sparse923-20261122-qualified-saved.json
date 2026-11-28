@@ -1,0 +1,255 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse923-20261122.json",
+  "source_spec_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+  "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-short-shrift-yellow-four-live-sparse923-actual-base-three-below-four-damage-crush",
+      "card_id": "short_shrift_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dc8e623ef927cd69830784a0647bfc3691f9db33e0735f399f4bcf0b6f373baa",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "78c76f0f0ae65e7bb2022ae978a01e9c1b3f290f6bb557749f6d5203d1977b62",
+        "expected_final_gamestate.txt": "d4a1688bf32b3196f220f046bbed8b032790813bd46984bbfcb558bf21309989",
+        "meta.json": "57e99409452a03402aab679fe6202899d304e4b2631ffc87f3468535b2500550"
+      },
+      "fixture_sha256": "bc1c1dbfeec0986cb3598dd19723ac4fee5231333302237fc2f0f582e7d10277",
+      "actions": 27,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-short-shrift-yellow-four-live-sparse923-actual-base-three-below-four-damage-crush",
+        "fixture_slug": "card-short-shrift-yellow-four-live-sparse923-actual-base-three-below-four-damage-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-small-problem-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-aura",
+      "card_id": "small_problem_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7723b714426a7d46b306fef13ee75463973c891059373ca923a10496e0e962a4",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7b2b5919cf9825daf5a4c4413cf793597c73346d97f5577888adb4b61646e6fd",
+        "expected_final_gamestate.txt": "9657af801a8591a54bac56d8503db939bc7b3cbd424f22fcccbb2ea62f3a11c7",
+        "meta.json": "9769ac130dfef14722c40fa42a2cf7dee46821a9a95bc2ff19cfe6afb28d4370"
+      },
+      "fixture_sha256": "5025e522d3466a0d157efc0986da8e91e09f7568ad98ae15bfb66d1bb91d39b2",
+      "actions": 27,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-small-problem-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-aura",
+        "fixture_slug": "card-small-problem-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-aura",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-wee-wrecking-ball-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-arsenal",
+      "card_id": "wee_wrecking_ball_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "633be504545bfacbf2d03d4feecd7f01b7dd0cf10144c4df50ff8fd803a6a927",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "6f7392239312fec6520851464b9a9331cdef3de93db67c0c7e08b83de0b404ad",
+        "expected_final_gamestate.txt": "bec402ecbe7801f060b33d0635f1f3d050e49f7c3c5f485ef5581e92f94d3653",
+        "meta.json": "4a5efcf3258df1ca70dd4b87f09f0d41213cebd9b4c33ca6856bea242bf2eef1"
+      },
+      "fixture_sha256": "3cf924ce97fd5fcdb2d79756dee09d30bf5d9ac99b6d4d59f7ebf669786bb0ce",
+      "actions": 27,
+      "native_assertions": 130,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-wee-wrecking-ball-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-arsenal",
+        "fixture_slug": "card-wee-wrecking-ball-yellow-four-live-sparse923-actual-base-three-does-not-crush-real-enemy-arsenal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-walk-in-my-shoes-yellow-four-live-sparse923-lyath-halved-base-two-below-four-damage-crush",
+      "card_id": "walk_in_my_shoes_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a08d0b957814383771242dee8fa375ca52b7ec481650bba40857226ec01a142",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "c31e79df3bb373e57cacd95f117c5b5e9fe56a5def20a4a99809eda4f765561e",
+        "expected_final_gamestate.txt": "b9d49d4cdbe136d9df8fd865d4b842a4a661e8f0aa9fe3ebe1ce7a19f00f79fe",
+        "meta.json": "1d28239379aa2c8e182395bf92cee4065e57bf235bdad5cadf5ef15c5154565d"
+      },
+      "fixture_sha256": "f5e0c4743eef050b31d0e92c2048d8320b39db8d4f240e2603eaa5a03b6f996e",
+      "actions": 27,
+      "native_assertions": 122,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-walk-in-my-shoes-yellow-four-live-sparse923-lyath-halved-base-two-below-four-damage-crush",
+        "fixture_slug": "card-walk-in-my-shoes-yellow-four-live-sparse923-lyath-halved-base-two-below-four-damage-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-no-hero-stands-alone-yellow-four-live-sparse923-actual-six-attack-without-toughness-history-or-defended-clash",
+      "card_id": "no_hero_stands_alone_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ff76a7af56c209e6883c9ae573d32292f9031c53dd86692e3a1099b32582cd35",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4d3d21aaab5c8080ccd32d0b2a30c96b4a2cf4c8d2757835db63336f276218bb",
+        "expected_final_gamestate.txt": "37732fbae99a691f62385c9dc9d0dc73b054cb8666390a13980f10acfaa1e7ce",
+        "meta.json": "2019b76abced9be6d15f1645113db41b3563ccaa177069b3ec4167f4545402e8"
+      },
+      "fixture_sha256": "7f90f050c318f380392cbb67b23500f1d885f8f3f60aef675f63153ae837da89",
+      "actions": 28,
+      "native_assertions": 144,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-no-hero-stands-alone-yellow-four-live-sparse923-actual-six-attack-without-toughness-history-or-defended-clash",
+        "fixture_slug": "card-no-hero-stands-alone-yellow-four-live-sparse923-actual-six-attack-without-toughness-history-or-defended-clash",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-skywarden-no161803-yellow-four-live-sparse923-actual-three-attack-without-defended-galvanize",
+      "card_id": "skywarden_no161803_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3bfaa61cb367b3b290d9f6fdd6f3b5aebcd9906ef7a6eba62c178ab7e6783ec0",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "f425ffa4476650b711ddeefa528278cef29e257f45ebe63cc580bc4776d14000",
+        "expected_final_gamestate.txt": "485b7a7b85aee2048601f20e8e08075ffba1b63f0b1085139b90f92f4e275d90",
+        "meta.json": "5b0300cd642418e078130b96fe12d77a821cd677fc86bd6388624cfd3940225e"
+      },
+      "fixture_sha256": "c56fbaf2d113263eacc4f60aeb493dd6eae70fd2633699cb6c46343879e79e58",
+      "actions": 27,
+      "native_assertions": 122,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-skywarden-no161803-yellow-four-live-sparse923-actual-three-attack-without-defended-galvanize",
+        "fixture_slug": "card-skywarden-no161803-yellow-four-live-sparse923-actual-three-attack-without-defended-galvanize",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-teeth-of-the-cog-red-four-live-sparse923-actual-four-attack-without-defended-galvanize-token",
+      "card_id": "teeth_of_the_cog_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "37880f5bcf09c17bfd87357d380760d9cdb2d4f0e40263f2ea16935c209db1cd",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "5aea481e220453d1ec1442896eb502ce524f473f5cc5ecee45ea1b45721f9ec3",
+        "expected_final_gamestate.txt": "6fffadb179391d03a78854745f46a741ffa1f415fa785b50f92841612272882d",
+        "meta.json": "7d5c1a71f2e9f2669ee194091dc88595c0eff24197b778c816969ea49f0bb4a2"
+      },
+      "fixture_sha256": "a16fc627f15b536b7141258ec0b63e773c61dbc46dea96d04c12112d8d73d92b",
+      "actions": 27,
+      "native_assertions": 122,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-teeth-of-the-cog-red-four-live-sparse923-actual-four-attack-without-defended-galvanize-token",
+        "fixture_slug": "card-teeth-of-the-cog-red-four-live-sparse923-actual-four-attack-without-defended-galvanize-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-overturn-the-results-blue-four-live-sparse923-lyath-halved-base-three-without-clash-replacement-or-boo",
+      "card_id": "overturn_the_results_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c37cd95352c95ce4522cf5a44e5130249a9d73ef0d6f5afd38227c58fdf186d",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4ba18bb0e44d6bfdab720597882f3641fcdb2a02ae1f1095c95776737d624ea9",
+        "expected_final_gamestate.txt": "eb208d0e6737213da42298827bbc1d72c891eb7f75088791db137a3b8b21618b",
+        "meta.json": "3b4d48b8933d7292aa8bb5e677a7e2064b2c9012126af8f8aca8c48825e51ae5"
+      },
+      "fixture_sha256": "62509b28ddaacf9a84501f243ec5aed1822736dcb8f398917970b5a031741b92",
+      "actions": 28,
+      "native_assertions": 144,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse923-20261122.json",
+      "input_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-overturn-the-results-blue-four-live-sparse923-lyath-halved-base-three-without-clash-replacement-or-boo",
+        "fixture_slug": "card-overturn-the-results-blue-four-live-sparse923-lyath-halved-base-three-without-clash-replacement-or-boo",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "55d945ed0f4bd2965aea65d76bc4ce8214f85b7426b1cae8aca0a5d5c8d56d33",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Eight distinct named primary groups: legal natural20 actors satisfy both ordinary class and talent requirements. Pirate/Mechanologist Skywarden uses Puffin; Reviled cards use Lyath; Revered generic uses Pleiades. Other four-live manual seats and sourceUID5 native target/payment/combat/GY transport are retained.",
+      "Short Shrift, Small Problem and Wee Wrecking Ball are unbuffed printed3; actual3damage is below the WHEN-this-deals4-or-more trigger event, so no Crush layer is earned. This differs from a WHEN-hit event with a later false effect condition. Enemy real Hand/Aura/Arsenal UID6 markers are retained and check absence of unintended discard/destruction.",
+      "Lyath printed continuous base-power halving rounded up makes Walk In My Shoes printed3 become base2 and Overturn Results printed5 become base3. SUPCards.php61 applies that base rule; PENCards.php1101 requires power greater than adjusted base for Walk extra1, absent here. No Crush4, Clash or crowd-boo event occurs.",
+      "No Hero Stands Alone has no Toughness-controlled history and never defends, so no Ambush/Clash effect is earned. Skywarden and Teeth of the Cog never defend or Galvanize. Expected real damage is3/3/3/2/6/3/4/3 with AP0/R0; cost3 NoHero/Overturn each use physical Blue6.",
+      "No outcomes seeded: actual adjacent-target announcement precedes payment, all live seats manually respond through combat, physical primary5 reaches owned graveyard, final effect queues remain quiet. Enemy Might is preexisting owned4 and no turn transition occurs."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and one targeted clean replay per case remain pending Root. No PHP/native games, T edits, network or Git mutation.",
+      "Only named main attacks, Lyath base rule and absent threshold/events. Positive Crush/greater-than-base bonus, defense/Clash/Galvanize/Ambush, crowd replacement/boo, hero activations, siblings or whole-card behavior untested."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse923-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "05e78fad069faf1c7c41323ababe488ded8889b51053e95542ab2d921a4660af"
+  },
+  "full_suite_run": false
+}

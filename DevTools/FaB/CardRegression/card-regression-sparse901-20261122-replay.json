@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-reverberate-red-four-live-sparse901-real-three-arcane-banishes-eligible-hand-spell-then-same-spell-plays-as-instant-at-zero-ap",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reverberate-red-four-live-sparse901-real-three-arcane-banishes-eligible-hand-spell-then-same-spell-plays-as-instant-at-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ec1ea847780f60457732b35eebb012ed170b13ef95fa956c83b0d56d6376ba5b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d56978256af1a358de510c5bf1966cfd615bce8f9864d3383858d97093fddfa",
+        "actions.json": "5b53f1227c961d9dd423bb697e2c3fdf579d9909c4669049fe95a63c937b8d83",
+        "assertions.json": "84f744e872fece83995f48ab671bac3062766f70927d64ab8946aa009600f3ff",
+        "expected_final_gamestate.txt": "c293817dd9c2642c3656c190f8a9be791a8aa910e8e2f608f6eb258d3b19ad34",
+        "meta.json": "f531bdb6db8124b5c5f24b98add0f55ce56c28ca795fe085ad25d91b28567e8a"
+      }
+    },
+    {
+      "slug": "card-dawnblade-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-3-without-conditional-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dawnblade-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-3-without-conditional-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d504c708c01ae6f3cf0bcff50610098d323ecdc28074ed81a3ccefa930702630",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d2a299f26aceb07f52463b3c48d6f23b563ca0ab4024af7f46f2fda2a72b75a",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "ef8f58d9d2947f6d5b43fcf8a6a1d4956055ca10dd9d85012a1305154ca26307",
+        "expected_final_gamestate.txt": "a44704040e4a2850396c2e100f868fb0768b9035338bbc5c10205e374884dca7",
+        "meta.json": "59f4e08146755d537f610665874640cec5a0eba7d6caa40b1747dd9642df21a1"
+      }
+    },
+    {
+      "slug": "card-romping-club-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-romping-club-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "109bfabf1bf2100252d41e72129b384ee8b4c2caff0a5775f759489af8d84425",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a74c21d50a942f75ffda7ca7db4adf83710b5c60368c170ff96a0d8ba7433aeb",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "7948a8a01250565c7a745c364ffeb58ed4d32accef0595da5ad2d07f4a6d38f8",
+        "expected_final_gamestate.txt": "9ee660cea7efc759ca2280e963c8fb988c74f051790780e14fac42f99cf45e2c",
+        "meta.json": "d79c7356b1aae0cb07a3ddf6427750cad27501a5889eb7e651cdbef0c1482d3f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

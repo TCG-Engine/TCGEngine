@@ -1,0 +1,118 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse964-20261122.json",
+  "source_spec_sha256": "850d678323cfd75cb3d5ecfdc0f453dda4291b4ac67ee3b08dd6a3c8233417c8",
+  "input_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "card_id": "gear_turner_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "28dc6dd4769ce7fb3ee3068646ba0b5fb8fc830d19c539240024949be14ad050",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "6a779b390b9cbb52ca5c31836b5686ad29611c8d495d99cf35d51069d2d66db8",
+        "expected_final_gamestate.txt": "f914d5c07770940bce8c4169efcd5b298c3e7ac53cc64a8fe9a7b8f5d3e44deb",
+        "meta.json": "b4bfadb11333a6a724345c1f761f9b6d511749f2e2c5be87c1b06914d1a8dcb2"
+      },
+      "fixture_sha256": "c98ddbc1bbddd354c52ddc878775c03117baaed8f41b4dd332d96a665d5a32c0",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "input_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "fixture_slug": "card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "card_id": "cogwerx_dovetail_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ffa3a8603efff8f6ea91380ffc3164dc95f544eeed4277fd4be0e5fcd1805b8",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "a25ae7c911e583925ad207af6bdb9c342ed32fcf49b55d291865339affb95a8c",
+        "expected_final_gamestate.txt": "74376056b56e21d7bd4ae85334bfd90f0ffc2f246eec6ed96c96cb3c4baa4c67",
+        "meta.json": "57da5ea3d173b2b8f0ab8dc4b829c58826026c4dd4ab6ca4e70f66f358a46a48"
+      },
+      "fixture_sha256": "ca99d2e95bf76dc3797400582c77f5a4f3395173e769a4af386b3bc88996378e",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "input_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "fixture_slug": "card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "card_id": "cogwerx_prong_bot_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3c4509b24e6fc9e7a6d6fcc221afa87daca94db1392a629124057f3b3ed54aff",
+        "actions.json": "ec4751855611b71af8512336dca4a46fb793b63b2fcc2d184ee431d8b3e5152d",
+        "assertions.json": "43626b8539bffb3fa8bc2131ff579acee6b21e0a5fb94f4b99b6ca83617ddcd0",
+        "expected_final_gamestate.txt": "a1fc2c63e824e149dddfa4245423983fd447b2a66ebe0d246aaa2be36c3668e2",
+        "meta.json": "b0a2b339615db81677a9855773c01b744906832f163f9a6e8e7034a56ba25919"
+      },
+      "fixture_sha256": "ffb01000397780b11aa30d00547ccb3feb6ba80a758e594590e6f3ef9b9e2262",
+      "actions": 31,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "input_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "fixture_slug": "card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e4b12002ae95bccda4f2f39071933f88f9a1a790bc1a83b8563bec53f2429ebf",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached plain Mechanologist attacks are legal for Dash20; printed costs1/1/3/2/2 and powers5/5/6/6/6. Real Blue6 pays each, leaves R2/2/0/1/1 and AP0. Two physical Generic Hand AA eachdef3 fully block all five; actual0damage/HP20/attackHit=false/Stack0 means no hit event or earned choice/layer. Source5 owner1 graveyard and defenders7/8 owner4 graveyard, four manual seats and initial counts/UIDs are consistent.",
+      "Prong Bot Yellow is in IARRuntime13/17 Hand Instant list with1-cost discard activation. Explicit native MZMODAL0 PLAY preserves physical Hand5/Stack0/AP1/R0 before Hero4 target and ordinary3-cost payment. SEARuntime28/34/37 restricts Dovetail/Steamboat/Zeppelin cog-tap Instants to current attacking CombatChain, so they do not create a Hand menu; none is activated.",
+      "Gear Turner retains real eligible Copper Cog Deck9/Deck1/Arena0, no search movement. Dovetail retains exhausted Golden Cog9 Status1/Steam2 (untap would change status). Prong retains actual crank Copper Cog9 Steam2, so no extra steam is nonvacuous. Steamboat/Zeppelin retain ready Golden Cog9 Status2/Steam2/Arena1, so no tap, counter increment or extra token occurs. Physical CardID/UID/Owner/Controller retained.",
+      "Cog statuses/counters are legitimate preexisting fixture state; no arena entry or new token creation is executed. Cog upkeep is at start of turn, not during this ACTION combat. This does not test or qualify Copper Cog entry issue207 or created-token ownership. All five generated Hit producers exist; no unconditional WHEN attacks/played event is omitted."
+    ],
+    "limits": [
+      "Only main payment/full-block/no-hit/physical retention. No exact unblocked power, positive search/shuffle/entry/crank/untap/counter addition/Golden Cog creation/ownership or optional Instant behavior, other pitches or whole-card certification. Source-only Wizard skips are unrun and not new native findings. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse964-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "48b388361afe10736443f041f833ba32088e09f1adfb608e5648df7a1d2228d0"
+  },
+  "full_suite_run": false
+}

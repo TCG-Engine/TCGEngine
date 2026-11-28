@@ -1,0 +1,7 @@
+{
+    "name": "Snap Fingers / Generic active attack is not Lightning",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:47:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_AURORA20_THREEDORI20. ActualGenericCriticalRed5AAcost1paidBlue6pitch3/R2/AP0; SnapFingers8ArmsreadyandownactiveAA5power5yetNOTLightning. AuroraLightningEssencedoesnotchangeGenericcardtypes. AtownREACTIONclickSnapfullyaffordable1resourcebutnolegalLightningtarget:rejectbefore1payment/Destroy/abilitylayer/arcane1. Equipment8ownedready/CountersEffectsunchanged/R2/AP0/UID8/priority1/sourceattack5power5; allmanualresponses/actual5damageHP4=15/nofalseextraarcane. Final5GY1/6Pitch1/FDArsenal7retained/actual0ArsenalconsumerrejectAP0. Onlyattacktypelegalityguard, notpositiveLightningtarget/paidcost/arcane/timing/wholecard/support. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snap_fingers FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/MSTCards.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php Schemas/FaBSim/GameSchema.txt"
+}

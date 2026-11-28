@@ -1,0 +1,7 @@
+{
+    "name": "Arakni, Funnel Web / actual owned Generic weapon rejects Assassin-only reaction before discarding real Assassin card",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:06:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualownedTalisharWeapon4notAssassin. PrimaryownedARrejectsatproperReaction1despiterealInfect6AssassinHandfunding; no payment/discard/layer/once marker/powerGAchange. ActualBlue5pitch3pays2/R1/AP0/Rust1 beforeattack, allfourmanual/full4physicaldamageHP16/closewithsource1/Hand6unchanged. Onlytargettypeprerequisite, nopositiveAR/payload/endphase/wholecard/siblingcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arakni_funnel_web FaBSim/Custom/HNTCards.php#FaBHNTBecome FaBSim/Custom/HNTRuntime.php#FaBHNTAbilityLegal FaBSim/Custom/ARCAbilities.php#FaBARCAbilityActions FaBSim/Custom/WTRCards.php#FaBWTRCanActivate DevTools/FaB/CardRegression/initial_agent_setup.php"
+}

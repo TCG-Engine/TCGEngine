@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:39:04.359275+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1320-20261122.json",
+  "source_spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 85,
+  "native_assertions": 1914,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5269,
+    "duels": 3097,
+    "four_live": 2172,
+    "recorded_primary_ids": 2417,
+    "identity_denominator": 5196,
+    "recorded_groups": 2291,
+    "group_denominator": 3324,
+    "four_live_groups": 2161,
+    "phase_qualified_scenarios_at_actual_contexts": 1906,
+    "phase_qualified_unique_groups": 1896,
+    "creation_replay_passes": 2648,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1067,
+  "scenarios": [
+    {
+      "card_id": "enflame_the_firebrand_red",
+      "group_id": "identity:enflame_the_firebrand_red",
+      "scenario_id": "card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+      "effect_branches": [
+        "first_draconic_chain_link_does_not_earn_second_link_go_again_or_fourth_link_power_actual_hero_damage_and_affordable_followup_rejected_at_zero_action_points"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-enflame-the-firebrand-red-four-live-sparse1320-first-draconic-chain-link-does-not-earn-second-link-go-again-or-fourth-link-power",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "source_spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "review_evidence": "review-evidence/sparse1320-20261122-qualified-saved.json",
+      "review_evidence_sha256": "49ac8afcef281f74bc805b1c90fcab83f573c8ae1c3cf2ce23950a1ba3dce77d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1320-20261122-replay.json",
+          "sha256": "6c1363714c549df6f554376953ba937b17f34b61c5a94828e3d0a12c4fa68776",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "gold_hunter_lightsail_yellow",
+      "group_id": "identity:gold_hunter_lightsail_yellow",
+      "scenario_id": "card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+      "effect_branches": [
+        "equal_zero_gold_does_not_earn_go_again_actual_hero_damage_and_affordable_followup_rejected_at_zero_action_points"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gold-hunter-lightsail-yellow-four-live-sparse1320-equal-zero-gold-does-not-earn-go-again",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "source_spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "review_evidence": "review-evidence/sparse1320-20261122-qualified-saved.json",
+      "review_evidence_sha256": "49ac8afcef281f74bc805b1c90fcab83f573c8ae1c3cf2ce23950a1ba3dce77d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1320-20261122-replay.json",
+          "sha256": "6c1363714c549df6f554376953ba937b17f34b61c5a94828e3d0a12c4fa68776",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "clench_the_upper_hand_red",
+      "group_id": "pitch-cycle:clench_the_upper_hand",
+      "scenario_id": "card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+      "effect_branches": [
+        "equal_natural_health_does_not_earn_boo_or_hero_vigor_actual_hero_damage_and_affordable_followup_rejected_at_zero_action_points"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-clench-the-upper-hand-red-four-live-sparse1320-equal-natural-health-does-not-earn-boo-or-hero-vigor",
+      "source_spec": "card-regression-sparse1320-20261122.json",
+      "source_spec_sha256": "2bec9ed2368195c5dedf0f6973a4ddbf0723e3060d7bed07645d12d87eedb25e",
+      "review_evidence": "review-evidence/sparse1320-20261122-qualified-saved.json",
+      "review_evidence_sha256": "49ac8afcef281f74bc805b1c90fcab83f573c8ae1c3cf2ce23950a1ba3dce77d",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1320-20261122-replay.json",
+          "sha256": "6c1363714c549df6f554376953ba937b17f34b61c5a94828e3d0a12c4fa68776",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

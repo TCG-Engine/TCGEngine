@@ -1,0 +1,7 @@
+{
+    "name": "Face Purgatory / four-live ordinary block with no joined-condition event",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:08:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends together with an attack action card and a non-attack action card, the attacking hero discards a card and you draw a card.\n\n**Blade Break** Named ordinaryDEF2/BladeBreak positive with strictly absent joineddefender event. Legalnatural viserai20 controls primaryEquipment5, actualGenericLeadChargeRed6NAADEF2 and realunusedDeckWoundingBlue8 marker. Actualopponent1WoundingRed7AAcost0/AP0/4power declaresadjacent4, allfourmanualsource/combat. DefenderHand6thenEquipment5defend2+2=4; only a non-attack action accompanies the equipment; no attack action defends, so event requiring both AA and NAA partners does not occur. No bodylayer/Gold/heroDraw/discard/draw effect earned. Actual0damage/noHit/HP20, defendersstaychain/GY0 untilClose. BladeBreakclears5owner4GYafterHand6, AA7owner1GY, unusedDeck8retained; noArena/token/resource/RNG/APgain. No positivejoinedconditions, Gold/Victortrigger, actualdiscard/draw/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#face_purgatory"
+}

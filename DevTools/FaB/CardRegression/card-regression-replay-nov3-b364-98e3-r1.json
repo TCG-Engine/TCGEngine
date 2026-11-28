@@ -1,0 +1,51 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch364.json",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T19:25:19.057509+00:00",
+  "fixtures": [
+    {
+      "slug": "card-arcanic-spike-red-four-live-sparse-real-runechant-arcane-earns-plus-two-and-seven-physical",
+      "fixture_sha256": "83468f7824ca198a8882be0fe7bafa03707ad17b64c71a563dd82457361a96fa",
+      "passed": true,
+      "result": "[PASS] arcanic_spike_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-cinderskin-devotion-red-four-live-sparse-real-paid-second-draconic-link-earns-go-again",
+      "fixture_sha256": "2aee0da28f35181cc5b11d4434b6254ea31ce7b58a58418374ca20542c2f93c1",
+      "passed": true,
+      "result": "[PASS] cinderskin_devotion_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-grow-wings-red-four-live-sparse-real-prior-draconic-attack-earns-go-again",
+      "fixture_sha256": "a44d31a9685a9752afee3d3e5f5c131df39385289e6aec93476fa02024820c00",
+      "passed": true,
+      "result": "[PASS] grow_wings_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-arcanic-spike-red-four-live-sparse-real-runechant-arcane-earns-plus-two-and-seven-physical",
+      "returncode": 0,
+      "stdout": "[PASS] arcanic_spike_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cinderskin-devotion-red-four-live-sparse-real-paid-second-draconic-link-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] cinderskin_devotion_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-grow-wings-red-four-live-sparse-real-prior-draconic-attack-earns-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] grow_wings_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 3,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

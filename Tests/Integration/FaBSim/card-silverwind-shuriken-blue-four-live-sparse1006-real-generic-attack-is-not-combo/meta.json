@@ -1,0 +1,7 @@
+{
+    "name": "Silverwind Shuriken / four-live no Combo attack target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:41:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Attack Reaction** - Destroy this: Target attack action card with **combo** gets +1{p}. Named targetrestriction only. Legalnatural20Fai/Ninja, actualownArena5ready,0destroycost/REACTIONpriority1/AP0. ActualownWounding6currentATTACKrole isGenericAAwithoutCombo, soOUTcombo selectorhasnolegalattack; realattack/window exists. Rejectbeforedestroy/Stack/chooser/grant. Thenactualfourmanualcombat4damage/HP4=16/AP0/GGY6 while5ready/Hand3/Deck2retained. FaihasnoautomaticGenericAAHITtrigger(Katsuavoided). PositiveCombo/+1/targettiming/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#silverwind_shuriken_blue"
+}

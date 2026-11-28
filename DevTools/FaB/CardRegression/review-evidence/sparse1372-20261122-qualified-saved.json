@@ -1,0 +1,124 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1372-20261122.json",
+  "source_spec_sha256": "c17ddb868ead5a0553ee001945d33c4801197840a7add8d2069d12819bdb4f32",
+  "input_sha256": "c17ddb868ead5a0553ee001945d33c4801197840a7add8d2069d12819bdb4f32",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-crows-nest-four-live-sparse1372-real-faceup-arrow-from-hand-not-deck-no-aim-payment-after-bow-load-draw",
+      "card_id": "crows_nest",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "455e08bf8274aeb72b08538a049c350678e0104353478a3aa89943fcebb0a0fe",
+        "actions.json": "dfd9852a86d1a065e066e79519b2453d1677bbb8ed535ddf30ba5313d0473313",
+        "assertions.json": "c6f505743974710c747889b26080d145f5e4eb7b17f812958b79acc77f770524",
+        "expected_final_gamestate.txt": "3c0cb8cba271c70c7827597b655266386ae41cc716704ecd874c6443bf85ccb3",
+        "meta.json": "8e6bb1da07e26197907d284aa1c257f46e1766fb670a4ca6ddce22d8a195dfea"
+      },
+      "fixture_sha256": "2c48abdae139bd131c3227668bd2a860ca709c333d5589cb01e8cce59c5768bd",
+      "actions": 34,
+      "native_assertions": 2645,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1372-20261122.json",
+      "input_sha256": "c17ddb868ead5a0553ee001945d33c4801197840a7add8d2069d12819bdb4f32",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1372-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crows-nest-four-live-sparse1372-real-faceup-arrow-from-hand-not-deck-no-aim-payment-after-bow-load-draw",
+        "fixture_slug": "card-crows-nest-four-live-sparse1372-real-faceup-arrow-from-hand-not-deck-no-aim-payment-after-bow-load-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c17ddb868ead5a0553ee001945d33c4801197840a7add8d2069d12819bdb4f32",
+    "source_note_sha256": "4f3656bc9b9f2221ea92b1e36423888dfb5fe85d8f345d0137ce150fa07bb744",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 34,
+    "query_checks": 2645,
+    "persistable_assertions": 2645,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ARSENAL_LOAD_ORIGIN_GUARD_WITH_NATIVE_BOW_LOAD_DRAW_AND_EARNED_ACTION_FOLLOWTHROUGH",
+    "per_case": [
+      {
+        "card_id": "crows_nest",
+        "group_id": "identity:crows_nest",
+        "native_controls": 34,
+        "persistable_assertions": 2645
+      }
+    ],
+    "basis": [
+      "Newunrepresented/unheldRangerQuiverCrowsNestUID9/AzaleaSpecialization legallyequippedwithBowDeathDealer5underYoungAzalea20+threeYoungDori20/manual4UPF. RealBow5/ArrowSicEm6Hand/Blue7Hand/knownYellow8Deck remainqualifiedB256authoringtemplateassets; sourcecachelocalupf_bannedfalse only. Initialrebuiltstandardfourhelperverifiednaturalhealth/SeatOrderLiveSeats1234/physicalassets/zones/equipment9; historicalfullHeroUID-owner/inventory/passcountinitialchecks are notclaimedbyte-identical.",
+      "Boundedexactdelta review fromB256: all34controlobjectsbyte-equivalentafterJSONnormalization, noadditionalpasses. Allnoninitiallegacyassertions preservedexcept43explicitvirtual9-to10 UID/counter/pendingPayment.uid/resolvingReaction.uid andequipmentcount0-to1rebindings. AddedQuiver9physicalready/Counters[]/TurnEffects[]guards; originalpostloadArrowCounters[]step14retained, oneexactsamefinalstep69Countercheckadded. No gameplayexpectedpower/damage/payment/priority/source-lifecyclegoalchanged.",
+      "OUTCards63-65 CrowsWHENrequiresfromDeckorTemp, actualArrowtypeandownCrows. ARCCards259-269 loadsactualchosenArrow6fromHandtoArsenal/FaceDown0andpassesoriginalHandzoneintoFaBOUTFaceUp, so falseorigin earnsnoQuiverWHEN/pay1chooser/AIM despiteR2. No Deck-origin/Temp-move ambiguity inselectedroute. Arrow6neverplayedtherefore noFAB_PLAY_ORDER marker; Counter[]correctbothpostload14andfinal69. ExistingexactR2/quietqueues alsopinnooptionalpay1.",
+      "NewphysicalQuiver9raisesvirtualBowABI9to10whileSourceWeaponsUID5/Arrow6/Blue7/Deck8 unchanged; pendingPayment/resolvingReaction UIDJSON10 verified. Nativefourresponses retainArrowHand6/Deck8/AP0/ABI10throughactualMZMAYCHOOSE, thenHand6faceupArsenal andDeck8draw resolvebeforeABIclears/AP1. ActuallydrawnYellow8followthrough consumesearnedAP tobase3/3damageHP4=17/fullclose8GY1/Blue7Pitch1/Arrow6Arsenal/Bow5+Quiver9same/R2/AP0/UID10/RNG0/StackDQsquiet. Existingtemplatecontrolsnotreplayedbyreviewer."
+    ],
+    "limits": [
+      "Only Hand-versus-DeckQuiverorigin/noAim guard andrequirednativeBowload/draw/earnedAPfollowthrough approvedpendingnative, notnewcoverageofsupportBow/Arrow/drawcounterparts. No gamepassorcoverageclaimed.",
+      "PositiveDeckoriginCrowsWHEN/payAim/responseTiming/Arrowplay/Bowrepeat/pitchsiblings/supportidentity/fullcarduntested/uncredited. Counterabsenceassertedatpostload14andfinal69 only, notallintermediatewindows. Existingholdsuntouched/noenginechange.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "DevTools/FaB/CardRegression/card-regression-batch256.json": "bbb2c21278b21599c071df51f7ee847cf5e1cc55f25feb935233e4c2971b34aa"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1372.py": "ac5b49ca66e80ff386320e766d0ccc3807a0d4036f782a1dcd4e383bcc2f966e",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1372-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1d0c05bc0979d19399a840dc74af09688d0054b3909d9be143dfa2e1a7346d32"
+  },
+  "full_suite_run": false
+}

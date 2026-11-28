@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-for-the-emperor-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-for-the-emperor-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4e85b037dc1f69d9ad304c0dc07efdbe2a863540df01470f82fe033e61688f0c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a7cbb2ed09cc74f3fbb6129f3854a577c48af7008e63e020cb6cd41caa2926e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "464139c3658865ac2f7f74f4a63323d050bababbc7c77dddfdada80cbf2be9e9",
+        "expected_final_gamestate.txt": "982238c03a55596a2973e6a7847a6d50916923d296f07cf612e0275139103044",
+        "meta.json": "f4efcf96aa11c0f2bbb4faff69f65e15c17d6f4779bee94ea4d07eaea2a31c55"
+      }
+    },
+    {
+      "slug": "card-for-the-realm-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-for-the-realm-red-four-live-sparse1001-unmarked-hero-main-attack-no-fealty",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bfc274c4c8f364705676bc524640f0b249fb83021fe5261b1059824d6cce2b1b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "64befe00c6e280e5051a08bafa4ab8e42fa377a0477ef57ee6122929ef5d2871",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "59b82e328ca951d9f90fe1c83b8ab90104287657b0d4c3432f6eaa65d36c33aa",
+        "expected_final_gamestate.txt": "c83da4e0a515e28e8d525aea66a29c404083cdc9899906927a6728aaf4af1d65",
+        "meta.json": "4802671d891ac1f81a4a0f3a3467acae9cf62a363ab025a7d70308fce9225842"
+      }
+    },
+    {
+      "slug": "card-bravery-of-the-blade-red-four-live-sparse1001-no-other-hand-card-uncharged-three-without-go-again-or-courage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bravery-of-the-blade-red-four-live-sparse1001-no-other-hand-card-uncharged-three-without-go-again-or-courage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "300f9706af38482d1ddded1f3e7b9a496e4e5db131a3a2e7d087f2c48699021a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b952405f490fa227705c9572f7a74e5e987b0e38e0306d5b813d1b9407f16d27",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "bc76fb2f45997dc0c73b2fadc06d3fa433b3ed2d8869ba075dc31c42f5e52dfd",
+        "expected_final_gamestate.txt": "1654be6e9d7a79f40c8c82b41e382b1cdfcf1acc5e5e63527d72b4594b81cc93",
+        "meta.json": "82c6923ead4ae1f480065d0beb1b6135c53556095145d75e2c20f1337e991277"
+      }
+    },
+    {
+      "slug": "card-beckoning-light-red-four-live-sparse1001-no-other-hand-card-uncharged-hit-keeps-eligible-graveyard-and-deck-order",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beckoning-light-red-four-live-sparse1001-no-other-hand-card-uncharged-hit-keeps-eligible-graveyard-and-deck-order",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1001-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c35751f73bec3f94e51a51edd73f5780f4245c997530a4cc72ce613d908a6b97",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f3dc3727d3c80819576da1fdea245dae959e1c55842b97f8cdb13cbdc26a573",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "4836bee87e31bb70f26087423b91fa8f78b02839abffd79168e40a335955e7e6",
+        "expected_final_gamestate.txt": "f575234d0f2b781c4a43012b1fe521ededd7cdf2a86b8319e8ee8afdcdd11ad8",
+        "meta.json": "2dcccc46213b00c042c24006845fe3035820ba201f14c5a0449607f706503f63"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

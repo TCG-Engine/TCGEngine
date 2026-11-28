@@ -1,0 +1,7 @@
+{
+    "name": "Demolition Protocol / actual Ally attack excludes Hero-attack reward while real Evo and steam assets remain",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T12:20:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual primaryRed5attackcost3paidBlue6pitch3/AP0/R0formallytargetslegaladjacentPuffinPolly8Ally. RealEvoSentryHead7SUBCARDSProtoHead makesownEvo nonzero; opponentPistol9STEAM1kept. WHEN attacksHERO eventunearned, not false IFresolution. Actual7physicaldamagekillsPolly1HPtoGY4/nonToken andprimary5toGY1afterfullfourclose; noHeroHPchange/reward/extraUID/menu/steamremoval. Only event exclusion; no positiveHero-trigger/Wager/UniversalBoost/producer/sibling/supportcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#demolition_protocol_red FaBSim/GeneratedCode/GeneratedMacroCode.php#demolition_protocol_red:0:AttackDeclared FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/EVOCards.php#FaBEVOTransform FaBSim/Custom/SEARuntime.php#FaBSEAPaid FaBSim/Custom/GameLogic.php#FaBTryCompletePayment"
+}

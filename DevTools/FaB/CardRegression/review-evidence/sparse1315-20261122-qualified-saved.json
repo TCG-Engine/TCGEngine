@@ -1,0 +1,245 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1315-20261122.json",
+  "source_spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+  "input_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+      "card_id": "call_down_the_lightning_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f4a52f07976b6b9c2734805eabce4b170fbe076bc3eea34f9f6a6ca381640ab9",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "09cbad32bd885b6d9fcc9e841a2af2430ea0d5a56ac2072b5aa0c1e99b268e38",
+        "expected_final_gamestate.txt": "b28148abff76d2182df8a10de5689d9fdcc9f37f06a3f37ae0c72f1d1cf1ac4b",
+        "meta.json": "b64162b8c827fc25a79c509c16e92e9c1fdef0f7b98687edd842e6fdec45c85a"
+      },
+      "fixture_sha256": "4f290af086248aa5768dd0ec27eea9d64550078108565d17c95dbfa0a563afae",
+      "actions": 32,
+      "native_assertions": 442,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "input_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+        "fixture_slug": "card-call-down-the-lightning-yellow-four-live-sparse1315-real-go-again-funds-unblocked-attack-does-not-earn-hand-defense-ping",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+      "card_id": "chill_to_the_bone_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07975190365ec77a7e876f6709d4e764d798c371d5a514d00bfad5001562f725",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "a9c531a9d23e9a59226ab1804e257175feff4b0d407dc08a1572270867485f3f",
+        "expected_final_gamestate.txt": "40350749ec7098d8a7645ef28b57b9ca48b62bf505098291863558b26eb70924",
+        "meta.json": "2e32fa5ae606b6a9e49f80d790a21683c33f99d58e13b486ea5a05593b69c6a6"
+      },
+      "fixture_sha256": "65c353639c6e19c9640d640af4a4917e0356275896f29b8f9e79cbb55d0182ff",
+      "actions": 32,
+      "native_assertions": 442,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "input_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+        "fixture_slug": "card-chill-to-the-bone-red-four-live-sparse1315-real-go-again-funds-generic-attack-is-ineligible-for-ice-or-elemental-hit-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+      "card_id": "flashfreeze_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ee652ffa3919ab9a0e1fedb1c6fd880015db587323c6ee28c19c346033a22f2",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "4a0af7652dd11cf2a16c3969cd60ec608b154ea8dbf1e4e2926200757a0c61eb",
+        "expected_final_gamestate.txt": "929a7c82375bcccc5e2b5ecbdf7249d1d6419d8232a7bfad7ab4c9a67a6423c1",
+        "meta.json": "1fcf045e329cfc4355aef6167c978e2d8bc59c32e4cdee30e59c630cd250a61f"
+      },
+      "fixture_sha256": "405a282dc7801d69ca2527c9cebc4bfa96f2b1815ff938bdaf6fab80cef7e288",
+      "actions": 33,
+      "native_assertions": 481,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "input_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+        "fixture_slug": "card-flashfreeze-red-four-live-sparse1315-real-go-again-funds-unfused-action-does-not-grant-fusion-only-attack-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+      "card_id": "seeds_of_agony_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bc58aa0444420145e94d938055bf4813c3d1c1503452b3ab1f897dd2e26cf20",
+        "actions.json": "f2f9cae5fadbf65cb74c0fadc85adf641287c2b79c3a25e85d868684b170fa46",
+        "assertions.json": "e031917dfdbdab26177caa2fc5d6c355403864e36ea209abacaaaa8598c21c9e",
+        "expected_final_gamestate.txt": "bbaee673b2c8c074245498d0657fc6bf375ddff61721c10063b98af9f70c09ca",
+        "meta.json": "01ee2305bc49bf1ce64d51e4727cb9218cb5cf501905e1620dcc9e5d5e4e12f2"
+      },
+      "fixture_sha256": "d94796f2d88156f70e2aeaf9019a2873732e495add2589d709bdf23c9d5041ba",
+      "actions": 33,
+      "native_assertions": 481,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1315-20261122.json",
+      "input_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+        "fixture_slug": "card-seeds-of-agony-red-four-live-sparse1315-real-go-again-funds-three-cost-attack-is-ineligible-for-next-cost-two-arcane-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "4c0ada05a5b04e585db21059c9ef26f059acc9868a11ebd31707880687638196",
+    "source_note_sha256": "1ba9b624c7e80b6559e8ff3fbf851e00c6f6c1349bb32297883dab8955409147",
+    "case_count": 4,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 130,
+    "query_checks": 1846,
+    "persistable_assertions": 1846,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_GO_AGAIN_FUNDING_WITH_NAMED_TRIGGER_OR_ELIGIBILITY_GUARD_ONLY",
+    "per_case": [
+      {
+        "card_id": "call_down_the_lightning_yellow",
+        "group_id": "identity:call_down_the_lightning_yellow",
+        "native_controls": 32,
+        "persistable_assertions": 442
+      },
+      {
+        "card_id": "chill_to_the_bone_red",
+        "group_id": "pitch-cycle:chill_to_the_bone",
+        "native_controls": 32,
+        "persistable_assertions": 442
+      },
+      {
+        "card_id": "flashfreeze_red",
+        "group_id": "identity:flashfreeze_red",
+        "native_controls": 33,
+        "persistable_assertions": 481
+      },
+      {
+        "card_id": "seeds_of_agony_red",
+        "group_id": "pitch-cycle:seeds_of_agony",
+        "native_controls": 33,
+        "persistable_assertions": 481
+      }
+    ],
+    "basis": [
+      "Four fresh unrepresented groups, no exact source holds. Natural Young Lexi20 is legal for Lightning/Ice/Elemental and Lexi Specialization; natural Young Chane20 is legal for Shadow Runeblade Seeds. All four real manual seats use natural20. Actual primary5 Hand plays ordinary NAA with AP1 to0 before all responses, then its own printed Go again grants exactly AP1 used by actual followup AA. Quoted granted text does not replace own Go again: GameLogic454+ strips quoted abilities while preserving terminal punctuation and own keyword. No merely seeded GA/producer/permission history.",
+      "Call Down normal resolve adds DTD_LIGHTNING. Its granted event requires actual defending cards added from Hand; no block is declared, so real eligible opponent Hand control remains untouched and no ping event/layer is earned. Primary plays, not defends, so no Unity event. Chill resolves CHILL3 but eligible hit must be Ice or Elemental; Generic Wounding lacks both. ELEAbilities108 guards those types before Frostbite production. No positive Frostbite ownership dependency or failed producer route is exercised.",
+      "Flashfreeze actual Generic Red6 pitch1 pays printed1 exactly, leaving only Generic followup in Hand, with no Ice/Lightning eligible reveal. Normal resolve2965+ checks actual Fused Ice/Lightning before adding FLASH_ICE/FLASH_LIGHTNING. Neither grant exists, so no earned attack-tax/dominate or hit+3 event; followup remains actual4 damage/HP16. Own unconditional Go again still refunds AP. No positive fusion/trigger timing is certified.",
+      "Seeds Red normal resolve6677+ adds NEXT_SMALL maxCost2 without GA. Actual Raging Onslaught printed3 exceeds maximum; MONCards183 preserves inapplicable effect instead of tagging MON_SEEDS, so no granted attack arcane event is earned. Real Generic Blue6 is retained through zero-cost Seeds resolution, then actual followup7 cost3 really pitches Blue3/R0/AP0 and produces only7 physical damage/HP13. No Chane ability, Soul Shackle or Banish permission is used.",
+      "No-funder cases allocate source5/driver6/opponent control7; Flash and Seeds allocate source5/funder6/driver7/control8. Flash funder moves Pitch before driver becomes Hand0; Seeds retains funder Hand0 and driver Hand1 until actual driver play then Pitch. Exact costs, Hand indices, four source plus fresh AA response cycles, normal owner fates primary GY0/driver GY1/funder Pitch, opponent Hand retained/all Arena0/UID7or8/RNG0/APR0 and full close match scope. All1846 assertions across130 controls persist."
+    ],
+    "limits": [
+      "Semantic review only new card bindings/differences; native saves/replays pending. No completed game or coverage credit claimed.",
+      "Only actual primary payment/Go-again funding plus named false event/eligibility guards. Positive conditional grants/producers/Fusion/Banish play/Unity/Hero/support/other pitch/full-card coverage remain untested; known holds untouched.",
+      "Only W receipt written; no native tests/games/replays, engine/T/original checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1315.py": "1cbf93d805ce04c92b7d4eca18d89df62796031d7f9dc96e3fa15bc674d4a6e8",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_conditional_effect_credit": false,
+    "fusion_credit": false,
+    "banish_play_credit": false,
+    "hero_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1315-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e2582cb57034eb4a00a0aaf394df5c0f67e94fba8206f7b70401c42f15a9f5ef"
+  },
+  "full_suite_run": false
+}

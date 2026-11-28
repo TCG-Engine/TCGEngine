@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-relentless-pursuit-blue-four-live-sparse1119-real-prior-attack-then-mark-and-source-goes-owned-deck-bottom",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-relentless-pursuit-blue-four-live-sparse1119-real-prior-attack-then-mark-and-source-goes-owned-deck-bottom",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1119-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1119-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "866428b3fe9dbe4a73645323a84db3710ccde1681fa23e406d9c0d298061d1e6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4903cc82cdebdddf26f7a5c5a81341b472b7317104f3d5feca00e492bbb676d",
+        "actions.json": "5b09490025f10f573de0128532829c57b291a6a4d83ac66da524277dcce65fb2",
+        "assertions.json": "fe41ae306426144f151bcb3c40948957dab6a25c64698564982d2c95b7462ee9",
+        "expected_final_gamestate.txt": "9c55e6548b5cefde7c3ac7dababca429d3337eb042301f754b5e70441b5bdaef",
+        "meta.json": "f943a5a5171992e77a270a22efe9b7aa77ef58a844f5c0bc439baab7a33db88a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

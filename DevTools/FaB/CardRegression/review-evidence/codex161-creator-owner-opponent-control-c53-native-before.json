@@ -1,0 +1,209 @@
+{
+  "id": "FAB-REG-161",
+  "status": "CONFIRMED_SELECTED_NATIVE_FAILURE_UNSAVED_DIAGNOSTIC",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch726-codex-independent-native-before-review.json",
+  "independent_review_sha256": "211d920ee2f5faa78595084713e0d75e44a7c7fb46c55333a54980df36d1062c",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch726-codex-owner-probe.json",
+  "input_sha256": "42e2ba626eba57580113ea1390c9a6ff3e6e22050ecf15c174e2ab6f88459766",
+  "scenario_id": "card-codex-of-inertia-yellow-four-live-diagnostic-creator-owner-and-opponent-controller",
+  "first_failure": {
+    "source_pointer": "/0/steps/10/checks/32",
+    "source_step": 10,
+    "check_index": 32,
+    "after_native_actions": 5,
+    "native_assertion_ordinal": 385,
+    "query_ordinal": 385,
+    "passed_assertions_before": 384,
+    "type": "card_property_equals",
+    "mzId": "p2Arena-0",
+    "property": "Owner",
+    "expected": "1",
+    "observed": "2",
+    "physical_card_id": "inertia",
+    "physical_uid": 7,
+    "observed_controller": 2,
+    "error": "Expected p2Arena-0.Owner to equal '1', got '2'."
+  },
+  "actual_native_prefix": {
+    "actions_submitted": 5,
+    "recording_actions_exactly_match_all5_source_controls": true,
+    "manual_passes": 4,
+    "manual_pass_actor_counts": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 1
+    },
+    "recorded_passed_assertions": 384,
+    "all_384_ordered_native_assertions_exact_source_prefix": true,
+    "last_passed_assertion": {
+      "source_pointer": "/0/steps/10/checks/31",
+      "native_assertion_ordinal": 384,
+      "type": "card_property_equals",
+      "mzId": "p1Arena-0",
+      "property": "Owner",
+      "expected": "1",
+      "observed": "1"
+    },
+    "initial_all48_manual_settings_raw_verified": true,
+    "initial_four_living_legal_Heroes": [
+      {
+        "player": 1,
+        "card_id": "azalea",
+        "health": 20
+      },
+      {
+        "player": 2,
+        "card_id": "dorinthea",
+        "health": 20
+      },
+      {
+        "player": 3,
+        "card_id": "dorinthea",
+        "health": 20
+      },
+      {
+        "player": 4,
+        "card_id": "dorinthea",
+        "health": 20
+      }
+    ],
+    "initial_all_Decks_Arsenals_Arenas_empty": true,
+    "initial_only_nonHero_card": {
+      "card_id": "codex_of_inertia_yellow",
+      "uid": 5,
+      "zone": "Hand",
+      "owner": 1,
+      "controller": 1
+    },
+    "post_four_native_passed_source_cleanup": {
+      "Stack_count": 0,
+      "source_GY_card_id": "codex_of_inertia_yellow",
+      "source_GY_uid": 5,
+      "source_GY_owner": 1,
+      "P1_AP": 1,
+      "UniqueIDCounter": 9
+    },
+    "created_tokens_native_witnesses": [
+      {
+        "mzId": "p1Arena-0",
+        "card_id": "ponder",
+        "uid": 6,
+        "observed_controller": 1,
+        "observed_status": 2,
+        "observed_damage": 0,
+        "expected_owner": 1,
+        "observed_owner": 1,
+        "owner_evidence": "passed384"
+      },
+      {
+        "mzId": "p2Arena-0",
+        "card_id": "inertia",
+        "uid": 7,
+        "observed_controller": 2,
+        "observed_status": 2,
+        "observed_damage": 0,
+        "expected_owner": 1,
+        "observed_owner": 2,
+        "owner_evidence": "failed385"
+      },
+      {
+        "mzId": "p3Arena-0",
+        "card_id": "inertia",
+        "uid": 8,
+        "observed_controller": 3,
+        "observed_status": 2,
+        "observed_damage": 0,
+        "expected_owner": 1,
+        "observed_owner": null,
+        "owner_evidence": "unrun"
+      },
+      {
+        "mzId": "p4Arena-0",
+        "card_id": "inertia",
+        "uid": 9,
+        "observed_controller": 4,
+        "observed_status": 2,
+        "observed_damage": 0,
+        "expected_owner": 1,
+        "observed_owner": null,
+        "owner_evidence": "unrun"
+      }
+    ],
+    "observed_window": "ACTION",
+    "observed_combatOpen": false,
+    "observed_attackUID": 0,
+    "observed_pendingPayment": null,
+    "observed_all_decisions_empty": true,
+    "first_failed_actual_owner": 2,
+    "first_failed_expected_owner": 1,
+    "P3_P4_owner_queries_unrun": true,
+    "fullfinal_inventory_cleanup_certificate": false,
+    "chooser_answers_submitted": 0,
+    "fixture_inventory_before": 3987,
+    "fixture_inventory_after": 3987,
+    "fixture_inventory_unchanged": true
+  },
+  "classification": "Original-correct Codex creates all four expected tokens under correct controllers and refunds AP1, but first opposing Inertia UID7 is owned by recipient2 instead of instructed creator1. Selected extension of existing FAB-REG-107 creator-owner family; no new distinct Core/root allocation or repair. Later owners/final assertions remain unrun.",
+  "expected": "Codex's controller player1 is instructed to create the Ponder and all three Inertia tokens. CR1.3.1a therefore assigns Owner1 to all four, while the explicit control instruction assigns Controllers1,2,3,4. Empty decks earn no arsenal movement or conditional discard. Its own go-again refunds AP1.",
+  "observed": "Five native inputs, including four manual seat responses, and384 assertions passed. They prove physical tokens6..9/CardIDs/controllers1..4/status2/damage0, source5 in graveyard, Stack0, AP1 refund and PonderOwner1. Query385 found opposing Inertia7 controlled by2 but owned by2 instead of1. Remaining185 assertions, including later opponents' ownership and full final state, were unrun. Mandatory probe-only mode saved no fixture and preserved3987 fixtures.",
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+      "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+      "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf"
+    },
+    "selected_only": true,
+    "source_attribution_not_extra_native_owner_observation": true,
+    "anchors": [
+      "Current official CR1.3.1a creator ownership and Codex explicit opponent control were independently verified before native.",
+      "OUTCodexTokens100 calls OUTToken recipient without creator-owner; OUTRuntime26 forwardsHVYToken.",
+      "HVY20-33 -> WTRCreateArena791/AddArena defaultsOwner to destinationplayer while Controller is correctly destination.",
+      "EmptyDeck Load76-80 fails, so no discard await; Ponder/Inertia only End triggers, no skipped entryWHEN."
+    ],
+    "existing_family": "FAB-REG-107 creator-owner source/family context only; no repair or imported execution"
+  },
+  "validated_relevant_source_hashes": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/OUTCards.php": "a52a5803ba36b488094a5284cd3ccd1fadd44e68acdd25cd9ea148b9ace0104a",
+    "FaBSim/Custom/OUTRuntime.php": "6f7accc2875279261e28f9d470a779b91fbfc0df1648bdf3539774b38addfd9f",
+    "FaBSim/Custom/HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+    "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+    "DevTools/FaB/out_abilities.json": "6ba251fb5ef0d534096935d995d363be413ed82aa1388891228f1198121f47cf"
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch726-codex-owner-probe.recording-results.json",
+      "sha256": "4c9a67c895c9e98b2853da380d1f65698256aae2c2dca49d27b3b34bf737a2cb"
+    },
+    "immutable_archive": {
+      "path": "recording-runs/card-regression-batch726-codex-owner-probe-20261108T180319Z-6af0b9670a26c.json",
+      "sha256": "0b7bb868a152b4cd7ccfdca9b42b46d1b39523acee384ef3e12ebc98599ea550"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov8-batch726-codex-independent-diagnostic-source-review.json",
+    "sha256": "81a078c924a0e4adbfa26e8dacfc14ad32604d97fb9ab0e762efb86c6d482b74"
+  },
+  "primary_sources": true,
+  "limits": [
+    "Only selected native creator-owner defect confirmed, existing107 family extension; no new distinct globalCore/root or allocation by reviewer.",
+    "All185 laterqueries unrun, including P3/P4 Owner and completefinalcleanup. ExpectedOwner1 never changed to recipient.",
+    "No Deckmovement/discard/End/Ponderdraw/Inertiabottom/otherHero/othercard branch qualification or existing107 repair.",
+    "Mandatory no-save probe left3987fixtures unchanged. No reviewer PHP/native/replay/R/source/Git/remote/fullsuite operation."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-08T18:08:31.714162+00:00"
+}

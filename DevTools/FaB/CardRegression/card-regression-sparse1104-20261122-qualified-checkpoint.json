@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T07:06:24.436151+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1104-20261122.json",
+  "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 145,
+  "native_assertions": 1345,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4971,
+    "duels": 3075,
+    "four_live": 1896,
+    "recorded_primary_ids": 2119,
+    "identity_denominator": 5196,
+    "recorded_groups": 1993,
+    "group_denominator": 3324,
+    "four_live_groups": 1885,
+    "phase_qualified_scenarios_at_actual_contexts": 1608,
+    "phase_qualified_unique_groups": 1598,
+    "creation_replay_passes": 2350,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 769,
+  "scenarios": [
+    {
+      "card_id": "bastion_of_unity",
+      "group_id": "identity:bastion_of_unity",
+      "scenario_id": "card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "effect_branches": [
+        "equipment_alone_defends_one_takes_three_then_temper_zero_destroys"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-bastion-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "review_evidence": "review-evidence/sparse1104-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ebc9d2744e717d96db8bbffb68d13be1247c4aea887621aebc095e8b455045f0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1104-20261122-replay.json",
+          "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "gauntlets_of_unity",
+      "group_id": "identity:gauntlets_of_unity",
+      "scenario_id": "card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "effect_branches": [
+        "equipment_alone_defends_one_takes_three_then_temper_zero_destroys"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gauntlets-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "review_evidence": "review-evidence/sparse1104-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ebc9d2744e717d96db8bbffb68d13be1247c4aea887621aebc095e8b455045f0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1104-20261122-replay.json",
+          "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "helm_of_unity",
+      "group_id": "identity:helm_of_unity",
+      "scenario_id": "card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "effect_branches": [
+        "equipment_alone_defends_one_takes_three_then_temper_zero_destroys"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-helm-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "review_evidence": "review-evidence/sparse1104-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ebc9d2744e717d96db8bbffb68d13be1247c4aea887621aebc095e8b455045f0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1104-20261122-replay.json",
+          "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pillar_of_unity",
+      "group_id": "identity:pillar_of_unity",
+      "scenario_id": "card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "effect_branches": [
+        "equipment_alone_defends_one_takes_three_then_temper_zero_destroys"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pillar-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "review_evidence": "review-evidence/sparse1104-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ebc9d2744e717d96db8bbffb68d13be1247c4aea887621aebc095e8b455045f0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1104-20261122-replay.json",
+          "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "plating_of_unity",
+      "group_id": "identity:plating_of_unity",
+      "scenario_id": "card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "effect_branches": [
+        "equipment_alone_defends_one_takes_three_then_temper_zero_destroys"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-plating-of-unity-four-live-sparse1104-equipment-alone-defends-one-takes-three-then-temper-zero-destroys",
+      "source_spec": "card-regression-sparse1104-20261122.json",
+      "source_spec_sha256": "e8a54acbcc7dc66994a6624ffdeb51cf54f96bc6ff9d62bce1488ef3ad40f8d3",
+      "review_evidence": "review-evidence/sparse1104-20261122-qualified-saved.json",
+      "review_evidence_sha256": "ebc9d2744e717d96db8bbffb68d13be1247c4aea887621aebc095e8b455045f0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1104-20261122-replay.json",
+          "sha256": "6946b7d8e6bc0bd2bffd8897c95fbc3abfbcd81f61d27d25575a13498643a4e2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

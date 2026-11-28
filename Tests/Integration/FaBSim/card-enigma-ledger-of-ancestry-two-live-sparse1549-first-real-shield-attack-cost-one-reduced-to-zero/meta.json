@@ -1,0 +1,7 @@
+{
+    "name": "Enigma, Ledger of Ancestry / actual first Spectral Shield attack is free at zero resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:28:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manual natural40 adultEnigmaLedger/DoriIronsong. One real priorSpectralShield3Arena(noPOWERcounter/Status2), Cosmo4Weapons grants normalcost1Ward1weaponattack. Handempty/R0/AP1 and nofakehistory/discountflag. ActualnativeShield3attack must succeed because primaryHero reduces firstcost1to0; actualAP1to0/R0, physicalsource3Status1/virtualattack5Source3, notpaidbyhiddenpitch. Bothrealresponses producepower1/noGA, fullmanualunblocked1damageHP2=39/fullquietClose. Shield3Arena/Status1 andCosmo4ready remain; proxy5gone, UID5/RNG0/AP0/R0/allGYempty. No secondattack orspentdiscountclaim; oldnative second-discountfailure remainsopen. NoChi/CosmoPOWERcounterbranch, support/sibling/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enigma_ledger_of_ancestry FaBSim/Custom/MSTCards.php FaBSim/Custom/MSTRuntime.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/GameLogic.php"
+}

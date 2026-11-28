@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse927-20261122.json",
+  "source_spec_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+  "input_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bounding-demigon-red-four-live-sparse927-actual-hand-three-without-banish-origin-power-gain",
+      "card_id": "bounding_demigon_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98631246d4941de01a204439aa6ea027724b28eeb4adb8035499082db15fce3a",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "e5949abba5c63c866bb71398be3bcd09f1f6b0efb53419fa4d198e6c97d56c84",
+        "expected_final_gamestate.txt": "055337a4b137c3004b8c4b7b6f3453720255b89e9cde3117d00533774ff2731a",
+        "meta.json": "59ea737049cc1db33dc12b07bdc8479ce7eba668b5112962b4a4b4480ff63e16"
+      },
+      "fixture_sha256": "76f26a4970d0528175050b4b9fa962f610436d9e2b3e146c642e7cfefb235ebf",
+      "actions": 27,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse927-20261122.json",
+      "input_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse927-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bounding-demigon-red-four-live-sparse927-actual-hand-three-without-banish-origin-power-gain",
+        "fixture_slug": "card-bounding-demigon-red-four-live-sparse927-actual-hand-three-without-banish-origin-power-gain",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rifted-torment-red-four-live-sparse927-actual-hand-four-without-banish-origin-arcane-trigger",
+      "card_id": "rifted_torment_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2ccda9ae6b1bfaa44618512a2cf698e41daae31b5bda419f48ad9f326ea17dd",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2f5183dc9b3e97a9de17e5a625779a0d825003dd4481bf2d9b5fb7258518f67b",
+        "expected_final_gamestate.txt": "9674aad600413746322a798978feb64deb00302f25702eebef393bcc0b8c5eb7",
+        "meta.json": "b08f118d202ef5d52d98a4eee5dbfbc6ec96150da1f3bfaea7baf2a05c7cc2f7"
+      },
+      "fixture_sha256": "188c2b283f946a5046fb1e1aad41cf7fcbbe4204b967cc2b1f6bb91445385129",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse927-20261122.json",
+      "input_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse927-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rifted-torment-red-four-live-sparse927-actual-hand-four-without-banish-origin-arcane-trigger",
+        "fixture_slug": "card-rifted-torment-red-four-live-sparse927-actual-hand-four-without-banish-origin-arcane-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-coalescence-mirage-red-four-live-sparse927-actual-unblocked-seven-without-phantasm-destruction",
+      "card_id": "coalescence_mirage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "26269c9771731f8723a4da15b01d1355c93f3b3afadc337e73bc7d09be7a5724",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7aeff430a59e028ca5e82982f31477b8c0a43a56c2693f9d8ebe2d5f62c0773e",
+        "expected_final_gamestate.txt": "dc73e0253577b0d75805ae221f30fc11b800a779e1922378e628fd04bab6e831",
+        "meta.json": "c33ce01b2325162cfc21db8fdb62ca9568763affae37ca8785eb8a12de0a15d2"
+      },
+      "fixture_sha256": "5d9731db94ef9ed0753708516566a7c671c7593fb9bf375a579c56be7390496c",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse927-20261122.json",
+      "input_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse927-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-coalescence-mirage-red-four-live-sparse927-actual-unblocked-seven-without-phantasm-destruction",
+        "fixture_slug": "card-coalescence-mirage-red-four-live-sparse927-actual-unblocked-seven-without-phantasm-destruction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d703ca92d8573a0278f7dac89a0a6f4a65e7dc52bd96d04281e28a0ea91e7d1f",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed Bounding/Rifted triggers require actual Banish-origin play. These are actual Hand attacks; no event earned and no omitted conditional resolution target. Coalescence is not destroyed: no phantasm defender and ordinary chain cleanup is not destruction.",
+      "Legalnatural20 ShadowRunebladeChane/IllusionistPrism, no activatedheroability/endphase. Source5samephysicalGY, actualBlue6cost2/R1 orcost0/R0, HP4 delta3/4/7/AP0. Manual4 priority/fullcombat and explicit initialguards verified.",
+      "Only named main branches, no positive Banish play/arcane trigger/Phantasm/destruction/Aura/BloodDebt/endphase/fullcard or sibling/support credit. Native qualification remains pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse927-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "bbc35e90557c843a0a857349258000fbd6c642a0c241a093152fe44a174f5f04"
+  },
+  "full_suite_run": false
+}

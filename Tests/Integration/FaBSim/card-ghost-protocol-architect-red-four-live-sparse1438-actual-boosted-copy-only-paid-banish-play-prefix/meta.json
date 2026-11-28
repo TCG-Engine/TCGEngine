@@ -1,0 +1,7 @@
+{
+    "name": "Ghost Protocol: Architect / actual paid Banish-play permission prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T20:44:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOURMANUALYOUNGDASH20_THREEDORI20. ActualZeroToSixty5Hand0/formalHero4/Boost0banishesphysicalGhost6fromDeck(toBanish1)whileunboostedSAMECardID8initialBanish0staysunboosted. Freshall4rounds/real4powerGOtrue/actual4physicalHP4=16/fullclose5GY/AP1earned, noEvosorItems. Actualunboostedcopy8clickmustrejectdespiteownsameCardID/globalBoostthisturn; copiedpermissionwouldfailnegativecontrol. Actualboosted6thenformallydeclaresHero4andspendsrealearnedAP1to0/cost0/R0/fromBanishphysicalStack. PAIDPLAYPREFIXONLY PRIO1/physicalghost_protocol_architect_red6ATTACKStack/noCC/noPendingPayment/DQframesquiet/UID8RNG0. Source5GY/negative8stillBanish/Blue7Hand. Futureprimaryattackresolution/damage/AttackDeclaredWHEN/Search/Runecreation/Hit/Usurp/BloodDebtandotherpitchesUNRUN_UNCREDITED. Noenginechanges. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ghost_protocol_architect_red FaBSim/Custom/GameLogic.php FaBSim/Custom/IARCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/EVORuntime.php FaBSim/Custom/ARCAbilities.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

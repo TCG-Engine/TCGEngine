@@ -1,0 +1,7 @@
+{
+    "name": "Bloodspill Invocation / a real weapon hit is not an attack action card hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T17:32:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual young Viserai1/Dori2/3/4 at20. Valid prior owned Bloodspill5 remains in Arena; prior production/play history is not claimed. Actual Potion6 funds2 through ABI8. Actual ReapingBlade7 declares opposing adjacent Hero2, costs1resource/AP1 and produces weapon proxy9. The actual weapon hit deals3, leavingHero2at17; Bloodspill must remain and no Runechants appear because a weapon attack is not an attack action card. No Hero1 damage occurs, so neither printed Bloodspill WHEN event is earned. Full Close removes proxy9, retains used physical Blade7 and Aura5, and Potion6 remainsGY1. This narrowly tests the primary card-type filter with a real owned Hit, not positive Runechant creation or a wrong-owner substitute. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bloodspill_invocation_red FaBSim/Custom/ARCCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php"
+}

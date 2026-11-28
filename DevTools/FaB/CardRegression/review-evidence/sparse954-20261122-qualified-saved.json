@@ -1,0 +1,168 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse954-20261122.json",
+  "source_spec_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+  "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cut-down-to-size-red-four-live-sparse954-actual-full-block-keeps-four-real-remaining-enemy-hand-cards",
+      "card_id": "cut_down_to_size_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef915feb66c8edbcf754616cc33b9de0adfdc45767c47e84bcd4cc8d626e694e",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1198a53614eac9bfc1b2799e1476b5d978a2c04b700fb80c7be75efc6cf1210e",
+        "expected_final_gamestate.txt": "219f4a787a820836670019cab34429830d2cea16b437afe2d7f09bbedda0fe4e",
+        "meta.json": "328342d1f8473d7800ebc22b97adfa75926f6b9d344c03bfd78bb5e432e246f1"
+      },
+      "fixture_sha256": "ea582c45ad85e3b40caf48f737ae2cad1763d814d3a1f1bbd853425b3942098f",
+      "actions": 30,
+      "native_assertions": 216,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse954-20261122.json",
+      "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cut-down-to-size-red-four-live-sparse954-actual-full-block-keeps-four-real-remaining-enemy-hand-cards",
+        "fixture_slug": "card-cut-down-to-size-red-four-live-sparse954-actual-full-block-keeps-four-real-remaining-enemy-hand-cards",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-undercover-acquisition-red-four-live-sparse954-actual-full-block-preserves-real-enemy-item-without-steal",
+      "card_id": "undercover_acquisition_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a4119394d326e2a3d32555d5f975567b9f91dae30ba720a84bbd3c8c5b0d5cc",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3b64e95d99cf62da2cc71cf80ca52820b9931bf9bc6d59391b7cb51ba7882425",
+        "expected_final_gamestate.txt": "178139382be480471076600ab71ecf0272a2e09937e4756ed99943848cb6fa8a",
+        "meta.json": "0a6eb8ae8c261b0bbaf8528e07f17dfc7fd6d47d0a38b19aa3eb0cf22d6dd7da"
+      },
+      "fixture_sha256": "a5597e47f1a7af77f730bfd070cad1c4942739a47a062abefc76f8917f2d8e26",
+      "actions": 29,
+      "native_assertions": 178,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse954-20261122.json",
+      "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-undercover-acquisition-red-four-live-sparse954-actual-full-block-preserves-real-enemy-item-without-steal",
+        "fixture_slug": "card-undercover-acquisition-red-four-live-sparse954-actual-full-block-preserves-real-enemy-item-without-steal",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fleece-the-frail-red-four-live-sparse954-actual-full-block-preserves-eligible-enemy-deck-without-contract",
+      "card_id": "fleece_the_frail_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ce7c4888ece27e70ab51894c51835ead4a65f735baeada941337e512fd2b73d9",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "fb4981c22ee5e35d52ae75620f4a1698e4cd643667152a7965a6235472c6832c",
+        "expected_final_gamestate.txt": "729c59183bd17a3b88ee261c53e114b43b33c01ca2eebb7b3ad9525f94791905",
+        "meta.json": "47849609b4b8d215cceedb9c39a2b5812fbeefa4eafd30a4382a22d808e96f2b"
+      },
+      "fixture_sha256": "85274272f50f2b0a4db6b79433d17c94c33e4c215e498c6ea7ddd638dd761b41",
+      "actions": 29,
+      "native_assertions": 176,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse954-20261122.json",
+      "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fleece-the-frail-red-four-live-sparse954-actual-full-block-preserves-eligible-enemy-deck-without-contract",
+        "fixture_slug": "card-fleece-the-frail-red-four-live-sparse954-actual-full-block-preserves-eligible-enemy-deck-without-contract",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pain-in-the-backside-red-four-live-sparse954-actual-full-block-no-dagger-damage-but-printed-go-again",
+      "card_id": "pain_in_the_backside_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cf74acfa4f102e4014751ba94b8599bd4aed31379fb726402410880c2ab70741",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "83836fb3d291678a006e28dc1548a61a914094248c5c6b241681df7e927535fb",
+        "expected_final_gamestate.txt": "b2d2f389c4309c986eb87e996eca34d66a80e084aed0f81ea587e9fa77a90fd5",
+        "meta.json": "a411bde7df5a9aed158d438aaac8c3d65e3bb6efc49cec813d7f1751939473b3"
+      },
+      "fixture_sha256": "3a58ecf039521f93d95de3f5f6b414268f80d1582f2e2677bffb9fb837156f22",
+      "actions": 29,
+      "native_assertions": 178,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse954-20261122.json",
+      "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pain-in-the-backside-red-four-live-sparse954-actual-full-block-no-dagger-damage-but-printed-go-again",
+        "fixture_slug": "card-pain-in-the-backside-red-four-live-sparse954-actual-full-block-no-dagger-damage-but-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-old-leather-and-vim-red-four-live-sparse954-actual-full-block-without-token-power-bonus-or-hit-creation",
+      "card_id": "old_leather_and_vim_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f52b5da1c91071b8cde8f5392b5842a756226b12ad0c5f886880c9179b54c1d0",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "8c3acc25cc3166fe5df2dec340fa8ef8d1ea43b3cb9ee16ddd616c1339d6ada4",
+        "expected_final_gamestate.txt": "089149a9168042fafef76c30a2501f67a2382f4982175df98b3084120576f932",
+        "meta.json": "b95f710e3dc93457f1257efc53afdf7ed46bd2cbcb5e5ec0c187547ce7e16bd7"
+      },
+      "fixture_sha256": "95a3c7996cf35f9012e16525f89fb0b222095bd3ed821f64be7ec25447990ad4",
+      "actions": 30,
+      "native_assertions": 190,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse954-20261122.json",
+      "input_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-old-leather-and-vim-red-four-live-sparse954-actual-full-block-without-token-power-bonus-or-hit-creation",
+        "fixture_slug": "card-old-leather-and-vim-red-four-live-sparse954-actual-full-block-without-token-power-bonus-or-hit-creation",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "81b24618543c65408ad4901cb06c80233eaa99cae0111068e365484700f181eb",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Five actual distinctuncoveredgroups; legalDori/Uzuri/Tuffnut20includingReveredBrute andAssassinNerveScalpel. ActualtwoHandAA3defeachfullyblock6/3/4/3/6; zeroHitexcludesearnedhitandconditionalresolutionevents. PainprintedGAdoesnotrequirehit, AP0throughDAMAGE/AP1RESOLUTION; otherfourAP0. Nativephysicalcosts2or0/Blue6if2/R1or0/ownedsourceandblockerGY/all4manualguards.",
+      "ActualCutDownfourremainingNAAHand9..12retainwhenconditioncouldbeeligible; Undercoveractualitem8control4retained; Fleeceeligible2defDeck8retained/noBanish/noSilver; PainactualownedlegalDagger8retained/nosecondaryHPdamage; OldLeatherArena0 excludes+1and0HPdamageunderexact6defprovesnoextra1. No supporting/sibling/fullcard orpositiveHitcredit.",
+      "Reviewed exactauthorpacket/source-note againstcachedtext andsourcepredicates; no unconditionalWHEN attacks/play layer omitted. Existing Tisolationguardpassed; no original schema access needed. Nativeexecutionandsinglefocusedcleanreplayspending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "aefa8b32143c560b742343265e048776d54d1dfa2dcc82522e86fc663204f64a"
+  },
+  "full_suite_run": false
+}

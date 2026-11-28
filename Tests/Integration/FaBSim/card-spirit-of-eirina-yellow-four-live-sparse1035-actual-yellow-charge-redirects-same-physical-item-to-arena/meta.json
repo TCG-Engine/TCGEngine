@@ -1,0 +1,7 @@
+{
+    "name": "Spirit of Eirina / four-live actual effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:08:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legendary\nIf this would be put into your soul, instead put it into the arena.\nYou may play Lumina Ascension as though it were an instant. NamedpositiveSoulreplacementonly. NaturalBoltyn20LightWarrior/actualSpirit5HandandBeamingBravado6Hand. Actuallyplay6Hand1/cost0, announcehero4thenlegitimateMZMAYchargechoiceSpirit5while6pendingStack/AP1. ActualchargeHand5wouldgotoSoulbutGameLogicredirectsSpirit5toArena,sameUID/owner1/controller1/Soul0. Yellowchargegivessupport6printedbase3+1=4; fourmanualsource+combat/unblockedactual4damageHP16/AP0/noGA. Primary5ownedArena, support6ownedGY0/Hand0/Soul0, allfourmanual/otherHP20/noAAdefenderBoltynbonus. Spiritnotplayed/noitemPlayOrderclaim; noLuminaInstantpermission/positiveSoulentry/heroactivation/sibling/support-identity/fullcardcredit. Cost0/AP1available; no general charged-cost asset-order credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spirit_of_eirina_yellow"
+}

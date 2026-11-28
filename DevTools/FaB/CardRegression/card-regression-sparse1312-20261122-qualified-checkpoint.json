@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T04:49:45.246026+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1312-20261122.json",
+  "source_spec_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 69,
+  "native_assertions": 582,
+  "manual_passes": 58,
+  "totals": {
+    "saved_registered_scenarios": 5250,
+    "duels": 3097,
+    "four_live": 2153,
+    "recorded_primary_ids": 2398,
+    "identity_denominator": 5196,
+    "recorded_groups": 2272,
+    "group_denominator": 3324,
+    "four_live_groups": 2142,
+    "phase_qualified_scenarios_at_actual_contexts": 1887,
+    "phase_qualified_unique_groups": 1877,
+    "creation_replay_passes": 2629,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1048,
+  "scenarios": [
+    {
+      "card_id": "star_struck_yellow",
+      "group_id": "identity:star_struck_yellow",
+      "scenario_id": "card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+      "effect_branches": [
+        "native_seven_cost_ten_power_seven_defense_three_damage_below_crush_then_actual_next_turn_two_power_attack_is_legal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+      "source_spec": "card-regression-sparse1312-20261122.json",
+      "source_spec_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+      "review_evidence": "review-evidence/sparse1312-20261122-qualified-saved.json",
+      "review_evidence_sha256": "794e33fc83c6d80c796c62c2a5eef9a7920305aa4796988b5c5dae9206221813",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1312-20261122-replay.json",
+          "sha256": "f0467453211759aa5ed85a2d5bb3d1ea469a1c9088f956ee89790493224b7195",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

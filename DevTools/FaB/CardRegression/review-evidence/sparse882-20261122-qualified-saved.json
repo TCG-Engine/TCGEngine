@@ -1,0 +1,183 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent cached-text review of worker-authored four ordinary cases; /root/breadth_review independent review of Root Show Time trigger-boundary delta",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse882-20261122.json",
+  "source_spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+  "input_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-teklo-core-blue-four-live-sparse882-actual-owned-specialization-item-enters-with-two-steam",
+      "card_id": "teklo_core_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7b5a72d820b8cdf058889c6d1bc0b2ccf8ef80fce58966a905f1e7f970bb7bd1",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "037bac1f1495d830a11c8ab603ff2c10cda31f8ad20728cd62e6cd8270695062",
+        "expected_final_gamestate.txt": "a79f86712a94b0d1f19a92bbdcf4c0d2a5b9fe2d7c75ff20a17d89ade2cfd409",
+        "meta.json": "7e66429e03385ad1f985cd2f8f6f04648ff6b8adcd6926fd026b54feceb6bd68"
+      },
+      "fixture_sha256": "548683f3e1217735d8c64e9f16150da209711cc5d1ab645798296907255db64e",
+      "actions": 5,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "input_sha256": "2ed4b163442cba19b29fce6668d8e123d452f1a580390aba9ce846d8f449c559",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\counter-retry\\selected.json"
+    },
+    {
+      "slug": "card-tick-tock-clock-red-four-live-sparse882-actual-item-enters-with-one-steam-and-declines-crank",
+      "card_id": "tick_tock_clock_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45527de1c8e783aa27f8aad65d46ba8a040ba4884708d81511e0a53f06fe0ece",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "0f21e6f24d356c3c6706f37c850f1350d54ecbff524fe75da9a34b5feea552ad",
+        "expected_final_gamestate.txt": "e0f324de535515d60a573a66ddd9ff8dbad890b5a4b352d6d2e88c7a0e81b17f",
+        "meta.json": "f8d57b7bc46979eb7477d7c0ed3e786c418967abc274006ba9159abb3a4a1d6e"
+      },
+      "fixture_sha256": "aa529802552d09184bcfcdd5b4ff8a7ae9888595c709445e0f23e060dd913d88",
+      "actions": 6,
+      "native_assertions": 96,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "input_sha256": "2ed4b163442cba19b29fce6668d8e123d452f1a580390aba9ce846d8f449c559",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\counter-retry\\selected.json"
+    },
+    {
+      "slug": "card-visit-the-golden-anvil-blue-four-live-sparse882-actual-gold-additional-cost-equips-real-inventory-equipment",
+      "card_id": "visit_the_golden_anvil_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b9f89cd8e7dc8fba37633a5631c0b4b04b70f47607f59611a75e5783d7a09382",
+        "actions.json": "9e59d00210cdc3dd377a00d3341bc1ea6427f3a3499e75d6e01370a785b161c5",
+        "assertions.json": "ab51e021fd1ac668436e832ad71222d08e8e75da6fec1b1c53a0255d666cd08f",
+        "expected_final_gamestate.txt": "cf3985ec6893188a16df65ec43cf5f3e304341f66258b1126312722d33c414bc",
+        "meta.json": "19f6c025ac97e38cf88c2b70ba22853e8b7afb64930ed3085aa325c9b6dfefde"
+      },
+      "fixture_sha256": "431674ccbe7e38a7ea6a01421fa0768f9cb9d283817881c042b5d7c38a12daa6",
+      "actions": 7,
+      "native_assertions": 111,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "input_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-visit-the-floating-dojo-blue-four-live-sparse882-actual-surging-and-combo-move-to-chosen-top-and-bottom",
+      "card_id": "visit_the_floating_dojo_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46033b0342bb3f1b046f739c000f0ed28cb2d4604484ab88d53adc6683fd549a",
+        "actions.json": "96d64e3ea266b74157775c193d7ad255b8a40dce54e062c9e85943e901e61ab9",
+        "assertions.json": "05f43246b96675535724eb25d832c8661bf30d7ea26490459375eb5b64a4f0ab",
+        "expected_final_gamestate.txt": "4769e877a8dac68aa5ac71f0066c718efaa3b604c2da6e1ff1ff5caf01b3c07d",
+        "meta.json": "d5d16898b771989fd4819166c7c10599628319a07b636e3a77d4b915e9f849b1"
+      },
+      "fixture_sha256": "130d3b45c620144c01b9c3c8f3444ed50ea7f3d9da9c1de1cc063e54b7fe8de1",
+      "actions": 8,
+      "native_assertions": 108,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse882-20261122.json",
+      "input_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root independent cached-text review of worker-authored four ordinary cases; /root/breadth_review independent review of Root Show Time trigger-boundary delta",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+    "reviewed": [
+      {
+        "card": "teklo_core_blue",
+        "branch": "actual_owned_specialization_item_enters_with_two_steam"
+      },
+      {
+        "card": "tick_tock_clock_red",
+        "branch": "actual_item_enters_with_one_steam_and_declines_crank"
+      },
+      {
+        "card": "show_time_blue",
+        "branch": "real_aura_entry_then_four_responses_to_earned_guardian_search"
+      },
+      {
+        "card": "visit_the_golden_anvil_blue",
+        "branch": "actual_gold_additional_cost_equips_real_inventory_equipment"
+      },
+      {
+        "card": "visit_the_floating_dojo_blue",
+        "branch": "actual_surging_and_combo_move_to_chosen_top_and_bottom"
+      }
+    ],
+    "evidence": [
+      "Root checked printed text/costs/legal specialization heroes and exact real physical UID entry/movement for all five. Teklo Core enters with2steam; Clock static Crank declined keeps1steam (CR8.3.29); GoldenAnvil pays actual Gold as additional cost then equips real inventory equipment; Dojo stages actual Surging Strike and Combo cards, placing chosen top/bottom around existing deckcard.",
+      "Show Time WHEN entry search requires separate earned trigger and retained layer through choices. Correct-expectation native boundary will reject immediate search and save no fixture if violated."
+    ],
+    "independent_showtime_delta": {
+      "review_type": "independent_static_root_authored_showtime_delta_review",
+      "result": "approved_earned_trigger_and_continuation_oracle_pending_native_probe",
+      "spec_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+      "reviewed": {
+        "card": "show_time_blue",
+        "scope": "Root-authored earned WHEN-enters boundary and pending-search continuation only; no approval of unchanged sibling specs by this receipt."
+      },
+      "evidence": [
+        "Printed WHEN this enters requires an earned triggered effect after actual Aura entry; immediate deck staging during source resolution would not satisfy this branch.",
+        "New boundary requires actual owned AuraUID5 in Arena, untouched real Deck2/Hand0/Temp0, Stack1 with SourceUniqueID5 and no player decisions before search. All four live seats pass the new earned layer before the original search choice.",
+        "Pending-search checkpoint corrected to Stack1/SourceUniqueID5, matching retained managed owned-event continuation while a real search choice is unresolved; final Stack0 remains required after completion.",
+        "Actual eligible GuardianUID7 search and final Aura/hand/deck/ownership outcomes remain unchanged; one shuffle remainder avoids entropy-dependent final order."
+      ],
+      "oracle_or_flow_errors": [],
+      "limitations": [
+        "Correct-expectation probe only, pending native execution. Existing direct search producer may fail the initial boundary; failure must remain unsaved/unqualified and is not authorization for an engine repair.",
+        "No native game, test, source edit or network performed.",
+        "No independent reveal log, shuffle randomness, future Aura destruction/draw or alternate search cases certified."
+      ],
+      "mutation_scope": "Only independent-showtime-delta.json written."
+    },
+    "limits": [
+      "Core future resources, Clock damage/futureupkeep, Anvil equipment defenses and Dojo subsequent combat untested.",
+      "Show Time future draw and statistical shuffle nottested; remainingdeckonecard.",
+      "No passing coverage unless native correct expectations and one clean replay pass."
+    ],
+    "final_delta_review": {
+      "review_type": "routine_transport_bookkeeping_delta",
+      "reviewer": "Root independent card-text review of worker-authored item cases; no duplicate independent pass claimed",
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "fff656b256dba40c78c14ee00b15c18f8281f4d769aba2f69b6e7b8739ba5fb5",
+      "approved_changes": [
+        "Only add FAB_PLAY_ORDER:1 to the exact full Counters comparison for first-played Teklo Core and Tick Tock Clock. Expected Steam2 and Steam1 remain unchanged in all checkpoints.",
+        "Exclude correctly failing Show Time from qualified subset; preserve its no-save reproducer and proof as206."
+      ],
+      "limits": [
+        "No gameplay behavior/oracle weakened; no engine/runtime changes."
+      ]
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse882-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "64a57d06435928b460f30d06dcffee88b58836ba2bfc063ca0134f9a4501015b"
+  },
+  "full_suite_run": false
+}

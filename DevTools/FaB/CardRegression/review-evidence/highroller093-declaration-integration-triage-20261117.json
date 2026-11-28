@@ -1,0 +1,43 @@
+{
+  "status": "SCOPE_HOLD_NO_TABLE_ONLY_INSTALLED_NATIVE_DECLARATION_ROUTE",
+  "issue": "FAB-REG-093",
+  "original": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch403.json",
+    "sha256": "54a0dd4bebbf39ad170233ce17262008312bae68859c956cfb103cec5e296b2f",
+    "slug": "card-high-roller-red-four-live-correct-probe-intimidate-target-declared-before-payment-and-real-sole-hand-banish",
+    "controls": 33,
+    "queries": 2762,
+    "unchanged": true,
+    "native_before": {
+      "path": "review-evidence/high-roller093-native-before.json",
+      "sha256": "5b8a9536dc569f5309a5a7e8f862a42a1c979b708fbde3fcb2075261ccac0b3d",
+      "frontier": "After first play input AP0 instead of AP1; no declaration answer or priority response executed. Later resolution/random banish/cleanup remains unrun."
+    }
+  },
+  "current_facts": [
+    "All3 EVR canonical and emitted HighRoller have ResolveCard only: RequestIntimidate(player), then a conditional second same call for HIGH_ROLL. No PrepareCard declaration or bound-target argument exists.",
+    "Alpha canonical abilities are empty. Existing WTRAttackDeclared calls RequestIntimidate(player,1,attackUID), whose hero choice earns an attack-trigger layer then; it is not an installed pre-asset spell declaration adapter.",
+    "DoPlayCard binds an early descriptor only for ATTACKs, plus exact Lunging special case. Nonattack HighRoller starts physical Stack with empty playParams.",
+    "Installed declared-reaction definition/selector/options/continuation/resolution are explicitly CombatChain/chainLink-based, and GL enrolled profiles also replace ResolveCard with native reaction effects. A HighRoller table entry alone cannot select Hero or preserve its existing body."
+  ],
+  "assessment": {
+    "small_reuse_only": "Not sufficient with current installed infrastructure; no patch frozen.",
+    "genuine_native_extension_possible_in_principle": "Would require a new shared physical-spell Hero declaration domain, preasset binding/rollback continuation and a source-owned RequestIntimidate consumer with live-UID revalidation/no fallback. That is a new declaration/consumer contract, not an existing Alpha/profile enrollment. It must preserve the original conditional second invocation and settle its declaration cardinality rather than silently fixing only one call.",
+    "generation_dependency_under_current_scope": "The conventional authored route is a PrepareCard declaration that calls a native binder, plus bound-target consumption by existing RequestIntimidate; this needs a verified current authored Prepare/emission input. Generation work is explicitly held by parent, and no verified HighRoller raw authored snapshot was obtained. A new card-specific count0/local interception solely to avoid that held input is not proposed.",
+    "body_preservation": "No reimplementation/synchronous replacement of HighRoller ResolveCard, no generated hand edit, and no late-target fake chooser.",
+    "094": "Not an inherent094 dependency if declaration is properly bound and existing RequestIntimidate consumes it synchronously. No094 routing change proposed.",
+    "permission": "Scope/input hold, not an auto-review denial for093. No application or denied action was attempted."
+  },
+  "source_guards": {
+    "FaBSim/Custom/GameLogic.php": "3a8a7346f8b40095faf39a47964018e3baae64bb86ad47879430ed034ffd5bcb",
+    "FaBSim/Custom/CardChoices.php": "0e86012651a519d078e052bc356df2950029cb5fea4092007fbf1fc64c348b7d",
+    "FaBSim/Custom/WTRCards.php": "fae2c805f2af66257b6f8772d5a40c0bf703fe93c5ef8f9f17c399462edddab6",
+    "DevTools/FaB/evr_abilities.json": "1b975b2e493201ea41b52564bde2e9a3d0e3853bbf429521195027b29b953d1e",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6dd30ecff8877f4f3e7c8468d5bf0f0e979ffe66567897c91a6fc9577b5f9254"
+  },
+  "limits": [
+    "Only existing original no-roll Red33/2762 route considered; conditional double Intimidate, other targets/printing/end return not qualified.",
+    "Prior R4 physical lifecycle is preserved but not claimed to fix this missing announcement. Later old-source lifecycle hypothesis is not new Native evidence.",
+    "No PHP/Native/Rwrite/network/generation/new coverage; all specifically denied goals untouched."
+  ]
+}

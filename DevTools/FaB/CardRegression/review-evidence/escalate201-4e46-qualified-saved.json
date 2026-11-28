@@ -1,0 +1,48 @@
+{
+  "status": "ESCALATE201_ORIGINAL9_1247_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker proposal and original correct native scenario author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+  "input_sha256": "3440cd25600cf6485c765ef88c6b4321544908d058c1a51792d3a89e697d39f3",
+  "source_spec": "card-regression-repair-escalate201-earned-draw-life-loss.json",
+  "fixtures": [
+    {
+      "slug": "card-escalate-bloodshed-red-four-live-opponent-real-draw-earned-life-loss",
+      "card_id": "escalate_bloodshed_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f377c2485eaf298581ef23a345db6a05e5adf9395b069f15ef79aac54c4b214",
+        "actions.json": "143b4c3062037f040bcf399343169a504e7251b950178873e911a538b2cc4256",
+        "assertions.json": "96505be935643077fd4e2792303c56040d5ae997d62f72aa5e4a86a274a9cbec",
+        "expected_final_gamestate.txt": "06d667f9ea440430d2ecbdad61e4a88f06ac78435fd92bba5a9b6d368dbe7009",
+        "meta.json": "652057105c4c043f9ee14e1344a04542845a4e05aebc876d4cf0f09ea13d54aa"
+      },
+      "fixture_sha256": "b2daef018265a0e633399d76657b2665ef71c33733083bf70c1dcdc5c5648a48",
+      "actions": 9,
+      "native_assertions": 1247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+      "runtime_sha256": "4e46640dd5efde26fcc83a0cb1e774101890d3ac0cbdaa9a43f15e8211f727a9",
+      "source_spec": "card-regression-repair-escalate201-earned-draw-life-loss.json",
+      "input_sha256": "3440cd25600cf6485c765ef88c6b4321544908d058c1a51792d3a89e697d39f3"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-escalate201-replay.json",
+    "sha256": "1d3c661002380e13db52f1823a4a4411dc56400e44a10daf3bd9526c65023f6f",
+    "passed": true
+  },
+  "source_review_sha256": "6a8449c16b576333559a1b73dc185a1f992745f4c6e635acb1d6edaad64beb66",
+  "components": 60,
+  "component_receipt_sha256": "3d5b627531ae8605cb17d8f9683a4db17e7e0454887be8ec68f9c1747c849bc0",
+  "basis": "Original9inputs1247queries/setup unchanged. RealSkullhorn6destroy-cost andfourresponses complete actual drawBlue7/soleHandrandomdiscard/printedGA AP4refund1 beforeEscalate life loss. Freshfourmanualearnedresponses keepHero4HP20 throughfirstthree, then actualcapturedunitlifeLoss to19onlydrawer4. OriginalAura5persistsArena1; physical6/7owned4GY,HandDeckEquipment4empty/R0/AP1/StackDQframesclear andfourliveprefs verified. Original no-save diagnostic frozen; independentnormal-save successor promotion changes metadata/unsavedslugonly.",
+  "official_source": "https://judge.fabtcg.com/cards/detail/3827/",
+  "limits": [
+    "Only preexisting Red Aura/opponent-single-draw branch Native-qualified. Priorcast, beginning-Action draw, end-phase destruction, multiple/own draws and other branches uncredited. Catalog contains Red only, no invented pitch siblings.",
+    "60 actual-function components separately cover source-departure/blank/control changes, per-draw/per-real-Aura cardinality, old Marlynn/Anka and malformed/dead payloads. Modeled primitive/parent-tail boundaries are not extra Native gameplay coverage.",
+    "Named synchronous branch only; generic ROS094 virtual-await and other denials remain untouched. No generated/service edit, fullsuite/historicalcorpusreplay or breadth expansion."
+  ]
+}

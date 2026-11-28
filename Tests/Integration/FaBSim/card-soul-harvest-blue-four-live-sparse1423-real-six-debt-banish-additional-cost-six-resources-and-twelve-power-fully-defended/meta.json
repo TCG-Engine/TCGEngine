@@ -1,0 +1,7 @@
+{
+    "name": "Soul Harvest / six actual Blood Debt costs and static twelve power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T17:50:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNG_LEVIA20_AND_THREEDORI20/manualUPF/cachedlegal. SoulHarvest5Hand/Blue6-7Hand, sixdifferentlegalShadowGenericBloodDebtGhostlyVisit8-10andVileInquisition11-13GY(no6powercard/noLeviaendphaseclaim), fouractualGenericHand4blockers14-17def3each(twoWoundingRed/twoCriticalStrikeRed). NativeHero4declarationbeforePrepareexact6cost; realMZMulti6banishalloriginal8-13beforeRpay; noearlyAP/Rfreecost. RealBlue6pitch3stillPITCHAP1R3, Blue7paysprinted6R0AP0. Allfourmanualresponses\u2192liveevaluatedbase6+6Debt=12/noGA. ActualfourHandblocks3each=12, actual0damage/nothit/HP20preserved/noOnHitSoultrigger. FullcloseGY5owner1/blocks14-17GY4/Blue6-7Pitch1/sixcostsBanish1/noHandDeckSoulTempArenaStackDQCC/APR0/UID17RNG0. Positiveadditionalcost/staticpowerbranchonly; twelvepowercheckedwithliveevaluatoranddamagefields, HP0damagealsorequiresdef12; notclaimingpositiveSoulbanish/negativepartialselection/insufficientcost/EndphaseBloodDebt/Levia/support/pitchsibling/fullcardcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#soul_harvest_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/MONCards.php FaBSim/Custom/CardChoices.php FaBSim/Custom/WTRCards.php"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nuu-alluring-desire-two-live-sparse1279-real-chi-cost-earns-foreign-blue-three-cost-attack-for-zero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1279-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1279-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6cc2b4d2c02f0948e9da886e44b634759b5a9205184969630ad923a876732a68",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b66cc7495fc82e80875656becf2786be9fe825384d71eb8afefac93f4c38414",
+        "actions.json": "82b6f1bafed572462c700380a12040669fd9b7fdc5c784e1998948df02260ab5",
+        "assertions.json": "2fa2663a3439a6b965d825938c9509fa0cec5e3b68da5a7d3683bf1514f23ccd",
+        "expected_final_gamestate.txt": "3b0040934f49d51baa76784f003e1394e2e71e78fed452b10a5fc0773659cddf",
+        "meta.json": "2cdaced84f069ab4e00d08f8072a76896be9309cee73973dad83dd0a3608cab2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

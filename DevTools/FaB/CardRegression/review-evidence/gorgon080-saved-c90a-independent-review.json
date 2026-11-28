@@ -1,0 +1,143 @@
+{
+  "status": "APPROVED_EXACT_SAVED_GORGON080_ORIGINAL_UNCHANGED_NONCHI_PROBE_CURRENT_C90A_REPLAYS_SEPARATE",
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T17:29:47.789473+00:00",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch350.json",
+  "input_sha256": "ee14fa689e808febb7cc581fa778fbb1e0238c6e5d1dee0065b604f7d20ce407",
+  "fixtures": [
+    {
+      "slug": "card-gorgons-gaze-yellow-four-live-sparse-real-paid-reaction-slither-and-banish-defender-before-damage",
+      "card_id": "gorgons_gaze_yellow",
+      "group_id": "identity:gorgons_gaze_yellow",
+      "fixture_sha256": "5345e88fd0fff88cbd3368c5d3a3c1c58592db2356207ab0672c4d8607954d94",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "74500bf2d8674a2ce20bdf6ac953d3955fc22bb4a791a70b506019ca6e50d2a5",
+        "actions.json": "f5ff74c74034518103d48193865f15d6a3b45814133bbe4e9a1dea6243c3e393",
+        "assertions.json": "8df172d642314f64fe0c813da46e5be0b628673e7e4446ccac3f62bbf3ed5948",
+        "expected_final_gamestate.txt": "0fe5a181027e596bc38369e72de1d57043f7b2b87d9d018dc314dd0b4175af89",
+        "meta.json": "65262a273a9c0015167726b5a14ef07ccff34208348811314f9d671fbafa9cb4"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "74500bf2d8674a2ce20bdf6ac953d3955fc22bb4a791a70b506019ca6e50d2a5",
+        "actions.json": "f5ff74c74034518103d48193865f15d6a3b45814133bbe4e9a1dea6243c3e393",
+        "assertions.json": "8df172d642314f64fe0c813da46e5be0b628673e7e4446ccac3f62bbf3ed5948",
+        "expected_final_gamestate.txt": "0fe5a181027e596bc38369e72de1d57043f7b2b87d9d018dc314dd0b4175af89",
+        "meta.json": "65262a273a9c0015167726b5a14ef07ccff34208348811314f9d671fbafa9cb4"
+      },
+      "actions": 34,
+      "native_assertions": 3007,
+      "extra_recorder_only_hooks": 0,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_original_approved_source": true,
+      "original_input_unchanged": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "original_uid_identity_ownership_conserved": true,
+      "created_owned_hand_card_uid": 9,
+      "created_card_id": "slither",
+      "opponent_banished_original_uid": 8,
+      "banished_owner_controller": 4,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "UniqueIDCounter": 9,
+      "RandomCounter": 0,
+      "physical_findings": "OriginalGenericWounding6cost0/AP1/normalP4target/power4/noGA/noStealth; realP4HandRagingYellow8def3normalblock. RepairedavailabilityadmitsactualGorgon5AR2onGenericAA, exactoldrecipeunmodified. ActualBlue7pitch3pays2R1/AP0/noChi; same5Stackanddefending8retainthroughfresh1/2/3first3. FourthP4resolvesownedHandSlither9/physical8movesPUBLICP4BanishOwnerController4flag0,5GY; sourceAA6still4/noGA. Freshreactionfour\u21924physicaldamageHP16insteadblocked1. FullcloseoriginalGY5,6/Pitch7/newownedunplayedSlither9Hand/actualopponent8Banish/R1AP0/UID1-8identityconserved/new9/counter9RNG0/queuesclear. ActualMST_GORGONpermissionabsent, noChi; allfourready/live/manual.",
+      "qualification": "OnlyoriginalnonChiAR2/ownedSlithercreation/actualoneAAdefenderbanish\u21924damagebranch. NoChi/freeforeignplay/Slitherplay-target/Ephemeraldeparture/NuuStealth/hero/otherdefenders/expiry/sibling/fullcard/supportprimary/controlcredit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch350-independent-source-review.json",
+    "sha256": "7dfe479bca24da161c54119de84cf97db26fc103ff97d64db38e62d6ef797d44",
+    "manifest_sha256": "9ebfc57220d19e3021229c2b043a0c1b52bd7d3c806a70623251fe229645bf32",
+    "historical_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+    "semantics_unchanged": true
+  },
+  "current_runtime_binding": {
+    "source_application_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\gorgon080-source-application.json",
+    "source_application_sha256": "fc40f7776aab6a3989ff0a62199bf888072a0ba44a0d1d7ca234905db4d21efd",
+    "independent_fix_review_path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\gorgon080-source-review.json",
+    "independent_fix_review_sha256": "5dc9bbb2f221d0d06b262684800716ab2a68fe741769d3fd50ba466d836ae6e7",
+    "current_source_guards_verified": 20,
+    "all_old_guards_unchanged_except_WTR": true,
+    "WTR_before_sha256": "0ea973502c30ac28776809c7975fab70ed5f7da0d84874969110947aa3cc1cda",
+    "WTR_after_sha256": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "only_exact_single_allowance_delta_reconstructed": true,
+    "no_generation_change": true
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch350-20261103T172635Z-6aea194bbd834.json",
+    "sha256": "e06765b0c1dd7058047aeccb438d87f43e9aa2eb1b0c8186d1aaea33fc599e3b"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch350.recording-results.json",
+    "sha256": "bd9042a80f2f603bd94cd8e64f56db8db05810669b7e6de3f5be187d144851d8"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-gorgon080-native-after-r1\\receipt.json",
+    "sha256": "bd9ea8a1aee92855d9ca671f1f5af055f02c85afed1da9709c1e282c944c79d9",
+    "stdout_sha256": "882c0537c211265a0a174c09675a69e1330e6df3041f7008330dee500a7929b5",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+    "runtime_after": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3"
+  },
+  "method": "Independentactualrawfive/schemaendpoints/every34nativeactionand3007orderedassertions equaloriginalunchangedindependentlyapprovedee14probe. Reusedprinted/sourcepeer7dfe andindependent080review5dc9; independentlyreconstructedonlyoneWTRallowanceagainstverifiedbeforebackup, all19otherguardsunchanged/currentc90a. Checkedactualfunding/source-retention/defenderzone-owner/Slither/HP/economy/manualprofiles/queuecleanup, no currentoutputsubstitutionforrules. PurePythonread/helpers only.",
+  "limits": [
+    "Savedcreationreviewonly; Root twofreshfocusedreplaysseparate, notexecuted/claimedbyreviewer.",
+    "Historicalfirst17inputavailabilityfailure remainsbeforeevidence/nooldpassingfixture orretagging; originalfullprobeunmodified, onlyactualnewc90acreationqualifiedbythisreview.",
+    "OnlyoriginalnonChiAR2/ownedSlithercreation/actualoneAAdefenderbanish\u21924damagebranch. NoChi/freeforeignplay/Slitherplay-target/Ephemeraldeparture/NuuStealth/hero/otherdefenders/expiry/sibling/fullcard/supportprimary/controlcredit.",
+    "NoPHP/native/R/sourcefix/replay/generation/service/fullsuite; ten070079andSmashingItemholdsunmodified."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Rising Sun, Setting Moon / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:41:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Legendary**\n\nDraw a card, then put a card from your hand on the bottom of your deck.\n\nIf you've played another blue card this turn, **transcend**. Representative only: first_blue_instant_draws_then_puts_real_drawn_card_on_bottom_without_transcend. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#rising_sun_setting_moon_blue"
+}

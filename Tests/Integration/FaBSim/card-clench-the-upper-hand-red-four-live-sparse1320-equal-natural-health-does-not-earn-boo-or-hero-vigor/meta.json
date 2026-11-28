@@ -1,0 +1,7 @@
+{
+    "name": "Clench the Upper Hand / equal natural health does not earn boo or hero vigor",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:39:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_kayo_strong_arm20_AND_DORI20. Allfourheroesstartnatural20life, so sourcehasnotMORElifethanEACHotherhero whenattackdeclared; noearnedBoo/noKayoVigor. KayoHeroactivationunused/zeroweaponslegal. Primary5normalHandactualcost0/realWoundingBlowRed6retained/AP1to0/formaladjacentHero4/allfourresponses. Actualprinted4HeroDamageHP16; noGA/noextraUIDorArena. RealzeroCostGenericWoundingBlow6remainsinHand1throughfullcloseAP0/R0/StackDQCCempty; actualnativeHandclickcannotplayActionwithoutAP despiteaffordability, fullstateunchanged. OpponentHandBlue8/ArsenalRed9/EquipmentLens7Counters[]/ownDeckBlue10retained. Positiveordinarypayment/damageandnegativecondition/refundwitnessonly; positivecondition/extraGA/power/typegrant/Boo/Vigor/Hero/support/sibling/fullcarduntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clench_the_upper_hand_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/SEACards.php FaBSim/Custom/UPRCards.php"
+}

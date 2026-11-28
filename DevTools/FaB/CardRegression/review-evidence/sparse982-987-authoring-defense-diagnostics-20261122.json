@@ -1,0 +1,939 @@
+{
+  "result": "approved_noncritical_authoring_defense_diagnostics_only",
+  "reviewer": "breadth_review independent bounded saved-assertions/evidence review",
+  "independent_review_result": "named_branches_remain_pinned_exact14_author_only_defense_metadata_exceptions_supported",
+  "independent_review_local_sha256": "4a91270d437adf1f502d4e963d30cc1923313d2424cf6f63becebfd3f8303eff",
+  "counts": {
+    "cases": 5,
+    "persisted_assertions": 1440,
+    "actions": 180,
+    "author_only_defense_diagnostics": 14,
+    "raw5_files_verified": 25
+  },
+  "assessment": "No critical gap in the named branches. Biting Gale actual damage3/HP17 and defenseValue4, Trap damage4/HP16,15,16 and defenseValue3, Banksy damage0/noHit/HP20 and defenseValue3 are persisted, alongside real card identities/roles/owned fates, payments and Crank/source linkage. Card-specific equipment/mark/no-gain-tag/attacker-health checks also persist. The missing defense queries are redundant authoring diagnostics for this scope.",
+  "exception_policy": [
+    "ONLY these exact14 listed case/spec/native-step/kind/value records with unchanged bound raw5/proofs may be permitted by a metadata audit exception. No blanket kind=defense exemption. All other missing checks or changed hashes must fail.",
+    "Keep explicit disclosures: these14 queries are NOT persisted native assertions and were NOT independently exercised by stored replay. Do not claim all authored checks replayed or promote cached defense into replay evidence.",
+    "Early computed-defense0 and post-resolution computed-defense query values are not separately replay-certified; the persisted Damage-stage defenseValue/damage/HP and physical-role assertions are the relevant replay evidence.",
+    "No fixture/assertion edits, removals, rerecording, source/test/engine changes or new games are needed or approved by this report."
+  ],
+  "cases": [
+    {
+      "batch": 983,
+      "card_id": "biting_gale_red",
+      "slug": "card-biting-gale-red-four-live-sparse983-unfused-defender-real-blue-four-defense-three-damage",
+      "source_spec": "card-regression-sparse983-20261122.json",
+      "source_spec_sha256": "ad419b71b1bb52dc80ca5b42cc8da06402e2a39d3a0afcdea052da174414cf39",
+      "source_proof_sha256": "ac374aeb94149db13ddc79a1d1b37bb081d4347c599a8f7580a5e894e833bbe7",
+      "assertions_sha256": "2ce69c9f325ab3c8b06f46806171df2a1522a544e0407855b8bf70387c4192d6",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95acbd2a626a7d98854b859e2f68cad7657104fb5e069ffc168e8a6218fb36ab",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "2ce69c9f325ab3c8b06f46806171df2a1522a544e0407855b8bf70387c4192d6",
+        "expected_final_gamestate.txt": "01ce826bca4b8d7afe1526402940a3458321bcc2539c453c474381426ddcf608",
+        "meta.json": "2bf18c7d676bd3268014bc1bc762fed12c883083037775e6625f8f922b2c5f49"
+      },
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 21,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 25,
+          "check": {
+            "kind": "defense",
+            "value": 4
+          }
+        }
+      ],
+      "saved_observable_branch_guards_verified": true,
+      "persisted_evidence": {
+        "damageDealt": {
+          "step": 33,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "damageDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        },
+        "defenseValue": {
+          "step": 29,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "defenseValue"
+          ],
+          "comparison": "equals",
+          "valueJson": "4"
+        },
+        "attackHit": {
+          "step": 29,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "attackHit"
+          ],
+          "comparison": "equals",
+          "valueJson": "true"
+        },
+        "defenderHP": {
+          "step": 37,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Health",
+          "value": 17
+        },
+        "attackerHP": {
+          "step": 37,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Health",
+          "value": 20
+        },
+        "power": {
+          "step": 7,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 7
+        },
+        "primaryRole": {
+          "step": 29,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "Role",
+          "value": "DEFENSE_REACTION"
+        },
+        "primaryUID": {
+          "step": 29,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "primaryCard": {
+          "step": 25,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "CardID",
+          "value": "biting_gale_red"
+        },
+        "primaryOwnedGY": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "Owner",
+          "value": "4"
+        },
+        "primaryGYUID": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "attackGYUID": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Graveyard-0",
+          "property": "UniqueID",
+          "value": "7"
+        },
+        "realAttackBlue": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Pitch-0",
+          "property": "UniqueID",
+          "value": "8"
+        },
+        "attackerHandRetained": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Hand-0",
+          "property": "UniqueID",
+          "value": "9"
+        },
+        "defenderAP": {
+          "step": 37,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4ActionPoints",
+          "value": 0
+        },
+        "defenderResource": {
+          "step": 37,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Resources",
+          "value": 1
+        },
+        "defenderRealBlue": {
+          "step": 37,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Pitch-0",
+          "property": "UniqueID",
+          "value": "6"
+        }
+      },
+      "replay_receipt_sha256": "6ec553dfe09b6f3648741ce9899b9f238813f6cb55ca51aee9e95567a7fa842b"
+    },
+    {
+      "batch": 984,
+      "card_id": "boulder_trap_yellow",
+      "slug": "card-boulder-trap-yellow-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-retains-real-equipment",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "source_proof_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "assertions_sha256": "8a12e14d4aae78804ca7588c5a1216219f7fb2478b216d600a647bbd451081a4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "693347362c3c71a3686453bb014f0eafc786d9b9266cf62dbe531099e26c626a",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "8a12e14d4aae78804ca7588c5a1216219f7fb2478b216d600a647bbd451081a4",
+        "expected_final_gamestate.txt": "374bb134b64d71442ffff8a4760e23a34175b88cb3559d318c38bdf5115640c9",
+        "meta.json": "b5207f00008e4ce9119e7bc7cadc0e33c40ff105e303d01bc3c3dcaf6b15751c"
+      },
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "saved_observable_branch_guards_verified": true,
+      "persisted_evidence": {
+        "damageDealt": {
+          "step": 32,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "damageDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "4"
+        },
+        "defenseValue": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "defenseValue"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        },
+        "attackHit": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "attackHit"
+          ],
+          "comparison": "equals",
+          "valueJson": "true"
+        },
+        "defenderHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Health",
+          "value": 16
+        },
+        "attackerHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Health",
+          "value": 20
+        },
+        "power": {
+          "step": 7,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 7
+        },
+        "primaryRole": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "Role",
+          "value": "DEFENSE_REACTION"
+        },
+        "primaryUID": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "primaryCard": {
+          "step": 24,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "CardID",
+          "value": "boulder_trap_yellow"
+        },
+        "primaryOwnedGY": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "Owner",
+          "value": "4"
+        },
+        "primaryGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "attackGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Graveyard-0",
+          "property": "UniqueID",
+          "value": "7"
+        },
+        "realAttackBlue": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Pitch-0",
+          "property": "UniqueID",
+          "value": "8"
+        },
+        "attackerHandRetained": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Hand-0",
+          "property": "UniqueID",
+          "value": "9"
+        },
+        "defenderAP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4ActionPoints",
+          "value": 0
+        },
+        "defenderResource": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Resources",
+          "value": 0
+        },
+        "noEquipmentCounter": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Equipment-0",
+          "property": "Counters",
+          "value": "[]"
+        }
+      },
+      "replay_receipt_sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e"
+    },
+    {
+      "batch": 984,
+      "card_id": "buzzsaw_trap_blue",
+      "slug": "card-buzzsaw-trap-blue-four-live-sparse984-unmodified-attack-no-typed-trap-or-riptide-trigger",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "source_proof_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "assertions_sha256": "5dc6c9112931756a6be3ce4615cc051f575deea0c7af64ed66878da2eb9b5d18",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e2179377ef325d390cba2357fe2df1605e10bacf55de057a089932d7a9faea0",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "5dc6c9112931756a6be3ce4615cc051f575deea0c7af64ed66878da2eb9b5d18",
+        "expected_final_gamestate.txt": "65d24095055eb1e4cc78c0c5765c55383234537998cc9ea8e0759b2bd74ea962",
+        "meta.json": "f52499e2e36303aaa59fedfac8672df7b4d453d48100fea198bf809825f0bb7e"
+      },
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "saved_observable_branch_guards_verified": true,
+      "persisted_evidence": {
+        "damageDealt": {
+          "step": 32,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "damageDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "4"
+        },
+        "defenseValue": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "defenseValue"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        },
+        "attackHit": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "attackHit"
+          ],
+          "comparison": "equals",
+          "valueJson": "true"
+        },
+        "defenderHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Health",
+          "value": 15
+        },
+        "attackerHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Health",
+          "value": 20
+        },
+        "power": {
+          "step": 7,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 7
+        },
+        "primaryRole": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "Role",
+          "value": "DEFENSE_REACTION"
+        },
+        "primaryUID": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "primaryCard": {
+          "step": 24,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "CardID",
+          "value": "buzzsaw_trap_blue"
+        },
+        "primaryOwnedGY": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "Owner",
+          "value": "4"
+        },
+        "primaryGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "attackGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Graveyard-0",
+          "property": "UniqueID",
+          "value": "7"
+        },
+        "realAttackBlue": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Pitch-0",
+          "property": "UniqueID",
+          "value": "8"
+        },
+        "attackerHandRetained": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Hand-0",
+          "property": "UniqueID",
+          "value": "9"
+        },
+        "defenderAP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4ActionPoints",
+          "value": 0
+        },
+        "defenderResource": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Resources",
+          "value": 0
+        },
+        "noGainRestrictionTag": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "property": "TurnEffects",
+          "value": "[]"
+        }
+      },
+      "replay_receipt_sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e"
+    },
+    {
+      "batch": 984,
+      "card_id": "den_of_the_spider_red",
+      "slug": "card-den-of-the-spider-red-four-live-sparse984-unmodified-attack-no-typed-trap-trigger-or-mark",
+      "source_spec": "card-regression-sparse984-20261122.json",
+      "source_spec_sha256": "e0b4fa1020b213198d0d76605df39d40020fe319ef8fa4b0d206be78b2affcba",
+      "source_proof_sha256": "97b41054d4b9e413e77cecee63ace39925669c587f4f490c4ef196d37b1cd659",
+      "assertions_sha256": "8649713f82b395d6a4aa078643e778a56205389c406c7b6c0286c14cdccd155a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c0844e9c8e0cd39cb96753df94435fd77c57fad12baeef588fdfbb844a4d934",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "8649713f82b395d6a4aa078643e778a56205389c406c7b6c0286c14cdccd155a",
+        "expected_final_gamestate.txt": "1aa39a60de6d45915f6abcf572e930319126a94a0a546f7723446aaa3aaafc89",
+        "meta.json": "5cae8cf63d6faa09f34ee01d512e6f43fa30e626b8f12ce12e7b855529f7bd66"
+      },
+      "author_only_checks_not_persisted": [
+        {
+          "step": 19,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 20,
+          "check": {
+            "kind": "defense",
+            "value": 0
+          }
+        },
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "saved_observable_branch_guards_verified": true,
+      "persisted_evidence": {
+        "damageDealt": {
+          "step": 32,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "damageDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "4"
+        },
+        "defenseValue": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "defenseValue"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        },
+        "attackHit": {
+          "step": 28,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "attackHit"
+          ],
+          "comparison": "equals",
+          "valueJson": "true"
+        },
+        "defenderHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Health",
+          "value": 16
+        },
+        "attackerHP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Health",
+          "value": 20
+        },
+        "power": {
+          "step": 7,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 7
+        },
+        "primaryRole": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "Role",
+          "value": "DEFENSE_REACTION"
+        },
+        "primaryUID": {
+          "step": 28,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "primaryCard": {
+          "step": 24,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "CardID",
+          "value": "den_of_the_spider_red"
+        },
+        "primaryOwnedGY": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "Owner",
+          "value": "4"
+        },
+        "primaryGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "attackGYUID": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Graveyard-0",
+          "property": "UniqueID",
+          "value": "7"
+        },
+        "realAttackBlue": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Pitch-0",
+          "property": "UniqueID",
+          "value": "8"
+        },
+        "attackerHandRetained": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Hand-0",
+          "property": "UniqueID",
+          "value": "9"
+        },
+        "defenderAP": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4ActionPoints",
+          "value": 0
+        },
+        "defenderResource": {
+          "step": 36,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Resources",
+          "value": 0
+        },
+        "noMark": {
+          "step": 36,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Hero-0",
+          "property": "Counters",
+          "value": "[]"
+        }
+      },
+      "replay_receipt_sha256": "ef4949f9c4aac3a9f627b3f8bbbfd694acbc92b2cb12759cc5e152823f9afc3e"
+    },
+    {
+      "batch": 987,
+      "card_id": "banksy",
+      "slug": "card-banksy-four-live-sparse987-real-item-crank-enables-paid-weapon-exact-full-block",
+      "source_spec": "card-regression-sparse987-20261122.json",
+      "source_spec_sha256": "c0b7ad4a9414c7083892dd9ae8887d3da199b7844d699cfb6ff11d01e6ffd5b3",
+      "source_proof_sha256": "5439638714a73748fce503d9f76fb47410c44d196cffae24d87edb55739493cc",
+      "assertions_sha256": "8755f5872800eca09af9c3b6e7496ad61604e67d3d731871c54d116b16a36fb0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dbbcc72c2a9b7b107386024ffb092db5a6a0beaaa74f2cf65c57834e0f7c1259",
+        "actions.json": "7c5b0bd0a8e8f584c1387888516301dcb80438f81fba3cfe2fe43f759cbbf9e2",
+        "assertions.json": "8755f5872800eca09af9c3b6e7496ad61604e67d3d731871c54d116b16a36fb0",
+        "expected_final_gamestate.txt": "70435cf9dec1848417921662074994c756f2b8bbc37f228d8279bc28f806961a",
+        "meta.json": "bdc4f6e685fb3ad95cea9c11ab006843ef41bf362b51a05ff971ef86175400b5"
+      },
+      "author_only_checks_not_persisted": [
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 3
+          }
+        }
+      ],
+      "saved_observable_branch_guards_verified": true,
+      "persisted_evidence": {
+        "damageDealt": {
+          "step": 27,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "damageDealt"
+          ],
+          "comparison": "equals",
+          "valueJson": "0"
+        },
+        "defenseValue": {
+          "step": 27,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "defenseValue"
+          ],
+          "comparison": "equals",
+          "valueJson": "3"
+        },
+        "attackHit": {
+          "step": 27,
+          "type": "game_state_field",
+          "viewerPlayerID": 1,
+          "rootName": "FaBSim",
+          "path": [
+            "attackHit"
+          ],
+          "comparison": "equals",
+          "valueJson": "false"
+        },
+        "defenderHP": {
+          "step": 35,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p4Health",
+          "value": 20
+        },
+        "attackerHP": {
+          "step": 35,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Health",
+          "value": 20
+        },
+        "power": {
+          "step": 13,
+          "type": "computed_power_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "value": 3
+        },
+        "defenderRole": {
+          "step": 18,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "Role",
+          "value": "DEFENSE"
+        },
+        "defenderUID": {
+          "step": 18,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4CombatChain-0",
+          "property": "UniqueID",
+          "value": "8"
+        },
+        "weaponLink": {
+          "step": 27,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1CombatChain-0",
+          "property": "Counters",
+          "value": "{\"WEAPON_UID\":5}"
+        },
+        "weaponRetained": {
+          "step": 35,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Weapons-0",
+          "property": "UniqueID",
+          "value": "5"
+        },
+        "blockerOwnedGY": {
+          "step": 35,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p4Graveyard-0",
+          "property": "Owner",
+          "value": "4"
+        },
+        "bluePitch": {
+          "step": 35,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Pitch-0",
+          "property": "UniqueID",
+          "value": "7"
+        },
+        "itemCostResidue": {
+          "step": 8,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Resources",
+          "value": 2
+        },
+        "crankAP": {
+          "step": 8,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1ActionPoints",
+          "value": 1
+        },
+        "weaponCostResidue": {
+          "step": 35,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1Resources",
+          "value": 1
+        },
+        "finalAP": {
+          "step": 35,
+          "type": "scalar_zone_equals",
+          "viewerPlayerID": 1,
+          "zone": "p1ActionPoints",
+          "value": 0
+        },
+        "entrySteam2": {
+          "step": 6,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Arena-0",
+          "property": "Counters",
+          "value": "{\"FAB_PLAY_ORDER\":1,\"STEAM\":2}"
+        },
+        "crankAndNoHitSteam1": {
+          "step": 35,
+          "type": "card_property_equals",
+          "viewerPlayerID": 1,
+          "mzId": "p1Arena-0",
+          "property": "Counters",
+          "value": "{\"FAB_PLAY_ORDER\":1,\"STEAM\":1}"
+        }
+      },
+      "replay_receipt_sha256": "e1ea5907db2d8b8edd14f973f180cd115f41e7c980c532697f43c0cf49c41883"
+    }
+  ],
+  "fixtures_or_assertions_changed": false,
+  "new_game_or_replay_run": false,
+  "scope": "Only exact14 source kind=defense diagnostics in5 named current cases. Early query defense cache values are not replay-certified; saved Damage-stage defenseValue, observable damage/health and physical branch assertions remain. Every other omission or changed source/proof/raw5 hash fails the audit."
+}

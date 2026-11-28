@@ -1,0 +1,7 @@
+{
+    "name": "Electromagnetic Somersault / four-live two-owner delayed return",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:46:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Choose up to 2 attack action cards with cost 0 or more on the active chain link. Return them to their owner's hand when the chain link resolves. NamedpositiveRedtwo-card/two-owner delayedreturn only. NaturalAurora20 actualWounding6cost0attacksadjacentHero4/allfourmanual; actualopponentCriticalStrikeRed7Handdefends3. DuringREACTION1castactualInstant5cost0/AP0; fourfreshmanualsourcepriorityresponsesbeforelegitimateMZMultiup2choice, Source5heldStack/GY0. ChooseactualAA6cost0andAA7cost1oncurrentchain; Source5ownedGYafterchoice butbothactualcardsstayCCthroughreactionandDamage. Real4-3=1damage/HP4=19thenlinkresolves, bothselectedAAreturnrespectivelyowned1Hand6andowned4Hand7, source5aloneGY1/AP0/R0/allqueuesempty. Noimmediatereturn/freeprevent/buff/nativeGA/otherpitch/mincostmatrix/0or1choice/hero/support/fullcard orheldfixcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#electromagnetic_somersault_red"
+}

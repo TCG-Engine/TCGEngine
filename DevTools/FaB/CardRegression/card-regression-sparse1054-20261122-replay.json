@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-mark-of-the-huntsman-four-live-sparse1054-actual-paid-unmarked-weapon-full-block-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-mark-of-the-huntsman-four-live-sparse1054-actual-paid-unmarked-weapon-full-block-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1054-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1054-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9e0acc7489040647aa3a760790c71a42a87c40ed32c1351f9284fc7166d24075",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5570fa3b5985319c68ec7e81ff87cc238c8df37e330f4baad624f6bd5eb280c7",
+        "actions.json": "4ff186c6adb584eb1b6641fe635420989eee7886f133ff4fa25707225e9caa60",
+        "assertions.json": "cbe9853361c445c7798bceeb19478b86ec42978bfa372182b6ee617aae0aff28",
+        "expected_final_gamestate.txt": "51c4fc92d416b66cbabe33444f68cc483db90e47c5fa4acffd02e8d0631000cc",
+        "meta.json": "4ea2dcf2c4754db51af91b498bad06a4a2905dd58ce7c0594fb647bf222f81f6"
+      }
+    },
+    {
+      "slug": "card-millers-grindstone-four-live-sparse1054-actual-paid-weapon-two-hand-blocks-no-hit-or-clash",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-millers-grindstone-four-live-sparse1054-actual-paid-weapon-two-hand-blocks-no-hit-or-clash",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1054-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1054-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "367ed28df91d35343e921d9aa948c51ff299561f7b9737205c86917bb004df38",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1fe9ea75eff7f122d30e88931f7e8c017f30394efe3d458bb066a06a942bac2f",
+        "actions.json": "f21a6933511d40c0831a909c53d917eb7309342a893db0c7adb52f464e0a358f",
+        "assertions.json": "f5740b724e7b0dd8bdd1f6091f13cbd62461d04a0602e14d97915efb83eb2bd2",
+        "expected_final_gamestate.txt": "1658cd91f7d7148aa66e3879f556bb50549eaee24dbd55fa1dd458f6a49697d9",
+        "meta.json": "20435a705facf62389b3bf00a2361dac1b90fa0d5849a254867ea518c507ea93"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

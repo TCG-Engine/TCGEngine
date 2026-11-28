@@ -1,0 +1,230 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1370-20261122.json",
+  "source_spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+  "input_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "card_id": "oscilio_scion_of_the_third_age",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5d42e0c3177af91109dc7ae1268b125c829742ddb4372fa3a2f042890a50e95",
+        "actions.json": "ac673259567516b5b5ef11f98e430a78f681931005187b4b165ab1b080ddb86c",
+        "assertions.json": "0238f50c20ff216e9a5815bfab5449eedbd372356c9297d00b923cf73fca0488",
+        "expected_final_gamestate.txt": "3d7b0efe8f93936e978334c0491d10756643dc3f6822f9494b327a3e7427818d",
+        "meta.json": "f8ad9d1e54e94faae3e0702767b184661e855368ba5f7538be4f2805a414e24b"
+      },
+      "fixture_sha256": "05e3ccecddcd28078b24b0f1d9e90b08ee5fa75f820c0eea2397687f878a8205",
+      "actions": 30,
+      "native_assertions": 585,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "input_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "fixture_slug": "card-oscilio-scion-of-the-third-age-four-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "card_id": "oscilio_forked_continuum",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "478cb2a102e3414570bcaea5539dbc470791f199ff44741235f3d1bd5482089e",
+        "actions.json": "60fb8348f75055e993fa39479526b14fb228f29fea0fb1ea6138778633e308c6",
+        "assertions.json": "5560da154bbdcf6b33970cf97b75bec45b5096afd7be20f8c6b99af91720b981",
+        "expected_final_gamestate.txt": "537b605227cd4e8e686d44d039a5f4c9bc47dc628691fc5dae0d2eb4aa897762",
+        "meta.json": "4a290f872a596d9a3cfdcd3cb5a7759ea927a8bbe397b1555818f3fe7308a521"
+      },
+      "fixture_sha256": "42269214b093ad6d97c6ede237a2e33b4ee931a08f751e32d7dc0101d1e97f2c",
+      "actions": 17,
+      "native_assertions": 441,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 13,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "input_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "fixture_slug": "card-oscilio-forked-continuum-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+      "card_id": "aurora_legacy_of_tempest",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e3993b5b287d9a65ca6f85842c77388febf775da4ca2cc06d1fdaa7f2ab18eb6",
+        "actions.json": "60fb8348f75055e993fa39479526b14fb228f29fea0fb1ea6138778633e308c6",
+        "assertions.json": "0e790bce6c6c68ac4e81fe717aaedf471f9710240103287671bceeb26388a0b4",
+        "expected_final_gamestate.txt": "35fd6490612fe2c5aa34efaf6ff0282b0fcaa3bf97c3d45875bedfb6389a546c",
+        "meta.json": "23a3da64070f3d768381f2777fd0c0d31982be06f0a89129b9457478b72afa69"
+      },
+      "fixture_sha256": "4c656c7acdd273077812dcb299e9868e200c9431dc123f74cb3dda00030782f2",
+      "actions": 17,
+      "native_assertions": 441,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 13,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1370-20261122.json",
+      "input_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "fixture_slug": "card-aurora-legacy-of-tempest-two-live-sparse1370-opponent-lightning-flow-is-not-your-destroy-cost-no-tap-or-payment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "034eb9a386a7d541095d8f69202549df37a5f963e4f01aaa897e8896f194c78d",
+    "source_note_sha256": "4b6eee47e6e3ac7aa6899d4e2eb53e2881b8aff27b8d83e4f182dc7a1ef38cd4",
+    "case_count": 3,
+    "players": "mixed_four_and_two_live_manual",
+    "native_controls": 64,
+    "query_checks": 1467,
+    "persistable_assertions": 1467,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_OWNED_FLOW_COST_LEGALITY_GUARD_WITH_REAL_OPPONENT_TOKEN",
+    "per_case": [
+      {
+        "card_id": "oscilio_scion_of_the_third_age",
+        "group_id": "identity:oscilio_scion_of_the_third_age",
+        "native_controls": 30,
+        "persistable_assertions": 585,
+        "active_seats": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "players": "four_live_manual",
+        "natural_health": [
+          19,
+          20,
+          20,
+          20
+        ]
+      },
+      {
+        "card_id": "oscilio_forked_continuum",
+        "group_id": "identity:oscilio_forked_continuum",
+        "native_controls": 17,
+        "persistable_assertions": 441,
+        "active_seats": [
+          1,
+          2
+        ],
+        "players": "two_live_manual",
+        "natural_health": [
+          38,
+          40
+        ]
+      },
+      {
+        "card_id": "aurora_legacy_of_tempest",
+        "group_id": "identity:aurora_legacy_of_tempest",
+        "native_controls": 17,
+        "persistable_assertions": 441,
+        "active_seats": [
+          1,
+          2
+        ],
+        "players": "two_live_manual",
+        "natural_health": [
+          40,
+          40
+        ]
+      }
+    ],
+    "basis": [
+      "Three unrepresented/unheld distinctHero groups: cachedLightningWizardYoungOscilioScion19/manual4UPF+threeYoungDori20; adultLightningWizardOscilioForked38 orLightningRunebladeAuroraLegacy40/manual2versusadultDori40. Health19/38/40explicit, notgeneric20; adultcachedcc_legaltrue/cc_bannedfalse andYoungupf_bannedfalse only, noexternalcurrentpolicyassertion. GenericCritical/Woundingclasslegal. ForeignLightningFlowTokenAuraadmittedpriorposition underopponent only/no tokencreation/provenancecredit; controllerneednotmatchtokenElementaltype.",
+      "PrintedOscilioInstant1+t ap+destroyYOURFlow, AuroraInstant2+tap+destroyYOURFlow. OMNCards210-219 hasexactINSTANTrows/cost1or2/NeedsPrepare foractualthreeHeroIDs;240-243 requiresHeroStatus2andFaBOMNFlows(p),13actor-scopedFaBMONArena(lightning_flow). OwnArena0meansmissingcostasset; actualforeignFlow9seat4or7seat2notborrowable. ARCAbilities56earlylegalitybeforetap/payment/prepare/Destroy. R2alreadyfullyaffords1or2andHeroReady, ownREACTIONiseligibleInstantwindow/AP0irrelevant; actualextraBlueHandprovideseligibleOscilioDiscardandpotentialfundingcontrol. No099positivecostoperationperformed.",
+      "Physicalfour-modeUIDsCritical5/fund6/Arsenal7/extraHand8/foreignFlow9; duel3/4/5/6/7 correct. BeforeHeroattemptlivepower5/attackUID5or3/Stack0/resources2/AP0/priority1; foreignFlowOwnerController4or2/Status2/Counters[]/TurnEffects[] andHeroStatus2retained. No tap/discard/Ponder/Embodiment/permission/newUID orHandmovementearned. ExtraHandindexinitial2/declaration2, aftersourceStack1, afterfundpitch0correct; onlyactualBluefundpitched.",
+      "Four-livefreshmanualresponses1-4; two-livepaymentdefaultPRIORITY2/pass2-to1/pass1resolve andcombat1/2cycles, noactiveSeatsadult/noUPF. ActualfivephysicaldamageHPtarget15fouror35duel, ownhealth19/38/40preserved; fullcloseCriticalGY/fundPitch/Arsenal/extraHand/foreignFlowexactfates/UID9or7/RNG0. ActualzeroArsenalconsumerrejectsAP0/resourceaffordableR2 unchanged. CountsScion30/585+Forked17/441+Aurora17/441=64controls1467persistableassertions; modecoverage1four+2duels only."
+    ],
+    "limits": [
+      "Only named Heroown-cost-Flowownership guards withrealnativefunding/activeattack/damage/retainedfates/no-actionconsumer approvedpendingnative. No nativepassorcoverageclaimed.",
+      "PositiveownFlowpayment/tap/Destroy/Discard/Instantpermission/Ponder/Embodiment/paidcosttiming/Heroeffects/support/fullcarduntested/uncredited. ForeignFlowinitialpositionadmittedonly, creation/controltransferprovenanceuncredited. Modesandnaturalhealthonlyasper_case, notthreefour-livefixtures. Existingholdsuntouched.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1370.py": "f2b7bdb15f8d210d051725ab525c2c15e82f4a1788dbee9eab04274af42013e6",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "mode_split": {
+      "four_live_cases": 1,
+      "two_live_cases": 2
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1370-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "208f373ee3416c3041d11c7567f4847d8353c582aea1524409105777296948ff"
+  },
+  "full_suite_run": false
+}

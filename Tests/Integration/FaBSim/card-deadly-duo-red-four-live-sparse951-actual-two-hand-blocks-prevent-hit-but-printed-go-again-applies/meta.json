@@ -1,0 +1,7 @@
+{
+    "name": "Deadly Duo / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:36:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, the next attack action card with 2 or less base {p} you play this combat chain gets +2{p}.\n\n**Go again** ActualtwoHandAAdef3eachblock6>=printedpower; damage0/HP20/nohit/Stack0, but unconditionalprintedGArestoresAP1onlyatresolution/final. ActualBluecost0/1/2/R0/2/1, ownedsourceandblockersGY, realownDeckmarkerretained/Banish0. Positivehitbuff/draw/exile/Tiger branch untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deadly_duo_red"
+}

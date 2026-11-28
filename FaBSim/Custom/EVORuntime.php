@@ -75,11 +75,46 @@ function FaBEVOBlockLegal(int $p,array $f): bool {
  if(FaBHasType($o,'Equipment')&&(in_array($b,['lay_waste','out_pace'],true)||($b==='burn_rubber'&&FaBARCEffect(intval($s['attacker']),'ARC_BOOSTED')>=2)))return false;
  if($b==='heavy_artillery'&&FaBWTRIsAttackAction($o)&&intval(CardCost($o->CardID))<FaBEvoCount(intval($s['attacker'])))return false;return true;
 }
+function FaBEVOQueuePhantomDestroyed(int $controller,object $source): void {
+ $uid=intval($source->UniqueID??0);
+ if($uid<1||$source->CardID!=='phantom_tidemaw_blue'||HasNoAbilities($source)
+  ||intval($source->Controller??$controller)!==$controller||!FaBSeatIsLive($controller))return;
+ // Initial fixture permanents can predate the ordinary Arena-entry callback.
+ $entry=intval(FaBARCCard($uid,'evoPhantomEntry',0));
+ if($entry<1){$entry=1;FaBARCSetCard($uid,'evoPhantomEntry',$entry);}
+ FaBROSQueue($controller,'phantom_tidemaw_blue',$uid,['rosEvent'=>'evoPhantomDestroyed','evoPhantomEntry'=>$entry]);
+}
+function FaBEVOResolvePhantomDestroyed(int $controller,object $layer): void {
+ $params=is_array($layer->Params??null)?$layer->Params:[];
+ $uid=intval($layer->SourceUniqueID??0);$entry=intval($params['evoPhantomEntry']??0);
+ if(($layer->CardID??'')!=='phantom_tidemaw_blue'||($layer->Kind??'')!=='ABILITY'
+  ||($params['rosEvent']??'')!=='evoPhantomDestroyed'
+  ||intval($layer->Controller??0)!==$controller||!FaBSeatIsLive($controller)||$uid<1||$entry<1)return;
+ $found=FaBFindUID($uid);
+ if(!$found||$found['zone']!=='Arena'||intval($found['object']->UniqueID??0)!==$uid
+  ||intval(FaBARCCard($uid,'evoPhantomEntry',0))!==$entry)return;
+ // The earned layer keeps its controller; later blanking, identity and control
+ // changes do not cancel it. A new Arena entry is a different object.
+ FaBEVOCounter($found['object'],'POWER',intval(FaBObjectCounters($found['object'])['POWER']??0)+1);
+}
 function FaBEVODestroyed(int $p,object $o,string $zone): void {
  if($zone==='Arena'&&FaBHasType($o,'Item'))FaBEVOAdd($p,'ITEM_DESTROYED');
- if(FaBHasType($o,'Illusionist')&&in_array($zone,['Arena','Equipment','CombatChain'],true))foreach(FaBMONArena($p,'phantom_tidemaw') as $r){$f=FaBIdentityFromMZ($r);FaBEVOCounter($f['object'],'POWER',intval(FaBObjectCounters($f['object'])['POWER']??0)+1);}
+ if(!FaBHasType($o,'Illusionist')||!in_array($zone,['Arena','Equipment','CombatChain'],true))return;
+ $controller=intval($o->Controller??$p)?:$p;$sources=[];
+ foreach(FaBMONArena($controller,'phantom_tidemaw') as $ref){$f=FaBIdentityFromMZ($ref);if($f)$sources[intval($f['object']->UniqueID)]=$f['object'];}
+ // MONDestroy calls this after moving the destroyed permanent. Its own
+ // leaves/destruction trigger therefore needs the pre-move snapshot as well.
+ if($zone==='Arena'&&$o->CardID==='phantom_tidemaw_blue')$sources[intval($o->UniqueID??0)]=$o;
+ foreach($sources as $source)FaBEVOQueuePhantomDestroyed($controller,$source);
 }
-function FaBEVOAfterMove(int $p,object $o,string $from,string $to): void {if($from==='Arena'&&$to!=='Arena'&&$o->CardID==='stasis_cell_blue')FaBRunSourceMacro('ResolveCard',$p,$o->CardID,['mzID'=>FaBDTDSource(intval($o->UniqueID)),'evoEvent'=>'stasis']);}
+function FaBEVOAfterMove(int $p,object $o,string $from,string $to): void {
+ if($to==='Arena'&&$from!=='Arena'){
+  $uid=intval($o->UniqueID??0);$entry=intval(FaBARCCard($uid,'evoPhantomEntry',0));
+  // Track later entries even if a tracked physical card has changed identity.
+  if($uid>0&&($o->CardID==='phantom_tidemaw_blue'||$entry>0))FaBARCSetCard($uid,'evoPhantomEntry',max(0,$entry)+1);
+ }
+ if($from==='Arena'&&$to!=='Arena'&&$o->CardID==='stasis_cell_blue')FaBRunSourceMacro('ResolveCard',$p,$o->CardID,['mzID'=>FaBDTDSource(intval($o->UniqueID)),'evoEvent'=>'stasis']);
+}
 function FaBEVOStart(int $p): void {
  foreach(FaBChoiceRefs($p,'Arena') as $r){$o=FaBIdentityFromMZ($r)['object'];if(HasNoAbilities($o))continue;if($o->CardID==='contest_the_mindfield_blue'){FaBMONDestroy(intval($o->UniqueID));continue;}
  if(FaBHasType($o,'Item')&&FaBHasKeyword($o,'Crank')&&str_contains((string)CardFunctional_text_plain($o->CardID),'At the start of your turn'))FaBRunSourceMacro('StartTurn',$p,$o->CardID,['mzID'=>$r]);}

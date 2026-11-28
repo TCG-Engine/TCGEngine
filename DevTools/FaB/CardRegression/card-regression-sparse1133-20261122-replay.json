@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-express-lightning-red-four-live-sparse1133-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1133-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1133-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f17f0ecc28177b92d90eb5a5fb2e6dc65b9b4993384d2c53548a932ead6dc125",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a586a373e670d1833dee033006d14bb6e58a9ed7685dc9c29e8439f0dec8b7e3",
+        "actions.json": "3239c02fbeb8758c51c7ca682d3bbf04dcd42145db0c71b45ae9003e822b56ae",
+        "assertions.json": "e8554ea9d90597b1a86a0bcde0ada03dffc8f17b9d820d313a383254676db9bc",
+        "expected_final_gamestate.txt": "ad790f05ee8e3f9ac938f23b6423cc834d8487384eb9725bebf9f75e3e7dadab",
+        "meta.json": "81a6764ccc756f436cc4e907afc9e1e3edee579e33287eb46856282300141378"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

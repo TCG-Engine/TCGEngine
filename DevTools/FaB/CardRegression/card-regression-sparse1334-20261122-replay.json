@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ser-boltyn-breaker-of-dawn-two-live-sparse1334-real-soul-reaction-funds-seven-then-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1334-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1334-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3bb45e06f8357bcb0c9ba0ab86d8378abefec02cbfd483912bb4ec53980537a9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f780db89b95da9c64518745c57ecb7174a7cea75345cc611d8d29a989c1766f",
+        "actions.json": "fa92247d526b8ba681c57ac152d53d9901eaa2b8ae419354aa2aa12a12b4995e",
+        "assertions.json": "632f0cc3f92037bd9f828d4f132d064706a2b91a7aa540e44501ea12a8e6a3b4",
+        "expected_final_gamestate.txt": "a400aa9744662fd7d5a04325d151d7c99d20b6a7ac9243750a32ea49132bbb2f",
+        "meta.json": "b336bb0cc4876cd228a58fefda967dbb0c8174aa20d22b814bd0d462d8d2e9ec"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

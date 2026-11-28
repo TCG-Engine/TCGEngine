@@ -1,0 +1,87 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent original semantics plus exact one-query bookkeeping correction",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1165-20261122.json",
+  "source_spec_sha256": "d31a72453ecf7d0bc1fc78793781200fa47f14e2a47e827998811c82eb43761b",
+  "input_sha256": "33909925841da6283e08684a2b07957814bd1a46d542f57f28d10af0b8b31d2b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-insidious-chill-blue-four-live-sparse1165-real-three-resource-aura-enters-with-three-frost-counters-only",
+      "card_id": "insidious_chill_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db0fbb3ff777ab26a7d24cc9d1203e441d1d2e76eb376bfbeafd4a149218abbb",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "67e28a331f5157c080ecb3e86f4290f80bbdd5a98cff79c50c11a5ead1fc9bc2",
+        "expected_final_gamestate.txt": "602f8eea7efdd1a4fc53eb71c4e059645e90dc24306a1caa26681f6bc8d235c9",
+        "meta.json": "3e97083da9d95c4de035203b4fa780f2cfe957e34106e8b9bf06feffc6044dd9"
+      },
+      "fixture_sha256": "f3e5f3fbfa6a833fce6b6823569488290af9ad39f83a6cb9b1c49a9cd8b5132a",
+      "actions": 6,
+      "native_assertions": 238,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1165-20261122.json",
+      "input_sha256": "d31a72453ecf7d0bc1fc78793781200fa47f14e2a47e827998811c82eb43761b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1165-local-20261122\\save-authoring-corrected\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-insidious-chill-blue-four-live-sparse1165-real-three-resource-aura-enters-with-three-frost-counters-only",
+        "fixture_slug": "card-insidious-chill-blue-four-live-sparse1165-real-three-resource-aura-enters-with-three-frost-counters-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "d31a72453ecf7d0bc1fc78793781200fa47f14e2a47e827998811c82eb43761b",
+    "reviewer": "breadth_review independent original semantics plus exact one-query bookkeeping correction",
+    "basis": [
+      "Cached Insidious Chill is Ice Action Aura3 and enters with3 frost counters. Natural Iyslander18 has Ice eligibility; she plays it from Hand on her own turn, so her opponent-turn Ice-play event is not earned. Titanium Bauble is a Generic Resource3, not a Fusion asset or Ice play.",
+      "Actual Blue6 pays exactly3/R0/AP1to0; all four manual responders see the same owned source5 still Stack and Arena empty. Normal persistent Aura resolution places that same owned UID5 in Arena; explicit generated ResolveCard3806-3810 sets FROST3 on that actual source. There is no printed entry WHEN layer to omit.",
+      "Final physical owned/controller1 Arena5/ready2/CountersFROST3, real ownedPitch6, maxUID6/no token/RNG, natural unchanged health and noGA/AP0 are all persisted. No Ice Fusion occurs, so its separate WHEN Ice Fuse effect is unearned; positive3 counters does not satisfy the zero-counter destruction condition.",
+      "Exact corrected-spec comparison changes only steps12/checks16/value from {FROST:3} to {FAB_PLAY_ORDER:1,FROST:3}. GL1057-1059 increments fresh combatPlaySequence0 to1 and records it on the actual Stack card before Prepare/payment. This is the first and only played card; the persistent owned source retains that bookkeeping along with printed FROST3. No input, cost, life, source fate, frost amount, response, AP or branch expectation changed. The original failed attempt was an overstrict whole-map fixture oracle, not a gameplay defect."
+    ],
+    "persisted_check_review": {
+      "controls": 6,
+      "normalized_assertions": 238,
+      "author_only_omissions": 0
+    },
+    "limits": [
+      "Entry with3 counters only. No Ice-Fuse trigger layer/target/tax/counter removal, zero-counter destruction, additional-cost ordering, multiple entry interactions, hero/support/sibling/full-card correctness.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ],
+    "oracle_correction": {
+      "classification": "fixture_whole_counter_map_omitted_legitimate_play_order_bookkeeping",
+      "original_spec_sha256": "33909925841da6283e08684a2b07957814bd1a46d542f57f28d10af0b8b31d2b",
+      "changed_json_path": [
+        0,
+        "steps",
+        12,
+        "checks",
+        16,
+        "value"
+      ],
+      "before": "{\"FROST\":3}",
+      "after": "{\"FAB_PLAY_ORDER\":1,\"FROST\":3}",
+      "source": "FaBSim/Custom/GameLogic.php:1057-1059",
+      "source_sha256": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "native_rerun_scope": "Only Root may retry the unsaved corrected case; original failed receipt/input remain preserved. Reviewer performed no native execution."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1165-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2a0f0f1f9585ba84f53e7e61555adc3dd4d702c54033c399422deaf9c8abaacc"
+  },
+  "full_suite_run": false
+}

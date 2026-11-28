@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1427-20261122.json",
+  "source_spec_sha256": "2445158e092dae0c9cbd3b41e977ffb9ea96b854603f8053da51c4bd1c7a3a26",
+  "input_sha256": "2445158e092dae0c9cbd3b41e977ffb9ea96b854603f8053da51c4bd1c7a3a26",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-echoing-trap-blue-four-live-sparse1427-native-arsenal-ambush-real-three-defense-first-attack-does-not-self-match-for-discard",
+      "card_id": "echoing_trap_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5eaccd209ba83a75c062a87bf801ecafc02ba3469ae411bfe376b96a7201477",
+        "actions.json": "472844a4f2c55a13b66edfcc392d9f869bf8a90ccda2ea0be2b9f9f672e2e0d1",
+        "assertions.json": "374267d405eddba821f674fec03c6bbd46855fe6508b2e3e1d276cd49058a8a3",
+        "expected_final_gamestate.txt": "f402bd3e454a0b4652abe1c86b42cdb4bb050c97ee023ba71a1642c8cd504a38",
+        "meta.json": "1c8e5c0fa57e164b6498dcbca2095398121213279545b047c053ac2b51605712"
+      },
+      "fixture_sha256": "10b74346412ceff6d4373ad100f8c718b5123c7a9b567abc00b9b407c5c673e7",
+      "actions": 28,
+      "native_assertions": 363,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1427-20261122.json",
+      "input_sha256": "2445158e092dae0c9cbd3b41e977ffb9ea96b854603f8053da51c4bd1c7a3a26",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1427-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-echoing-trap-blue-four-live-sparse1427-native-arsenal-ambush-real-three-defense-first-attack-does-not-self-match-for-discard",
+        "fixture_slug": "card-echoing-trap-blue-four-live-sparse1427-native-arsenal-ambush-real-three-defense-first-attack-does-not-self-match-for-discard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "2445158e092dae0c9cbd3b41e977ffb9ea96b854603f8053da51c4bd1c7a3a26",
+    "source_note_sha256": "adb6b6faa2fc86c4c4135078908d8192c52c35c754b6325c8a62e6d3e0470460",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 28,
+    "query_checks": 363,
+    "persistable_assertions": 363,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_AMBUSH_ARSENAL_DEFENSE_AND_FIRST_ATTACK_SELF_MATCH_FALSE_WITH_REAL_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "echoing_trap_blue",
+        "group_id": "identity:echoing_trap_blue",
+        "native_controls": 28,
+        "persistable_assertions": 363
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld cachedUPF RangerBlockTrap with Ambush/printed3def; actualYoungAzalea20 defending seat4 and threeDori20 are legal class/natural setup. FD1 original7Arsenal4/Hand4empty, no card effect or keyword seeded. ActualGenericWoundingRed5AA0 targets adjacentHero4 beforeAP/payment/allfourresponses; spareBlue6 remains realattackerHand.",
+      "GameLogic2100 explicitly permits Arsenal Ambush cards through FaBCanBlock;2113-2116 move original7 to CombatChain and assign DEFENSE/FromZoneArsenal. Thus positive Arsenal defense is faithful, not a Hand substitute. Expected live4power/3defense/1damageHP4=19 follows printed values.",
+      "IARRuntime100-102 FaBIAREcho requires activeAA name count>1 across actual FaBARCPlayed of all live seats. Only WoundingRed5 is played once; retainedBlue6 is not played. GeneratedDefended223977-223978 tests this before any discard selection or effect. Printed trigger condition requires another same-name card already played, so no condition-earned trigger is skipped on this route. No positive Echo trigger-layer/discard implementation is endorsed.",
+      "ActualUID5 attack and7Arsenal defender, allfourmanual source/attack/defense/reaction/damage/Resolution/close cycles, cardsPlayedThisTurn{1:[woundingRed]}, exactretained6Hand/NoDiscardchooser, same7ownedGY4 and5ownedGY1 afterclose/UID7RNG0/allAPResources0/allotherzonesquiet are consistent.28controls/363persistableassertions; ordinaryCOMPLETE endpoint appropriate afterfullclose."
+    ],
+    "limits": [
+      "Only positive Ambush Arsenal defense and first-name/no-another condition with actual1damage and realattackerHand retained. PositiveEcho discard/triggerpriority, othernames/colors, Handnegative, entry/provenance, Hero/support/siblings/wholecard untested.",
+      "Pending native only; no game/test/replay, engine/repository edit, original checkout access, authentication, fullsuite or Git operation performed. Move on first unexpected native result; no expectation fitting."
+    ],
+    "positive_echo_discard_or_timing_credit": false,
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1427.py": "778d910ba6df6dd34dba72c9fe33303922cac6689a748153023dc4885b9ba4d7",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1427-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "48656c076e5ebbec015763f1c34725317719ca36c61e34c1c8624dff494b1307"
+  },
+  "full_suite_run": false
+}

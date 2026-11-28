@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shift-the-tide-of-battle-yellow-four-live-sparse1514-unbuffed-real-decimator-warrior-axe-equal-to-base",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1514-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1514-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "06038a2fb6b81826130ba2397e2e3da3662e036ac70afa5b701b94729864699f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "010b867157b2cba5b9896f2381e3d40b98f6a8a1f862ea6576c893b62260de2f",
+        "actions.json": "2b3989014040b1b4e9ea0955e8d55317c37c6c0f3dbb068b9c96b550f1dec305",
+        "assertions.json": "b8c73c2c2e2b96739d24996070244ffe99396f8f70667bc34684dfe1597b1f38",
+        "expected_final_gamestate.txt": "b80a03843bc7e71a637a5965946a3719aaf44ac2331b8019626542b1f6ddd9f7",
+        "meta.json": "75afde0f7a6a2df1a0bfb312292b2575f102fca22238c8c6378bea3b8c636db6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

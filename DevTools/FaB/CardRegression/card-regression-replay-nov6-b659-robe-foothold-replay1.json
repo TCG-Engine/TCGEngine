@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch659.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T22:56:17.183654+00:00",
+  "fixtures": [
+    {
+      "slug": "card-robe-of-repentance-four-live-real-destroy-captured-blood-debt-face-down-choice",
+      "fixture_sha256": "765aacbaa2c63dce449def8e94fabd288a94a1eb3c08f39d9798096a2ce64753",
+      "passed": true,
+      "result": "[PASS] robe_of_repentance / four live distinctive effect"
+    },
+    {
+      "slug": "card-unflinching-foothold-four-live-real-captured-same-attack-dominate-loss-and-two-hand-defenders",
+      "fixture_sha256": "d332e1f2a04cb35755a75dd4eabb900669d7552a1cccb270520f20beaf5b57f4",
+      "passed": true,
+      "result": "[PASS] unflinching_foothold / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-robe-of-repentance-four-live-real-destroy-captured-blood-debt-face-down-choice",
+      "returncode": 0,
+      "stdout": "[PASS] robe_of_repentance / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-unflinching-foothold-four-live-real-captured-same-attack-dominate-loss-and-two-hand-defenders",
+      "returncode": 0,
+      "stdout": "[PASS] unflinching_foothold / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-lyath-goldmane-vile-savant-two-live-sparse1285-real-printed-three-defense-halves-rounded-up-to-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lyath-goldmane-vile-savant-two-live-sparse1285-real-printed-three-defense-halves-rounded-up-to-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1285-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1285-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9d4bc92e9284a7a8e2179e7e29b528c28535c93f57388e9a4f7b7667197711e9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1be2dfefe2700d169aa1c6cc02a9e0692b2eca6ee2f8aa13ce45f839de133363",
+        "actions.json": "c8d37afa4af6fe7b9dfeedf22c418a0f365a1231a47936008900922fddb8977d",
+        "assertions.json": "397c5aeeb31e18fce027ce1f3370e69b623ddd2feea68c6a9e0941c0bdc48f87",
+        "expected_final_gamestate.txt": "2b0854c5f7a674f998106300a7af381cd04b66228f87961e01673271b36679b1",
+        "meta.json": "d5b2ccfade8c68bcaacc9b5c22c168fed83adf7a6550680cedd94bbf02763a2d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

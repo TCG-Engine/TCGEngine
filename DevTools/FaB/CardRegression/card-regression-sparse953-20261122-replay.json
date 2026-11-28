@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bam-bam-yellow-four-live-sparse953-actual-two-hand-blocks-preserve-real-enemy-item",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bam-bam-yellow-four-live-sparse953-actual-two-hand-blocks-preserve-real-enemy-item",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "59279224f6987a256b96a7387bd5bd2ba524d7f1900505329f4a37c318410010",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6c1ec75ebf40743f4ce81c943ac0fbe950fa71207abbdd01f67b4c32b1278366",
+        "actions.json": "ec4751855611b71af8512336dca4a46fb793b63b2fcc2d184ee431d8b3e5152d",
+        "assertions.json": "16713d95d84ad2070316528fb1522e705b94d4d731bcb6ae2cbd6eb31abc35bf",
+        "expected_final_gamestate.txt": "2525aadfa5549531f2d6135adc26d72a8beb5277f937348bf1a94fe664347bb1",
+        "meta.json": "d51c187b0d4d945d7df8323b97e5f1abc36634490f4692eaca1f1685fb46649f"
+      }
+    },
+    {
+      "slug": "card-strength-rules-all-red-four-live-sparse953-actual-two-hand-blocks-preserve-real-high-power-arsenal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-strength-rules-all-red-four-live-sparse953-actual-two-hand-blocks-preserve-real-high-power-arsenal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b3fa9820276082247cb943e9a83ce51a441d7876c21dd1dd4f63d8106c87fb86",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cfe457b8ded1067ea3e996181396cb3183b6e1c40532610f68fccdc7509cdd44",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "271fc5058a0c4f2495b95ca354b42f88f7835196592a92235afaf219528928f0",
+        "expected_final_gamestate.txt": "ead3dd8d96bd4b5a11dcf07497119a679bdc8dbb1e3bfd7f707861d38cccf06c",
+        "meta.json": "c005a1fb940328608acc7fbeaf77e5730e33b8f5828f37516fe6c08e324c08bc"
+      }
+    },
+    {
+      "slug": "card-caress-of-the-reaper-red-four-live-sparse953-actual-zero-damage-preserves-real-enemy-aura",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-caress-of-the-reaper-red-four-live-sparse953-actual-zero-damage-preserves-real-enemy-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bd718d7c5e5d2266125476fb44518a32eec7949ce0a38ea4fffef46f27fbc772",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63de278e16fe77fd0007c3d2bf1dff95a4f047b8de63a2ed1ac76f4975601b93",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "086f48f0b1a6a454402db03b07264b19f99ac7d14dc31dd3897a908ad8e54e60",
+        "expected_final_gamestate.txt": "e5e5461a6964840e1acb79eaea984c2ff5944fc49c39f6e535444e8e7f497dff",
+        "meta.json": "2fab72885c00e4781d3afccfa9f80358809d4714b840914e0ce88c699948e711"
+      }
+    },
+    {
+      "slug": "card-snuff-out-red-four-live-sparse953-actual-two-hand-blocks-preserve-own-aura-and-enemy-hand",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-snuff-out-red-four-live-sparse953-actual-two-hand-blocks-preserve-own-aura-and-enemy-hand",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse953-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "872fb5a7d8454fc3c4bfd627cdef785092f9b0f61a8ae357b3237dbbcca4e87f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f65848fe250b9c9fe07ed47c93c3c5e88d28e9752cffdbd7cb7a7b0e242a2b2f",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "3a57cfff5b5f4f96440095465621413d5bc6bc810e0c499aeb542dc37391a181",
+        "expected_final_gamestate.txt": "95074be8a2b1717e0ee7e3d6cd2297aa132ea9c510add707bc22ea5b0b7b1577",
+        "meta.json": "64163f855d11c63977b83e58f8a790583f1f43e4759567209cbab90dbae3a965"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Iyslander / actual off-turn blue nonattack Arsenal play in a real stack response",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T10:07:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Essence of Ice**\n\nIf it's not your turn, you may play blue non-attack action cards from your arsenal as though they were instants.\n\nWhenever you play an Ice card during an opponent's turn, create a Frostbite token under their control. Namedintrinsicpermissionpositive only. NaturalIyslander18 Hero2/UID2 onplayer1turn, p2AP0/R0. Realp1SigilRed5Hand castsInstant; firstmanualp1responsegivesp2Priority. Actualp2realBlue/nonIceEnergyPotion6ArsenalfaceDown1 (ActionItemcost0,pitch3) playsnativelyasInstantonlyviaIyslanderpermission, StackaboveopposingSigil5, notactualHeroactivatedability. Fourmanualupperresponses2/3/4/1; physicalItem6endsfaceupowner/controller2Arena whileSigil5remainsStackandHP1still20. Fourmanualfreshlowerresponses thenSigil5ownedGY1andHP1=23. Allotherhealth/resources/APguarded: Iyslander18/AP0 throughout. No IcecardsoFrostbitetriggernotearned. No Itemactivation/IceFrostbite/otherbluezone/ownturn/attack/negativeadmission/support/fullherocredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#iyslander"
+}

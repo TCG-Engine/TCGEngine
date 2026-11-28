@@ -1,0 +1,7 @@
+{
+    "name": "Blasmophet, the Insatiable Hunger / actual granted banish play without inherent permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:50:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanuallegalYoungLevia20/threeDori20. ExistingownedUniqueDemon5Arena1 isadmissiblefromlegalShadowBruteproducers inpriorgame; realownedBoonBlue6Banish1faceup hasBloodDebtbutNOinherentpermission/PlayableFromBanish flag. NootherBanishpermission. Nativeclick6mustuseactualmandatoryMZCHOOSEp1Arena-0 source5; permissionnotactivatedabilityorcost/doesnotmakelayer. ThenformalHero4declaration/realBlue7pitch3pay1/AP1to0/R2beforefourresponses. Actual6enterchainandcontrolledDemonsetsbase6, actual6damageHP14. Final6GY1faceup/Blue7Pitch1/Demon5readyArena1/Banish0/R2/AP0/UID7/noStackDQs. Nozero-effectflag-onlysubstitute, noDemonattack/endphase/secondplayrejection/otherpermission/uniquechoices/BloodDebt/Leviahero/producer/secondary/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blasmophet_the_insatiable_hunger FaBSim/Custom/IARRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

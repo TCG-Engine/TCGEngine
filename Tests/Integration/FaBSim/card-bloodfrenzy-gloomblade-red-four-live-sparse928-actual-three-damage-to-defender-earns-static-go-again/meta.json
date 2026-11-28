@@ -1,0 +1,7 @@
+{
+    "name": "Bloodfrenzy Gloomblade / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:23:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "You may play this from your banished zone.\n\n**Usurp**\n\nIf you've dealt damage to the defending hero this turn, this gets **go again**.\n\n**Blood Debt** Representative only: actual_three_damage_to_defender_earns_static_go_again. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bloodfrenzy_gloomblade_red"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Weeping Battleground / actual Aura banish, one arcane and three real defense",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T01:25:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manualadultBravo40attacker1/Florian40defender2. RealWoundingRed3zeroCost/AP0/fourpower noGA; no initialdefenders then realWeepingDR4Hand2cost0/bothresponses. Originalphysical4remainsStackwhileoptionaluntargetednon-tokenAura5GY2 choiceawaits; choose5\u2192Banish2 thenHeroMZCHOOSE repeatssoleopponent1damage-defaultTRP5.14atannouncement. Actual1arcaneHP1=39, onlythen4entersCC2RoleDEFENSE_REACTION/FromZoneHand/def3. Real4vs3physicaldamage1HP2=39; fullclose3GY1/4GY2/5Banish2/quietStackDQawait/APR0/RNG0/UID5. NoAurapriorhistory/positiveHeroenhancement/UPFearlytargetbinding/decline/prevention/pitchsiblings/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#weeping_battleground_red FaBSim/GeneratedCode/GeneratedMacroCode.php#weeping_battleground_red FaBSim/Custom/GameLogic.php#FaBFinishDefenseReactionLayer https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

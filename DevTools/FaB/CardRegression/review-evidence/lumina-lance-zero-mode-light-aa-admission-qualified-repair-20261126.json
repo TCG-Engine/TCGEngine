@@ -1,0 +1,171 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+  "source_spec": "card-regression-repair-lumina-zero-20261126.json",
+  "input_sha256": "e42e616444cc615986dcccdbcac7230c90081470c721d3a579c5f89bdb5aace5",
+  "fixtures": [
+    {
+      "slug": "repair-lumina-lance-yellow-four-live-20261126-zero-soul-light-aa-legal-reaction",
+      "card_id": "lumina_lance_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6d17bf652f7f32bdb7dbe89d9aeefbc7241ff3c2389a79eb9a858f81b23e0a6f",
+        "actions.json": "bc5541d790ce31e9cba6f511b37f6519f351e40db1e1d5d933500457a82eaabb",
+        "assertions.json": "65643ac7d3f998c8af5b0be952188d902257e552175c53b3d52e1d304aaecc0a",
+        "expected_final_gamestate.txt": "e1d09f7efe0961ba1e56045792b6f98b479d0d3e9686b8ead757a8853285afea",
+        "meta.json": "48a44fbb9575101a4789b903a57d686055185fcd5aca0d236edf796dfead0d45"
+      },
+      "fixture_sha256": "2cf6677f101e390cd82b3cc9c037454182c7db033683bba07d691be1abf59edc",
+      "actions": 34,
+      "native_assertions": 515,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 13,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 17,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 18,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 22,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        },
+        {
+          "step": 26,
+          "check": {
+            "kind": "defense",
+            "value": 6
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "runtime_sha256": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+      "source_spec": "card-regression-repair-lumina-zero-20261126.json",
+      "input_sha256": "e42e616444cc615986dcccdbcac7230c90081470c721d3a579c5f89bdb5aace5",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/WTRCards.php",
+    "before_sha256": "968f6e1bdbcfc098f8e30258fcc6e44df8dd10fdcb3b9ab49dfc87eab48cfd0d",
+    "candidate_sha256": "51f6b76071b181f385816ffdbb24710ca1c05f43cd3cd2a7097cb96cce32fcdc",
+    "before_runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+    "scope": "Exact Yellow Lumina bypasses erroneous Weapon fallback only after current attack/attacker checks. Existing DTD Light eligibility, payment/preparation/generated body and generic reaction priority unchanged. No generated edit.",
+    "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0"
+  },
+  "targeted_replays": {
+    "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+    "fixtures": [
+      {
+        "slug": "repair-lumina-lance-yellow-four-live-20261126-zero-soul-light-aa-legal-reaction",
+        "passed": true,
+        "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-lumina-lance-yellow-four-live-20261126-zero-soul-light-aa-legal-reaction",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "c2df1e80ec057d5c8b5eb1a7f30d4117784dd21efdbba79b7caed25b8025e700",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+        "passed": true,
+        "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-ironsong-response-red-four-live-sparse-real-hand-defense-reprise-plus-three-weapon-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "50cb00c4821a8b4b1d43ea4811bc3440d92a1012a04f9d193a0662004333d5f2",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-pummel-red-cost-zero-attack-action-excluded",
+        "passed": true,
+        "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-pummel-red-cost-zero-attack-action-excluded",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict3.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "fb9d58dcd46d1855d891568c7f58416c9fa71a8b1240735b678d71ce9edb7c13",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-pummel-red-attack-step-timing-rejected",
+        "passed": true,
+        "runtime": "7b5b41b0b7ec05e64c5566c69df398e3eb847253da9220211c5066b02be464b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-pummel-red-attack-step-timing-rejected",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lumina235\\strict4.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "06c7049ee0c6c389211eab27e931a84c3ff60c9b33e34972554fcaa0f73f5d68",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Only zeroSoul/zeroModes on actual LightAA native-qualified; no positive Soul/modes/granted-hit-trigger or target-declaration timing credit.",
+    "Existing DTD Light-only precheck may reject zero modes on non-Light attacks; source-only follow-up, not natively qualified or silently broadened here.",
+    "Official JudgeHub2295 text checked; primary-agent source/saved review, no new separate-agent approval.",
+    "Four focused strict passes, no fullsuite.",
+    "515 assertions persist. Five original live defense6 observations are author-only because unchanged FCR defense helper has no persistence adapter. Actual two defending card identities and zero damage/health/fates ARE persisted; no new cached defense oracle or framework change."
+  ],
+  "scope": "Exact Yellow Lumina avoids generic Weapon-only fallback after normal current-attack/attacker checks. Existing DTD Light gate, actual additional-cost preparation, generated body and generic response timing remain. Original zeroSoul/zeroMode LightAA/fullblock oracle and all original assertions unchanged."
+}

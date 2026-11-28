@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-nucleus-aetherbolt-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nucleus-aetherbolt-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9f6c29bebabd37c32704b5118828de074c40ec9c18b40752633235ed10624fdc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68389eb9b7c3027485eedb7f51cacf18cf01e758c118e0f17b2ea6016e28137a",
+        "actions.json": "bb0e15318a5491f44882392aef4862f83a785e64bfc07d83c77a9aa27fb97acc",
+        "assertions.json": "2f3bee0f33b775b3f430414c029cd086c124980613cad4132e65805ca33e8461",
+        "expected_final_gamestate.txt": "d3eec65286ba56f1fe9821bb89b330d61388a9db7f06862c2945417d18f11151",
+        "meta.json": "2d714d34aa160d2fb5508890a4e31ab5b87262ea510a92205307ae3089443e20"
+      }
+    },
+    {
+      "slug": "card-tap-lessons-past-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tap-lessons-past-red-two-live-sparse1413-single-opponent-default-real-damage-and-optional-hero-tap-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1413-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d288b190907df07848493f6b4876e3d378a3f21735d34ef37870bfca8f6d24f9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5305b1f764a77b574c7e1d5c7a2565b75f02d4e09fe702c00f0edc29e2eadfa",
+        "actions.json": "6463df8483b7dfbc4cd79af362f94ccfd349ce08e9ce74b8f2ac3308843c7675",
+        "assertions.json": "7e36efaaa9d612830bfcba0ed16df12f3e2967ea1efb56f0f8942cfcf400f345",
+        "expected_final_gamestate.txt": "0e7e73fb6f3e5cc38792e3d47d24f7b9d5a5b774cc2c63b723d88b26ccb26e89",
+        "meta.json": "12decb35e67716fa7eac3c2e5e51677c803ac1605cf199e7e7761dd0a30ebcb3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

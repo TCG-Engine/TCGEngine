@@ -17,8 +17,7 @@ $customDQHandlers["LAW_008#0"] = function($player, $parts, $lastDecision) {
 $leaderAbilities["LAW_008"] = function(int $player): void {
     global $playerID; $playerID = $player;
     $friendly = [];
-    foreach (['myGroundArena', 'mySpaceArena'] as $z)
-        foreach (ZoneSearch($z, AnyUnitFilter) as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $friendly[] = $mz; }
+    foreach (SWUCostUnits() as $mz) { $o = GetZoneObject($mz); if ($o !== null && empty($o->removed)) $friendly[] = $mz; }   // a COST — Always Two: the team's
     if (empty($friendly)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget($player, $friendly, "Defeat_a_friendly_unit_to_create_a_Credit", "LAW_008#0");
     SWUQueueAfterAction($player);

@@ -1,0 +1,353 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B679_ARKNIGHT_R2",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T01:54:25.069125+00:00",
+  "source_spec": "card-regression-batch679-arknight-r2.json",
+  "input_sha256": "98ee0f7b4ed12c4ce940e05e5541a087b7073011be7ee8e8fbcf61d3c97796d7",
+  "manifest_sha256": "5be12deb83372badfd00b743f76c7bc994a5e759e79d91c1a22918bf29941a24",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch679-arknight-r2-independent-source-review.json",
+    "sha256": "5f00c16981a9ebc0be62d2991d18a27989b5ff692f33c988d1d6fb474deb9ab7",
+    "unchanged_material_model_and_four_leaf_delta_reused": true
+  },
+  "original_oracle_failure": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch679-arknight-first-native-cache-oracle-classification.json",
+    "sha256": "7cbd2a7b2c8519a53d20423c1589e24fb1515364ba85318b284871c34ba08bfe",
+    "historical_failure_not_relabelled": true,
+    "engine_fix": false
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch679-arknight-r2-20261107T015154Z-6aee843a2db99.json",
+    "sha256": "3dd7dd1f0aec37cb4eb018808181930c53311ddc0fd362f83a9e119a02029bf4"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch679-arknight-r2.recording-results.json",
+    "sha256": "7b3ca3bc31370a1da258081c2a5a453064f83cd090730a3c9c49b70bbb362045"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b679-arknight-r2-native-recording\\receipt.json",
+    "sha256": "6b7175cc2208a47453982627cf4303c7b4059b5edc49362db4fa46114ee0ca6e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "arknight_ascendancy_red",
+      "group_id": "identity:arknight_ascendancy_red",
+      "slug": "card-arknight-ascendancy-red-four-live-real-rune-cost-payment-and-dominate-full-block",
+      "source_spec": "card-regression-batch679-arknight-r2.json",
+      "input_sha256": "98ee0f7b4ed12c4ce940e05e5541a087b7073011be7ee8e8fbcf61d3c97796d7",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_RUNE_COST_CAPTURED_RUNES_DOMINATE_FULL_BLOCK_R2",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-arknight-ascendancy-red-four-live-real-rune-cost-payment-and-dominate-full-block",
+      "fixture_sha256": "cb54102f7f2c9eea6b9eaf06a701e279f40e54ceae205b7efbd51f009aaa0c8d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "fb39f630f9dd64b34061826bbbdfd984771ccf4896502400191e43f4abf873e0",
+        "actions.json": "669a292acc9043cc9385776cc2ac6be905de49f6bc382524b7572590a367c38b",
+        "assertions.json": "56f22075f0490d3e20bad553131b7e43a92882f26225f5c9bcfbb5da65a53ec7",
+        "expected_final_gamestate.txt": "4e51eb216190b5e7f5b84096f92afd3a62e8121fcb35d7d049d2af399bf2a16e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb39f630f9dd64b34061826bbbdfd984771ccf4896502400191e43f4abf873e0",
+        "actions.json": "669a292acc9043cc9385776cc2ac6be905de49f6bc382524b7572590a367c38b",
+        "assertions.json": "56f22075f0490d3e20bad553131b7e43a92882f26225f5c9bcfbb5da65a53ec7",
+        "expected_final_gamestate.txt": "4e51eb216190b5e7f5b84096f92afd3a62e8121fcb35d7d049d2af399bf2a16e",
+        "meta.json": "2b4fcfae472320b2cad800538b8e381d8eaa84faadd50afecee2b11aeb8a0f1e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "fb39f630f9dd64b34061826bbbdfd984771ccf4896502400191e43f4abf873e0",
+        "actions.json": "669a292acc9043cc9385776cc2ac6be905de49f6bc382524b7572590a367c38b",
+        "assertions.json": "56f22075f0490d3e20bad553131b7e43a92882f26225f5c9bcfbb5da65a53ec7",
+        "expected_final_gamestate.txt": "4e51eb216190b5e7f5b84096f92afd3a62e8121fcb35d7d049d2af399bf2a16e",
+        "meta.json": "2b4fcfae472320b2cad800538b8e381d8eaa84faadd50afecee2b11aeb8a0f1e"
+      },
+      "actions": 47,
+      "native_assertions": 4095,
+      "actual_manual_passes": 37,
+      "actual_priority_response_passes": 36,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 9,
+        "2": 9,
+        "3": 9,
+        "4": 10
+      },
+      "schema_property_assertions": 1565,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "arknight_ascendancy_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "runechant",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "viserai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "read_the_runes_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "arknight_ascendancy_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "10": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "12": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "13": {
+          "card_id": "ironrot_helm",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "14": {
+          "card_id": "ironrot_gauntlet",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "final_UniqueIDCounter": 17,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        18,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "92ee5c1fb0904f0624a04b5f1b2dcfe70eb5470308560f0885ce55e1141a576e",
+      "native_assertion_mapping_sha256": "099a44c5a110f26e3f63bddb862a22a2914bb5067177e9c88ca902d7e617d988"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 47,
+  "total_native_assertions": 4095,
+  "total_manual_passes": 37,
+  "total_schema_property_assertions": 1565,
+  "material_findings": [
+    "ExactR2rawfive/47envelopes4095orderednativechecks/37manualactors/48preferences perendpoint/current71c53ab33 matched approvedSource5f00 and allphysicalendpoints.",
+    "ActualcontrolledthreeRunes reducepending6to3 BEFORE realBlue10/APpayment. Threegenuinecaptured15..17/physical7..9 withtargets2,4,2 resolveLIFOeachfreshfour. ActualarcaneHP2=18/HP4=19; source5helduntilitsownfreshfour, no currentNAA/ViseraiWHEN.",
+    "ActualoneHand11DEF3accepted; otherwiselegalCURRENTHand0UID12secondclickexactNOOP. BothIronrot13/14DEF1accepted; printedpower5/fullDEF5 yields0damage/noHit/HP4remains19. AllfourResolutionhandBlockUIDs[] assertions nowpass whiledeclared[11,13,14] remains. FullCloseBladeBreak/GY/UIDcleanupactualpassed.",
+    "FinalpriorRead6+primary5GY1, realBlue10Pitch1, defenders11,13,14GY4, rejected12Hand4; token7..9/virtual15..17ceased/counter17/RNG0/RAPChi0/fullquiet. No primaryhitRunecreation earned."
+  ],
+  "limits": [
+    "One actualpaidcostdiscount/capturedRuneeffects/Dominatefullblock branch. No primaryhitRunecreation/Readproducerexecution/ViseraiHero/specializationalternative/RuneGate/support/siblings/fullcardcredit. PriorReadthreeRunes is legal publicstate premise only.",
+    "R1failedcacheoracle preserved, no R1passingclaim/enginefix. R2onlyfourResolutioncachevalues corrected; actualnewSaved coverspreviouslyunrunClose. Oakindependentlyqualified/notrerunhere.",
+    "No reviewerPHP/native/replay/R/source/fullsuite/Git/remote/deniedretry. Rootfocusedreplays/registration/qualification separate. RawVersions hashbound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch679_arknight_r2_saved_readonly.py",
+    "sha256": "811c629b3c4aa0a6195d348bab6f88a3f2370c9729341ae30a148a1202620583"
+  }
+}

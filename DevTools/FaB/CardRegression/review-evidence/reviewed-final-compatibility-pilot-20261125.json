@@ -1,0 +1,203 @@
+{
+  "status": "QUALIFIED_TWO_EXPLICIT_FINAL_COMPARISON_COMPATIBILITY_CASES",
+  "classification": "TEST_ORACLE_REPRESENTATION_COMPATIBILITY_NOT_GAMEPLAY_FIX",
+  "runtime_before": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+  "runtime_after": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "policies": [
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+      "policy": {
+        "version": "resolved-source-accounting-v1",
+        "expected_raw_sha256": "f99a83ee7cc5d00bf1838450001be4dc5af6c8056bb4d540958f609c6074f6d6",
+        "card_id": "count_your_blessings_blue",
+        "review_evidence": "review-evidence/reviewed-final-compatibility-pilot-20261125.json"
+      },
+      "before_meta_sha256": "8a1243722de79e77981aa60e6c32dfbbcdd86341ac881e25482cbc76b6ed890b",
+      "candidate_meta_sha256": "4e9d86314852ca7a42a1603924ce769eca9fde63bccce8d4024f4408d10c209a",
+      "other_raw4": {
+        "initial_gamestate.txt": "28aa8940c72bcc6de386d6f5362a2fa2ca21a05d02c672a42b860366827a00f0",
+        "actions.json": "d092fc7c4cda805e63b782b6b911c7c0a735f25c94c6bd666b8e7608c7e3f591",
+        "assertions.json": "b44132288100cf836ba7b140b46b32b3dc468b769ddea9f756835f9532c777a1",
+        "expected_final_gamestate.txt": "f99a83ee7cc5d00bf1838450001be4dc5af6c8056bb4d540958f609c6074f6d6"
+      }
+    },
+    {
+      "slug": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+      "policy": {
+        "version": "resolved-source-accounting-v1",
+        "expected_raw_sha256": "ab0fe9ba6eafbcc47339d0d9b7021dd50601b177d426c731d0af7874a5d1e5ca",
+        "card_id": "aether_arc_blue",
+        "review_evidence": "review-evidence/reviewed-final-compatibility-pilot-20261125.json"
+      },
+      "before_meta_sha256": "4e588f6bf38dac7ffac56ee5bf01629707c684d9d0b351c4240403b4aa6ffcd8",
+      "candidate_meta_sha256": "7f09e12656230a7d70cf7e78ce73c397e98aadc1160e9cd5127f9a5ff42f639f",
+      "other_raw4": {
+        "initial_gamestate.txt": "07eb00521175809f60c5735737eeedc4290272f7c008538f00ceb5863f017489",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "e4a7fe5c9b00fec8c2b2d57dc7a1d3defa40fec0584bada40a9c4abebe2fe90e",
+        "expected_final_gamestate.txt": "ab0fe9ba6eafbcc47339d0d9b7021dd50601b177d426c731d0af7874a5d1e5ca"
+      }
+    }
+  ],
+  "independent_review": {
+    "reviewer": "/root/breadth_review1457",
+    "status": "APPROVED_EXACT_TWO_FIXTURE_PILOT",
+    "helper_sha256": "71e1b39a97d758d491b3ef94c3adc4f7dcd32deada7ce1d49a01cb6960cf5a57",
+    "runner_sha256": "a633f190500c1ce644b579d910d465a205ee347664f96e48ba0b533bd3a7a51a",
+    "numeric_type_guard_reviewed": true,
+    "component_controls_pass": 42,
+    "scope": "Independent source/exact metadata policy/raw4/followthrough evidence review; no independent native game claimed. Only2fullyinspected fixtures, no403clearance."
+  },
+  "component_controls_pass": 42,
+  "native_followthrough": {
+    "scope": "Native new Sigil play and real all-seat response flow from same captured board differing only retired DQ source ref. No fixture saved or policy active.",
+    "rows": [
+      {
+        "case": "CYB",
+        "variants": [
+          {
+            "status": "PASS",
+            "variant": "legacy",
+            "native_actions": 3,
+            "before_health": 11,
+            "after_health": 12,
+            "source_uid": 4,
+            "source_card": "sigil_of_solace_blue",
+            "physical_final_zone": "Graveyard",
+            "final_sha256": "d52c22221b908b05a4d15d8666c56054f351af2f62f26873a11cc17854283d38",
+            "capture": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+            "command": [
+              "C:\\xampp\\php\\php.exe",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough.php",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact\\actual-at-stop.txt",
+              "legacy",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough-CYB-legacy.txt"
+            ]
+          },
+          {
+            "status": "PASS",
+            "variant": "current",
+            "native_actions": 3,
+            "before_health": 11,
+            "after_health": 12,
+            "source_uid": 4,
+            "source_card": "sigil_of_solace_blue",
+            "physical_final_zone": "Graveyard",
+            "final_sha256": "d52c22221b908b05a4d15d8666c56054f351af2f62f26873a11cc17854283d38",
+            "capture": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+            "command": [
+              "C:\\xampp\\php\\php.exe",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough.php",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact\\actual-at-stop.txt",
+              "current",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough-CYB-current.txt"
+            ]
+          }
+        ],
+        "strict_final_text_identical": true
+      },
+      {
+        "case": "AetherArc",
+        "variants": [
+          {
+            "status": "PASS",
+            "variant": "legacy",
+            "native_actions": 5,
+            "before_health": 20,
+            "after_health": 21,
+            "source_uid": 9,
+            "source_card": "sigil_of_solace_blue",
+            "physical_final_zone": "Graveyard",
+            "final_sha256": "436bc5ee929e2cb0601ae274314fc817a452e9e8bdb44c5babba39a7c3dd9d03",
+            "capture": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+            "command": [
+              "C:\\xampp\\php\\php.exe",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough.php",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders\\actual-at-stop.txt",
+              "legacy",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough-AetherArc-legacy.txt"
+            ]
+          },
+          {
+            "status": "PASS",
+            "variant": "current",
+            "native_actions": 5,
+            "before_health": 20,
+            "after_health": 21,
+            "source_uid": 9,
+            "source_card": "sigil_of_solace_blue",
+            "physical_final_zone": "Graveyard",
+            "final_sha256": "436bc5ee929e2cb0601ae274314fc817a452e9e8bdb44c5babba39a7c3dd9d03",
+            "capture": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+            "command": [
+              "C:\\xampp\\php\\php.exe",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough.php",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders\\actual-at-stop.txt",
+              "current",
+              "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-diagnostics\\followthrough-AetherArc-current.txt"
+            ]
+          }
+        ],
+        "strict_final_text_identical": true
+      }
+    ]
+  },
+  "targeted_results": [
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+        "--max-failures=1",
+        "--compact",
+        "--verbose",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-compatibility\\replay-0.complete.log"
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "28aa8940c72bcc6de386d6f5362a2fa2ca21a05d02c672a42b860366827a00f0",
+        "actions.json": "d092fc7c4cda805e63b782b6b911c7c0a735f25c94c6bd666b8e7608c7e3f591",
+        "assertions.json": "b44132288100cf836ba7b140b46b32b3dc468b769ddea9f756835f9532c777a1",
+        "expected_final_gamestate.txt": "f99a83ee7cc5d00bf1838450001be4dc5af6c8056bb4d540958f609c6074f6d6",
+        "meta.json": "4e9d86314852ca7a42a1603924ce769eca9fde63bccce8d4024f4408d10c209a"
+      },
+      "expected_actions_assertions_initial_unchanged": true,
+      "console_tail": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-compatibility\\replay-0.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "slug": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+      "status": "PASS",
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+        "--max-failures=1",
+        "--compact",
+        "--verbose",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-compatibility\\replay-1.complete.log"
+      ],
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07eb00521175809f60c5735737eeedc4290272f7c008538f00ceb5863f017489",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "e4a7fe5c9b00fec8c2b2d57dc7a1d3defa40fec0584bada40a9c4abebe2fe90e",
+        "expected_final_gamestate.txt": "ab0fe9ba6eafbcc47339d0d9b7021dd50601b177d426c731d0af7874a5d1e5ca",
+        "meta.json": "7f09e12656230a7d70cf7e78ce73c397e98aadc1160e9cd5127f9a5ff42f639f"
+      },
+      "expected_actions_assertions_initial_unchanged": true,
+      "console_tail": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\snapshot-compatibility\\replay-1.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "live_effect_order_unchanged": true,
+  "in_play_assertions_unchanged": true,
+  "expected_snapshots_unchanged": true,
+  "other_baseline403_not_certified": true,
+  "global_failed_count_not_rescanned": true,
+  "full_suite_run": false
+}

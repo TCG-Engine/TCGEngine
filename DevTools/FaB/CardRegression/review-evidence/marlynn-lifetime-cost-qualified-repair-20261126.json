@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "source_spec": "card-regression-repair-marlynn-lifetime-cost-20261126.json",
+  "input_sha256": "da59732c1971764b6b2f454afa78d4ca40e545919cee13e8bded59385f4d8593",
+  "fixtures": [
+    {
+      "slug": "repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+      "card_id": "marlynn",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef95ea036b9fc6676fe3315c0dbbb0c832e0059b731df737ac4c1dcc4a130210",
+        "actions.json": "afc24fc85c843aaf0e6639d96d88cfe591c521f8860ba5c418df3f93149f0160",
+        "assertions.json": "789c17f5994c2e9d91de6dd71474d94eb1227521765bff1371a1228260d60188",
+        "expected_final_gamestate.txt": "ad5620f4dea5d7a96af57e135a48bf5f89ad1fd9e7bbc9ad5e8a6605268c5ea9",
+        "meta.json": "560de9eefb167280663680bd13fa9356bbf391ae429331ec77cd7088db0fab55"
+      },
+      "fixture_sha256": "a6e663db29f97453dad2ff4a78a22593d43d64ec79ffa4d73d8695919e64c634",
+      "actions": 15,
+      "native_assertions": 299,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "source_spec": "card-regression-repair-marlynn-lifetime-cost-20261126.json",
+      "input_sha256": "da59732c1971764b6b2f454afa78d4ca40e545919cee13e8bded59385f4d8593",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "59da889d7916e9921510542ad9bccc25870bf76538eb1d80e13a213d18ae06a4",
+    "candidate_sha256": "a92971196cc0b1d6a6a821bbc28a3a528ce28a87389576a5cddab3fc884f80cc",
+    "scope": "211 enroll exact two reproduced red ATTACK plays in existing context-bound ordinary-vs-activated Cog Prepare guard; ability path unaffected.214 exact named Marlynn draw ROS layer uses existing managed lifetime through generated arrow choice; dispatch stays namedroute, no universal named-event migration."
+  },
+  "targeted_replays": {
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "fixtures": [
+      {
+        "slug": "repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+        "passed": true,
+        "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\marlynn\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "1e3f0b4d87ddbb9f0eecb80014bc338cbea5a752b69a8eda40abe96f21f2d63e",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Two named red ordinary attack routes only; their positive hit abilities and untested pitchsiblings uncredited.",
+    "Marlynn native young Hero exactdrawroute, no adult/othernamed-event enrollment.",
+    "Nine isolated virtual-classification controls, not gameplay fixtures.",
+    "Primary-agent semantic/saved review; strict comparator unchanged; fullsuite unrun."
+  ],
+  "scope": "211 exact two reproduced red normalATTACK callers join existing context-bound Prepare bypass; separate activatedCogcost path retained. Original30-input2resource/two-real-Hand-block/no-hit/fullclose oracle passes each.214 exact seaMarlynn layer uses existing managed virtual lifetime without changing named dispatch; original15-input2draw-layer oracle passes through actualArrow7faceupArsenal, otherHand8, bothlayerscomplete/noextraactivation. All original assertions retained.",
+  "additional_validation": {
+    "actual_virtual_classification_checks": 9
+  }
+}

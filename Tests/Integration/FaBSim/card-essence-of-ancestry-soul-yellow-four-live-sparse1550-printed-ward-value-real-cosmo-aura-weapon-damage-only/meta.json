@@ -1,0 +1,7 @@
+{
+    "name": "Essence of Ancestry: Soul / printed Ward value becomes actual Aura-Weapon power, leave effects untested",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:35:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual natural20EnigmaMysticIllusionist/Dori/Dori/Dori legalUPF. PriorrealPotion5Aura6Cosmo7; primaryAura6hasnoPOWERcounter. ActualPotion5Instantdestroy/sourceABI8Owner0/Controller1Source5 beforefourresponses producesR2withoutAPspend. ActualprimaryAura6ArenaWeaponattackviaCosmo formallytargetsadjacentHero4beforecost, paysfullR1/AP1to0(notShield/nodiscount), source6usedStatus1/ordinaryusecounters, proxy9source6. PrintedWard2 becomesbaseweaponpower2; actualunblockedphysical2damageHP4=18/noGA/fullmanualClose. PhysicalAura6neverleavesArena; MONCloseMoveonlyretiresvirtualFromArenaATTACKproxy9, so noleaveWHENearned. PrimaryWardprevention/leavepayload remainunrun/uncredited. Characteristicinteractiononly: primaryabilitycreditfalse, noCosmo/support/group/sibling/wholecardcredit, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#essence_of_ancestry_soul_yellow FaBSim/Custom/MSTCards.php FaBSim/Custom/MSTRuntime.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php FaBSim/Custom/CRUCards.php"
+}

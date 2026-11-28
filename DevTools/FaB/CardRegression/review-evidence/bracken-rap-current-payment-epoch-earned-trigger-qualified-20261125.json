@@ -1,0 +1,169 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent exact3file source/v2epoch and tokenAction review, corrected2legalrecipes, savedall240/305assertions andactual32/38controls(29/34passes) includingSigil2to3to4to1 thenrenewedBracken1to2to3to4; actualepochpayment/layer7or8/source5/controller1/virtualOwner0/delayedMight9owner1/power6/Hero4to14/fullClosefates. Four strict root-run replay receipts checked; reviewer ran no games or writes.",
+  "runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+  "source_spec": "card-regression-repair-bracken-earth-bond-trigger-20261125.json",
+  "input_sha256": "67e25ddb6da413b896b96113eba814b663a69aeb0ee3fa5037132e93881da75d",
+  "fixtures": [
+    {
+      "slug": "repair-bracken-rap-red-four-live-20261125-real-resource-pitch-false-earned-layer-no-might-and-six-damage",
+      "card_id": "bracken_rap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1dfd653940ded3a12e3d5767e6e1392bd23fc3de8f6ab579c8e0ba47667794fc",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "0108323a08e0cb2590359e5ced20a472eea6a01b978f8ae782c6799ea0a53119",
+        "expected_final_gamestate.txt": "60d213807896f769572ad88fd22ed648b586a430c4d255425c427f05d37cbe9d",
+        "meta.json": "6a1dc25182345a679be8fdda791bc82f0625ed6e3e4f1f3ebf3be127d946447f"
+      },
+      "fixture_sha256": "bc1e735d3514c9d1599beda8f3d0b54d3bc9aab8567293c44f0fd165bc31a021",
+      "actions": 32,
+      "native_assertions": 240,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "source_spec": "card-regression-repair-bracken-earth-bond-trigger-20261125.json",
+      "input_sha256": "67e25ddb6da413b896b96113eba814b663a69aeb0ee3fa5037132e93881da75d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+      "card_id": "bracken_rap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0c9e13cb41a62a9b144bba65f10ffbc5babc5f382877ce394a96cacebf7f46b",
+        "actions.json": "e6badc1df030d352e47c38bdba10a908f8cf55040793e45b999b218171f9a5f9",
+        "assertions.json": "08f82166f668f251e0f9caa32a2146a1b7bc3cec221cd45e502b7584939bf335",
+        "expected_final_gamestate.txt": "a7caf6748874e16dbdb3b7a80828220ab30392b0fc2f2346a1de8fc6f48ac11c",
+        "meta.json": "91af0aae62c088db6828fe2e9609d89964ef3c62c2e351dd7c10d65e7d992b44"
+      },
+      "fixture_sha256": "41f1f8a24ede22bac3da0fe73365baf2deee5d2de8458f12b9df2d780e833d1b",
+      "actions": 38,
+      "native_assertions": 305,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 34,
+      "recorded_runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+      "source_spec": "card-regression-repair-bracken-earth-bond-trigger-20261125.json",
+      "input_sha256": "67e25ddb6da413b896b96113eba814b663a69aeb0ee3fa5037132e93881da75d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "restored_group_credit": 1,
+  "restored_tested_primary_identity_credit": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal_sha256": "4fc05718216c3a876e4ddc4b339beb1ba7f77930e370ab6751a908dcc90bd6ce",
+  "source_review": {
+    "reviewer": "/root/breadth_review1457",
+    "approved_source_design": true,
+    "proposal_sha256": "4fc05718216c3a876e4ddc4b339beb1ba7f77930e370ab6751a908dcc90bd6ce",
+    "scope": "Exact3file scopedannouncementepoch beforePrepare/payment,repeatpendingidempotence/resetfreshplay,re-readARCstate,epoch-boundrealEarth,queue+payloadguardsandexplicitActioncontroller. No globalFABORDER/generation changes. Nativewitnesses+focusedchecks required; reviewer no games/writes."
+  },
+  "native_receipt_sha256": "c3f7b9bc529428c59d531f0534e0b1925abe825bf1a7d6c60dcd23c9684337b1",
+  "targeted_replays": {
+    "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+    "full_suite_run": false,
+    "fixtures": [
+      {
+        "slug": "repair-bracken-rap-red-four-live-20261125-real-resource-pitch-false-earned-layer-no-might-and-six-damage",
+        "passed": true,
+        "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-bracken-rap-red-four-live-20261125-real-resource-pitch-false-earned-layer-no-might-and-six-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean1.log"
+        ],
+        "complete_log_sha256": "9e22c4325ad7454d04ac830f6e4d09684526830839da6681f3fc839835ac4976",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+        "passed": true,
+        "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-bracken-rap-red-four-live-20261125-real-earth-pitch-delayed-owned-might-foreign-instant-response-and-six-damage",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean2.log"
+        ],
+        "complete_log_sha256": "c45485dcbe9b087204f78814f4f4c340d41b77c82d096139f451e171136f711e",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+        "passed": true,
+        "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-snap-shot-red-four-live-20261125-declined-fusion-earned-layer-then-bow-rejection-and-action-control",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean3.log"
+        ],
+        "complete_log_sha256": "b95fab69aaa15ea30224ec351290d27c81d1d8d51f0064072eb97ebd0ca6a385",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+        "passed": true,
+        "runtime": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\bracken-trigger\\clean4.log"
+        ],
+        "complete_log_sha256": "0343dfdec4ff128a19bebc7893de88dd6b2b216187518e8ffa97ca352f7a4178",
+        "raw5_unchanged": true
+      }
+    ]
+  },
+  "component": {
+    "checks_passed": 45,
+    "kind": "ActualnativeELEfunctions+realHVYToken, isolatedstate/queue/type/creation; no nativeUndo/reentry/Ripple qualification.",
+    "path": "tests/bracken_epoch_test.php",
+    "sha256": "e4095a02447bd10678b3e2b8141e9d40696ee90affa83dcf642a7398f4af6a04"
+  },
+  "limits": [
+    "Red native only; Yellow/Blue untested, no sibling credit.",
+    "SameUID/reentry/prepaid/nextTurn/Ripple/Undo supported only by isolated actual-function/realHVYToken components, not native qualification.",
+    "Original quarantined wrong recording remains archived, absent from runnable corpus.",
+    "Global FAB_PLAY_ORDER bookkeeping and Snap sameUID/reentry source-only concern remain unchanged/unqualified; this repair uses its own scoped epoch.",
+    "Other233routes remain open; no breadth expansion or final fullsuite yet."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Old Favorite / real three-defense block fails six-defense bottom-deck condition",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:10:38+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_DORI20ACTOR_THREELIVEYOUNGHEROESINCLUDINGDEFENDERTUFFNUT20. PrimaryOldFavorite7Hand4printeddefense3/noeffectsormodifiers; notcast/noattackWhenCheerabilityexercised. Actor1GenericCriticalStrikeRed5Handcost1realBlue6pitch3/R2/AP0/fivepowerdeclaresHero4. DefendermakesactualnativeHandblockOldFavorite7\u2192CC4RoleDEFENSEFromHand/3defense, below6interveningWHENconditionfalse/nobottomDeckdelayedgrant. Actual5minus3=2HerodamageHP4=18. RealownedDeckWounding8alreadyexists/unchangedonecard. Atfullcloseprimary7GY4NOTbottomDeck/Deck4count1exactWounding8sameUIDorder; source5GY1/fund6Pitch1/allHandempty/allArena0/UID8RNG0/AP0R2/StackDQCCquiet. Onlyrealbelow6defense/blockdamage/ordinaryGYdestinationguard; sixplusdefense/delayedbottompositive/attackCheerToughness/triggerTiming/Hero/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#old_favorite_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

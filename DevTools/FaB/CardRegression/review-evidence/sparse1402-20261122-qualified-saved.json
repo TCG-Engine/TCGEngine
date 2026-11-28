@@ -1,0 +1,120 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1402-20261122.json",
+  "source_spec_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+  "input_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bramble-spark-blue-four-live-sparse1402-real-unfused-play-then-weapon-is-not-attack-action-no-arcane",
+      "card_id": "bramble_spark_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "58200fc22d8cd21057f28cf87dad14a21b0906440f567bdfca98af624469a05a",
+        "actions.json": "aa8c19cdf184a32215f004b4a9656beac99c105d01aeac5e9686ede0cf6f2874",
+        "assertions.json": "fa0af60a459b30fcbdac7c8e20a7b88a4376652424901dbff236d5ac561a4ff7",
+        "expected_final_gamestate.txt": "4518148e4435b5f131f20f84bd0b5269ea494a7f54a93bbdcab6677c92ce664f",
+        "meta.json": "09f3fac1a565f158e732dfccb91ff8e8ccac45d78360664f4835a2c6cb76fd60"
+      },
+      "fixture_sha256": "1f4200b715d4d6d8d6ae66924d9bcc4732ce6f491225c336abf0e4432416d182",
+      "actions": 33,
+      "native_assertions": 350,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1402-20261122.json",
+      "input_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1402-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bramble-spark-blue-four-live-sparse1402-real-unfused-play-then-weapon-is-not-attack-action-no-arcane",
+        "fixture_slug": "card-bramble-spark-blue-four-live-sparse1402-real-unfused-play-then-weapon-is-not-attack-action-no-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a7affdc5c230e9845a9b1ac3f4ad93268acd4a4b40b48f2d68e4810edf307b99",
+    "source_note_sha256": "3cf87d94fa9dd06d6f8781cdbdf8ef8eeaf99b0737b0c820e1ec8e8cd5746207",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 33,
+    "query_checks": 350,
+    "persistable_assertions": 350,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NEXT_ATTACK_ACTION_VS_WEAPON_FILTER_WITH_ACTUAL_UNFUSED_NAA_GO_AGAIN_PAYMENT_AND_PHYSICAL_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "bramble_spark_blue",
+        "group_id": "pitch-cycle:bramble_spark",
+        "native_controls": 33,
+        "persistable_assertions": 350
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld BrambleSparkBlue ElementalRunebladeAction0/GA/EarthFusion legal under natural YoungBriar20/threeDori20 four-manual UPF and owned legalRosettaThorn. Only otherHand GenericCriticalBlue7 is not Earth; optional Fusion cannot be paid, so no fused bonus or eligible reveal choice.",
+      "Real primary5 spendsAP1to0; four responses put5GY and printedGA returnsAP1. Generated1015 adds ELE_NEXT_AA arcane tag, plus fused-only power if earned. ELECards165 consumes only when FaBWTRIsAttackAction true; actual weapon/proxy is not an attack Action card. Positive later-AA retention/arcane targeting not certified.",
+      "Actual weapon6 announcement WTRCards918-928 declares adjacentHero4 before native payment; virtualATTACK8 SourceUID6/SourceZoneWeapons, physicalsource ownership1 separately asserted, no virtualOwner1 assumption. CriticalBlue7 actual pitch3 pays1 leavesR2/AP0/source6usedStatus1; four manual responses give printed2/noGA, no arcane layer/HP4still20 before physicalDamage.",
+      "Rosetta generated209014 condition FaBELEBothActions requires both realAA and NAA; only Bramble NAA played, weapon activation does not satisfy AA. Briar ELECards162 secondNAA and184 firstAADamage predicates also false. Native2physicalDamage HP4=18 and allArena0 observe no wrong arcane/aura; final5GY/7Pitch/6Weaponsused/proxy8gone/Hand0/AP0R2/UID8RNG0/quietStackDQs coherent."
+    ],
+    "limits": [
+      "Only native unfused primary play/GA and next-attack-Action-versus-weapon filter with normal weapon payment/physical damage. Positive fusion, AA arcane trigger/target timing, future buff retention, Hero effects, support identities/siblings/whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1402.py": "57af2147f0c2a1e647e91720a6f741769ddfda5d2faf9d26f647f63975723ad3",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1296-local-20261122/proposed.json": "080b33232d3659977fc75e17f06b714060687332c4979f2dee105cbb44816ecb"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_attack_action_arcane_credit": false,
+    "positive_fusion_credit": false,
+    "positive_future_buff_retention_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1402-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "266de5ef65fc1bc4771eff32f60db316fb2d933a76eafca10c3790bd5764e371"
+  },
+  "full_suite_run": false
+}

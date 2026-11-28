@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse941-20261122.json",
+  "source_spec_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+  "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-walk-the-plank-red-four-live-sparse941-actual-seven-hits-non-pirate-hero-without-tap-event",
+      "card_id": "walk_the_plank_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "960ff7f3ac6a6209fcfaca48636e263a8221f9beb178bae2212b9ae6cada53a2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "ea06b61b7cdc0275e20cb2ab8b05372faef5353492eb4f8d52591dc39b44cd5f",
+        "expected_final_gamestate.txt": "e5f3ebce89e4fa48f8d662b85651357aa063c94039b66c7cb1eb20093ef83e80",
+        "meta.json": "8bc47dbd8d223fdc3db4d6be3b43bc8cc7540a27a34d84dbbb643cbbeb416864"
+      },
+      "fixture_sha256": "84fe49fa8138896b8ae6e3f37e580e4478910285cba70d9d2350249a8645c82e",
+      "actions": 28,
+      "native_assertions": 143,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse941-20261122.json",
+      "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-walk-the-plank-red-four-live-sparse941-actual-seven-hits-non-pirate-hero-without-tap-event",
+        "fixture_slug": "card-walk-the-plank-red-four-live-sparse941-actual-seven-hits-non-pirate-hero-without-tap-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-brandish-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "brandish_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a0f93222935c3f539c27869c621c672e6734eda2271810d4e77d037b98ed413",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "cd198370f6d53021103ba8d101895357e4572d85c261a5164e8d36104751a082",
+        "expected_final_gamestate.txt": "e4a4bb64b8dd0fd8cb12227d72ac06c497802538c1b9f211603a8f6a1d9017ef",
+        "meta.json": "169076da9bb8d54b3fcc3f4e12208e0282986704104b1c26917c704189bed490"
+      },
+      "fixture_sha256": "e5be508a7bf66d09033586e998d2c30e6dd3ad89291b37cc2f41490fcff602fa",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse941-20261122.json",
+      "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-brandish-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-brandish-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pursuit-of-knowledge-blue-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "pursuit_of_knowledge_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "02cc8a4c60777fc7d8fa56b972082ac6ed393c825f7443aa17b77bcb2dd7d169",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "8a4c3c15bec445d84ad123edc27de62444262f3f2ce08717bc6c4a54fd20cc77",
+        "expected_final_gamestate.txt": "fd1825d34479b3a9cbe639f4be884ccdea0ce5b221096d85ab9418253aa111e0",
+        "meta.json": "5cc4e47ac0851e5b044e35902f534a3a7b3e1cce88df06d6413958647f949ac5"
+      },
+      "fixture_sha256": "a687a869de81fc1b124b87b0acfabcce62537a6711db02c6aa7bfbdb3bb3150d",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse941-20261122.json",
+      "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pursuit-of-knowledge-blue-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-pursuit-of-knowledge-blue-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rifting-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "rifting_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "44594b887e80f19847058aa871e37fac923918748e098ece49407db48d6263d6",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "deea70bcded4f25dac0a2d5071f26f95aef1db689ae08ad16640765db5a6f8de",
+        "expected_final_gamestate.txt": "8a50a7ec4e162fb383fdbc8332d623665b6d15028338a5a852097697f7a856c5",
+        "meta.json": "fb418335e04f88bb71a54a4162922fdc266b236611c37722f8bba16094cf2b30"
+      },
+      "fixture_sha256": "4ae992723b7eb162f466c49ef43004d0c46df630683025e7399c8352ee918d37",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse941-20261122.json",
+      "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rifting-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-rifting-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-censor-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+      "card_id": "censor_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b0a4459effad5f38f46ef358dfe7679b95021fc2dd101af0fe54248bf1a48cb0",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "9b659fe78cc49a6820964880ab2448673e7884ea2aa11f9acc21fe8ba9aa17aa",
+        "expected_final_gamestate.txt": "468e220219e294c26a2c16aa59dbb3cdb0aa7c6c5a9cb1a32ba8fdde65a0e0ff",
+        "meta.json": "2b68923a2a3ca97ea495420ce85f291ecbc63ed81348969b5ef574ebee3ee1cd"
+      },
+      "fixture_sha256": "0df92cb4dd29baa2cd25935e9469c7348d9a78098d1c4768c1da89a4714b3942",
+      "actions": 30,
+      "native_assertions": 181,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse941-20261122.json",
+      "input_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-censor-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "fixture_slug": "card-censor-red-four-live-sparse941-actual-two-hand-blocks-prevent-hit-and-primary-effect",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c37b3d477f1154f6dfa276a269acf1cdbda19b1939350747705e5b6ad11339ea",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Five printed Generic AA use legal natural20 Dorinthea, whose weapon-hit hero ability does not apply. ActualHand5/targetHero4 before assets/physicalBlue6 payment/manual4 wholecombat/source5owner1GY transport retained. Printed3/1/2/2/1 costs leaveR0/2/1/1/2. No additional effect cost or unconditional attack/defend trigger introduced.",
+      "Walk the Plank has WHENhitsPirateHero, not WHENhitsAnyHero followed by IF. Actual guarded Dorinthea4 is nonPirate, so its typed hit event never occurs and no tap-choice/hit layer is earned despite actual7physicaldamage. Source5GY, R0/AP0 and actualHP13 are correct. Positive Pirate/tap interaction is untested.",
+      "Remaining four use realGeneric defender7/8, eachdefense3, declared through two native P4Hand0 clicks and tracked to owner4GY. Six actualdefense fully blocks printed Brandish3/Pursuit4/Rifting6/Censor5. Realdamage0/HP20 with explicitattackHitfalse/Stack0 means no earned hit effect or intelligence/permission/name/weapon-buff chooser. Deck9/10 retained; supporting blockers uncredited.",
+      "Brandish standalone own Goagain is separate from its Hit buff and is recognized by current GameLogic454-476/501 parser. AP0 through DAMAGE thenAP1 atRESOLUTION/final is correct despite fullblock. Pursuit/Rifting/Censor have no own unconditionalGA and remainAP0.",
+      "All four live/manual response windows and actual physical source/cost/endstate guards coherent, no conflicting zone-count oracle or seeded outcome/history. No new hero/Tier trigger, positive-hit timing or ownership seam is exercised."
+    ],
+    "limits": [
+      "Source/spec review only; native recording and targeted clean replay remain pending Root. No PHP/native execution, T edits, network or Git mutation.",
+      "Only named typed-target-negative/main or blocking/payment/printedGA/nohit/sourcefate branches. Exact unblockedpower for blocked cards, positive Pirate/tap/hit timing/weapon-buff consumer/intelligence/instant permission/naming, siblings/support identities or whole-card behavior untested. Existing positive shared concerns remain unresolved."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse941-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "eba86fdf88b391f5a9e684ea86adbc819df1ac3d333f31c3997edef21db28732"
+  },
+  "full_suite_run": false
+}

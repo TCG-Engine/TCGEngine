@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T12:08:16.809021+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1545-20261122.json",
+  "source_spec_sha256": "0eba803e125f4ef88e1681ef22b8d9ded0c614fc711b6690427a85cd6bc220b7",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 37,
+  "native_assertions": 514,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5633,
+    "duels": 3136,
+    "four_live": 2497,
+    "recorded_primary_ids": 2781,
+    "identity_denominator": 5196,
+    "recorded_groups": 2655,
+    "group_denominator": 3324,
+    "four_live_groups": 2486,
+    "phase_qualified_scenarios_at_actual_contexts": 2270,
+    "phase_qualified_unique_groups": 2260,
+    "creation_replay_passes": 3012,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1431,
+  "scenarios": [
+    {
+      "card_id": "run_roughshod_blue",
+      "group_id": "identity:run_roughshod_blue",
+      "scenario_id": "card-run-roughshod-blue-four-live-sparse1545-real-discard-seven-then-legal-arsenal-attack",
+      "effect_branches": [
+        "prerequisite_actually_satisfied_by_native_random_discard_seven_then_legal_Arsenal_play_and_real_buffed_ten_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-run-roughshod-blue-four-live-sparse1545-real-discard-seven-then-legal-arsenal-attack",
+      "source_spec": "card-regression-sparse1545-20261122.json",
+      "source_spec_sha256": "0eba803e125f4ef88e1681ef22b8d9ded0c614fc711b6690427a85cd6bc220b7",
+      "review_evidence": "review-evidence/sparse1545-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c61c1422e65bb9eae8f6f3ddb13b5ba471cac7f4a8bc6d7f4cdb200abeb396c0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1545-20261122-replay.json",
+          "sha256": "a688309b9e916a015ed86c65978b3f04978ff7d0e1458d9631566105cb7d8c01",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

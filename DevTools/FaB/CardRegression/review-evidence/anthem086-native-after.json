@@ -1,0 +1,27 @@
+{
+  "status": "COMPLETE",
+  "runtime_before": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "spec": "card-regression-batch378.json",
+  "spec_sha256": "ae6174dead625cd05cbdf855fc2238e3ad486b0b52ec7ec9e7f5e91346612a7a",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/FaB/CardRegression/record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch378.json",
+    "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock"
+  ],
+  "started_utc": "2026-11-04T18:54:03.907842+00:00",
+  "expected_new_slugs": [
+    "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock"
+  ],
+  "existing_scenario_count": 3681,
+  "full_suite_run": false,
+  "pid": 36192,
+  "exit_code": 0,
+  "runtime_after": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "new_fixture_slugs": [
+    "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock"
+  ],
+  "new_fixture_count": 1,
+  "stderr_bytes": 0,
+  "completed_utc": "2026-11-04T18:54:40.953073+00:00"
+}

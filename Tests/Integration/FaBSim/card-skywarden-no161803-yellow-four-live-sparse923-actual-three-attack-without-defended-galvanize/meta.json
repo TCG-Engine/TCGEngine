@@ -1,0 +1,7 @@
+{
+    "name": "Skywarden no.161803 / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:52:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Galvanize** - When this defends, you may destroy an item you control. If you do, this gets +1{d}. If a Golden Cog is destroyed this way, create a Gold token. Representative only: actual_three_attack_without_defended_galvanize Sources: FaBSim/GeneratedCode/cardArrayCache.json#skywarden_no161803_yellow"
+}

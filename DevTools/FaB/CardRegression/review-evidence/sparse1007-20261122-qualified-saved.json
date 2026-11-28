@@ -1,0 +1,142 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1007-20261122.json",
+  "source_spec_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+  "input_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-evo-steel-soul-controller-blue-four-live-sparse1007-real-two-blue-cost-four-proto-arms-transforms-without-other-evo-event",
+      "card_id": "evo_steel_soul_controller_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9215590e86d43fdca30a428b7676e9c421e6de1a353d91807aaeb51f99c8d4b7",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "f05e762be40b6d2a69793256fd517a2e8a34ab18d859074d59dfd543a1437ae9",
+        "expected_final_gamestate.txt": "16775fb7617246ae1da8d031bf3e1ba117eaf2a9da9bfffacd4a5d90197c1936",
+        "meta.json": "b639993cafcc07cc97427f29db53fb90181f7b3aaa79c00fcc337dc689dfa835"
+      },
+      "fixture_sha256": "4b58a1267fcecec6d7272d6c103a5a213bf055eee3fe6e5a52f46aaff72cdb87",
+      "actions": 7,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1007-20261122.json",
+      "input_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-steel-soul-controller-blue-four-live-sparse1007-real-two-blue-cost-four-proto-arms-transforms-without-other-evo-event",
+        "fixture_slug": "card-evo-steel-soul-controller-blue-four-live-sparse1007-real-two-blue-cost-four-proto-arms-transforms-without-other-evo-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-memory-blue-four-live-sparse1007-real-two-blue-cost-four-proto-head-transforms-without-other-evo-event",
+      "card_id": "evo_steel_soul_memory_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "393eb5258dec714d77c2e9c1ba8cb0f2935c634ffdc38b01d86ab66b55151881",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "6ad4a8e0c527ec055611c1dded497fb4a772a4d1765587cf3399534770281005",
+        "expected_final_gamestate.txt": "87eeb9ef9e203209f84b14e8941b18a438baa849bce56169b0c33f58eade1495",
+        "meta.json": "3e3b8fc3d04f76a112961ea9d189cf05d9f10ff9ac985b90eee1b957eee376e6"
+      },
+      "fixture_sha256": "36c2c5cc7a58593b22780c81e7c59547e6a62022c265b986857f34ed2dba64ea",
+      "actions": 7,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1007-20261122.json",
+      "input_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-steel-soul-memory-blue-four-live-sparse1007-real-two-blue-cost-four-proto-head-transforms-without-other-evo-event",
+        "fixture_slug": "card-evo-steel-soul-memory-blue-four-live-sparse1007-real-two-blue-cost-four-proto-head-transforms-without-other-evo-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-processor-blue-four-live-sparse1007-real-two-blue-cost-four-proto-chest-transforms-without-other-evo-event",
+      "card_id": "evo_steel_soul_processor_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a4f2a0c5e8481dde37267614789a3b0ed59afe6eed5eab956bf189f42e43564",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "a1612d64f33d0e998722ef05d5ba59c1a45262a221011430c72e64dea6bf5004",
+        "expected_final_gamestate.txt": "d482a1ac7600157aba303d79db385ca3ed7c6cfe74a3d7e730508c16e04991a2",
+        "meta.json": "ba449023c37eb5fc2094246e11d1c99d0cae86923d377f9c0025d14659b0012c"
+      },
+      "fixture_sha256": "88f015bbc37264c51def60bca26801c51f7b4b74db8a2b35101a917182296cad",
+      "actions": 7,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1007-20261122.json",
+      "input_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-steel-soul-processor-blue-four-live-sparse1007-real-two-blue-cost-four-proto-chest-transforms-without-other-evo-event",
+        "fixture_slug": "card-evo-steel-soul-processor-blue-four-live-sparse1007-real-two-blue-cost-four-proto-chest-transforms-without-other-evo-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-evo-steel-soul-tower-blue-four-live-sparse1007-real-two-blue-cost-four-proto-legs-transforms-without-other-evo-event",
+      "card_id": "evo_steel_soul_tower_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dcaf8120068a7504ff693e53ed32c29cf4c240c2d9164e01132a1a7b54402ed9",
+        "actions.json": "a907406d774bb8334491a9a2f4fc1202e9fe451a7f49dab65e2cf96fdb62fb75",
+        "assertions.json": "8d25826c6f6d9fbf10fbe7214bec80f3f6df3e6f2996cd14e0bb14bab5ffe0e7",
+        "expected_final_gamestate.txt": "22c1db1efdda7f825c08d7a44792abec4bedc22b7bb651f5d550647e4cdf60cd",
+        "meta.json": "66114df2b6dd8b0a0e7ad7b07eb6516e2f8f8bc24f56fea8f01bda0ffcae592c"
+      },
+      "fixture_sha256": "260c43b6fed6b2e02db8c3685f548dcd3a7777ac106cafaa01da77099b539454",
+      "actions": 7,
+      "native_assertions": 161,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1007-20261122.json",
+      "input_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-evo-steel-soul-tower-blue-four-live-sparse1007-real-two-blue-cost-four-proto-legs-transforms-without-other-evo-event",
+        "fixture_slug": "card-evo-steel-soul-tower-blue-four-live-sparse1007-real-two-blue-cost-four-proto-legs-transforms-without-other-evo-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 1007,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5e82c6448b4ccf24ee273c6c7a00e402d95efb96520a7dd0bce2623e948c1580",
+    "findings": [
+      "Allfourprintedcost4SteelSoulEvos havecorrectactualmatchingProtoBase8slot: ControllerArms, MemoryHead, ProcessorChest, TowerLegs. LegalDash20/Blue6+7actual3+3 funding, firstpitchR3/AP1/PITCH thensecondR2/AP0. Samephysicalsource5transforms/equipsready overrealoldBase8, SUBCARDS exactoldname; noBanish/GY orlostsource.",
+      "PrintedWHENtransformsfromorintoEvoDifferentName eventqualified: oldProtoBasecacheisEquipmentBase butnotEvo. ArrivingSteelEvo doesnottransformfromanotherEvo; departingProto hasnoneoftheseabilities. ExplicitEVOCardsqualifier excludesit, so noearnedcallbacklayer isomitted. PositiveEvo-to-Evo ControllerGY/Memoryintellect/Processor3R/TowerAP triggers remainUNRUN.",
+      "Actualfourmanualresponses/roles/cost/physicalownership/slotfates/allHP20/AP/R/Stackandqueues empty pinordinarypaidtransformbranch; nofuturecallback/Temper/hero/support/sibling/fullcardcredit. Noauthor-onlydiagnosticqueries. Nativeonecleanreplayeachpending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1007-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "9bdfdbe00ac5046b9852f9c7b73b9bbbfebfaeed9b797a59303d067797eab291"
+  },
+  "full_suite_run": false
+}

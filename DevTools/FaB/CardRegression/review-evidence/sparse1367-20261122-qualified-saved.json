@@ -1,0 +1,166 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1367-20261122.json",
+  "source_spec_sha256": "300830f1ae8829d4e1b497588e8982b91fbb418eed4a8bc7be79b6f11c44221d",
+  "input_sha256": "300830f1ae8829d4e1b497588e8982b91fbb418eed4a8bc7be79b6f11c44221d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-snap-fingers-four-live-sparse1367-generic-active-attack-is-not-lightning-no-resource-or-destruction-cost",
+      "card_id": "snap_fingers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f2152ab38e0c6fa3801ce76bf51597ca67ae4beff499dc71bc15d29dc90cdae",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "60f968067f203956a2700c17003ca6b823646c59468736cae2b2523181d69f9b",
+        "expected_final_gamestate.txt": "f930770e71564d203170729f994244bb232dfe745c4e611c0bfc8a4c7decdd46",
+        "meta.json": "a2462fefb821c5e7ccb38cc24371f499afbab1fde16969431dac3e6b11a5c52e"
+      },
+      "fixture_sha256": "72b6609eaf6fdcb654549547b341133490921bbe31a2725c3da4152e69a60734",
+      "actions": 30,
+      "native_assertions": 547,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1367-20261122.json",
+      "input_sha256": "300830f1ae8829d4e1b497588e8982b91fbb418eed4a8bc7be79b6f11c44221d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-snap-fingers-four-live-sparse1367-generic-active-attack-is-not-lightning-no-resource-or-destruction-cost",
+        "fixture_slug": "card-snap-fingers-four-live-sparse1367-generic-active-attack-is-not-lightning-no-resource-or-destruction-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-meridian-pathway-four-live-sparse1367-real-non-chi-blue-pitch-and-five-ordinary-potential-resources-cannot-pay-three-chi",
+      "card_id": "meridian_pathway",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b65f816e12f9a85e69725c25853d9fe87d59899ce3e95c727515cc68e4e1e8fc",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "41d93ba5ea303d7bf329af7d6573c25fce81a54d1144892c47551370d84e6934",
+        "expected_final_gamestate.txt": "9620ef74c94c20068da7c423b027a10664e38e7055b14096b98a10d79781593f",
+        "meta.json": "2cf8575e6b3937c03596ccfa94d9f9817dbfba3786b27811c188abf1ef0fda8a"
+      },
+      "fixture_sha256": "979f76b27605e761255ebe34d75ed301df2d33033caaa7cfb68020ee936d525f",
+      "actions": 30,
+      "native_assertions": 587,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1367-20261122.json",
+      "input_sha256": "300830f1ae8829d4e1b497588e8982b91fbb418eed4a8bc7be79b6f11c44221d",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meridian-pathway-four-live-sparse1367-real-non-chi-blue-pitch-and-five-ordinary-potential-resources-cannot-pay-three-chi",
+        "fixture_slug": "card-meridian-pathway-four-live-sparse1367-real-non-chi-blue-pitch-and-five-ordinary-potential-resources-cannot-pay-three-chi",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "300830f1ae8829d4e1b497588e8982b91fbb418eed4a8bc7be79b6f11c44221d",
+    "source_note_sha256": "5d9244b8532cca56c14794d20c05e4db10bae075cdcd68c396ee8cef4b27932d",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 60,
+    "query_checks": 1134,
+    "persistable_assertions": 1134,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NATIVE_EQUIPMENT_ATTACK_TYPE_OR_CHI_COST_GUARDS_WITH_REAL_FUNDED_ATTACK",
+    "per_case": [
+      {
+        "card_id": "snap_fingers",
+        "group_id": "identity:snap_fingers",
+        "native_controls": 30,
+        "persistable_assertions": 547
+      },
+      {
+        "card_id": "meridian_pathway",
+        "group_id": "identity:meridian_pathway",
+        "native_controls": 30,
+        "persistable_assertions": 587
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld class-traitlegalstandaloneEquipmentgroups/fourmanualYoungnatural20. AuroraElementalRuneblade/LightningEssence legalforLightningRunebladeSnapArms8; EnigmaMysticIllusionist legalforMysticIllusionistMeridianLegs9. ActualGenericCriticalRed5cost1/Blue6pitch3/R2/AP0/base5; noHeroability/talentinheritance. Localcached upf_banned=false only, no externalcurrentpolicyclaim.",
+      "Snap printedInstant1destroy requirescontrolledLightningAAonactivechain. ActualownedactiveGenericCritical5 isrealAA butnotLightning; AuroraEssence doesnotchangecardtypes. OMNCards231+362-363 requiresactorattacker andFaBOMNAttackRefsLightning; filter93 checksactualobjectLightning, false. R2fullyaffords1Instantcost/AP0notrelevant; rejectbeforepayment/destroy/abilitylayer/arcane. Before/afteractualownREACTION1click useslivepower5, physicalequipment8Status2/Counters[]/TurnEffects[]/OwnerController1, resources/AP/priority/sourceUID8 unchanged.",
+      "Meridian actualCriticalBlue6pitched isGenericAA, notChi. MSTCards14 grantsWardonlyforChiTypepitch; noMST_WARD3turneffect earned. MSTCards28-31 MeridianChiCost3 andAvailableChi countsChiPoolpluseligibleChiTypeHandonly; retainedGenericBlueWounding8 isnotChi, Chi0 remains. ARCAbilities89 rejectsAvailableChi0<3 beforepayment; extraBlue8pitch3plusR2wouldsupply5ordinaryresourcesbutcannotpayChi. No099positiveobjectcost orpermissionroute performed. ExactHandindex8initial2/declaration2, aftersourceStack1, afterBlue6pitch0 verified; noHandmovement/ward/payment/sourcechange.",
+      "Both freshfourmanualsource/combatresponses producefivephysicaldamageHP4=15/noextraarcane/noGA andfullownedfatesCritical5GY1/Blue6Pitch1/FDArsenal7retained. SnapUID8; MeridianextraHand8andEquipment9/Chi0/UID9; RNG0/allArena0/equipmentready unchanged. Actual0Arsenalconsumer rejectsAP0/resourceaffordableR2. CountsSnap30/547+Meridian30/587=60controls1134persistableassertions."
+    ],
+    "limits": [
+      "Only named noLightningtarget, nonChipitch/noWard andChi-versus-ordinarypayment guards withrealnativefunding/damage/fates/consumer approvedpendingnative. No nativepass orcoverage claimed.",
+      "PositiveLightningtarget/paidability/destroy/arcane/Chi-pitchWard/ChiCostpayment/permission/aura-asInstant/prevention/WHENtiming/Hero/support/sibling/fullcardbehavior untested/uncredited. ExtraBlue8 ispotentialfundingcontrol only, notactuallypitched; existingholdsuntouched.",
+      "Only W reviewreceiptwritten; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1367.py": "4468ae9ae510aca79a0d799406a43237fe4af876021d7a6c51bc7619fef37e21",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1367-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "25f633b3ab18ccab1e838f3ad337260df741a7761bb14760aead71e123e7f1bb"
+  },
+  "full_suite_run": false
+}

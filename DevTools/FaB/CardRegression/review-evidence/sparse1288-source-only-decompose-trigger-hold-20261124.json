@@ -1,0 +1,27 @@
+{
+  "status": "SOURCE_ONLY_HELD_NO_NATIVE_EXECUTION",
+  "batch": 1288,
+  "card_ids": [
+    "felling_of_the_crown_red",
+    "plow_under_yellow"
+  ],
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "spec_sha256": "1bfd983288e3daadb1cb8ea07ac2d6d2fa86c640908c5d4da547944f30c524d5",
+  "source_note_sha256": "e446edf60a01baf9b6e76c0fd8ea21a656ee6b60f17a17c798b3b7fdd8308900",
+  "reviewer": "independent breadth_review1252",
+  "review_result": "NOT_APPROVED_AS_WRITTEN",
+  "reason": "Decompose is unconditional When this attacks, you may pay an optional cost. Empty graveyard prevents payment, not trigger generation. Draft immediate ATTACK1/Stack0 would hide missing responseable trigger layer. Static plus-four arithmetic, physical assets and actual costs are sound but selected scenario cannot qualify with this timing assertion.",
+  "classification": "SOURCE_ONLY_KNOWN_OWNED_ATTACK_TRIGGER_CAPTURE_FAMILY",
+  "confirmed_by_native": false,
+  "native_attempted": false,
+  "fixtures_saved": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "next": "Separate repair pass. Do not reprobe this shared route in breadth. No current passing fixture requires this draft.",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/ROSRuntime.php": "36dbcc7bea9b33ae47568714360c07ed4c764b0185aa0e9b01c435fa0d75b8dc",
+    "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a"
+  }
+}

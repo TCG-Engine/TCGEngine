@@ -1,0 +1,61 @@
+{
+  "status": "UNATTEMPTED_PLANNING_ONLY_FIXED_POSITIVE_ROUTE_BLOCKED_BY_EXISTING_HELD_DEPENDENCY",
+  "card_id": "back_heel_kick_blue",
+  "group_id": "pitch-cycle:back_heel_kick",
+  "fixed_primary_unchanged": true,
+  "fixed_producer": "twin_twisters_red actual Choose1 hit then next attack gain",
+  "reason": "Full pitch-family dependency gate found existing TwinTwisters early-mode declaration hold. Red uses identical mode contract; later Resolve modal cannot be blessed as a healthy native producer. No old held retry or alternate producer permitted. This blocks the selected fixed route, not proof that BackHeel has no implementation.",
+  "held_dependency_full_row": {
+    "card_id": "twin_twisters_blue",
+    "group_id": "pitch-cycle:twin_twisters",
+    "status": "source_only_unattempted_selected_route",
+    "classification": "APPROVED_PLANNING_LIMIT_ONLY_NOT_GAMEPLAY",
+    "reason": "Printed Choose One requires an early declared mode. Actual earlier Prepare entry is absent/default zero, while a real resolving Modal/body exists and is asked later. Selected early binding is unestablished; no absence, native defect or coverage claim. No positive keyword-only replacement for this chosen branch.",
+    "scope": [
+      "Only selected Twin BLUE early modal declaration concern; no executable/native/gameplay/bug/coverage/source-fix approval.",
+      "Canonical and emitted AA bodies exist; ordinary attack admission/payment/target/source infrastructure exists, not a global ability absence.",
+      "No late mode as healthy, no mode/hit/grant/GA consumer/pitch-sibling/fullcard credit; other six pool candidates remain unselected/body-uninspected.",
+      "Current c53/ab33 guards; no source repair, alternative support/primary hunt or denied retry.",
+      "Own planning entry has zero executable/native actions despite the distinct Fluxor diagnostic in shared metadata. No Role/Counters oracle or current history/permission seed introduced."
+    ],
+    "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+    "native_attempted_for_this_hold": false,
+    "native_attempted": false,
+    "confirmed_gameplay_bug": false,
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "source_fix_applied": false,
+    "evidence": {
+      "path": "review-evidence/sparse680-twin-twisters-mode-declaration-unattempted-c53.json",
+      "sha256": "7cfe3dc37cf4f710d38c9c63e907c5230070c522a2f75ada4e436c7420ba3a62",
+      "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+    },
+    "external_W_preparation_reference": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch680-fluxor-original-correct-damage-diagnostic-and-twin-limit\\planning-holds.json",
+      "sha256": "c377c01ee5182bad03d217c47e7cba612675d1331504dd72981844e496fff2a5"
+    }
+  },
+  "held_ledger_sha256": "24acfbb88f43ba764200165db59884e7d4311831b1fa29446270a7e1b56964fc",
+  "independent_printed_expectation": "Twin mode is declared before costs (CR5.1.4a); its actual hit grants next attack+1 this chain. If the same-chain BlueBackHeel follows, true Combo replaces gain1 with2, power1+2=3. No native outcome has established BackHeel correctness.",
+  "source_only_additional_concern": "WTRCardPlayed consumes NEXT_ATTACK before OUTPlayed stores current prior names; BackHeel replacement could use stale fallback. No native/bug/fix approval.",
+  "original_unfrozen_authoring": {
+    "script": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\prepare_nov14_batch778_back_heel_real_twisters.py",
+    "script_sha256": "4b422f6c0bfc685fd65301603c004aaa561cce5a5bc82d64fd7f0425462db3c2",
+    "partial_input": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch778-back-heel-real-twisters-positive-author\\batch778-back-heel-real-twin-hit-replacement.json",
+    "partial_input_sha256": "ed533d78760aa17d1ba8b7c511ad9d32814e20948e3f4f3664b2543dfdb11153",
+    "frozen_manifest_exists": false,
+    "disposition": "NEVER_INSTALL_OR_EXECUTE: partial rejected author draft used late Twin mode; not correct full Source specimen. Files preserved, not normalized or retried."
+  },
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch778-firm-reservation.json",
+    "sha256": "4543ef6a989ed6c4b90a728e3d04a7913e124db1dbd5ab669845095272f0c438"
+  },
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "printed_rules_source": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+  "native_attempted": false,
+  "executable": false,
+  "confirmed_bug": false,
+  "source_fix": false,
+  "coverage_credit": false,
+  "no_replacement_or_alternate_hunt": true
+}

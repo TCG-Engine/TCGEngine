@@ -1,0 +1,7 @@
+{
+    "name": "Plasma Mainline / Generic item entry earns no steam-transfer ability",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:50:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_DASH20_THREEDORI20. Mainline7alreadyArenaowned1readySTEAM5(initialpositiononly/noentryorprovenancecredit). ActualGenericPotionLuck5Handcost0/AP0/Stackthenall4responses\u2192Arena1UID5readyCountersFAB_PLAY_ORDER1/noSTEAM. RealItem/cost0<=2BUTNOTMechanologist; HeroMechanologistdoesnotchangecardclass. ThusMainlineWHENfalse/noKeepMovechooser/transfer/layer/newUID, old7Arena0STEAM5same/UID7RNG0/Arena2/GY0/HandWounding6same/allHP20/R0. Actuallegal0HandWounding6consumerrejectAP0beforetarget/movement; Mainline5steamandPotionunchanged. OnlyGeneric-vs-Mechanologistentryfilter/nativeGenericItementry/retainedsteam/consumer; positiveMainlineentry5/earnedtransfer/WHENTiming/removelastcounter/destruction/Potionactivation/support/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#plasma_mainline_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/EVOCards.php FaBSim/Custom/WTRCards.php"
+}

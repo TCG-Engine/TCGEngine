@@ -1,0 +1,288 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse880-20261122.json",
+  "source_spec_sha256": "a53d1dad379147a3661754e9d29ea109fdb419dabe674b26ce19913803704c33",
+  "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-sea-floor-salvage-blue-four-live-sparse880-turns-real-opponent-yellow-graveyard-card-face-down-and-creates-gold",
+      "card_id": "sea_floor_salvage_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0ea238453781aec426b78599f1f5be65068905d55709554b2563d01f7d2f4986",
+        "actions.json": "8a8bd32bc281c0740ba7c65be3aabe8c4113e11396dc89698a6b4ec348b56e98",
+        "assertions.json": "309ca3ccf13aa7aea35076b7d42eb4954a8bddce3db1927a1c7359bcf37c9c97",
+        "expected_final_gamestate.txt": "1405aabfd5cf0e7d99c006149948d1526c8dbee93a526773bbefc1f6a539e20a",
+        "meta.json": "69e415365698d0ef53252fc4d58dd94040ac4c0694d0a4d51c0bf7522c22b18c"
+      },
+      "fixture_sha256": "6777efd42ab66210fb9dc2a6f1da7b6e4334adbac8a89f06df17211ed5e610a9",
+      "actions": 6,
+      "native_assertions": 85,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-shadowrealm-solace-blue-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "card_id": "shadowrealm_solace_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e51b078b039a67cb177aacac74759044d108d63f6cab79e66881da358d2dfbdb",
+        "actions.json": "96cf929b503085fac189c5c7c3974da37161658c9b22ea8d075df97d6a728a76",
+        "assertions.json": "8bb3faf46ab83c10d3c583125f1b560d2fe10ab9fd92b1c471cb6e32ef7702ee",
+        "expected_final_gamestate.txt": "2d9177a47165e568a699c0a22d0fdcaa76b7db57a5614ad47a65f28cbdc15abc",
+        "meta.json": "a888e30d1b651d3f38e85448496ea6ded774805572c3b88b4cd4556498b7a4ef"
+      },
+      "fixture_sha256": "f84dbe62b1d6b09d769a155032b01fcf206f68299829a4a5aa94587086bb0bfc",
+      "actions": 6,
+      "native_assertions": 81,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-shadowrealm-strength-red-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "card_id": "shadowrealm_strength_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "57a9a6f1e039390d7e2349b49c70f80ac02def1af206c8473f1f12fe4a330080",
+        "actions.json": "96cf929b503085fac189c5c7c3974da37161658c9b22ea8d075df97d6a728a76",
+        "assertions.json": "5f0a82b63793d269fd61581a3b8bb50e37141adadb19554bcf46b0b539df03ec",
+        "expected_final_gamestate.txt": "a3c94de4ca5d59361c22506b6a01bd3e956bd2759ec6f85a5a208cc28c75c273",
+        "meta.json": "8559582de580fa29446cc7289939f34c6381680573444dee8cba265baa8463af"
+      },
+      "fixture_sha256": "c67ea7b1d46be1740c8707ebb67d07f75f42c974b8ebca41ce2b91f74c46c3b1",
+      "actions": 6,
+      "native_assertions": 81,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-shadowrealm-swiftness-yellow-four-live-sparse880-returns-real-face-up-banished-zombie-to-graveyard",
+      "card_id": "shadowrealm_swiftness_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "957abc992c80fb91adc11ce77297819a47ca704b6973197b45ce54e26f5c8803",
+        "actions.json": "96cf929b503085fac189c5c7c3974da37161658c9b22ea8d075df97d6a728a76",
+        "assertions.json": "5c4c47174356dc4d5fdcd04ca76ddb492226d50c5894917b1b0161eefa2fccd9",
+        "expected_final_gamestate.txt": "0e8c7156002c4dbd1b49253c53112f4c8d8eaae123e4e98137660c6cb835cafc",
+        "meta.json": "78486f63bc31b399151d993c49274a713eb4418c42f6e8a9c48330c128860787"
+      },
+      "fixture_sha256": "8f98deff9f6bf28a8b32c2c72e9afa709c2eb449c36c5df0e000af5918b7dd16",
+      "actions": 6,
+      "native_assertions": 81,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-sinker-blue-four-live-sparse880-loads-real-top-arrow-face-up-with-printed-overpower-tag",
+      "card_id": "sinker_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1bef9ac8c2557413adde4d7c15ba46118190ca3fc0b7eaa5806eb72480cdc5a",
+        "actions.json": "c2e0bb39d588a299d199e38394fb2d4901c534feaf25a626780644900ae564c1",
+        "assertions.json": "0d0ada8419f027f383de6a49c023a88bb8351a95a7f1c4bfeb1eaa0b03f7bcbf",
+        "expected_final_gamestate.txt": "35549b9dd0c304fa2d6e29261b30463822cb9f02f169cc5653d78dee76d24a7e",
+        "meta.json": "11106a710302585d7b9c629c8fb0cf4735f34721dd2b99afa5451050c9eb8fb3"
+      },
+      "fixture_sha256": "618fc3e361be741577bb2a61bab175c8592e3f6ea06dc3eabe0fbb445bd3619e",
+      "actions": 6,
+      "native_assertions": 83,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-song-of-sinew-yellow-four-live-sparse880-reorders-all-four-real-revealed-cards",
+      "card_id": "song_of_sinew_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e048273e09007b24154957a098dbfbee5d0211e4ae9b44ec685efd1d35dca0d9",
+        "actions.json": "d7a9538b34c087bf5440a6f5e9cb24b087fdb52e5a94d3a19c81c5be7d6ae88b",
+        "assertions.json": "31f62e83a9028a84e9ddd7278f23a31faf3100c6313de468d95e300c3ef19068",
+        "expected_final_gamestate.txt": "1b4ed738255c595a66a5d2beb30b5993401bfe5836b67290bc2f9dd96940cf62",
+        "meta.json": "1c788e052b543740c9a7ff4cb4a1294486ecce01e81542ebb6902d7ca985284c"
+      },
+      "fixture_sha256": "b0dbc90807b4f3ceb6e9e379453210485bcbac9f8d676df6bd5c9a3c25a85f26",
+      "actions": 6,
+      "native_assertions": 84,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-starlight-road-blue-four-live-sparse880-chooses-lightning-flow-and-creates-owned-token",
+      "card_id": "starlight_road_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f07ea73e2094ea852fc291fa0ec624dbad6075611b87c4f67c55c9b103a5853c",
+        "actions.json": "28c1d262ce37f99b248fadefb719a7204777f945445684c91d210c0b2729f92b",
+        "assertions.json": "deb54b4ec7b32c450f114a1c5999f6121a5504e5c89544e23adf03d5fde6bade",
+        "expected_final_gamestate.txt": "9cbb1598d072cf7196a4bcd813d7a6b2aa2703b9fd4933e8459c449cc58a8640",
+        "meta.json": "e024253c3a07467cc765d5c59c34845da5e54d6a1b43085a843b4d59a1621441"
+      },
+      "fixture_sha256": "916a4dd88154e24c9be0cda87c73b9275bd57a14b5c89dfa78425e26dd556f37",
+      "actions": 6,
+      "native_assertions": 80,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-strategic-planning-red-four-live-sparse880-puts-real-opponent-graveyard-action-on-owners-deck-bottom-without-early-draw",
+      "card_id": "strategic_planning_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3b6045968f784e3ee306adae3dfdbfe2f0f8e79a78aba14bf34713d5d6112aa",
+        "actions.json": "5b5dbd10eb2ab0059a5632664414707e7ff93f274334b3b84768ff5ecbc163c4",
+        "assertions.json": "517b4405a789bcc26e59f23e19e60c33f36dd9f60e3c7982f8299eeec25f9613",
+        "expected_final_gamestate.txt": "0d7d75b6058ce6f11bf6ea260541adca09378fe34ff1f203c8c100796f731fe5",
+        "meta.json": "75c00365cd6b16f27e594aff064e5a07280f604ce63b32d104dcc801e5de84ec"
+      },
+      "fixture_sha256": "4fb5ecd7a6a71d67d16876f60c5897ed3a67e36a124cbbfe64563e8a5d91c449",
+      "actions": 7,
+      "native_assertions": 87,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    },
+    {
+      "slug": "card-sutcliffes-research-notes-red-four-live-sparse880-counts-only-real-runeblade-attack-and-orders-three-revealed-cards",
+      "card_id": "sutcliffes_research_notes_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "68cd5080a1a19ca6607bb95b9008e3d4142153a1cc67c9b9427fe92f4aba2299",
+        "actions.json": "535f6dbe82a30fa937f25f1a863a0996c234f58dd63065200a7cb611e8ca3e86",
+        "assertions.json": "50379643d474875adae4651ba69fdd710a6b8aeeb2a21babf4b15d4188e872da",
+        "expected_final_gamestate.txt": "7a1ac2fb2d7fc3fba822cb184337a7ce10d2968d82341429d9f74c69c6fc2e14",
+        "meta.json": "d4c363fd8e91f41b62326c635204ebd020e03062fa22b9c36700e01f4e0e15a1"
+      },
+      "fixture_sha256": "bff05d3def5b73db495c97a3697b67008d7e7be046a694f60537f2c92e3acc9d",
+      "actions": 7,
+      "native_assertions": 90,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse880-20261122.json",
+      "input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\save\\selected.json"
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+    "reviewed": [
+      {
+        "card": "sea_floor_salvage_blue",
+        "branch": "turns_real_opponent_yellow_graveyard_card_face_down_and_creates_gold"
+      },
+      {
+        "card": "shadowrealm_solace_blue",
+        "branch": "returns_real_face_up_banished_zombie_to_graveyard"
+      },
+      {
+        "card": "shadowrealm_strength_red",
+        "branch": "returns_real_face_up_banished_zombie_to_graveyard"
+      },
+      {
+        "card": "shadowrealm_swiftness_yellow",
+        "branch": "returns_real_face_up_banished_zombie_to_graveyard"
+      },
+      {
+        "card": "sinker_blue",
+        "branch": "loads_real_top_arrow_face_up_with_printed_overpower_tag"
+      },
+      {
+        "card": "song_of_larinkmorth_white_blue",
+        "branch": "creates_owned_frostbite_under_each_other_live_hero"
+      },
+      {
+        "card": "song_of_sinew_yellow",
+        "branch": "reorders_all_four_real_revealed_cards"
+      },
+      {
+        "card": "starlight_road_blue",
+        "branch": "chooses_lightning_flow_and_creates_owned_token"
+      },
+      {
+        "card": "strategic_planning_red",
+        "branch": "puts_real_opponent_graveyard_action_on_owners_deck_bottom_without_early_draw"
+      },
+      {
+        "card": "sutcliffes_research_notes_red",
+        "branch": "counts_only_real_runeblade_attack_and_orders_three_revealed_cards"
+      }
+    ],
+    "evidence": [
+      "Cached printed texts/types/costs and all natural hero health20 checked. Strategic Planning and Sutcliffe cost1 with real blue pitch/residue2; all other sources cost0. Starlight is Instant preserving AP1; Bard Song is ordinary Action endingAP0; other eight Actions have go-again restoringAP1.",
+      "Sea Floor Salvage starts actual opposing face-up yellow graveyardUID6, turns same card facedown in place and creates owned Gold.",
+      "Three distinct Shadowrealm cards on legal Shadow Necromancer Malice move actual face-up banished ZombieUID6 into graveyard; Solace gains exactly1 health20\u219221, whereas Strength/Swiftness receive physical movement credit only. Banish-to-graveyard is not a zombie death.",
+      "Sinker loads actual legal ordinary Ranger ArrowUID6 from top to face-up Arsenal, applies OVERPOWER tag and preserves other deckUID7; it does not draw, so no Marlynn draw trigger.",
+      "Bard hero Yorick legally plays Song of Larinkmorth; all four seats remain live/manual, and exactly P2/P3/P4 receive caster-owned Frostbites, each controlled by its destination hero, with none for caster.",
+      "Song of Sinew stages four actual deck cards and reverses all four UIDs9/8/7/6; no later attack-power outcome claimed.",
+      "Starlight modal1 maps to Lightning Flow; legal Lightning hero Aurora receives actual owned token while retaining action point.",
+      "Strategic Planning selects real opposing graveyard Action(cost0\u22642), moves actualUID7 below existing owner-deckUID8 and keeps caster real deckUID9/empty hand unchanged, guarding wrong-owner placement and early draw.",
+      "Sutcliffe actual three-card peek distinguishes Runeblade Attack Rift Bind from Generic Attack and Runeblade Nonattack; exactly one new RunechantUID10 and requested reverse order9/8/7 required."
+    ],
+    "oracle_or_flow_errors": [],
+    "engine_concerns": [],
+    "limitations": [
+      "Static source-spec review only; no game execution, tests, recordings, source edits or network. Parent verifies native replays and queue/object schema.",
+      "No claim for downstream Shadowrealm attack buffs/go-again, Sinker overpower combat, Song of Sinew attack amount, actual end-phase Strategic draw or Frostbite/Gold/Lightning Flow/Runechant future effects.",
+      "Yorick game-start/shared deck-and-graveyard integration is not exercised or certified by this isolated token-creation branch.",
+      "No credit for pitch siblings, declined/empty or ineligible choices, nonyellow Salvage/nonZombie return, alternate Starlight mode, Strategic max-cost boundary, Sutcliffe zero/multiple-match counts or independent reveal-log observability."
+    ],
+    "mutation_scope": "Only this independent-review.json written."
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse880-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "977395c50fad46cb8fec590a7ac6d714b33f34ca995c26d8de9284a89b71648f"
+  },
+  "full_suite_run": false
+}

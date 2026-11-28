@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-uzuri-four-live-sparse1282-real-face-down-cost-replaces-stealth-old-bottom-deck-and-new-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-uzuri-four-live-sparse1282-real-face-down-cost-replaces-stealth-old-bottom-deck-and-new-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1282-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1282-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7365e2fa7d48e7a61552afd7068c1e6e7a3e0aae5f81ee0f40bd2e50814536b5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efc8602feb4b70ce469b63b0ee0febb448f68fcbb916642ddfc7cd53d1bd3d1c",
+        "actions.json": "b603ac145afd5791f3617233a889d5fe4c71fecf948f5dc4b15b27ac5f12eae7",
+        "assertions.json": "a61313bd44597e9306de94b8bd9b59b202f9738308c3b9b823ed0c5d190e74db",
+        "expected_final_gamestate.txt": "0750a324de9f3e35f7458f31e2b067e513a2fe7c2a2c98fd958665108a7d2804",
+        "meta.json": "c75de12386025a60e7759041c91d22ca07bc0f0ff2780a299fba9910b6a8dcfe"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

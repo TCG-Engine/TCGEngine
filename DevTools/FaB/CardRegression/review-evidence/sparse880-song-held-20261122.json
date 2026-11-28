@@ -1,0 +1,65 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse880-song-held-20261122.json",
+  "source_spec_sha256": "1e97f34ed9e614f2f21432fb161e269a85035f1fe0fd97f2025535a9006dd538",
+  "initial_gamestate_sha256": "7a21f47818696132f6b50da7d4ff6b26b5562c610101aab86600b3f7de29def2",
+  "original_native_input_sha256": "716df78518daa8ee62180b6661466e3c7d75a1f606dd8aa174e9399fd02e436c",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p2Arena-0.Owner to equal '1', got '2'.",
+  "expected": "Caster P1 owns the Frostbite tokens the Song instructs P1 to create, under each other hero control.",
+  "observed": "After all four manual responses, P2 Arena count1/CardID Frostbite pass; its Owner is2 instead of1. Later P2 Controller and P3/P4 token ownership assertions were not reached.",
+  "rules_basis": {
+    "url": "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "rule": "1.3.1a",
+    "paraphrase": "A created card belongs to the player instructed to create it; token control can be assigned separately.",
+    "support_url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+    "support_rule": "8.5.2c"
+  },
+  "source_evidence": "Producer passes victim as first FaBHVYToken argument and caster as fourth (effect controller); owner is seventh optional argument and defaults to victim when omitted. Root relation to prior ownership producer fixes is an existing-family extension, not a new distinct shared root claim.",
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changed": false,
+  "full_suite_run": false
+}

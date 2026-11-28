@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-unified-decree-yellow-four-live-sparse1332-paid-buff-and-reprise-earns-real-deck-reaction-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unified-decree-yellow-four-live-sparse1332-paid-buff-and-reprise-earns-real-deck-reaction-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1332-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1332-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c3dffc24aeb9eec11382f3b7b48b8151fef5cde71e75b6a6d064510681180e57",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "89d3ad9dd4d9da15ce366e67639c045cf8381ab3c142c40d0dd06c6c1cc82f26",
+        "actions.json": "21ef36038cbc1ec76099a930b7f471d24e986b33719e76ef7a706de7f336049f",
+        "assertions.json": "8aae28bb99e93a64e20d6bfed456c3fd7f62050eff6abd4217ac5a0c65b46427",
+        "expected_final_gamestate.txt": "b5ed08e9908aac81511d38bf56480f771f05c946badc34e6fd6959a20c8a04de",
+        "meta.json": "eb7567d6c0f8896c02253b8f7d477d2f40c1d8914be5fc961a88af9bfd2e5ea3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

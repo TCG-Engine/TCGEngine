@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T01:30:05.608868+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1281-20261122.json",
+  "source_spec_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 19,
+  "native_assertions": 247,
+  "manual_passes": 15,
+  "totals": {
+    "saved_registered_scenarios": 5185,
+    "duels": 3094,
+    "four_live": 2091,
+    "recorded_primary_ids": 2333,
+    "identity_denominator": 5196,
+    "recorded_groups": 2207,
+    "group_denominator": 3324,
+    "four_live_groups": 2080,
+    "phase_qualified_scenarios_at_actual_contexts": 1822,
+    "phase_qualified_unique_groups": 1812,
+    "creation_replay_passes": 2564,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 983,
+  "scenarios": [
+    {
+      "card_id": "zen_tamer_of_purpose",
+      "group_id": "identity:zen_tamer_of_purpose",
+      "scenario_id": "card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+      "effect_branches": [
+        "adult_duel_actual_chi_cost_creates_tiger_and_searches_real_combo_card_then_actual_permitted_banish_attack_and_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-zen-tamer-of-purpose-two-live-sparse1281-real-chi-paid-tiger-and-combo-search-earns-actual-banish-play",
+      "source_spec": "card-regression-sparse1281-20261122.json",
+      "source_spec_sha256": "e2ea6a302043a50814a0fe932a8271e297a4dce99be37376361aecde9b9e1d1f",
+      "review_evidence": "review-evidence/sparse1281-20261122-qualified-saved.json",
+      "review_evidence_sha256": "fa11b382aafcfbfa9316e9997b0ee5a8c965be7667bbf8d3631a0740789e2513",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1281-20261122-replay.json",
+          "sha256": "d6e7010adda12fe44ed4fd95bbe4c31f502091a28a5ddea3e1fb8031a3b46c02",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

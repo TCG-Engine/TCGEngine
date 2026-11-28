@@ -1,0 +1,7 @@
+{
+    "name": "Fulminate / unfused-only payment and go again with no conditional attack bonuses",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:06:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "UNFUSEDONLY representative. LegalElementalOldhim20 ownsFulminate5, actualGenericBauble6andGenericWounding7 aretheonlyotherHandcards: noeligibleEarth/Lightningcard exists, noFusionreveal/extracost ispaid. RealBlue6pitch3paysFulminate2/R1/AP0; allfourresponses resolveNAAownprintedGAtoAP1/5ownedGY. RealnextGenericAA7cost0/spendsAP1, actualprinted4power/noGA, real4damageHP16/AP0. Hence neitherconditionalEarth+3norLightningGAbonusisgrantedwithoutfusion. No positiveFusion/choice/cost-order/reveal orwholecard/Hero/support/pitchsiblingcredit. Actualcost/ownGAandnegativeconditionalconsumeronly. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fulminate_yellow"
+}

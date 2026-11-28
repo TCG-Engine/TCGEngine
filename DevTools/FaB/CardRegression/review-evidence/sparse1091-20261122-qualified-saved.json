@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root independent review of child-authored1091 cost-only branches",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1091-20261122.json",
+  "source_spec_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+  "input_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-alpha-rampage-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-discard",
+      "card_id": "alpha_rampage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "35e9b440316c05c31ed36a21af9fef623be8f9204e2a49b8fd85f8e20236c46d",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "852b0c93df30c8c8aeb416bdf7b41b9371d9176f6f4c29f8ee0592737ceabfd7",
+        "expected_final_gamestate.txt": "09c1896547a35dd97d28e383c9ed4e859e4c1f8be3fc7811ebe521e166aa994a",
+        "meta.json": "9ea4dcbacb66f297ba837a0508b3962d844c47b26ccf7f5bf052fb3d221071d9"
+      },
+      "fixture_sha256": "ab67d9a7a814102fb9fc7531a881f46116310b2ce7f2353f5d64613e408eac6d",
+      "actions": 28,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1091-20261122.json",
+      "input_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-alpha-rampage-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-discard",
+        "fixture_slug": "card-alpha-rampage-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-discard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-ram-raider-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "card_id": "ram_raider_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6e24751f7df59f7402e30111d8213cd1f576aa4964a8e8f3a0543c76843d0499",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "2b0e27a2000c0cf380b93e9497b1aedf0b74c03af4292bf377220becb09d9c22",
+        "expected_final_gamestate.txt": "23dd5f8a46152cde850f8416b71986e1cc3fc36d554d4290b912c7d98e4d5c48",
+        "meta.json": "7dedd2d10a66e72ec647d8f7d7290fea9cb41ebce20fe6b4641c8f60558fc93d"
+      },
+      "fixture_sha256": "77ad45088874f915c351e5104b2e255d1bb6811aa07e6b63bf4e4d510fa10e54",
+      "actions": 28,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1091-20261122.json",
+      "input_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ram-raider-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "fixture_slug": "card-ram-raider-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shaden-swing-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "card_id": "shaden_swing_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8420d80a2105624ba5de830d575e8e88fd9720fda446b1ebc863751cb130b860",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "8a3081f6f338176980d259bb8925408c007cdaa91544759d547942ab439f7222",
+        "expected_final_gamestate.txt": "1d00412641e0f910d14c135492b327234b04fa3427b32691564138fbf4533840",
+        "meta.json": "6f657cfa9b7dd0b76feaac265643f3c1b94ea948b5f7a8fe1ce8b31f8ea98641"
+      },
+      "fixture_sha256": "1bf86e1b4e204384deee726dd070b90ddf8010c4d8b4e513bed8835dfdf84f9a",
+      "actions": 28,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1091-20261122.json",
+      "input_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shaden-swing-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "fixture_slug": "card-shaden-swing-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shaden-scream-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+      "card_id": "shaden_scream_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "97271d54faf523b97821083a187994b910a52fe759e0a3bfd8db1d82b27e1baa",
+        "actions.json": "c3cc60062f3cd85fd2652359f2ad427efac98fede1dac6175f450ef85780e407",
+        "assertions.json": "2c7cd4e9c2c315ca163baa42c1c005f9091e63ec43885a75e4431c885927b9b9",
+        "expected_final_gamestate.txt": "99723fbaab99e61b51c8173be3b5621d2f6feea5497682ee1b14f249b72b01c3",
+        "meta.json": "f51607cec7fc9fd04243f2d0739c5739d6d04193ce635138118261d9ce61d6c7"
+      },
+      "fixture_sha256": "042a7623c18bd292afd514888b8cc2cbecea4296020de8e0b822ccdd3b3049e6",
+      "actions": 28,
+      "native_assertions": 249,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1091-20261122.json",
+      "input_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shaden-scream-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "fixture_slug": "card-shaden-scream-red-four-live-sparse1091-sufficient-resource-bank-but-no-other-hand-card-for-mandatory-random-banish",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "95643f7c3ed9b8310599b1c8faa468daf94186f87b551d964d2ff5229b8129b5",
+    "reviewer": "/root independent review of child-authored1091 cost-only branches",
+    "basis": [
+      "Reviewed actual current WTR449-456 and DTD93-100 mandatory other-Hand guards and cached printed text. Legal natural heroes Rhinar/Levia20. Sole source5 is unavailable for its own additional cost; resource banks3/2/2/2 suffice for primary printed costs3/2/1/0, so rejection isolates other-Hand prerequisite.",
+      "Compared all four specs with verified1089 exact28input Club carrier: only primary/hero/text/bank bindings changed. Actual separate Club6 spends2, allfour manual responses,4damage/HP16, usedStatus1/noGA. No random cost/attack trigger entered. Initial and terminal resource guards agree.",
+      "Four distinct currently unrepresented groups; primary remains ownedHand, no Stack/AP/resource/assets spent on invalid attempt. Native recorder remains gate and targeted saved replay not yet run."
+    ],
+    "limits": [
+      "Rejection-only credit; no positive additional cost/payment/order/random/primary effect/intimidate/buff/GA/BloodDebt/support/sibling/full-card credit. Existing bank production unrecorded. Four-live action after primary rejection is independent weapon followthrough."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1091-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "48fb4beb4ecb7ad443c72a8f1a4971388fa14a881ab89a67d8df94ad5d246a78"
+  },
+  "full_suite_run": false
+}

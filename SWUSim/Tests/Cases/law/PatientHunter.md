@@ -65,8 +65,8 @@ WithP1GroundArena: SEC_080:0:0
 ## WHEN
 - P1>Pass
 - P1>AnswerDecision:PASS
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 P1GROUNDARENAUNIT:1:CARDID:SEC_080
@@ -106,8 +106,8 @@ WithP2Deck: [SOR_095 SOR_046 SOR_128 SEC_080]
 - P1>AnswerDecision:SHD_210
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirGroundArena-0
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN

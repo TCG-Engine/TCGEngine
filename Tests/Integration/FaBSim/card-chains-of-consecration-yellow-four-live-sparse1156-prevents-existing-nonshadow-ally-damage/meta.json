@@ -1,0 +1,7 @@
+{
+    "name": "Chains of Consecration Yellow / prevent actual non-Shadow ally damage and retain the ally",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:06:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Young Dromai20 owns existing Ashwing5 with admitted prior Ash material representation UPR_ASH1/DYN_ASH ash and Storm6; no material creation/transform/export is recorded. No red card is played or pitched, so no Dromai pitch WHEN or Dragon go again. Actual granted Action0 attack costs AP1 and computes1; real opposing youngPrism4 casts Chains7 Instant0 at ATTACK4, formally selecting actual Ally5 in Prepare before payment/priority. Four fresh upper responses resolve and bind iarConsecrate to actualUID5 before damage. Actual unblocked1 is wholly prevented, HP4 stays20, attackHitfalse. NonShadow physicalAlly5 is retained, not banished. Full combat cleanup removes proxy8, source7 ownedGY4, originalAlly5/Storm6 retained, AP1=0/R0. No Shadow banish, material producer/export, ally destruction/Phantasm, Ward, second attack/activation, future expiry, hero/support/sibling/fullcard credit. Post-use Ally Status is not asserted as literal rules exhaustion. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chains_of_consecration_yellow"
+}

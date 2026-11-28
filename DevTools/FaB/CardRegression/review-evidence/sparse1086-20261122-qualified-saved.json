@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent source-spec review of breadth_review-authored1086",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1086-20261122.json",
+  "source_spec_sha256": "e0e0117b05f8fa628a84f9369ea5cd30c1c4233bc242954bba53f2d00fb4f032",
+  "input_sha256": "e0e0117b05f8fa628a84f9369ea5cd30c1c4233bc242954bba53f2d00fb4f032",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-micro-processor-blue-four-live-sparse1086-prior-opt-resolved-unused-mode-banishes-real-top-card",
+      "card_id": "micro_processor_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0a9b026ca4024fa3624e23ba486b39467998f76de383124f8e949f23e4a3eb24",
+        "actions.json": "eec26bec3124bd02674568b3847b953e42a1dd9312a120199f3c2c53b10637d4",
+        "assertions.json": "1a33c08b6ff8efdc3f63a261126729a9f53b36d1b43069cc2204921fe14f8f50",
+        "expected_final_gamestate.txt": "c5e26231912afa20c7b4fe5edbccb4e1ccc53aa8c46c71353c354012e2c4e705",
+        "meta.json": "e55c884dd1acfed171512930517d2fa91943a3fe5c0e1d42f2322dca3b546cc1"
+      },
+      "fixture_sha256": "6b21d831ea40b085049080add8f9d9aee95e9f8ef00f8b08f4e3bebc878b9de2",
+      "actions": 6,
+      "native_assertions": 214,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1086-20261122.json",
+      "input_sha256": "e0e0117b05f8fa628a84f9369ea5cd30c1c4233bc242954bba53f2d00fb4f032",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1086-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-micro-processor-blue-four-live-sparse1086-prior-opt-resolved-unused-mode-banishes-real-top-card",
+        "fixture_slug": "card-micro-processor-blue-four-live-sparse1086-prior-opt-resolved-unused-mode-banishes-real-top-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e0e0117b05f8fa628a84f9369ea5cd30c1c4233bc242954bba53f2d00fb4f032",
+    "reviewer": "Root independent source-spec review of breadth_review-authored1086",
+    "basis": [
+      "PrintedDataDollSpecialization/eachmodeonceperturn/0Actionbanishtop, firstactivationonlyAPrefund. Exact existing prior-resolved Opt state guarded EVR_TURN2/ARC_USED_0=2/arcActions1/AP1, represents no first-use current activation credit. NaturalDataDoll20 legalMechanologistItem.",
+      "Verified ARCAbilities165 suppressesrepeatrefund whenEVR_TURNcurrent;169recordsARC_USED_2=2; ARCCards20 incrementsactionhistory. RemainingnativeARC_1/ARC_2 ActionMap modalindex1 selects2; cost0spendsAP1to0 and realitem5staysready. Generatedhandlerdispatches actualindex2 toEVRCards305banishonly.",
+      "Full6inputsequence/cost/heldvirtualABILITY SourceUniqueID5/allfourmanualresponses/fateschecked. ActualGenericAA6neitherMechanologistnorItem: noDataDollItem-entry trigger. Sameownedfaceup6Banish/nonplayable, marker7Decktop/item5retained/AP0/emptyqueues. Noauthoronlychecks."
+    ],
+    "limits": [
+      "No priorOpt/firstactivationAPtrigger/repeatedmode/Item-entry/hero/support/fullcard or held-fix credit. Explicit initial prior-use state only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1086-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "623e815e606640c11af111b232d10689e73ed17539690de6f895d85b1b09921d"
+  },
+  "full_suite_run": false
+}

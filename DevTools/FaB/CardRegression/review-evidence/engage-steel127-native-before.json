@@ -1,0 +1,86 @@
+{
+  "id": "FAB-REG-127",
+  "status": "native_confirmed_unfixed_Engage_Steel_next_Sword_power_grant_missing",
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch487-engage-steel-independent-native-before-classification.json",
+  "independent_review_sha256": "b68656986365ce96ebedcbc2ef6be3c4cb35635047953e983786652c4e33e2ec",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch487.json",
+  "input_sha256": "6535b82788256c19e6262eba2352592f94b6549387898eec87255f05f264be42",
+  "scenario_id": "card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe",
+  "first_failure": {
+    "source_step": 24,
+    "source_check_index": 64,
+    "source_checkpoint": "correct_sword_source_four_proxy9Chain_BASE3_plus_REALprimary3_EQUALS6_NO_GA_beforeWarriorDefender_fourth_actual_response",
+    "accepted_native_inputs": 12,
+    "passed_assertions_before_failure": 1041,
+    "failed_native_assertion_ordinal": 1042,
+    "original_check": {
+      "kind": "power",
+      "value": 6
+    },
+    "normalized_native_check": {
+      "type": "computed_power_equals",
+      "mzId": "p1CombatChain-0",
+      "value": 6,
+      "viewerPlayerID": 1
+    }
+  },
+  "actual_native_prefix": {
+    "error": "power  expected 6 got 3",
+    "accepted_native_inputs": 12,
+    "manual_inputs": 8,
+    "manual_actor_counts": {
+      "1": 2,
+      "2": 2,
+      "3": 2,
+      "4": 2
+    }
+  },
+  "classification": {
+    "verdict": "ENGINE_BEHAVIOR_INCORRECT_IN_TESTED_ROUTE",
+    "source_corroboration": "ActualnormalActioncompletionGL/printedownGAandDawnblade1calleridentified; selectedEngageproducerandWarriorconditionalconsumerunestablishedinboundedlookup. NoEngageidentifierinactualcompiledliteral/knownMPWcanonicalfiledoesNOTproveglobalimplementationabsence; nativefreshpowerfailurealoneconfirmstestedmissing+3behavior."
+  },
+  "expected": "Currentofficial5051/viewedMPW106 grantsnextSword+3 onprimary0Actionresolution; realDawnbladebase3mustbefreshpower6beforeanydefender. Source5wasplayed/resolved/ownGAearnedAP1; actualSword6cost1paidbyBlue7/R2AP0, actualproxy9sourcefourcompleted. No suppression/prevention/otherbuff/conditionalWarriordefenderneededforinitial+3.",
+  "observed": "After12acceptedinputs/eightactualmanualpasses, actualcomputedpowercheckexpected6reported3. ObservedstateATTACK/link1/attackUID9/Hero4/paidnopayment/allDQempty/nodefender/damage0. CachedobservedattackPower0ispreDamagecache, NOTthecomputed3witness; actualerroristhecomputedpowerobservation. No raw postfailurephysical-zone snapshot is supplied.",
+  "selected_source_file_sha256": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60"
+  },
+  "native_evidence": {
+    "results": {
+      "path": "card-regression-batch487.recording-results.json",
+      "sha256": "26c202951774bf7270c65316af81c7c2a95052e5a1cdcee1a6bdbf9bb84749a3"
+    },
+    "recording_archive": {
+      "path": "recording-runs/card-regression-batch487-20261105T163958Z-6aecb15e5bb92.json",
+      "sha256": "5fc55e4a80b3840980f2b8f28591d596d7e5f415e174dab517d4f17eb9fa8907"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch487-independent-source-review.json",
+    "sha256": "06d5175a0c444257e51f7e95a9a21bd02990b733edde1f22330621d3e695b389"
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/5051/",
+      "finding": "Current next Sword plus3 and Warrior-defender conditional; only initial plus3 reached in this probe."
+    }
+  ],
+  "limits": [
+    "ONLYtestedinitialnextSword+3grantfailureconfirmed; noWarriordefenderhasbeendeclared. Later+1conditional/expected7power/4damageHP16/fullcloseandfinalUIDcleanupUNRUN/unqualified, notsecondconfirmedissue.",
+    "No rawpostfailurezone/frame/UIDsnapshotinvented; physicalprefixfactscomefromearlierpassednativechecks, whileobserved_stateonlyexplicitfieldsquoted.",
+    "Abyssalcaseisindependentsuccess, notinvalidatedorcreditedforEngage. No spec/source/oraclechanges, fixes, PHP/native/replay/R/service/gen/fullsuite/deniedretry byreviewer."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T16:48:26.218070+00:00"
+}

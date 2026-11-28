@@ -1,0 +1,7 @@
+{
+    "name": "The Librarian / actual own Start optional Mentor reveal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:12:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20youngDori/dromai/Dori/Dori. Properclass/youngHero owns actualfacedownArsenalMentor5invalidpriorstate, no lessons/futuretrigger/historyseed. ActualemptyP1Endturn2 transitionsP2ownStart3; dedicatedPrismCardsStart enumeratesownArsenal and offers printedoptional turnfaceup MZMODAL toP2. Actualanswer1 reveals samephysicalMentor5/FaceDown0/Owner2/Controller2/Arsenalretained, no AP/resourcecost/tokencreation/lesson/draw/search/bodyclaimed. NativeStart auto resolvesbeforeActionpriority2 with nootherStart effects. Allfourmanualpasses, actualunchangedHero20/resources0/AP2=1/UID5RNG0/emptyHandDeckStackDQandallotherzones. This tests ONLY printedownStartoptionalreveal, not faceupWHENreward/firsttime/threshold/search/banish/wholeMentorability. No wrongownernegative orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#the_librarian FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/PrismCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/DeckImport.php FaBSim/ZoneClasses.php https://rules.fabtcg.com/en/cr/04-game-structure/"
+}

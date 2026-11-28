@@ -1,0 +1,63 @@
+{
+  "status": "PULPING076_ALL32_2436_SINGLE_CLEAN_REPLAY_PASS_ONE_SOURCE_VERIFIED_TRANSPORT_ERRATUM",
+  "reviewer": "Root independent of b820 source patch/checker; one private transport correction independently reviewed by b820",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+  "input_sha256": "754523090642a76bf2dd15b87a915a7448c830855a16f96eccf4ef55a9dda2d6",
+  "source_spec": "card-regression-repair-pulping076-attack-trigger.json",
+  "fixtures": [
+    {
+      "slug": "card-pulping-red-four-live-original-correct-on-attack-trigger-retains-deck-until-real-draw-six-power-discard",
+      "card_id": "pulping_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "07a678b0f83c58c3b6050e1ca593a54e088f7dc630862bdb9dfae6c0bdddd6d8",
+        "actions.json": "63aafbc97165081ce73bcdbd0196da64600670ab7a28ff42573066b6160028e9",
+        "assertions.json": "fdf88bc3810f25fbded9fb518125479b37c7cd4c1b2a56efcef4b8e84a3410b4",
+        "expected_final_gamestate.txt": "3dcea23d030a33798e3b530528e9df9188371deef33dad9a72ec3121f68293c3",
+        "meta.json": "1e887cd2f5f221c8909debd815d8690825410ef9c51e10b023a20ef5c9285d60"
+      },
+      "fixture_sha256": "26f8f340959139fea5b91e5c1177c4e5f0c670fcce684a845d279f3f78f3c607",
+      "actions": 32,
+      "native_assertions": 2436,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+      "runtime_sha256": "b3636fc051e6f5fa99c47f37c2e7f9f33d6622495d5a14c2100ca73cacfb0f29",
+      "source_spec": "card-regression-repair-pulping076-attack-trigger.json",
+      "input_sha256": "754523090642a76bf2dd15b87a915a7448c830855a16f96eccf4ef55a9dda2d6"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-pulping076-replay.json",
+    "sha256": "225155aa93c76f51a9182001190971113443d3f8302b6ba2e95457112e0ae028",
+    "passed": true
+  },
+  "source_review_sha256": "09e336a30b1f0ceba3980f6b00596be8bca1f571864a07671c69ab7cb38b28a5",
+  "components": 16,
+  "component_receipt_sha256": "50d44c0c3f01a78454babad16850211092821aa9c8368864e949a0d44e376c96",
+  "protocol_correction": {
+    "only_delta": "/0/steps/13/until/window ATTACK->PRIORITY",
+    "all2436_query_arrays_unchanged": true,
+    "planned_and_actual_actions": 32,
+    "source_review_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-pulping076-independent-window-protocol-review.json",
+    "source_review_sha256": "33de6803b421766193a85c6012f9873a01989a6a7154140d9a21ca52aadab42e",
+    "application_receipt_sha256": "a15a5a19c576ed3c54ec293757aac6b0aeeab8a7f75ef042ad142e7c681dd24f",
+    "version_note": "Initial semantic protocol GO hash8cc63fe4 was used before application and later superseded in place when reviewer bound final exact delta. Old review bytes were not backed up; no reconstruction claimed. Current bound review33de6803 is actual post-binding evidence. Application itself separately verified exactly one JSON leaf change."
+  },
+  "failed_attempt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov17-pulping076-b363-native\\actual-result.json",
+    "sha256": "5a67c297b94a8d9ef884547587a13e550c0366131f0a2b1caff31fc184f24c8e",
+    "inputs": 11,
+    "fixture_saved": false,
+    "cause": "Old private untilATTACK guard passed correct new child quorum before retention check; actual trace captured earned layer8/context. Not a source-dispatch failure or passing fixture."
+  },
+  "basis": "ActualPulping5 target/printed2payment withBlue6/R1/AP0; sourcefour then separate captured triggerfour retain sameDeck7/emptyHand/GY/noDominate before resolution. Fourthfreshresponse actuallydrawssoleRagingYellow7andrandomdiscards6power7 toownGY, grants same5Dominate; nativecombatdeals6/HP4=14, printedconditionalGArefundAP1, fulltrueclose5GYafter7/6Pitch/R1andall48manualsettings/virtual-DQ-await-payment cleanup. Alloriginal2436queries unchanged, no quantity fitting.",
+  "limits": [
+    "Exact Red quiet sole-six route only; pitch siblings, random nonsingleton pool, multi-Hand Dominate enforcement, other observers and fullcard unqualified.",
+    "16 isolated actual old/new macro dispatch/capture/resolver/epoch and DrawDiscard controls do not count as Native branches. Underlying current source hashes reused across unrelated075save-hook runtime change explicitly in source review; actual native/replay bind b363.",
+    "Source-absent observer attribution remains unqualified. No generic094/generation/Core/schema/service/fullsuite or historical corpus replay."
+  ]
+}

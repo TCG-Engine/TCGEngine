@@ -1,0 +1,7 @@
+{
+    "name": "Clash of Mountains / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:28:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends a Guardian attack, **clash** with the attacking hero. The winner creates a Seismic Surge token. Representative only: actual_two_blue_attack_not_defending_guardian_clash. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clash_of_mountains_red"
+}

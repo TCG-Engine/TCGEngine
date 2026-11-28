@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-nasreth-the-soul-harrower-four-live-sparse1534-real-ally-hit-preserves-light-soul-and-no-life-gain",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nasreth-the-soul-harrower-four-live-sparse1534-real-ally-hit-preserves-light-soul-and-no-life-gain",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1534-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1534-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "32ad9f9169c1ddb47dcbf77e90b6b0cce989dbe889b9e2140cc2b5fac7a44ef3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ffa3f525490f16227b67692aecbb340ce888d6bc0add2d11deec4d4dbb6450e5",
+        "actions.json": "513c2814fc74bc2f0b4552b21cd858bfe880b173cc7f005465420c16657173e7",
+        "assertions.json": "a2a112598461fb1a0eb688a3f6ad8f2decb333b7c49c6e1ce05ec58dad8a5a68",
+        "expected_final_gamestate.txt": "8669c3a9a993674b0de6a65311eb52aa2924a85266e2962b80d4a2d919c9c24c",
+        "meta.json": "96f1e9ded30882139c1ae12e31c5e85aa40606876aa337b1992cfb957e4d9d58"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

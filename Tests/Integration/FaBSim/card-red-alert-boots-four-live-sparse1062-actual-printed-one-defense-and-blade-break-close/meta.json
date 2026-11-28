@@ -1,0 +1,7 @@
+{
+    "name": "Red Alert Boots / four-live ordinary defense and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:31:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If an attack reaction has been played or activated this chain link, this gets +1{d}.\n\n**Blade Break** Named ordinary DEF1/Blade Break close only. Legal natural20 dorinthea owns ready Equipment5 and real Generic LeadCharge6 DEF2. Actual attacker1 Dorinthea Sword7 power3, Blue8 pays1/R2/AP0. All four live seats manually respond. Primary5 then Hand6 enter CC RoleDEFENSE, exact totalDEF3 gives damage0/noHit/HP20. Normal close destroys own Equipment5 by Blade Break, then Hand6 enters owned graveyard: p4GGY[5,6]/Equipment0. Weapon7 used/retained and Blue8Pitch. No attack reaction played or activated this chain link; Red Alert +1defense condition is false, pinned directly by persisted defenseValue before/after the real NAA block and at Damage. Mask body unactivated, no opponent life gain for Vestige replacement, no owner4 attack/stealth/hit, no life loss/token/banish/search or endphase. No author-only diagnostics or positive body/hero/support/sibling/full-card/prior-hold credit. Root independent review/native/save/replay pending. Sources: FaBSim/GeneratedCode/cardArrayCache.json#red_alert_boots"
+}

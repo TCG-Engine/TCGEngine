@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1384-20261122.json",
+  "source_spec_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+  "input_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+      "card_id": "towering_titan_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7d55cdace08cb899b27120eadfb98162e762ba1cbf462fd62bb2a91f0bf48a27",
+        "actions.json": "fc01981528ba0c0484c18ac9c56f2bdccdbb6f8fddb0b3fb7fdf4d6be814e8d7",
+        "assertions.json": "12b7219769edd8a1dade79e9e1bf7061fd7dba8320ff70ecaa204869d485116d",
+        "expected_final_gamestate.txt": "36854cc82e64aec605bd5de193baae76361fb7ef0865dec0814c58ff8085dc49",
+        "meta.json": "7a46bb41f99f8ecabebe08869a1d9b3ab34100b1bc96f3c9c367383258f77b4e"
+      },
+      "fixture_sha256": "13f8e64ea2a8638453273cb2507374fe1212b9d1cf16ec9e3f3220fcd0d89366",
+      "actions": 43,
+      "native_assertions": 404,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1384-20261122.json",
+      "input_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1384-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+        "fixture_slug": "card-towering-titan-red-four-live-sparse1384-paid-nine-cost-aura-after-action-phase-began-no-premature-ten-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "e7bf622abbcb81dff3c338c7d4a62df41f5f8467b13756039bfb4b4d51269057",
+    "source_note_sha256": "1b76558d6f5a0a39ab71b573023103b26debd957b1ce2579f2f5eea51301fc51",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 43,
+    "query_checks": 404,
+    "persistable_assertions": 404,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "BEGIN_ACTION_PHASE_TIMING_GUARD_WITH_NATIVE_NINE_COST_AURA_AND_PAID_GUARDIAN_ATTACK",
+    "per_case": [
+      {
+        "card_id": "towering_titan_red",
+        "group_id": "pitch-cycle:towering_titan",
+        "native_controls": 43,
+        "persistable_assertions": 404
+      }
+    ],
+    "basis": [
+      "New unrepresented/unheld Towering Titan Red Guardian Aura pitch cycle, cached cost9/noGA and legal YoungBravo20/threeDori20/manual4UPF. Printed trigger is beginning of Action phase, not entry or each Action. Current MAIN/ACTION phase already begun before Timesnap/Aura native plays; no next phase entered, so no destruction/+10 yet owed. CRUCards349 explicit future handler exists but its timing/body not qualified here.",
+      "Reviewed only Towering delta from approved1383 template: actual Timesnap5 earnsAP2 after four responses/virtualABI14; Aura6 costs9 funded three actualBlueBauble7/8/9 and AP2to1, noGA refund. Initial UIDmax13 rebuilt and virtual12to14 correctly rebound. Three Bauble copies plus two BlueWounding copies within limits; no extra starting AP/resources/history.",
+      "After Aura payment all threeBaubles have left Hand. ThunderQuakeBlue10 nowHand0, sole normalGuardianAA cost6/power8/onlyHeave3. Formal targetHero4 then realHand0BlueWounding11/12 eachpitch3 pays6/AP1to0/R0. Those funders are PITCHED not played, no attack chain/trigger history. Expected physicalPitch slots0..2 Baubles7/8/9 then3..4 Wounding11/12 verified, consumerRed13Hand0.",
+      "All four manual source/combat rounds retained: actual8not18/noGA/unblocked8damageHP4=12, Aura6stillArenaownedready/sameeffects/noextraLayer. Final AP0 consumer click rejects, source5then10GY/Pitch5/Hand13/Aura6/UID14/RNG0/exactzonefates coherent. No second-card ordinal guard or held positive phase/wager dependency entered."
+    ],
+    "limits": [
+      "Only native cost9/entry and before-next-beginning-Action-phase guard plus actual paidGuardianattack/damage/AP0 rejection. Future phase transition/trigger layer/destruction/+10, Heave/endphase, support identities/provenance, siblings and whole-card untested.",
+      "Approval pending native execution. No game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1384.py": "3c6adc3738de2b427d204fc041c8f0bbfaf83d8b40186d990e8c66c9191b56c3",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1383-local-20261122/proposed.json": "7c210f77212a54f3e783d0e9648aa242eb343892da3de0852638029de9421d8c",
+      "sparse1383-local-20261122/independent-review.json": "097f3d5e6ce71de8a0f537b1f774d6c70809a21ae0c2120b765993b386b7a538"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_action_phase_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1384-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f8cb395cc4614b011131fd92133031ef67ccd493727a9a9110f42f46d7b90cc0"
+  },
+  "full_suite_run": false
+}

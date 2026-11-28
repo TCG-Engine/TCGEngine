@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:45:51.809781+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse989-20261122.json",
+  "source_spec_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 346,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4688,
+    "duels": 3075,
+    "four_live": 1613,
+    "recorded_primary_ids": 1836,
+    "identity_denominator": 5196,
+    "recorded_groups": 1710,
+    "group_denominator": 3324,
+    "four_live_groups": 1602,
+    "phase_qualified_scenarios_at_actual_contexts": 1325,
+    "phase_qualified_unique_groups": 1315,
+    "creation_replay_passes": 2067,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 486,
+  "scenarios": [
+    {
+      "card_id": "aphrodias",
+      "group_id": "identity:aphrodias",
+      "scenario_id": "card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+      "effect_branches": [
+        "reject_no_aura_holo_entry_this_turn_then_legal_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-aphrodias-four-live-sparse989-reject-no-aura-holo-entry-this-turn",
+      "source_spec": "card-regression-sparse989-20261122.json",
+      "source_spec_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+      "review_evidence": "review-evidence/sparse989-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4684c99a46ae5cc3d6acf06ab45f77f2512d8af62c2f99f1443bcac872ef76fe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse989-20261122-replay.json",
+          "sha256": "917c5127d3667730bd335e518450ee006419d436d26b228f42558ee4f1b0901c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "waning_moon",
+      "group_id": "identity:waning_moon",
+      "scenario_id": "card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+      "effect_branches": [
+        "reject_no_nonattack_action_played_this_turn_then_legal_four_live_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-waning-moon-four-live-sparse989-reject-no-nonattack-action-played-this-turn",
+      "source_spec": "card-regression-sparse989-20261122.json",
+      "source_spec_sha256": "17e0db7784c657d53ee6c72b2799c9f8851dc18972c14fb5d00004abc6beaee8",
+      "review_evidence": "review-evidence/sparse989-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4684c99a46ae5cc3d6acf06ab45f77f2512d8af62c2f99f1443bcac872ef76fe",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse989-20261122-replay.json",
+          "sha256": "917c5127d3667730bd335e518450ee006419d436d26b228f42558ee4f1b0901c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

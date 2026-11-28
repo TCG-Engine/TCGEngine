@@ -1,0 +1,277 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1292-20261122.json",
+  "source_spec_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+  "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-swing-big-red-four-live-sparse1292-real-hit-prevents-miss-quicken-gift",
+      "card_id": "swing_big_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f2f252010fd93bd32366f7dc17070de0b0e813167ed510aaff76b3a60e01cb54",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "b961451ae97512153fc0fbccfd9635e87643fcc530df8f1ec6d36d92d8ffc8b7",
+        "expected_final_gamestate.txt": "64612e1a308371e29ea5b046cf9ec85dceff2ee28e8cfb0804deecb995f75e30",
+        "meta.json": "7c30fd4992df3f73900a4dd86068c7df4e551367f06de1912e0b08d3cae2836c"
+      },
+      "fixture_sha256": "a30a10c9937397e9060338f40b3d5d242b1472e5847e567948eb9bd136e470bf",
+      "actions": 28,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1292-20261122.json",
+      "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-swing-big-red-four-live-sparse1292-real-hit-prevents-miss-quicken-gift",
+        "fixture_slug": "card-swing-big-red-four-live-sparse1292-real-hit-prevents-miss-quicken-gift",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-give-em-a-piece-of-your-mind-red-four-live-sparse1292-real-hit-prevents-miss-vigor-gift",
+      "card_id": "give_em_a_piece_of_your_mind_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8edb9ef673cf620c4d295fd3eb2599231e1e1b12f719cb3b6d6ec7956e6d5342",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "ffec3a352e99f446c2baeabfb197b2f25d9bb5702329a57db2239d2f2122b246",
+        "expected_final_gamestate.txt": "af129ca3cf2b6ed81844150845402ee463f85002c7caa7f5a0eab729dea03d08",
+        "meta.json": "4157751c9b9ee162bc51bbbf6ef9265599ed498c150f78ad6cdb607eb136edd4"
+      },
+      "fixture_sha256": "c2581e25a9a4b55c5bbb98d01a9ddc6a4008f18508d630673190c9c95fdddd42",
+      "actions": 28,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1292-20261122.json",
+      "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-give-em-a-piece-of-your-mind-red-four-live-sparse1292-real-hit-prevents-miss-vigor-gift",
+        "fixture_slug": "card-give-em-a-piece-of-your-mind-red-four-live-sparse1292-real-hit-prevents-miss-vigor-gift",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-shoot-your-mouth-off-red-four-live-sparse1292-real-hit-prevents-miss-confidence-gift",
+      "card_id": "shoot_your_mouth_off_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ef9b56cba1fcafdaa8da74d964c96552687c48e45570b4cdabb782bad6da991",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a493e6cc84f44ad747c1bfc220d32ad1dc6dea425b2a4ba1ae2abf66f1a42347",
+        "expected_final_gamestate.txt": "f8cd78a06ec64db31c074ddc97d25f052bd4fef3b458f9aa717d94e8c0a2b3b9",
+        "meta.json": "0449a30e35bf76a979458ceb0978a8e9c3ae35169d5b3768ae5018b20a788954"
+      },
+      "fixture_sha256": "7ee8793c07d850a3e4b1ace885a03f407af008f84a1bbcc194c806e64d262d47",
+      "actions": 28,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1292-20261122.json",
+      "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-shoot-your-mouth-off-red-four-live-sparse1292-real-hit-prevents-miss-confidence-gift",
+        "fixture_slug": "card-shoot-your-mouth-off-red-four-live-sparse1292-real-hit-prevents-miss-confidence-gift",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-take-that-red-four-live-sparse1292-real-hit-prevents-miss-might-gift",
+      "card_id": "take_that_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a45cc959f39ba0455137288d57184aa04796b1d2369ce9690d15b173c6c60afa",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "200d76087eabae3000f5b3fba33d627702e7f0b060b1538d6aef8b76b5167c5e",
+        "expected_final_gamestate.txt": "b590c3f0c2004d2ebb0d1cf4ddf8f84735d84f69b424709f245de218cc5cfc6c",
+        "meta.json": "99bc8d7d46aef8a72e50f3823849d29710b24a9ee1de68ae5c6f404acc893ea3"
+      },
+      "fixture_sha256": "fd7f4845c8bec54c7c45378cc224c40ccfa7b640bb8347a95a560eb47f0921a0",
+      "actions": 27,
+      "native_assertions": 276,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1292-20261122.json",
+      "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-take-that-red-four-live-sparse1292-real-hit-prevents-miss-might-gift",
+        "fixture_slug": "card-take-that-red-four-live-sparse1292-real-hit-prevents-miss-might-gift",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-whos-the-tough-guy-red-four-live-sparse1292-real-hit-prevents-miss-toughness-gift",
+      "card_id": "whos_the_tough_guy_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3a37122877ee96be00357aab8e2496a2d9be0fa8a4d62d2c85c49f70c04d0bfc",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "55858fcd545b0dc1b1c51af33408cff94abb287e04341e47729efaea3d9cbf2c",
+        "expected_final_gamestate.txt": "41e6fb8bfabadff2f056931087523066009ace9264ce449971cbdacf0b0bfc48",
+        "meta.json": "13d9bf3434dd61cc587fd14db7b5805807e5a2b10cbadbaa6f71db805aea28a0"
+      },
+      "fixture_sha256": "6cb6ea44080f50f79df5ba8377d755e41b780d133c83d54c17e8ada42840861e",
+      "actions": 28,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1292-20261122.json",
+      "input_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-whos-the-tough-guy-red-four-live-sparse1292-real-hit-prevents-miss-toughness-gift",
+        "fixture_slug": "card-whos-the-tough-guy-red-four-live-sparse1292-real-hit-prevents-miss-toughness-gift",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a6fe28fd62711f61bcbaa7f521131ea44b73cd88798ead740207c178ec47a9ae",
+    "source_note_sha256": "50c0a320e4fcaf1a417a0bcd9bc251bfa6265d264fc1ff3df0ece798b530689b",
+    "case_count": 5,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 139,
+    "query_checks": 1520,
+    "persistable_assertions": 1520,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_HERO_HIT_PREVENTS_CONDITIONAL_MISS_GIFT_ONLY",
+    "miss_gift_positive_credit": false,
+    "miss_trigger_timing_credit": false,
+    "per_case": [
+      {
+        "card_id": "swing_big_red",
+        "group_id": "identity:swing_big_red",
+        "native_controls": 28,
+        "persistable_assertions": 311
+      },
+      {
+        "card_id": "give_em_a_piece_of_your_mind_red",
+        "group_id": "pitch-cycle:give_em_a_piece_of_your_mind",
+        "native_controls": 28,
+        "persistable_assertions": 311
+      },
+      {
+        "card_id": "shoot_your_mouth_off_red",
+        "group_id": "pitch-cycle:shoot_your_mouth_off",
+        "native_controls": 28,
+        "persistable_assertions": 311
+      },
+      {
+        "card_id": "take_that_red",
+        "group_id": "pitch-cycle:take_that",
+        "native_controls": 27,
+        "persistable_assertions": 276
+      },
+      {
+        "card_id": "whos_the_tough_guy_red",
+        "group_id": "pitch-cycle:whos_the_tough_guy",
+        "native_controls": 28,
+        "persistable_assertions": 311
+      }
+    ],
+    "basis": [
+      "Five distinct unrepresented Red pitch-cycle groups use legal naturalYoung20 heroes: Rhinar for BruteSwingBig/GiveEmPieceOfMind, Bravo for GuardianShootYourMouthOff, ReviledKayoStrongArm for ReviledTakeThat, ReveredPleiades for ReveredWhosToughGuy. Three YoungDorinthea20 opponents/exact1234/manualUPF/no passives. Physicalprimary5 and funder6 where costed match four-hero allocation. No hero ability, discard/Boo/Cheer or other producer is activated.",
+      "SwingBig/GiveEmPieceOfMind/WhosToughGuy cost2 are paid by realYellowpitch2, ShootMouthOffcost3 by realBluepitch3, TakeThat printedcost0. Each realpayment spendsAP1to0/leavesR0 before allfour responses. Pitching is not discarding, so no Rhinar Intimidate. No power/go-again/history/discount/hit state seeded.",
+      "Cached printed wording on every primary is When the combat chain closes, if this did not hit, defending hero creates named token. This explicit intervening-if is false after actualHero hit, so unlike unconditional Decompose with unpayable optionalcost, no missed-gift trigger is generated. Correct selected absence of layer does not certify true-miss timing or token production.",
+      "ActualadjacentHero4 target, fourfresh source/combat responses, printed8/7/8/5/7power/noGA, unblocked realphysical8/7/8/5/7damage and typed native boolean state attackHit=true are all asserted before close. GameLogic2534 sets booltrue on positiveamount. SUPRememberMiss165 tags only nohit; legacy SwingBig miss tag GameLogic2591 requires emptyattackHit. This independent source evidence agrees with selected false condition.",
+      "Complete native link and full combat-chain close require allfour Arenas0/UIDunchanged/HP4=12,13,12,15,13 respectively, no unearned Quicken/Vigor/Confidence/Might/Toughness under any seat, ownedprimary5GY and actualfunder6Pitch where present, APR0/RNG0/cleanStackDQsCC. All1520 query/state/power/go_again assertions persist across139 single native controls; fourcases28/311 and TakeThat27/276."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed.",
+      "Explicit partial actualpositiveHero damage and negative missed-gift prerequisite only. All positive miss/token-gift and true-trigger response/timing branches remain untested, with no support/sibling/whole-card credit. Existing miss-family holds are untouched.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1292.py": "838b72888d59b1bf78d17060353d4f5750e0f9a923489872738093ec03e56f0e",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1292-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0ea0745a29a151dd0df76523fbcd18ebdf8e3546f429c6518fd73ab5ac5b0b64"
+  },
+  "full_suite_run": false
+}

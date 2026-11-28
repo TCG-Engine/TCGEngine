@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch406.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T01:18:28.285086+00:00",
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-sanctuary-blue-four-live-sparse-real-arcane-shelter-choice-and-responseable-leave-earth-token",
+      "fixture_sha256": "3d18111bbc31752af77a058e47e70f1d43007846fef89617b8ef15ea66472402",
+      "passed": true,
+      "result": "[PASS] sigil_of_sanctuary_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-sigil-of-sanctuary-blue-four-live-sparse-real-arcane-shelter-choice-and-responseable-leave-earth-token",
+      "returncode": 0,
+      "stdout": "[PASS] sigil_of_sanctuary_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

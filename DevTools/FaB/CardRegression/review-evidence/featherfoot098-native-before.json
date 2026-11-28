@@ -1,0 +1,156 @@
+{
+  "status": "CONFIRMED_NATIVE_MISSING_FEATHERFOOT_RESPONSEABLE_WHEN_LAYER_NO_FIX_APPLIED",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "source_spec": "card-regression-batch420.json",
+  "input_sha256": "f6b6b59e1d40bb8dae5c9b95a1eaa1b3a55145268fe8391b1c8de7b6471f42dc",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 64,
+  "fixture_saved": false,
+  "fixture_exists": false,
+  "semantically_approved": false,
+  "earliest_failure": {
+    "error": "Expected Stack count 1, got 0.",
+    "native_action_boundary": 20,
+    "source_step_index": 40,
+    "source_check_index": 23,
+    "failed_native_check_ordinal_1based": 1548,
+    "preceding_native_checks_passed": 1547,
+    "completed_prior_boundary_checks": 1524,
+    "same_boundary_checks_before_failure": 23,
+    "expected": 1,
+    "actual": 0,
+    "assertion": {
+      "step": 20,
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 1,
+      "viewerPlayerID": 1
+    },
+    "total_checks_if_complete": 2928
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 20,
+    "expected_prefix_sha256": "c9a6d4342db49ddbcfb17dcecf240808b2fb878291cc106fdfd6f69b620ea607",
+    "actual_prefix_sha256": "c9a6d4342db49ddbcfb17dcecf240808b2fb878291cc106fdfd6f69b620ea607",
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "manual_inputs": 17,
+    "priority_response_inputs": 16,
+    "empty_defender_finish_inputs": 1,
+    "AR_response_actors": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "initial_manual_preference_values_verified": 48,
+    "initial_native_assertions_evaluated": 124,
+    "initial_physical_uid_locations": {
+      "1": {
+        "card_id": "fai",
+        "zone": "p1Hero",
+        "owner": 1,
+        "controller": 1
+      },
+      "6": {
+        "card_id": "wounding_blow_red",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "7": {
+        "card_id": "lunging_press_blue",
+        "zone": "p1Hand",
+        "owner": 1,
+        "controller": 1
+      },
+      "5": {
+        "card_id": "talisman_of_featherfoot_yellow",
+        "zone": "p1Arena",
+        "owner": 1,
+        "controller": 1
+      },
+      "2": {
+        "card_id": "dorinthea",
+        "zone": "p2Hero",
+        "owner": 2,
+        "controller": 2
+      },
+      "3": {
+        "card_id": "dorinthea",
+        "zone": "p3Hero",
+        "owner": 3,
+        "controller": 3
+      },
+      "4": {
+        "card_id": "dorinthea",
+        "zone": "p4Hero",
+        "owner": 4,
+        "controller": 4
+      }
+    },
+    "before_resolution_actual_power": 4,
+    "before_resolution_actual_go_again": false,
+    "before_resolution_actual_ItemUID5_present": true,
+    "before_resolution_actual_ARUID7_onStack": true,
+    "same_boundary_proved_resources1": 0,
+    "same_boundary_proved_AP1": 0,
+    "same_boundary_proved_P4HP": 20
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_MISSING_RESPONSEABLE_TRIGGER_LAYER",
+    "oracle_error": false,
+    "protocol_error": false,
+    "native_confirmed": "AfteractualLungingfourthresponse, firstrequiredFeatherfootStack1layercheckfinds0; allactualqueuesempty, stillReaction/open/link1/attack6/noPayment. CurrentnormativeWHENrequiresownresponseablelayerbeforeItemdestroy/attackGA.",
+    "source_explanation": "CurrentqualifiedResolveLunging passes CRU_REACTION_POWER:1 intoFaBTagUID; its existingFeatherfoothook only recognizes WTR_POWER:1. Thus currentselectedLungingpath bypassesnotification. Thatlegacyhookalsoinline-destroys/grantsGA ratherthanqueueing; inlineothercallerbehavior is SOURCE_ONLY, not separatelynativeproved here.",
+    "relation": "Responseablecard-trigger producer/caller-notification cohort, analogous existingqueued-trigger043family. No newglobalroot/Core allocation or issueID byreviewer. This is not denied094already-earnedgenericROScompletion anddoesnotrevivestaleLunging028/030probes.",
+    "scope": "OnlythisItem/realLunging+1Reactionpositiveattempt. Nootheramount/step/multipleItems/virtualcompletion/decline/actualsuffixcoverage."
+  },
+  "source_evidence": {
+    "files": {
+      "FaBSim\\Custom\\CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "FaBSim\\Custom\\CRUCards.php": "b747479f996a5207246c171efce73f899471b9b9608c116241b10086c2c7c292"
+    },
+    "anchors": [
+      "FaBCRUResolveLunging capturedtarget/link/HasNoAbilities guard andFaBTagUID(CRU_REACTION_POWER:1)",
+      "CardChoices FaBTagUID legacyWTR_POWER:1 checkandinlineItemdestroy/attackGA"
+    ]
+  },
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/1462/",
+      "finding": "CurrentWHEN/exact+1/Reaction/DestroyandGA independentlyread inoriginalbc2sourcegate."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "rules": [
+        "6.6.5",
+        "6.6.6"
+      ],
+      "finding": "EarnedstaticWHENcreatesseparateresponseabletriggerlayerbeforenextpriority."
+    }
+  ],
+  "unreached_or_inferred_limits": [
+    "Boundary20checksafterStackfailureNOTexecuted: physicalItem5Arena, Lunging7GY, currentattackcomputedpower5/noGA, allocationcounter8, laterdestroyItem/GA/damage5/HP15/AP1/fullclose. No finalphysicalsnapshot or savedfixture; none claimed nativeproved.",
+    "PostfailurestatecachedattackPower0/attackGoAgainfalse are not freshcomputedpowerorG A and do not proveAR+1failed. Actual+1codepath is source-derived; nativepassedpower4/noGAbeforeARresolution only.",
+    "Actualobservedallqueuesempty doesnot providefullsharedDQ/awaitframe dump; no claim thatunobservedprivateframeswerecaptured.",
+    "No sourcefix/PHP/native/replay/R/source/service/gen/fullsuite/denied094089090retry/reroute. Correctoriginal36/2928expectationsunchanged; firstfailure preserved, no coverage/control/newrootcredit."
+  ],
+  "retention": "Compact independent findings; full raw failure is the immutable repository-native recording archive. W-only intermediate duplicates are not runner inputs.",
+  "independent_full_peer_sha256": "7d07a620b357fad2c812729e2843811b9a354fd710f94dad1162eacc66f2cf9f",
+  "native_recording_results": {
+    "path": "card-regression-batch420.recording-results.json",
+    "sha256": "d4bc895fd14436b30ea6e1543c9523d85146363b636d045c08cfeae85b1d43a0"
+  },
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch420-20261105T060859Z-6aec1d7b62347.json",
+    "sha256": "ee3e13c470c663d097a8471cd7f11a7f232980ab7bda32f217ce67c6e5f90062"
+  }
+}

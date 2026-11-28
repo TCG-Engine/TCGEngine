@@ -1,0 +1,7 @@
+{
+    "name": "Tongue Tied / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:49:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, turn a card in their arsenal face-up, then banish an instant card from their arsenal. ActualrealBlue6paysprintedcost3or2/R0or1/AP0, actual2or3HandAAeachdef3block6or9, damage0/HP20/nohit/Stack0/sourceandblockersownedGY. RetainedeligibleGold, fourremainingHandcards, orFaceDownInstantArsenal whereconfigured. PayUpdefenderArena0hasnoGold, noOverpower grant; Blanchonlynohit/main, noeffectivecolorquery. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tongue_tied_red"
+}

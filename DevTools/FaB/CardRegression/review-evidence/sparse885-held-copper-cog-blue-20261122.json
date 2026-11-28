@@ -1,0 +1,63 @@
+{
+  "card_id": "copper_cog_blue",
+  "title": "Copper Cog normal play omits printed entry steam counters and Crank opportunity",
+  "classification": "CONFIRMED_STATIC_ENTRY_INITIALIZATION_GAP_PARTIAL_STARTTURN_IMPLEMENTATION_ROOT_UNALLOCATED",
+  "expected": "Directly played Copper Cog enters owned Arena with2 steam before its optional static Crank; positive Crank would leave1steam and grant1AP.",
+  "observed": "Five actual native inputs: source play and four manual responses. Source UID5 is in own Arena, but Counters contains only FAB_PLAY_ORDER1, with no STEAM2. First exact counter query fails. No fixture saved.",
+  "later_branches": "Crank decision/type/answer, AP gain and final counter checks unrun after first entry failure.",
+  "source_evidence": "FaBEVOEnter contains copper_cog entry2steam rule, but current normal-play route/own ResolveCard macro does not invoke it. Existing StartTurn body is present; native direct-play gap is confirmed, not full-card unimplementation. No code changed.",
+  "root_relationship": "Unallocated normal-entry registration/dispatch gap; no new distinct shared root claimed.",
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse885-held-copper-cog-blue-20261122.json",
+  "source_spec_sha256": "3f8275294e8868ddf541a898bb483609c1a526f0d08940f4436d44a42b7c89ef",
+  "original_native_input_sha256": "f22dd73c533039d2667f5a7f04ae59f5f0b0e42ac22d0c92b2bd40557e5f8548",
+  "initial_gamestate_sha256": "6c8c88b44c0f2cc3fc295f017b10cb75704338c3ae1bc5592dd4f3f09677c603",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p1Arena-0.Counters to equal '{\"FAB_PLAY_ORDER\":1,\"STEAM\":2}', got '{\"FAB_PLAY_ORDER\":1}'.",
+  "source_changed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "full_suite_run": false
+}

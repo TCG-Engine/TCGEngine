@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cosmic-duality-red-four-live-sparse1175-normal-play-fragment-separate-layer-reduces-real-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cosmic-duality-red-four-live-sparse1175-normal-play-fragment-separate-layer-reduces-real-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1175-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1175-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9c786d5a6bcb1e6aac651e87332b86c87dc761c3081f1c9f607f83b05d26bcbc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "705d10da619035ae7d3cd5029504bf85bb6e38b625df3e186b7a7e4c964d5236",
+        "actions.json": "2161990675ca90a87f9e8b1a8edbba52859929e2525a086da81130e914118f01",
+        "assertions.json": "247982b7fbe3c719f2699658e996d84235f89fad826d7f89b4513f4aa23314bc",
+        "expected_final_gamestate.txt": "01dab1d77737d2c6ab221daa03637be42711b4a4c9bfe9eb6dff632379e25853",
+        "meta.json": "04e44c26444599f2564eb36be68e6cbcf5f36d6117dc5e860f5ba320bdfaa175"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

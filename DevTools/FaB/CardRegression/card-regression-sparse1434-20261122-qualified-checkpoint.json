@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T18:18:39.757286+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1434-20261122.json",
+  "source_spec_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 320,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5441,
+    "duels": 3127,
+    "four_live": 2314,
+    "recorded_primary_ids": 2589,
+    "identity_denominator": 5196,
+    "recorded_groups": 2463,
+    "group_denominator": 3324,
+    "four_live_groups": 2303,
+    "phase_qualified_scenarios_at_actual_contexts": 2078,
+    "phase_qualified_unique_groups": 2068,
+    "creation_replay_passes": 2820,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1239,
+  "scenarios": [
+    {
+      "card_id": "mind_meets_might_red",
+      "group_id": "identity:mind_meets_might_red",
+      "scenario_id": "card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+      "effect_branches": [
+        "real_seven_power_non_illusionist_attack_earns_responseable_mirage_then_destroys_actual_defender_before_full_seven_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mind-meets-might-red-four-live-sparse1434-positive-mirage-responseable-destruction-removes-real-defense",
+      "source_spec": "card-regression-sparse1434-20261122.json",
+      "source_spec_sha256": "4216f571b8923c81e2d75745943cacd6a815973a7d1607b927ff192f79e770af",
+      "review_evidence": "review-evidence/sparse1434-20261122-qualified-saved.json",
+      "review_evidence_sha256": "abb5907a1eede10409e895456f7c3939ad173a937c54f656e6c350f578b3b1c6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1434-20261122-replay.json",
+          "sha256": "d3514b8a5f7f12a6ddf59f4f8aa91cfe917a458ff17800941792572be47f6451",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bequest-the-vast-beyond-red-four-live-sparse1472-prior-humble-one-runechant-real-free-runeblade-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bequest-the-vast-beyond-red-four-live-sparse1472-prior-humble-one-runechant-real-free-runeblade-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1472-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1472-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "41452f42ce4d769b84a6dbff513d88ad2299643204b526dbe25876f71cb9a86e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b2f5fcf92988bb91d0035af045bb706c1f5352b881edf9091a76c0acf9f4f3a9",
+        "actions.json": "d8c067610a8214a40f5ffdbaa73b483d2343daf688c3ea827cbde4ced0e89aee",
+        "assertions.json": "a3f3d46d2520ac7db0e8c1c3ff7d5ed2bf5d301bfe456a8345282f8bce7ce095",
+        "expected_final_gamestate.txt": "b5b7e320d0c0403705f4014a2248f043b4206d9b847b71480e746be07ce48f83",
+        "meta.json": "678470a413931169f8e8aeb56d392d13716754fd9f7cf0a50f0d6eca2d67e046"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T04:30:55.968087+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1061-20261122.json",
+  "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 120,
+  "native_assertions": 1080,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4886,
+    "duels": 3075,
+    "four_live": 1811,
+    "recorded_primary_ids": 2034,
+    "identity_denominator": 5196,
+    "recorded_groups": 1908,
+    "group_denominator": 3324,
+    "four_live_groups": 1800,
+    "phase_qualified_scenarios_at_actual_contexts": 1523,
+    "phase_qualified_unique_groups": 1513,
+    "creation_replay_passes": 2265,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 684,
+  "scenarios": [
+    {
+      "card_id": "magmatic_carapace",
+      "group_id": "identity:magmatic_carapace",
+      "scenario_id": "magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_guardwell_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "review_evidence": "review-evidence/sparse1061-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d3117ae0e46e7c5a4c5f068913a484cb35ef16835ec1babbefdaa16e5a7c4601",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1061-20261122-replay.json",
+          "sha256": "148409c0c657efa3f599aa63e2440cbbf98b876c5a566e4ed70cc896b8261a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "prizeworn_gauntlet",
+      "group_id": "identity:prizeworn_gauntlet",
+      "scenario_id": "prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_guardwell_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "review_evidence": "review-evidence/sparse1061-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d3117ae0e46e7c5a4c5f068913a484cb35ef16835ec1babbefdaa16e5a7c4601",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1061-20261122-replay.json",
+          "sha256": "148409c0c657efa3f599aa63e2440cbbf98b876c5a566e4ed70cc896b8261a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "prizeworn_plating",
+      "group_id": "identity:prizeworn_plating",
+      "scenario_id": "prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_guardwell_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "review_evidence": "review-evidence/sparse1061-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d3117ae0e46e7c5a4c5f068913a484cb35ef16835ec1babbefdaa16e5a7c4601",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1061-20261122-replay.json",
+          "sha256": "148409c0c657efa3f599aa63e2440cbbf98b876c5a566e4ed70cc896b8261a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "smoldering_scales",
+      "group_id": "identity:smoldering_scales",
+      "scenario_id": "smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+      "effect_branches": [
+        "actual_printed_two_defense_and_guardwell_close"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "review_evidence": "review-evidence/sparse1061-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d3117ae0e46e7c5a4c5f068913a484cb35ef16835ec1babbefdaa16e5a7c4601",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1061-20261122-replay.json",
+          "sha256": "148409c0c657efa3f599aa63e2440cbbf98b876c5a566e4ed70cc896b8261a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

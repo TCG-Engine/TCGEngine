@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "evo-beta-base-head-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=evo-beta-base-head-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3275585af3523525770e014ea8767b27273879544406a6f528ea8fd467fbc527",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fdf93e0fb3874b3020271f7ab2a512518b3d63c1a7616c71124a3bd5287e8acd",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "df7ffb64d5f741b4020db1d4556eebe177b0b90353fbfe0e91f14db1c56915c5",
+        "expected_final_gamestate.txt": "7d2d1ff58d36db19a3f1eb53cef63eccc271bc50c46b3afea763839e528ec0ea",
+        "meta.json": "df7f740f33707b4337e217c92fdccbaeac23722c00f24a12ac3621d119b7fc1d"
+      }
+    },
+    {
+      "slug": "evo-beta-base-chest-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=evo-beta-base-chest-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f54ceca01d9d9b068249eb14479a2b527207769a3235934e6db25c1a8c139d93",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd747c0764f6368f8367affaf5484b14b415bab19b217fe86f5397a77e2d25de",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "ee5231f4224d05dfac5d6a7e8c0258b5585ff28471f7772e4533644db939b2b8",
+        "expected_final_gamestate.txt": "5e8d9167a10d57f32d7ddcad19538bccab783b81be66ec43086ed6e31b30bfc5",
+        "meta.json": "febb13802dfb9227627a7040e00f8c1195968d07480336adb3861fd22a7e1992"
+      }
+    },
+    {
+      "slug": "evo-beta-base-arms-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=evo-beta-base-arms-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8b14c6787dff90e8eb084bb9cc4e31c7a8925bd00cb3726d4f228e8f7ccea82a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0328e87458167adf47ac894cb108d6bf404f6dfd370d8e58fa32af219892573",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "05bc7258e8f65a2120786dbc0f2a683363f0903984999e3ca6ee1fed4cf50448",
+        "expected_final_gamestate.txt": "e83b55a4402de90ded048d814abd1ecf4858fcb345bb220c535585b19f534440",
+        "meta.json": "8958c7ef6f2a0604792bbf5d3c1b152c3f368e28b1a4781def6ea9d9925aae47"
+      }
+    },
+    {
+      "slug": "evo-beta-base-legs-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=evo-beta-base-legs-blue-four-live-sparse1073-post-transform-base-subcard-retained-through-defense-and-battleworn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1073-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8e472adf9b2f5ba316d936695c6d9d132e46878128f32738b6800614999caec8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c14f187168923fa8f7467eef0a28c747a56b21d44619be83bb787d9aa0986647",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "f012bf149f21a4bfd143682dbfa208863a5c2edd718992e956dc217ba1105d1b",
+        "expected_final_gamestate.txt": "548cef2e776b93b6e6370793093b4d457c386ba2af83d567f7b374d12045c596",
+        "meta.json": "07aaf5950008fdbfbdd297831e5ded4300ea9b7d790962dbd0c9bd564ef417a7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,43 @@
+{
+  "status": "QUALIFIED_ORIGINAL_082_DELAYED_TRIGGER_EXPECTATIONS_UNCHANGED",
+  "utc": "2026-11-03T20:23:22.399394+00:00",
+  "runtime_sha256": "bc14dcabff3f9b4b1592a0afc364de72de1c9bd326e0204056369b1c1ff9574b",
+  "issue": "FAB-REG-082",
+  "existing_family": "FAB-REG-043",
+  "scenario": "card-bios-update-red-four-live-original-correct-delayed-item-relocation-and-boost-power-probe",
+  "original_input_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+  "independent_saved_review": {
+    "path": "review-evidence/bios082-saved-bc14-independent-review.json",
+    "sha256": "cc4ede392ec1282dbeb851bac49a527ee2bb275103c7b46a0a89aee1746bef5d"
+  },
+  "clean_replays": [
+    {
+      "path": "card-regression-replay-nov3-b363-bios082-bc14-r1.json",
+      "sha256": "255b3a8ff356d9fe61cf8923efefb3eeacff441ed2d1844dad26fa76474082e2"
+    },
+    {
+      "path": "card-regression-replay-nov3-b363-bios082-bc14-r2.json",
+      "sha256": "6d8d2390519b53a5ffea5d4a4866c37bb384c061bd920cad4159e402ebb8a6a8"
+    }
+  ],
+  "native_actions": 40,
+  "persisted_assertions": 3881,
+  "manual_inputs": 33,
+  "source_application": "review-evidence/bios082-source-application.json",
+  "actual_emission_review": "review-evidence/bios082-actual-emission-review.json",
+  "component_evidence": "review-evidence/bios082-isolated-component-checks.json",
+  "component_scope": "17 isolated extracted-source contracts/77 assertions with explicit stubs, not native helper controls. Original comparator-only CRLF failure and unchanged original source review retained.",
+  "direct_impact": "review-evidence/bios082-direct-impact.json",
+  "qualification_limits": [
+    "One eligible own cost2 Mechanologist Item through a delayed BIOS trigger",
+    "No extra Item await, native multiple grants, incarnation, sibling or full-card credit",
+    "No full suite or new Core/global root count"
+  ],
+  "ten_holds070_079_unchanged": true,
+  "Smashing_Item_choice": "SOURCE_ONLY_UNATTEMPTED_UNCREDITED",
+  "focused_ordinary_boost_compatibility": {
+    "path": "card-regression-replay-nov3-bios082-ordinary-boost-compat-bc14.json",
+    "sha256": "2658f814a8834bdada20d3b3ada3f89cef8ec6b6b98dbb3cfaf3cfe89f829880",
+    "scope": "One unchanged ordinary Boost without BIOS, compatibility only. No new coverage, original review/runtime not retagged."
+  }
+}

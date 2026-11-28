@@ -1,0 +1,7 @@
+{
+    "name": "Bonebreaker Bellow / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T16:46:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Beat Chest**\n\nYour next Brute attack this turn gets +3{p}. If you've **beaten chest** this turn, instead it gets +5{p}.\n\n**Go again** Representative only: actual_beat_chest_then_real_brute_attack_consumes_five_power_for_eleven_damage. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bonebreaker_bellow_red"
+}

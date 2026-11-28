@@ -1,0 +1,52 @@
+{
+  "id": "FAB-REG-118",
+  "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN_EQUIPMENT_LIFECYCLE_SEAM",
+  "created_utc": "2026-11-05T13:04:27.244993+00:00",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "card_id": "evo_beta_base_arms_blue",
+  "group_id": "identity:evo_beta_base_arms_blue",
+  "historical_source_note": {
+    "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch466-evo-beta-arms-source-only-blocker.json",
+    "sha256": "14cbebe0d37aac638a334860c41f232156a4f9b5da28093866914472f5b8613e"
+  },
+  "independent_scope_review": {
+    "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-evo466-source-only-scope-independent-review.json",
+    "sha256": "a9557fa1b4e941be743837652c3b17eeab5fbfafddcdfc97df3aef3d3f19d7db"
+  },
+  "selected_source_refs": {
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/EVOCards.php": "dff20a12d7dd29417b34c9609dbc3fd27325e1c8d3be2b15da481fef7e277462",
+    "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+    "DevTools/FaB/pen_abilities.json": "e50d82b686864b733032deae373b9825264b63a23ca8e6248c0c5f046c415054",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "source_guards_verified": 69,
+  "current_rules": {
+    "card": "PEN070/currentcatalog/official4497: MechActionEquipmentEvoBaseArms0/pitch3/DEF1; transformcompatibleBaseArmsintothisthenequip; EvoArmscostonefewer/Battleworn.",
+    "transform": "CR8.5.36 putsoldobjectundernewpermanent; notdestruction.",
+    "equip": "CR8.5.41 equipmentzoneaspermanent; resolveeffectsfinishbeforephysicalspellclear.",
+    "urls": [
+      "https://judge.fabtcg.com/cards/detail/4497/",
+      "https://rules.fabtcg.com/en/cr/08-keywords/"
+    ]
+  },
+  "source_only_findings": [
+    "GL1763persistentsetomitsEquipment; selectedBetaoutsidecurrentmanagedPlainSpellnamedcohort; default1781movesphysicalsourceGYbefore1782resolution. No native movement observed.",
+    "GenericFaBEVOTransform/FaBEvoEquiphelpers exist; PENselectedrowempty/exactcompiledliteral0 leave selected callback unestablished in bounded read. This is not universal implementation-absence proof.",
+    "GenericSUBCARDSCardID compression/oldbaseinactive is not evidence of destruction or removal. IllustrativepriorCogwerx/STEAM1 setup was never frozen or run."
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "source_fix_applied": false,
+  "denied_repair_retried": false,
+  "passing_fixture": null,
+  "limits": [
+    "No executable spec/native replay/fixture/coverage or reducerconsumer/Battleworn/fullcard/sibling certification.",
+    "No generic transform-interface invention, source workaround, broader audit or denied094096089090 integration/retry.",
+    "Local historical note remains hash-bound; full69guards/note are not duplicated into repository evidence."
+  ]
+}

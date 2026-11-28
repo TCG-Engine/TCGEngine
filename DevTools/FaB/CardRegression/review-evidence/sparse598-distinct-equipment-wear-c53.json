@@ -1,0 +1,569 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B598_TWO_HEAD_DEFENSE_AND_DISTINCT_WEAR_BRANCHES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T11:02:47.728377+00:00",
+  "source_spec": "card-regression-batch598.json",
+  "input_sha256": "23335f776f601af43a63347dbaa08377b3850214b98da415282a0da860ccedae",
+  "manifest_sha256": "8933f1cab1545b13d9bd6e766f03079c932550214778d4c27fbf9a25f4a58b3d",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch598-independent-source-review.json",
+    "sha256": "37d9add1a3656fbe95205c6440f1dd8a220396a3929e06fe10f27da1fbb22288",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch598-20261106T110003Z-6aedb3332455f.json",
+    "sha256": "bcb28d7b23ecdb06b64d6534dc044525285659c89c8c9d7f584cef5bea2013c2"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch598.recording-results.json",
+    "sha256": "e3a3c9f439345c9d7f7922f248c1f602d59db15a3d32ad2552b31d7d09a5d1be"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch598-native-r1-c53\\receipt.json",
+    "sha256": "137b36e86c0ae2de3378789c98f652c6949c98aed24b8d68b37a34b6b49e82a4"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "vow_of_vengeance",
+      "group_id": "identity:vow_of_vengeance",
+      "slug": "card-vow-of-vengeance-four-live-real-head-defense-and-blade-break-destruction",
+      "source_spec": "card-regression-batch598.json",
+      "input_sha256": "23335f776f601af43a63347dbaa08377b3850214b98da415282a0da860ccedae",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PARTIAL_HEAD_DEFENSE_AND_WEAR",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-vow-of-vengeance-four-live-real-head-defense-and-blade-break-destruction",
+      "fixture_sha256": "d6f8dadf770e78d1397a69e775ec7184a312a3b9e266241561686108e48d4dba",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "cd9a411b9335e3bb8a3ac5ab0a4a22c7fa2dedd4461e00dafebfd2faf7f34cfa",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "20a793c8c249614ca6c97fac06dc55094e4e1faa08de6960b8ccd2714adaa5d3",
+        "expected_final_gamestate.txt": "17095b9c2d8edd08cf8076b9985a316e17bfa9c8a284a54c277ae5da548b99a0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd9a411b9335e3bb8a3ac5ab0a4a22c7fa2dedd4461e00dafebfd2faf7f34cfa",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "20a793c8c249614ca6c97fac06dc55094e4e1faa08de6960b8ccd2714adaa5d3",
+        "expected_final_gamestate.txt": "17095b9c2d8edd08cf8076b9985a316e17bfa9c8a284a54c277ae5da548b99a0",
+        "meta.json": "49c5774f36a6b2803a49805f51940a719d420fd7095654fa7b074ec6fe6d6551"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cd9a411b9335e3bb8a3ac5ab0a4a22c7fa2dedd4461e00dafebfd2faf7f34cfa",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "20a793c8c249614ca6c97fac06dc55094e4e1faa08de6960b8ccd2714adaa5d3",
+        "expected_final_gamestate.txt": "17095b9c2d8edd08cf8076b9985a316e17bfa9c8a284a54c277ae5da548b99a0",
+        "meta.json": "49c5774f36a6b2803a49805f51940a719d420fd7095654fa7b074ec6fe6d6551"
+      },
+      "actions": 29,
+      "native_assertions": 2451,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 690,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "fai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "vow_of_vengeance",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "fai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "vow_of_vengeance",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_attack_power": 5,
+      "actual_defense": 1,
+      "actual_damage": 4,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_head_UID": 5,
+      "final_primary_zone": "p4Graveyard",
+      "final_DEFENSE_counters": null,
+      "remaining_DEF_derived": null,
+      "unsupported_computed_defense_getter_claimed": false,
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        5
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "primary_activated_AR_Mark_earned": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "8e62827452a174ac9fa56afe677e3014e6f7e03d02277b7784c1197a0d33be25",
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "be331e2476e0b43b96c4ed1429b2155e5a5307eea89dc0886d7b9ac6191bd85a"
+    },
+    {
+      "index": 1,
+      "card_id": "prey_spotters",
+      "group_id": "identity:prey_spotters",
+      "slug": "card-prey-spotters-four-live-real-head-defense-and-battleworn-counter-survival",
+      "source_spec": "card-regression-batch598.json",
+      "input_sha256": "23335f776f601af43a63347dbaa08377b3850214b98da415282a0da860ccedae",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_PARTIAL_HEAD_DEFENSE_AND_WEAR",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-prey-spotters-four-live-real-head-defense-and-battleworn-counter-survival",
+      "fixture_sha256": "202aa7a9abf8e8f1537eed3df2925b3290dc22d8b91e6c8f86cfdf2a106b4ffa",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "acdb0d01acc938b330f061c72121db7fad45f2a788bf3d675ce431c2df584990",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "a610ef504f90633c8577c6dcbb107d4d8742dade2e3cbed475e2d4ccdac89fa7",
+        "expected_final_gamestate.txt": "8bf99f0ef9c6b1bf1317795c903a247e262f55dbbeeaf9bc750066bb46fd5d15"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "acdb0d01acc938b330f061c72121db7fad45f2a788bf3d675ce431c2df584990",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "a610ef504f90633c8577c6dcbb107d4d8742dade2e3cbed475e2d4ccdac89fa7",
+        "expected_final_gamestate.txt": "8bf99f0ef9c6b1bf1317795c903a247e262f55dbbeeaf9bc750066bb46fd5d15",
+        "meta.json": "aa5d810ae5a0d7d6928c008286f7589582c955da31650f856bc66d3e19bca724"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "acdb0d01acc938b330f061c72121db7fad45f2a788bf3d675ce431c2df584990",
+        "actions.json": "fa3667850ede7c4d898da212b8d6208f4c575774cbcb47e049baf90eab7af6d0",
+        "assertions.json": "a610ef504f90633c8577c6dcbb107d4d8742dade2e3cbed475e2d4ccdac89fa7",
+        "expected_final_gamestate.txt": "8bf99f0ef9c6b1bf1317795c903a247e262f55dbbeeaf9bc750066bb46fd5d15",
+        "meta.json": "aa5d810ae5a0d7d6928c008286f7589582c955da31650f856bc66d3e19bca724"
+      },
+      "actions": 29,
+      "native_assertions": 2455,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 694,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "arakni",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "prey_spotters",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "critical_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "arakni",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "prey_spotters",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "actual_attack_power": 5,
+      "actual_defense": 1,
+      "actual_damage": 4,
+      "actual_go_again": false,
+      "final_health": [
+        20,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_head_UID": 5,
+      "final_primary_zone": "p4Equipment",
+      "final_DEFENSE_counters": 1,
+      "remaining_DEF_derived": 0,
+      "unsupported_computed_defense_getter_claimed": false,
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "primary_activated_AR_Mark_earned": false,
+      "full_card_certification": false,
+      "checkpoint_assertion_mapping_sha256": "7686ce66218908a60437c077217d3e4016a454ecfae2f5df337bcdf901adfcbb",
+      "native_action_mapping_sha256": "c0e48576ee5ced1fadd4cea9d1b77a9fb27077f0fc4c2ca6c1b0d631a4babbcd",
+      "native_assertion_mapping_sha256": "89032d9f7b0338381bcc3f0504ba04f5740e0d1062a686954e06954c6c1e63cc"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 58,
+  "total_native_assertions": 4906,
+  "total_manual_passes": 50,
+  "total_priority_response_passes": 48,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_schema_property_assertions": 1384,
+  "material_findings": [
+    "Actual COMPLETE exit0/stderr0/two new fixtures at unchanged c53; exact raw10/58 envelopes/4906 ordered persisted checks/50 manual inputs6,6,6,7 per case/raw48 settings at each initial+final endpoint/70 actual guards match the approved independent ledger.",
+    "Each actual Critical6 formal Hero4 target precedes Blue7 pitch3 paying resource1 and AP1. R2/AP0 before fresh source four; same physical6 becomes power5/noGA first chain. Same owned Head5 normal Equipment declaration contributes DEF1, actual damage4/HP16, no GA/AP refund.",
+    "Actual full-Close outcomes distinguish identities: Vow Blade Break destroys original5 to owner4 public GY; Prey Battleworn returns original5 ready/Damage0/DEFENSE1 and survives at derived0DEF. Full originalUID1..7, Critical6GY1/Blue7Pitch1, owner/controller, economy, empty physical zones and quiet Stack/chains/DQ/await/payment verified. No added manual Close priority or computed-defense getter certificate.",
+    "Primary AR destroy/Mark not activated; same four Hero objects remain unmarked. Fai optional Phoenix/Instant, Arakni Contract and Dori weapon-hit conditions unearned. No second block/next-turn/hero/support/sibling/full-card claim. Root targeted replay pair separate and not claimed by reviewer."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.2a",
+        "8.1.4b",
+        "8.3.2",
+        "8.3.3"
+      ],
+      "finding": "Attack reaction controller restriction; Equipment may defend; Battleworn one counter and BladeBreak destruction at Close."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.3.2",
+        "7.4.2a",
+        "7.5.2",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5",
+        "7.7.6"
+      ],
+      "finding": "Physical defense reduces damage; Close automatic resolution before permanent return/clear, no manual priority during Close."
+    },
+    {
+      "card_id": "vow_of_vengeance",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\vow_of_vengeance.webp",
+      "sha256": "3f2e42db1f78bd21f8e2982e32c5c01b9aba90ca4c2f5ccc7c6d2b61ac7cb323",
+      "publisher_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/CIN003.webp",
+      "actually_viewed": true
+    },
+    {
+      "card_id": "prey_spotters",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\prey_spotters.webp",
+      "sha256": "4e9c4c1e2a7eb76ed2796c4a3e86bf97c1e82e21486b47960bfd0fa6fe4c9062",
+      "publisher_url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/AAC004-RF.webp",
+      "actually_viewed": true
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\critical_strike_red.webp",
+      "sha256": "067d55b7a890622b89a2a4a8b9f39d8442f8f3ac03ca083fed280a785e442359",
+      "printing": "UPR206",
+      "actually_viewed": true,
+      "finding": "Blank Generic Attack cost1 power5; no intrinsic go again or hit trigger."
+    }
+  ],
+  "limits": [
+    "Only first normal DEF1 block and distinct final wear outcome for each identity; no activated AR/Mark target, repeated block, later zero-DEF eligibility, blanking/foreign control, alternative Hero, next-turn, support/sibling/full-card certification.",
+    "Final counters/destruction verified after automatic Close; no separate pre-Close counter timing/suppression or priority-layer implementation certificate. Derived Prey DEF0 follows printed1 minus counter1, not an unsupported computed-defense query.",
+    "Persisted ordered checks and actual initial/final snapshots only; no invented per-input snapshots. Raw undo data hash-bound but excluded from current physical inventory. Reviewer no R/PHP/native/replay/source/fullsuite/remote/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch598_saved_readonly.py",
+    "sha256": "e3490e1b150dec842ef1c25ba2f2f714bf9bcfa4bf2b27f3e32805c406a6b88b"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch598_source_readonly.py",
+    "sha256": "6a3973fcdee03d27910d5aa19f038afd183ed3cb73fbcbcd78edc593caab42d7",
+    "portion": "Complete B598 schema/action/checkpoint ledger only; no repeated source/rules/legacy review"
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent exact packet/named Ward-delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1181-20261122.json",
+  "source_spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+  "input_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+      "card_id": "heirloom_of_rabbit_hide",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "45328d80464a6a25956e3e1ba5ba1b6966382b1a2296c5bbb52ca9aec3198273",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "ccc58f9f5cdb0c24b8a26e0fefeaa0f3630e7d366254934657f814e978a1c974",
+        "expected_final_gamestate.txt": "bc0a0e06f2f84c684d66483bdd7e484bc098480f7ff5e6bc5d1ab5531dcad1bf",
+        "meta.json": "2a350171594d03edf1dfe1b563faa303d6d49b7829571afb8d646a3e7865ecb9"
+      },
+      "fixture_sha256": "4a3829ddca1f300a792899d0c10a03d50d41fe1ab1212727109134998a5bd50f",
+      "actions": 7,
+      "native_assertions": 252,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "input_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+        "fixture_slug": "card-heirloom-of-rabbit-hide-four-live-sparse1181-existing-face-up-ward-4-prevents-real-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+      "card_id": "solitary_companion_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23ea13f4724429595a0ea87134e56424134e47c9e785c12db446c98722737327",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "31ff5ce6b1015f322e233f57a90887362208db8a5f5d84dafa184a8cf21db0a6",
+        "expected_final_gamestate.txt": "d6dc8fe2bb0cb3d78a00d46a207adfb7f569ab268b883fd1f32c8ed9774e4115",
+        "meta.json": "25a4ba4fbf6e43d71dc0abdd7caba4c623bd2b307e6bd32877eecbf47ef9256e"
+      },
+      "fixture_sha256": "bca5db08b5656c5e9672a750b34206f8cef499719e386b9c9d19e23ad1249356",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "input_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+        "fixture_slug": "card-solitary-companion-red-four-live-sparse1181-existing-face-up-ward-3-prevents-real-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+      "card_id": "tranquil_passing_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "295cfa775128a80a2149594a9b5c4f3ce23c2e5fcf54d55c92f4851edb949da1",
+        "actions.json": "84e9df45f06b849340f223d10945c33f889a6d4943efe4dad877a5b9127f1950",
+        "assertions.json": "56572a649775943faba26c086de0874eb66393d048a87b15292019bd3d35ffdb",
+        "expected_final_gamestate.txt": "08268b52c1786740d79abb7657d0d3281c52a31c2557b385e61f598c4eac0909",
+        "meta.json": "3b72d311d33614ec453e4bcbc93f0cbb7db581dcd9daff20429f59284bd63903"
+      },
+      "fixture_sha256": "e2a6b72be6c1e7168d06bd2945fa8ac9f31deeda7aaabfdc2b9218f1412b7029",
+      "actions": 7,
+      "native_assertions": 250,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1181-20261122.json",
+      "input_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+        "fixture_slug": "card-tranquil-passing-red-four-live-sparse1181-existing-face-up-ward-1-prevents-real-arcane",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent exact packet/named Ward-delta review",
+    "spec_sha256": "a99c0ca1a8f552bb147e0236bead5d6eedf800907d8661aa618825206537a66a",
+    "case_count": 3,
+    "native_controls": 21,
+    "persistable_assertions": 752,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "heirloom_of_rabbit_hide",
+        "ward": 4,
+        "native_controls": 7,
+        "persistable_assertions": 252,
+        "victim_hero": "enigma",
+        "expected_final_health": 20
+      },
+      {
+        "card_id": "solitary_companion_red",
+        "ward": 3,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "victim_hero": "prism",
+        "expected_final_health": 20
+      },
+      {
+        "card_id": "tranquil_passing_red",
+        "ward": 1,
+        "native_controls": 7,
+        "persistable_assertions": 250,
+        "victim_hero": "prism",
+        "expected_final_health": 18
+      }
+    ],
+    "basis": [
+      "All three exact groups uncovered with no exact named current hold in both ledgers. Young Verdance20 caster1, two Dorinthea20 and victim4 young Enigma20 for Mystic equipment/Prism20 for Illusionist auras are legal. All physical source/owner/UID/zone/HP/AP checks rebound correctly.",
+      "Reuses known Full Zap Red target-before-payment and four source responses, then actual mandatory Ward ordering MZCHOOSE. Exact Equipment0 vs Arena0 choice refs agree with initial zones; held Zap6 and retained primary5/HP20 persist until owner4 answers actual primary. DTDCards212/221 recognizes Ward refs, destroys actual primary and returns prevention value.",
+      "Heirloom Rabbit Hide is admitted legal previously face-up Equipment5/FaceDown0; MSTHidden32 is false, so Ward4 functions. Printed start-turn face-down/HP1 optional-turnup condition is not earned on this off-turn prior face-up setup; no entry, reveal or leave effect is required by this recorded branch.",
+      "Solitary Companion has only an entry WHEN and Ward3; admitted prior Aura5 earns no entry now, and no leave/destroy WHEN is printed. A prior accompanying Shield need not persist into this legal settled state. Ward3 prevents all actual Zap3.",
+      "Tranquil Passing has only entry optional target-exile until it leaves and Ward1. A legal prior entry may have no bound object (declined/no target); there is no separate printed WHEN-leaves trigger. No linked exiled card exists to return in this branch. Ward1 prevents1of3 for actual2damage/HP18.",
+      "Exact Ward4/3 cases finishHP20; Ward1 finishesHP18. Each destroys same primary5 to owner4 GY, clears actual source6 to owner1 GY, no other Arena/Equipment/Hand/Stack/DQ/token/newUID/RNG, preserves all natural other heroes and sourceAP0/R0. No earned unrelated Hero event appears.",
+      "All752 declared assertions persist; zero author-only diagnostics or contradictory checkpoint oracles. Off-branch activation/entry texts are excluded without omitting any event earned by actual Ward destruction."
+    ],
+    "source_sha256": {
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "limits": [
+      "Pending Root native recording, exact saved review and targeted clean replays; reviewer made no native/T/source changes.",
+      "Ward4/3/1 prevention/destruction only. No Cloaked entry/turn-up/private history producer, start/HP1 threshold, entry Shield or target-exile, bound-card return, Hero/other activated ability/support/sibling/whole-card credit.",
+      "Sources list has inherited cache#zyggy boilerplate; actual literal case Hero IDs, cached legality and initial Hero assertions were independently checked as Enigma/Prism above."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1181-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "14fb8e2faccb47e59842b3ffd2c9964e5f48459ddac7fa175848ce354275f2d4"
+  },
+  "full_suite_run": false
+}

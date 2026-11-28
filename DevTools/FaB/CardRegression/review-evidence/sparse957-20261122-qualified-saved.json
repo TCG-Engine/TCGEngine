@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse957-20261122.json",
+  "source_spec_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+  "input_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-battering-bolt-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+      "card_id": "battering_bolt_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "806e974b9e227729d7f292bdc2703af35199b22921d1c4ad4ddb72067c8178f0",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "e1f5c740ba6518717178bd89cd4d29ad823e7dedfddb3e583d64a97f64accdfc",
+        "expected_final_gamestate.txt": "c9020714f3cea680e81bcce60e48febd768e43816603ecb1263e633efc6cffb0",
+        "meta.json": "7819b61b92b8a6acf50db3ac8e809754753939fee0aa5a1ebec0f49c0a9b6ab5"
+      },
+      "fixture_sha256": "7824d69debfc8035c857c3df22aeff0809f4bd6225f86da3d0bce54b35de981c",
+      "actions": 30,
+      "native_assertions": 192,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse957-20261122.json",
+      "input_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse957-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-battering-bolt-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "fixture_slug": "card-battering-bolt-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-heat-seeker-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+      "card_id": "heat_seeker_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7408ab6a472e8a8f2f67a802cdb535f6992136045e4dba1498bdc837120ac969",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "ec96558dd16c60777d8837264c6ffc59e20e2a4a22a0b0683e6e5c308b9ac6ce",
+        "expected_final_gamestate.txt": "bcbeafba09ea4ba27fbc9621ad61cdb0e237af740fe39364c2dc227418102721",
+        "meta.json": "6a3a582327fb2a3236713ee41aee5d5e66a9d6e10ff6db1c1c4fb9e1d733f7c7"
+      },
+      "fixture_sha256": "c32d6a17639405b62e839eafb361df87ab29ffc3a49040b6e9505651ba19f3d8",
+      "actions": 30,
+      "native_assertions": 186,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse957-20261122.json",
+      "input_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse957-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-heat-seeker-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "fixture_slug": "card-heat-seeker-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-intoxicating-shot-blue-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+      "card_id": "intoxicating_shot_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ed007bf243f3c74f8bc8db2548fb5def716c9c8d890b2df5c75939d71562b70",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "dd7ae0fc723a044747d96a4ae4b4a85678f551e0791de4a056a48810b151ad87",
+        "expected_final_gamestate.txt": "dd75702f49320204dbb596f1fbc8c2d2271b19fb49a2a4b4858277bee4c5a873",
+        "meta.json": "7fb2173b4138b4b6201056292b1ec16c930246046bf32c104b610e6c904c3975"
+      },
+      "fixture_sha256": "90d6e96d76d97d82a95bb8f74e8a8c39b37e0acdca49890c7b6b506aa26133d1",
+      "actions": 29,
+      "native_assertions": 164,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse957-20261122.json",
+      "input_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse957-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-intoxicating-shot-blue-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "fixture_slug": "card-intoxicating-shot-blue-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-murky-water-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+      "card_id": "murky_water_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ff14a06c076bd0b6f704e0ef73c122ef4d0ace8bbf2df2545380293c326b764e",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "7b4ce0a0d7684d2b6466b24a51217e747f050fba89e0b98bd1cb95bb52efe29d",
+        "expected_final_gamestate.txt": "a9b3b6bf2f39954b5c654ab4c27119d30abd1bc1cc0c039e226ace9666b77854",
+        "meta.json": "2989164fe4e2cc1d9dd2a0bc18a089079fca1f652aa4d1df38b9f9d78378eba1"
+      },
+      "fixture_sha256": "f61cf5fd678d9aa5d444a6ee4aba449dbedb962d37e3fce8b450c7c173f1ded0",
+      "actions": 30,
+      "native_assertions": 186,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse957-20261122.json",
+      "input_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse957-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-murky-water-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "fixture_slug": "card-murky-water-red-four-live-sparse957-actual-facedown-arrow-and-hand-blocks-no-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c33866f05af0e97654d0de8bda69e236b53d0fa690a483406d5ef37c51b7cd7b",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached types/text permit Lexi20 Ranger first two and Riptide19 Ranger own specialization last two. Plain Death Dealer is legal for both, unlike talent-restricted bows. Physical facedown Arsenal5 arrow is played before actual Hero4 target; Riptide Hand-play event is absent because this is Arsenal play and Blue pitch is not a play. No bow/hero activation occurs.",
+      "Actual printed2/1/0/2 costs use real Blue6 when needed, R1/2/0/1 and AP0. Two physical Hand AA eachdef3 fully block6/5/4/6, so no hit is earned. Full four manual seats, zero damage/attackHit=false/Stack0, source5 own graveyard/Arsenal0 and unactivated Bow9/8 retained. Riptide natural ownHP19 is consistently guarded; others20. Initial counts/UIDs and shifted Hand blockers are consistent.",
+      "Battering has a real eligible enemy Instant Hand10 retained with same owner/UID and HP20, so no erroneous discard/life loss is nonvacuous. Murky starts without aim, hence neither +1 nor dominate; actual legal multiple Hand blocks/zero damage pin that base branch. Printed effects are hit-triggered; no unconditional attack/play trigger is omitted. Generated Hit producer exists for each."
+    ],
+    "limits": [
+      "Only Arsenal/Bow/main payment/full block/physical retention. No exact unblocked power, positive hit/aim/dominate/reveal/discard/tokens/random traps/hero ability, siblings or full-card certification. Heat Seeker delayed trigger registration/end-phase effect is not directly observed; empty Deck/no end phase means no such credit. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse957-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4688dd348cb4bd6a8c62ed709ad28582e91e373249cf7700cf1a4c3c5305ec83"
+  },
+  "full_suite_run": false
+}

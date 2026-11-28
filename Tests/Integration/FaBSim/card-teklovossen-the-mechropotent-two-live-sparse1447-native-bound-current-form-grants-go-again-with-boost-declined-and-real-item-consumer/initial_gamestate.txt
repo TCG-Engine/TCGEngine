@@ -1,0 +1,118 @@
+1
+0
+1
+teklovossen_the_mechropotent 2 1 1 0 1 - -
+1
+bravo_showstopper 2 2 2 0 2 - -
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+1
+zero_to_sixty_blue 16 1 1
+0
+0
+0
+3
+zero_to_sixty_red 13 1 1
+hyper_driver_red 14 1 1
+wounding_blow_blue 15 1 1
+0
+0
+0
+0
+0
+0
+0
+4
+teklo_base_head 9 1 1 0
+teklo_base_chest 10 1 1 0
+teklo_base_arms 11 1 1 0
+teklo_base_legs 12 1 1 0
+0
+0
+0
+0
+0
+0
+0
+6
+evo_command_center_yellow 3
+evo_engine_room_yellow 4
+evo_smoothbore_yellow 5
+evo_thruster_yellow 6
+teklo_leveler 7
+teklovossen_esteemed_magnate 8
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+40
+40
+20
+20
+0
+0
+0
+0
+0
+0
+0
+0
+1
+0
+1
+1
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+{"version":1,"holdPriority":false,"windows":{"BLOCK":false,"ATTACK_REACTION":false,"DEFENSE_REACTION":false,"ACTION_PRIORITY":false,"INSTANT_PRIORITY":false,"ATTACK_PRIORITY":false,"DEFEND_PRIORITY":false,"OTHER_REACTION":false,"DAMAGE_PRIORITY":false,"RESOLUTION_PRIORITY":false,"END_PHASE":false}}
+
+
+0
+1
+0
+{"window":"ACTION","combatOpen":false,"combatStep":"NONE","chainLink":0,"attacker":0,"defender":0,"attackUID":0,"attackTarget":null,"pendingAttackTarget":null,"previousAttackCardID":"","handBlockUIDs":[],"intimidated":[],"pendingPayment":null,"lastAttackName":"","attackHit":false,"attackPower":0,"defenseValue":0,"damageDealt":0,"declaredBlockUIDs":[],"passiveSeats":[],"gameMode":"","turnEffects":{"1":[{"type":"MON_SOUL_ADDED","amount":1,"uses":1},{"type":"MON_YELLOW_SOUL","amount":1,"uses":1},{"type":"PEN_YELLOW_SOUL","amount":1,"uses":1},{"type":"MON_SOUL_ADDED","amount":1,"uses":1},{"type":"MON_YELLOW_SOUL","amount":1,"uses":1},{"type":"PEN_YELLOW_SOUL","amount":1,"uses":1},{"type":"MON_SOUL_ADDED","amount":1,"uses":1},{"type":"MON_YELLOW_SOUL","amount":1,"uses":1},{"type":"PEN_YELLOW_SOUL","amount":1,"uses":1},{"type":"MON_SOUL_ADDED","amount":1,"uses":1},{"type":"MON_YELLOW_SOUL","amount":1,"uses":1},{"type":"PEN_YELLOW_SOUL","amount":1,"uses":1},{"type":"MON_SOUL_ADDED","amount":1,"uses":1},{"type":"MON_SOUL_ADDED","amount":1,"uses":1}]},"nextTurnEffects":[],"hitsThisTurn":[],"cardsPlayedThisTurn":[],"eleKorshemActiveTurn":2,"arcCards":{"1":{"iarPermission":[],"penFreezeSources":[]},"3":{"penFreezeSources":[],"iarPermission":[]},"4":{"penFreezeSources":[],"iarPermission":[]},"5":{"penFreezeSources":[],"iarPermission":[]},"6":{"penFreezeSources":[],"iarPermission":[]},"7":{"penFreezeSources":[],"iarPermission":[]},"8":{"iarPermission":[]}}}
+0
+12
+12
+0
+0
+0
+0
+0
+0
+0
+0
+2
+1
+MAIN
+
+
+
+
+16
+0

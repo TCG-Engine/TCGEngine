@@ -1,0 +1,73 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-09T02:46:06.892509+00:00",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "source_spec": "card-regression-batch769.json",
+  "source_spec_sha256": "9fe988150d328fd179a06ef80f3e5b8bf34769a0a8942d3bb02ac9b3757eb139",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 29,
+  "native_assertions": 2526,
+  "manual_passes": 25,
+  "totals": {
+    "saved_registered_scenarios": 4024,
+    "duels": 3074,
+    "four_live": 950,
+    "recorded_primary_ids": 1178,
+    "identity_denominator": 5196,
+    "recorded_groups": 1052,
+    "group_denominator": 3324,
+    "four_live_groups": 943,
+    "phase_qualified_scenarios_at_actual_contexts": 661,
+    "phase_qualified_unique_groups": 656,
+    "creation_replay_passes": 1322,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 141,
+  "scenarios": [
+    {
+      "card_id": "dance_of_darkness",
+      "group_id": "identity:dance_of_darkness",
+      "scenario_id": "card-dance-of-darkness-four-live-real-optional-banish-replacement-prevents-two-of-seven",
+      "effect_branches": [
+        "dance-of-darkness-four-live-real-optional-banish-replacement-prevents-two-of-seven"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dance-of-darkness-four-live-real-optional-banish-replacement-prevents-two-of-seven",
+      "source_spec": "card-regression-batch769.json",
+      "source_spec_sha256": "9fe988150d328fd179a06ef80f3e5b8bf34769a0a8942d3bb02ac9b3757eb139",
+      "review_evidence": "review-evidence/sparse769-dance-actual-damage-replacement-saved-c53.json",
+      "review_evidence_sha256": "1837ac30b292583caf175c2f130f933164aa5e16f06da157d31842f64461b444",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "qualification_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov9-b769-dance-clean-r1.json",
+          "sha256": "2b284ced05e0963b48ae8faa071d68dd61b07b780a0e169bbd94042eec6a9b44",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov9-b769-dance-clean-r2.json",
+          "sha256": "cb757714cca04939de6e41eaaba1805ea77bfe7491de138389bffc4c48fb55bd",
+          "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

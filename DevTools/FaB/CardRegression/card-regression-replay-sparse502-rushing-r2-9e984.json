@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch502.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T18:52:52.171802+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rushing-river-red-four-live-real-timesnap-and-blocked-torrent-earns-combo-four-power-and-go-again-refund",
+      "fixture_sha256": "83b299dd9d7059780812825cf869bf51eaa52451b59201ed09b6c3e45d1a9dd3",
+      "passed": true,
+      "result": "[PASS] rushing_river_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rushing-river-red-four-live-real-timesnap-and-blocked-torrent-earns-combo-four-power-and-go-again-refund",
+      "returncode": 0,
+      "stdout": "[PASS] rushing_river_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

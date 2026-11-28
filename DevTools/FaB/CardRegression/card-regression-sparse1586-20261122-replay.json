@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1586-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1586-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b03fb22cc830f728251b0f657fea5f543602ea43afbdb675865db7d4325d234d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6bce059a7c0da7a453c2c1d10843d4548f0f5fe6a1a26da69edfc7d4aacc3dff",
+        "actions.json": "ab59aea7a5ea4269f114a664cafedefaa0b3a4a78e444b9afa1f369f5aae69a5",
+        "assertions.json": "4374d254cdd242a0df133e336b2f014fb6ce5896a639668e8f550b1a3f697bfb",
+        "expected_final_gamestate.txt": "9d7cda7a701cd9e14456912ff77e1ab6340eb7b8c212fb1dc1d04ad3b1824aa3",
+        "meta.json": "932bce6f07d230e8de0499d14068ca2b76f428b12e1cfc6fd0a5b840dcb1f61c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

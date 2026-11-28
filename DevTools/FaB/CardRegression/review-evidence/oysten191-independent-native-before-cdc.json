@@ -1,0 +1,136 @@
+{
+  "status": "ACTUAL_NO_SAVE_CONFIRMED_OYSTEN_DEATH_GOLD_BEFORE_EARNED_RESPONSES",
+  "phase": "ACTUAL_NO_SAVE",
+  "batch": 849,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "actual_failure_review_complete": true,
+  "confirmed_gameplay_bug": true,
+  "oracle_correction_required": false,
+  "diagnostic_review_complete": true,
+  "actual_no_save_route_approved": false,
+  "positive_promotion_recommended": false,
+  "normal_save_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "fixture_saved": false,
+  "source_fix_applied": false,
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_attribution_status": "Fresh literal SEA Oysten death producer timing finding; relation to other trigger timing families unallocated. Root reserves issue ID; no denied operation or shared repair retried.",
+  "source_spec": "card-regression-batch849-oysten-real-lethal-gold-watery-probe.json",
+  "input_sha256": "601c66319fa2c5c7956d346c5b137b6d1b221d25d16f947bd1230709c3f91480",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\oysten-real-ally-lethal-earned-gold-watery-full-probe.json",
+    "sha256": "601c66319fa2c5c7956d346c5b137b6d1b221d25d16f947bd1230709c3f91480"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-real-ally-lethal-gold-watery-strict-probe-author\\manifest.json",
+    "sha256": "d11fd425ee8cee3e59955e62aa052fdb3ad4f8830b33fa084adbb0b671d0aaf2"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_original_correct_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch849-oysten-independent-original-correct-diagnostic-source-review.json",
+    "sha256": "2d7c99289e5a3a4773855f7fb6e6c43a369e8feec2a2c323ea898b2e971aea3e"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b849-oysten-ally-lethal-strict-nosave-cdc\\receipt.json",
+    "sha256": "4454e20c7cd38ec7411d9c7955423beb06f50b71dbc0349f6a7678cbeacce4fc"
+  },
+  "actual_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b849-oysten-ally-lethal-strict-nosave-cdc\\actual-result.json",
+    "sha256": "a1b914204894c5ff47d16ca33d237b9efb63b816917512a1a1068944a9dbe4f2"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch849-oysten-real-lethal-gold-watery-probe-20261116T055737Z-6afa9b515b58a.json",
+    "sha256": "bdfba3d3c475e33db23eb198a3160e1a780d9ace2308fd4f0599a22bdfe2cc78"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch849-oysten-real-lethal-gold-watery-probe.recording-results.json",
+    "sha256": "a1b914204894c5ff47d16ca33d237b9efb63b816917512a1a1068944a9dbe4f2"
+  },
+  "planned_controls": 36,
+  "planned_queries": 4250,
+  "actual_native_inputs": 20,
+  "actual_manual_inputs": 17,
+  "actual_manual_actor_counts": {
+    "1": 4,
+    "2": 4,
+    "3": 4,
+    "4": 5
+  },
+  "persisted_successful_queries": 2236,
+  "persisted_prefix_matches_original_ordered_Source": true,
+  "persisted_prefix_sha256": "1a88bc34835be9cb8567a8c3300b68fe06cbf1022cc6a0050fe1100fc2df09f4",
+  "first_failed_query": {
+    "source_step_index": 40,
+    "source_check_index": 32,
+    "native_after_input": 20,
+    "checkpoint": "actual_REACTION_four_lethal7toLife1Ally_earnedGoldAndWatery_NO_GOLD_NO_FACE_DOWN_YET_fourth_response",
+    "global_query_ordinal": 2237,
+    "query_ordinal_in_checkpoint": 33,
+    "query": {
+      "step": 20,
+      "type": "zone_count",
+      "zone": "p4Arena",
+      "value": 0,
+      "viewerPlayerID": 1
+    },
+    "expected": 0,
+    "actual": 1,
+    "error": "Expected p4Arena count 0, got 1."
+  },
+  "queries_unrun_after_failed_query": 2013,
+  "not_passed_including_failed_query": 2014,
+  "native_controls_unrun": 16,
+  "manual_inputs_unrun": 16,
+  "passed_current_cluster_queries": 32,
+  "initial_raw_sha256": "a99bff815c4f812a7c4161d40940bea6d872dc18cce35201206fc6d1c6237e9b",
+  "initial_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats_initial": true,
+  "final_raw_48_manual_controls": false,
+  "final_physical_raw_snapshot_available": false,
+  "actual_passed_facts": [
+    "All20 actual envelopes and2236 persisted queries exactly equal original ordered Source prefix. Last input is actual actor4 fourth Reaction response;17 manual inputs4/4/4/5 include the real P4 zero-defense finish. Initial raw48 controls verified, no auto/passive seat.",
+    "Actual formal adjacent Ally target7, Blue6 pitch3 paying Smash5 cost2/R1/AP0, actual printedpower7/noGA, four Source/Attack/DefendPriority/Reaction boundaries passed. At control19 immediately before final Reaction pass, physical Oysten7Arena4/ownercontroller4/status2/damage0 and Gold0 passed.",
+    "Current32 passed queries prove all heroesHP20/live, P1R1/allAP0/allChi0, physical Smash5 combat-chain CardID/UID/owner/controller1/RoleATTACK/Link1/FromHand, computed7/noGA. Query2237 then directly observes p4Arena count1 against correct0; no later physical-zone assertion executed.",
+    "Captured raw GameState separately corroborates PRIORITY while combatStepDAMAGE/targetPERMANENT4uid7/attack5/damageDealt7/paymentnull. Actual P4 effects contain SEA_ALLY_GRAVE1 and SEA_GOLD_GAINED1 (plus PEN_ALLY_GRAVE). This raw history corroborates grave-entry/earlyGold outcome; it is not a passed physical Gold UID or corpse-zone query."
+  ],
+  "causal_source_findings": [
+    "Source UPRDeal74 destroys the life1 Ally after real7damage; MONDestroy238 preclones and243 moves actual physicalUID to ownerGY. SEAAfterMove75..76 first calls GraveEntered (which queues Watery) then directly FaBHVYTokenGold before any earned Gold layer responses. HVYToken20..27 creates actualArena token; SEAAfterMove77 marks Gold entry. Captured Gold-gained marker and count1 match this fresh inline producer.",
+    "SEA_GOLD_GAINED also has a separate steal writer in SEACards64; that alternative is unentered by this fixed initialGold0/allseats and actual sole Smash/Blue/pass route. Do not interpret the marker alone as a universal identity oracle. Exact physical postfailure Gold CardID/UID/owner/controller and Oysten GY UID/FaceDown remain source-path/closed-roster inference, not independently passed Native physical queries.",
+    "Printed When this dies createGold and Watery CR8.3.41 earn responseable layers under CR6.6.5/6.6.6. Gold0/faceUp before first four earned responses is correct regardless of controller-chosen order under6.6.6b. Correct expectation must not be changed to accept early Arena token creation.",
+    "Subsequent GY/count/CID/UID/FaceDown/Stack2/capturedsource/controller and both earned rounds/finalGold identity/cleanup queries were UNRUN. Empty observed decisions and PRIORITY label do not independently establish actual Stack count or source metadata. No actual controller-order UI/permutation/intermediate which-effect certificate."
+  ],
+  "postfailure_raw_limit": {
+    "unique_game_name": "regression_fab_author_6afa9b310828c",
+    "existing_isolated_game_directory": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Games\\regression_fab_author_6afa9b310828c",
+    "existing_directory_present": false,
+    "reason": "Recorder finally clears memory/deletes unique game. Frozen result contains initial raw only, not terminal physical zones. Existing capture/archive inspected read-only; no rerun or new capture mutation."
+  },
+  "primary_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+      "sections": [
+        "6.6.5",
+        "6.6.6",
+        "6.6.6b"
+      ]
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "sections": [
+        "8.2.8d",
+        "8.2.8e",
+        "8.3.41"
+      ]
+    }
+  ],
+  "limits": [
+    "No fixture/coverage/promotion.2013 queries after first failure and16 controls remain unrun;2014 not-passed includes failed query.",
+    "Only listed passed facts and separately labelled captured GameState are actual evidence; later corpse/Gold/Stack physical facts remain unrun or source-correlated inference. No final raw5/final48 certificate.",
+    "No Native/PHP/retrial/R writes/sourcefix/Radiant189/Head190 or denied188184B787 action by reviewer."
+  ],
+  "created_utc": "2026-11-16T06:02:44.992474+00:00"
+}

@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1010-20261122.json",
+  "source_spec_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+  "input_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sonic-boom-yellow-four-live-sparse1010-actual-three-arcane-with-real-non-wizard-top-card-retained",
+      "card_id": "sonic_boom_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "41633d1067e4a6b6cdaf7fc4c7ba9fed345ecc24746b57047b3bb383d22499b3",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "fb64d85a908f0ed1c1b9913f30daeb710622a53ce409f540fcf97266f64597aa",
+        "expected_final_gamestate.txt": "0c5bb6e7a1cc5a983953eea8167e187947442185e4c2c871f85c1616192f3f02",
+        "meta.json": "ea7053f5e216e9802687a2f11b9c990b4ef646a4376ed386185855979beaa1ff"
+      },
+      "fixture_sha256": "f267a03b89a80d96a431598d408c3dc532a002baea25d515bf7dfeace321a5fc",
+      "actions": 7,
+      "native_assertions": 110,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1010-20261122.json",
+      "input_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sonic-boom-yellow-four-live-sparse1010-actual-three-arcane-with-real-non-wizard-top-card-retained",
+        "fixture_slug": "card-sonic-boom-yellow-four-live-sparse1010-actual-three-arcane-with-real-non-wizard-top-card-retained",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cindering-foresight-red-four-live-sparse1010-actual-opt-three-moves-third-card-top-and-second-card-bottom",
+      "card_id": "cindering_foresight_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f0907c6617411df377daf7e57a5851117edf5b63c4564384478f66cb972e689f",
+        "actions.json": "7825c25d49102ee79dd9b1be1fd2a9951d9587ab20188279da8be3dc3d0269ab",
+        "assertions.json": "4097169cf1ac2bf509abd354b6a7bf288c068446a1e360cce1bbec0afa5df2be",
+        "expected_final_gamestate.txt": "479f83be1a2e8144971337b6e92e0047fdbc0c8128a524b847c3246fde0b6a9e",
+        "meta.json": "458f4ab9a3fc54da17d60e22a07a319b185423283d9d2b5dc8c6a1b86b26f525"
+      },
+      "fixture_sha256": "e85a8ddffc02b586a6b0a26671d73749d6b3fa3d7e16d396c9ae7b180296f54c",
+      "actions": 6,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1010-20261122.json",
+      "input_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cindering-foresight-red-four-live-sparse1010-actual-opt-three-moves-third-card-top-and-second-card-bottom",
+        "fixture_slug": "card-cindering-foresight-red-four-live-sparse1010-actual-opt-three-moves-third-card-top-and-second-card-bottom",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-splatter-skull-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-banish-card",
+      "card_id": "splatter_skull_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "36b4d7180967337ea11466e2fcfe6d99632a2e11fe018ec77d165c1b903d0909",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "81403a179a1ab3af69d1535b4a6db61692719abe64447581a1640d501a2d9474",
+        "expected_final_gamestate.txt": "af94172c4b10d653f6ddc9d5e59ea44abf8b91b9a28760a3df730ebed2c9a757",
+        "meta.json": "a453a474370ecbaf7763337aedf5b423e0e78f9624d71a05ff5fe3ecf97a57e8"
+      },
+      "fixture_sha256": "83c0efd011c77c91d286a60d86a5fb9d1215a5bddd20054f532b48b3c2f69a4d",
+      "actions": 30,
+      "native_assertions": 207,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1010-20261122.json",
+      "input_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-splatter-skull-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-banish-card",
+        "fixture_slug": "card-splatter-skull-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-banish-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-conquer-the-icy-terrain-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-arsenal-card",
+      "card_id": "conquer_the_icy_terrain_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9f3fce3071176485a1f30f3ff8dafecbd81358bf35101403d80721650341d384",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "2eac527da276fd93eed4df142432baf057b9e14b62138e573c97f32cf3ffc403",
+        "expected_final_gamestate.txt": "444deb79d4cf6167ee21ad10d0869c5779c53e0082bcb6ab99a43937672163fc",
+        "meta.json": "6187859932557e23ea0979a81fa01a6653cf1c803124ae749fd855111f9db882"
+      },
+      "fixture_sha256": "51f01a38788f529bcfd456a81f56fc97f634bc0b70abe929e697f2aa7894b5cc",
+      "actions": 31,
+      "native_assertions": 226,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1010-20261122.json",
+      "input_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-conquer-the-icy-terrain-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-arsenal-card",
+        "fixture_slug": "card-conquer-the-icy-terrain-red-four-live-sparse1010-fully-blocked-no-hit-keeps-existing-facedown-arsenal-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 1010,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "536af89f323717c1bf0bb89440610b1c9ae1674e70e4064071bbfd86690ed0dd",
+    "findings": [
+      "SonicBoom actualKano15Wizard, explicitformalPrepare opposingHero4 beforeassets, Blue6pays2/R1/AP0, printed3arcane HP4=17. RealDeck7GenericAA notWizardNAA mustremainafterlook; noemptydeckmask/futurebanishpermissioncredit. NoHeroautoability orpreventionassets.",
+      "Cindering ownturnAction0/naturalKano15/AP0, actualOpt3 stagesdistinct6/7/8; printedChooseOrderpermitsTop8,6/Bottom7 viaestablishedMZREARRANGE syntax. Physical5heldStackwhilepending, thenownedGGY5 andexactDeck8,6,7/Temp0/Hand0. Futurearcane+1 andoff-turnInstantpermissionunrun.",
+      "SplatterSkull2/power6 andConquerIcy3/power7 actualfullblockDEF6/9/noHit/HP20 meansnoearnedHitability, noRhinarDiscard6event. RealfacedownBanish/Arsenalretained, butIntimidatehistory/frozeneligibility/positiveHit effectsnotcredited.",
+      "Allfourmanualnativeinputs, realphysicalcost/power/HP/AP/source/blockerownedfates/cleanqueues; noauthor-onlydiagnostics orotherhero/support/sibling/fullcardcredit. Native+onecleanreplaypending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1010-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c87ce89249954c29f617eb6edbf1b4fabc619cf678b260e974c018d390815799"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cranial-crush-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cranial-crush-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "906374653bd683c11ed38fe07134b9e0efbfbee25723935b053c221ab21bc14f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "affe3eb168f9a0e1983e41689cae2f792afe774158a85f66f32ef447c88d7e44",
+        "actions.json": "400c7ef141316ef795234399abbf4c39ff912cb043b7eeb5490a65df81f266b4",
+        "assertions.json": "df6d79f242ce026848bd35aed9c4bf517c2772c8281a1caff47625da7027bbd6",
+        "expected_final_gamestate.txt": "db937a072e9cd9a1ca9e5004be0bfb42cc1f64da1eceb933d96704c9eb123b72",
+        "meta.json": "1245d3fa5c720f846228f18b5c1ddb2880d9e02fbca16a2696fb3f27213d02a5"
+      }
+    },
+    {
+      "slug": "card-batter-to-a-pulp-red-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-batter-to-a-pulp-red-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cb1e5b50de92800684b1c51764ff9198beef86994c0a6d37d31d96632be0205a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7118d44b21edefdeeee60b63d13404f7ba4ad0ef1e779f281bdd896af319c5f",
+        "actions.json": "b13a5c6357eefee8545eef3d84ffc45ae2693a805a3c988fca0b32df9c890957",
+        "assertions.json": "46d969d2fe340816b760194aa6aee8d879685ba3a0b972ea96d9b504c730d1ca",
+        "expected_final_gamestate.txt": "29bf2d68dea3ddaee7fa6184ee6bc4426705003cebca144505738ed9a5f7c330",
+        "meta.json": "9b73752e1b0d9eeb4613068033cf4b2365a6a41de47db400c0b2a735c7fe0df8"
+      }
+    },
+    {
+      "slug": "card-headbutt-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-headbutt-blue-four-live-sparse960-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3b1d03f6f5059c46a3c57adfe497a9fa1ce65c2e79274b84b9f166b64bd71360",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f13292049a4112222fbb31936531ebc04d15354bb0f1c1db12c9c5a7c0c551b5",
+        "actions.json": "fcaad4c8c9f7dd9370425452ad7aecae60a3076f491e6f01d5533b606ce6650f",
+        "assertions.json": "4cd0170b226db53fa15bda56469df73626793c650019e4e16d28aa5cca635141",
+        "expected_final_gamestate.txt": "1646dd9550f585d67986a72035e53a37ddcbb06d07ca433f63f9300ab9a11f1e",
+        "meta.json": "9dcd5ab524f744f7ad7c3e4522ab221e124cab05c13e33ecc4f81d400b00d68b"
+      }
+    },
+    {
+      "slug": "card-colossal-bearing-red-four-live-sparse960-actual-eight-below-tower-threshold-keeps-real-equipment",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-colossal-bearing-red-four-live-sparse960-actual-eight-below-tower-threshold-keeps-real-equipment",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse960-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "66b07b216f8f485c0f7cc1de24c7c99bf886ee5e4f991682a243c351697577e5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a62e9414e8df4a4e4c9394e84870765a39db4770adae12ba04208ba5d682d7a",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "cef856dcaba749d3a0e072be416d457288ed725e7edc4b97bec33abd05c0c545",
+        "expected_final_gamestate.txt": "e0183966dee0856a73f25b9f3b012c19be4e46f8007b9ca36453d1ca27132225",
+        "meta.json": "fba1a628c4d956dc564ad14a3f8c3ec800d46a4505bfe7ad92f00c95d39d92d2"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

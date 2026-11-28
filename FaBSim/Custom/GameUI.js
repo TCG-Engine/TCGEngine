@@ -12,7 +12,8 @@
   }
 
   function install() {
-    if (document.getElementById('fab-shortcut-dock')) return;
+    const toolbar = document.getElementById('fab-table-tools');
+    if (!toolbar || document.getElementById('fab-shortcut-dock')) return;
     const entries = Object.entries(registry()).sort((a, b) => Number(a[1].order || 0) - Number(b[1].order || 0));
     if (!entries.length) return;
     const defaults = { version: 1, holdPriority: false, windows: {} };
@@ -53,17 +54,10 @@
         <span>Hold all priority</span>
         <input id="fab-shortcut-hold" class="fab-shortcut-switch" type="checkbox" role="switch">
       </label>`;
-    document.body.appendChild(dock);
+    toolbar.insertBefore(dock, document.getElementById('bug-report-button'));
     // Keep the popup outside transformed/scrolling board containers.
     const panel = dock.querySelector('#fab-shortcut-panel');
     document.body.appendChild(panel);
-    const mountControls = () => {
-      const selector = document.body.classList.contains('fab-upf-active') ? '.fab-upf-tools' : '.fab-overlay-toolbar';
-      const toolbar = document.querySelector(selector);
-      if (toolbar && dock.parentElement !== toolbar) { toolbar.appendChild(dock); positionPanel(); }
-    };
-    mountControls();
-    new MutationObserver(mountControls).observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
     const groups = new Map();
     entries.forEach(([id, spec]) => {

@@ -1,0 +1,139 @@
+{
+  "status": "INDEPENDENT_APPROVED_TWO_SOURCE_ONLY_UNATTEMPTED_DAGGER_FORMAL_TARGET_AND_HIT_DISCARD_CONTRACT_NOTES",
+  "phase": "PLANNING",
+  "batch": 863,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_note_approved": true,
+  "source_approved": false,
+  "native_probe_approved": false,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue": false,
+  "new_distinct_gameplay_root_group": false,
+  "source_fix_applied": false,
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-two-required-contract-notes-manifest.json",
+    "sha256": "643d0f02e00df6ee93ba7dda4c00656af059a3feed6da2663a11149656e067cb"
+  },
+  "manifest_sha256": "643d0f02e00df6ee93ba7dda4c00656af059a3feed6da2663a11149656e067cb",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-firm-reservation.json",
+    "sha256": "55ae45c7b446aadd2724ff7fb606556204ba51bf9647b085b23e1b764e81698f"
+  },
+  "supplemental_firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-firm-reservation-support-admission.json",
+    "sha256": "c5f6376762d1c95672ba61fe6a6a248113ebbb8ff3b678eaf617abcc65718f91"
+  },
+  "support_history_ordinal_clarification": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-firm-reservation-support-admission-history-clarification.json",
+    "sha256": "3b065dd68741ec0a1ca9d09e5d4c5da9687af32bbece3d85b547f1ebc714b7a9"
+  },
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "source_guard_count": 15,
+  "all_current_source_guards_matched": true,
+  "additional_reviewer_causal_guards": {
+    "FaBSim/Custom/WTRCards.php": "4e06e4b83bd5acd634a14c6dd00eaae52f92dbceb1adbbaba3f67e921450d5d2",
+    "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b"
+  },
+  "holds": [
+    {
+      "card_id": "brothers_of_flame_red",
+      "group_id": "identity:brothers_of_flame_red",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN267_290_LATE_RESOLVING_TARGET_NOT_WEAPON_ADMISSION148",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-brothers-required-formal-target267-unattempted-note.json",
+        "sha256": "e1b803c86324c5f2bbe905eca074bd94dfe1164c9cefc9f3f9cc4e0863c5742d"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 267,
+          "card_id": "tarantula_toxin_red",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse820-independent-diagnostic-source-and-tarantula-planning-review-429a.json",
+            "sha256": "68d361e8a46fd5eea83bebf0528dbb6491f15e7150675f92be9892cb6bf14122"
+          }
+        },
+        {
+          "human_row": 290,
+          "card_id": "cut_to_the_chase_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse839-two-known-required-contract-planning-cdc.json",
+            "sha256": "99ab6a486de14b2679907b31522f2206a172a0627ab596ded03c1776c8b5787b"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    },
+    {
+      "card_id": "frost_fang_blue",
+      "group_id": "pitch-cycle:frost_fang",
+      "status": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_REQUIRED_SELECTED_CONTRACT",
+      "classification": "KNOWN285_295_HIT_WHEN_RESPONSEABLE_LAYER_CONTRACT",
+      "note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch863-frost-fang-required-hit285-unattempted-note.json",
+        "sha256": "40e24e80e736af257859e5e53a937076bfaf7d8d8ba9bfa1baa0908f4c3f0f9c"
+      },
+      "known_required_contracts": [
+        {
+          "human_row": 285,
+          "card_id": "pursuit_of_knowledge_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse834-independent-known-defend-hit-planning-review-a11.json",
+            "sha256": "1d90617236e5292c8b309ea01e96edc6f88ca621d5f05ac796e6e0318901615e"
+          }
+        },
+        {
+          "human_row": 295,
+          "card_id": "stun_star_blue",
+          "retained_independent_proof": {
+            "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\review-evidence\\sparse842-two-known-required-contract-planning-cdc.json",
+            "sha256": "d80a2d13f29a8f151e1ba8cec8b92db54d3764bed792d489e66c40adc883d2b6"
+          }
+        }
+      ],
+      "native_attempted": false,
+      "fixture_saved": false,
+      "confirmed_gameplay_bug": false,
+      "coverage_credit": false
+    }
+  ],
+  "independent_findings": [
+    "Final admitted Brothers support is Young Fang20 plus actual Draconic-only Claw of Vynserakai Dagger1/Action1/Spellvoid1, not Obsidian. Fang legally admits DraconicWarrior reaction and Draconic PhoenixFlames. Claw has no Obsidian conditional+1/goagain. The frozen future consumer is base1+Brothers4=5/HP15/noGA; no discarded Obsidian6 route or illegalFangNinja prior card is retained.",
+    "Root c5f6 and immutable ordinal clarification3b065 bind plausible prior physical history: firstFlameATTACKlink1,secondFlameATTACKlink2,actualowner4 RedDEF3 defenderonLINK2 blocks secondFlame1power; currentClawlink3. Printedcost0/GA supports AP1, with priorhistory entirely unrun/uncredited. Original c5f6 priorlink1 phrase for second defender is expressly superseded; no cross-link blocker or fake Draconic counter is endorsed.",
+    "Actual HNTRuntime39 requires physical FaBFaiChainCount>=2; current FaBFaiChainCount counts distinct physical ATTACK chainlinks with Draconic type. HNT reaction DAGGER predicate delegates to DYNMatchDagger and realweaponClaw passes WTR487. Thus this is NOT earlier148 AA-only-admission hold. Implemented HNT ResolveCard performs actual targetMZChoose only at resolution after cost/responses, no PrepareCard; CardChoices4..12 early target registry admits onlyNip/Shred. Required formalTarget267/290 applies even with singletonDagger. No missingbody or new native defect claim.",
+    "Full future Brothers must declare controlled Dagger formalTarget before cost/responses, realBlue3 pays Claw1/R2 then reaction1/R1/AP0, retain physical reaction source through freshfour, resolve+4, dealactual5/HP15 and close all actual priorFlame/defender/reaction/weapon/Pitch/GY objects correctly. MarkedHero/Fealty/Spellvoid/thresholdnegative/siblings/priorhistory/fullcard remain uncredited. No native fixture/admission of serialized priorhistory is certified by this note.",
+    "Frost Blue is actual Icecost2/base3 and legal under Young Oldhim20 EssenceIce; unusedHeroDefenseReaction adds no entered event. Current ELE Hit executes victim4 Pay2/pitch or mandatory discard directly via GL1264 before separately earned responseable hit layer. Exact retained Pursuit285/Stun295 ordinaryHit contract, not absentbody or formal attack-target issue.",
+    "Final Frost victimHand is SOLE actualWoundingREDpitch1/R0,totalavailable1<2, so noPayModal is required; R0-alone affordability and BlueHandDecline proposal are explicitly withdrawn beforefreeze. Full future requires actual3damageHP17,earnedphysicalsource/controller1/freshfour,mandatoryCHOOSER4 MZMultiChoose1..1 while ABIretained,sameRedUIDHand4toowner4publicGY4(notBanish/attackerHand),realattackerBluePitch/R1/AP0/fullcleanup. Alternatepay2 and otherHandcards untested.",
+    "Exact two notes,all15 current guards plus two directly read causal delegates,actual selected primary/support metadata/canonical rows,four retained proof hashes and Root ordinal clarification independently matched at inherited unchangedCDC. Planning retention only; zero executable/native/save/coverage/new issue/sourcefix approval."
+  ],
+  "remaining_blockers": [
+    {
+      "card_id": "brothers_of_flame_red",
+      "action": "Execute full multi-link Dagger reaction with correct early formal target",
+      "reason": "Required formal target declaration267/290",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    },
+    {
+      "card_id": "frost_fang_blue",
+      "action": "Execute full earned hit mandatory victim discard route",
+      "reason": "Required ordinaryHit responseable layer285/295",
+      "state": "UNATTEMPTED_SOURCE_ONLY_NOT_NEW_DENIAL"
+    }
+  ],
+  "limits": [
+    "Only planning-note accuracy/retention approved. Full positive outcomes and priorhistory unrun; no individual native bug,distinctCore/root,primary/support/sibling/fullcard credit.",
+    "No PHP/Native/Rwrites/sourcefix/fullsuite/Git/remote/deferredRadiant or denied188/184/B787 retry. No B864 work."
+  ],
+  "created_utc": "2026-11-16T11:09:11.124465+00:00"
+}

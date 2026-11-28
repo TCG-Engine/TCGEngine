@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independentprintedrules/source/exactspec review. Root exactraw5/actions/assertions/finalstateproof andoneuserentrypointreplay. No independentnativegame claim.",
+  "runtime_sha256": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+  "source_spec": "card-regression-repair-cyb-20261125.json",
+  "input_sha256": "154e04c743cb23496306a98a262719368d109a96ae51705d9b6d022253dd9165",
+  "fixtures": [
+    {
+      "slug": "repair-count-your-blessings-blue-four-live-20261125-own-two-graves-opponent-excluded-retained-stack-source",
+      "card_id": "count_your_blessings_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c2f0e66b2aa3ced66695b1504102c7be2e64cb259b1d9f95c613ff11ca50300d",
+        "actions.json": "57b7a07731aff083ed8ecd7a6e44b3e05eeb874fe79ce1fc23633c1e75c61ad5",
+        "assertions.json": "0205bf3f55a7e594ca2e77a4d0bcd43f5a6c615a29f6f70b8517d09cb1a2cce1",
+        "expected_final_gamestate.txt": "fcd932d56084f40ec4e64743e899049eeeaaa8f02b9e6da1807509365ca7a5c3",
+        "meta.json": "680090107355049dbc501d6bf7b2a30a20f477a0aa7edb5a8554e03be32537b8"
+      },
+      "fixture_sha256": "075a13c5d380602e768ebe8388d73be1d156d223177caa61b181552d523b20b7",
+      "actions": 10,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+      "runtime_sha256": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+      "source_spec": "card-regression-repair-cyb-20261125.json",
+      "input_sha256": "154e04c743cb23496306a98a262719368d109a96ae51705d9b6d022253dd9165",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "basis": {
+    "reviewer": "/root/breadth_review1457",
+    "result": "APPROVED_EXACT_REPAIR_SPEC_PENDING_NATIVE",
+    "spec_sha256": "154e04c743cb23496306a98a262719368d109a96ae51705d9b6d022253dd9165",
+    "source_note_sha256": "79c64fe0c0d1c75bbca7f4e6dfc91389560c6a025102183f2d7ca5092a391045",
+    "runtime_sha256": "e2e36a4d4ddf3847922ef24313feaf9fa355070d4c1f32746a419cfa3c51ca3c",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/CodeGeneration.php": "3395c92854b9b99449f2cf777296291cccc81b79b5aa1d9127740530b30a4d8f",
+      "DevTools/FaB/build_ros_abilities.py": "f23856c180931fd184c6a19b400ff7c002a353def390f17318f63250f8bae7cf",
+      "DevTools/FaB/ros_abilities.json": "73230cf39aca9f0be9f6cfd50b7eda756d9a622cfcba901ac428381561aac370"
+    },
+    "findings": [
+      "Independent10control373check review: source5retainedStackthroughforeignresponses; priorown6/7included/opponent8excluded; Potion9GYindex2 beforeBlue5GYindex3; InstantAP1/R0 andHP10to13.",
+      "Explicitvalidmidgamewound, existinggrouprepaironly, nooldstateorder/DQvaroracle or45legacyfailureclosure."
+    ],
+    "independent_native_game": false
+  },
+  "repair_only": true,
+  "new_group_credit": false,
+  "legacy_CYB_family_final_snapshot_failures_still_unresolved": 45,
+  "full_suite_run": false,
+  "replay_receipt_sha256": "8fe620f70b67e79bca5f69f43c4c9cfe2ef7b0b30f06acb06d1041d4854fbf73"
+}

@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blunt-retort-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5c8f24383dfdd5ba1644b61b19d7e1ad811f7f6af59088646230ab147658af60",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0f093e7942a1a8e8637e814bcb8f3cccde948f7162eddba70e108c7b895dbf35",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "fe32c5b46c104f9715ff92d3e2e7044937418b7ba89339d223a69594f4bceb6b",
+        "expected_final_gamestate.txt": "b2290438aa95c8d3dd6d1dce763485e7b5d711df8d93f685250e6bca8ee2f9a8",
+        "meta.json": "fb43bc27883ca531097cdb29f36f859d4461f5c12872eace6c767eb2b9e931ef"
+      }
+    },
+    {
+      "slug": "card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hot-top-four-live-sparse1103-real-nonweapon-attack-exact-block-and-blade-break-without-weapon-defense-event",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1103-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "8f444bf6021c2d9fda2fa785cc050f6c6625dd49070c08ef87a20c2716080efe",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d637497cdb475dc8a579dcda22a5eb56e1e7a7b8564b57a11374c6a8f4e88009",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "96bd2bc09a7d4cce606e4928fb0af2733d0ac504b35b543e35375f111511c431",
+        "expected_final_gamestate.txt": "36d21f353d2521113957628db93f310892fceb58c5662a671a159f1224ab5edd",
+        "meta.json": "9a77977d1059e1b7c643b93ef4af96445e4618beb168c4d8f9d72acfbd3ee31b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

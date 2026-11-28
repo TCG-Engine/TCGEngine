@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-encase-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-3-arcane-after-declared-hero-target-and-real-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-encase-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-3-arcane-after-declared-hero-target-and-real-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4b31f5f4b1a8ced2e9797a3da4bbe726b6f23b8e3be7c275e674acd9916f9712",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "206bf11b22c40741099d374573f7984a942390ce9037975c27bba081d2267a85",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "c614d93832b2f7b87b9deceea98a2c33ac9c15668e1c2f1617fab0ff193c1c99",
+        "expected_final_gamestate.txt": "b5dd3af68a54e5f2f00443a343e6f98c6bbbe6b5ec534f4f6e7eabe13d32d7b1",
+        "meta.json": "bc44b73d0a010402aab45947a80c9d9001fd796e3c03818f4f9404c739e2373c"
+      }
+    },
+    {
+      "slug": "card-succumb-to-winter-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-5-arcane-after-declared-hero-target-and-real-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-succumb-to-winter-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-5-arcane-after-declared-hero-target-and-real-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1ee443fc679c2754a63b0abae5b0395fa0d02913b84ab052d1aca45c6a7783a7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63cfcc025ed074c23d625d270335527b7b3db2fb82e0038dc2f28fc1087581e8",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "7f6efa9c80e4eb9bfb7e0e1a3777541612b266686e712f0ccd72c0e6911b8d58",
+        "expected_final_gamestate.txt": "b0312bd7c56372ba907ee08b6f4566158d50895521bc9f2ad068e1353393dad7",
+        "meta.json": "19e0790db174c84f6be69e6c8b917c8403ee9a722c3a3bbe29cecc2526d435fb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

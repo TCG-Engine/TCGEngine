@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sutcliffes-suede-hides-four-live-sparse1004-real-attack-and-unplayed-hand-nonattacks-not-played-history",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sutcliffes-suede-hides-four-live-sparse1004-real-attack-and-unplayed-hand-nonattacks-not-played-history",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6eec6256aab6d09618c452f0e4ffc26bead9ff133ada74c388f87ec776bb867b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f33a13983583bcbbb30adff7a72dc830506b4c6f469ab841ff02a79917d8da3b",
+        "actions.json": "a35c59d2c69e1a2df994b0b24692ac4efc98987b57c72d2eb349640d4b5e0955",
+        "assertions.json": "b0043d970cc6c43bc3b6cba393d3fa8c19fd56202be784507383352895c3c244",
+        "expected_final_gamestate.txt": "25148fc1e2d24f139b88a5c618ee72f93f600886aff2c5c526db34851517fce4",
+        "meta.json": "ea97bd3e1a7fc788579d66457da42fcac61073a6cd31de8779350f8ee5cdb1fb"
+      }
+    },
+    {
+      "slug": "card-seeker-kunai-red-four-live-sparse1004-generic-attack-not-assassin-despite-assassin-hero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-seeker-kunai-red-four-live-sparse1004-generic-attack-not-assassin-despite-assassin-hero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1004-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f390b726361213986eb11b86b29063e3681ad3ac3274851dd2af92d7b451dc3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "01fd9def36dc2a0253362d1476144af16b52ef709dce50b13795d25a2b67c99f",
+        "actions.json": "ebd69b8728f67425a19902ede6958cef89fcb54101b6cde40f61f18abf275484",
+        "assertions.json": "fc43b8752e0b804020bbd8c40d2f6158cfbf943a34bc9ae7a11659abb8e26af9",
+        "expected_final_gamestate.txt": "f85e406eb1fe7fd13117c13bd4b2099daed9b6ae24753fe9b06cebbc33e36864",
+        "meta.json": "ec323bebca5cf1a70dbd2e33c570b3e699f83965f8cc84d1f75428cf50fcd1e0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

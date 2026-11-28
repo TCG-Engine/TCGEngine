@@ -1,0 +1,28 @@
+{
+  "status": "SOURCE_ONLY_KNOWN_LATE_TARGET_DEPENDENCY_NO_NATIVE_PROBE",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "cards": [
+    {
+      "card_id": "krakens_aethervein",
+      "resolution_choice": "Generated ResolveAbility chooses opposing hero at approx169051\u2013169064."
+    },
+    {
+      "card_id": "scepter_of_pain",
+      "resolution_choice": "Generated ResolveAbility chooses opposing target at approx178874\u2013178890."
+    }
+  ],
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "reason": "ARCActivate creates ability and pending payment before resolution. Neither candidate has an applicable PrepareCard target declaration; generated ResolveAbility asks its target only during resolution, after payment and response priority. Defer both under known targeting dependency instead of recording late choice as correct.",
+  "review_scope": "Existing independent breadth_review1252 source-only candidate screen, no native execution or saved-fixture approval.",
+  "source_sha256": {
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+    "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "repair_attempted": false
+}

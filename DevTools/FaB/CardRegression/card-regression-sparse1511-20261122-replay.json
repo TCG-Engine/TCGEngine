@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-skittering-sands-red-four-live-sparse1511-actual-ashwing-is-not-ash-material-failed-red-play-does-not-grant-dragon-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-skittering-sands-red-four-live-sparse1511-actual-ashwing-is-not-ash-material-failed-red-play-does-not-grant-dragon-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1511-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1511-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "30944ae6a8be910134e1b500b3c74fac8e9a688284e11c1d0610b2b55422ee82",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "09ead8ca36369a6da14f643d003edfb18928a9cc3dedb7b42ac0541d619d8b8d",
+        "actions.json": "4e33d0e387c546d3986022ff419d48752fb1dcffe43c659dadf85f5276debc1a",
+        "assertions.json": "f48dcc1772f61705574acce717d9fe9d48df1ed43defaf60ee35edc94a288d57",
+        "expected_final_gamestate.txt": "73fdf7e15314e7f17e7499d4ad31e51284f436d9ada9eec9f6426ad8dc34c482",
+        "meta.json": "fd755ecb72b0f801659fb6b23375a641718c78b13c1fa5eb9ebdd847879811d5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

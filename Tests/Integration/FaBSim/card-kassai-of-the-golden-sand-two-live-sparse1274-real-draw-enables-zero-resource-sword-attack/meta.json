@@ -1,0 +1,7 @@
+{
+    "name": "Kassai of the Golden Sand / actual draw earns sword activation discount against zero remaining resources",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:56:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_KASSAI40_DUEL_REAL_DRAW_SWORD_COST_REDUCTION_ONLY. NaturalKassaiGoldenSand40vsDori40/R0/AP1, actualPotion3Arena/Tome4Hand/Red5Hand/Saber6Weapons/realDeck7,8/nodrawhistorydiscountseed. ActualPotionActiondestroy3paysAP1to0/ABI9thenbothresponsesearn2AP. ActualTome4cost1requiresPITCH, actualRed5pitch1pays1/R0/AP2to1, sourceheld/noearlydrawbeforebothresponses. Resolutiondrawsoriginal7,8toHandandputsTome4GY/noArsenalheal. ActualSaber6clicknowmustcost0underHeroafteractualdraw:directPRIORITY/AP1to0/R0/proxy10withoutPITCHorusingdrawnHandcards/Red5onlyPitch. Bothresponses/combatactual2power/noGA/noblocks/deals2HP38; noGoldbecauseseparateHeroabilitynotactivated. Final7,8Handunpitched/6tappedWeapons/3,4GY/5Pitch/APR0/HP40vs38/UID10RNG0StackDQsCCclean. Nofirstfalse/repeat/reset/banishcostability/Gold/otherSword/Young/fourlive/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kassai_of_the_golden_sand FaBSim/Custom/HVYRuntime.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php"
+}

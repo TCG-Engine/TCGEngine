@@ -1,0 +1,103 @@
+{
+  "status": "APPROVED_EXACT_SAVED_DOME_SINGLE_CASE_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T00:51:38.322250+00:00",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch273.json",
+  "input_sha256": "f325a9d64ff7d5b4756242ff21483dfcfe4dce0eb8496fe6dfc0aac00412d2d9",
+  "fixtures": [
+    {
+      "slug": "card-absorption-dome-yellow-four-live-sparse-real-one-damage-prevention-retains-one-steam",
+      "card_id": "absorption_dome_yellow",
+      "group_id": "identity:absorption_dome_yellow",
+      "fixture_sha256": "309138495e2cd3fd643d9bc745d4b760553a36b0cc97f517af7b883a08bf433d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a919bc11427b7f9fb71a99d0d1625c91d17ebdcb4441a102019c8e6f4b547458",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "fc3f42d6cdaf4ce618e4bc07efaffe7f963f53f22cb70a1c9a23808068725b14",
+        "expected_final_gamestate.txt": "6af1bcc53d83d12858487a6ab72605cbc42180763d1ba635f03f1c3027a37dd0",
+        "meta.json": "1bcaff49571f146d8da9160a7ee9b4b3d8972e69e39c9b184eae29a7637b2cb2"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "a919bc11427b7f9fb71a99d0d1625c91d17ebdcb4441a102019c8e6f4b547458",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "fc3f42d6cdaf4ce618e4bc07efaffe7f963f53f22cb70a1c9a23808068725b14",
+        "expected_final_gamestate.txt": "6af1bcc53d83d12858487a6ab72605cbc42180763d1ba635f03f1c3027a37dd0",
+        "meta.json": "1bcaff49571f146d8da9160a7ee9b4b3d8972e69e39c9b184eae29a7637b2cb2"
+      },
+      "actions": 27,
+      "native_assertions": 1908,
+      "actual_manual_passes": 25,
+      "manual_passes": 25,
+      "manual_pass_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "priority_response_passes": 24,
+      "defender_declaration_finish_inputs": 1,
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual declared adjacentP4 HeadJabBlue6 spendsAction1/zeroresources with no inventedpitch. Physical6 retainedStack for three source responses and enters chain power1/GA on fourth. Actual onephysical packet is fully prevented: same owned4/controlled4 readyDome5 STEAM2->1, damageDealt0/attackHitfalse/allHP20. Printed attackGA refundsAP1 only after real DAMAGE passes. Completeclosure physical6 ownpublicGY, Dome5 retainedreadySTEAM1, allinitialphysicalUIDs conserved, noStack/queues/Hands/Chain or unexpectedvirtual.",
+      "qualification": "One positive persistent two-Steam/one-physical-packet mandatory replacement, then retainedSteam1. No currentcast/boostentry calculation or history, zero-Steam destruction/trigger, otherpacket/type/count, Dash/Fai/support-primary/sibling/full-card or isolatedcontrol credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch273-dome-independent-source-review.json",
+    "sha256": "f6f5d6cf18dbf4b024be7fe031f280eaea1a02cc120471bf371f0596e003625f",
+    "manifest_sha256": "233a67c582e06ca913fc2dd4fa87650b32dd1911f97cd00cad725bd22c13a18d"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch273-20261103T004915Z-6ae92f8b628ed.json",
+    "sha256": "4939f3966b20524b07dd6c267c9eb7b8772307270c8b61b1c2821cd0afd092a3"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch273.recording-results.json",
+    "sha256": "179b858fc2abb8f2d4445f22e244ad60f6b457a14819628f3b30fd26008fef4b"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch273-dome-native-r1\\receipt.json",
+    "sha256": "8fd8b4864e39f1831ed2dafe2c591666adba653510b909f203f9dd62e7626100",
+    "stdout_sha256": "835379232da79a36fcf6c3e9c712e487c596d6d703a9a04cf566f783c57bba1f",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+    "runtime_after": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7"
+  },
+  "method": "Independent read-only exact saved five-file review. Pure parser/normalizer/actor helpers reused via function AST extraction only, no prior case loop or authorbuilder executed. Every27 actual actors/modes/payloads and every1908 assertion/order/step exactly equals approved correctedinput; parsed all initial/final schema-backed snapshots and actualphysicalSteam2->1/HP/GA/UID/economy.",
+  "limits": [
+    "Saved recording review only; root focusedreplays are separate evidence. Reviewer ran no PHP/native/replay/backend and wrote no R files.",
+    "Actual inputf325 corrected pre-native initial alias toSTEAM2. Original9f70 author packet remainshistorical and notrun; correction was notanenginefix/bug.",
+    "Only persistentpositiveDome replacement included; no zero-Steam destruction/boostentry or broader credit. No legacy/fullsuite/unrelatedsource audit."
+  ]
+}

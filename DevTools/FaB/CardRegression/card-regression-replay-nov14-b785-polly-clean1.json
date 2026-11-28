@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch785-polly.json",
+  "runtime_sha256": "84153c85b77da6585bccfffa90af57baf67d2e75619c15433c06b444f9ec5aea",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T05:46:57.019211+00:00",
+  "fixtures": [
+    {
+      "slug": "card-polly-cranka-four-live-real-tap-banish-return-first-crank-earns-ap-for-actual-generic-four-damage",
+      "fixture_sha256": "7972b6cab17f040f7b65c175cfb96483d075882506984cdb0ac2fa1f8f56b45c",
+      "passed": true,
+      "result": "[PASS] Polly Cranka / real banish return and first Crank AP consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-polly-cranka-four-live-real-tap-banish-return-first-crank-earns-ap-for-actual-generic-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Polly Cranka / real banish return and first Crank AP consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

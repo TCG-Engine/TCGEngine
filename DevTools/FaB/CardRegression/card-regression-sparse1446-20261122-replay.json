@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blood-runs-deep-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blood-runs-deep-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "30925e435e349906aed4420ee7a62ae68138c5a3c911260fd55b2e32ec549355",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d3bd34aad21d6cd1ed741444258e28e514a7382da6502dce496e9b3efdda56a",
+        "actions.json": "4e92697d05e118f20c6d8afd9be7b1365107defb32dbc19fea5fdcc22ac48d26",
+        "assertions.json": "d22aede7ebc2960cb149ead56beb13ad9ccbb77f65d982f34722c338e7921b37",
+        "expected_final_gamestate.txt": "32189c5a7b3f783a0ee04a1951b52bb693ce92ba3073ed97462e191f5b21e8ed",
+        "meta.json": "9426c5b23e2d09482563d8221bf6fd5e3487bf0dafcdce1ca97fa68463744507"
+      }
+    },
+    {
+      "slug": "card-wrath-of-retribution-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-wrath-of-retribution-red-four-live-sparse1446-real-draconic-chain-link-reduces-actual-pitched-cost-paid-attack-prefix",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1446-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3f231c47d686a26e6f70434df3fd7d5967ca07de00aa015e3855d807dc7165df",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e60c721ab903882000e1d7bd1481f001ad7f3d114eec319cebe732a0dbff2a6c",
+        "actions.json": "4e92697d05e118f20c6d8afd9be7b1365107defb32dbc19fea5fdcc22ac48d26",
+        "assertions.json": "642c30e81305bd90958eec0c8d8649f385f724bb07b273099ed18e50adfb9bf9",
+        "expected_final_gamestate.txt": "e0128c0cd085ec6585f709737956a831f5485862e7bd858a38ab8f3898379ca1",
+        "meta.json": "495eeac4869c34886f16ad4fcde0ad5ffa38afaba41115e6aff954925c5ffc57"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

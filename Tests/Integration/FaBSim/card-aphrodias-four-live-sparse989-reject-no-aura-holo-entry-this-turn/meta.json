@@ -1,0 +1,7 @@
+{
+    "name": "Aphrodias / four-live weapon activation prerequisite",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:45:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - {r}, {t}: Deal 2 arcane damage to target hero. Activate this only if an aura with a holo counter has entered the arena under your control this turn. Named prerequisite-rejection branch only. Legal natural 20HP zyggy owns readyWeapon5. InitialR1 covers printedactivationcost but no actualcostpayment claim. No prior holo-auraentry / nonattack-actionplay. Weaponclick mustpreserve ready5/AP1/R/realWounding6Hand/Stack0/allqueuesempty. Realgeneric6 then plays0cost throughfourmanualseats, deals4 toHero4 and ownedGY6/AP0 while5ready/Rretained. No positivearcane/hero/siblings/support/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aphrodias"
+}

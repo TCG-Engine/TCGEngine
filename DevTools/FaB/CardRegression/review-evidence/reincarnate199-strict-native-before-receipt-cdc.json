@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE_UNSAVED_DIAGNOSTIC",
+  "started_utc": "2026-11-16T11:22:21.724092+00:00",
+  "runtime_before": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "spec_sha256": "b57df95fc4465163fbc25061b98381dce99bc1bcb8b351cc11aa312180e77d32",
+  "source_review_sha256": "ff6b25f16a236f9b630ddf3021dc184163d75e61e4bdee2f813f6c16d2df258f",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "actual_no_save_control_sha256": "3485fb84c5eec54cf4ff20a1c9a8c277f18cfa346973f61ade3700c28bee2805",
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\record_card_regressions.php",
+    "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch864-reincarnate-random-cost-earned-bottom-probe.json",
+    "--probe-only"
+  ],
+  "fixture_count_before": 4102,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "full_suite": false,
+  "pid": 36988,
+  "exit_code": 1,
+  "result_status": "blocked_or_incorrect",
+  "error": "Expected p1Graveyard count 1, got 0.",
+  "result_sha256": "56f9374df2250e3564d2b1b40720e0cbc8f107ed8cff9dca0985be97f0687be9",
+  "runtime_after": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "fixture_count_after": 4102,
+  "fixture_inventory_unchanged": true,
+  "recorded_native_inputs": 3,
+  "completed_utc": "2026-11-16T11:22:26.649446+00:00"
+}

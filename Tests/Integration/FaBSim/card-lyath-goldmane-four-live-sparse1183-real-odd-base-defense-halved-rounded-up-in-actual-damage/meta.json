@@ -1,0 +1,7 @@
+{
+    "name": "Lyath Goldmane / base defense3 halves and rounds up to2",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:38:20+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungLyath20victim4/threeDori20manual; noBoo/activateddefensebonus/Might/othereffectsseeded. ActualopposingGenericWounding5base4cost0targets4/paysAP1andallfourresponses. P4actualGenericWoundingBlue6printedDEF3declaredrealblock; LyathstaticbaseDEFhalvedroundedup givesceil(3/2)=2, noothermodifier. Actual4-2=2damage/HP18 distinguishesunhalved3DEF/HP19andwrongfloor1DEF/HP17. Opposingattackbase4notownedby4soisnot halved. Fullfreshdefense/reaction/damage/resolution/manualflow, finalownedGY5P1/6P4/Hero4untapped/HP18/AP0/R0/UID6/RNG0/noArena/token/Stack/DQs. Printedbasepowerhalving, activatedBoo/defensebonus, earnedBooWHEN/Might, otherrounding/wholeHerocredit untested. No cacheddefenseValue oracle dependency; actualHP/damagepinrule. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lyath_goldmane FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch813-helm-and-three-visits.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T02:46:22.704618+00:00",
+  "fixtures": [
+    {
+      "slug": "card-frontline-helm-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "fixture_sha256": "a35ea43703fb02d24191ddd9077b9071a1df0fe9e583e96de9ac151e86e7ba42",
+      "passed": true,
+      "result": "[PASS] frontline_helm / exact earned effect and real physical consumer"
+    },
+    {
+      "slug": "card-three-visits-real-blue-three-paid-instant-dynamic-ward-three-selfdestroy-one-damage",
+      "fixture_sha256": "244e719f1ef9011fa3f716a72d71e9a3051f97369741c86a70048ccbad6d2d49",
+      "passed": true,
+      "result": "[PASS] three_visits_red / exact earned effect and real physical consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-frontline-helm-real-own-automatic-end-wear-next-turn-red-three-damage-bladebreak",
+      "returncode": 0,
+      "stdout": "[PASS] frontline_helm / exact earned effect and real physical consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-three-visits-real-blue-three-paid-instant-dynamic-ward-three-selfdestroy-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] three_visits_red / exact earned effect and real physical consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

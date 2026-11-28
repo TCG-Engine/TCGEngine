@@ -1,0 +1,886 @@
+{
+  "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "card-cut-deep-red-nonmatching-hatchet-of-body-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-deep-red-nonmatching-hatchet-of-body-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay01.log"
+      ],
+      "complete_log_sha256": "7e66acefe947e45683918dc048890e675307d22ea4c4e069305b990d91e393df",
+      "raw5": {
+        "initial_gamestate.txt": "84f4c0f1426169040e1bfb0528578501e3fa20d21cd7c1c213bdae37290c349b",
+        "actions.json": "9cf7dd1fb99ce53ec8305cdcd98dffa0a9c17e149512126b633daed5fb14288b",
+        "assertions.json": "574af8c65888df8a15b55a6751a409fec051c79769945957d7a88fb9644b4dc3",
+        "expected_final_gamestate.txt": "b30e5b435a7dc086c494f069396346f7ef25d95273887d3a621ec7e326798558",
+        "meta.json": "b37044ba3e3c6901b3fc567643d194c326c14f451ac7384658ea8cae1dfdefb7"
+      }
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonmatching-hatchet-of-body-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-deep-yellow-nonmatching-hatchet-of-body-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay02.log"
+      ],
+      "complete_log_sha256": "b2e6ae1a1695d3adaf6d5c8fdac45fb23c1bdce56fb3eeeb1752b37de8e7405e",
+      "raw5": {
+        "initial_gamestate.txt": "8de0b9b8e3ef995fa69298e5126949fd7036a07a44cdf3683d9702d5f644e503",
+        "actions.json": "9cf7dd1fb99ce53ec8305cdcd98dffa0a9c17e149512126b633daed5fb14288b",
+        "assertions.json": "55acd50c3dbe20013baafdde4abd1ef6f80ed4cbf2df03244709d714be02a0d8",
+        "expected_final_gamestate.txt": "cf187de647fa987e0f53c7e1ab7b62aaed04399da2190ca1097ba62b3aaaead9",
+        "meta.json": "8d468fdeba828a38939f93a9b3b17c82d111498e3a8e76a8201949a21cd27304"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-ally-target-still-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-ally-target-still-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay03.log"
+      ],
+      "complete_log_sha256": "87e5da7e6a492450447843f75d8b54798e45d96cd3889f337e5101a1cfa065b1",
+      "raw5": {
+        "initial_gamestate.txt": "ea436453825e11f5f7a0dbc7188942a74b47cbb9412806c74a52de7ed648f960",
+        "actions.json": "013f260638bb041e2fa2c38f8b2f2bceb9fd9fef9a61bc8de464be6eb34d8411",
+        "assertions.json": "b496366b61b6885c3de6ee2bbeafc39c36273a4f2fa84cd5beff0bfa03372eb4",
+        "expected_final_gamestate.txt": "014db5455fbd845153a43dfc326ac42300c594e4dc0140c23b7cb71b4eca038c",
+        "meta.json": "4647dc0abbcac6e2ad76c4e33645ee0dec40229960f14bb02e42ae0829b29157"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-face-down-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-arsenal-face-down-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay04.log"
+      ],
+      "complete_log_sha256": "bf74b3dd12295560856b7ea7572fb0c02f42ed7c930ccddb036b3afff5f31c54",
+      "raw5": {
+        "initial_gamestate.txt": "c444f3bba476f7433c843e757ff0107d6f7d3cb5f431e74a14205f21b03f1b17",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "61c9b795bb2c98f200d93fa57a33d780458505379dc226cd943ab095ce0fc601",
+        "expected_final_gamestate.txt": "8905f13adb2a3ecfec75b755f766ab4a50242a16839971b873e1eae8c2db6542",
+        "meta.json": "d681cdb8b7dad906c3fee2e4c26877ebfbe9e5c68a63dcbabd512914f35d18a7"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-arsenal-face-up-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-arsenal-face-up-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay05.log"
+      ],
+      "complete_log_sha256": "867d5243b2481802710012fe4cd5c79a36fdac8922d5547909d04541c61c9aee",
+      "raw5": {
+        "initial_gamestate.txt": "5f30afc9f4ffc217d90ca5d9d7e3dc1fa4b1535abbc76eaba4ec844458b70c3e",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "61c9b795bb2c98f200d93fa57a33d780458505379dc226cd943ab095ce0fc601",
+        "expected_final_gamestate.txt": "8d134f0bbda6d2f04f7f443a152dddb0f7f72ad6e6d32c5c7ef4e74056311593",
+        "meta.json": "507f134cf55886a004fcdc1e2b30e6ec42ff725c8df23bb23640084cc56a43fc"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-attack-action-excluded-and-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-attack-action-excluded-and-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay06.log"
+      ],
+      "complete_log_sha256": "18a90caf871c40a6adb8e7d2c2f00ae3538c972590042796087a806d900a1a8b",
+      "raw5": {
+        "initial_gamestate.txt": "af8a3dd29dc8375fc6bb561534255a2891bafd3475a8455a495011cb3db66af6",
+        "actions.json": "1707eb54c15f56698c940c05fd88042b29a22b61345ca1f7ced2bc082433e1e6",
+        "assertions.json": "77bc7cdb4646e83e6d8dbb22fe0c52728f71eb33aa33a29632005a33f75d93d8",
+        "expected_final_gamestate.txt": "107e6290628141f15b9d26e886594ee4523c9b2f85d5e2207af90816fe1a94a1",
+        "meta.json": "5d5032054490c3c896f0c70524306c06eec9c66a5d48b7f75594eaaaa71e4244"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-blue-pitch-payments",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-blue-pitch-payments",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay07.log"
+      ],
+      "complete_log_sha256": "2c6d49d6ad076c3d71146fbc564fd99acaedeb64ce34f5e7a2be90613c97d169",
+      "raw5": {
+        "initial_gamestate.txt": "623d6f9ed908888c7fd972c5cda226c4a9ed30a071f4b7c98d6e5b678cef20ce",
+        "actions.json": "787e961ea9509ea844fc7bab76d7a085d8a0cf81b085d8a9f4dfeddbbda7250a",
+        "assertions.json": "93266a11c7f02d7d25666d4faef6dd0a840cf160583a880beab9d4970fcb210e",
+        "expected_final_gamestate.txt": "31d618eac8bfa043aa1aab71f3e5cf370e0095bebf79eadfc86d9cdd9daed37c",
+        "meta.json": "260f76d347b9064b9fe15865f765741a6ff35e83b3ea6d3635bdbc0a82d3dbcd"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-fully-blocked-still-increases-power",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-fully-blocked-still-increases-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay08.log"
+      ],
+      "complete_log_sha256": "c77803a4ff91059a37298853953950a639cf111b4de97ae0294eb261911c86bf",
+      "raw5": {
+        "initial_gamestate.txt": "f3a27e6dd8f18b6865342def795d80f65af9f9f774170f832aed265b20b98901",
+        "actions.json": "82a93a17a6580a704e0a9c2516b65b8c817c0c9969bf41089ec6366e163caf8b",
+        "assertions.json": "7d67a9f0bf542f520aa4270e11316ba7d355787831d1a32f3985d9efcaa78ff6",
+        "expected_final_gamestate.txt": "cfb31276a76c5bb102f908fae452d22cb48545c0962d4874266f48c4ae80bd85",
+        "meta.json": "b117d06ff28e46c4a611ee2a5c0245b904f9b30a545fa48884d09d70bc9c51f5"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-next-matching-attack-only",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-next-matching-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay09.log"
+      ],
+      "complete_log_sha256": "ada4fc823baabba2f3e19c80e3ef9210be8b1fc7441ff7a4b75c63aae8b5824a",
+      "raw5": {
+        "initial_gamestate.txt": "5d75d8f87de9b2669341f053ee304cfa97ea45608d41c03cc8e0950b41b34e6c",
+        "actions.json": "68ad0d6ebe41da938e2f2357a4f4ffc646327ee218162c78024b3705c0db6c96",
+        "assertions.json": "becabfe74a0bf27592ec108f972292a688d486f665331ce8d8cb4ffb62b54357",
+        "expected_final_gamestate.txt": "ecb43a97bdbf4acee043d2e5b5468f1af49ce95dbeefe20587ed88cdad1025bb",
+        "meta.json": "d414b9fb46344e1a5a3f4ca7ef21f76fdc1926e9c42ced46b8e3b04c2218dac1"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-nonmatching-cintari-saber-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-nonmatching-cintari-saber-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay10.log"
+      ],
+      "complete_log_sha256": "5c307ce74c3e603f4f3699d2bd858deadbd4cf15f89480270043feb13a9c885c",
+      "raw5": {
+        "initial_gamestate.txt": "501e3dacfffb460ba66ab0d2280796cc6504d43078764dd3418ec61fbeb5b5f3",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "7acb53d265eaf78230e57bb4daa61c90e67b247acc307d2758d0a5b55ae76073",
+        "expected_final_gamestate.txt": "ff32ea7539b87e88a6ba5342e5573f7b7718245da08771c6eef03fa73e39385a",
+        "meta.json": "60946a1e0c5a938e5a3eeddf81765cfcf4d0a352b8c3704f6ef7e2f4769d25d0"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-nonmatching-quicksilver-dagger-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-nonmatching-quicksilver-dagger-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay11.log"
+      ],
+      "complete_log_sha256": "50afc4a578426bfcef193bc6662334057fd50a25ed8def53504743017830f015",
+      "raw5": {
+        "initial_gamestate.txt": "783eb1bb60625773379b1717de7dc885b24d7094092fbd9e4968eff50c6d6532",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "912bf6f5b229caa2f4c894d7de5e18cae1392879e6d8343d6555140e2d00e924",
+        "expected_final_gamestate.txt": "0d39901c57f33a601f7db924e2d9495e0b7b2651a36b41a3374d8395adcac4ed",
+        "meta.json": "5ea2297c0aba818b5847c985deeff62842581c9934e0bd4ab551496494d3fe17"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-two-buffs-additive-single-next-attack",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-two-buffs-additive-single-next-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay12.log"
+      ],
+      "complete_log_sha256": "ad51a68b7e2098aca78d49f801308fa7c7413cfde5fa6bfaba3d33258feac5c7",
+      "raw5": {
+        "initial_gamestate.txt": "2621fe406dd01ed2d4b942d7e7d687910e5e48c13df3062818e2aff6dd97bb21",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "e9f35a24595eb9467b8145007ca7a535408b4d626a3794a1c4fec3cc70eb0894",
+        "expected_final_gamestate.txt": "b2e2e122d350e7011b7c9e44d30e23e413e92b5df56e781ee32ac708c1d2581f",
+        "meta.json": "3abd6d1941de474a495430960f26754f1db900dea20441c30ba8d7b25e4df3de"
+      }
+    },
+    {
+      "slug": "card-felling-swing-blue-unused-effect-expires-this-turn",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-unused-effect-expires-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay13.log"
+      ],
+      "complete_log_sha256": "dd298aeafc4c2b92faa10e03220638989cb80cc19d98783070f29019da37d827",
+      "raw5": {
+        "initial_gamestate.txt": "cdcd39a7d3f557054a88d1b2283c81c575d5fc85bdd9d8b7028bde2455297d06",
+        "actions.json": "78a08af9e5ce09674b435bbb49ec23259a828380a94080675bedf01ff2bbf5b1",
+        "assertions.json": "a0bdac0a78907c4d629e99b2265402c957f287a02ed373d3ef50710e2bfc2400",
+        "expected_final_gamestate.txt": "ac04069a7c4953e92af76798394fd28169a160cc7bc39a2d3125edf10b46ddfa",
+        "meta.json": "f363c5a8c710dc12235b73a3f67676167247b0c41652ae57bb588065d123938c"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-ally-target-still-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-ally-target-still-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay14.log"
+      ],
+      "complete_log_sha256": "6243593e3b27136e45dc0010eddaf84681695d059158857e74ebe0ba90540d67",
+      "raw5": {
+        "initial_gamestate.txt": "3e6b9be981c30d2fc9cdce2f86ce67f1c03d600a2e8dd5786fc8bd417a0766df",
+        "actions.json": "013f260638bb041e2fa2c38f8b2f2bceb9fd9fef9a61bc8de464be6eb34d8411",
+        "assertions.json": "8f77bcf38c32f5a4cbefc1408ba0878766aa786d2d726bc825b8785d7b04de7c",
+        "expected_final_gamestate.txt": "00cfd0e9f9c6c80adfc5310d0b110a173322071755dbd9008c2263385fd64c7b",
+        "meta.json": "aabfe043a490e605905b06fcc7b65cf2c4a8bac925f7862daac00cfc81a78b86"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-face-down-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-arsenal-face-down-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay15.log"
+      ],
+      "complete_log_sha256": "2f2d6aaad5dfa145c1f760983d7d2b22ffb8f7640d4fb0a920eba92e3a9b69cf",
+      "raw5": {
+        "initial_gamestate.txt": "78d532b683055487a197dca7500ef1e8413683210dde160e186bc198bbba1c8c",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "398268180909e5ddd6cd42fe5c08cec5ef0b974c0705685382c2ae10ff51decc",
+        "expected_final_gamestate.txt": "6501c2584fce40226a585e427a7efc1a4223eecfc2d5a7b1327fcbd414268d0b",
+        "meta.json": "251cb4330f3239be444adc39768719381a95759570d3269d9b8943fd16317fd7"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-arsenal-face-up-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-arsenal-face-up-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay16.log"
+      ],
+      "complete_log_sha256": "c6a091a97822ad05ba657efc2ed7304b9da04ca7b13137c963fe40ddc2f833e2",
+      "raw5": {
+        "initial_gamestate.txt": "2ab4968e32920cb9bdae31bbd2500c483fa38760f9332cb2421157d0bc87574e",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "398268180909e5ddd6cd42fe5c08cec5ef0b974c0705685382c2ae10ff51decc",
+        "expected_final_gamestate.txt": "e1e12c363a8e51dc3bed9a052b7d56270b2416ce5786ff12ad1b36c92fe2181e",
+        "meta.json": "861a883e8f276cc1ce879d2822592f0edc17d47030a946d9f71d6b96ff7a3b75"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-attack-action-excluded-and-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-attack-action-excluded-and-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay17.log"
+      ],
+      "complete_log_sha256": "e47c714b1760836fcddc8267ce2d6ebe478c61835eda9d1e9a771d47e24f3f75",
+      "raw5": {
+        "initial_gamestate.txt": "61251efaada39b6bf423700b0214d5b5fba7b7e1bdb90a08deed257deb63308d",
+        "actions.json": "1707eb54c15f56698c940c05fd88042b29a22b61345ca1f7ced2bc082433e1e6",
+        "assertions.json": "765424fc3229bef92d05f8edc638de25324882cd68e3c2b4748612e73e221947",
+        "expected_final_gamestate.txt": "3a2ce305e4bfbd2b92efbd39b5465cd111ecb91fe2509e31e6850e58680fd669",
+        "meta.json": "8a719ccf73d71eed83ae74758395876905391fd00427b62207b21baeb42492b0"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-blue-pitch-payments",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-blue-pitch-payments",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay18.log"
+      ],
+      "complete_log_sha256": "c125bdc2e4234be6188d589b248faadd8ac65fcabbd33d945308edcbc7359ccf",
+      "raw5": {
+        "initial_gamestate.txt": "9131f5123078f851e788a7077ca36cb1e1784ca0467e7be62424ca95dba56ddd",
+        "actions.json": "787e961ea9509ea844fc7bab76d7a085d8a0cf81b085d8a9f4dfeddbbda7250a",
+        "assertions.json": "3ce26531338209c3fff52bb4908ecdf1d4b8db441747fa996760e33a69b2324e",
+        "expected_final_gamestate.txt": "ef9160c2c5994d44fc1b8a01c773c1a75b58abb82e73670886d540d14ed1d278",
+        "meta.json": "cce3de1095427a6d57a5d271deedcc7695d4b4ab6fc03070bf2fcbd753ac06c7"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-fully-blocked-still-increases-power",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-fully-blocked-still-increases-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay19.log"
+      ],
+      "complete_log_sha256": "1b403d7b8afe89a4e3f95a72d78c88362f8319601d5dc1cb6cc15acdb1f46664",
+      "raw5": {
+        "initial_gamestate.txt": "c1fb379194128f84e77d133ff055d7b67ebf9bbfb910806f1e57304cc7c30ae6",
+        "actions.json": "82a93a17a6580a704e0a9c2516b65b8c817c0c9969bf41089ec6366e163caf8b",
+        "assertions.json": "067b29045e6d0a1de983e2430fc6fad3066d21152c1fba42c2424e63f2a415ef",
+        "expected_final_gamestate.txt": "dba1a5d6ac4a627862d858f0e74201f7679fc247179434dce4e1530221042237",
+        "meta.json": "932373a73ef9cf32d3f931857f6232e92ec3e81c1915ee3387bda9389bc2b92f"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-hand-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-hand-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay20.log"
+      ],
+      "complete_log_sha256": "64e4b11cdec7928416132973576af93340aa1698d562be91a487ef1533e3a237",
+      "raw5": {
+        "initial_gamestate.txt": "56e713f38e71bbd2001479a1c18ea31981f607555d0f1272969fa93c8b11f5b4",
+        "actions.json": "68ee04f0da0bc1b98da46be191cb0c7f5972b13ef055442a7c5c6afb45b21dab",
+        "assertions.json": "ee80f76c8e00c80b005ec0e9e7601c602520a427652a6cce1cbb1271a5576cbe",
+        "expected_final_gamestate.txt": "dd2d70be7663bfdf720efdff678532708d7700c61fad85df90e48cd10a59a339",
+        "meta.json": "6ca7fd26e907c42be2c8d85edbad8c7474f25bc01b28b4ad09cb461270c00e83"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-next-matching-attack-only",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-next-matching-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay21.log"
+      ],
+      "complete_log_sha256": "f5ddaa347311ae74b27ea4ee5c235c6ada85458b991fee443459c27e3164ed91",
+      "raw5": {
+        "initial_gamestate.txt": "1c7d6b29fea826838555b27cb29f4aaac2717c40787153018728301fe9ec810b",
+        "actions.json": "68ad0d6ebe41da938e2f2357a4f4ffc646327ee218162c78024b3705c0db6c96",
+        "assertions.json": "76e9fbd0c46cab2cb00c5e368aa3c6d66c4efcd73eb85fc1d652c7f9bb9508f2",
+        "expected_final_gamestate.txt": "fba4c4f1f9bebe8b8ff4417c099f1714bec8d3ef51a943b6f038cd4d61e55d66",
+        "meta.json": "8fd51fb6fcb2dcc5f9526f6a8775affc6953de7f35040dacb05b64453d17ba32"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-nonmatching-cintari-saber-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-nonmatching-cintari-saber-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay22.log"
+      ],
+      "complete_log_sha256": "15dcf72b8d9f08d74f1ce190392294131bee7237fdeaf4ee37d0300d729bd7b9",
+      "raw5": {
+        "initial_gamestate.txt": "4099a8fb2f0adeed9d2300c785bfea12acf8b30a757559b2ece3ae1e528fe5f3",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "0b79826ebf63945daea7633125bfe51a760ab06f70bd1e1e4b7d9665272e65e3",
+        "expected_final_gamestate.txt": "6cd1ab68fdf9d54bb93b6f3156796b53a965ca632a08fd2c317c49c004b7164a",
+        "meta.json": "d62daa071b23b040ebcb9a8b65ccf52e056d50fba779accbbfb8d89b3467b90e"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-nonmatching-quicksilver-dagger-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-nonmatching-quicksilver-dagger-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay23.log"
+      ],
+      "complete_log_sha256": "e27ccee692fdf4e3f3ce8d3a29adaed2f5ed1870fc67f7b25514c5518d33c431",
+      "raw5": {
+        "initial_gamestate.txt": "9a8babe12c1ee73b452211a0a2fea879ca41a2645b6b764fc3fd2308f2ab365f",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "fffb57ab058a43d2a7ce935f2b50bbe3fe2315c9125efc53bb075b8ecd9a3e9b",
+        "expected_final_gamestate.txt": "2515a964ddb3d91c8922727d530eb16c50e6d7863c1d1ced7e442cd63d7df6a9",
+        "meta.json": "aea825c4f571400783ff154fee746fa5e6e62b3429a4a3367ae45456463eb40c"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-two-buffs-additive-single-next-attack",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-two-buffs-additive-single-next-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay24.log"
+      ],
+      "complete_log_sha256": "f59070bd71fa44012490f95d7be0eaf5a516fe50edaf2602ddd06e2c3e325b6d",
+      "raw5": {
+        "initial_gamestate.txt": "bede6f753c2346ede06f0bed36834c2c989084d798600570b9f4315542ba241b",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "c6914d1341166e820c1f35105aed567fa01862cf81f26199ee681e194cc03597",
+        "expected_final_gamestate.txt": "1a416c1e12bd6deed2a2262c8d54b2a5fbf1e68b7722b070a7e298567c7fc618",
+        "meta.json": "eeadf1a976705df24c8e96a03586e8ceececb07f76d30916758f1d34e9a5df3c"
+      }
+    },
+    {
+      "slug": "card-felling-swing-red-unused-effect-expires-this-turn",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-unused-effect-expires-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay25.log"
+      ],
+      "complete_log_sha256": "319f8c3cbbbac6c281017b2156d704dd7343231af3df83dd31aab54087866e8f",
+      "raw5": {
+        "initial_gamestate.txt": "f622aea4fb6e0fc16c53f492910eeb7e782270e314bda3418129078c964e4ec4",
+        "actions.json": "78a08af9e5ce09674b435bbb49ec23259a828380a94080675bedf01ff2bbf5b1",
+        "assertions.json": "7eef9ee3149c28043b9c708551b5e52a296775afc8ed585fb45fa8e8d7332c46",
+        "expected_final_gamestate.txt": "27d8fc9921f0b443d57556c25c93d3dc62633940201bf37c2651c6087cdae0a0",
+        "meta.json": "40a687766b2864b9ef67cb64a190635a5c03386f4022c28d1c8fe2420d0ba9e1"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-ally-target-still-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-ally-target-still-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay26.log"
+      ],
+      "complete_log_sha256": "5ed8c2279248ce66f3eca5ada27ac066b2f4a6aedca5b796058df4cc0da6a8e3",
+      "raw5": {
+        "initial_gamestate.txt": "2211205daac07ced24b3c52a7abc8f6c28f06277c1276dabdc974015cd767d48",
+        "actions.json": "013f260638bb041e2fa2c38f8b2f2bceb9fd9fef9a61bc8de464be6eb34d8411",
+        "assertions.json": "84f04475fc11d66977154fe51e2e25b89dec89795b7f1797c06c4177d9e2f5da",
+        "expected_final_gamestate.txt": "ec1da155170f650bf934a27afd035146f4076a282a09fe6147183df22fda211e",
+        "meta.json": "451fe5c4e553f9d216e3b2017b573913e2f40c8aec370c555817d2bf914ee143"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-face-down-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-arsenal-face-down-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay27.log"
+      ],
+      "complete_log_sha256": "560218d3fee6dd03e4899d25ad74820a7be4bd5375826e5e00903de6d15ad92d",
+      "raw5": {
+        "initial_gamestate.txt": "e91b58ead02e327b3a6d1643cbd07641f9334f1fd9b4e291b06d4100ebf10015",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "bab3d58ebef5f6dfb689c9abea4f465570b1d69912bead3bfb0fd4e3a956dc29",
+        "expected_final_gamestate.txt": "3f77fea5d1488e5cec16d2d767512b668a5adcd92fa833888db270e4661e9345",
+        "meta.json": "ab1b9b9cfebe5d68aaf78fe1f5b91b7dde28c33353a97f4ccf2f4018cc60eff8"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-arsenal-face-up-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-arsenal-face-up-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay28.log"
+      ],
+      "complete_log_sha256": "d003142f84369f57d61074717870688801f487eae0181e646a36c98b3d29f8cc",
+      "raw5": {
+        "initial_gamestate.txt": "63b0172818333795d430a0d7b15789436fa92503568b0b65ed5634f6b75711d0",
+        "actions.json": "2971e735aa869c61637a078a96c79e48e71e23a7eedcd0eac893cf45afb118b7",
+        "assertions.json": "bab3d58ebef5f6dfb689c9abea4f465570b1d69912bead3bfb0fd4e3a956dc29",
+        "expected_final_gamestate.txt": "2c4b07141faed93ecbb6ce33bd56f52d5b47db805517c646310ab1037a8084bf",
+        "meta.json": "25998cdd93d223eaf11d7eb333a2084dec2e9a0db40b971a7fb7c5b9f763e975"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-attack-action-excluded-and-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-attack-action-excluded-and-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay29.log"
+      ],
+      "complete_log_sha256": "c91b80db5ab2e33203fbf2bd78851aa6ff1b24954368a2651b2bcf9aa4d0cacd",
+      "raw5": {
+        "initial_gamestate.txt": "32a2e7eee00ea91c387d6aca65e6f7f12b3df80c068687ec6407526acb297a03",
+        "actions.json": "1707eb54c15f56698c940c05fd88042b29a22b61345ca1f7ced2bc082433e1e6",
+        "assertions.json": "642eb3873c751d23d2c4919cbe7eea2901db7e902b6f702204bbd7af4e9489ca",
+        "expected_final_gamestate.txt": "12869b0353a85b63eb40f88f9385fbed20d507cc83ed11679e154fcb5d58d06e",
+        "meta.json": "6c3f62d5f7c0a235b511bc49bcac729124cb36e5a71ea381bd93e97a45634452"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-blue-pitch-payments",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-blue-pitch-payments",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay30.log"
+      ],
+      "complete_log_sha256": "18ad344ad0073ebbe59a0217037fc7635d0904b0592daea934d6f17805ab804c",
+      "raw5": {
+        "initial_gamestate.txt": "1e3978830580e2ad1ffef4bb68b325e720a8e9c6f4844813f833069c4b2089ab",
+        "actions.json": "787e961ea9509ea844fc7bab76d7a085d8a0cf81b085d8a9f4dfeddbbda7250a",
+        "assertions.json": "de48075830c5512cd67671097be28e85c8053614e58014c3127671f166db853a",
+        "expected_final_gamestate.txt": "a11ad378489070c9f7fb98422269dc3f5c1dbb24257374f4f58eb860d1df56a3",
+        "meta.json": "951b0f1c6da8b74039866e0bced2358b1721b681323092c56c63d9769926247d"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-fully-blocked-still-increases-power",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-fully-blocked-still-increases-power",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay31.log"
+      ],
+      "complete_log_sha256": "49b0e4a2d035ad11ab9a61af30ec2fd6bf759cefd664ef2a7a8fad516f08e686",
+      "raw5": {
+        "initial_gamestate.txt": "905db1c2e6d9642051e5ff432aba06b61f9304f76a17b3c3f1ca86f4e926c698",
+        "actions.json": "82a93a17a6580a704e0a9c2516b65b8c817c0c9969bf41089ec6366e163caf8b",
+        "assertions.json": "2c6eb5e4658d2db9124909c02b01fd18e46e9f09b2e29a6ca09b3902d0e08700",
+        "expected_final_gamestate.txt": "5a20b10becca8cfa9c8053010d0935434b0f747e1c31a46dad67c410319e2d01",
+        "meta.json": "d92e692a4f5fbb1d01a21f243eb21404ce68202df1a5a32cbbadc60fa2c83ecb"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-hand-floating",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-hand-floating",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay32.log"
+      ],
+      "complete_log_sha256": "bf594e4086e36ac0cd3dfb4602d47a3dc40af886bc2cb34fa60149fe7a411109",
+      "raw5": {
+        "initial_gamestate.txt": "d0bfa853a506b4581de6885ef389777ddbf62798f0bcb2e5763f211d1211c037",
+        "actions.json": "68ee04f0da0bc1b98da46be191cb0c7f5972b13ef055442a7c5c6afb45b21dab",
+        "assertions.json": "6b9d6ccf2f159a31a720a3a6b11ee64b6104820c48607fe0bbc75ce60826d922",
+        "expected_final_gamestate.txt": "b711f7a8bccc8ae4b7e0ba73dda001a7e18bdaecfe197661c7c67ad3a9ab1c1e",
+        "meta.json": "aa5fb24787729fe2d902e14dec6bbd8272e39adbb109673375d56f4ce6a18b4c"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-next-matching-attack-only",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-next-matching-attack-only",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay33.log"
+      ],
+      "complete_log_sha256": "713adbddf361bf75bbc6e29bf7482724b0363bcb2a068fa3675d9b6ff30ac422",
+      "raw5": {
+        "initial_gamestate.txt": "0e7b3677100cb3594b8e1ade8f18a1742854078de01568b54ff31be5b6163ad6",
+        "actions.json": "68ad0d6ebe41da938e2f2357a4f4ffc646327ee218162c78024b3705c0db6c96",
+        "assertions.json": "3ce487a18a26b749c7961df524d737b361c228d04167c317a1db211058c1e99f",
+        "expected_final_gamestate.txt": "7abeddb31459ab60de1031a5aaa6565082f257bf5f1c7b4b38a80617ed021308",
+        "meta.json": "0a352a34d58b364d8c8d12fdb68f79b148a94e63734d1db50f8c93a783ddce79"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonmatching-cintari-saber-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-nonmatching-cintari-saber-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay34.log"
+      ],
+      "complete_log_sha256": "60e81ee9c43b14f1bf291e3c4550b925d51935f44404f318591c5f94e9cb1181",
+      "raw5": {
+        "initial_gamestate.txt": "e449bf3abc4c5bf94fcc891118248c2c7197e567398bc54d1e7437c2e9436591",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "111085ed3e02c137eab72cdd17d3411c0284b7121eddda0ce5119a20498903c5",
+        "expected_final_gamestate.txt": "5184fee8fc8141d70e3d0eb42314feac08a6e99990ceac64e56bc04c6ffba19c",
+        "meta.json": "1971953d8eaf5e69908f88fc8f689b9b20746195fd810f27f7891a7a26310f5b"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonmatching-quicksilver-dagger-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-nonmatching-quicksilver-dagger-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay35.log"
+      ],
+      "complete_log_sha256": "e02bebd80fed56cf258ca281f5db2bf9ab2c971b31904fb5249d187662ff9066",
+      "raw5": {
+        "initial_gamestate.txt": "da174bd134dc3c9df49abb6bc4c86e14b0efaeb346c851cd799906013e5825bf",
+        "actions.json": "ca221daabd1098da7ffa4c6ded3412d081e1bff2dd34257e7e41fbf9c9dffe17",
+        "assertions.json": "4e500c356a3827601ce982c2bd5aa135f9871c38c24f20385895564dd7d1a5f9",
+        "expected_final_gamestate.txt": "ab528991557094c98836d084ae966843094f0160fa4279cedef3826908816383",
+        "meta.json": "55bd3b15181f94e7320e0d41702be8fd091e7a338b87401ae08e714b5c2e2b8c"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-two-buffs-additive-single-next-attack",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-two-buffs-additive-single-next-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay36.log"
+      ],
+      "complete_log_sha256": "1d0af9b5e13ec7ffe81024066025b92d8a3d157b82bd95f816d63f72d709fc5a",
+      "raw5": {
+        "initial_gamestate.txt": "30813bcf0e6e5ebb19bdb15285f5c0e1b96b951ab73a336edb5053e518f7a7df",
+        "actions.json": "1995409585f4e9d96d3d0fee53a2c23fb4705287dc9a6d4763a2747504a0d8ef",
+        "assertions.json": "3a20356e3ae20fe68030d87e78157eecb2e3f443aa053292d3a08f131d5cd69b",
+        "expected_final_gamestate.txt": "3e48854ee9634b7422a463820cbd2833332a786dca99bf80bd72259d320bdaa2",
+        "meta.json": "960ea5b9a9dafb34496830afaa3b10129dc808067e5e632f58f0ccecc560aba4"
+      }
+    },
+    {
+      "slug": "card-felling-swing-yellow-unused-effect-expires-this-turn",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-unused-effect-expires-this-turn",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay37.log"
+      ],
+      "complete_log_sha256": "ea56f9c0aa50b2680e459e08ea9290d3614d5f0f50b57961a2416a71199cd862",
+      "raw5": {
+        "initial_gamestate.txt": "976ea518ed9c8f9f605afa9fbf9639618efb0af256a2a393a31bfac0991c0605",
+        "actions.json": "78a08af9e5ce09674b435bbb49ec23259a828380a94080675bedf01ff2bbf5b1",
+        "assertions.json": "f22eb15924d95e9f3d4c15146da68e44644930e197fe0877e93e468195d15bf9",
+        "expected_final_gamestate.txt": "e3ca6a9624ed422c7c61adf5777980113d0e4d3f79ee1c925070846ffb8078fe",
+        "meta.json": "a3e5b036944a6f1d6f79d4db98ba421986b48d5cd9fd0c952d6c2d1278e9ff44"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-blue-axe-also-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sharpen-steel-blue-axe-also-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay38.log"
+      ],
+      "complete_log_sha256": "470075c4ac33bf56fd240b397d2da6a8933ae4fc12569fd0896a9f93c94282c0",
+      "raw5": {
+        "initial_gamestate.txt": "efad9ffb8064909292afc3a0b9eba81de91fa1a480e1278629ef438a4d1b5ee5",
+        "actions.json": "68ee04f0da0bc1b98da46be191cb0c7f5972b13ef055442a7c5c6afb45b21dab",
+        "assertions.json": "ab57a84f34466cd5f75ec9924c0dc6675767bfe2a7b930d9cd2810db0e36653d",
+        "expected_final_gamestate.txt": "3508e73a1a89aa08ba0f5e5dbd9d991477584e3b82dc9eddaf156a6211c124d8",
+        "meta.json": "5d6854e19b04008421a19867731fd617f227df1f7841b004b0a255742c808174"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-red-axe-also-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sharpen-steel-red-axe-also-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay39.log"
+      ],
+      "complete_log_sha256": "e014193159767457bc9a9fa2d6dd2b645259282ea6d93205097c8e784ca4e71d",
+      "raw5": {
+        "initial_gamestate.txt": "563c8674bbc85475ec5ec191036058ceae2ad554a70e2c59a74705e107157648",
+        "actions.json": "68ee04f0da0bc1b98da46be191cb0c7f5972b13ef055442a7c5c6afb45b21dab",
+        "assertions.json": "7bdfd42d730e04a8e9a4bf79bf36af5a4fd6e27472d31ced50e2d8dc5984c776",
+        "expected_final_gamestate.txt": "31a901eea6deb55e2635b3b906a943156e24dfc7b10980c1a43d78d96a003a20",
+        "meta.json": "503c558dbd6e9b3f7863d01b2bb633e8d107a64a557680037bba83f74afc4f45"
+      }
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-axe-also-qualifies",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sharpen-steel-yellow-axe-also-qualifies",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-forty\\replay40.log"
+      ],
+      "complete_log_sha256": "baf742c07a0b8483660b7c27e3f2979f30bbfb4fc9be56fea8e157a4e8eb8c0e",
+      "raw5": {
+        "initial_gamestate.txt": "6b59a748c10249fe9cd8978d6b0dfdfae870c7df5901e8831914d477fcf92ca6",
+        "actions.json": "68ee04f0da0bc1b98da46be191cb0c7f5972b13ef055442a7c5c6afb45b21dab",
+        "assertions.json": "6078f2f286938e1e466ba24e1e1e7c6daeee058a0eb6c84a8190afb9a5076a90",
+        "expected_final_gamestate.txt": "f3e2268bea5eb239736e2c9fe2976666410f044e2a132c681a6d3c1913847ed9",
+        "meta.json": "25bf85e45e8832e16a1aae426d88f31086f068ac92bae8fc1f17fe02dc9884a5"
+      }
+    }
+  ]
+}

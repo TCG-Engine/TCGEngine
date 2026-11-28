@@ -1,0 +1,7 @@
+{
+    "name": "Under the Trap-Door / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:11:32+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Stealth**\n\n**Instant** - Discard this: Banish target trap from your graveyard. If you do, you may play it this turn and if it would be put into the graveyard this turn, instead banish it. Representative only: actual_owned_stealth_attack_not_instant_discard_trap_ability Sources: FaBSim/GeneratedCode/cardArrayCache.json#under_the_trap_door_blue"
+}

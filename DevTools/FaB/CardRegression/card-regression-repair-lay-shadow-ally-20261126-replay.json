@@ -1,0 +1,57 @@
+{
+  "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+  "fixtures": [
+    {
+      "slug": "repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+      "passed": true,
+      "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "4732625acc7e0d7f4320780165f0a274de410801a9258f3c2f89b1d9fe703ec0",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+      "passed": true,
+      "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "2e3011d7c57f398152a96c524033244f961d96fce1bce68850b3a5576b557614",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+      "passed": true,
+      "runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\lay230\\r2-strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "7e7737e84d2128dcefcd0d3ae70f773f3bb088f5443d1ed8573cf5c5467c25b8",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

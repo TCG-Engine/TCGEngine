@@ -1,0 +1,7 @@
+{
+    "name": "Sense Weakness / four-live actual native representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:57:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next Guardian attack this turn gets +1{p}, dominate, and \"When this hits a hero, deal damage to all allies they control equal to the damage dealt this way.\"\nGo again NaturalOldhim20Guardian, printedNAA3reallypaidfirstBlue6/R0/AP0, fourmanualresponsesthenGAAP1. ActualGuardianTitansFist7cost3reallypaidsecondBlue8/R0/AP0; bothGenericCriticalBlueprintedcost1 soTitansFistbase3notstatic+1; Senseactual+1makes4andDOMINATE. RealfirstHandCritical9DEF3legallydefends, secondactualHandWounding10attemptmustrejectandremainHand; actualEquipmentIronrot11DEF1thenlegallydefends,total4/zeroDamage/noHit/HP20. ActualSource5GY, Pitch6/8, usedweapon7retained, Hand10retained/GY9thenBladeBreak11owner4. NohitsoAllydamageabilitynotearned; noWager/heroactivation/positiveTitanscost3pitchbonus/support/wholecardcredit. IronrotprintedBladeBreakdestroysitwhenchaincloses: physical11ownedGY4index1, Equipment0/GY2, withactualdefendingHand9first. No broaderkeywordtiming/otherEquipmentcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sense_weakness_blue"
+}

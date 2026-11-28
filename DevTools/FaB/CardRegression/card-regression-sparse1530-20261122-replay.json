@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fai-four-live-sparse1530-real-draconic-link-reduces-cost-and-spent-use-rejects-later-eligible-flame",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fai-four-live-sparse1530-real-draconic-link-reduces-cost-and-spent-use-rejects-later-eligible-flame",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1530-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1530-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "61081f419410eba392b9f1f8edb07ad3a571428e505d3d9e293d51a75c6f5769",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "596183da9406984d8c0b393f049a63ba4f83a685c0dda69e33ba055c1e71d837",
+        "actions.json": "08ab7376bcaec501a0e072d3bc0fceda4e60371d70edd2eaecbe0c59a4381e2d",
+        "assertions.json": "6a0080d4749758fb30653179246c53dd887b12632e1edcb1f5e7adb9654172bc",
+        "expected_final_gamestate.txt": "7dbe7789e56f4269491f7f8bcf79fe05ac94c37b0b5191d4e12de2f9973c1005",
+        "meta.json": "dadee020937f2f9679859c1ba0a705e38977c2c2e8808137a674583c7f577202"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

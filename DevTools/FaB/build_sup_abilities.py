@@ -197,6 +197,14 @@ for c in json.loads((HERE/'sup_catalog.json').read_text()):
             if prior['abilityCode'].strip()!=ability['abilityCode'].strip():ability['previousCodeHash']=hashlib.sha256(prior['abilityCode'].strip().encode()).hexdigest()
             elif 'previousCodeHash' in prior:ability['previousCodeHash']=prior['previousCodeHash']
     out.append({'cardId':id,'abilities':a})
+
+# Jarl Armory support is outside sup_catalog; keep its owned defend macro reproducible.
+unforgetting_entry = {'cardId':'unforgetting_unforgiving_red','abilities':[{'macroName':'Defended','abilityCode':'$attacker = intval(DecisionQueueController::GetVariable(\'supUnforgetAttacker\'));\n\nif (FaBSUPUnforgettingCondition($attacker)) {\n\n    $mode = await $player.Modal(1, 1, "Decline&Search", "Search_for_a_Mangle");\n\n    if ($mode === "1") {\n\n        $refs = FaBSUPUnforgettingStage($player);\n\n        $eligible = FaBUPRUIDs($refs);\n\n        $chosen = "-";\n\n        if ($refs !== "") {\n $chosen = await $player.MZMultiChoose($refs, 0, 1, "Banish_a_Mangle");\n \n}\n\n        FaBSUPUnforgettingFinish($player, $chosen, $eligible);\n\n    \n}\n\n\n}\n','isImplemented':True}]}
+unforgetting_existing = [row for row in out if row['cardId']=='unforgetting_unforgiving_red']
+if unforgetting_existing:
+    assert unforgetting_existing == [unforgetting_entry], 'Conflicting catalog Unforgetting macro'
+else:
+    out.append(unforgetting_entry)
 (HERE/'sup_abilities.json').write_text(json.dumps(out,indent=2)+'\n')
 
 print(f'SUP: {len(out)} authored/reused identities, {len(pending)} pending; {sum(len(e["abilities"]) for e in out)} macros')

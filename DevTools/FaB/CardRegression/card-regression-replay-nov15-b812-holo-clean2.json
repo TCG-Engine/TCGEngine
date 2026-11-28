@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch812-holo_shield_blue.json",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "returncode": 0,
+  "completed_utc": "2026-11-15T02:37:10.082549+00:00",
+  "fixtures": [
+    {
+      "slug": "card-holo-blue-real-paid-nonturn-instant-counterless-ward-one-selfdestroy-three-damage",
+      "fixture_sha256": "3e34cd9edb9cf4a4b1fdda9919bfe4ca2e2460bc7aa1dbad3364ae8a54d1b341",
+      "passed": true,
+      "result": "[PASS] Holo Shield Blue / actual paid nonturn Instant Aura prevents one and destroys itself"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-holo-blue-real-paid-nonturn-instant-counterless-ward-one-selfdestroy-three-damage",
+      "returncode": 0,
+      "stdout": "[PASS] Holo Shield Blue / actual paid nonturn Instant Aura prevents one and destroys itself\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

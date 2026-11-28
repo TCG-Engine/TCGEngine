@@ -1,0 +1,87 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1236-20261122.json",
+  "source_spec_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+  "input_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+      "card_id": "vox_necropolis",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6b3241cbe8bc2dde562945625482c8eaea3d2c886a2dff39b25bd6e160e7aec",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "66e84ebd3f5ed6996174d70dd633d356db80483cde119172602b3cefb78d5dcc",
+        "expected_final_gamestate.txt": "f8e8f6f372450a1805d31c2f2c09841d4c7f907feb19d8e58f8b928bd3c8077f",
+        "meta.json": "004466a50d7b003f40f823ce148202790800dec4b326404b9c01926741931923"
+      },
+      "fixture_sha256": "1e9f2b8936df7774e97c2a5ca3da1a0c2801c66ec947c16f402168c126b884be",
+      "actions": 28,
+      "native_assertions": 310,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1236-20261122.json",
+      "input_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1236-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+        "fixture_slug": "card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "5a6547ada804661b19ac594302568cc56ee165b5abb459da89150f6f6d5ea87a",
+    "source_note_sha256": "06ccd07759470760df60f35a18b042ad8048979585e6e72903abec1fd7315665",
+    "case_count": 1,
+    "native_controls": 28,
+    "query_checks": 310,
+    "persistable_assertions": 310,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "PASSIVE_GRANT_EXISTING_ZOMBIE_MANUAL_ATTACK",
+    "basis": [
+      "The exact frozen scene has 28 native controls and 310 queries. Direct assertions and normalized state/power/go_again checks all persist one-to-one. Four natural Young heroes satisfy setup; Malice admits the Shadow Necromancer Staff and Zombie. The primary group is unrepresented with no source-only hold.",
+      "MONArenaAttackSpec55 specifically requires an active Vox weapon to grant this existing Zombie the printed Action1/tap attack. The prior ready Zombie is a lawful admitted Arena object, without current entry or played-from history. Actual target declaration precedes costs, then proxy8 is created with SourceZone Arena and SourceUniqueID6. No source/proxy Owner equivalence is assumed.",
+      "Real Blue7 pitch3 pays resource1 and the Action asset, leaving R2/AP0 before GameLogic1220-1223 calls CRUUseWeapon on physical Zombie6. It taps that Zombie, not Staff5; pending payment then clears before the four manual source responses. This route has no discard/destroy additional-cost effect choice.",
+      "The proxy carries MON_ARENA_POWER3, MON_ARENA_ATTACK and MON_SOURCE_UID6. The physical source remains alive in Arena, so source-existence guards permit normal combat. Actual power3/no go again, unblocked damage3/HP4=17 and no refund demonstrate the manual grant.",
+      "MONCloseMove338-342 retires the virtual Arena attack rather than exporting it to a physical graveyard. Final owned Zombie6 remains Arena tapped with zero damage, Staff5 remains ready in Weapons and Blue7 remains Pitch; UID8/RNG0/R2/AP0 and empty Stack/DQs/CC/GY/Banish fit the branch.",
+      "The Zombie was not played from Graveyard/Banish during this fixture, so IARRuntime130-131 entry auto-attack is unearned. It survives throughout, so neither its death ability nor Malice death trigger is earned. No end phase/Decay or Hero activated ability is entered."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only pending native saving and targeted replay; no native success or coverage credit claimed by reviewer.",
+      "Only the existing Zombie manual attack granted by Vox. No entry auto-attack, other source zones, source removal, production, death, repeated attack, Hero/support or full-card credit.",
+      "Only this W review receipt was written; no native actions, tests, T/source changes, Git, authentication, network or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1236-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "831f81da9f6c9e05569dae4c7066d55d3ffa5eaa5d17e816d039dc476254f410"
+  },
+  "full_suite_run": false
+}

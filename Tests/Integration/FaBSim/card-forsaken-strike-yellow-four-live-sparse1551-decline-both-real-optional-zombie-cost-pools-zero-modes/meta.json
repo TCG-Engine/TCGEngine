@@ -1,0 +1,7 @@
+{
+    "name": "Forsaken Strike / deliberately decline both eligible Zombie cost pools, zero modes",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:39:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual natural20MaliceShadowNecromancer/Dori/Dori/Dori. PriorownedrealnonTokenCorruptedCorpse5Arena/Status2 andCommander6Hand are both eligiblecostmaterials, primary7Hand1. FormaladjacentHero4attacktarget declared beforeactualPrepare0..1ArenaZombie then0..1HandZombie choices. Explicitnativeanswer- to each chooseszero; AP1retainedthroughdeclaration, noZombieactuallydestroyedor discarded, so no039positivecost-before-assets event orMaliceWHENearned. ZeroactualpaidZombies\u2192zero modes, noGate/POWER/GA. ActualordinaryAA0paysrealAP1to0/R0, fourresponses primary7CC3/noGA/fullunblocked3damageHP4=17/fullmanualClose\u2192GY7. Corpse5ArenaStatus2/Commander6Handretained/noextraUID/Token/Gate/Banish. Nofakehistory, support/sibling/wholecardcredit orenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#forsaken_strike_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#forsaken_strike_yellow:0:PrepareCard FaBSim/Custom/IARCards.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/GameLogic.php Core/DecisionQueueController.php"
+}

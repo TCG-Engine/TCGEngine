@@ -106,7 +106,7 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
     const page = await browser.newPage({ viewport: { width: 1700, height: 1100 } });
 
     // ── the case under test: 3 seated, 2 live, viewed as a SURVIVOR ────────────────────────────────
-    await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${WORK3}&playerID=2`, { waitUntil: 'load' });
+    await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${WORK3}&playerID=2`, { waitUntil: 'load' });
     await page.waitForTimeout(2500);
     const r = await read(page);
 
@@ -137,7 +137,7 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
 
     // ── 4 seats, TWO dead, and the dead seats still hold units in the payload ─────────────────────
     if (WORK4) {
-      await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${WORK4}&playerID=1&authKey=testschema`, { waitUntil: 'load' });
+      await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${WORK4}&playerID=1&authKey=testschema`, { waitUntil: 'load' });
       await page.waitForTimeout(2500);
       const f = await read(page);
       ok(engine, '4P fixture: 4 seated, 2 live', f.order === '1234' && f.live === '12', { order: f.order, live: f.live });
@@ -151,7 +151,7 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
 
       // ── the ELIMINATED VIEWER gets the home panels too (owner ruling 2026-09-25) ────────────────
       // Before this they were short-circuited into a single "P1 vs P2" matchup of the survivors.
-      await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${WORK4}&playerID=3&authKey=testschema`, { waitUntil: 'load' });
+      await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${WORK4}&playerID=3&authKey=testschema`, { waitUntil: 'load' });
       await page.waitForTimeout(2500);
       const e = await page.evaluate(() => ({
         mode: window.swuView && window.swuView.mode,
@@ -177,7 +177,7 @@ for (const [engine, driver] of Object.entries({ chromium, firefox, webkit })) {
 
     // ── control: a genuine 1v1 must still have NO views ───────────────────────────────────────────
     if (haveControl) {
-      await page.goto(`${BASE}NextTurn.php?folderPath=SWUSim&gameName=${WORK2}&playerID=1`, { waitUntil: 'load' });
+      await page.goto(`${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${WORK2}&playerID=1`, { waitUntil: 'load' });
       await page.waitForTimeout(2000);
       const c = await read(page);
       ok(engine, 'CONTROL: a real 2-player game still builds no views', c.modes.length === 0, c);

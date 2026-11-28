@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch601-quickfire-r2.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T11:18:34.135021+00:00",
+  "fixtures": [
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "fixture_sha256": "0076b5c1d4bad8f9f12ff0df60fde3ff838589b63d162bcfd1d6d5fc55ceed2e",
+      "passed": true,
+      "result": "[PASS] Quickfire Blue / paid Driver cost reduction / earned grant retained through Generic attack"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "returncode": 0,
+      "stdout": "[PASS] Quickfire Blue / paid Driver cost reduction / earned grant retained through Generic attack\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

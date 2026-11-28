@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse908-20261122.json",
+  "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+  "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+      "card_id": "entwine_ice_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a483b080f2927549699d6b8ddbe6b813c5b2a332f14ad4e2da795404f729ab7",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "123aec3ce01d52bb728a128612d9a4bc3bbb93afcf2b21ad95a019c4620e840d",
+        "expected_final_gamestate.txt": "2c3384b39b9c1300e9d6639b5566428c7a0ab956d12b339f7cad379378482b0b",
+        "meta.json": "284d967903c8df27c4832e41660de6393e969f9a7689af034afac2aaf4318af6"
+      },
+      "fixture_sha256": "7012cd0bc9d8bfe54bf8b44e735bb539b8839604503d326e48a854c004ac769b",
+      "actions": 28,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+        "fixture_slug": "card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+      "card_id": "entwine_lightning_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9fa278155474b6e542fb49d0d54032c5018ae6a2625e0897e52af7ae933d2682",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "7ccc082e42e1867b9346bef4cc12377a52c354857d19dba9d1c421214ed2b462",
+        "expected_final_gamestate.txt": "64dd9db435e5524103c2d8c2b73f7e36da671b0f1391095c7e7b57ef66d93cb6",
+        "meta.json": "b333699ac53b7f7c2b22f4fa2f6d47af30a4715f6846632c90e63bad1c3e4352"
+      },
+      "fixture_sha256": "f01e4fa32afbd66334b4575c2716b87373ae8849c2076914e2b1a3aa23b0cf0e",
+      "actions": 27,
+      "native_assertions": 115,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+        "fixture_slug": "card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+      "card_id": "meganetic_protocol_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e42c015ad441ac4107964df0bb86917be8ba02529b3f7997966df6a6bcbb14a2",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "38034c5c8d13a293e5cb02313ab259456565c5e0289a2ca58bea9baa1ddac96f",
+        "expected_final_gamestate.txt": "b4823c619e8ad24ea180fef1b5090d787f64bb6e74023c566bf5e6422a80ccc6",
+        "meta.json": "4ea65d205df43c89fcfa90079841e5093b22fee82a6031bb38c7811ff234a0d8"
+      },
+      "fixture_sha256": "bc7b652a7257ba2e950d6d58ea7bf8a1a12edf41f8991ed7bc98025ef43763b4",
+      "actions": 28,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+        "fixture_slug": "card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+      "card_id": "meganetic_shockwave_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e543dd948723d1917ef37fa7c2400fffa8c49346ff2f2e349eb7f2ef0a0d4b3",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7c9a8dc3e3a1129ed9ff37f2a92f63791672c04fe1eacbcce51f668200aa901e",
+        "expected_final_gamestate.txt": "bd41ccb81989ae89fe67175cc01f3a1cd35840562401e2c352a796805c7a7bf9",
+        "meta.json": "2bb1cdc4446316c72e90faff77ec5743070ff313fbdb25c0a09b59979e97a1f5"
+      },
+      "fixture_sha256": "77cce2dd272ca23a855c9e14a8f45044433258a5def93d5faa6e4ebd8b788b37",
+      "actions": 28,
+      "native_assertions": 123,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+        "fixture_slug": "card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+      "card_id": "dazzling_crescendo_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c21d1b2f3163c84d8ff08c4255132eeea8b1deee8656cd5a993f03acbba597c9",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "7ebf2c1724a1bc207fa01a9006396fc71cf5d238fe1b09ba7f25d84eab143260",
+        "expected_final_gamestate.txt": "9ad4126bae3de4be382fa8bd118b5df2b9c3698561d2d8e34b619f85f4a65d54",
+        "meta.json": "3cc806a77d9d8f969777b6fd76a1f6e21145751b25269551e792deec3b47d962"
+      },
+      "fixture_sha256": "d6d0c8f6fbb397a9692dea32b6a7a2c633c1fa5aaa211196e7825444b011af06",
+      "actions": 27,
+      "native_assertions": 124,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "input_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+        "fixture_slug": "card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+    "reviewed": [
+      "Only new card/setup/stat deltas over approved physical-attack frame reviewed: cached costs/powers EntwineIce1/5, EntwineLightning0/4, Protocol3/5, Shockwave2/4, Dazzling0/4 match actual damage and resource/AP oracles; legal natural20HP Oldhim/Lexi/Dash. Four live manual responses/combat and original5 ownGY retained.",
+      "Explicit canonical ELE fusion PrepareCard filters only actual Hand for Ice/Lightning, skips MZMayChoose if none, FinishFusion PASS then FinishPrepared. Primary already left source zone before Prepare; only GenericBlue in relevant Hand or Handempty. No additional physical reveal/effect cost. No positive fusion or cost-ordering credit.",
+      "Dazzling is actual facedown Arsenal5, with real owned ShiverBow6 satisfying Arrow play prerequisite; no Hand-source assertion remains. Native target announced, zero cost/noGA, four damage, same5GY/Arsenalempty and physical6Weapons retained; Bow not activated or credited.",
+      "Meganetic printed defense conditions are static, not WHEN attacks. Actual equipment0/Evos0 and no boost activity make required-count0, allowing no blocks and base5/4. No positive forced-equipment admission asserted."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named no-fusion/no-Evo/no-Boost base-packet branches. Available-fusion refusal, real reveal cost, positive Dominate/GA/fusion/Evo/Boost, defense admission and support/pitch-sibling groups untested.",
+      "Unchanged combat template not re-audited or executed; no native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse908-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916"
+  },
+  "full_suite_run": false
+}

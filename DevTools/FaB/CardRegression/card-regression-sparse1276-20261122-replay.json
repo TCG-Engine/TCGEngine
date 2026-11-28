@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-teklovossen-esteemed-magnate-two-live-sparse1276-intrinsic-permission-real-banished-evo-paid-and-equipped",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-teklovossen-esteemed-magnate-two-live-sparse1276-intrinsic-permission-real-banished-evo-paid-and-equipped",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1276-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1276-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b2252d436aff2e8c32a70c9cf2a2f8aa3283dd075bb4f5405d9691cc94f988fd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6f5054c883b35eeb097b53181f4e99d849232be84276fc9686fbaf48a1a9e3df",
+        "actions.json": "edbb829124ed1926d7b25cd802b0b45c76304d0282c201676a9a098ddf38e1b9",
+        "assertions.json": "9cb6b780687562c1d1a19a7208be66df75806a876dcf81fe405d7b0a6e7ec09d",
+        "expected_final_gamestate.txt": "375a7af3bba0543c3331bb9d00456a217493b58d70b7e740afe55faf6a2e080d",
+        "meta.json": "5681fa69378eff6b197141c2258fdfee0d3df44d768e7166924150b1b7c52127"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

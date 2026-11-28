@@ -1,0 +1,321 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_HELD_NO_FIXTURE_NO_COVERAGE",
+  "issue_id": "FAB-REG-224",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "glory_plate",
+  "group_id": "identity:glory_plate",
+  "scenario_id": "card-glory-plate-four-live-sparse1407-real-toughness-destroy-raises-equipment-defense-and-reduces-damage",
+  "native_inputs": 28,
+  "first_failure": {
+    "error": "state defenseValue expected 1 got 0",
+    "expected_defense": 1,
+    "observed_defense": 0,
+    "expected_damage": 3,
+    "observed_damage": 4,
+    "observed_window": "DAMAGE",
+    "observed_attack_power": 4,
+    "observed_declared_block_uids": [
+      7
+    ],
+    "observed_hero_health": "The final HP assertion followed the failed defense assertion and was not evaluated; no fresh scalar HP observation is claimed."
+  },
+  "completed_prefix": [
+    "Four manual young Heroes/natural20 and real assets validated.",
+    "Actual Condemn cost1 paid by Blue3; all four responses before untargeted controller1/opponent4 choices. Physical source held through both choices.",
+    "Actual Runechant5 and Toughness6 destroyed and ceased: all Arena empty and no token graveyard copies. Condemn8 owned graveyard/GA/AP1, no artificial history seeded.",
+    "Real generic Wounding10AA4 targetsHero4, all four responses; actual Glory7 moved Equipment\u2192CombatChain/RoleDEFENSE.",
+    "At actual DAMAGE, defense0 and damage4 observed rather than defense1/damage3. No pending decision or payment."
+  ],
+  "source_supported_attribution": {
+    "hypothesis": "Token Arena exit returns null before normal AfterMove observers. PENCards FaBPENAfterMove increments PEN_TOUGHNESS_LEFT, and Glory defense modifier reads that effect. Observed controller4 effects omit it.",
+    "scope": "Source-supported selected cause, not isolated fault-control attribution or a new globally deduplicated shared root claim. Printed all-controller Toughness quantifier and Guardwell close remain unrun."
+  },
+  "diagnostic_source": {
+    "path": "card-regression-sparse1407-held-glory-plate-20261124.json",
+    "sha256": "4ef921f18b83a4dc8462c85516cf43d7f3d53f56e2fc3462bd750ea973b49f64",
+    "probe_only_required": true,
+    "game_assertions_unchanged": true
+  },
+  "independent_source_review": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d5491f29e3fb8fc4e05e5263cca108ea0e5a5b40fde799bd1e2d5d8fca8c3f43",
+    "source_note_sha256": "b26ac51a72e613654764bfbb3f40e45c564468426b7bfb1b91736aaa667f2ff0",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 28,
+    "query_checks": 371,
+    "persistable_assertions": 371,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_CONTINUOUS_DEFENSE_FROM_ACTUAL_TOUGHNESS_LEAVING_AND_OBSERVABLE_DAMAGE_PREFIX",
+    "per_case": [
+      {
+        "card_id": "glory_plate",
+        "group_id": "identity:glory_plate",
+        "native_controls": 28,
+        "persistable_assertions": 371
+      }
+    ],
+    "basis": [
+      "Unrepresented/unheld GloryPlate ReveredChestEquipment baseDefense0/Guardwell legal equipped under naturalYoungPleiades20, naturalYoungViserai20 caster and twoDori20, cached UPF allowed. Prior ownedRunechant5 and foreignToughness6 physicalArena tokens, Plate7 equipment ready/Counters[], Condemn8/Blue9/Wounding10 Hand1; no PENeffect/history seed.",
+      "Printed Condemn1 grants nextRunebladeAttack+3, then optional ownAura destruction and eachopponent destroys ownAura; no target phrase. Actual Blue9 pitch3 pays1R2/AP0 before four responses. Generated49337-49392: own MZMULTICHOOSE0|1 chooses5 at resolution; actualdestroy5 then FaBOpponents order2/3/4; empty2/3 skip choices,4 actual MZCHOOSE selects6. Original8 must remainStack/AP0 through choices, then8GY/printedGAAP1. These are destruction resolution choices, not extra-cost or formal-target choices.",
+      "Runechant5 and Toughness6 must cease outsideArena rather than remainGY (official CR8.1.8a). Condemn is firstRunebladeNAA: ARCCards397-399 pops current from previousNAA list, so noViseraiRunechant. DestroyRunechant5 before actualAA means no Runechant attack trigger. GenericWounding10 notRuneblade cannot get Condemn3buff. Toughness start-of-opponent-turn ability not earned by actual Condemn destruction duringAction; Plate is not anAction defender regardless.",
+      "Glory printed continuous +1Defense counts actual Toughness token departure, so its real equipment declaration should defend for1 and reduce actual4power Wounding damage to3/HP4=17. Generated32046-47 reads PEN_TOUGHNESS_LEFT; PENCards292 records departure only in AfterMove, while GameLogic868-871 token exit returns before AfterMove884. This predicts a possible missing bookkeeping path, not a confirmed native bug; do not seed counter or change expected1/3 if it fails.",
+      "All28 native controls/371 assertions reviewed: native payments/owned source fates, four manual response rounds, Plate7 Equipment->CC RoleDEFENSE/FromZoneEquipment, exact token absence/CondemnGY/BluePitch/UID10RNG0 and finalDAMAGE HP checks coherent. Prefix stops at first DAMAGE before remaining passes/chainclose, so Guardwell counters/cleanup untested per official CR8.3.34."
+    ],
+    "limits": [
+      "Correct positive Glory continuous-defense expectation after one actual same-controller Toughness departure, pending native execution. Possible token AfterMove bookkeeping failure remains unconfirmed; failure must produce no fixture/coverage and no expectation weakening.",
+      "Guardwell close/counters, cleanup/turn reset, multiple departures or other-controller quantifier, primary equip provenance, positiveCondemnRunebladebuff, secondary identities/support/whole-card untested. No game/test/replay, engine/repository edit, original checkout access, auth, full suite or Git operation. Public official rules pages were read only."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1407.py": "00539707a8238e0ea9369453635e8dd5a7686b90d5be3729518ab772ec011f60",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "guardwell_close_credit": false,
+    "turn_reset_credit": false,
+    "native_failure_confirmed": false,
+    "positive_continuous_defense_scope": true,
+    "source_concern": "Token exit returns before normal AfterMove callback that would record PEN_TOUGHNESS_LEFT; original correct defense1/damage3 expectations retained.",
+    "official_rules_evidence": [
+      {
+        "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+        "retrieval": "Public page directly read; CR8.1.8a tokens only exist in arena or as subcards, CR8.3.34 Guardwell applies when chain closes. No verbatim quotation needed."
+      },
+      {
+        "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/rosetta-1st-strike/",
+        "retrieval": "Legacy public page failed502; current canonical public page403, no auth/retry. Official indexed search establishes release-notes page/card mention but did not retrieve exact Condemn card-specific notes; untargeted resolution conclusion independently follows cached printed text and exact generated choice flow, not a claimed retrieved publisher quote."
+      }
+    ]
+  },
+  "native_receipt": {
+    "external_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1407-local-20261122\\save\\receipt.json",
+    "sha256": "c71139b274f18e42cf3fc0dba80986bd98b8d2dfb9debea7812be8b9a571c60e"
+  },
+  "original_source": {
+    "external_archive_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1407-local-20261122\\unregistered-source-before-hold\\card-regression-sparse1407-20261122.json",
+    "sha256": "d5491f29e3fb8fc4e05e5263cca108ea0e5a5b40fde799bd1e2d5d8fca8c3f43",
+    "initial_gamestate_sha256": "b104cb750ae1454382bd3d040568914b7385c123195a22490aea1aabc4520483"
+  },
+  "observed_state_subset": {
+    "window": "DAMAGE",
+    "attackPower": 4,
+    "defenseValue": 0,
+    "damageDealt": 4,
+    "declaredBlockUIDs": [
+      7
+    ],
+    "pendingPayment": null,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "condemn_to_slaughter_red",
+        "wounding_blow_red"
+      ]
+    },
+    "turnEffects": {
+      "1": [
+        {
+          "type": "MST_BLUE_PITCHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_COST_ONE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_RUNE_NEXT",
+          "amount": 3,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_wounding_blow",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ROS_DAMAGE",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "ROS_VALLEY_HIT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PHYSICAL",
+          "amount": 4,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_DAMAGE_EVENT",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_DAMAGED",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "HNT_DAMAGED_BY",
+          "amount": 1,
+          "uses": 1,
+          "uid": 1
+        },
+        {
+          "type": "MON_PHYSICAL",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DTD_LOST",
+          "amount": 4,
+          "uses": 1
+        },
+        {
+          "type": "ELE_DAMAGED",
+          "amount": 4,
+          "uses": 1
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+    "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+    "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "official_rules": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "scope": "8.3.34 Guardwell acts at combat-chain close, after this damage prefix."
+    },
+    {
+      "url": "https://legacy.fabtcg.com/en/resources/rules-and-policy-center/release-notes/rosetta-1st-strike/",
+      "scope": "Condemn resolution choices are untargeted; destroyed Aura tokens cease."
+    }
+  ],
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "new_distinct_root_credit": 0,
+  "repair_attempted": false,
+  "limits": [
+    "Guardwell/chain close, reset, multiple departures and other-controller quantifier unrun.",
+    "No replay of a passing fixture: no fixture was saved. Diagnostic requires --probe-only to prevent Save.",
+    "One actual Card behavior failure; source-supported shared attribution is not fault-isolated."
+  ]
+}

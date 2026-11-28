@@ -1,0 +1,174 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root, independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse973-20261122.json",
+  "source_spec_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+  "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-smelting-of-the-old-ones-red-four-live-sparse973-actual-ten-damage-to-non-guardian-without-typed-crush",
+      "card_id": "smelting_of_the_old_ones_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1984fb08e51700efd270d9823467aa15aacd09ce58a9f3fa938ca4a7064de795",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "ff662ea1e6f563c2b8d2f2fa92063bd9e5ea56921904fbc0021058b69ed74376",
+        "expected_final_gamestate.txt": "168f63499d0074c85716603ea4a1ea121dd4cee8b7d8909f8fc67c059e2d9417",
+        "meta.json": "fa1aa9dd4b3db33bd6c52ea28a7bea60848cdc63039234eb8e6dcbe02be00c51"
+      },
+      "fixture_sha256": "433aed0cbfa9d08897b1da37f6084069215067233fb44bba1059450f65a60047",
+      "actions": 29,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse973-20261122.json",
+      "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-smelting-of-the-old-ones-red-four-live-sparse973-actual-ten-damage-to-non-guardian-without-typed-crush",
+        "fixture_slug": "card-smelting-of-the-old-ones-red-four-live-sparse973-actual-ten-damage-to-non-guardian-without-typed-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-smack-of-reality-red-four-live-sparse973-actual-nine-below-tower-retains-real-aura-token",
+      "card_id": "smack_of_reality_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9ca75e693c71ba3751f81a24846d4b291ccdfa6c263fabd0d978c9e01f8fb637",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "11088f6cb13f72c952af293574ceedf6300a272237ded014f1241f55edab9b05",
+        "expected_final_gamestate.txt": "b5f040ba27c509aaad707ce656f89643d6fbb936ab8a56a57ead1c5e16a50a61",
+        "meta.json": "1427d61848489fc0ede4fb6e7e07db65685611c48417ac0148a9ae2fa074fc0b"
+      },
+      "fixture_sha256": "1f4caeafdb7fb5f5933e9f3280348798f5e3993add492dba943f40eb12e4a689",
+      "actions": 29,
+      "native_assertions": 166,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse973-20261122.json",
+      "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-smack-of-reality-red-four-live-sparse973-actual-nine-below-tower-retains-real-aura-token",
+        "fixture_slug": "card-smack-of-reality-red-four-live-sparse973-actual-nine-below-tower-retains-real-aura-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-thump-red-four-live-sparse973-actual-unmodified-six-retains-real-enemy-hand",
+      "card_id": "thump_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94785ab5adf1a00a515b84fbd9a0f852cd85b84f70d9832cee2f2318b5696c64",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "7efceffee7134492def85741f32444eaa52e493888ea7e4d66ba123b10d225bb",
+        "expected_final_gamestate.txt": "30c7ce5c0e585c9883fe42e0aef64a954dc808c2251c7d7bbb3e1ecb5970ba70",
+        "meta.json": "f9cc951613dd47c4161c6d27176168913c49d19c7540ed25bcd94397b8df109e"
+      },
+      "fixture_sha256": "3994a8756e132bf10e71eccbb911b922ccf317ffd7e7a0d38ac397669556ba48",
+      "actions": 29,
+      "native_assertions": 164,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse973-20261122.json",
+      "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-thump-red-four-live-sparse973-actual-unmodified-six-retains-real-enemy-hand",
+        "fixture_slug": "card-thump-red-four-live-sparse973-actual-unmodified-six-retains-real-enemy-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-standing-ovation-blue-four-live-sparse973-actual-eight-main-play-without-suspense-history-credit",
+      "card_id": "standing_ovation_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "78fe84cc69b7a2883d1e574384cc0119a82c2da3e93b5fea40942f4d3e95f3dc",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "c0443ed57b3162fb641cf12f11242a0f5dedf946255c8054a44a3623a3af5b32",
+        "expected_final_gamestate.txt": "2f89f52394c2cf6b390148223820bfba9b554087a1e61009a5ffc7a9a9be30a7",
+        "meta.json": "632f3729e34a3e7f28fc7d7cd01e496b3c343d5cae4af5ac05124ab1aec3d347"
+      },
+      "fixture_sha256": "dd1257b7100b0ec179ae56d4504487c2ed722dc2ddc5c76b40de9733f53599ba",
+      "actions": 29,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse973-20261122.json",
+      "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-standing-ovation-blue-four-live-sparse973-actual-eight-main-play-without-suspense-history-credit",
+        "fixture_slug": "card-standing-ovation-blue-four-live-sparse973-actual-eight-main-play-without-suspense-history-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-put-em-in-their-place-red-four-live-sparse973-actual-full-block-retains-real-enemy-hand-and-draw-markers",
+      "card_id": "put_em_in_their_place_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "896c33cc78467c0129f48aa88a80a2edfe68f8f3fe07cc8ba4b221234ccb3044",
+        "actions.json": "b13a5c6357eefee8545eef3d84ffc45ae2693a805a3c988fca0b32df9c890957",
+        "assertions.json": "18dc22f6f8b95b2a93f899168354448e62fecdf729713e6a399be76e054afba8",
+        "expected_final_gamestate.txt": "51273fb9a3d40c52ef0c0345ca28c6a12d756df61c680e86ee9488408bfc699b",
+        "meta.json": "5f26742c7f418d9dd1e53df70d9c1f42d28d717c35852766fb0a280d25df76d4"
+      },
+      "fixture_sha256": "52251b07674e68abcb6cf1761e7e734f29eb0b84ea699aafce69aaee3b338282",
+      "actions": 33,
+      "native_assertions": 216,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse973-20261122.json",
+      "input_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-put-em-in-their-place-red-four-live-sparse973-actual-full-block-retains-real-enemy-hand-and-draw-markers",
+        "fixture_slug": "card-put-em-in-their-place-red-four-live-sparse973-actual-full-block-retains-real-enemy-hand-and-draw-markers",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root, independent of breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a2c7c10ae2f1c85c9ee6061cda74f916f03b84048903f55615640468233aa2cc",
+    "basis": [
+      "Read exact five-case source packet and author construction, compared printed card text and hero types/natural health from existing cached catalog; checked native source routes separately. Source hashes match. All groups absent from current frozen+incremental coverage.",
+      "Actual cost4/5/6 paid with two physical Blue3 cards, no synthetic outcomes. Natural Bravo20, Pleiades20 Revered Guardian, Valda21 own-specialization; all four seats live/manual, native target to enemy Warrior, physical source5 owned graveyard, no AP return printed.",
+      "Smelting10 to nonGuardian lacks typed Guardian Crush event; no eligible damaged equipment witness so no equipment destruction exclusion credit. Smack9 below13 retains eligible owned enemyQuicken. Thump6 equals base6 therefore no granted discard; real enemyHand card retained. Dominate admission not tested.",
+      "Standing8 main play/damage only at zero suspense history: extra-turn queue/next-turn is not observed, so no extra-turn denial or positive granting credit.",
+      "Valda four physical3-defense cards block10; remaining enemyHand12 and Deck13/14 exact retained. No earned Crush/discard/draw, no opponent draw/Valda surge trigger. Fresh no3surges/noDominate condition; positive branches remain untested."
+    ],
+    "limits": [
+      "One representative branch per group, no pitch sibling/whole-card/positive special effect certification. Native recording, stored assertions and one clean replay still required.",
+      "No new repair, source change, network, full suite or historical replay. Original checkout access not retried; isolated roots verified."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse973-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "17b183f12df1621eb1027199adae50ba0a6c484eeb6f4ddb7d0f5e122e4721d3"
+  },
+  "full_suite_run": false
+}

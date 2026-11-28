@@ -1,0 +1,7 @@
+{
+    "name": "Money or Your Life? / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:49:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, deal 2 damage to them unless they give you a Gold token they control. If you are a Thief, repeat this process once. ActualrealBlue6paysprintedcost3or2/R0or1/AP0, actual2or3HandAAeachdef3block6or9, damage0/HP20/nohit/Stack0/sourceandblockersownedGY. RetainedeligibleGold, fourremainingHandcards, orFaceDownInstantArsenal whereconfigured. PayUpdefenderArena0hasnoGold, noOverpower grant; Blanchonlynohit/main, noeffectivecolorquery. Sources: FaBSim/GeneratedCode/cardArrayCache.json#money_or_your_life_red"
+}

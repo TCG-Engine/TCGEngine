@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:18:59.591882+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse976-20261122.json",
+  "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 147,
+  "native_assertions": 1019,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4646,
+    "duels": 3075,
+    "four_live": 1571,
+    "recorded_primary_ids": 1794,
+    "identity_denominator": 5196,
+    "recorded_groups": 1668,
+    "group_denominator": 3324,
+    "four_live_groups": 1560,
+    "phase_qualified_scenarios_at_actual_contexts": 1283,
+    "phase_qualified_unique_groups": 1273,
+    "creation_replay_passes": 2025,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 444,
+  "scenarios": [
+    {
+      "card_id": "meet_madness_red",
+      "group_id": "identity:meet_madness_red",
+      "scenario_id": "card-meet-madness-red-four-live-sparse976-actual-unmarked-full-block-retains-three-real-opponent-zones",
+      "effect_branches": [
+        "actual_unmarked_full_block_retains_three_real_opponent_zones"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-meet-madness-red-four-live-sparse976-actual-unmarked-full-block-retains-three-real-opponent-zones",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "review_evidence": "review-evidence/sparse976-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f298d1fd97274af33a9cdd011e19374cae028d625ea08986bf0e57223d9fe6ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse976-20261122-replay.json",
+          "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mutually_assured_destruction_red",
+      "group_id": "identity:mutually_assured_destruction_red",
+      "scenario_id": "card-mutually-assured-destruction-red-four-live-sparse976-actual-full-block-with-no-reaction-play-retains-all-seat-decks",
+      "effect_branches": [
+        "actual_full_block_with_no_reaction_play_retains_all_seat_decks"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mutually-assured-destruction-red-four-live-sparse976-actual-full-block-with-no-reaction-play-retains-all-seat-decks",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "review_evidence": "review-evidence/sparse976-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f298d1fd97274af33a9cdd011e19374cae028d625ea08986bf0e57223d9fe6ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse976-20261122-replay.json",
+          "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "prey_on_insecurity_red",
+      "group_id": "identity:prey_on_insecurity_red",
+      "scenario_id": "card-prey-on-insecurity-red-four-live-sparse976-actual-action-play-full-block-without-optional-reaction-cost",
+      "effect_branches": [
+        "actual_action_play_full_block_without_optional_reaction_cost"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-prey-on-insecurity-red-four-live-sparse976-actual-action-play-full-block-without-optional-reaction-cost",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "review_evidence": "review-evidence/sparse976-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f298d1fd97274af33a9cdd011e19374cae028d625ea08986bf0e57223d9fe6ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse976-20261122-replay.json",
+          "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "pilfer_the_wreck_red",
+      "group_id": "pitch-cycle:pilfer_the_wreck",
+      "scenario_id": "card-pilfer-the-wreck-red-four-live-sparse976-actual-full-block-retains-yellow-faceup-enemy-graveyard-card",
+      "effect_branches": [
+        "actual_full_block_retains_yellow_faceup_enemy_graveyard_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pilfer-the-wreck-red-four-live-sparse976-actual-full-block-retains-yellow-faceup-enemy-graveyard-card",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "review_evidence": "review-evidence/sparse976-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f298d1fd97274af33a9cdd011e19374cae028d625ea08986bf0e57223d9fe6ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse976-20261122-replay.json",
+          "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "urgent_delivery_red",
+      "group_id": "pitch-cycle:urgent_delivery",
+      "scenario_id": "card-urgent-delivery-red-four-live-sparse976-actual-full-block-retains-eligible-zero-cost-item-in-hand",
+      "effect_branches": [
+        "actual_full_block_retains_eligible_zero_cost_item_in_hand"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-urgent-delivery-red-four-live-sparse976-actual-full-block-retains-eligible-zero-cost-item-in-hand",
+      "source_spec": "card-regression-sparse976-20261122.json",
+      "source_spec_sha256": "27bb6c0bfec84f40d570b0e07064c82e8358a3b9086d4cf79322931176ba25c3",
+      "review_evidence": "review-evidence/sparse976-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f298d1fd97274af33a9cdd011e19374cae028d625ea08986bf0e57223d9fe6ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse976-20261122-replay.json",
+          "sha256": "cca6717febab860706153b3dc3edc9f678bf94a9cbfe1364382bc27ee4af9afd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

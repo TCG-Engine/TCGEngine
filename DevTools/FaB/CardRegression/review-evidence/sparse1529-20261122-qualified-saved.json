@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1529-20261122.json",
+  "source_spec_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+  "input_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+      "card_id": "arakni_tarantula",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "114282d7a18c5da87beda957cc15fac33d5bd70d5eb2de9034cb2b2cb6d10797",
+        "actions.json": "b7c8d39ae48b2921bb5c96411355ec3105a0fa2f7b4c43bcb51298a3cc150442",
+        "assertions.json": "32c57c9deb328ea19e3312910e1c1b168148e2482f2af49bb6dc4b0f24acb9e3",
+        "expected_final_gamestate.txt": "11d4bf7bcadf01a7e29048c74ff56dcdfb84e04312ffee79bc460a9be70f36dc",
+        "meta.json": "6d7dab64afe4b6475c3c1424cbb032b6ebfef5fd523c0773d4175c4242bc6565"
+      },
+      "fixture_sha256": "45816b8e8880ceea820273a85fa23294fc42264809df505cd2882f462ed24c4c",
+      "actions": 28,
+      "native_assertions": 418,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1529-20261122.json",
+      "input_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1529-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+        "fixture_slug": "card-arakni-tarantula-four-live-sparse1529-owned-dagger-hits-real-ally-without-hero-life-loss",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1529,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T10:12:02.863368+00:00",
+    "spec_sha256": "d55dab7a20d5d31663641db135ca6ec1666ec3436e02bfa49a1ba9f6613ee8f8",
+    "source_note_sha256": "460a0c22ea1dc65e98c320a2b6232b74d60d59c6c9b326c258ec9f49cea69710",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "DevTools/FaB/CardRegression/initial_agent_setup.php": "59c1b7d83b8b4ef070cb9ca6f0fe1f1c4481069dc729ddced2fd02f073851aea"
+    },
+    "cases": 1,
+    "findings": [
+      "SupportednativeyoungArakni20base\u2192TarantulapreservesUID1HP20HNTBASE; no transitionevent.",
+      "ActualownedAssassinDagger6cost2/Blue3/AP0R1/proxy8 legal; PERMANENTAshwing7oneHPtakes1damage, TokenclearsnoGY.",
+      "HNTHit andDYNHit use actualHero-hit predicate; Allyhit doesnotearn eitherHero-hitevent. AllHero20. WeaponownGAAP1/fullfourmanualclose."
+    ],
+    "limits": [
+      "LimitedAlly-vsHeroevent only, nopositiveTarantulalifeLoss/primaryAR/endbrood/priortransition/siblingcredit. Reviewer source/spec only; no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1529-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "6e79bbd5e493b45a38461fbdbbdfbfecf9ffa15cdcce2f53cfc7011139f8b28a"
+  },
+  "full_suite_run": false
+}

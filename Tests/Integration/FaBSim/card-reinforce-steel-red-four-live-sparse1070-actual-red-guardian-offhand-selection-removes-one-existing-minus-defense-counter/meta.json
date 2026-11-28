@@ -1,0 +1,7 @@
+{
+    "name": "Reinforce Steel Red / four-live actual counter removal",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:57:13+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Remove a -1{d} counter from a Guardian off-hand you control with 3 or less base {d}. Named positive Red repair only. Natural20 Oldhim owns source5 Hand and real Blue6; preexisting legitimate Seasoned Saviour7 Guardian Off-Hand baseDEF3 has explicit DEFENSE2 as after prior equipping/wear, not native-equipped here. Actual printed cost2 paid by Blue6 pitch3 givesR1/AP0; four manual live responses then legitimate non-Target resolution MZCHOOSE. Physical source5 remains Stack/GY0/AP0 and owned7 still DEFENSE2 before answer. Choose actualEquipment7 removes exactly one -1defense counter: sameowned7 Equipment ready/DEFENSE1, source5 ownedGY/noGA/AP0/R1/Blue6Pitch. No native equipping/Seasoned WHEN producer/defense/combat/destruction threshold/alternate pitches/support/siblings/full-card credit. All checks persisted kind=state or typed assertions; Root independent review/native/save/replay pending. Sources: FaBSim/GeneratedCode/cardArrayCache.json#reinforce_steel_red"
+}

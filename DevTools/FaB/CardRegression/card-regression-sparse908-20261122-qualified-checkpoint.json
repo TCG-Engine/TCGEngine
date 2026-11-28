@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T17:51:42.930775+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse908-20261122.json",
+  "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 138,
+  "native_assertions": 608,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4346,
+    "duels": 3075,
+    "four_live": 1271,
+    "recorded_primary_ids": 1494,
+    "identity_denominator": 5196,
+    "recorded_groups": 1368,
+    "group_denominator": 3324,
+    "four_live_groups": 1260,
+    "phase_qualified_scenarios_at_actual_contexts": 983,
+    "phase_qualified_unique_groups": 973,
+    "creation_replay_passes": 1724,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 144,
+  "scenarios": [
+    {
+      "card_id": "entwine_ice_red",
+      "group_id": "pitch-cycle:entwine_ice",
+      "scenario_id": "card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+      "effect_branches": [
+        "unfused_without_another_ice_card"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-entwine-ice-red-four-live-sparse908-unfused-without-another-ice-card",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "review_evidence": "review-evidence/sparse908-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8f5c0d7d22193765035cfcd1cdcc9bc232bfed1ee4c341d06a3b3df2a6847b81",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse908-20261122-replay.json",
+          "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "entwine_lightning_red",
+      "group_id": "pitch-cycle:entwine_lightning",
+      "scenario_id": "card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+      "effect_branches": [
+        "unfused_without_another_lightning_card_no_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-entwine-lightning-red-four-live-sparse908-unfused-without-another-lightning-card-no-go-again",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "review_evidence": "review-evidence/sparse908-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8f5c0d7d22193765035cfcd1cdcc9bc232bfed1ee4c341d06a3b3df2a6847b81",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse908-20261122-replay.json",
+          "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "meganetic_protocol_blue",
+      "group_id": "identity:meganetic_protocol_blue",
+      "scenario_id": "card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+      "effect_branches": [
+        "zero_equipped_evos_actual_base_packet_only"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-meganetic-protocol-blue-four-live-sparse908-zero-equipped-evos-actual-base-packet-only",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "review_evidence": "review-evidence/sparse908-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8f5c0d7d22193765035cfcd1cdcc9bc232bfed1ee4c341d06a3b3df2a6847b81",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse908-20261122-replay.json",
+          "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "meganetic_shockwave_blue",
+      "group_id": "identity:meganetic_shockwave_blue",
+      "scenario_id": "card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+      "effect_branches": [
+        "no_boost_history_actual_base_packet_only"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-meganetic-shockwave-blue-four-live-sparse908-no-boost-history-actual-base-packet-only",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "review_evidence": "review-evidence/sparse908-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8f5c0d7d22193765035cfcd1cdcc9bc232bfed1ee4c341d06a3b3df2a6847b81",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse908-20261122-replay.json",
+          "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "dazzling_crescendo_red",
+      "group_id": "pitch-cycle:dazzling_crescendo",
+      "scenario_id": "card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+      "effect_branches": [
+        "real_bow_and_facedown_arsenal_unfused_without_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dazzling-crescendo-red-four-live-sparse908-real-bow-and-facedown-arsenal-unfused-without-go-again",
+      "source_spec": "card-regression-sparse908-20261122.json",
+      "source_spec_sha256": "a11f33737ac10995d0e87d59cf0df0d8742b329ff73f3c40d3062e885cc153e6",
+      "review_evidence": "review-evidence/sparse908-20261122-qualified-saved.json",
+      "review_evidence_sha256": "8f5c0d7d22193765035cfcd1cdcc9bc232bfed1ee4c341d06a3b3df2a6847b81",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse908-20261122-replay.json",
+          "sha256": "ab4d00035e2f83eb85a33e461de72033efe71cbb9f90680f2eb8d0f5c958d916",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

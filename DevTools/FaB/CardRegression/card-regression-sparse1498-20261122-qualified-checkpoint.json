@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T05:55:45.414568+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1498-20261122.json",
+  "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 140,
+  "native_assertions": 2124,
+  "manual_passes": 116,
+  "totals": {
+    "saved_registered_scenarios": 5545,
+    "duels": 3136,
+    "four_live": 2409,
+    "recorded_primary_ids": 2693,
+    "identity_denominator": 5196,
+    "recorded_groups": 2567,
+    "group_denominator": 3324,
+    "four_live_groups": 2398,
+    "phase_qualified_scenarios_at_actual_contexts": 2182,
+    "phase_qualified_unique_groups": 2172,
+    "creation_replay_passes": 2924,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1343,
+  "scenarios": [
+    {
+      "card_id": "fang_strike",
+      "group_id": "identity:fang_strike",
+      "scenario_id": "card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "effect_branches": [
+        "rejection_only_actual_Assassin_Dagger_is_not_attack_action_despite_legal_Mystic_Assassin_and_real_blue_pitch"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-fang-strike-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "review_evidence": "review-evidence/sparse1498-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c84c9eb1374e740f3c6d8597177d344a6317efa73828a267fd3911f6f1d30ce5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1498-20261122-replay.json",
+          "sha256": "0271a54d30aa6806be61de77472916c0e2537315b39715bab9a1d86ec1ebdfa0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "slither",
+      "group_id": "identity:slither",
+      "scenario_id": "card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "effect_branches": [
+        "rejection_only_actual_Assassin_Dagger_is_not_attack_action_despite_legal_Mystic_Assassin_and_real_blue_pitch"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-slither-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "review_evidence": "review-evidence/sparse1498-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c84c9eb1374e740f3c6d8597177d344a6317efa73828a267fd3911f6f1d30ce5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1498-20261122-replay.json",
+          "sha256": "0271a54d30aa6806be61de77472916c0e2537315b39715bab9a1d86ec1ebdfa0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "venomous_bite_red",
+      "group_id": "pitch-cycle:venomous_bite",
+      "scenario_id": "card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "effect_branches": [
+        "rejection_only_actual_Assassin_Dagger_is_not_attack_action_despite_legal_Mystic_Assassin_and_real_blue_pitch"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-venomous-bite-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "review_evidence": "review-evidence/sparse1498-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c84c9eb1374e740f3c6d8597177d344a6317efa73828a267fd3911f6f1d30ce5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1498-20261122-replay.json",
+          "sha256": "0271a54d30aa6806be61de77472916c0e2537315b39715bab9a1d86ec1ebdfa0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "stains_of_the_redback_red",
+      "group_id": "pitch-cycle:stains_of_the_redback",
+      "scenario_id": "card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "effect_branches": [
+        "rejection_only_actual_non_Stealth_Dagger_despite_legal_Mystic_Assassin_reaction_and_available_cost"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-stains-of-the-redback-red-four-live-sparse1498-real-dagger-ineligible-reaction-target-with-blue-funding",
+      "source_spec": "card-regression-sparse1498-20261122.json",
+      "source_spec_sha256": "de1b6a31e7ee8ceb45464afd4fd119d399cda0b44026f2705fc046dc3d8c084a",
+      "review_evidence": "review-evidence/sparse1498-20261122-qualified-saved.json",
+      "review_evidence_sha256": "c84c9eb1374e740f3c6d8597177d344a6317efa73828a267fd3911f6f1d30ce5",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1498-20261122-replay.json",
+          "sha256": "0271a54d30aa6806be61de77472916c0e2537315b39715bab9a1d86ec1ebdfa0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

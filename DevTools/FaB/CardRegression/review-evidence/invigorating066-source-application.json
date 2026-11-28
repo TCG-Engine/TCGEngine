@@ -1,0 +1,89 @@
+{
+  "status": "APPLIED_NATIVE_PENDING",
+  "utc_start": "2026-11-03T14:31:52.025526+00:00",
+  "issue": "FAB-REG-066",
+  "base_runtime_sha256": "90758aeb35536e3364b326789fc88b8eb9abc0f51b2de5f00426f0149fd9d51e",
+  "projected_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "source_write_attempts": [
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "utc": "2026-11-03T14:31:53.293627+00:00",
+      "expected_after_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "utc": "2026-11-03T14:31:53.310911+00:00",
+      "expected_after_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6"
+    }
+  ],
+  "actual_R_lints": [
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "source_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\MONCards.php\n",
+      "stderr": ""
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "source_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "exit_code": 0,
+      "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php\n",
+      "stderr": ""
+    }
+  ],
+  "generator_run": false,
+  "canonical_changed": false,
+  "remote_authoring_writes": false,
+  "backend_calls": false,
+  "native_game_run": false,
+  "full_suite_run": false,
+  "other_issue_changes": false,
+  "script_sha256": "3ac14756672c9fdbc786f8b89a3f04811b1d908871a90588058c93e118de0734",
+  "inventory_before": {
+    "fixture_count": 3624,
+    "fixture_slug_list_sha256": "410f58b69733bb59f5ef1db48d20e636fdffc1757e203939762377ed26de989a",
+    "index_count": 3624,
+    "review_count": 3624,
+    "index_sha256": "b7e88f8affef3fcd941cb218eddbc36000354bfa7bdf7fd4ccfbeb9b3de87394",
+    "review_sha256": "36c3c37f74f5518de122b2df166c451a0a4f3c6ded2fb9a626b44673ece905ae"
+  },
+  "source_guards_verified": 10,
+  "watched_runtime_files": 124,
+  "watched_canonical_inputs": 56,
+  "watch_before_sha256": "bc30a876b9efd81d389231dc4965ce7e102def6e70450ccaaa1612ef342adb83",
+  "manifest_sha256": "8dcff05f976379bd96e5b4e6db080a77f5cb8aeb627f2fad7dd85b29a087c4f4",
+  "source_review_sha256": "02bf4520661d517c71ac724b7722c7a6b437cd08719444cd72a7e987b8a26e3b",
+  "prior_validation_sha256": "74692bc0f36072afb039640de4575f2bfbcd0c4f364a5cf3c4909d8ccfde9a8b",
+  "files": [
+    {
+      "target": "FaBSim/Custom/MONCards.php",
+      "before_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7",
+      "after_sha256": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-source-application-9075\\MONCards.before.php",
+      "backup_sha256": "61ffc3d4c3c446b33cac71828436e9b08badc76da4eb3a7208c43d2934e1bcb7"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00",
+      "after_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-invigorating066-source-application-9075\\ROSCards.before.php",
+      "backup_sha256": "12bdf8c17c7781d949dd424e2e007d5b07d582135934e98a6a3f5fedb2a2cb00"
+    }
+  ],
+  "utc_end": "2026-11-03T14:31:54.203257+00:00",
+  "actual_runtime_sha256": "c08c2ae9712038723aee74f040771fe5fdb494e207f6f40b0e303f493425e720",
+  "inventory_after": {
+    "fixture_count": 3624,
+    "fixture_slug_list_sha256": "410f58b69733bb59f5ef1db48d20e636fdffc1757e203939762377ed26de989a",
+    "index_count": 3624,
+    "review_count": 3624,
+    "index_sha256": "b7e88f8affef3fcd941cb218eddbc36000354bfa7bdf7fd4ccfbeb9b3de87394",
+    "review_sha256": "36c3c37f74f5518de122b2df166c451a0a4f3c6ded2fb9a626b44673ece905ae"
+  },
+  "all_other_Core_FaB_runtime_sources_preserved": true,
+  "all_canonical_build_inputs_preserved": true,
+  "applied065_preserved": true,
+  "source_writes_exactly_two": true,
+  "native_qualification": false
+}

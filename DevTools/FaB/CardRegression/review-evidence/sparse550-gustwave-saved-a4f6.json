@@ -1,0 +1,380 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B550_REAL_SURGING_COMBO_GA_AND_REFUND_CONSUMER",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T01:06:19.519917+00:00",
+  "source_spec": "card-regression-batch550.json",
+  "input_sha256": "43c27cad5d6887bf6c225db5d59f5059f985e59aca99539bd6bf8d38675daa3f",
+  "manifest_sha256": "3f6c82e6bcd6a3e4f0af3ecb31b9feef5f4d132903dfc26f6f4b33e3913491c1",
+  "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch550-independent-source-review.json",
+    "sha256": "e1cb007cac142616e9d24385e9239e3796219ca23851f4bb89c6da9fbffa19a4",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch550-20261106T010411Z-6aed278b3b250.json",
+    "sha256": "940092cd1c72419d29292ef13682c55a810ee47596f3024966bae3928317a382"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch550.recording-results.json",
+    "sha256": "b9dd2e30ed5a0c64e41e3cd2dca2163c2dce186dbc0f5e30d432ad479fba808e"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch550-native-r1-a4f6\\receipt.json",
+    "sha256": "1423a4e158a17f6aef05c959574af2422368faac7bdd19d1284c87b31163dcbf"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "gustwave_of_the_second_wind_red",
+      "group_id": "identity:gustwave_of_the_second_wind_red",
+      "slug": "card-gustwave-second-wind-red-four-live-real-combo-go-again-and-attack-consumer",
+      "source_spec": "card-regression-batch550.json",
+      "input_sha256": "43c27cad5d6887bf6c225db5d59f5059f985e59aca99539bd6bf8d38675daa3f",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_COMBO_GA_AND_PAID_REFUND_CONSUMER",
+      "runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "recorded_runtime_sha256": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-gustwave-second-wind-red-four-live-real-combo-go-again-and-attack-consumer",
+      "fixture_sha256": "3d520f5825caf99316288c238ba1012f4d2e941b11cc94403a1f7ede5ba743e0",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "baee026e975d0795b9c57dc3f98bb528c5ee51fab6849a6f26d4408762a82862",
+        "actions.json": "1a0effcbe73ae8829feff248682adceea93f118ee3d9b33ef15414f99f165bee",
+        "assertions.json": "b529a3dcf88139d7ae933ef72caf359a7092d1aea1a31d996784f5553f158af4",
+        "expected_final_gamestate.txt": "7d35a19fa381be5cf044f18909e0f1b7b989067f48e5788dcc51e9dbb7550492"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "baee026e975d0795b9c57dc3f98bb528c5ee51fab6849a6f26d4408762a82862",
+        "actions.json": "1a0effcbe73ae8829feff248682adceea93f118ee3d9b33ef15414f99f165bee",
+        "assertions.json": "b529a3dcf88139d7ae933ef72caf359a7092d1aea1a31d996784f5553f158af4",
+        "expected_final_gamestate.txt": "7d35a19fa381be5cf044f18909e0f1b7b989067f48e5788dcc51e9dbb7550492",
+        "meta.json": "217bcdecf0747d9ae329cbf0d9f65bc724eba17730346b1b12a20505ebdc87a6"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "baee026e975d0795b9c57dc3f98bb528c5ee51fab6849a6f26d4408762a82862",
+        "actions.json": "1a0effcbe73ae8829feff248682adceea93f118ee3d9b33ef15414f99f165bee",
+        "assertions.json": "b529a3dcf88139d7ae933ef72caf359a7092d1aea1a31d996784f5553f158af4",
+        "expected_final_gamestate.txt": "7d35a19fa381be5cf044f18909e0f1b7b989067f48e5788dcc51e9dbb7550492",
+        "meta.json": "217bcdecf0747d9ae329cbf0d9f65bc724eba17730346b1b12a20505ebdc87a6"
+      },
+      "actions": 72,
+      "native_assertions": 6132,
+      "actual_manual_passes": 67,
+      "actual_priority_response_passes": 64,
+      "actual_defender_declaration_finish_inputs": 3,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 16,
+        "2": 16,
+        "3": 16,
+        "4": 19
+      },
+      "schema_property_assertions": 1946,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "gustwave_of_the_second_wind_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "surging_strike_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "gustwave_of_the_second_wind_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        7
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UID_order": [
+        6,
+        5,
+        8
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "active_computed_query_refs": {
+        "6": "p1CombatChain-0",
+        "5": "p1CombatChain-1",
+        "8": "p1CombatChain-2"
+      },
+      "actual_primary_GA_refund_boundary": 46,
+      "actual_primary_refund_consumer_boundary": 47,
+      "actual_consumer_UID": 8,
+      "actual_damage_packets": [
+        5,
+        4,
+        4
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "361c60d6e2b3c8d7ddc110768c4d24a311973b3768a9e6a7796b9373cb07afa2",
+      "native_action_mapping_sha256": "551eec4dfbe7e02189b140998e78c995af8a2378b1b5a1f307727d93c15c5887",
+      "native_assertion_mapping_sha256": "0488a24e1e67e9c7bb2bdbc1bd884025af2b54a6ba8987c0ce64149c204ad399"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 72,
+  "total_native_assertions": 6132,
+  "total_manual_passes": 67,
+  "total_priority_response_passes": 64,
+  "total_defender_declaration_finish_inputs": 3,
+  "total_schema_property_assertions": 1946,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchangeda4f6. All72 native actionenvelopes/6132orderedchecks/67manual(64priorityresponses+3P4declarefinishes)/1946properties and raw5 match independent source model exactly. Actual current-query refs0/1/2 bindUID6/5/8, not a cached/staleindex oracle; all69guards and48rawmanualprefs perendpoint verified.",
+    "Real Surging6cost2/Blue7pitch3 leavesR1AP0, actual5damageHP15 and intrinsicGArefund1 at boundary24. Samechain primary5play spends that AP, prior6 remains link1 and primary5becomes link2/current4+earnedComboGA, deals4HP11 and actualrefund1 at boundary46. Real blankWounding8 immediatelyspendsTHISrefund at47, joinslink3/current4/noGA, deals4HP7. No seededhistory/AP/tag or extra WHEN round substitutes for main effect.",
+    "Three physical attacks remain onchain until finalfourResolution responses close it. Parsed final ownpublicGY exactorderedUIDCardIDpairs[6:Surging,5:Gustwave,8:Wounding], fullrawBlue7sameobjectinPitch, originalUID1..8/counter8/RNG0/R1AP0/Chi0, quietHeroobjectsunchanged and completeStackChainDQawaitpaymentcombatcleanup verified. Allthree actualplays/hits are recorded; no Phoenix/Fai activation/Draconic or Doriweapon effect is earned.",
+    "Only positive realSurging-name Combo/currentconditionalGA/refund-consumer branch qualifies. No failedCombo/alternatepriorname/extraGust/hand-size or blocker condition/suppression/expiry/otherpitch/Hero/support-primary/sibling/full-card/nativecontrol credit. RawundoVersions hash-bound but excluded from current UIDinventory; Rootfocusedreplays/registration separate."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/3261/",
+      "finding": "Current standalone Red primary0/base4/conditionalSurgingGA."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/220/",
+      "finding": "CurrentSurgingRed2/base5/intrinsicGA."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.4.1",
+        "8.3.5b"
+      ],
+      "finding": "StaticCombo and attackGA refund at Resolution."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.6.2",
+        "7.6.3",
+        "7.6.4"
+      ],
+      "finding": "Earned AP/nextattack while samechain remains open; no premature close."
+    }
+  ],
+  "limits": [
+    "One realSurging\u2192GustwaveconditionalGA\u2192actualAPconsumer branch only.",
+    "No failedCombo/otherpreviousnames/extraGustwaves/heroactivation/support/sibling/fullcard/expirycredit.",
+    "OTHERpeer/native/Saved/raw48manualprofiles/twoRootreplayspending; no authorapproval/execution.",
+    "No failedCombo/noGAnegative/otherpreviousnames/multipleprimary/blockedcondition/suppression/expiry/Heroactivation/support-primary/sibling/full-card/nativecontrol credit.",
+    "Current source/spec expectations only; Root native/exactSaved/raw48prefs/twofocusedreplays remain separate. No reviewer PHP/native/R/source/fullsuite/otherdeniedoperation.",
+    "Completed native ledger plus complete initial/final rawsnapshots only; no invented per-input rawstate or privatecallbackinstrumentation.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/otherdeniedoperation. Roottwofocusedreplays remain separate and unclaimed."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch550_saved_readonly.py",
+    "sha256": "392fe902f39d4cd0976623e7b01355b923e9df9a1cde7a4682990d1ca5163483"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch550_source_readonly.py",
+    "sha256": "8bd424bd8d250497ff88d87d013ca293a4f6167d8ebf750dfefcb74c4b7c0f70",
+    "portion": "Own input/schema/action/assertion boundary checker only, no source/helper or author-model execution"
+  }
+}

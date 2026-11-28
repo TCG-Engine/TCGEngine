@@ -1,0 +1,7 @@
+{
+    "name": "Hungry for More / actual suspense removal earns separate destruction and healing layers",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T13:39:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual Young heroes20, legal GuardianHungryAura5 controlled1 admitted with one SUSPENSE counter. Actual Pleiades1 Instant activation layer6 chooses/removes lastcounter as realcost and tapsHero before priority. EarnedZero7 sits above6; four responses then physical5 destroyed to ownedGY while freshLeave8 replaces7, HP remains20. Four fresh responses then actualleave life+3 to23 with lowerHero6 stillStack. Four more responses then lowerHero optionaladdbody finds no remaining Aura and completes without chooser. Final5GY1/Hero tapped/AP1/R0/HP23/no newToken/no RNG/maxUID8/noStack/DQ/payment/resolvingframe. No Cheer earned. Independent CR8.3.42/SuperSlamnotes: zero triggers destroy, actionphase normalpriority, leave trigger separate. Only named synchronous observable physical destruction/healing/priority/cost sequence; neither body depends on removed virtualABI, reads storedphysical5/controller1. Internal atomic virtual-source lifetime uncredited, no claim of structural fix. No entry/startphase producer/counter re-add/cancel/other Aura/Hero wholeability/token/sibling/fullcard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hungry_for_more_red FaBSim/Custom/SUPCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

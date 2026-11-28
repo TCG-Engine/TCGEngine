@@ -1,0 +1,30 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-plain-lifecycle-r4-glisten-remembrance-steadfast.json",
+  "runtime_sha256": "f8e48bad8f65acca96e5cbdc2df59268f50bcfdbd78a01edadc19ccaf0548158",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T21:42:35.408622+00:00",
+  "fixtures": [
+    {
+      "slug": "card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+      "fixture_sha256": "c5421f0a65bae5f0282f9a9baf1f2dd62f8af832e35e47fcc2913b36ad05ef78",
+      "passed": true,
+      "result": "[PASS] remembrance_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-remembrance-yellow-four-live-original-correct-resolving-choice-recycles-owned-action-and-self-banishes",
+      "returncode": 0,
+      "stdout": "[PASS] remembrance_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-glisten-yellow-four-live-original-correct-resolving-source-retained-through-two-weapon-counter-choices",
+    "card-steadfast-red-four-live-correct-paid-source-choice-prevents-six-of-real-seven"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

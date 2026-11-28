@@ -1,0 +1,137 @@
+{
+  "status": "SAVED_APPROVED_INDEPENDENT_CHROMATIC_EARNED_ACTION_REDUCED_BLUE_COST_REAL_FIRST_DAMAGE",
+  "phase": "SAVED",
+  "batch": 862,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "source_spec": "card-regression-batch862-chromatic-earned-cost-first-damage-positive.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-chromatic-earned-action-reduced-cost-real-first-damage-positive-author\\chromatic-earned-action-reduced-cost-real-first-damage-positive.json",
+    "sha256": "c713ee6b45b6e40cab953e96ec5f013a4152f5058053ab21073f74cc089fdc98"
+  },
+  "input_sha256": "c713ee6b45b6e40cab953e96ec5f013a4152f5058053ab21073f74cc089fdc98",
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-chromatic-earned-action-reduced-cost-real-first-damage-positive-author\\manifest.json",
+    "sha256": "90f2a44a2fd0cbadb8b62a6dee7dd9fbdc0eb67f6ced003cf07288a51dd30e4a"
+  },
+  "manifest_sha256": "90f2a44a2fd0cbadb8b62a6dee7dd9fbdc0eb67f6ced003cf07288a51dd30e4a",
+  "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+  "independent_positive_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-batch862-chromatic-independent-normal-positive-source-review.json",
+    "sha256": "07e8f98ac8e8075dd7551b3c033ed0c1621f047e01124d430fd592af19d8556c"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov16-b862-chromatic-normal-native-save-cdc\\receipt.json",
+    "sha256": "b74ab16ad04e4dbf7697e0bfb4d1abc61d4e6d9673726d90b6aebb57588e7d12"
+  },
+  "actual_result": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch862-chromatic-earned-cost-first-damage-positive.recording-results.json",
+    "sha256": "961f54212e3a37d1bf2623ac9f803b7b689468014bcb2b5e3744d68cb1ee05f5"
+  },
+  "actual_immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch862-chromatic-earned-cost-first-damage-positive-20261116T105106Z-6afae01a0c988.json",
+    "sha256": "956258042c9cb33a80c44388c0f6bc455d362ffe7bb62b94f9de1c9eeea0a1f7"
+  },
+  "fixtures": [
+    {
+      "card_id": "chromatic_refinement_blue",
+      "slug": "card-chromatic-refinement-blue-four-live-earned-action-reduced-cost-first-damage",
+      "actions": 40,
+      "native_assertions": 4555,
+      "manual_passes": 37,
+      "actual_manual_actor_counts": {
+        "4": 10,
+        "1": 9,
+        "2": 9,
+        "3": 9
+      },
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0a5498da29f27b3b3110fc8768f35099f12cd05893002eae5ac27a4a8ee01c7b",
+        "actions.json": "54c8ff2d27615ed9a00c9d59ab081dea3603a48f1e0a1cbe3df3f6c06ea11597",
+        "assertions.json": "99cf906da1574c555ab9a503b229869505c1067b0f455e17bab0b0aec7f10750",
+        "expected_final_gamestate.txt": "242f5942cfd6712fd5260d88afa532c734ee4ba1d07154057731415e808edb6d",
+        "meta.json": "7c4980c0ac62f1a9c3c2a441ab7db8d5054a363059211e7ee3a75c4741c08840"
+      },
+      "fixture_sha256": "7a9453ef8edbcb30ec01142ce78ca706a8d2b344099919e025e71143c841356e",
+      "behaviorfixture_sha256": "7a9453ef8edbcb30ec01142ce78ca706a8d2b344099919e025e71143c841356e",
+      "input_sha256": "c713ee6b45b6e40cab953e96ec5f013a4152f5058053ab21073f74cc089fdc98",
+      "runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "recorded_runtime_sha256": "cdc081ff4c87ff2f9338b1d69040d0dc98d7600ba33976384336534ea3f92d22",
+      "genuine_four_live_manual_seats": true,
+      "initial_raw_48_manual_controls": true,
+      "final_raw_48_manual_controls": true,
+      "initial_endpoint_queries_independently_evaluated": 129,
+      "terminal_endpoint_queries_independently_evaluated": 234
+    }
+  ],
+  "actions": 40,
+  "native_assertions": 4555,
+  "manual_passes": 37,
+  "actual_manual_actor_counts": {
+    "4": 10,
+    "1": 9,
+    "2": 9,
+    "3": 9
+  },
+  "legal_priority_response_controls": 32,
+  "formal_defense_finish_inputs": 1,
+  "nonpriority_END_transport_controls": 4,
+  "pass_controls_are_not_all_priority_responses": true,
+  "actual_expected_envelope_mapping_sha256": "6d55e8c3adb187eecf8d7b52b7db3d8c1231d2baf903d11025536785bdeeac82",
+  "actual_ordered_query_mapping_sha256": "e98664644c806afd51e9fb17b3653893fcbf63fa36362fdf6b8d97080540178d",
+  "checkpoint_mapping_sha256": "32e7f6220a976165550142da359575ba302ded5802d9446d60b4b5e7266dc8a0",
+  "all_saved_actions_and_queries_match_exact_approved_Source": true,
+  "checkpoint_count": 42,
+  "typed_property_queries": 860,
+  "initial_raw_48_manual_controls": true,
+  "final_raw_48_manual_controls": true,
+  "genuine_four_live_manual_seats": true,
+  "actual_initial_and_final_raw_schema_fully_consumed": true,
+  "initial_and_final_raw_manual_shortcut_checks": 96,
+  "final_raw_first_damage_clear_witness": {
+    "path": [
+      "GameState",
+      "arcCards",
+      "6",
+      "omnChromatic"
+    ],
+    "value": 0,
+    "nextBlue_effect_type": "OMN_CHROMATIC:3",
+    "nextBlue_effect_absent_from_final_turnEffects1": true,
+    "separate_raw_inspection_not_additional_native_query": true
+  },
+  "actual_semantics": [
+    "All40 actual Native envelopes and4555 persisted successful ordered queries match exact approved Source07e8. All37 pass controls match9/9/9/10 actors:32truepriority,oneHero4defensefinish,fournonpriorityENDtransports. Both freshraw48 manual profiles/fourYounglivingUPF/noBotPassive verified, with no invented Start/End priority response.",
+    "Actual P4emptyturn transport reaches FIRSTP1Action/Turn3/AP1 with samephysicalAura5Arena1 and captured controller1/source5 ability. Four fresh1/2/3/4 responses complete before physical5ownerGY1/effect, preserving proper beginningAction timing and printedselfdestroy.",
+    "Real GenericBrutalBlue6 printedcost2 is actuallypendingcost1 before realBlue7pitch3/R2/AP0. Native legalHero4target and all Source/combat steps execute; computedPOWER stays4/noGA while first realdamagepacket becomes5 and Hero4HP15. This is damage replacement, not a POWER5 or flag-only certificate.",
+    "Fresh rawfinal specifically has arcCards physicalUID6 omnChromatic0 and no nextBlue OMN_CHROMATIC:3 row; this is separately inspected raw evidence, not an invented persisted query. Repeated/secondpacket/otherBlue behavior is untested. Exact physical5+6publicGY1/7Pitch1/R2/allAP0/HP20/20/20/15/fullStackDQawaitpaymenttargetchaincleanup verified.",
+    "All initial129 and terminal234 queries independently evaluated against fresh raw endpoints. No old runtime fixture, historical replay or sibling/support credit is borrowed."
+  ],
+  "qualification": false,
+  "coverage_credit": false,
+  "passing_replay_certificate": false,
+  "required_remaining_gates": [
+    "Root independently binds two own new-only clean replays and performs guarded registration/index update."
+  ],
+  "limits": [
+    "Only Blue firsteligiblecard/firstactualpacket representative. PriorAura casting,otherBlue,siblings,second/repeatedpacket,reset/expiry/support/fullcard untested.",
+    "Saved review is not a replay/fullsuite qualification certificate. No PHP/Native/Rwrites/sourcefix/deferred or denied repair retry by reviewer."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch862_chromatic_actual_saved.py",
+    "sha256": "5c0a8d820fa51eef7a60dee25e28c5cc6716bd1afa1ab15684791951e723ada0"
+  },
+  "reused_pure_parser_source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch824_actual_saved.py",
+    "sha256": "e91764c206e187ff9f80bb4a39b705aa97abdf186777c4451832c34b8eddb97f"
+  },
+  "reused_endpoint_evaluator": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov16_batch858_blessing_r2_actual_saved.py",
+    "sha256": "df0d19021a639688c3ff281eaa0596e2d380829ed0cea03f75c10b92367fd7ff"
+  },
+  "created_utc": "2026-11-16T10:53:52.608214+00:00"
+}

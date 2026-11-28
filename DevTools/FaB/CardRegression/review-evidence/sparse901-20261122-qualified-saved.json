@@ -1,0 +1,129 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of packet author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse901-20261122.json",
+  "source_spec_sha256": "4166aa598e2d985170122fcdce06a2fc763b7a912767cc56678882bea30c37f7",
+  "input_sha256": "c440dd29750d31c7c68ae7cc4c9d4749ef5b6b0915beedabfb807b550b5bad45",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-reverberate-red-four-live-sparse901-real-three-arcane-banishes-eligible-hand-spell-then-same-spell-plays-as-instant-at-zero-ap",
+      "card_id": "reverberate_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d56978256af1a358de510c5bf1966cfd615bce8f9864d3383858d97093fddfa",
+        "actions.json": "5b53f1227c961d9dd423bb697e2c3fdf579d9909c4669049fe95a63c937b8d83",
+        "assertions.json": "84f744e872fece83995f48ab671bac3062766f70927d64ab8946aa009600f3ff",
+        "expected_final_gamestate.txt": "c293817dd9c2642c3656c190f8a9be791a8aa910e8e2f608f6eb258d3b19ad34",
+        "meta.json": "f531bdb6db8124b5c5f24b98add0f55ce56c28ca795fe085ad25d91b28567e8a"
+      },
+      "fixture_sha256": "1726a271dd53e8a32fdc8fdd007d529a8142b380d12d473b5787483a037235d2",
+      "actions": 14,
+      "native_assertions": 177,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse901-20261122.json",
+      "input_sha256": "c440dd29750d31c7c68ae7cc4c9d4749ef5b6b0915beedabfb807b550b5bad45",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-reverberate-red-four-live-sparse901-real-three-arcane-banishes-eligible-hand-spell-then-same-spell-plays-as-instant-at-zero-ap",
+        "fixture_slug": "card-reverberate-red-four-live-sparse901-real-three-arcane-banishes-eligible-hand-spell-then-same-spell-plays-as-instant-at-zero-ap",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dawnblade-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-3-without-conditional-bonus",
+      "card_id": "dawnblade",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d2a299f26aceb07f52463b3c48d6f23b563ca0ab4024af7f46f2fda2a72b75a",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "ef8f58d9d2947f6d5b43fcf8a6a1d4956055ca10dd9d85012a1305154ca26307",
+        "expected_final_gamestate.txt": "a44704040e4a2850396c2e100f868fb0768b9035338bbc5c10205e374884dca7",
+        "meta.json": "59f4e08146755d537f610665874640cec5a0eba7d6caa40b1747dd9642df21a1"
+      },
+      "fixture_sha256": "88c8df526740fbc65edb9ace90197add8a385aa91e06a5ce9261c4fc248c83d2",
+      "actions": 28,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse901-20261122.json",
+      "input_sha256": "24e3ff108a4c5ebcecf40a2228826eb33da9a7fcb28529abcd72868be98ef623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\weapon-schema-retry\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dawnblade-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-3-without-conditional-bonus",
+        "fixture_slug": "card-dawnblade-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-3-without-conditional-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-romping-club-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+      "card_id": "romping_club",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a74c21d50a942f75ffda7ca7db4adf83710b5c60368c170ff96a0d8ba7433aeb",
+        "actions.json": "68555e1adb5ee3e99f23ac84afbf2383b3f3d2f96b985ad1552a9d323967372b",
+        "assertions.json": "7948a8a01250565c7a745c364ffeb58ed4d32accef0595da5ad2d07f4a6d38f8",
+        "expected_final_gamestate.txt": "9ee660cea7efc759ca2280e963c8fb988c74f051790780e14fac42f99cf45e2c",
+        "meta.json": "d79c7356b1aae0cb07a3ddf6427750cad27501a5889eb7e651cdbef0c1482d3f"
+      },
+      "fixture_sha256": "865cf7dbd2ddd232a344d029fe71a6589e63cbe8944427fa6a35dd881ef0af40",
+      "actions": 28,
+      "native_assertions": 131,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse901-20261122.json",
+      "input_sha256": "24e3ff108a4c5ebcecf40a2228826eb33da9a7fcb28529abcd72868be98ef623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\weapon-schema-retry\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-romping-club-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "fixture_slug": "card-romping-club-four-live-sparse901-real-first-weapon-attack-uses-blue-pitch-and-deals-4-without-conditional-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of packet author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c440dd29750d31c7c68ae7cc4c9d4749ef5b6b0915beedabfb807b550b5bad45",
+    "evidence": [
+      "Reverberate Red paid1viaactualBlue6, actual3damage thenoptionaleligibleWizardHandZap7banish; source5retainedthroughchoice, noformalTargetforHandbanish. ActualsameZap7targetdeclaredfromBanishatAP0and0cost, freshfourresponses ->actualfurther3damage/Health14, bothphysicalsourceUIDsGY. Thisdemonstratespermissionratherthansoleinternalflag; noexpiredpermission/negativecostclaim.",
+      "Dawnblade printedbase3/cost1, OlympiaWarrior20avoidsDorinheroearnedtrigger. Firsthit3notsecondhit; noendphase/countercredit. RealWeapon5remainsownedinWeapons, attackProxy7Source5/Controller1, nofabricatedrulesownerforproxy.",
+      "RompingClub printedbase4/cost2, Levia20/GenericBlue6paid3leaves1. No carddiscarded, so nodiscard6bonus. Physical4damage/AP0andweapon5retained, rawcardsnotduplicated.",
+      "BothweaponroutesexplicitnativeWTRactivate/costmaps, actualtargetbeforeassets, fourmanualcombatroutines, freshresponsesnotpassiveplayers. No supports/siblings/otherconditionalbranchescredit."
+    ],
+    "final_delta_review": {
+      "reviewer": "independent breadth_review",
+      "result": "approved_named_branches_only_pending_native_execution",
+      "spec_sha256": "4166aa598e2d985170122fcdce06a2fc763b7a912767cc56678882bea30c37f7",
+      "reviewed": [
+        "Root-authored schema delta only: exactly Dawnblade and RompingClub chain source queries change SourceUniqueID5 to projected Counters{WEAPON_UID:5}. Deep diff confirms all other fields, costs, damage3/4, AP, phases and Reverberate case unchanged.",
+        "CombatChain schema declares Counters JSON and does not declare SourceUniqueID; Stack declares SourceUniqueID. GameLogic weapon-payment branch explicitly writes WEAPON_UID5 on the actual proxy before four response passes. This preserves the physical-source assertion using its real exposed field."
+      ],
+      "limits": [
+        "Root previously independently approved complete B901 semantics. This receipt approves only the new schema correction, pending failed-case retries/clean replays.",
+        "Parent reports Reverberate already passed/saved; exact case unchanged, no rerecording required.",
+        "No native PHP/games, T edits, network or Git mutation by reviewer."
+      ]
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse901-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "a397a4c814752ec263490ef35c041aaff0d4281089705f87dd7000b6078a3dee"
+  },
+  "full_suite_run": false
+}

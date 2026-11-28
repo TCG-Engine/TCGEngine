@@ -1,0 +1,201 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse918-20261122.json",
+  "source_spec_sha256": "8083f18f87728f243485515f2db27f2bf8fc6c9f5b6d12196b28ff1661ca3286",
+  "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-energetic-impact-blue-four-live-sparse918-actual-five-attack-not-defending-together-for-vigor",
+      "card_id": "energetic_impact_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2b298370b32451b73a9204933e16fd41124ba96deef851a9fe7ae716a0841e04",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c97e4f0fc5dff86402dbbec3ba132c062a90aeebead76afd25bb9014f00ca12b",
+        "expected_final_gamestate.txt": "82b52c4398af049e8cbaeaa28af3df11092a10f6d8ff6be14f5432f5c25fd166",
+        "meta.json": "78366b9981e92de159bf9558b1826d286cafe8fb96e5484240118fedd6d54016"
+      },
+      "fixture_sha256": "8958b2d4f5b2aabe79231812d7cad5eb63f37187250b13595d78dc87a56a1ab6",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-energetic-impact-blue-four-live-sparse918-actual-five-attack-not-defending-together-for-vigor",
+        "fixture_slug": "card-energetic-impact-blue-four-live-sparse918-actual-five-attack-not-defending-together-for-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-good-natured-brutality-yellow-four-live-sparse918-actual-six-attack-not-defending-or-crowd-cheering",
+      "card_id": "good_natured_brutality_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5acf8725152aa8573d1df2da1105d82cc2d84d50731947f27b318735127e352",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "709c116db548ffa3b38a68d4ce08925a9a8634767be6e666672609c88432b71a",
+        "expected_final_gamestate.txt": "0daaea4e7dd573da00fe183d514a030f26d680e05fa52bf05dae65812484a338",
+        "meta.json": "122073d12ebdabb69e8db69645f1d1a10577fc31aef699bf11a94f8877d86e1a"
+      },
+      "fixture_sha256": "ec3337a29c0e183faf2da4624be90fd7f3b057d346723c1a32695166a1105ab5",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-good-natured-brutality-yellow-four-live-sparse918-actual-six-attack-not-defending-or-crowd-cheering",
+        "fixture_slug": "card-good-natured-brutality-yellow-four-live-sparse918-actual-six-attack-not-defending-or-crowd-cheering",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tough-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-toughness",
+      "card_id": "tough_smashup_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b55ab60ad1bf74f4770e6599ac2433d34c9ecfaa5679fa4e64a69ebdeb3a8430",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "0c375c5eb681731e859035f97aed0966dc551bcff6e7a45ad6b7f8bff59b2171",
+        "expected_final_gamestate.txt": "2d96b3d818ab621f452cf7d0cbfebaf3056424fbf6bc357f6eb3d9b29156ca21",
+        "meta.json": "1b249c845d1af8a02c3824d785f0bf1f87d72085dc6eb29926e365aa71e1f153"
+      },
+      "fixture_sha256": "040765d2f4d2aad65149e566db2a5668e7112ac99ccf015a3b63549852b59ce5",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tough-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-toughness",
+        "fixture_slug": "card-tough-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-toughness",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vigorous-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-vigor",
+      "card_id": "vigorous_smashup_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "55d6a68ea16196138f82c0a23bb226442e3bf5f1ff8951e9ca69ccce41731566",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a022f05470e05033622cf588c48a099f2c8d632a51895bc2d21f0acc3fe0e324",
+        "expected_final_gamestate.txt": "1d37219be2937e548be5d16e7098a72bee08767f41df2c0df0228e74c120e089",
+        "meta.json": "7921c14c9197f80cde9e1ddb86a08ffbb106bfab43903a91869af89129113d00"
+      },
+      "fixture_sha256": "2268143b304b2782a839e20f72e6230a7cc9cd32a3ce49af83501edcc4047cbd",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vigorous-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-vigor",
+        "fixture_slug": "card-vigorous-smashup-red-four-live-sparse918-actual-seven-attack-not-defending-clash-vigor",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-right-behind-you-red-four-live-sparse918-actual-seven-attack-not-defending-together-for-power-or-look",
+      "card_id": "right_behind_you_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f454fcbebf4576c48afdd239792eef534a5d45d183c87fe655f1c21aa8459b07",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a49e9604dcd9413c53c897f02658b430ee509e987714f4610f5f6d94f7f8a5ec",
+        "expected_final_gamestate.txt": "9bd02124bafc2aeea1fbea6c3736ec30f71d7c0f9df68d4b8b6d8c9d3a42b82e",
+        "meta.json": "332d93719d768f4a077ee7f43b8239821cc209aed4108ce5b6b7694e73837ab9"
+      },
+      "fixture_sha256": "8e4579c2e7a65ca17b8b851f5dcbc61c8b0bda52310980eba3b5bf27f962efa7",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-right-behind-you-red-four-live-sparse918-actual-seven-attack-not-defending-together-for-power-or-look",
+        "fixture_slug": "card-right-behind-you-red-four-live-sparse918-actual-seven-attack-not-defending-together-for-power-or-look",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-unexpected-backhand-red-four-live-sparse918-actual-seven-attack-without-clash-reveal-damage",
+      "card_id": "unexpected_backhand_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b76b49977613d6a21a3a88cab4494a88f6306fffc2f0529d3fff9d9070b4ebea",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "888af0000fab13f879f171e15e5d44f93021db9b15d41169fe1d5f60987ac850",
+        "expected_final_gamestate.txt": "27ce5d428f09077d3c93e616955e29aea325aa72192a76093eb46684bb7e9d67",
+        "meta.json": "bc20214901f15d3ac6e8bb4f98be62a170622a42a0ddf08a9d11fbf6784ba64b"
+      },
+      "fixture_sha256": "bcb6df61917710d723f62df533c160f52671840e3430c4cab724a7fe95b30dbe",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse918-20261122.json",
+      "input_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-unexpected-backhand-red-four-live-sparse918-actual-seven-attack-without-clash-reveal-damage",
+        "fixture_slug": "card-unexpected-backhand-red-four-live-sparse918-actual-seven-attack-without-clash-reveal-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "a7879c5b67aabb9d514863b24a746f4ba262d06a3b12f3f2ca8f2493567ea1b6",
+    "basis": [
+      "Seven named primary attack branches checked against printed cache: costs3/2/3/3/3/3/3 and powers5/6/7/7/7/7/6 match actual Blue6 payment, residualR0/1/0/0/0/0/0, AP0, physical owned5 Hand/Stack/ATTACK/ownGY and realHero4 damage. Four natural living manual heroes, normal target-before-assets and full no-block combat frame.",
+      "First five cards are attackers, never defending/together. Thus no Energetic/GoodNatured/Smashup/RightBehindYou defending event occurs; even an empty Hand does not itself earn GoodNatureds WHEN-defends trigger. No Clash, defense bonus, look/bottom or cheer earned.",
+      "Tuffnut20 and Pleiades20 legally match Revered/Brute/Guardian needs and have no base-stat override. Their manual activations are unused, so no cheer-trigger tokens. Rhinar has no actual discard event, Dorinthea weapon-hit trigger irrelevant to ordinaryAA.",
+      "UnexpectedBackhand is not revealed in a won Clash, so its damage trigger event absent. Hornets normal own combat cleanup is not an opponents effect, so no created tokens; actual ownArena0 controls this branch without exercising token ownership209."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named main attack/payment/base-packet and absent-event branches. No positive defense, Clash, decklook/bottom, cheer, opponent-effect discard, token, sibling or supporting-group credit.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse918-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b0c28b51f38cb38f4845996bce525fe0703d75dcca85ea96c2f6231d012eb903"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,343 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B697_RUMBLING",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-07T04:19:05.739630+00:00",
+  "source_spec": "card-regression-batch697-rumbling.json",
+  "input_sha256": "d4c6a4f34f6b75fd65c513d7516d6421904ded5e46fac1f85935f44ccd4b5096",
+  "manifest_sha256": "710020f78b251fc026c8f3cee8187c5c621a6a2157431bd5d264ad8a4cb99679",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-batch697-rumbling-independent-source-review.json",
+    "sha256": "08fd47a219cce1748972d816e4caffa34c46999393bd81e85ffc4c09d40a3fea",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch697-rumbling-20261107T041641Z-6aeea6299ee1f.json",
+    "sha256": "153515e3fef9739fbb1bab2a11d217a8b1543944582517ba720e8a4d5200b255"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch697-rumbling.recording-results.json",
+    "sha256": "6a84f9a64a94df70ae4bc7bb9a157c3086b1504df2c84658e59763378a9d2823"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov7-b697-rumbling-native-recording\\receipt.json",
+    "sha256": "82782a02c669927ee55e813b79e2d3e519b21c77f9414217f3bc16e3f5069f6b"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rumbling_of_iarathael_red",
+      "group_id": "identity:rumbling_of_iarathael_red",
+      "slug": "card-rumbling-of-iarathael-red-four-live-real-banish-overpower-second-action-rejection-and-three-damage",
+      "source_spec": "card-regression-batch697-rumbling.json",
+      "input_sha256": "d4c6a4f34f6b75fd65c513d7516d6421904ded5e46fac1f85935f44ccd4b5096",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_REAL_BANISH_OVERPOWER_SECOND_ACTION_REJECTION_AND_THREE_DAMAGE",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rumbling-of-iarathael-red-four-live-real-banish-overpower-second-action-rejection-and-three-damage",
+      "fixture_sha256": "51585bd3bf9bca31d4080739f28b52dafcfb54b6098f859bf837b4742ca32c20",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "83e6584cacf1d8ed172e8cabfa6ae5bdf0ca069ce8039a985bdc8214648a57fb",
+        "actions.json": "1a39a98dbfb888e5ac3381a0c554ab8940df3734b272d7b1c9233ca1fafeb05a",
+        "assertions.json": "d01da31b479e4bde8a6aef03fc3f48d8d87c4a8d518bec5bf46c21f0670b4deb",
+        "expected_final_gamestate.txt": "63b5e3f28d4eee0063bc29784920d1ba79f9513c418722611bc0406ebf8e631e"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "83e6584cacf1d8ed172e8cabfa6ae5bdf0ca069ce8039a985bdc8214648a57fb",
+        "actions.json": "1a39a98dbfb888e5ac3381a0c554ab8940df3734b272d7b1c9233ca1fafeb05a",
+        "assertions.json": "d01da31b479e4bde8a6aef03fc3f48d8d87c4a8d518bec5bf46c21f0670b4deb",
+        "expected_final_gamestate.txt": "63b5e3f28d4eee0063bc29784920d1ba79f9513c418722611bc0406ebf8e631e",
+        "meta.json": "75f174c83ca642bec1037341b3145d1042edfe4c05ce08234c4599db55f2dce3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "83e6584cacf1d8ed172e8cabfa6ae5bdf0ca069ce8039a985bdc8214648a57fb",
+        "actions.json": "1a39a98dbfb888e5ac3381a0c554ab8940df3734b272d7b1c9233ca1fafeb05a",
+        "assertions.json": "d01da31b479e4bde8a6aef03fc3f48d8d87c4a8d518bec5bf46c21f0670b4deb",
+        "expected_final_gamestate.txt": "63b5e3f28d4eee0063bc29784920d1ba79f9513c418722611bc0406ebf8e631e",
+        "meta.json": "75f174c83ca642bec1037341b3145d1042edfe4c05ce08234c4599db55f2dce3"
+      },
+      "actions": 54,
+      "native_assertions": 5050,
+      "actual_manual_passes": 46,
+      "actual_priority_response_passes": 44,
+      "actual_defender_declaration_finish_inputs": 2,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 2068,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rumbling_of_iarathael_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dash",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "zero_to_sixty_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rumbling_of_iarathael_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "hyper_driver_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "9": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "11": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "8": {
+          "card_id": "driving_blade_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "10": {
+          "card_id": "wounding_blow_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "final_UniqueIDCounter": 11,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "second_action_rejection_native_input_ordinal": 37,
+      "rejection_unchanged_ordered_query_count": 93,
+      "before_after_rejection_vector_sha256": "8906494abdbf5dfbd452be9e87493a26c9e6262a8cc02c89fde413ce725c8474",
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "16c945360ae5b0fb27b66e596b6cdc7dfc022da672e90442866be1e395d9eaa2",
+      "native_assertion_mapping_sha256": "676e590b4170202ed1a0c8c03a4270261087cf8c7ebf497e736b0313b7707c26"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 54,
+  "total_native_assertions": 5050,
+  "total_manual_passes": 46,
+  "total_schema_property_assertions": 2068,
+  "material_findings": [
+    "Rawfive/behavior/exact54 controls5050 ordered checks46 manual11,11,11,13/all48 preferences per endpoint/current70c53ab33 match approved Source. Full physical endpoint UID/card/ownership and terminal assertions independently parsed.",
+    "Actual Zero6 target4 then paidBoost banishes realMech7 and earnsGA; legalWarriorDriving8DEF3 fullblocks2/nohit. ActualAPrefund funds primary5cost2/Blue9pitch3/R1/AP0, realcurrentlink2/base6/noGA with actualbanished7.",
+    "P4 accepts first current Action10DEF3 while priorDriving8 remains onlylink1. CurrentHand0 thenpointsotherwise-legalBlue11; actual recorded normal typedclick input37 rejects and every ordered before/after query is identical at DEFEND_DECLARE/Priority4/pass0. No unsupported transport or inferred no-input rejection. Actual one currentDEF3 leads6minus3 physical3/HP17.",
+    "FullClose6,5GY1/8,10GY4/rejected11Hand4/9Pitch1/7publicBanish1/no permission, alloriginalUID1..11/counter11/RNG0/R1/AP0/fullquiet. No full keyword-getter implementation, sibling, support or whole-card certification."
+  ],
+  "limits": [
+    "One real current-turnBanish/Overpower/secondAction rejection/damage branch. No conditionfalse/otherBanishzone/turnexpiry/blanking/DR/equipment/Ally/general keyword-getter/fullmenu or fullcard certification. No support/Hero/DriverArena WHEN or pitch-sibling coverage.",
+    "No required card-body preselection or implementation absence claim: this selected static effect is implemented by actual DYN block-legality reader, and no named primary macro is necessary. No current private Banish/Boost/AP/effect history seeds.",
+    "Source approval grants no fixture/coverage. Root native, exact Saved, focused replays and registration remain separate. No reviewer PHP/native/replay/R/source/fullsuite/Git/remote or denied retry.",
+    "Native rejection is the recorded mode10002 normal CardFSM click plus identical passed before/after physical/state query vector; no separate unsupported one-Pass or special mode100 rejection protocol is claimed.",
+    "No reviewer PHP/native/replay/R/source/fullsuite/Git/remote or denied retry. Root focused replays/registration/promotion remain separate; raw Versions are hash-bound and excluded from physical inventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov7_batch697_saved_readonly.py",
+    "sha256": "75a17f4bf13840e33647fbfccb9dc55550786c6d0754792c528c0000e549f36f"
+  }
+}

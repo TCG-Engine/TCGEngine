@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1439-20261122.json",
+  "source_spec_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+  "input_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "card_id": "moray_le_fay_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a22fc0baf57287bf214ffd9297884342441eece322db352c6f75e4c70bc0afdf",
+        "actions.json": "48367a48ead9eb90d6796b9e635756948bb416e17cd5e249f348bc4bc6028f44",
+        "assertions.json": "cccc076cb2379301ccf3eb5d37752ccc6ecffe3e80dce8170ae41b90afb60ecf",
+        "expected_final_gamestate.txt": "a910fe46b05a5ea6e993f00239fe9d4729637df0f02be86d2c47483fd297f28c",
+        "meta.json": "d490e87bfb46bd039d3c6df01e9b42beb4ff8c0ee24d61499c69a2f3582b40b9"
+      },
+      "fixture_sha256": "842399b999f447b8b0c1f8ec6e8dec65b506d7b8bb0b9616b6ace972deb6afc0",
+      "actions": 31,
+      "native_assertions": 281,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1439-20261122.json",
+      "input_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "fixture_slug": "card-moray-le-fay-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+      "card_id": "scooba_salty_sea_dog_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23487300af2798a04dbfeb8450f76dca6284daadf6720b603b1b17472b1f4cb3",
+        "actions.json": "48367a48ead9eb90d6796b9e635756948bb416e17cd5e249f348bc4bc6028f44",
+        "assertions.json": "05ae9607dc4436e84cdb46596a944023bc97b7a215b37182245d1f528246a013",
+        "expected_final_gamestate.txt": "2b77f1ff144dfa1805fa47163ccba5795f833f1bad94d540de0b3baa78cc1baa",
+        "meta.json": "86cceb6bf9d366a4f5a8d9cf5a22b8ed39a385d3b8708c54a32bdc3620e7a65b"
+      },
+      "fixture_sha256": "dc96b1fedbb6e633e8d5f3a63c58dd3a4b5ab64696021fac99231e03d04be7c5",
+      "actions": 31,
+      "native_assertions": 281,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1439-20261122.json",
+      "input_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "fixture_slug": "card-scooba-salty-sea-dog-yellow-four-live-sparse1439-real-ally-lethal-damage-then-watery-grave-separate-layer-face-down",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "3c4e5870f735e98d49fdd5ea3e7f88d25ac63a7e52109d3e3e5dde6e4b363ad7",
+    "source_note_sha256": "5eb0f50c13dffa4795fff191d8defe352168cd62f4c371ebada338d8e17616d4",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 62,
+    "query_checks": 562,
+    "persistable_assertions": 562,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_WATERY_GRAVE_AFTER_ACTUAL_LETHAL_ALLY_DAMAGE_SEPARATE_TRIGGER_AND_FULL_COMBAT_CLEANUP",
+    "per_case": [
+      {
+        "card_id": "moray_le_fay_yellow",
+        "group_id": "identity:moray_le_fay_yellow",
+        "native_controls": 31,
+        "persistable_assertions": 281
+      },
+      {
+        "card_id": "scooba_salty_sea_dog_yellow",
+        "group_id": "identity:scooba_salty_sea_dog_yellow",
+        "native_controls": 31,
+        "persistable_assertions": 281
+      }
+    ],
+    "approved_qualification_endpoint": "COMPLETE",
+    "basis": [
+      "Both unrepresented/unheld primaryAllyidentities arecachedUPFallowed PirateNecromancerAllies withWateryGrave; Morayhealth3/Scoobahealth4 and actualYoungGravy20owner4/Dori20seats1-3 legal. PriorreadyownedUID6Arena/Damage0 legitimateexistingposition only. Morayactivatedabilities unactivated; ScoobaWhenAttacks unearnedbecauseonlyattacked. Bothyellow, so noGravyBlueGYevent orplaypermissionclaim. NoadditionalwhenDies/leavesArena printedability owed.",
+      "NativeGenericWoundingRed5AA0 formallytargetsactualadjacentAlly6, paysAP0/R0 andwaitsallfourresponses. Actual4power/noGA/noordinarydeclareddefenders orDReact, butallfourmanualattack/defensepriority/reactionrounds retained. GameLogic2512-2538 computesDamage thenFaBUPRDeal; UPRCards68-74 applies4Allydamage anddestroysactual6athealth3/4, notHero4. NoHeroHPdamage/producertrigger orRNG assumed.",
+      "ActualArena->GraveyardFaceUp0 invokesSEACards33-38 FaBSEAGraveEntered, queuesoneROSseaWateryABI7Controller4Source6. GameLogic2528/2533 rereadsstate, preservingqueuedPRIORITYwindow/StepDAMAGE, resetspriority1/passes0. Original6GYFaceDown0/ABI7held/HP20 all beforefreshround1,2,3,4. ROSCards108 passesliveGYsourceMZ/seaWatery intoResolveAbility. Moraygenerated172596-172604 callsFaceDownthenFinishAwait beforeotherchoice; Scoobagenerated17336+ directseaWaterybranchFaceDown+return. No named-awaitphysicalsource lifetimegap orskippedsecondaryeffect.",
+      "Afterfreshfourresponses virtual7gone, sameowned6GY4FaceDown1 andwindowDAMAGE/attack5stillCC; sourceGameLogic1954 returnscombatStepDAMAGE/priority1. Remainingdamage/Resolution/closemanualrounds leave5GY1/6FD1GY4/allHP20/RAP0/UID7RNG0/StackDQCCquiet/otherzonesempty.31controls281persistableassertions each. OrdinarycommonCOMPLETE emptyCC/emptyStack/awaitquiet applies; no newadapter required orhistoricalfixture rerun."
+    ],
+    "limits": [
+      "Only positiveWateryGrave followingactuallethalAllydamage withseparatetriggerresponseandfullclose. No primaryAllyentry/play/attack/activatedability, Gravygraveplay/production, nonlethal/otherzoneentry, supportingidentity/sibling/wholecard coverage. Existingpositionprovenance uncredited.",
+      "Pending native only. No game/test/replay, engine/repository edit, original checkout access, authentication/fullsuite/Git operation performed. No repair/expectationfitting and noB1438 rerun."
+    ],
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "initial_ally_production_credit": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1439.py": "623bc1a9cbdaff1f61654be65e9e99683c32298b254151529e73c0bab858db73",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "author_breadth1434.py": "fb6171a40ddbe5402659ac0d05d39ef5f2b2a3b6a8b8058736cf27e70f4515d3",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1439-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "81c05a795186072ab29692b8f7983dc11d776e040cd3b3f051da3f3ae2bd9627"
+  },
+  "full_suite_run": false
+}

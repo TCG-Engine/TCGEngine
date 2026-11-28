@@ -1,0 +1,141 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse971-20261122.json",
+  "source_spec_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+  "input_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bonded-burial-red-four-live-sparse971-actual-full-block-retains-real-ally-and-enemy-hand",
+      "card_id": "bonded_burial_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccf4ed8bd9bea287f0832a06fb3c8ad66f90e9d3069ddc25cf2d0635750d8726",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "82da7c9c2194653b68db5f67fb1342df06dcfc5dd33ef86a2bb3a88c1a85c200",
+        "expected_final_gamestate.txt": "b1495c830a86bed172ecdbd67976cff844f90d71cd28de90976c719c307c7596",
+        "meta.json": "ae945e2fd56302dd289b60f5782aa881e9a8dee4f5b5ffef5f3ce2266c591bec"
+      },
+      "fixture_sha256": "53adc1f706140da38e1fd785606caae9bc98840179c49648b71f2a2df218856e",
+      "actions": 30,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse971-20261122.json",
+      "input_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse971-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bonded-burial-red-four-live-sparse971-actual-full-block-retains-real-ally-and-enemy-hand",
+        "fixture_slug": "card-bonded-burial-red-four-live-sparse971-actual-full-block-retains-real-ally-and-enemy-hand",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mutual-sacrifice-red-four-live-sparse971-actual-full-block-retains-real-ally-without-enemy-life-loss",
+      "card_id": "mutual_sacrifice_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3151c2c2d0af59f186656b93c83324f732c6d3209f883aab4303620b2cbcbbec",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "b3b51e867a05b76f3253a28820a780fe68c83f378999fabfe52921b001b026cb",
+        "expected_final_gamestate.txt": "ecac0713d371ec9a87e9267b7520f64d30da404ac8ad52d8049c9fff817f3ac7",
+        "meta.json": "bff867c6bcb3ce6a68a975c4c9fec342501aee46d62a32e8a1cb9ebf030bc172"
+      },
+      "fixture_sha256": "2d80acc39eaa32a17dcafbcd9c0217385815f2a8270c39b4b985883b02e4f3a0",
+      "actions": 30,
+      "native_assertions": 202,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse971-20261122.json",
+      "input_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse971-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mutual-sacrifice-red-four-live-sparse971-actual-full-block-retains-real-ally-without-enemy-life-loss",
+        "fixture_slug": "card-mutual-sacrifice-red-four-live-sparse971-actual-full-block-retains-real-ally-without-enemy-life-loss",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-rising-solartide-red-four-live-sparse971-actual-full-block-source-finishes-graveyard-not-soul",
+      "card_id": "rising_solartide_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ddd3178485911245cf760f82f2a62d1e3e135de60f602573ca4d3afc9e89bc6e",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "f9b8b4c6a535abc4e41b4ef8c82de01beb4e74190367dd603c530450753ffc7d",
+        "expected_final_gamestate.txt": "561cc1b1d0688fec931b738cb0cab66051ffc825d58508cb91f5d4622fdd761f",
+        "meta.json": "71f871b9964e84655e17098ae658e2e2d8b4c5a86eb11552fc113278ca1682a4"
+      },
+      "fixture_sha256": "61db4536f4b15a2ca666851a2749734d248e78555275e162a592fa4bb65c461d",
+      "actions": 30,
+      "native_assertions": 195,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse971-20261122.json",
+      "input_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse971-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rising-solartide-red-four-live-sparse971-actual-full-block-source-finishes-graveyard-not-soul",
+        "fixture_slug": "card-rising-solartide-red-four-live-sparse971-actual-full-block-source-finishes-graveyard-not-soul",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stoke-the-flames-red-four-live-sparse971-actual-full-block-keeps-real-phoenix-graveyard-without-go-again",
+      "card_id": "stoke_the_flames_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8298bcb0cff019537de0937d9a81f9352ef4adb648b03a4fdebb47199322966c",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "5038e76d7fb6e9679cd368b1a5d4b1f497b2a546a59e6fb9947af4b06e6372bf",
+        "expected_final_gamestate.txt": "b0092320b548b4354c4bf1bdfb8b35e7bdf0126326173cafb12219bf1e0df8e1",
+        "meta.json": "fc29cd34804fca3734d70d4163e37293dbd0550c6f3a485a218af7c9e223a6d6"
+      },
+      "fixture_sha256": "2b323dea1fe8c8b0a1e1ee222d1f2d39094b2565186fa1b77a660ca9353720b3",
+      "actions": 30,
+      "native_assertions": 196,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse971-20261122.json",
+      "input_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse971-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stoke-the-flames-red-four-live-sparse971-actual-full-block-keeps-real-phoenix-graveyard-without-go-again",
+        "fixture_slug": "card-stoke-the-flames-red-four-live-sparse971-actual-full-block-keeps-real-phoenix-graveyard-without-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "9658212ae1aa930bb0a2179aef54ef297be6078394086a9843c711de7727455d",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "LegalGravyBones20plainNecromancer/Boltyn20Light/Fai20Draconic, noHeroability/charge/otherinstant/draw. Allprintedcost1actualBlue6/R2/AP0, real2GenericHandAA7/8eachdef3fullyblock5or4/0HP/nohit/Stack0/sourceanddefendersownerGY/all4manual. No unconditionalWHENattack/playor normalPrepare costrouteforselectedIDs.",
+      "NecroactualBarnacleAlly9readyOwner1/Controller1/Arena1+enemyNAAHand10remain, so nohit-cost/destruction/discard/loss occurs, GravyhasnoGoldnoactivation. Risingall4Soul0source5GGY0, notSoul. StokelegitimatePhoenixFlame9GGY0remains, source5endsGGY1/count2/Hand0/AP0, noHitreturn/GA; Faiabilitynotactivated. ExactzonecountandfinalUIDindexadjustmentsreviewed.",
+      "OnlynamednoHit/main/physicalretentionbranches; no positiveallycost/ownership/Soultransfer/Phoenixreturn/hitbuff/draw/creator/sibling/fullcardcredit. Boltynchargepowernotindependentlyisolatedbyoverblock. Nativeexecutionandsinglefocusedreplaypending, no originalaccess."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse971-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "462c9eb4d4f57500e33fe8f3962afedac93027f7cab3e473b4dd85fee5d43092"
+  },
+  "full_suite_run": false
+}

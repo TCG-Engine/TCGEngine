@@ -1,0 +1,45 @@
+{
+  "status": "PLATING159_ORIGINAL29_2413_SINGLE_CLEAN_REPLAY_PASS_SHARED131_NO_NEW_SOURCE",
+  "reviewer": "Root independent from original scenario and shared131 source authors; exact Saved/physical review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "1ef6a1a18aeb87a1fd220e59552a0da5e51ea3ebaee2ce39d86a6a7d288ff84e",
+  "input_sha256": "3eff04f9d65da5f69636dbc3ec12cc1b8272298db305b3d9adb8614c3a87c833",
+  "source_spec": "card-regression-repair-plating159-after-shared131.json",
+  "fixtures": [
+    {
+      "slug": "diagnostic-blade-beckoner-plating-four-live-real-weapon-defense-two-and-guardwell-two",
+      "card_id": "blade_beckoner_plating",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "82eb8cec80b7cb1d987ef87503e524e8be071d9da964edad9291301be967bcd0",
+        "actions.json": "9576ef0c2c5abc774422d44403cfd5592fc6ca7a9c162bffed12874a0db8bf11",
+        "assertions.json": "ec856a8d92e288cf4a365fb2ee8ce3910e5c7ceb14297394da7e14ebb55da88c",
+        "expected_final_gamestate.txt": "14b283287cc99ede68195b83166719bb3d1d296139c8a9df99cd64c001726984",
+        "meta.json": "cb18debfc238d8be2651a63c7c0376c4eb4f51a68569a4a74c70d97b440f72ff"
+      },
+      "fixture_sha256": "e426143361318f940b157498c7d7d9e8c57c71508f43e0817fa590485c25782b",
+      "actions": 29,
+      "native_assertions": 2413,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "1ef6a1a18aeb87a1fd220e59552a0da5e51ea3ebaee2ce39d86a6a7d288ff84e",
+      "runtime_sha256": "1ef6a1a18aeb87a1fd220e59552a0da5e51ea3ebaee2ce39d86a6a7d288ff84e",
+      "source_spec": "card-regression-repair-plating159-after-shared131.json",
+      "input_sha256": "3eff04f9d65da5f69636dbc3ec12cc1b8272298db305b3d9adb8614c3a87c833"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-plating159-replay.json",
+    "sha256": "7bcbd8a8d26424ffda95d661a87286ab1d8b05682658c161f484f40dc788205f",
+    "passed": true
+  },
+  "source_review_sha256": "579274ceac2791303d5e03874a5ff18deda30043af47da8c68c4b4111fac2fb5",
+  "basis": "Existing159 original29inputs2413queries unchanged. SameCintariSaber6real2power fullyblockedby actualPlating5defense2,HPall20/noHit. UnchangedHVYGuardwell plus131sharedownlink/LKIrepair yields2minusDefensecounters onoriginalPlating5 returnedowned4readyEquipment. Source/AP/resource/completephysicalcleanup andfourlive/manual actors retained. No additionalSourcechange or distinctroot claim.",
+  "limits": [
+    "OnefixedseatSaber/Plating branch only; no allGuardwell/otherseats/futureblocking/abilitylossNativecredit.",
+    "Firstattemptinterruptedwithunknownpartialnativecount,nofixture/noresult; preservedand reconciled before newisolated completecorrectrun. Only completeoriginalroute+replay suppliescredit.",
+    "No fullsuite, newcatalogbreadth, deniedgoal or untestedpitch sibling credit."
+  ]
+}

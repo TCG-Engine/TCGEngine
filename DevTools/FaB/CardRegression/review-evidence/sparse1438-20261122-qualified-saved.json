@@ -1,0 +1,315 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1438-20261122.json",
+  "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+  "input_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "card_id": "murmuring_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ee0ab8499d8b84667d5f022facd9d260b6bed41ddc05491c7c438c6a3bbeaf1",
+        "actions.json": "58f8876cf1937c473be3b7844987aec5a9e10cd7099c066c20c9a67cc3baf23b",
+        "assertions.json": "869fc898886bd7f891eb472d9751a87daaed50d4cddcf2098ee3f12ef893584f",
+        "expected_final_gamestate.txt": "25728dac4a2ec7e350311cd94ef09ede5995c61c86b5559c34da446c51dd281d",
+        "meta.json": "7d7cd1e4dd580a18c397268698cb649bcaf4788203314ef9739270fdf36a536d"
+      },
+      "fixture_sha256": "b1305a24b745a3e00b12beb813d2203a6b3aedb42d40ed1cfae28c8d79462e2d",
+      "actions": 9,
+      "native_assertions": 311,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "input_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "coverage_endpoint": "PAID_BANISH_ATTACK_BOUNDARY",
+      "covered_abilities": [
+        "Banish-play permission and actual payment"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, attack-declared, hit, chain-close, positive Usurp or Blood Debt credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1438-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+        "fixture_slug": "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "card_id": "sinspeaker_gloomblade_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "efd4c0e90613c577c39fd457e4a694ab64a5d3432527eb911aa267ba7927bf46",
+        "actions.json": "43411a102aa72bfff1d53b2d224bcb1e7994921f41f6632bf7c1bae9b443695a",
+        "assertions.json": "135a4163ab500c377eb7c5a3610a140a44774e83a5ca20fdca3f92cb3d04c9c4",
+        "expected_final_gamestate.txt": "dd7ae92652f5cda3eb16e2ebb63b9b2deff320040470f3ca534af46b124f1265",
+        "meta.json": "31675dd2958d071ffea6beecc1af6d9602d1ec9d3ce06e47161d32e175096e92"
+      },
+      "fixture_sha256": "e0535922604c15a497efcea74d293880bdd8ee7c69f2631818020470c35e40be",
+      "actions": 8,
+      "native_assertions": 299,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "input_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "coverage_endpoint": "PAID_BANISH_ATTACK_BOUNDARY",
+      "covered_abilities": [
+        "Banish-play permission and actual payment"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, attack-declared, hit, chain-close, positive Usurp or Blood Debt credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1438-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+        "fixture_slug": "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+      "card_id": "ghost_protocol_architect_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6959d0ef24dacf4805ca4e05a4735f79b55e980b72f7ec3cad4fb93e8621319",
+        "actions.json": "d2749122ce140f013746cc8bda1701c4a7186825bfa46a3ccfb517ac01290cfe",
+        "assertions.json": "178af0a2055278ffc6f965ccc024896f7bb7616bb065ce72d511c7d2d8536128",
+        "expected_final_gamestate.txt": "d84cc7daf6214f13060e7edd126a1a4c4167dc901e949a5c5f6e68b847256d14",
+        "meta.json": "35be157a174802c21f63bbe311ad79f040c1f1966904005be5fce711972e859e"
+      },
+      "fixture_sha256": "8c0244b5b17342cd5d0ef002de0f2e0e93d3afde71c8997c80c22458b07441aa",
+      "actions": 31,
+      "native_assertions": 371,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "input_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "coverage_endpoint": "PAID_BANISH_ATTACK_BOUNDARY",
+      "covered_abilities": [
+        "Banish-play permission and actual payment"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, attack-declared, hit, chain-close, positive Usurp or Blood Debt credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1438-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+        "fixture_slug": "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+    "source_note_sha256": "40c913cb4e79fc64a4fb566ccbdc984298194f99e3ecc4b41acf38c70cf0ab00",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 48,
+    "query_checks": 981,
+    "persistable_assertions": 981,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_PAID_BANISH_PLAY_PERMISSION_WITH_LEGAL_AFFORDABLE_NEGATIVE_CONTROL_PREFIX_ONLY",
+    "per_case": [
+      {
+        "card_id": "murmuring_gloomblade_red",
+        "group_id": "pitch-cycle:murmuring_gloomblade",
+        "native_controls": 9,
+        "persistable_assertions": 311
+      },
+      {
+        "card_id": "sinspeaker_gloomblade_red",
+        "group_id": "identity:sinspeaker_gloomblade_red",
+        "native_controls": 8,
+        "persistable_assertions": 299
+      },
+      {
+        "card_id": "ghost_protocol_architect_red",
+        "group_id": "identity:ghost_protocol_architect_red",
+        "native_controls": 31,
+        "persistable_assertions": 371
+      }
+    ],
+    "approved_qualification_endpoint": "PAID_BANISH_ATTACK_BOUNDARY",
+    "endpoint_binding_sha256": "e980f9d9ce5a4a6ec1097a028d83065dd1d0ae156ba132db0de62c89b274f538",
+    "adapter_static_review_approved": true,
+    "basis": [
+      "Threeprimarygroups unrepresented/unheld, printedmetadata independentlychecked. Murmuring2/Sinspeaker0 areShadowRunebladeAAwithunconditionalBanishpermission, legalunderYoungVynnset20; GhostArchitectMechanologistAA0legalunderYoungDash20. ThreeDori20/manual4UPF/cachedallowed. PhysicalinitialBanishcardsFaceDown0/noPlayableFromBanishgrant/permission/history/cost seeds. Copies max2Ghost sameRed legal; Gloom ordinarycontrol GenericRagingBlue3 legal withactualBluepitch3/AP1.",
+      "Glooms actualSigilSolaceBlue5Instant0 holdsAP1 throughoutfourresponses thenheals20->21/source5GY; notpermissionprerequisite orVynnsetShadowNAA. IARCards252-256 intrinsicfaceup*_gloomblade permission plusGameLogic982 allowsprimary6Banish, whileordinaryRaging8hasnozonepermission andmustrejectbeforeformalattacktarget/cost/movement. NoRunechantsANYseat soUsurpifableunable/nochoice orpositiveeffectcost. ActualprimaryproperHero4declaration thenMurmur2paidBlue7pitch3/R1/AP0; Sinspeaker0/R0/AP0 leavesBlue7Hand. No forcedfutureattack/hit/tutor/runeproducerbody is entered.",
+      "Ghost actualZeroToSixty5formalHero4/Boost0banishesonlyownprimary6Deck->Banish1, notidenticalunboosted8priorBanish0. ARCAbilities366->EVORuntime39-40->PENCards631-633 records penBoostTurn onactual6. Full4damage/allfourmanualcombat/close earnsAP1; GameLogic244-253 ResetWindow preservesarcCards acrossclose andPENCards258-259 clearsBoostmark onlywhenitsownBanishsourceleaves. PENCards601-605 testsownUIDspecificcurrentTurnmark; GameLogic982 viaOUTCards115 callsit. Thereforeunboosted8mustreject despiteactualglobalBoostthisTurn/sameprintedID/cost0/AP1; boosted6mayformallytargetHero4/payAP1->0/fromBanishStack. NoPrimaryEvoSearchWHENearnedbeforesourceattacklayerresolves.",
+      "All3 fullypaidendpointsPRIORITY1/combatOpenfalse withONLYphysicalprimary6KindATTACK/SourceZoneBanish/ParamsattackTargetHero4, quietpendingPayment/resolution/DQs/awaitframes/noCC. Support5GY/control8Banish/Blue7HandorPitch exact, HP21orGhostvictim16, allAP0/R1or0/UID8RNG0. Thiscompletes staticzonepermission/actualpaymentboundary; primaryresolution/attacks/hits/Usurp/BloodDebt unrun.48controls981persistableassertions, no supportingidentity/fullcard credit.",
+      "Workspace-onlyadapter retainscommon exactsource-actions/assertions/initialassets/manualseatpreferences/raw5fingerprints. GenericemptyStackrequirement is replaced onlybehindmandatory PAID_BANISH endpoint gate bystrictthreecard/exactinitialsetup/onephysicalpaidStack/UID6/ownercontroller1/sourceBanish/target4/negativecontrol8/HP/APR/fates/otherzonesquiet guards. Uniqueendpointlocals layers/src/objects do notoverwriteactionlist a. Genericquietpayment/DQ/awaitframechecksremain. Driverdiff onlyb1438 importsSHA-boundadapter/base/spec andselectsnamedendpoint; priorrecording/replay/rawintegrity paths unchanged. AllnewWscriptsASTparsed; noengine/repoframework change oractualfixturevalidation performed.",
+      "Narrow saved-file serialization review: Stack ZoneClasses1083 LoadFromArray decodesbase64JSON and1105 Serialize encodesbase64JSON. Validatornowstrictbase64(validate=True)thenJSON; exactreverse ofthisoneexpression recoversapprovedadapterSHAf43868e2... . TargetHERO4 andallotherexpectations unchanged. Read-onlysource-to-savedaction/assertion/manualseat/endpointvalidation passesallthree savedprefixes9/311,8/299,31/371; actualdecodedtargetsallHERO/player4. Raw15filesmatchprecorrectionhashes. No rerecording orfirstreplayexecuted; clean-replays empty."
+    ],
+    "limits": [
+      "Only actualpositiveprintedBanishpermission/resourcepayment and affordablelegalnegativecontrol atpaidPRIORITYprefix; no primaryattackresolution/damage/AttackDeclaredWHEN/hit/EvoSearch/Runecreation/positiveUsurp/BloodDebt/expiry/pitchsiblings orHero/support/secondary/wholecard credit. Ghost onlyactualboostedUIDpermissionvsunboostedsameID, notgeneralpermissionframework claim.",
+      "Pending native recording/firsttargetedreplays only. Reviewer usedno game/test/replay, source/engine/repository edit, original checkout access, authentication/fullsuite/Git operation. Validatorapproval is staticexactcodegate, notsaved/nativepassingclaim. Stop/logfirstunexpected withoutrepair/expectationfitting.",
+      "Native recorder receipts read as savedpassing, butfirstcleanreplaystillpending. QualificationinterruptionwasworkspaceParamsdecoder, notengine/gameplayfailure. Parentmustreconcileendedpriorqualificationoperationbeforeretry; noapprovalofduplicate/uncertainreplay."
+    ],
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "fixture_or_replay_review_performed": false,
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1438.py": "029ed0517159592de76244539c3a6049dc46b5e25cfd9813d3e5461566d60706",
+      "prepare_paid_banish_review1438.py": "3773d1326c82e520bcce6c4b22a41ffdc87873c691397de585f9cd05cab3a71b",
+      "nov24_paid_banish_prefix_review.py": "1c7dd970e6fb4a9e5c6920231fcabbf9a0ed6dbe9bfce37b9677dbacd5f6956f",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "author_breadth1432.py": "92c7f5aae6ed59f0aefe31c2e65b322ffe955fa37995cfb0dc3cb027ecf9e8af",
+      "author_breadth1437.py": "fbc9bb0d7e2a196d6c28241d821e1a89e69c514e85db0f9313506a18462d6c20",
+      "nov24_rune_gate_prefix_review.py": "164fcd838f786a3c6f7d75436fbcb6fc8cd3741c79f2974e883507b946965a26",
+      "sparse1438-local-20261122/breadth_batch.before-paid-prefix-adapter.py": "1d2c6a90681788a3e3bd61bef876402c349b3e275eed7976b3471bdf36b9a141"
+    },
+    "review_stage": "saved_native_pending_first_targeted_replay",
+    "serialization_correction_review": {
+      "approved": true,
+      "exact_decoder_only_reverse_sha256": "f43868e26df16c26f79589c915219dfcb814b627f6738e2c1a775499ddb4f159",
+      "new_adapter_sha256": "1c7dd970e6fb4a9e5c6920231fcabbf9a0ed6dbe9bfce37b9677dbacd5f6956f",
+      "correction_note_sha256": "388bff25c462b7f02febb6d7355da6141e44f7fa232fc1d62f9454393178e5a7",
+      "preserved_pre_native_review_sha256": "23dc2425b2dd80631ef866970b8b6e46ed9915011191beab562caf57165ec476",
+      "saved_native_receipt_sha256": "9f8ca559b8c7a9e03ff4c19795503532ca3c87909af02645cba008b00048c3b4",
+      "source_spec_unchanged": true,
+      "raw5_unchanged": true,
+      "saved_static_checks": [
+        {
+          "slug": "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+          "actions": 9,
+          "assertions": 311,
+          "saved_target": {
+            "type": "HERO",
+            "player": 4,
+            "uid": 4,
+            "zone": "Hero"
+          }
+        },
+        {
+          "slug": "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+          "actions": 8,
+          "assertions": 299,
+          "saved_target": {
+            "type": "HERO",
+            "player": 4,
+            "uid": 4,
+            "zone": "Hero"
+          }
+        },
+        {
+          "slug": "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+          "actions": 31,
+          "assertions": 371,
+          "saved_target": {
+            "type": "HERO",
+            "player": 4,
+            "uid": 4,
+            "zone": "Hero"
+          }
+        }
+      ],
+      "raw5_sha256": {
+        "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix": {
+          "initial_gamestate.txt": "1ee0ab8499d8b84667d5f022facd9d260b6bed41ddc05491c7c438c6a3bbeaf1",
+          "actions.json": "58f8876cf1937c473be3b7844987aec5a9e10cd7099c066c20c9a67cc3baf23b",
+          "assertions.json": "869fc898886bd7f891eb472d9751a87daaed50d4cddcf2098ee3f12ef893584f",
+          "expected_final_gamestate.txt": "25728dac4a2ec7e350311cd94ef09ede5995c61c86b5559c34da446c51dd281d",
+          "meta.json": "7d7cd1e4dd580a18c397268698cb649bcaf4788203314ef9739270fdf36a536d"
+        },
+        "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix": {
+          "initial_gamestate.txt": "efd4c0e90613c577c39fd457e4a694ab64a5d3432527eb911aa267ba7927bf46",
+          "actions.json": "43411a102aa72bfff1d53b2d224bcb1e7994921f41f6632bf7c1bae9b443695a",
+          "assertions.json": "135a4163ab500c377eb7c5a3610a140a44774e83a5ca20fdca3f92cb3d04c9c4",
+          "expected_final_gamestate.txt": "dd7ae92652f5cda3eb16e2ebb63b9b2deff320040470f3ca534af46b124f1265",
+          "meta.json": "31675dd2958d071ffea6beecc1af6d9602d1ec9d3ce06e47161d32e175096e92"
+        },
+        "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix": {
+          "initial_gamestate.txt": "c6959d0ef24dacf4805ca4e05a4735f79b55e980b72f7ec3cad4fb93e8621319",
+          "actions.json": "d2749122ce140f013746cc8bda1701c4a7186825bfa46a3ccfb517ac01290cfe",
+          "assertions.json": "178af0a2055278ffc6f965ccc024896f7bb7616bb065ce72d511c7d2d8536128",
+          "expected_final_gamestate.txt": "d84cc7daf6214f13060e7edd126a1a4c4167dc901e949a5c5f6e68b847256d14",
+          "meta.json": "35be157a174802c21f63bbe311ad79f040c1f1966904005be5fce711972e859e"
+        }
+      },
+      "clean_replays_empty_at_review": true,
+      "native_or_replay_executed_by_reviewer": false
+    },
+    "saved_fixture_static_review_performed": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1438-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8328d1ae9d7e64b2e4d123abb1b112026ff26ea76a1f2953119c15323a6855ea"
+  },
+  "full_suite_run": false
+}

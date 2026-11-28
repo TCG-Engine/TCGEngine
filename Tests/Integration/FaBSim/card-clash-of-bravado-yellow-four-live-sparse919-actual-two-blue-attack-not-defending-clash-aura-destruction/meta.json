@@ -1,0 +1,7 @@
+{
+    "name": "Clash of Bravado / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:27:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends, **clash** with the attacking hero. The winner destroys an aura the other hero controls. Representative only: actual_two_blue_attack_not_defending_clash_aura_destruction. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clash_of_bravado_yellow"
+}

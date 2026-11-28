@@ -1,0 +1,29 @@
+{
+  "batch": 1422,
+  "status": "UNAPPROVED_UNRUN_SOURCE_ONLY_KNOWN_LATE_TARGET_DEPENDENCY",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "cards": [
+    "agile_engagement_red",
+    "vigorous_engagement_red"
+  ],
+  "source_spec_sha256": "901a3c6520bdaba04b9fecedf2e338495f6ecfeabd5c27d3231d63696eca1a22",
+  "source_note_sha256": "75150983fb4613483f199b3371d5982068767dcb19ed08fa48052b020a1c100d",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "independent_reviewer": "breadth_review1252",
+  "basis": [
+    "Both printed effects explicitly target a Warrior attack, a non-damage effect; sole opposing-Hero damage default does not apply.",
+    "WTRCards eligibility validation does not capture a target UID. Generated Agile and Vigorous ResolveCard functions gather and choose target only after all responses; no PrepareCard binding found.",
+    "An unchanged singleton candidate and external author precommit prose do not establish the missing simulator declaration required by CR5.1.4a. Do not bless this sequence or count either case."
+  ],
+  "official_rules": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+  "source_sha256": {
+    "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim\\Custom\\GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim\\Custom\\WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim\\Custom\\HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1"
+  },
+  "repair_scope": "Separate later shared target preparation repair pass; no engine changes or duplicate native probes in breadth."
+}

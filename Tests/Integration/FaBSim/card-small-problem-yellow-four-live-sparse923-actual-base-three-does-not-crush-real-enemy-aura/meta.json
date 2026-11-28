@@ -1,0 +1,7 @@
+{
+    "name": "Small Problem / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:51:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has {p} greater than its base, it gets +1{p}.\n\n**Crush** - When this deals 4 or more damage to a hero, destroy an aura they control. Representative only: actual_base_three_does_not_crush_real_enemy_aura Sources: FaBSim/GeneratedCode/cardArrayCache.json#small_problem_yellow"
+}

@@ -1,0 +1,185 @@
+{
+  "status": "SOURCE_APPROVED_DIAGNOSTIC_ONLY_SEA_LEGS_R2_SAME_BOUNDARY_SEMANTIC_CHECK_ORDER",
+  "phase": "SOURCE",
+  "batch": 833,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T21:50:45.779819+00:00",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "native_probe_approved": true,
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "passing_fixture_approved": false,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "source_spec": "card-regression-batch833-sea-legs-original-correct-skullhorn-discard-probe-r2.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r2-semantic-witnesses-first-query-order-author\\sea-legs-original-correct-skullhorn-discard-earned-rum-probe-r2.json",
+    "sha256": "df1c4d3cdf77fb57c10da9f116cf5b200cb34b3acaeb07c26d33c571f33c09ac"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r2-semantic-witnesses-first-query-order-author\\manifest.json",
+    "sha256": "c96a602269010e2de80b03374a402760ff7e1a7c2ff9c5140baf851934f780fa"
+  },
+  "input_sha256": "df1c4d3cdf77fb57c10da9f116cf5b200cb34b3acaeb07c26d33c571f33c09ac",
+  "manifest_sha256": "c96a602269010e2de80b03374a402760ff7e1a7c2ff9c5140baf851934f780fa",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "firm_reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-firm-reservation.json",
+    "sha256": "cdab82aac072eaf5e15dd987769ff8de4a8897d48087a9868674e9020424b0c3"
+  },
+  "support_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-fresh-who-blinks-known094-preflight.json",
+    "sha256": "048d3cc2ae37e56f1baf54c9dae3b274db9d50e27a5db36b24f59d17e8c47d77"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 47,
+  "selected_support_guard_map_sha256": "4b91ad674c996816c60603cedd00ff7bbf4faf49a60a0e91c532ed16c418bd9c",
+  "all_current_guards_independently_matched": true,
+  "actions": 9,
+  "declarative_controls": 9,
+  "native_assertions": 1185,
+  "assertions": 1185,
+  "recorded_persisted_assertions": 1185,
+  "manual_passes": 8,
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "actual_expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "expected_priority_response_passes": 8,
+  "expected_formal_defense_finish_inputs": 0,
+  "checkpoints": 11,
+  "schema_property_checks": 220,
+  "control_mapping_sha256": "b6619177dac5a70961dcc3c5a0e08de27bf33c43031946adc4e03027091f7b4a",
+  "native_expected_envelope_mapping_sha256": "8219bd990e1fc2e35000a0ec70f987ed4e099ff7679733b3fafdcbf577eb02e1",
+  "expected_native_query_mapping_sha256": "c42b93a2dd9b7cc294f4a452f2128870632ea0b2a33d295f7aeb4874b273acdf",
+  "checkpoint_mapping_sha256": "6b8df72385f06d34c45efbc047bc15aebe8aced29e1dfce4a48ce786a8c7d39a",
+  "fixture_saved": false,
+  "native_attempted": false,
+  "confirmed_gameplay_bug": false,
+  "source_fix": false,
+  "independent_actual_no_save_review_required": true,
+  "explicit_Root_promotion_and_fresh_positive_Source_required_even_if_pass": true,
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "Elliptical184_denied_operation_untouched": true,
+  "independent_semantic_findings": [
+    {
+      "rules": [
+        "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/ CR5.2,5.3",
+        "https://rules.fabtcg.com/en/cr/06-effects/ CR6.1.2,6.6.5-6",
+        "https://rules.fabtcg.com/en/cr/01-game-concepts/ CR1.11.5"
+      ],
+      "finding": "Skullhorn destroy is activation cost before initialpriority. Its whole drawthenrandomdiscard/GoAgain completes before nextpriority; resulting SeaLegs ordinarydiscardWHEN effect must resolve after four new responses, not createRum duringdiscard. No invented priority separates draw/discard or precedes abilitycompletion."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/ARCAbilities.php:18,162-175",
+        "FaBSim/Custom/GameLogic.php:FaBManagedVirtualResolutionClass,FaBResolveManagedVirtualLayer,FaBFinishReactionResolution,1628-1634",
+        "DevTools/FaB/cru_abilities.json Skullhorn"
+      ],
+      "finding": "Skullhorn nativeACTION spec has goAgain/destroy and uses managedARC virtual lifetime; paidAP0/physical5GY before Source4, then actualDoDrawCard and FaBDiscardRandom finish before AP1refund/removalofSkullproxy/firstnextpriority. CapturedSeaUID6 trigger can remain independently pending. No underlying94unmanagedawait gate applies to this noninteractive managedSkullbody."
+    },
+    {
+      "code": [
+        "FaBSim/Custom/GameLogic.php:481-492",
+        "FaBSim/Custom/WTRCards.php:494-508",
+        "FaBSim/Custom/SEACards.php:40"
+      ],
+      "finding": "OnlySea6Deck and emptyHand ensure actualDraw makes it soleHand candidate, so randomdiscard selection is forced by legal cardinality, not seededRNG or patchedoutput. FaBDiscardRandom moves realUID then callsWTRCardDiscarded\u2192SEADiscarded; current selectedSea path createsRum inline viaHVYToken. This is fresh selectedproducer concern, not establishedNativebug or automaticnewroot."
+    },
+    {
+      "finding": "YoungTuffnut is legal Brute forSkullhorn and has no Rhinar discard-six trigger; its ownability/crowd areunused. SeaLegsGenericCard and ownedRumTokenITEM are distinguished fromRumAura. BothGY5/6, AP1/resources0/allHP20 and fourmanualseats retained; originalprimaryplay/cost3/power6/Rumactivation/fullsupportcard andrandomdistribution are untested."
+    },
+    {
+      "finding": "R1 stopped at localstateprecheckwindow before cardwitnesses; it did not establish nativeRum/Stack/AP1/postGY semantics. R2 changes no expectation: actualSkull5/Sea6GY andAP1/emptyDeckHand are queried first at SAMEcontrol5, then noRum andearnedABI, originalwindowPRIORITY last. Sameby-boundary multiset preserves full teststrength; no values, actions, timing boundaries or correctcardrules were relaxed. Originalsource/body/rules review reused unchanged."
+    }
+  ],
+  "source_only_held_cases": [
+    {
+      "card_id": "who_blinks_first_blue",
+      "group_id": "identity:who_blinks_first_blue",
+      "status": "SOURCE_ONLY_UNATTEMPTED_KNOWN094_EARNED_ROS_VIRTUAL_AWAIT_COMPLETION",
+      "classification": "KNOWN094_ALREADY_EARNED_ROS_ABILITY_PRECLEARED_BEFORE_OPTIONAL_CHOICE",
+      "reason": "Proper SUPCounter/supZero and SUPAfterMove/supLeave producers exist. Actual Who Blinks supLeave generated ResolveAbility awaits an optional Guardian-Aura choice during resolution. Generic rosTrigger is excluded from managed virtual admission and GameLogic1713 removes the earned layer before ROSCards59 invokes that actual await. Exact native-confirmed held094 ROS virtual completion contract; not a missing producer, new native repro or fresh distinct root.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-who-blinks-known094-virtual-await-unattempted-note.json",
+        "sha256": "8a23c3ec53dcd0bee70c4b76da4b969254ee3de03076dbfa790469dc2c4e1205"
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false,
+      "source_fix": false,
+      "native_case_approved": false,
+      "limits": "WhoBlinks has properSUP producer but earnedROSgenericABI clears before actualoptionalawait, exactheld094. No missingproducer/newrepro/quiettargetdecline/earlier-priority orsupportfallback credit."
+    }
+  ],
+  "limits": [
+    "Only full original-correct diagnostic admission; existing Root no-save wrapper/--probe-only mandatory evenPASS. No passingfixture orcoverage.",
+    "Independently inspect actual passedprefix/firstfailure/unrunsuffix before declaring defect. SourceinlineRum prediction alone doesnot identify nativeRum object or NativeStackcount.",
+    "CompletePASS still needs independent actualreview, explicitRootpromotion, freshpositiveSource/newSave/Saved/rawendpoints andtwofocusedreplays beforequalification.",
+    "No primaryAAplay/power/costcoverage, multi-card RNG/distribution, SkullAB2, Hero/crowd, Rumability, otherdiscard/controller/sibling/supportfullcard or generalvirtual-layer-order claims.",
+    "No retry/application of denied184/B787, newsourcefix, fullsuite or historicalcorpusreplay.",
+    "No SeaLegs semanticbug is claimed from R1window alone. A fresh fullcorrect no-save run must provide first meaningful cardboundary witness; runtime a11 and deniedsource branches remain unchanged."
+  ],
+  "original_R1_Source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-independent-diagnostic-source-review.json",
+    "sha256": "767372bf238774eac08789edae404bdaa497f08e4aca63221fc1f935a21d0d8b"
+  },
+  "original_R1_source_preserved": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-original-correct-skullhorn-discard-probe-author\\sea-legs-original-correct-skullhorn-discard-earned-rum-probe.json",
+    "sha256": "e8d88cb254713ced4a1c6da52b993b688dbab4dbd1fcedfc794e9c8a1e8a05f2"
+  },
+  "independent_R1_actual_frontier_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch833-sea-legs-r1-independent-actual-window-frontier-review.json",
+    "sha256": "98d0ca8c23a91c14dfb0478eef45976023a2aac03617c84ff55e6697f4de6002"
+  },
+  "exact_change": "ONLY source step10/control5 list of103checks reordered; every literal and per-boundary multiset preserved",
+  "every_literal_expectation_unchanged": true,
+  "every_query_same_action_boundary": true,
+  "per_boundary_multisets_including_duplicates_equal": true,
+  "all_other_steps_setup_flags_identical": true,
+  "all_9_controls_8_manual_1185_queries_preserved": true,
+  "diagnostic_review_complete": false,
+  "fresh_Source_delta_complete": true,
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov15_batch833_r2_source.py",
+    "sha256": "b86ad21da333ba2835e97509070f8d8358f6f43ee8ec54fc8d2bc49f123455bf"
+  }
+}

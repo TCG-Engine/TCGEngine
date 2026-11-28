@@ -1,0 +1,7 @@
+{
+    "name": "Hunt to the Ends of Rathe / four-live non-Arakni unmarked target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:55:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this attacks Arakni, **mark** them.\n\nIf this is attacking a **marked** hero, this gets +2{p}.\n\n**Go again** Named independentbranch only: Fai20/actualcost0source5 attacksadjacentDorinthea4, whoisNOTArakniandhasCounters[]. ThereforetypedWHENattacksAraknieventabsent: noMarktrigger/probeorwronginlineexpectation. Unmarkedstatic+2false, actualbase2deals2/HP18, printedintrinsicGAreturnsAP1atResolution, source5ownedGGY throughall4manual. Doriremainsunmarked. PrioractualAraknimark-trigger timingbranch remainsunrun/held; nofixorcredit forit. Nohero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#hunt_to_the_ends_of_rathe_red"
+}

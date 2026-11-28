@@ -1,0 +1,29 @@
+{
+  "status": "HELD_UNRUN_KNOWN_ATTACK_TRIGGER_LAYER_DEPENDENCY",
+  "utc": "2026-11-24T15:48:04.189366+00:00",
+  "card_ids": [
+    "scour_the_battlescape_red",
+    "trade_in_red"
+  ],
+  "source_spec_sha256": "21286dfacd306e41a4b32661af427f3ab23c2bbb1896cf4f6d9d7b3caf3e530c",
+  "reviewer": "/root/breadth_review1252",
+  "reason": "Printed When this attacks is an unconditional trigger. An empty hand prevents the optional exchange effect but does not remove the required trigger layer/response opportunity. Current Scour ResolveCard and TradeIn direct AttackDeclared callbacks do not substantiate that separate layer. Therefore the proposed quiet attack sequence would bless a known trigger-layer family; do not run or qualify.",
+  "primary_rules": {
+    "url": "https://rules.fabtcg.com/en/cr/06-effects/",
+    "sections": [
+      "6.6.1c",
+      "6.6.5",
+      "6.6.6"
+    ]
+  },
+  "source_sha256": {
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+  },
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_confirmed_native_issue": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "repair_attempted": false
+}

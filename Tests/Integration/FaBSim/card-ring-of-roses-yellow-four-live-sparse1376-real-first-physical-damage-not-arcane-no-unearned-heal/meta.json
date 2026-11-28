@@ -1,0 +1,7 @@
+{
+    "name": "Ring of Roses / physical damage is not arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T12:31:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_YOUNGVERDANCE20_THREEDORI20. LegendaryVerdanceRingRoses8AuraArena1ownedreadyvalidpriorposition(noStartTurnselfdestruct/noentryprovenancecredit). ActualGenericCriticalRed5cost1paidBlue6pitch3/R2/AP0/base5/noGA, noearlierdamage. Allnativefourmanualwindows/actual5PHYSICALdamageHP4=15. HNTownDamageRinggate requiresARCANE, sofirstphysicaldamagedoesNOTheal1: ownHP20not21/noHeroHealing/arcanechooser/extraLayer; no4EarthBanishthresholdandnohealmeansVerdancepositiveWHENnotentered. Final5GY1/6Pitch1/FDArsenal7retained/Ring8sameownedreadyCountersEffects[]/UID8RNG0/AP0R2. Actual0ArsenalconsumerrejectAP0samefates. Onlyphysical-vs-arcanedamageguard/nativefunding/damage/fates, notpositivefirstArcane/heal/earnedWHEN/timing/threshold/entry/support/fullcard. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ring_of_roses_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/HNTCards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/ELECards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Cries of Encore / equal-life Crowd prerequisite guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:21:29+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNGpleiades20_MANUAL_UPF_PARTIAL_EQUAL_LIFE_FALSE_CROWD_PREREQUISITE. Actualprimary5Hand/actualGeneric6pitch3paysexactnormalcost/AP1to0/R0; actualadjacentHero4Dori20neutralWarrior(notReviled). Allfourresponseflow/initialActorHP20equalsDefender20, noBoo/Cheerhistoryseed. WHENifmore/lessLifeinterveningconditionfalseatequal20, so noearnedCrowdlayer/token. Printedpower7notBoo/Cheerbonus andnoGA; actualpositiveHeroHitlowersdefenderlife, butmustNOTretroactivelyre-triggerattackhealthcondition. Livepower/goagainafterdamageandallArena0/noextraUIDpinnoearnedbonuses. Actual7physicaldamageHP4=13/allotherHero20; full5ownedGY1/actualfunderPitchifany/APR0/UID7RNG0/StackDQsCCclean. Originalreal0costGuardianInstantSuspense7GY0cannotplaywithoutgrant; atACTIONpriority1/Stackempty, AP0doesnotrestrictInstants and0costisaffordable. NativeGYclickmustreject/noStack/move/payment/newUID, original7andprimary5GYorderpreserved. PositivecheeredHitpermissionnotcredited. No trueCrowd/producer/positiveBooCheerbonus/trueReviledHero/permissionpositive/support/pitchsibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cries_of_encore_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php"
+}

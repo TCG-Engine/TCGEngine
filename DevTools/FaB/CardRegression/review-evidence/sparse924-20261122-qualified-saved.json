@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse924-20261122.json",
+  "source_spec_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+  "input_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dig-in-red-four-live-sparse924-actual-seven-attack-without-defended-payment-or-toughness",
+      "card_id": "dig_in_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3e47cdefc5d5f20f3307aec1fe515ecd1fddf211069b18fa8e836e96e0c79116",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "ddc4b4194033fa846477897fc835bf18d396d2516a135cca8c74d5faecf75989",
+        "expected_final_gamestate.txt": "f09e6ec778ad051a577c7deb3b8960f701cd726909fb5a77caec09059bb6232d",
+        "meta.json": "bf1038f922b2bc9da6d6c030f4ccbca5ca82df137e3c249f5a92784f7d7bd43d"
+      },
+      "fixture_sha256": "61a7ab344779f63b8889ce09601f995455a93cf8258ec929999629b2a8e2ff2e",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse924-20261122.json",
+      "input_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse924-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dig-in-red-four-live-sparse924-actual-seven-attack-without-defended-payment-or-toughness",
+        "fixture_slug": "card-dig-in-red-four-live-sparse924-actual-seven-attack-without-defended-payment-or-toughness",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-fast-and-furious-red-four-live-sparse924-actual-unboosted-three-with-no-crank-or-banish-origin",
+      "card_id": "fast_and_furious_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf7a3d26991431b49147647bd15bb4e04f1cf32be1f6e864783e3c724b708286",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "16640484df005123b7c1d9749fd53e087ceeb0f2692c86d8d0b8c0acf35118e7",
+        "expected_final_gamestate.txt": "cf55b376e09c634b98782fa8f4b1ff8c4a4b0d6cff6aba045d5234b56b11042f",
+        "meta.json": "b12a38bbf7d48dabcd87d117f952bc5b1a5cd34f4d65d8454f1c91d1e9be0d58"
+      },
+      "fixture_sha256": "f8fe675dd218a045a060470f54e9510f60fb81c45f5ace76ec060fced7007e01",
+      "actions": 27,
+      "native_assertions": 121,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse924-20261122.json",
+      "input_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse924-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fast-and-furious-red-four-live-sparse924-actual-unboosted-three-with-no-crank-or-banish-origin",
+        "fixture_slug": "card-fast-and-furious-red-four-live-sparse924-actual-unboosted-three-with-no-crank-or-banish-origin",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-steel-street-hoons-blue-four-live-sparse924-actual-unboosted-three-without-item-destroyed-or-defended-galvanize",
+      "card_id": "steel_street_hoons_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fecd8948d67b9d181e88eb429730c53f80809f1dea6a0e475b555b93ab6350fe",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "1b992a9fb81d05d29405ddf37f5fa3f2e5a7f0d280791e0a97acba1921fd2838",
+        "expected_final_gamestate.txt": "214aab42606dec83e09113212cebcb820ceca3184c80de3c01e17eea8a810db9",
+        "meta.json": "f2bb552e6ffdb598d8e2acf5b8e0f1e018a6f782993bbba1e486d43e6230569b"
+      },
+      "fixture_sha256": "ebb110487904a411e74b62efe8da146734c9c562c4c8b6cfcde1f9cff0060530",
+      "actions": 28,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse924-20261122.json",
+      "input_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse924-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-steel-street-hoons-blue-four-live-sparse924-actual-unboosted-three-without-item-destroyed-or-defended-galvanize",
+        "fixture_slug": "card-steel-street-hoons-blue-four-live-sparse924-actual-unboosted-three-without-item-destroyed-or-defended-galvanize",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "aceba19be9e46d3c1e8281329789f3568083966a1de1e32d10dee531eed18bf6",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Dig In mainReveredPleiades attack3/7 notDefended, so no payment/token event. MechanologistDash twoattacksFastFurious0/3 andSteelHoons3/3, freshArena0/Deck0/noCrank/noItemDestroyed.",
+      "Proven emptyDeck noBoost additionalchoice/cost; printed unboostedpackets and actualBlue6wherecost3, R0/AP0 andphysicalsource5sameGY; nativeall4manualwholecombat checked.",
+      "No omitted WHENattack conditional or earnedDefend event; primary namedbranches only, not positiveBoost/Crank/Galvanize/Banish/token effects or siblings. Native qualification pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse924-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "622e3a4d34b8d74194c9a54217fa2aad4b68624e8cfba1de0f2ed79ee48a09c7"
+  },
+  "full_suite_run": false
+}

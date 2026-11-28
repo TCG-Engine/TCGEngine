@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-frightmare-red-four-live-sparse981-reject-no-prior-phantasm-destroyed-illusionist-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "981aa1c676af7e28cf38eb3077afd28c8b9e1496759e48419f8b99f0a9720a6d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b1d000c4790756e419137e012891f3e796cea48b5328bede28b9fc114d8d157",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "8e147a447bf062cde84a172e20bbde6fcf9333a4af26b37dde9c58bb3f6950ca",
+        "expected_final_gamestate.txt": "c1e858d4116c4db5688886d4a3ae101646bc8ae4cdc7dadc465575be5399a5d8",
+        "meta.json": "dd6d5189080f2bbb4c3debeaeb4f150cb9f75e550583c21a6db928ff8d0ec498"
+      }
+    },
+    {
+      "slug": "card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-even-bigger-than-that-red-four-live-sparse981-reject-no-prior-physical-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse981-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1dca2abe213e80627771591c9b53b23423daff6b91e9895d079ad368c2aab594",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "80f732da7fa3f6e8b0540ec9571953390c6e07bac11d1f818e9358e134995575",
+        "actions.json": "859908b25867f7a729e9bd7a61956b7e21fa6d471c4d12b6e4e99303b8602f74",
+        "assertions.json": "c93f7001bedd6e4f663b98b3140d9ab4d1819cba3cac63c233acc847ee8ff475",
+        "expected_final_gamestate.txt": "6913cff8992338ec5e5dad7cd70571cf88be55fcf193be0511421a56827a22c3",
+        "meta.json": "d5e690222d92919389ec139f3e3fbec438508be639321a638c9778abaa5bc66b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

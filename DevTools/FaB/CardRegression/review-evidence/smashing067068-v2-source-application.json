@@ -1,0 +1,95 @@
+{
+  "status": "APPLIED_REVIEWED_SMASHING_V2_SOURCE_PROCESS_NATIVE_QUALIFICATION_SEPARATE",
+  "utc": "2026-11-03T15:39:42.140199+00:00",
+  "base_runtime_sha256": "2193d53b1dff3b62f59a0fc2d1de83e95653f9973a587dfb9e6a3cc637b5e26b",
+  "actual_runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "source_review_sha256": "2730e404303a147d8eac9c337c793bce2c0317fdfda0dabc014a19654909ebaf",
+  "files": [
+    {
+      "target": "DevTools/FaB/evr_abilities.json",
+      "before_sha256": "4c5f45496d8b1536729525f3a017d3e0f267dd19d571c0d137295b0ed3ee90f8",
+      "after_sha256": "3cfdd494730e34946cbfaa1c4bd75ee892901c157c43ebcaa3c486c99052fc2e",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\before\\DevTools\\FaB\\evr_abilities.json"
+    },
+    {
+      "target": "DevTools/FaB/build_evr_abilities.py",
+      "before_sha256": "6bfc7af840d936911ccd2b34c95970f7d07688b7f92564c1d0f1d2d3d75663ad",
+      "after_sha256": "786fe553984f50ef207122bc9330fb47ba6fd4391c22c99f65630b9f1b338955",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\before\\DevTools\\FaB\\build_evr_abilities.py"
+    },
+    {
+      "target": "FaBSim/Custom/EVRCards.php",
+      "before_sha256": "dee27af62c574dc67e99daf1455fb35e806f4a2299479401027cd999c386ff52",
+      "after_sha256": "ad988b0e0e3d3f80bb0f9de0eb66bb826e32c8edbddbb15d5034926baa31e6af",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\before\\FaBSim\\Custom\\EVRCards.php"
+    },
+    {
+      "target": "FaBSim/Custom/ROSCards.php",
+      "before_sha256": "1013fe084be84a5c929506f3138d4d823f22162f48e3920163f74f14cba859e6",
+      "after_sha256": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\before\\FaBSim\\Custom\\ROSCards.php"
+    },
+    {
+      "target": "FaBSim/Custom/CodeGeneration.php",
+      "before_sha256": "8ceef24c7fe2f311bc7bda5f039dcec4bda57fb8e1866f382855ae37c119229a",
+      "after_sha256": "8829dc0c85903c5c26e82bf3a6df0c5a0db5f53658deeb049871a81c390acbff",
+      "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\before\\FaBSim\\Custom\\CodeGeneration.php"
+    }
+  ],
+  "original_attempt": {
+    "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-guarded-application-generation\\receipt.json",
+    "sha256": "511c94388cb486eaa5e9384d4efdaf3891a8cd12e82e4340d4145bfa027ee076",
+    "status": "FAILED_INSPECT_RETAINED_RECEIPT_AND_BACKUPS",
+    "emitter_exit_code": 0,
+    "post_source_runtime": "2938773d31f00c29e21098147a4205817276332151c92ee18cdc2ec9f4f51ea3",
+    "rollback_temporary_runtime": "4006fa3163092d8bab2c3c9b26a90afd9f53280f3476e1803e77c2f0062e161a",
+    "reason": "Ownwrapperwronglyrequiredallouterwrapperschanged; actual3ResolveCard+3ownedawaithelperschanged, outerAbilitywrappers/callbacksstable. Originalfailureisretained."
+  },
+  "reviewed_completion": {
+    "local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-smashing-v2-reviewed-emission-completion\\receipt.json",
+    "sha256": "4020a7271d11e790dca8525f8dd089b5b6ade6863f18789f0e9eb7b09b0c9c52",
+    "source_only_reapplication": true,
+    "generator_rerun": false,
+    "generated_outputs_edited": false,
+    "actual_R_lints": [
+      {
+        "target": "FaBSim/Custom/EVRCards.php",
+        "exit_code": 0,
+        "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\EVRCards.php\n",
+        "stderr": ""
+      },
+      {
+        "target": "FaBSim/Custom/ROSCards.php",
+        "exit_code": 0,
+        "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\ROSCards.php\n",
+        "stderr": ""
+      },
+      {
+        "target": "FaBSim/Custom/CodeGeneration.php",
+        "exit_code": 0,
+        "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\CodeGeneration.php\n",
+        "stderr": ""
+      },
+      {
+        "target": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "exit_code": 0,
+        "stdout": "No syntax errors detected in C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\GeneratedCode\\GeneratedMacroCode.php\n",
+        "stderr": ""
+      }
+    ]
+  },
+  "actual_generated_review": {
+    "path": "review-evidence/smashing067068-v2-actual-generated-independent-review.json",
+    "sha256": "85440c858ce3f508c8bb5f845e8fc8efa3a3b23ff75a2310d4b5906e80272467",
+    "scope": "CanonicalemissionandselectednoItemrouteonly; Itemchoiceawaitlifetimeunattempted/uncredited."
+  },
+  "generated_output_sha256": {
+    "GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+    "GeneratedMacroCount.js": "7576a12c264373f0df180cb103010797419d071f412884d283d31d135a9514cc"
+  },
+  "emitter_invocations": 1,
+  "manual_generated_edit": false,
+  "remote_authoring_writes": false,
+  "full_suite_run": false,
+  "qualification_not_whole_card": true
+}

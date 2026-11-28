@@ -1,0 +1,7 @@
+{
+    "name": "Pec Perfect / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:28:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever a card defends this, **clash** with the defending hero. The winner destroys the top card of the other hero's deck. Representative only: actual_two_blue_nine_damage_without_any_defending_card_clash. Positive dormant conditions and pitch siblings untested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pec_perfect_red"
+}

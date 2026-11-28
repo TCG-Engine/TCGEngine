@@ -1,0 +1,7 @@
+{
+    "name": "The Hand That Pulls the Strings / actual reaction flip grants first-contract go again and Royal power",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T15:50:42+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourmanualseats: legalYoungArakniSolitary19 (ContractAA notStealth, noHeroWHEN), twoDori20, RoyalYoungEmperor15 withonlyRedcards. ProperArakniMentor5facedownArsenal1. ActualfirstContractAnnihilate6cost1Blue7pitch3/AP0/R2, fourresponses. Beforeflipactualpower5/GAfalse. InREACTION actualMentorAttackReaction0ABI12 waitswithFaceDown1/noearlybonus throughfresh1/2/3/4; resolveFaceDown0 andnativepower6vsRoyal/GAtrue. OpposingactualUnmovableRed8Handcost3 paidbythreeactuallegalRedpitches9/10/11, four4/1/2/3responses, actualDEF7fullyblocks6/HP15/noHit. ThusnoAnnihilatehit/contractcompletion/ArakniHeroWHEN earned, notemptyDeckshortcut. OnlinkresolveactualGAreclaimsAP1; mentor5faceupArsenal/source6GY1/DR8GY4/realpitches/R2p1/R0others/UID12/noStackDQs/otherzones. Noendphaseupkeep/Silver/secondcontract/nonRoyal/Hero/fullcard orsupportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#the_hand_that_pulls_the_strings FaBSim/Custom/ArakniCards.php FaBSim/Custom/WTRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

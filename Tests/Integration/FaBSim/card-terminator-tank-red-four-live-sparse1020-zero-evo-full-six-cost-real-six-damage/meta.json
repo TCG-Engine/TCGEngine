@@ -1,0 +1,7 @@
+{
+    "name": "Terminator Tank / four-live zero Evo actual full-cost attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:54:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have 1 or more Evos equipped, this gets \"When this hits a hero, they discard a card,\"\n\n- 2 or more, this costs {r}{r}{r} less to play,\n- 3 or more, this gets **overpower**,\n- 4 or more, this gets +3{p}. NamedzeroEvo branch. Legalnatural20Dash, noEquipment/Evo. Actualphysical5cost6requiresrealBlue6+7: first3remainPITCH/AP1, secondpaysall6/R0/AP0. Fourmanualallcombat unblockedbase6actualHP4=14, no+3/overpower/grantedhitability; realenemyHandcritical_strike_red8retained. NoEvo>=1thereforeHitabilitynotgranteddespiteactualhit. 5ownedGGY, 6/7Pitch, actualall4health/queues/cost/fatespersist; noEvo2discount/3overpower/4power orpositivehitdiscard/destroycredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#terminator_tank_red"
+}

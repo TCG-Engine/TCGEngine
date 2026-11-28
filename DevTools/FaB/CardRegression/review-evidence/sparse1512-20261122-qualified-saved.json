@@ -1,0 +1,83 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1512-20261122.json",
+  "source_spec_sha256": "52233a92ccbff647dc7cd00ba803f995f94853ad0cbfbbe50daf66838d332959",
+  "input_sha256": "52233a92ccbff647dc7cd00ba803f995f94853ad0cbfbbe50daf66838d332959",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-twinning-blade-yellow-four-live-sparse1512-actual-generic-attack-with-ready-axe-no-sword-anywhere",
+      "card_id": "twinning_blade_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b1286af655a9028bbecdf5c9894fa5cb3420dda17dff6424661d0abb65cb3765",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "d2c613b68e282969b219a91c78f3d0bc860e5a3d8c6817599dd7549029c2c977",
+        "expected_final_gamestate.txt": "1d5cf9a0a46a7d2843c527bdfb7195753982cdd62d60b5bee7e3a15315e3c76e",
+        "meta.json": "aa205e2936b912fa55a72ba19af49e40ac25dc490c9a53bd420fb1a01fb0a837"
+      },
+      "fixture_sha256": "068e8d95421616c91750bf62bc9daa058ff955921637e62f24e57f2b91082a74",
+      "actions": 28,
+      "native_assertions": 384,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1512-20261122.json",
+      "input_sha256": "52233a92ccbff647dc7cd00ba803f995f94853ad0cbfbbe50daf66838d332959",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1512-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-twinning-blade-yellow-four-live-sparse1512-actual-generic-attack-with-ready-axe-no-sword-anywhere",
+        "fixture_slug": "card-twinning-blade-yellow-four-live-sparse1512-actual-generic-attack-with-ready-axe-no-sword-anywhere",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1512,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T07:56:26.080853+00:00",
+    "spec_sha256": "52233a92ccbff647dc7cd00ba803f995f94853ad0cbfbbe50daf66838d332959",
+    "source_note_sha256": "4bfe79a5ae617d42741d0247b9b8f4d975f6d9830bc619b4fd96b15578ca6390",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact review approves no-Sword-anywhere necessary exclusion, not target universe, ownership or attacking-Sword restriction.",
+      "ActualWounding5 attacks; Hatchet8neveractivated/ready/emptyCounters, noHatchettrigger. Boltynuncharged/staticconditionfalse/Soulunused.",
+      "Twinningcost0 AR legalatownREACTION1/AP0/R0, absenceallSwordmeansreject. Full4damage/HP16/allfourphases/fates sound."
+    ],
+    "limits": [
+      "PositiveTwinning/futureactivationtiming/siblings nottested. Reviewer performed read-only source/spec review only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1512-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5c3212887145a5c1923d793db53d24fdbef994042bb68c931c160e1659c3368c"
+  },
+  "full_suite_run": false
+}

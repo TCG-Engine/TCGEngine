@@ -1,0 +1,146 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse996-20261122.json",
+  "source_spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+  "input_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+      "card_id": "bloodrot_trap_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94542a08ca50252f309b0ed2950da819eba70efb2ceeb4b63268530eae6553e0",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "c392c12eed3d0bf29f3f03d97c71bcc5fcbe6234793dcb1e35083dd801e7cc0e",
+        "expected_final_gamestate.txt": "e4af386aca7f360ce576736abac8472e5e78065827927e46ac037d6b2905c174",
+        "meta.json": "77f74239e4dcb7bb59a379e72ac32a733aac12a6f0ea8be2484ea5d8acebb632"
+      },
+      "fixture_sha256": "15182050120cc9e43bab9ba7d54e22a5038f521b79038b46c0b0506fe2f835f6",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "input_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+        "fixture_slug": "card-bloodrot-trap-red-four-live-sparse996-no-attacker-reaction-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+      "card_id": "hunted_or_hunter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3e4dd1c2988d0a8e08c356ca11e4f58fcaf09310ed9610cba1d505a2eb0ed61",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "75daf112949154ca68a67843c3a27421cbd7f7681161c3173cfd806ed608431b",
+        "expected_final_gamestate.txt": "f5eee22b8aaddddac939f8d4b21ac843c510b482c0c7520ad35c00454188035e",
+        "meta.json": "b3416448efcc9585befc340077a6395e8c8435142be393f8e9689ff697d174e8"
+      },
+      "fixture_sha256": "0a899ade6c99919b1742fe80b3b1d193614b9b2427276b691b0d1f624f2bf523",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "input_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+        "fixture_slug": "card-hunted-or-hunter-red-four-live-sparse996-no-attacker-reaction-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+      "card_id": "pendulum_trap_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "23daeb66f8b647306a74b4edc58c051cc52dd0986d66b8434758523fc3ffe4db",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "bbe1156ffadeb809907cf0b2a8d320ddc0da8731af9d0105b92726f11bd0b26b",
+        "expected_final_gamestate.txt": "47e2805c893163abdc0ed9ef8e25024508e37487081bc8a744b925bfffded131",
+        "meta.json": "75db7e903f3ad908dd7941fce743ef369f45afc1221d6e49882f8733e67db773"
+      },
+      "fixture_sha256": "1dd43dd42a9675afe83621b8dd7163f096cfbcf36646aa3e7aff2dc80a47be89",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "input_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+        "fixture_slug": "card-pendulum-trap-yellow-four-live-sparse996-no-attacker-reaction-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+      "card_id": "spike_pit_trap_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "46b969fcdcdf681c5721b524d8329360e59da1031b05c28214fb38f1ab172114",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "b591fd1836ab37d52a2bb0549c79002f25eea7b452906d1b3bde40541112d9ab",
+        "expected_final_gamestate.txt": "e0741c6283f5c714885e817aff43db0fac030f8aeaa27ee3a0ef67c3f7875fa6",
+        "meta.json": "d28d34404ca31d81fb62ccdcd65c5308088d083f90e88584ca4ce8795668062c"
+      },
+      "fixture_sha256": "1dde06455dd39172298233322890df4d0f7a9dcdb2bea59c8468e12570aceb7b",
+      "actions": 36,
+      "native_assertions": 307,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse996-20261122.json",
+      "input_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+        "fixture_slug": "card-spike-pit-trap-blue-four-live-sparse996-no-attacker-reaction-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "44fa64476464f21465fccb8028e062ec7969b4d2e48738ca76192b4322ef7178",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "Allfour printed WHEN defends AND attacking-hero reaction-history clauses qualify the triggering event, rather than an earned WHEN followed by a later IF. Actual attacker1 only plays Generic Raging7/pitchesBlue8/answers target and passes; it plays or activates no reaction. Defender4 DR is a different player and cannot satisfy attacking-hero history. Thus no trigger event/layer/Pox/mill/loss is earned.",
+      "Supported source predicates: OUTRuntime.php:31 keys reaction history by turn/chain/player and:175-179 selects actual state attacker for Bloodrot/Pendulum/Spike. GeneratedHunted Defended:25490 calls ArakniCards.php:40 FaBArakniHunted, which tests attack-reaction key for actual attacker1. This source corroboration does not certify positive reaction-trigger timing/ownership.",
+      "Printed cost0/DEF3, legal natural20 Uzuri/Uzuri/Lexi and actual Riptide19 specialization. Physical own Arsenal5/FaceDown1, realUnusedBlue6Hand, actual4manual DR response4,1,2,3 then fresh1..4 resolve same DEFENSE_REACTION source5. Actual7\u22123 damage4 givesHP16/16/16/15, source5ownedGGY4, Raging7ownedGGY1/realBlue8Pitch, actor4R0/AP0.",
+      "Real attackerHandNAA9+orderedDeck10/11 retained and attackerHP20/allfourArena0 make no discard/mill/lifeloss/Pox or erroneous Riptide damage observable. Arsenal origin plus actualunusedHandBlue6 excludes accidental Hand-play trigger; no future phase crossed. Every case has36controls, no author-only defense/legality diagnostics. Allfour groups unrepresented/currentexactledger0."
+    ],
+    "limits": [
+      "Only named absent-attacker-reaction-event branches; no positive reaction history/trigger resolution/Pox creator ownership/mill/lifeloss/Riptide damage, hero action, siblings/support/fullcard credit.",
+      "Native/store/replay pending Root. Any mismatch held unsaved/unqualified rather than weakened or repaired. No PHP/native/test/T/source/original/Git/network/auth/engine change; W receipt only."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse996-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "79eee752c86737b6587463bc3437af9bf4e131eb4fe581bec86be749a49f9d4d"
+  },
+  "full_suite_run": false
+}

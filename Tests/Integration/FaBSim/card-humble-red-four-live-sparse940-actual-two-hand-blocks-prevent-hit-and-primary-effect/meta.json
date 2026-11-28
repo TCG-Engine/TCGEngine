@@ -1,0 +1,7 @@
+{
+    "name": "Humble / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:05:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, that hero loses all abilities until the end of their next turn. ActualGenericHandblocks3+3fullyblock5/6, zeroactualdamage/nohit/AP0, physicalcardsownerGY. Positivehiteffects andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#humble_red"
+}

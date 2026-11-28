@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse965-20261122.json",
+  "source_spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+  "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dishonor-blue-four-live-sparse965-actual-first-chain-exact-two-block-without-combo-power",
+      "card_id": "dishonor_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c6b040c96f63266ba365f7f6abfa4291fc83ac803648207c9f65a14299a76094",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "fcf49306208689bd904a09aa8fe3bd5af2695251c9b89408fde1083ddbb29e1a",
+        "expected_final_gamestate.txt": "4153b81dd0aa68b30aced440814863fc494e0171fba6b53ff9b0944cff74e9d2",
+        "meta.json": "c0ebf2e0e075393c42714aa3dacb079dcad0a4d2d5317678fcc810b9bd9ca647"
+      },
+      "fixture_sha256": "ee48f424a43d9dec5b90edfad8f0cf7fe222f30f5b14749889233fd863a41dc6",
+      "actions": 28,
+      "native_assertions": 143,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dishonor-blue-four-live-sparse965-actual-first-chain-exact-two-block-without-combo-power",
+        "fixture_slug": "card-dishonor-blue-four-live-sparse965-actual-first-chain-exact-two-block-without-combo-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mugenshi-release-yellow-four-live-sparse965-actual-first-chain-exact-four-block-without-combo-power-go-again",
+      "card_id": "mugenshi_release_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cecdd0809cb91aef760accdff5d9bc192328706600bdfd5a1ec87855298d70b5",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "a01568becc7e51c24d7a9864a80dd94c9b0673220cb2ae2ac8f2f8c6cd549ebf",
+        "expected_final_gamestate.txt": "e9bcdab14c9b89f0760df5aac7c60fa40593f2e3f7806fc5af9706c949747eef",
+        "meta.json": "4bf825efe7fd4e86c7806393da06a5647e58e270191a1908533e036061ce366f"
+      },
+      "fixture_sha256": "e4c8e3f815c9160dd0eb57b935daa21d5bfa9dc54ec7e27069f0ad8c51148d7b",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mugenshi-release-yellow-four-live-sparse965-actual-first-chain-exact-four-block-without-combo-power-go-again",
+        "fixture_slug": "card-mugenshi-release-yellow-four-live-sparse965-actual-first-chain-exact-four-block-without-combo-power-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-mauling-qi-red-four-live-sparse965-actual-full-block-no-hit-or-multiplayer-combo-damage",
+      "card_id": "mauling_qi_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "688c335d85a1fb8a7e6d2711cd060f0d1738fe6386ffcd27868d663d37770d89",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "9ee72324723c0a941f31a7974f96209623837eb479a6f153bf4b0659219e294d",
+        "expected_final_gamestate.txt": "2f2fdd9d6e1938776caed38deb4c4a8768f4a9126e64fbf54f6c23a1886b641b",
+        "meta.json": "9404605609abd0664b8f6c15bf7fded578d0f47ea06c39ff02b2177b8b6e6ff3"
+      },
+      "fixture_sha256": "06a9e08beeac112dc6c333a392bf8a818dfb3cdb6eceb546bf53763126ec4c2a",
+      "actions": 30,
+      "native_assertions": 177,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-mauling-qi-red-four-live-sparse965-actual-full-block-no-hit-or-multiplayer-combo-damage",
+        "fixture_slug": "card-mauling-qi-red-four-live-sparse965-actual-full-block-no-hit-or-multiplayer-combo-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-whirling-mist-blossom-yellow-four-live-sparse965-actual-first-attack-exact-two-block-printed-go-again-no-draw",
+      "card_id": "whirling_mist_blossom_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cd92df680fa94a648c7a2000c1901b29aba983c84b274f3ebdc57cea75d53a95",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "20eb17ad1f4ce3804d2d447a9ab2dfa9389d3ae065c40fa1472170a4b50d0934",
+        "expected_final_gamestate.txt": "90aee11cc5216756fa63c168285c8233420498bb205e5c562e4bab1ec8551e5e",
+        "meta.json": "20878379a62484411913aac74a94d4aa826a7680a6f5a3f70af601848a601408"
+      },
+      "fixture_sha256": "6a1819396f9ee8f56fe18aafd2ea2f67ec227450c3e298521daf8e32e7835926",
+      "actions": 29,
+      "native_assertions": 165,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-whirling-mist-blossom-yellow-four-live-sparse965-actual-first-attack-exact-two-block-printed-go-again-no-draw",
+        "fixture_slug": "card-whirling-mist-blossom-yellow-four-live-sparse965-actual-first-attack-exact-two-block-printed-go-again-no-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-take-the-tempo-red-four-live-sparse965-actual-full-block-preserves-real-top-deck-without-hit",
+      "card_id": "take_the_tempo_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1ed5bf0a1a9844c3dc8e05fbd53664fac6a7624eb898bfe65fd485a0019c9ab3",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "ab52d64aeb0cf3511bca3247ec6541749fc1b39b2fd9537ea79ec957372a8493",
+        "expected_final_gamestate.txt": "cc2c81a118b24e285ac08212efeb81ba9b8a46c05827cfb6c9bfa502fa4ca7a2",
+        "meta.json": "b3ab2ad5ed9b1d3663e1a3f652306bd6e0fc8e83eaf846e8a21c4c29d5634fcc"
+      },
+      "fixture_sha256": "707c0c48bcf1c56bbd74af3a6d2e9844104aacd563f8e5d82d4328c1a4eeca85",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse965-20261122.json",
+      "input_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-take-the-tempo-red-four-live-sparse965-actual-full-block-preserves-real-top-deck-without-hit",
+        "fixture_slug": "card-take-the-tempo-red-four-live-sparse965-actual-full-block-preserves-real-top-deck-without-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2bbb4b7f27301b221ea44417b33c04cc85cc680577645b43faaf3661844a8bc2",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached plain Ninja types and natural20 health match Fai, Katsu for Mugenshi own specialization and Ira Crimson Haze for Whirling own specialization. First fresh chain has no previous Bonds/Whelming Gustwave, so Dishonor+2 and Mugenshi+1/go again/static granted search are absent. WTRCards687 maps Mugenshi Combo prerequisite; CRUCards238 grants Ira+1 only on second attack, not first.",
+      "Actual source5 Hand targets adjacent Hero4 before payment; four cost1 cards use real Blue6/R2, Dishonor0/R0, AP0. Legal Generic NAA Lead Charge2 defense exactly blocks Dishonor2 and Whirling2; Lead2 plus Nimblism2 exactly blocks Mugenshi4. These declared actions are not played and grant no own go again. Two AA3+3 fully block Mauling/Tempo5. CardID/UID/Role/owner declaration and graveyard fate guards match actual shifted Hand refs.",
+      "All five zero damage/HP20/attackHit=false/Stack0 mean no hit event is earned, even on WHEN hit with a later IF. Katsu first-AA-hit ability is absent at zero damage. Whirling standalone go again restores AP1 only at RESOLUTION/final despite no hit; other four remain AP0. Full four live/manual priority flow and initial counts agree.",
+      "Mugenshi real eligible Lord of Wind Blue Deck9 retains CardID/UID/Owner1/Deck1; Tempo actual AA Deck9 retains same with Banish0. Mauling all three opposing HP remain20. These pin tested physical retention/no secondary damage, with printed positive search/draw/combo thresholds unexercised. Generated Hit producers verified for all five."
+    ],
+    "limits": [
+      "Only main payment/full block/negative Combo and first-Ira/exact defense/Whirling printed go again/physical retention. No exact unblocked power for blocked cases, positive combo/hit/hero ability/search/draw/replay/multiplayer damage/ability loss, independent Mauling or Tempo threshold isolation, other pitches or whole-card certification. Whirling no-draw suppression is not independently observable with empty own Deck. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse965-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "8b7ff5791064e9615c9972a02603823ca49bea3f25d2736063f865302f4faa0a"
+  },
+  "full_suite_run": false
+}

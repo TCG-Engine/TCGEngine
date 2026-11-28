@@ -1,0 +1,7 @@
+{
+    "name": "Flail of Agony / four-live alternate-cost weapon",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:02:04+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Vynnset Specialization**\n\n**Once per Turn Action** - {h}: **Attack**\n\nWhen this hits, create a Runechant token. Named branch actual_life_cost_full_block_no_runechant. Legal natural20 vynnset, actual Weapon5/no ownHand/resources/pitch. Adjacent Hero4 declared before alternate cost. Pay1life20to19 before priority; power1 versus actualWounding6def3 gives0damage/noHit/HP4=20/AP0/noRunechant. All4manual. Physical5 used andretained/sourceproxy WEAPON_UID5; actualblock6 ownedGGY4. No opaqueproxyUID, author-onlydiagnostics, positivehittrigger, hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flail_of_agony"
+}

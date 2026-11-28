@@ -1,0 +1,7 @@
+{
+    "name": "Visit Goldmane Estate / four-live third Gold and three Might",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:43:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Victor Specialization**\n\nCreate a Gold token. Then if you control 3 or more Gold, create that many Might tokens.\n\n**Go again** Named threshold-positive third-Gold/three-Might body only. Natural legal Victor20 owns primary5/actualBlue6, two existingGold7,8; initial legitimate HVY_VICTOR_DRAW1 explicitly means first Gold-creation hero draw already occurred earlier this turn, so no new hero trigger arises. Prior producer and hero branch unrecorded/uncredited. Deckmarker9WoundingBlue must remain. Native printedcost1 from actualpitch3 leavesR2/AP0, allfour manually respond whileGold2/source5Stack. Resolves by creating ownedGold10 then counting actual3Gold and creating exactly3ownedMight11,12,13. Source5ownedGY/GAAP1, noHand/Deckdraw/HP/RNGchange. NoGoldspending/hero/firstdraw/Clash/tokenproducerhistory/Mightconsumption/otherthresholds/support/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#visit_goldmane_estate_blue"
+}

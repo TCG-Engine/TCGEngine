@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cut-down-to-size-red-four-live-sparse954-actual-full-block-keeps-four-real-remaining-enemy-hand-cards",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cut-down-to-size-red-four-live-sparse954-actual-full-block-keeps-four-real-remaining-enemy-hand-cards",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2c316f6c3fa5d4d231bd8b1c5e985c3cc23533826f45417c51f7020002b066ce",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef915feb66c8edbcf754616cc33b9de0adfdc45767c47e84bcd4cc8d626e694e",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1198a53614eac9bfc1b2799e1476b5d978a2c04b700fb80c7be75efc6cf1210e",
+        "expected_final_gamestate.txt": "219f4a787a820836670019cab34429830d2cea16b437afe2d7f09bbedda0fe4e",
+        "meta.json": "328342d1f8473d7800ebc22b97adfa75926f6b9d344c03bfd78bb5e432e246f1"
+      }
+    },
+    {
+      "slug": "card-undercover-acquisition-red-four-live-sparse954-actual-full-block-preserves-real-enemy-item-without-steal",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-undercover-acquisition-red-four-live-sparse954-actual-full-block-preserves-real-enemy-item-without-steal",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4555a6c2a73868dc65d8d794979858243e9a435f6a969eeff7960cac1eedf0c4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8a4119394d326e2a3d32555d5f975567b9f91dae30ba720a84bbd3c8c5b0d5cc",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "3b64e95d99cf62da2cc71cf80ca52820b9931bf9bc6d59391b7cb51ba7882425",
+        "expected_final_gamestate.txt": "178139382be480471076600ab71ecf0272a2e09937e4756ed99943848cb6fa8a",
+        "meta.json": "0a6eb8ae8c261b0bbaf8528e07f17dfc7fd6d47d0a38b19aa3eb0cf22d6dd7da"
+      }
+    },
+    {
+      "slug": "card-fleece-the-frail-red-four-live-sparse954-actual-full-block-preserves-eligible-enemy-deck-without-contract",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fleece-the-frail-red-four-live-sparse954-actual-full-block-preserves-eligible-enemy-deck-without-contract",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5c31f06ec864f5e4c700fb525a0aa66aec2a824a00804c8dfd0ac8230e4d6baf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ce7c4888ece27e70ab51894c51835ead4a65f735baeada941337e512fd2b73d9",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "fb4981c22ee5e35d52ae75620f4a1698e4cd643667152a7965a6235472c6832c",
+        "expected_final_gamestate.txt": "729c59183bd17a3b88ee261c53e114b43b33c01ca2eebb7b3ad9525f94791905",
+        "meta.json": "47849609b4b8d215cceedb9c39a2b5812fbeefa4eafd30a4382a22d808e96f2b"
+      }
+    },
+    {
+      "slug": "card-pain-in-the-backside-red-four-live-sparse954-actual-full-block-no-dagger-damage-but-printed-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pain-in-the-backside-red-four-live-sparse954-actual-full-block-no-dagger-damage-but-printed-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6c17872f70e18b5c55e3ee5505e889618af0ebcc5db9154933ef9fb077b9d938",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cf74acfa4f102e4014751ba94b8599bd4aed31379fb726402410880c2ab70741",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "83836fb3d291678a006e28dc1548a61a914094248c5c6b241681df7e927535fb",
+        "expected_final_gamestate.txt": "b2d2f389c4309c986eb87e996eca34d66a80e084aed0f81ea587e9fa77a90fd5",
+        "meta.json": "a411bde7df5a9aed158d438aaac8c3d65e3bb6efc49cec813d7f1751939473b3"
+      }
+    },
+    {
+      "slug": "card-old-leather-and-vim-red-four-live-sparse954-actual-full-block-without-token-power-bonus-or-hit-creation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-old-leather-and-vim-red-four-live-sparse954-actual-full-block-without-token-power-bonus-or-hit-creation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse954-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "69e55551c7d0dcc8e80493d4409c5bc2865aaad3dba205ae64137c3a6751d763",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f52b5da1c91071b8cde8f5392b5842a756226b12ad0c5f886880c9179b54c1d0",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "8c3acc25cc3166fe5df2dec340fa8ef8d1ea43b3cb9ee16ddd616c1339d6ada4",
+        "expected_final_gamestate.txt": "089149a9168042fafef76c30a2501f67a2382f4982175df98b3084120576f932",
+        "meta.json": "b95f710e3dc93457f1257efc53afdf7ed46bd2cbcb5e5ec0c187547ce7e16bd7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

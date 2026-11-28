@@ -1,0 +1,110 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent cached-text/source/schema/flow review of packet authored by /root/breadth_review; Root native and exact saved checks",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse887-20261122.json",
+  "source_spec_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+  "input_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+  "recorded_input_scope": "Exact original native input, possibly containing unsaved failed cases excluded from this qualified subset; each retained case compared verbatim.",
+  "fixtures": [
+    {
+      "slug": "card-chart-a-course-red-four-live-sparse887-optional-island-counter-declined-then-actual-first-attack-earns-ten-damage",
+      "card_id": "chart_a_course_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ac549584976b3ffcf269ded38fbc3f6381546f65200c22fc76daffe7d098cdc5",
+        "actions.json": "55acd4002610205ecd7c25babeb1725168b94959aba28ce2911067e8c54b9fda",
+        "assertions.json": "5e7ebffebe0b7945a342cd9a2991ab250f0b3baa997a141ae61beb1226f2881b",
+        "expected_final_gamestate.txt": "3e6acb7b601dd05218a6726f8ba2544ea101e6ca6bbddd0347e0ac9b57efbe88",
+        "meta.json": "5be5785a4c487579253eacb2efc397aafcb1eccb1c267b4b035fcbea40d702ac"
+      },
+      "fixture_sha256": "8e9e3d66a938a156f11079e2390e5bf9966c5e17ec9aeca067e34c853d9586b9",
+      "actions": 34,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse887-20261122.json",
+      "input_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\save\\selected.json",
+      "real_primary_consumer_and_cost_uid_conservation": {
+        "Graveyard": [
+          5,
+          6
+        ],
+        "Pitch": [
+          7
+        ]
+      }
+    },
+    {
+      "slug": "card-perk-up-red-four-live-sparse887-declines-hero-untap-then-real-unboosted-mechanologist-attack-earns-eight-damage",
+      "card_id": "perk_up_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "db2f4e83c61a080d7431947017467f5e0266d13e46223d4c9dbf0ea481fa9553",
+        "actions.json": "8855d2765f7778059e4b82f4a8964f0ca43767c6a00d0b501112f74a5b64b2b7",
+        "assertions.json": "7471e2a21f7fbeaff412a7b025f4597d1b4240fbd7f8db985036067bb5801f82",
+        "expected_final_gamestate.txt": "0fc744ff761791729f31bc2eb48784e7ae00e2c93cd7c4b450d4796e10e85c5c",
+        "meta.json": "ea0a491a51b24465657a929bdb54e386cedb5d1709c90b4e035c6f8f5f8f1379"
+      },
+      "fixture_sha256": "d90d7e48f70ab1f2daf4ade860c07d4a4e762c90b9851f765e07c248e182d376",
+      "actions": 34,
+      "native_assertions": 169,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse887-20261122.json",
+      "input_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\save\\selected.json",
+      "real_primary_consumer_and_cost_uid_conservation": {
+        "Graveyard": [
+          5,
+          7
+        ],
+        "Pitch": [
+          6
+        ]
+      }
+    }
+  ],
+  "basis": {
+    "review_type": "independent_static_semantic_review",
+    "reviewer": "Root independent cached-text/source/schema/flow review of packet authored by /root/breadth_review; Root native and exact saved checks",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "284f999c4c856adf716e8df23c0faa3d913220f2792c1fa6528beef50eb79bd3",
+    "reviewed": [
+      {
+        "card": "chart_a_course_red",
+        "branch": "optional_island_counter_declined_then_actual_first_attack_earns_ten_damage"
+      },
+      {
+        "card": "perk_up_red",
+        "branch": "declines_hero_untap_then_real_unboosted_mechanologist_attack_earns_eight_damage"
+      }
+    ],
+    "evidence": [
+      "Chart unconditionally buffs actual first attack3; legalmodal0declinesoptionalcounter and there is noIsland. RealRaging7cost3blueUID7=>10damage, onlyprimaryGAfundsconsumer. No intrinsicIslandtrigger orGoldclause is exercised.",
+      "Perk realcost1blueUID6leaves2R, declineHeroUntap throughMZMULTIempty-, Heroalreadyready2. ActualunboostedZeroToSixty4+4=>8damage withDeck0; noBoostGA expected. HeroDash classlegal and no unrelateddrawtrigger.",
+      "Both start1AP0R, no buff history, natural20HP and realownedsource5/support6or7; allfour source/attack/combatpriority responses, no blockers, no prematureGA, realcostUIDs and actualP4health checked."
+    ],
+    "limits": [
+      "NoIslandcounter/intrinsic, untap-positive, Boost-positive, extraattack, blocks/reactions, alternativePitch orsupportCardcredit.",
+      "Root readsourceSpecs/printedmetadata/nativehelpers; no second independent saved-file review claimed."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse887-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "7016a6569347dfa7f455f9bb976f313a18dc0c94fd9824360d9afa28b56fca7d"
+  },
+  "full_suite_run": false
+}

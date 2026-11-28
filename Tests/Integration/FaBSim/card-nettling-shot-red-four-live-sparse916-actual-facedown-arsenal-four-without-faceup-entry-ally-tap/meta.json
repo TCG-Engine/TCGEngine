@@ -1,0 +1,7 @@
+{
+    "name": "Nettling Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:15:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is put face-up into your arsenal, you may {t} target ally. Representative only: actual_facedown_arsenal_four_without_faceup_entry_ally_tap. No face-up loading effect or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nettling_shot_red"
+}

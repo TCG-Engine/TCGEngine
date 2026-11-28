@@ -1,0 +1,7 @@
+{
+    "name": "Valiant Thrust / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:36:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you've **charged** this turn, this gets +3{p}. Representative only: actual_blue_cost_one_and_four_damage_without_unearned_charge_power. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#valiant_thrust_red"
+}

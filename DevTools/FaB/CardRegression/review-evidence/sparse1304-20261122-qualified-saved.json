@@ -1,0 +1,237 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1304-20261122.json",
+  "source_spec_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+  "input_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-olde-leather-boots-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "card_id": "olde_leather_boots",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a1257e893016846d24e0cfcf278ca54e617c8f7272bcfdc201becacf977b06c",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "71176c19bc0f7ced8f17fd56969fc62d62ee1d4bad609b21b26cb59246fdfb95",
+        "expected_final_gamestate.txt": "bdd058acb37e6f8044300ab349422add05190bf01fd1970aa1fea99af15b465c",
+        "meta.json": "fe53624d690db0b297174f1869d4fdb76cb40ec5fafcd89b1b5809a110844cc3"
+      },
+      "fixture_sha256": "1384d6cf4b806871a1d69a053eb996c9217339fffa7cc8f1f5cf7ec7adeb1039",
+      "actions": 28,
+      "native_assertions": 290,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1304-20261122.json",
+      "input_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-olde-leather-boots-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "fixture_slug": "card-olde-leather-boots-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-olde-leather-gloves-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "card_id": "olde_leather_gloves",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "117cba38e06d9a206ca155645b620f907de4f76fc084e107b5bb27a60630d747",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "78852721770a0547edef09ca33eeef3af59fdaa9b9ee1051fc32ee327ecf0965",
+        "expected_final_gamestate.txt": "46eb04621bd90db7bae4acc11dacd32d21b90635a27fe212fe96734f8d12a7a9",
+        "meta.json": "883f367f0f6f7c67e2c4fc67252917a1baf86fe83aebdb83c859238ce3ad9e67"
+      },
+      "fixture_sha256": "724858c7935728ba0b5ce15cf4af02374e08a042ee2d8bc9f8b91b3806447573",
+      "actions": 28,
+      "native_assertions": 290,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1304-20261122.json",
+      "input_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-olde-leather-gloves-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "fixture_slug": "card-olde-leather-gloves-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-olde-leather-helm-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "card_id": "olde_leather_helm",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0763dbcd3e36649724abf1ab9bc2222622259c5a7afa56506e1c40e89c9c2177",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "842631554d3ce3b1b985a584262f4d32d72b0693b2f3253005bc04690b1877ba",
+        "expected_final_gamestate.txt": "b526aea691133ac9fbddda8917a311a57fc835b824bec6fe24450ee5b01f0679",
+        "meta.json": "f061726a87ee97809f54f690429f9ada0c80d675743bdc37b620158b1982d7f1"
+      },
+      "fixture_sha256": "44e50fe7f53ece67842b3807c8de4bca8572ae8daca937f4d700ea6d65785c91",
+      "actions": 28,
+      "native_assertions": 290,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1304-20261122.json",
+      "input_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-olde-leather-helm-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "fixture_slug": "card-olde-leather-helm-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-olde-leather-plate-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+      "card_id": "olde_leather_plate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a23d0e2431fd5dedeb47cca33dc815f4edec5224e3026a06acccc027ebe068d4",
+        "actions.json": "509bcdea7fbc462f31160b22cad73dd3280882251ac65e0f9dee57fac574ee78",
+        "assertions.json": "c1f4b17f0c2d31ea1389f41687f16fd943535b893d0a3d607ecf0fb82c27b054",
+        "expected_final_gamestate.txt": "2744bbf933de49eebfb24a0afc3d38a0e4efe1b9df14a1bc4d81b0cf2aaf474b",
+        "meta.json": "19dfce1d3b89898fdab773d2fee0c6592df46b36ea9926e61f2f0c9340356f80"
+      },
+      "fixture_sha256": "6099df1d3d555a4d61c60fc4e70f90c583388afe5fc52f4fa0ac06ed715fb424",
+      "actions": 28,
+      "native_assertions": 290,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1304-20261122.json",
+      "input_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-olde-leather-plate-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "fixture_slug": "card-olde-leather-plate-four-live-sparse1304-first-attack-zero-defense-and-real-blade-break",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "85b53692f2dcd4d935cf1fd1359b6f81769673922f08b43144859da87a70b2d7",
+    "source_note_sha256": "81753ed8a3dd827bd8ac9ca7a41d2aabd49c95e6b62de57890633633e4940fea",
+    "case_count": 4,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 112,
+    "query_checks": 1160,
+    "persistable_assertions": 1160,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FIRST_ATTACK_NO_TWO_ATTACK_BONUS_AND_POSITIVE_BLADE_BREAK_ONLY",
+    "two_attack_bonus_credit": false,
+    "equip_permission_credit": false,
+    "per_case": [
+      {
+        "card_id": "olde_leather_boots",
+        "group_id": "identity:olde_leather_boots",
+        "native_controls": 28,
+        "persistable_assertions": 290
+      },
+      {
+        "card_id": "olde_leather_gloves",
+        "group_id": "identity:olde_leather_gloves",
+        "native_controls": 28,
+        "persistable_assertions": 290
+      },
+      {
+        "card_id": "olde_leather_helm",
+        "group_id": "identity:olde_leather_helm",
+        "native_controls": 28,
+        "persistable_assertions": 290
+      },
+      {
+        "card_id": "olde_leather_plate",
+        "group_id": "identity:olde_leather_plate",
+        "native_controls": 28,
+        "persistable_assertions": 290
+      }
+    ],
+    "basis": [
+      "FourdistinctuncoveredGenericstandaloneEquipment slotgroups\u2014OldeLeatherBoots/Gloves/Helm/Plate\u2014notpitchsiblings. Eachpriorlegalequippedactual6owned/controller4 undernaturalYoungDori20, versusactualattackerYoungDori20 andtwootherYoungDori20/exact1234/manualUPF/no passives. NoWeapon/slotconflict, entry/equippermission claim orHeroability. Authoredstructuraltemplateonly; nooldrecordingcopied.",
+      "ActualWoundingBlow5Hand printedcost0/base4 declaresadjacentHero4, spendsAP1to0/R0 andwaitsallfourfreshsource/combatresponses. Freshfixture/nohistory/effectseed hasonlythisfirstattackagainst4, so printed ifyouhavebeenattacked2+times conditionfalse. OwnbaseDEF0 remains0; actualphysical6defendsCC RoleDEFENSE/FromEquipment withoriginalUID/owner/controller, noabstractdefenseseed. Numeric0defense islegalblock, and actual4physicaldamage/HP16 independentlypinszero ratherthan+2.",
+      "AllfourprintedBladeBreak entries are present in BOTH cachedcard_keywords andactualGeneratedCardDictionaries card_keywordsData, unlikeheldBloodiedShield. CardCard_keywords\u2192PENPrintedKeywords\u2192objectFaBKeywords exposesBladeBreak toCleanupResolvedLink; DESTROY_ON_CHAIN_CLOSE makesactualsame6ownedGY4 onfullclose, notreturnEquipment/proxyretirement. Thisispositiveprintedkeywordverificationplanned.",
+      "Completeattack5GY1/equipment6GY4/allAPR0/UID6RNG0/emptyStackDQsCC andfourmanualwindows alignwithdeclaredsetup. EveryselecteddefenseValue0/damage4/posthitHealth16 remainsstrict. All1160 query/state/power/go_again assertions persist across112controls,28/290each. Author donor now correctlyreads preservedunrunstructuraldraft proposed-before-shield-hold.json[1], notfiltered1303singlecase; currentauthorhashbound."
+    ],
+    "limits": [
+      "Semantic/source review only pending newnative saves/replays; no nativepass/replay/coveragecredit claimed.",
+      "Onlyfirstattackfalse2-attacks+2guard andactualBladeBreak. No positive2-attackbonus/turnhistory/equipentry/Hero/support/fullcardcredit. No historicalfixtures re-reviewed orrun.",
+      "Only W receipt written; no games/tests/replays/T orengine edits/auth/network/originalcheckout/Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1304.py": "80fec4a9a097171bea8516621c28df02ca7c0a4907025af071c6ccd015d1dce6",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1304-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "e6a5f052738dc91960a6577449c7f71656c539852be824bacb864ae0a080cae8"
+  },
+  "full_suite_run": false
+}

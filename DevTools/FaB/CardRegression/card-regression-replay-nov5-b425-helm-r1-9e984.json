@@ -1,0 +1,29 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch425.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T06:36:08.004138+00:00",
+  "fixtures": [
+    {
+      "slug": "card-myrkhellir-helm-four-live-sparse-real-paid-next-gold-draws-two-with-retained-tail",
+      "fixture_sha256": "0c38e985a686100278b534a80be24a72e1a2e91cae1c03ffea92cc1eb88e1446",
+      "passed": true,
+      "result": "[PASS] myrkhellir_helm / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-myrkhellir-helm-four-live-sparse-real-paid-next-gold-draws-two-with-retained-tail",
+      "returncode": 0,
+      "stdout": "[PASS] myrkhellir_helm / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-step-between-red-four-live-sparse-real-paid-hero-tap-instant-lock-and-unpreventable-five-damage"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

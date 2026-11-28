@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T21:50:54.624410+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse970-20261122.json",
+  "source_spec_sha256": "c7c48da857b4b8c066ba8cb81b0cf04c0c9e9ab534a757f2ba785132c7819cb0",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 125,
+  "native_assertions": 719,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4617,
+    "duels": 3075,
+    "four_live": 1542,
+    "recorded_primary_ids": 1765,
+    "identity_denominator": 5196,
+    "recorded_groups": 1639,
+    "group_denominator": 3324,
+    "four_live_groups": 1531,
+    "phase_qualified_scenarios_at_actual_contexts": 1254,
+    "phase_qualified_unique_groups": 1244,
+    "creation_replay_passes": 1996,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 415,
+  "scenarios": [
+    {
+      "card_id": "conqueror_of_the_high_seas_red",
+      "group_id": "identity:conqueror_of_the_high_seas_red",
+      "scenario_id": "card-conqueror-of-the-high-seas-red-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "effect_branches": [
+        "actual_blue_and_yellow_payment_false_high_tide_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-conqueror-of-the-high-seas-red-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "source_spec": "card-regression-sparse970-20261122.json",
+      "source_spec_sha256": "c7c48da857b4b8c066ba8cb81b0cf04c0c9e9ab534a757f2ba785132c7819cb0",
+      "review_evidence": "review-evidence/sparse970-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f720d66363664e46041bf8c85ed248d4f8fb1d0c1ca7dc5010c9a972cd1444e0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse970-20261122-replay.json",
+          "sha256": "0fbef2c9d99d1d0fdd4ea7bdcaab1d0c85cd487e159d8985795c820621ffefe6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hms_barracuda_yellow",
+      "group_id": "identity:hms_barracuda_yellow",
+      "scenario_id": "card-hms-barracuda-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "effect_branches": [
+        "actual_blue_and_yellow_payment_false_high_tide_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hms-barracuda-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "source_spec": "card-regression-sparse970-20261122.json",
+      "source_spec_sha256": "c7c48da857b4b8c066ba8cb81b0cf04c0c9e9ab534a757f2ba785132c7819cb0",
+      "review_evidence": "review-evidence/sparse970-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f720d66363664e46041bf8c85ed248d4f8fb1d0c1ca7dc5010c9a972cd1444e0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse970-20261122-replay.json",
+          "sha256": "0fbef2c9d99d1d0fdd4ea7bdcaab1d0c85cd487e159d8985795c820621ffefe6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hms_kraken_yellow",
+      "group_id": "identity:hms_kraken_yellow",
+      "scenario_id": "card-hms-kraken-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "effect_branches": [
+        "actual_blue_and_yellow_payment_false_high_tide_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hms-kraken-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "source_spec": "card-regression-sparse970-20261122.json",
+      "source_spec_sha256": "c7c48da857b4b8c066ba8cb81b0cf04c0c9e9ab534a757f2ba785132c7819cb0",
+      "review_evidence": "review-evidence/sparse970-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f720d66363664e46041bf8c85ed248d4f8fb1d0c1ca7dc5010c9a972cd1444e0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse970-20261122-replay.json",
+          "sha256": "0fbef2c9d99d1d0fdd4ea7bdcaab1d0c85cd487e159d8985795c820621ffefe6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "hms_marlin_yellow",
+      "group_id": "identity:hms_marlin_yellow",
+      "scenario_id": "card-hms-marlin-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "effect_branches": [
+        "actual_blue_and_yellow_payment_false_high_tide_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-hms-marlin-yellow-four-live-sparse970-actual-blue-and-yellow-payment-false-high-tide-full-block",
+      "source_spec": "card-regression-sparse970-20261122.json",
+      "source_spec_sha256": "c7c48da857b4b8c066ba8cb81b0cf04c0c9e9ab534a757f2ba785132c7819cb0",
+      "review_evidence": "review-evidence/sparse970-20261122-qualified-saved.json",
+      "review_evidence_sha256": "f720d66363664e46041bf8c85ed248d4f8fb1d0c1ca7dc5010c9a972cd1444e0",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse970-20261122-replay.json",
+          "sha256": "0fbef2c9d99d1d0fdd4ea7bdcaab1d0c85cd487e159d8985795c820621ffefe6",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

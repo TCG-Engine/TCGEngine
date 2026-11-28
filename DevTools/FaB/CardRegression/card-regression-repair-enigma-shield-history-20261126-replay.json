@@ -1,0 +1,57 @@
+{
+  "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+  "fixtures": [
+    {
+      "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+      "passed": true,
+      "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "da261e692378a02ff52b6bce791aade3324257ff95ccec0ba9d41caa9dd79063",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "passed": true,
+      "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "e17b01ba38a7e04e3257ee1789756b0eeb4fd9ceb14427a5fd15799474d4c7e2",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+      "passed": true,
+      "runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\enigma219\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "b317d7b65ad5c3cdc5af22f05f4aaa7c0e651cb86a0865d9dd159fc31364b68a",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

@@ -96,8 +96,10 @@ WithP1SpaceArena: ASH_159:1:0:JTL_018
 ## EXPECT
 P1SPACEARENAUNIT:0:CARDID:ASH_159
 P1SPACEARENAUNIT:0:ADVANTAGECOUNT:0
-#// No "Give an Advantage token" prompt in front of the regroup resource step.
-P1DECISIONTOOLTIP:Resource_up_to_1_card
+#// No "Give an Advantage token" prompt in front of the regroup resource step: the regroup reached the resource step
+#// (P2 holds the initiative, so P2 is asked first — CR 5.4.c) and P1 has nothing pending.
+P2DECISIONTOOLTIP:Resource_up_to_1_card
+P1NODECISION
 
 ---
 

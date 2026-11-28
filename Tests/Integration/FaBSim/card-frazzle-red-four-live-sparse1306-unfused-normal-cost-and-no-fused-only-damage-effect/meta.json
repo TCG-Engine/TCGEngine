@@ -1,0 +1,7 @@
+{
+    "name": "Frazzle / actual unfused damage and fused-only effect guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:13:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_LIVE_MANUAL_UPF_UNFUSED_ONLY. NaturalYoungLexi20legalElementalRanger/EssenceIceLightning; admittedpriorfaceupArrow5Arsenal1andrequiredDeathDealer8Weapons1/Status2retainedneveractivated. ActualGenericCriticalStrikeRed6onlyHand1canpitch1paynormal1butcannotrevealIceorLightningFusion; Hand1emptyafteractualpitch/R0/AP0. RealadjacentDoriHero4takesprinted5physicaldamageHP15. OriginalBlue7Hand4retained, allArena0/noFrostbite/extraUID; Buzz/FrazzleHP15excludeswrongfusedadditional1damage. Noearnedfusedattackeffect. Allfourfreshsource/combatresponses andsource5ownGY1/funder6Pitchifany/UID8/RNG0/APR0/StackDQsCCclean. NoFusionpositive/arcane/Frostbite/extraPing/damageReplacement/Hero/Bowproducer/secondary/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frazzle_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ELECards.php FaBSim/Custom/ELEAbilities.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

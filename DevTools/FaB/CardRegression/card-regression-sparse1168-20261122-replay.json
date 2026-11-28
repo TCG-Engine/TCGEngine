@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-the-muse-red-four-live-sparse1168-foreign-aura-replaces-real-draw-with-owned-ponder-not-deck-movement",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-sigil-of-the-muse-red-four-live-sparse1168-foreign-aura-replaces-real-draw-with-owned-ponder-not-deck-movement",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1168-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1168-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b5476a19eeed722c86ad27f23bd38483b0e01826f0d9dbe4cec201f2ae40456e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7dcf77364f5f1c86487dfd19593ad7add0b09f7e6fec9176a611a8a91014ab5",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "a7d0de815bf3df56ecf406dab2239a08d765d92c9b2f01c2dc331f845e6425d6",
+        "expected_final_gamestate.txt": "e36213e7dd33dc098f034d7f5429f7dbda895b28a3d6c7684fd206cd792c1723",
+        "meta.json": "7d67361b3947aceb58ecab08ba93068b067c6139020b128e444b6904f4b7d8de"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

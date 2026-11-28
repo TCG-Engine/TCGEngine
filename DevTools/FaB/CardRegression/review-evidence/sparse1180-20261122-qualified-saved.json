@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent corrected frozen packet/current source review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1180-20261122.json",
+  "source_spec_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+  "input_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+      "card_id": "fealty",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "26812fd194592e0d567f33fb995927a0283118eebc650c0f4de17de431361a48",
+        "actions.json": "0cd0118a6cef86f5ccd53f9b0bc67782fae6f4a80d0cad327d530667a51ddf49",
+        "assertions.json": "41d7232af2aa983dc6417d9b8f97fa0b06c4bdbb62ae333f4dd5ad754add8ce9",
+        "expected_final_gamestate.txt": "724534f79450bf4127444e11f3b990aabf7ec81a9f08fff32b1e0afc16d3d616",
+        "meta.json": "33ed851d6be8415a1945b0bf1e3dc63dc2f576f8405352563964bfd8bb9e36db"
+      },
+      "fixture_sha256": "3c14a523bfe13eb49ab92f2e1c19a0cbd0f9e62dc866964fe841f26d9d336ee5",
+      "actions": 54,
+      "native_assertions": 389,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 50,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1180-20261122.json",
+      "input_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1180-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+        "fixture_slug": "card-fealty-four-live-sparse1180-real-next-card-draconic-earns-phoenix-flame-power-through-chain-history",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "breadth_review independent corrected frozen packet/current source review",
+    "spec_sha256": "c7903fb6b147731f44f819d0d29a9b5f388208ce04d0299d1e79c6e4e1616e3d",
+    "case_count": 1,
+    "native_controls": 54,
+    "persistable_assertions": 389,
+    "author_only_checks_omitted": 0,
+    "card_id": "fealty",
+    "group_id": "identity:fealty",
+    "superseded_unexecuted_spec_sha256": "8895cd16ccf02436c8ef56a97c9055093a374410ee495716e9a900b46083315b",
+    "basis": [
+      "Uncovered primary group/no exact named ledger hold. Legal young Fai20/three Dorinthea20; admitted prior Fealty5, real HeadJab6 and Phoenix7 in Hand. No Fai Hero ability activation, return callback, starting graveyard Flame producer or current history seed.",
+      "HNTRuntime4 explicitly supplies Instant0/destroy cost. Actual native Arena5 click creates ABI8, destroys physical Fealty5/token ceases before four manual PRIORITY responses, leaves AP1/R0. Direct generated Fealty ResolveAbility adds FEALTY_NEXT independent of departed physical token; no asynchronous source lookup or foreign-caster branch is used.",
+      "HNTRuntimePlayed53 consumes FEALTY_NEXT on the next actual HeadJab6 play and tags that physical card FAI_DRACONIC. EffectiveCardType322 recognizes this additional type. Head Jab has no printed Draconic type; printed cost0/power3/GoAgain and no hit trigger match the four-source-response/actual3damage/HP17/AP1 oracles.",
+      "The corrected packet stops first combat at RESOLUTION1, with combatOpen true and HeadJab6 still p1CombatChain-0. GL2547 grants printed go again before this priority; cleanup2586-2599 does not remove a normal attack. It deliberately does not pass through full close/ResetWindowState, which would clear chain context.",
+      "GL994-996 admits Phoenix Attack from open-chain RESOLUTION. Actual next Hand7 target4/payment consumes AP1 to0, source receives four new PRIORITY responses; GL1981/1989 moves it to p1CombatChain-1/ChainLink2, retaining prior HeadJab6 at CC0.",
+      "FaiCards3-10 counts both own RoleATTACK links via EffectiveCardType, so converted Draconic Head6 plus printed Draconic Phoenix7 satisfy two links. Generated Phoenix attackPowerModifier31880 returns1 at count>=2. Actual computed1/GoAgaintrue, physical CC1 UID7 and actual1damage/HP16 demonstrate the type effect through an external consequence rather than only a private marker.",
+      "Final Phoenix resolution grants printed GA AP1; four final resolution responses close the whole combat chain, yielding owned GY[6,7], no Fealty token in GY/Arena, no Stack/CC/DQs/payment, R0/Random0/UID8, other heroes20. No mandatory entry/play/hit/leave observer is omitted in the exact source/hero/card setup.",
+      "All394 declared checks are persistable; no author-only diagnostics or contradictory checkpoint values. Current native recorder62-69 binds power/go_again to actual state.attackUID, hence persists Phoenix CC1 as intended.",
+      "Narrow focused-chain target correction: current FaBAttackableSeats184-193 restricts UPF attacks on an open chain to existing defender4; FaBLegalAttackTargets722 enumerates only that Hero because no Ally is present, and ClaimOrRequestAttackTarget775 returns the singleton directly. Root also verified official TRP9.3 focused-hero rule at the cited primary URL. Thus the Phoenix click actually announces/pays without another target menu. The earlier review assumption of a fresh chooser was incorrect; no gameplay outcome has been weakened or fitted."
+    ],
+    "qualification_evidence_mapping_requirement": "Satisfied by reviewed W common.review line11 q.attack_ref precedence; its explicit Phoenix CC1 checks are unchanged by this correction. Existing step/default fallback retained, native recorder current-attack reference unchanged.",
+    "source_sha256": {
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988"
+    },
+    "limits": [
+      "Pending Root native execution, exact saved-query review with correct active-attack references and targeted clean replay; reviewer made no native or T/source change.",
+      "Only named positive Fealty next-card Draconic conversion and actual two-link Phoenix power consequence. No Fealty creator/endphase/expiry/third card, Fai activation/starting setup, original held Hero return route, support/sibling/full-card or global frame/lifetime repair credit.",
+      "Head is retained on the open chain in this recipe, not departed to Graveyard; departedChainTypes support was inspected but is not independently exercised before Phoenix. The earlier ACTION/closed-chain draft remains unexecuted and unapproved."
+    ],
+    "superseded_attempted_spec_sha256": "e6cfce3d6b9684acf0cd507da78c58d3c13cf8376ce6aba6cb8e9726f912287a",
+    "prior_independent_review_sha256": "9019ba89faa3ca7df7e630c8be4f1b9037bc895e1f2451b290c01c15c4810a94",
+    "focused_target_oracle_correction_review": {
+      "classification": "RULE_AND_CURRENT_SOURCE_SUPPORTED_UI_ORACLE_CORRECTION_NOT_ENGINE_BUG",
+      "official_rule": "Tournament Rules and Policy9.3: UPF focused hero on the same combat chain",
+      "official_rule_url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "official_primary_read": "Verified by Root; reviewer used supplied rule statement plus exact current local target filters, no network call.",
+      "exact_delta": "Unchanged old steps0-43 including real Phoenix click; remove old target-check44 and answer45. Reuse old paid-check46 with added defender4/pendingAttackTarget null, then preserve every old step47 onward exactly. Setup, identity, Fealty grant, open RESOLUTION boundary, CC1 power/GA, costs/damage3+1/HP16/AP1 and all fates unchanged.",
+      "old_raw_spec_sha256": "e6cfce3d6b9684acf0cd507da78c58d3c13cf8376ce6aba6cb8e9726f912287a",
+      "old_review_preserved": "independent-review-before-focused-target-correction.json",
+      "old_review_sha256": "9019ba89faa3ca7df7e630c8be4f1b9037bc895e1f2451b290c01c15c4810a94",
+      "author_reported_failed_attempt": "29 native inputs, no fixture; preserved under failed-attempt-focused-target. No reviewer rerun/readjusted game output.",
+      "native_controls_before_after": [
+        55,
+        54
+      ],
+      "persistable_checks_before_after": [
+        394,
+        389
+      ]
+    },
+    "qualification_evidence_mapping_review": {
+      "path": "qualification-evidence-mapping-review.json",
+      "sha256": "dfac6d3a20ca1ce19f0e74a70acd4a5d2560e6b72adb49f330e0372dfc7a013f",
+      "current_helper_sha256": "c3acd204397562fda7c6d259fd33496a458626f387a45c31cf3dc328cb30ab98",
+      "status": "satisfied_no_native_or_spec_change"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1180-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c7fba0bd46f8c7607112414cf0ea2885a4f7fc4041ec1562529f1bd34d5e4956"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,439 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B410_TWO_NEW_FOUR_LIVE_REPRESENTATIVES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T02:17:14.495418+00:00",
+  "source_spec": "card-regression-batch410.json",
+  "input_sha256": "ae375cbb2085f5e566ca0e8a1d532d06328959681eb44375a28ca4ba1bbaede6",
+  "manifest_sha256": "baf88295fabbdf7ce71480d4549687681319d55b2de675108e77b96ccdaaaf6e",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 58,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch410-independent-source-review.json",
+    "sha256": "ca9eff1d0326cdcb4083cb98824aaa3fb500e671aac4ed201434e4dec3d2c0b2",
+    "reviewer": "/root/b106_semantic_review",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch410-20261105T021301Z-6aebe62d15e83.json",
+    "sha256": "28b84dfba3215c410f6296c8798ea4efa2f935e7505a9a150ea35add22b258c5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-b410-native-9e984-r1\\receipt.json",
+    "sha256": "1ba21989ad9a68b64989c15498484f386dd8a2bfd34745b64ecb1c44b024da5f"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch410_saved_readonly.py",
+    "sha256": "2537d29144cb19cd66bff5a7f11d131270ceeeb6f30093ad1aab7f2f701e3476"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Reviewer authored neither recipes/implementation nor native recording; prior independent source/rules gate reused without rerunning a gameplay model.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "tide_flippers",
+      "group_id": "identity:tide_flippers",
+      "slug": "card-tide-flippers-four-live-sparse-real-arcane-barrier-one-paid-by-blue-and-equipment-retained",
+      "source_spec": "card-regression-batch410.json",
+      "input_sha256": "ae375cbb2085f5e566ca0e8a1d532d06328959681eb44375a28ca4ba1bbaede6",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-tide-flippers-four-live-sparse-real-arcane-barrier-one-paid-by-blue-and-equipment-retained",
+      "fixture_sha256": "ea5812b7a2c80c6a678a16b9fdabab4366e7101b01763e4ea8ab40a6e3c0716a",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "baa7af9c7006c010817e9f89d4b0e97f7d2e7d96875c0a47656858885c20dc84",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "879f3e391b136f2327a0b6e9af39dc50bbe8cf1bbfdb21c03560fa13fcbef57f",
+        "expected_final_gamestate.txt": "11e7b91ab4153f528a5bfdf8b5c14c048cde28b122956e6d4609418779942947"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "baa7af9c7006c010817e9f89d4b0e97f7d2e7d96875c0a47656858885c20dc84",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "879f3e391b136f2327a0b6e9af39dc50bbe8cf1bbfdb21c03560fa13fcbef57f",
+        "expected_final_gamestate.txt": "11e7b91ab4153f528a5bfdf8b5c14c048cde28b122956e6d4609418779942947",
+        "meta.json": "e04b08e2c9f539d23d512008a1f38118d50c48d54df4502178ee3449e8714569"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "baa7af9c7006c010817e9f89d4b0e97f7d2e7d96875c0a47656858885c20dc84",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "879f3e391b136f2327a0b6e9af39dc50bbe8cf1bbfdb21c03560fa13fcbef57f",
+        "expected_final_gamestate.txt": "11e7b91ab4153f528a5bfdf8b5c14c048cde28b122956e6d4609418779942947",
+        "meta.json": "e04b08e2c9f539d23d512008a1f38118d50c48d54df4502178ee3449e8714569"
+      },
+      "actions": 8,
+      "native_assertions": 787,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 231,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "ira_crimson_haze",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "tide_flippers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "ira_crimson_haze",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "tide_flippers",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Pitch",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        2
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "final_effect_source_context": {
+        "mzID": "Stack-0",
+        "cardID": "zap_red",
+        "caster": 1,
+        "physical_source_uid": 6,
+        "target": 4
+      },
+      "checkpoint_assertion_mapping_sha256": "dbb0fce29f1f4572b70116ea0d28ebd5f678d3e947a99548b2af8411d9bf20fb",
+      "native_action_mapping_sha256": "ad3b87c293ebf8b69fa1b1022501a00fbf1465e68701fb4271ea5a457a6c12e6",
+      "native_assertion_mapping_sha256": "dc2fee882537f878bffdc382995448d5184f12237e4a58610cc80bc3fdaa5abf"
+    },
+    {
+      "index": 1,
+      "card_id": "spell_fray_leggings",
+      "group_id": "identity:spell_fray_leggings",
+      "slug": "card-spell-fray-leggings-four-live-sparse-real-optional-spellvoid-one-destroys-owned-legs-and-prevents-one",
+      "source_spec": "card-regression-batch410.json",
+      "input_sha256": "ae375cbb2085f5e566ca0e8a1d532d06328959681eb44375a28ca4ba1bbaede6",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-spell-fray-leggings-four-live-sparse-real-optional-spellvoid-one-destroys-owned-legs-and-prevents-one",
+      "fixture_sha256": "da143870897297c7c3581f7150d44c86ae6d942c18b4dc1bff21968f155f92d2",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "eb65a8247a675a4acd356987ab73869927497bb97e100afa956c104f6e14b4f7",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "d01ca8382324c9deb68211432c91ab3c2a489d6f30c2c1456b9f1ab328c9cd7b",
+        "expected_final_gamestate.txt": "4f47d6fe5a7342a59f31f667be3ff1bad63dc60d380d3c35b61bc3d5a70fd4b6"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eb65a8247a675a4acd356987ab73869927497bb97e100afa956c104f6e14b4f7",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "d01ca8382324c9deb68211432c91ab3c2a489d6f30c2c1456b9f1ab328c9cd7b",
+        "expected_final_gamestate.txt": "4f47d6fe5a7342a59f31f667be3ff1bad63dc60d380d3c35b61bc3d5a70fd4b6",
+        "meta.json": "3c0005e9a71c486186a1b25cfd0cc9b871b5a29a00c73147ca047f8cd4e969a3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "eb65a8247a675a4acd356987ab73869927497bb97e100afa956c104f6e14b4f7",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "d01ca8382324c9deb68211432c91ab3c2a489d6f30c2c1456b9f1ab328c9cd7b",
+        "expected_final_gamestate.txt": "4f47d6fe5a7342a59f31f667be3ff1bad63dc60d380d3c35b61bc3d5a70fd4b6",
+        "meta.json": "3c0005e9a71c486186a1b25cfd0cc9b871b5a29a00c73147ca047f8cd4e969a3"
+      },
+      "actions": 7,
+      "native_assertions": 686,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 173,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "spell_fray_leggings",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "spell_fray_leggings",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "final_effect_source_context": {
+        "mzID": "Stack-0",
+        "cardID": "zap_red",
+        "caster": 1,
+        "physical_source_uid": 6,
+        "target": 4
+      },
+      "checkpoint_assertion_mapping_sha256": "28fcdfea3c82fde22f2f6247adf701d65f509b4e886a8d095e8464ffc47df8db",
+      "native_action_mapping_sha256": "8b735d1fc5863a6cbada9e39b64c43d4dec078fc35b6ae3225023504b2cbcf80",
+      "native_assertion_mapping_sha256": "7e15e9f718820f8bdf768601ed9ada41f4f302014ec57f3bdc3702c7a713c4f7"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 15,
+  "total_native_assertions": 1473,
+  "total_manual_passes": 8,
+  "total_priority_response_passes": 8,
+  "total_schema_property_assertions": 404,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "Tide: actual real Zap6 targetP4/printed0/AP1to0; four live source responses lead to owner4 numeric Barrier modal. Actual index1 opens actual Blue7 effect-pitch choice while Zap6 remains Stack/HP20. Blue7 really transfers Hand to Pitch for3, pay1 leaves P4R2, actual remaining2arcane givesHP18. Same Equipment5 complete raw record is unchanged/ready/counterless, no reaction activation or AP refund; no extra ABI/token allocated. Final source context is still Zap/Stack-0, not funding Pitch7.",
+    "Spell Fray: actual zero-Barrier board skips payment modal and source fourth response opens only optional owner4 MZMAYCHOOSE Equipment5. Same5 is destroyed to owned public GY4/prevents1, actual remaining2arcane givesHP18/allresourcesAP0. No new ability/extra response round/token/once marker; source6 stays Stack through the optional choice and finishes to own public GY1 only after resolving damage. Final source context remains Zap/Stack-0, not sacrificed Equipment5.",
+    "Both saved rawfive sets, all15 native envelopes/1473 persisted oracles/404cardproperty assertions and exact source-response actors1,2,3,4 independently compared. All48 preference values at each endpoint per case, complete physical unique UID/owner/controller inventories, no synthetic initial history, actual caster1\u2192victim4 arcane2 history and full queues/frame/Stack/payment/chain cleanup verified at actual9e984/all58guards."
+  ],
+  "limits": [
+    "Only selected positive AB1 payment and Spellvoid1 destruction against one real Zap3 packet. Tide targeted Attack Reaction/go-again grant unactivated and uncredited; no decline/unpreventable/failed-destruction/other prevention amount/multiple sources/later packet/hero or support-primary/sibling claims.",
+    "Both full raw snapshots are initial/final. Intermediate facts are exact passed native assertions and envelopes; no invented full intermediate snapshot/private PC or raw await-local capture. Shared final mzID Stack-0 is completed effect context, not a live final Stack object.",
+    "Copied source metadata contains historical pre-native pending wording; actual proof above supersedes only that stage status, never retags it as a later replay/registration result.",
+    "Root targeted replay and registration results remain separate and are not claimed here. No PHP/native/replay/R/source/service/gen/fullsuite/optional simulation/denied089090 retry or reroute by reviewer."
+  ]
+}

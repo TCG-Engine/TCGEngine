@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-burn-up-shock-red-four-live-sparse1201-real-left-go-again-attack-hit-separate-four-arcane-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-burn-up-shock-red-four-live-sparse1201-real-left-go-again-attack-hit-separate-four-arcane-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1201-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1201-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "062ed43c1eaaca2d59198ad4da2d84fee5632ff13e2a7e104029de08fff81a72",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49f558a8152af437075c98d2df353ded66ff27af21ae9fa7f4a2f081bdf17321",
+        "actions.json": "cf56bd0eb0d6a6a9dc57126a892cde53576854a640a8d8e7f5565aae6ff76098",
+        "assertions.json": "3ccec938ec5f487d0a616c9e1aa287babced88abec4fa93ef3df7b901bdd4a3d",
+        "expected_final_gamestate.txt": "ea2036f9e0714e2670d86c0f05aa26093637a873ef9340017239c12badd6f4bc",
+        "meta.json": "c6f444d040effcd99d68665fcec64937815eaf273f207035892226865d964751"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

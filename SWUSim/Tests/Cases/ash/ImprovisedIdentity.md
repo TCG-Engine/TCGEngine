@@ -331,8 +331,8 @@ P1OnlyActions: true
 - P1>AnswerDecision:YES
 - P1>AnswerDecision:theirBase-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:theirGroundArena-0
 
@@ -943,8 +943,8 @@ WithP2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
 - P1>AnswerDecision:-
 - P1>AnswerDecision:NO
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>UseUnitAbility:myGroundArena-0
 - P1>AnswerDecision:SOR_095

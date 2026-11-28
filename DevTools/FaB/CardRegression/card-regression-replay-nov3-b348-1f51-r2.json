@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch348.json",
+  "runtime_sha256": "1f5122763a098fc452b0d810b2131d979a18b39e8a26633f59541507ea78de80",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T16:44:00.824097+00:00",
+  "fixtures": [
+    {
+      "slug": "card-avast-ye-blue-four-live-sparse-real-paid-pirate-ally-attack-earns-go-again-after-full-block",
+      "fixture_sha256": "3a1f9ae88005c0d1b868e0ae042a928207cb649dc761cddd6c6fb8d4c6f70485",
+      "passed": true,
+      "result": "[PASS] avast_ye_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-avast-ye-blue-four-live-sparse-real-paid-pirate-ally-attack-earns-go-again-after-full-block",
+      "returncode": 0,
+      "stdout": "[PASS] avast_ye_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

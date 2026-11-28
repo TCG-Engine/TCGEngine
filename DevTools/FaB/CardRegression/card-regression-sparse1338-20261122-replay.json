@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spring-tidings-yellow-four-live-sparse1338-arsenal-blocked-no-hit-and-real-go-again-funded-second-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spring-tidings-yellow-four-live-sparse1338-arsenal-blocked-no-hit-and-real-go-again-funded-second-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1338-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1338-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10531b533aced805bd555a4af642bea5d5f9099a0be4d1646462fcab0d9d1074",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86e1fa74f47d930f1687ea41128768dd8bf8250ba162eb639d30bbccfda13af3",
+        "actions.json": "1d318c0a15d7bb8d999766ddfdfcb4e964f29972cd94bb1557ea7934d3b04c83",
+        "assertions.json": "8d892509dc7e07de619e4ba74d804dfd71a0f229fe7007c1bde43bc09372e600",
+        "expected_final_gamestate.txt": "08e32c8a426df91b0a70d9db3d12cb5948be9c2bf38bf3d69906dd67218f7a74",
+        "meta.json": "a8fe59e2913902f73e132c25b1ef786c1175c56cd0afb4fdbbdfefacd007bb63"
+      }
+    },
+    {
+      "slug": "card-wander-with-purpose-yellow-four-live-sparse1338-arsenal-blocked-no-hit-and-real-go-again-funded-second-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-wander-with-purpose-yellow-four-live-sparse1338-arsenal-blocked-no-hit-and-real-go-again-funded-second-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1338-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1338-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ceef7a6dbae094138ba057e2183d3af051815f929bb378cbc126c19f8f5e1e7a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d28389a6bb644c92930c434e91340e0c98ccc3613b4365389dd7427607e62910",
+        "actions.json": "1d318c0a15d7bb8d999766ddfdfcb4e964f29972cd94bb1557ea7934d3b04c83",
+        "assertions.json": "004edc1e9e18f8e61cbae3098e99728abdc7aead447799555de6253e85252710",
+        "expected_final_gamestate.txt": "58cfcc3f81541fce273a01c2291739191184e76d3f09206c14c2dc7a9adcb49c",
+        "meta.json": "99f16778dec0bafae375973843d63ff1301d3230044b4f29baef3606035f6eb0"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

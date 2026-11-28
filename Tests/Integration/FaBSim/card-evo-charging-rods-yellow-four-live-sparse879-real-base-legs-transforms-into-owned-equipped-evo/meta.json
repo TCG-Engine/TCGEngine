@@ -1,0 +1,7 @@
+{
+    "name": "Evo Charging Rods / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:37:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If you have a base legs equipped, **transform** it into this, then equip this.\n\n**Once per Turn Instant** - Destroy a card under this: Create a Quicken token.\n\n**Blade Break** Representative only: real_base_legs_transforms_into_owned_equipped_evo. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#evo_charging_rods_yellow"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Suraya, Archangel of Knowledge / Ward4 and invocation front after real physical damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T19:00:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "WARD4/MAXCAP/OWNEDINVOCATIONFRONTONLY. FourmanualYoungDori20x3/Prism20. LawfulpriorSurayaKnowledge5Arena4/owned4ready with DYN_SURAYA1 and all-ownedSUBCARDS[spectral_shield], froma resolved priorInvokeSuraya transformation. No currentproducercredit. Actor1actualGenericRaging6power7/realBlue7pitch3pays3/AP1to0, formalHero4beforepayment, allfourmanualsourceandcombatrounds. No defender, so actualmandatoryWardreplacementbeforeDamageasks4tousephysical5. Destroy5prevents4of7, real3physicaldamage/HP4=17. Suraya neverattacksordealsdamage, thereforeherWHENattack/lifegainnotearned. DYNLeaving261revertsphysical5toInvokeSurayaYellow; existingGameLogic861skipsTokenSUBCARDSexport. ExactoneownedGY4front5 andnoShieldGY/newUIDpinscardfate, allotherHP20/APR0/RNG0/UID7/noStackDQsCC. No attack/arcane/lifegain/producer/foreignmaterial/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#suraya_archangel_of_knowledge FaBSim/Custom/DTDCards.php FaBSim/Custom/MSTCards.php FaBSim/Custom/DYNCards.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

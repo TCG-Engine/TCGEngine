@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch330-correct-cost-probe.json",
+  "runtime_sha256": "1daa11cf3f32ac4901117d5e77ed6a59719489436c447845669b58264f494cb5",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T16:34:31.297970+00:00",
+  "fixtures": [
+    {
+      "slug": "card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "fixture_sha256": "beb1034d4925eb3fc8926328078c4d416a2617cabf44795c297091a2f3cef49e",
+      "passed": true,
+      "result": "[PASS] ebon_fold / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-ebon-fold-four-live-original-correct-paid-destroy-before-response-hand-banish-shadow-draw-resolution-probe",
+      "returncode": 0,
+      "stdout": "[PASS] ebon_fold / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixture only",
+  "omitted_source_scenarios": [],
+  "qualification": "One targeted clean replay only; not full inventory."
+}

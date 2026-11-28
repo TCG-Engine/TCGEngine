@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch755.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T23:03:03.238190+00:00",
+  "fixtures": [
+    {
+      "slug": "card-plate-of-tough-love-four-live-real-confidence-toughness-three-defense-four-damage-bladebreak",
+      "fixture_sha256": "607f55fdf2f17c1304247c1ed7b26167e125a7d2ce8ca076d03a43aebf42ed65",
+      "passed": true,
+      "result": "[PASS] plate_of_tough_love / four live distinctive effect"
+    },
+    {
+      "slug": "card-raw-meat-four-live-real-agility-might-two-defense-five-damage-and-temper-counter-retention",
+      "fixture_sha256": "22928a5b93246f86adae2a3b98f24ba00e2dd4b348a2eeb52ea9b00cfd2d5596",
+      "passed": true,
+      "result": "[PASS] raw_meat / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-plate-of-tough-love-four-live-real-confidence-toughness-three-defense-four-damage-bladebreak",
+      "returncode": 0,
+      "stdout": "[PASS] plate_of_tough_love / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-raw-meat-four-live-real-agility-might-two-defense-five-damage-and-temper-counter-retention",
+      "returncode": 0,
+      "stdout": "[PASS] raw_meat / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

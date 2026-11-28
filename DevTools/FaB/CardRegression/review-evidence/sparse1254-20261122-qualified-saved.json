@@ -1,0 +1,115 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1254-20261122.json",
+  "source_spec_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+  "input_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "card_id": "dust_from_the_chrome_caverns_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1a25e93ce9fcf881342e380a1dcabc8b525e8e689b39eff862f805eb8b0ab5e3",
+        "actions.json": "8cdb4ee03a8a0656d861a8d8df7d137be033749d9bf1b37fa1dd0aa0f513e98d",
+        "assertions.json": "42b4e1ebbb79dde0983c2043f441f2d284eead594e4be5ca858461a4bb5573be",
+        "expected_final_gamestate.txt": "db0f5f8f7c8df1b2139bb9125b5ccdd260b3761180a0d89d9f48ecbdf695d206",
+        "meta.json": "9f10651ec6f6e873c15530fb924794b8b917866a85124e871c6698480232e8d1"
+      },
+      "fixture_sha256": "3ccf5834f971d0c0e31c5dada5cef29c83bf246d365354394878ecf4acca5ce8",
+      "actions": 23,
+      "native_assertions": 332,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1254-20261122.json",
+      "input_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "fixture_slug": "card-dust-from-the-chrome-caverns-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+      "card_id": "dust_from_the_fertile_fields_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d8f8fdf40edcd0b587a12b0b758db7444b5233584d7bdb79b0a66af529f43a67",
+        "actions.json": "8cdb4ee03a8a0656d861a8d8df7d137be033749d9bf1b37fa1dd0aa0f513e98d",
+        "assertions.json": "5da1ab240fa23ddabbdc9b849195f53a396b9e7947b25700ab316d08f6017969",
+        "expected_final_gamestate.txt": "006699ec07e81b82463858b9d1a8eaae657a25f281a851cbd472006661025b59",
+        "meta.json": "7960a8732fb009ba6c2f21a2d6c0dc3c404070df34856bb1e4e3b4ab1f357d59"
+      },
+      "fixture_sha256": "bcc7576be0d2b156dd18646eb975aacfcdccb023d77af77cba673aad35773c29",
+      "actions": 23,
+      "native_assertions": 332,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 17,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1254-20261122.json",
+      "input_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "fixture_slug": "card-dust-from-the-fertile-fields-red-four-live-sparse1254-real-kyloria-transform-material-phantasm-pop",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d75164e1a7ea780deb251dcba0a0f90a65f67c5c6113386e77a809d722e84228",
+    "source_note_sha256": "bb4310d9dd4cc316df3ad8660eafafea47f8a7d06b451a22ac5bbb5c78d09ec8",
+    "case_count": 2,
+    "native_controls": 46,
+    "query_checks": 664,
+    "persistable_assertions": 664,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_SPECIFIC_ASH_MATERIAL_UNDER_NON_EXEMPT_DRAGON_PHANTASM",
+    "basis": [
+      "Two distinct named primary Dust Ash materials: Chrome excludes Cromai and Fertile excludes Ouvia. Kyloria is neither exception, is a Dragon Ally and has no printed Phantasm. Current DYNMaterialPhantasm tests exact DYN_ASH identity and exact excluded host name with UPR_ASH present. Each primary is a Draconic Illusionist Ash lawful under natural Young Dromai20; all other natural young Dorinthea seats20 are manual/live. No current-turn history or permission is seeded.",
+      "Both complete step/check sequences are structurally identical to previously reviewed1246 after only rebind of ash identity in physical source5 and DYN_ASH. Each begins with the real standalone owned primary5Arena, Invocation6Hand1, Blue7Hand1, real six-power non-Illusionist Brutal8Hand4, and actual Storm of Sandikai9Weapons1. Empty counters on5 exclude seeded material effect. Storm is the real Dragon attack permission required by MONArenaAttackSpec.",
+      "Actual Invocation declares only real owned Ash5, Blue7 pitches3/pay1 leavesR2 and spendsAP1, then all four fresh responses resolve actual physical Invocation6 into Kyloria with same UID. UPRTransform consumes source5 and records exact DYN_ASH primary plus UPR_ASH1/UPR_FRONT; no material UID preservation/export is credited. Red Invocation play actually earns go again/AP1 and Dromai red-play Dragon go again, while blue pitch avoids additional Ash creation.",
+      "Actual host6 taps and spendsAP1 to attack adjacent Hero4 through Storm permission. Proxy10 SourceUID6 becomes power4 attack after all four manual responses. UPRAttack reads material from real host6 and grants proxy MON_PHANTASM through exact DYN helper; no Miragai, printed host Phantasm or other granter exists.",
+      "Real Brutal Assault8 from Hand4 declares defense with printed power6 and no Illusionist type. MONPhantasm queues ability11 Source10 while host6 and proxy10 still survive; explicit checks preserve both before each later seat response. All four fresh DEFEND_PRIORITY responses precede resolution. UPRPhantasm destroys realhost6, MON removes proxy10 and cleans link without damage or go again refund; realhost6 restores Invocation front in owner1 graveyard.",
+      "Final source5 is consumed as encoded material, physical Invocation6GY1/Brutal8GY4/Blue7Pitch1 and readyStorm9 retained, HP20all/AP0/R2, UID11/RNG0 and empty Stack/four decision queues/combat chains match limited outcomes. Each332 checks contains only recorded native assertions, state, power and go_again; all664 persist."
+    ],
+    "limits": [
+      "Semantic/spec approval only pending actual native recording and each targeted replay. No native success or coverage credit claimed by reviewer.",
+      "Only actual specific material transformation under non-exempt Kyloria and granted Phantasm pop by six-power non-Illusionist defender. Respective Cromai and Ouvia exceptions are expressly untested. No primary play from Hand/go again, material producer/retrieval/export, less-than-six blocker, multiple materials or ability removal, Dragon hit, hero/support/sibling or whole-card credit.",
+      "Only W review receipt written; no native/test execution, T/source/repository edits, authentication, network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1254-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ea83b7293fcdd861dee4576e09844ed842dcf3582f7932764bdd472777096986"
+  },
+  "full_suite_run": false
+}

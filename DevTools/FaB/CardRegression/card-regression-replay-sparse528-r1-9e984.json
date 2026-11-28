@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch528.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T22:03:49.495088+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gold-hunter-marauder-yellow-four-live-real-opponent-gold-overpower-rejects-second-action-and-deals-three",
+      "fixture_sha256": "47d30e4007d3648e4074f82b3042dc9f87ae952e744f84767498ddca7292abef",
+      "passed": true,
+      "result": "[PASS] gold_hunter_marauder_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gold-hunter-marauder-yellow-four-live-real-opponent-gold-overpower-rejects-second-action-and-deals-three",
+      "returncode": 0,
+      "stdout": "[PASS] gold_hunter_marauder_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T05:05:10.951136+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1313-20261122.json",
+  "source_spec_sha256": "3c00f05dfbef4d3d3a154dd44dd506dee05ed393a8a79008bc1547b88b92ed80",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 441,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5251,
+    "duels": 3097,
+    "four_live": 2154,
+    "recorded_primary_ids": 2399,
+    "identity_denominator": 5196,
+    "recorded_groups": 2273,
+    "group_denominator": 3324,
+    "four_live_groups": 2143,
+    "phase_qualified_scenarios_at_actual_contexts": 1888,
+    "phase_qualified_unique_groups": 1878,
+    "creation_replay_passes": 2630,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1049,
+  "scenarios": [
+    {
+      "card_id": "turn_heads_blue",
+      "group_id": "identity:turn_heads_blue",
+      "scenario_id": "card-turn-heads-blue-four-live-sparse1313-real-two-suspense-entry-and-instant-preserves-action-for-attack",
+      "effect_branches": [
+        "native_three_resource_instant_enters_with_two_suspense_preserves_action_for_real_attack_without_earning_leave_tap"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-turn-heads-blue-four-live-sparse1313-real-two-suspense-entry-and-instant-preserves-action-for-attack",
+      "source_spec": "card-regression-sparse1313-20261122.json",
+      "source_spec_sha256": "3c00f05dfbef4d3d3a154dd44dd506dee05ed393a8a79008bc1547b88b92ed80",
+      "review_evidence": "review-evidence/sparse1313-20261122-qualified-saved.json",
+      "review_evidence_sha256": "1993b1475c55de0fc577da2d9d07564e92ef0b084628a70b4e10879a2976c350",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1313-20261122-replay.json",
+          "sha256": "1e1677a1ae5f80350d5b95e02205455df3a4171c3f9dd1b8ef9843da49bca8ed",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch301.json",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T07:05:14.468615+00:00",
+  "fixtures": [
+    {
+      "slug": "card-swiftstrike-bracers-four-live-sparse-real-nimblism-play-earns-destroy-action-next-attack-nine-damage",
+      "fixture_sha256": "9caa31706e513853e7673789e2114ad5c16694bce452e01f928b9e4ef14fa143",
+      "passed": true,
+      "result": "[PASS] swiftstrike_bracers / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-swiftstrike-bracers-four-live-sparse-real-nimblism-play-earns-destroy-action-next-attack-nine-damage",
+      "returncode": 0,
+      "stdout": "[PASS] swiftstrike_bracers / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

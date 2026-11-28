@@ -1,0 +1,68 @@
+{
+  "status": "BASTION180_NATIVE32_907_SAVED_ONE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root Saved review and independent b820 Source review",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+  "input_sha256": "034275bead0f0973e8d028bfbb0a8d4a0e9e39000d7ea09cc4ca50f1cb7d9eb1",
+  "source_spec": "card-regression-repair-bastion180-earned-prevention.json",
+  "fixtures": [
+    {
+      "slug": "fab-reg-180-battlefront-bastion-blue-four-live-earned-sole-defend-prevention-real-damage",
+      "card_id": "battlefront_bastion_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6eabc6dc91e9b9503f8faeaf881f9528a0eb2b58cb8c9b7e0c278b0212cbb980",
+        "actions.json": "465ff0175c83c7b1c8a001c2e360ac8e22e5401858e099eba67ed5c05167773f",
+        "assertions.json": "e8798a7b96264382cc010c039d28e52c5899ee534bcfc8c757a9812a45a01008",
+        "expected_final_gamestate.txt": "3541b11855462f28746ea128210f483f818a4ea01c1fab53f5026443d9ca6e8c",
+        "meta.json": "d652b428357ebc1156feaacf8bd95313bfc714f31b692072ce5ff090b73f1050"
+      },
+      "fixture_sha256": "8cd44bd6bf5f7cc8b7fea51fe339267581e8c259b8e4eddba17f08de55e20390",
+      "actions": 32,
+      "native_assertions": 907,
+      "author_only_checks_not_persisted": [
+        {
+          "step": 24,
+          "check": {
+            "kind": "defense",
+            "value": 2
+          }
+        }
+      ],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+      "runtime_sha256": "1bd95499390b68f5440f573b5b485a0c4ab79cecb2aecddc5d985b2892648c01",
+      "source_spec": "card-regression-repair-bastion180-earned-prevention.json",
+      "input_sha256": "034275bead0f0973e8d028bfbb0a8d4a0e9e39000d7ea09cc4ca50f1cb7d9eb1"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-bastion180-replay.json",
+    "sha256": "190a4792409712c073fb66680407b0dd5e6b5117b6cf766c5a2e44447c2db384",
+    "passed": true
+  },
+  "independent_source_review_sha256": "fc69454bcf31e35651ef0c254b1cff9dc62e0c8770b87af764350747b5f0b479",
+  "component_receipt_sha256": "88c4ecc3533748823c56d8f32f954dd2ab991863bcdbb6300dc72370f346b87c",
+  "components": 14,
+  "basis": "Original12 controls/868checks prefix unchanged; old noSave diagnostic retained. Actual formal sole Bastion6 defense earns responseable layer. Added fresh4 responses retain no prevention throughfirst3; onlyfourth createsPREVENT1. ActualRed4minusphysicalBlueDEF2minusprevent1 deals1/P4HP19; normalDamage/Resolution four-seat continuations reach truefullcloseRed5/Bastion6GY, no extra physicalUID. All32nativeactions/907savedassertions and one additional author-only direct defense check pass. Actualcaller components prove old inline update is lost to cached-state store (Source evidence), while real Stack layer survives. No new GL state refresh/094/Core/generated workaround.",
+  "review_adapter": {
+    "path": "nov16_saved_repair_review_common.py",
+    "sha256": "3cd87847e74d9183550c054cc69aab5cb99fb0602f43c5860a0e6868cf9450ce",
+    "source_derived_bulk_counts": {
+      "control16": 8,
+      "control17": 8
+    },
+    "basis": "After earned4, existing DEFEND_PRIORITY4 +REACTION4 reachesDamage. Existing DAMAGE4+RESOLUTION4 closes. Explicit32actualinputs, allactors and exactqueryboundary indices validated; no fixture/Source action synthesis or output-derived quantity."
+  },
+  "queue_api_erratum": {
+    "receipt_sha256": "36cfb6c0a7b538051153fdf002d3ae48940c9a760afdaea9b13ae3de3187a003",
+    "effect": "One new all-queue query expanded into4explicitseats, adding3strongerchecks. Originalprefixandgameplayunchanged. FirstattemptdidnotinitializeGame; diagnosticcollector masked knownpreflighterror. No passingcredit fromthatattempt."
+  },
+  "limits": [
+    "Only original Bluepositive formal soledefend/earnedprevention/realDamage/fullclose branch qualified; no RGBsiblings/multipledefenders/foreigncontroller/sourcegone Native credit.14 actual-function controls isolate those alternatives.",
+    "One direct computed defense semantic check is author-only because existing recorder does not persist kind:defense; physicalBlueCardID/quantity and actualdamage1 remain durably asserted.",
+    "No full-suite/historical corpus, stage/commit/push/deploy or denied/generation operation."
+  ]
+}

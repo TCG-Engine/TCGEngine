@@ -1,0 +1,184 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T22:09:40.311382+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse975-20261122.json",
+  "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+  "new_scenarios": 5,
+  "new_groups": 5,
+  "new_primary_ids": 5,
+  "actions": 148,
+  "native_assertions": 869,
+  "manual_passes": 125,
+  "totals": {
+    "saved_registered_scenarios": 4641,
+    "duels": 3075,
+    "four_live": 1566,
+    "recorded_primary_ids": 1789,
+    "identity_denominator": 5196,
+    "recorded_groups": 1663,
+    "group_denominator": 3324,
+    "four_live_groups": 1555,
+    "phase_qualified_scenarios_at_actual_contexts": 1278,
+    "phase_qualified_unique_groups": 1268,
+    "creation_replay_passes": 2020,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 439,
+  "scenarios": [
+    {
+      "card_id": "static_shock_red",
+      "group_id": "pitch-cycle:static_shock",
+      "scenario_id": "card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+      "effect_branches": [
+        "actual_full_block_without_hit_or_arcane_event"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-static-shock-red-four-live-sparse975-actual-full-block-without-hit-or-arcane-event",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "review_evidence": "review-evidence/sparse975-20261122-qualified-saved.json",
+      "review_evidence_sha256": "10fab3d092596b72fb538aa586a9f291e7566fe5c4b84a09339957220e445064",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse975-20261122-replay.json",
+          "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "runic_reclamation_red",
+      "group_id": "identity:runic_reclamation_red",
+      "scenario_id": "card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+      "effect_branches": [
+        "actual_full_block_keeps_eligible_aura_without_hit_or_runechant"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-runic-reclamation-red-four-live-sparse975-actual-full-block-keeps-eligible-aura-without-hit-or-runechant",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "review_evidence": "review-evidence/sparse975-20261122-qualified-saved.json",
+      "review_evidence_sha256": "10fab3d092596b72fb538aa586a9f291e7566fe5c4b84a09339957220e445064",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse975-20261122-replay.json",
+          "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "annihilate_the_armed_red",
+      "group_id": "pitch-cycle:annihilate_the_armed",
+      "scenario_id": "card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+      "effect_branches": [
+        "actual_full_block_keeps_real_attack_deck_without_contract_banish_or_silver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-annihilate-the-armed-red-four-live-sparse975-actual-full-block-keeps-real-attack-deck-without-contract-banish-or-silver",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "review_evidence": "review-evidence/sparse975-20261122-qualified-saved.json",
+      "review_evidence_sha256": "10fab3d092596b72fb538aa586a9f291e7566fe5c4b84a09339957220e445064",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse975-20261122-replay.json",
+          "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "plunder_the_poor_red",
+      "group_id": "pitch-cycle:plunder_the_poor",
+      "scenario_id": "card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+      "effect_branches": [
+        "actual_full_block_keeps_low_cost_deck_without_contract_banish_or_silver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-plunder-the-poor-red-four-live-sparse975-actual-full-block-keeps-low-cost-deck-without-contract-banish-or-silver",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "review_evidence": "review-evidence/sparse975-20261122-qualified-saved.json",
+      "review_evidence_sha256": "10fab3d092596b72fb538aa586a9f291e7566fe5c4b84a09339957220e445064",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse975-20261122-replay.json",
+          "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "slay_the_scholars_red",
+      "group_id": "pitch-cycle:slay_the_scholars",
+      "scenario_id": "card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+      "effect_branches": [
+        "actual_full_block_keeps_non_attack_deck_without_contract_banish_or_silver"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-slay-the-scholars-red-four-live-sparse975-actual-full-block-keeps-non-attack-deck-without-contract-banish-or-silver",
+      "source_spec": "card-regression-sparse975-20261122.json",
+      "source_spec_sha256": "e5004e554c5c8e64c7a653b430654167a2f38e34d63d876d35a2ccd5ab025a6d",
+      "review_evidence": "review-evidence/sparse975-20261122-qualified-saved.json",
+      "review_evidence_sha256": "10fab3d092596b72fb538aa586a9f291e7566fe5c4b84a09339957220e445064",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse975-20261122-replay.json",
+          "sha256": "7ea1c7f3a4421aed66784d54bf6479ab75db3156d70395f650f4d7a4bf658a48",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Gesture of Goodwill / printed defending trigger genuinely unearned",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:26:56+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Actual Generic Block defends its own Hero4, not another Hero; a real Gold token owned/controller4 exists but no gift is earned. Real4attack gets actual3defense, deals1damage, and full physical combat closes. No positive ability or token creation history credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gesture_of_goodwill_blue FaBSim/Custom/GameLogic.php#FaBDeclareBlock FaBSim/Custom/SUPCards.php#FaBSUPDefended"
+}

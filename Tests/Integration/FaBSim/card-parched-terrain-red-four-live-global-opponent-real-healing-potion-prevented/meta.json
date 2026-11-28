@@ -1,0 +1,7 @@
+{
+    "name": "Parched Terrain / real opposing Healing Potion gain is globally prevented",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T11:37:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NormalpositiveSourcecandidate/fullSavegatespending. FouractualmanualYoungFai1/Betsy2,3,4/printed20each; realcurrentHero4HP17/printedstartinglife20_NOTmaximumcap, initialP4MAIN/AP1/R0. OnephysicalParched5Auraowner1Arena1validmidgame/priorInstantcastuncredited. Opponent4actuallyactivatesownedphysicalHealingPotion6: printedAction0/destroythisCOST, AP1to0/physical6ownGY4BEFORESourcefour; managedARCAbilitycapturescontroller4/source6/virtualUIDunpredicted. Firstthreelegalresponsesactors4,1,2retainHP17/AP0; fourthactualGain2attemptfollowsrealEVRcanonicalCRUGainLife4,2, globalParchedanylivecontrollerpreventsAddHealthsoHP4stays17insteadofunobstructed19. PrintedPotionGArefundactualAP4=1aftercompletionevenpreventedheal. FullterminalownAura5persists1/Potion6GY4/Rall0/AP4one/HP20,20,20,17/StackDQclear/stillP4Action. No globalpreventflag/seedheal/healthcap/owner-onlytest/helper/sourcewaiver/unprintedtap. HistoricalB93positivePotion20to22existsaspreciselabeledpriorcontext(actions/assertions/metaidentical,2statehashesdifferentnotassumedequivalent), currentactualdispatchguarded; no newpositivehealingpreprobeorcurrentlegacyreplayclaim. No P1endphase/Sand/redbanishupkeep/otherlifecases/multicopies/priorcast/fullcard/supportcredit. Sources: https://rules.fabtcg.com/en/cr/06-effects/"
+}

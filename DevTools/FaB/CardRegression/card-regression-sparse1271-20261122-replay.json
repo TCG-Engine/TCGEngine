@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dash-io-two-live-sparse1271-real-top-item-as-instant-additional-resource-and-once-limit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1271-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1271-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7af4a2d84156f7b375a08ad3f36c4480ed67d0e382ebb5ff2245aa591d4daf24",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "294a2e4876f74f2ec860edb9036730ac960eac4717a69dfc65f21115441b4006",
+        "actions.json": "97810e205d7164ac48a317fecf33a4ead1f1f9686dc27a764cae403ae22c0d59",
+        "assertions.json": "0d04e26d3719802fa92b186f7895fcf439e7e47aecafe08cf9ab59640d5f173a",
+        "expected_final_gamestate.txt": "2e5d1e5f3bf4d9c7ff9c07a81aba414576e121d19142887aaa2c707d498c0835",
+        "meta.json": "14d707ff7a630c21d9d7609a9b06720ef7811f3becdb57033857ab81298ff370"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

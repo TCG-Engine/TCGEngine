@@ -1,0 +1,310 @@
+{
+  "issue_id": "FAB-REG-226",
+  "batch": 1424,
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "classification": "CONFIRMED_NATIVE_PREPARE_CHARGE_CHOOSER_NONEXISTENT_LIVE_HAND_REFERENCE",
+  "related_prior_issue": "FAB-REG-025",
+  "related_prior_extension": "FAB-REG-087",
+  "new_distinct_gameplay_root_credit": 0,
+  "root_deduplication_note": "Same observed persisted save-choice reference family; exact missing caller/remapper guard not localized here. Prior bounded fixed scopes retained unchanged.",
+  "source_spec_sha256": "6ce581d4107ccbad0521d8926c674d2eb22c5038a0f170a4baebe1c3cefc5acc",
+  "independent_prerun_review_sha256": "a3d3bc68d9068751879b61350b087169fa48916ab8b388b634bf7c1c30397255",
+  "native_receipt_sha256": "5e6878ca65fc9c32220022fbd4b581be6ebf895cacc57dbddb7293a40fcd4e1e",
+  "native_returncode": 1,
+  "native_attempted": true,
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "attempts": [
+    {
+      "primary": "light_the_way_red",
+      "slug": "card-light-the-way-red-four-live-sparse1424-real-red-charge-no-yellow-reward-and-charged-aa-defense-damage",
+      "status": "blocked_or_incorrect",
+      "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0', got 'p1Hand-1'.",
+      "attempted_actions": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 100,
+          "buttonInput": "",
+          "cardID": "p4Hero-0",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "setup_completed": true,
+      "observed_state": {
+        "window": "PITCH",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": {
+          "player": 1,
+          "uid": 5,
+          "cost": 0,
+          "fromZone": "Hand",
+          "kind": "ATTACK",
+          "returnWindow": "ACTION",
+          "returnCombatStep": "NONE"
+        },
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": [],
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": [],
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false
+          }
+        }
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZMAYCHOOSE",
+            "Param": "p1Hand-1",
+            "Block": 1,
+            "Tooltip": "Charge_your_soul",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "light_the_way_red:0:PrepareCard-await|light_the_way_red:0:PrepareCard#1|4|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [
+          "p1Hand-0"
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          "p4Hand-0"
+        ]
+      },
+      "initial_gamestate_text": "1\r\n0\r\n1\r\nboltyn 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\nlight_the_way_red 5 1 1\r\nwounding_blow_red 6 1 1\r\n0\r\n0\r\n1\r\nwounding_blow_red 7 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+      "initial_gamestate_sha256": "b9ef3fc573fb9d151093618c6a83b91f3c1e4e83220930c6ef7922e31affdca9"
+    },
+    {
+      "primary": "spirit_of_war_red",
+      "slug": "card-spirit-of-war-red-four-live-sparse1424-real-red-charge-no-yellow-reward-and-charged-aa-defense-damage",
+      "status": "blocked_or_incorrect",
+      "error": "Expected p1DecisionQueue-0.Param to equal 'p1Hand-0', got 'p1Hand-1'.",
+      "attempted_actions": [
+        {
+          "playerID": 1,
+          "mode": 10002,
+          "buttonInput": "",
+          "cardID": "p1Hand-0!FSM",
+          "chkInput": [],
+          "inputText": ""
+        },
+        {
+          "playerID": 1,
+          "mode": 100,
+          "buttonInput": "",
+          "cardID": "p4Hero-0",
+          "chkInput": [],
+          "inputText": ""
+        }
+      ],
+      "setup_completed": true,
+      "observed_state": {
+        "window": "PITCH",
+        "combatOpen": false,
+        "combatStep": "NONE",
+        "chainLink": 0,
+        "attacker": 0,
+        "defender": 0,
+        "attackUID": 0,
+        "attackTarget": null,
+        "pendingAttackTarget": null,
+        "previousAttackCardID": "",
+        "handBlockUIDs": [],
+        "intimidated": [],
+        "pendingPayment": {
+          "player": 1,
+          "uid": 5,
+          "cost": 0,
+          "fromZone": "Hand",
+          "kind": "ATTACK",
+          "returnWindow": "ACTION",
+          "returnCombatStep": "NONE"
+        },
+        "lastAttackName": "",
+        "attackHit": false,
+        "attackPower": 0,
+        "defenseValue": 0,
+        "damageDealt": 0,
+        "declaredBlockUIDs": [],
+        "passiveSeats": [],
+        "gameMode": "UPF",
+        "turnEffects": [],
+        "nextTurnEffects": [],
+        "hitsThisTurn": [],
+        "cardsPlayedThisTurn": [],
+        "arcCards": {
+          "5": {
+            "iarOrigin": 1,
+            "mstChiPitched": 0,
+            "rosMeld": -1,
+            "rosSurgeGo": false,
+            "evoDashPlay": false
+          }
+        }
+      },
+      "observed_decisions": {
+        "1": [
+          {
+            "Type": "MZMAYCHOOSE",
+            "Param": "p1Hand-1",
+            "Block": 1,
+            "Tooltip": "Charge_your_soul",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 0,
+            "_sourceZone": null
+          },
+          {
+            "Type": "CUSTOM",
+            "Param": "spirit_of_war_red:0:PrepareCard-await|spirit_of_war_red:0:PrepareCard#1|7|chosen",
+            "Block": 1,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 1,
+            "_sourceZone": null
+          },
+          {
+            "Type": "PASSPARAMETER",
+            "Param": "1",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 2,
+            "_sourceZone": null
+          },
+          {
+            "Type": "SYSTEM",
+            "Param": "PlayCard_AfterAction",
+            "Block": 99,
+            "Tooltip": "",
+            "DontSkipOnPass": 0,
+            "removed": null,
+            "Location": "DecisionQueue",
+            "PlayerID": 1,
+            "mzIndex": 3,
+            "_sourceZone": null
+          }
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "observed_hand_refs": {
+        "1": [
+          "p1Hand-0"
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          "p4Hand-0"
+        ]
+      },
+      "initial_gamestate_text": "1\r\n0\r\n1\r\nboltyn 2 1 1 0 1 - -\r\n1\r\ndorinthea 2 2 2 0 2 - -\r\n1\r\ndorinthea 2 3 3 0 3 - -\r\n1\r\ndorinthea 2 4 4 0 4 - -\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\nspirit_of_war_red 5 1 1\r\nwounding_blow_red 6 1 1\r\n0\r\n0\r\n1\r\nwounding_blow_red 7 4 4\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n20\r\n20\r\n20\r\n20\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n1\r\n0\r\n0\r\n0\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n{\"version\":1,\"holdPriority\":true,\"windows\":{\"BLOCK\":false,\"ATTACK_REACTION\":false,\"DEFENSE_REACTION\":false,\"ACTION_PRIORITY\":false,\"INSTANT_PRIORITY\":false,\"ATTACK_PRIORITY\":false,\"DEFEND_PRIORITY\":false,\"OTHER_REACTION\":false,\"DAMAGE_PRIORITY\":false,\"RESOLUTION_PRIORITY\":false,\"END_PHASE\":false}}\r\n0\r\n1\r\n0\r\n{\"window\":\"ACTION\",\"combatOpen\":false,\"combatStep\":\"NONE\",\"chainLink\":0,\"attacker\":0,\"defender\":0,\"attackUID\":0,\"attackTarget\":null,\"pendingAttackTarget\":null,\"previousAttackCardID\":\"\",\"handBlockUIDs\":[],\"intimidated\":[],\"pendingPayment\":null,\"lastAttackName\":\"\",\"attackHit\":false,\"attackPower\":0,\"defenseValue\":0,\"damageDealt\":0,\"declaredBlockUIDs\":[],\"passiveSeats\":[],\"gameMode\":\"UPF\",\"turnEffects\":[],\"nextTurnEffects\":[],\"hitsThisTurn\":[],\"cardsPlayedThisTurn\":[]}\r\n0\r\n1234\r\n1234\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n0\r\n2\r\n1\r\nMAIN\r\n\r\n\r\n\r\n\r\n7\r\n0\r\n",
+      "initial_gamestate_sha256": "65c95e30e03f9f80701ec1c721f09b855d41d11b789e9ddbded4471d9f1d344d"
+    }
+  ],
+  "expected": "After original primary UID5 leaves Hand0, the only remaining physical card is red Wounding Blow UID6 at live Hand0. The persisted optional Charge chooser must reference that same current live Hand0, not nonexistent Hand1.",
+  "observed": "Both independent fresh games stop after primary click and formal Hero4 target answer. Queued MZMAYCHOOSE Param is p1Hand-1; observed live Hand refs contain only p1Hand-0. No Charge answer submitted.",
+  "unrun": [
+    "Charge answer acceptance or rejection",
+    "actual charge/Soul movement",
+    "cost completion/priority after costs",
+    "attack/block/damage",
+    "yellow-condition reward or absence",
+    "saved fixture/replay"
+  ],
+  "no_assertions_weakened": true,
+  "engine_fix_applied": false,
+  "source_sha256": {
+    "FaBSim\\GeneratedCode\\GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim\\Custom\\MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+    "FaBSim\\Custom\\WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a"
+  },
+  "repair_scope": "Separate later bounded persisted Prepare-choice reference repair; no engine edit or alternate reference workaround in breadth."
+}

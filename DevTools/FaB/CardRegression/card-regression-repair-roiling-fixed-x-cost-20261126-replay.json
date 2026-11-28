@@ -1,0 +1,57 @@
+{
+  "runtime": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+  "fixtures": [
+    {
+      "slug": "repair-roiling-fissure-four-live-20261126-fixed-one-plus-x-paid-before-response",
+      "passed": true,
+      "runtime": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-roiling-fissure-four-live-20261126-fixed-one-plus-x-paid-before-response",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\roiling213\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "ab694e83199ca5fd764d74c3d80bcacd3d060850aab80a776de1c331a234ae0d",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "imposing-visage-blue-four-live-sparse1039-declared-x-two-real-five-cost-search-aura",
+      "passed": true,
+      "runtime": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=imposing-visage-blue-four-live-sparse1039-declared-x-two-real-five-cost-search-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\roiling213\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "a6bf00eb1b76210205bb52277a1a5f84aa825d3aeb8d1e593e209f55b02ad6b3",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+      "passed": true,
+      "runtime": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\roiling213\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "97a64909268168a770288270d24958abf2b63652118bb3e3df0cef56773e6c22",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

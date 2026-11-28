@@ -1,0 +1,138 @@
+{
+  "status": "APPROVED_EXACT_SAVED_REVIEWED_SUBSET_DISSOLVING_SHIELD_ONLY_TREMOR_BLOCKED",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T06:49:58.670149+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch300.json",
+  "input_sha256": "320e694b41a0dd18f82eaf5b531d2fb3ef21573b16db6dd97424a7053fe70281",
+  "fixtures": [
+    {
+      "slug": "card-dissolving-shield-red-four-live-sparse-real-steam-cost-three-to-two-prevents-kodachi-one-damage",
+      "card_id": "dissolving_shield_red",
+      "group_id": "pitch-cycle:dissolving_shield",
+      "fixture_sha256": "a6765a8afe5927d7b2a3a73643e75cd471f01013ab7a13e0e79bfed4433105bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3fca072397384b42a2d63605cc2f8cd5a70c250b5f5164c1ff32c00f80e82b5c",
+        "actions.json": "4abd73e51680f0b73b881bbf0ef1bb09af20d7c54fa188a8a9657184535840a9",
+        "assertions.json": "cbb3cebab085017883644847690fa048429775a161d08784c1966598c7a692fb",
+        "expected_final_gamestate.txt": "ce5cf224f2db8be309f61f4314eac963e71fefb2b968cfb11b75d7f4725a7d3f",
+        "meta.json": "232f046627983b3e65a7e3b92dd3b7cffb33408444c57a29e34bb0f346208143"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "3fca072397384b42a2d63605cc2f8cd5a70c250b5f5164c1ff32c00f80e82b5c",
+        "actions.json": "4abd73e51680f0b73b881bbf0ef1bb09af20d7c54fa188a8a9657184535840a9",
+        "assertions.json": "cbb3cebab085017883644847690fa048429775a161d08784c1966598c7a692fb",
+        "expected_final_gamestate.txt": "ce5cf224f2db8be309f61f4314eac963e71fefb2b968cfb11b75d7f4725a7d3f",
+        "meta.json": "232f046627983b3e65a7e3b92dd3b7cffb33408444c57a29e34bb0f346208143"
+      },
+      "actions": 36,
+      "native_assertions": 2993,
+      "actual_manual_passes": 32,
+      "manual_passes": 32,
+      "priority_response_passes": 31,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_arena_uid_sets": {
+        "1": [],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActuallegalP4Dash20ownedShield5priorArenaSteam3 andP1Fai20legalKodachi6/Blue7. Realweapon6freshP4target/Blue7pitch3pays1/AP1\u2192R2AP0, original6used, cost0cardPitch grantsKodachiGA. Actualsource/combat/emptydefender/reactionallfourmanual. Nativeaction20P4actualShieldInstant0removeSteam3\u21922COST beforefreshactions21-24actors4,1,2,3; sameowned5ArenaStatus2Steam2 retained, virtualSourceArenaUID5heldthenonlyfourthclears/returnsREACTION. Freshactualactions25-28actors1,2,3,4resolveKodachi1packet to0/nohit/HP20. DAMAGEroundstillgrantsprintedPitchconditionGA/AP1, finalproxy8/ability9ceased, same5P4ArenaSteam2/used6P1Weapons/Blue7Pitch/R2AP1/allHP20/GYempty/cleanStackChainsqueues andalloriginalUID1-7ownershipconserved.",
+      "qualification": "OnepositiveactualSteam3\u21922cost/next1physicalprevention ofactual1damage. NozeroSteam/emptydestroy/entry/Crank/upkeep/preventiondistribution/arcane/unpreventable/otherpacket/hero/supportweapon/fullcard/control/siblingcredit."
+    }
+  ],
+  "blocked_attempts": [
+    {
+      "slug": "card-tremor-of-iarathael-red-four-live-sparse-real-nimble-cost-banish-earns-plus-two-six-damage",
+      "card_id": "tremor_of_iarathael_red",
+      "semantically_approved": false,
+      "fixture_saved": false,
+      "status": "blocked_or_incorrect",
+      "error": "power  expected 6 got 8",
+      "attempted_native_inputs": 40,
+      "source_expected_power": 6,
+      "observed_power_in_failure": 8,
+      "classification": "NATIVE_POWER_MISMATCH_RETAINED_REQUIRES_ROOT_PREFIX_CLASSIFICATION_NO_EXPECTATION_CHANGE",
+      "evidence_paths": [
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch300-20261103T064544Z-6ae983183756e.json",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch300.recording-results.json",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-native-r1\\receipt.json",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-native-r1\\stdout.log"
+      ],
+      "evidence_sha256": {
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch300-20261103T064544Z-6ae983183756e.json": "c5581b5e1fbabf9b03781045adca009deaccfd30df6d052c3665dff1efa6e816",
+        "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch300.recording-results.json": "3e379cb6c81f864ad25f44c18028bb6a4f9a30bb04fe62277ae4b0b5c20490b9",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-native-r1\\receipt.json": "b1f7f267ff9fe9b817cbf37f3c774f0ee312ca46c0675dece276137d278eaeb3",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-native-r1\\stdout.log": "df4eb68d9c36866222ca4197e40dce34d94b7a5089730e40dcfc523047be8f83"
+      },
+      "source_initial_snapshot_sha256": "62cd653b5f225fe05210ff8a364c20bb881bb1962fe96eb1dd730bdc57f39fb9",
+      "passing_coverage_credit": false
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-independent-source-review.json",
+    "sha256": "d88f9ba66bcb22ba02080d1d864e23cd1ff2b8e6e5a8e12f1807c3867994200c",
+    "manifest_sha256": "7c44f94883718b71f3b6463cf0cfde4a30cf6cf84da6fb0dfd6b002aa59e5d16"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch300-20261103T064544Z-6ae983183756e.json",
+    "sha256": "c5581b5e1fbabf9b03781045adca009deaccfd30df6d052c3665dff1efa6e816"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch300.recording-results.json",
+    "sha256": "3e379cb6c81f864ad25f44c18028bb6a4f9a30bb04fe62277ae4b0b5c20490b9"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch300-native-r1\\receipt.json",
+    "sha256": "b1f7f267ff9fe9b817cbf37f3c774f0ee312ca46c0675dece276137d278eaeb3",
+    "stdout_sha256": "df4eb68d9c36866222ca4197e40dce34d94b7a5089730e40dcfc523047be8f83",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 1,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentreadonly exactsavedhealthySUBSET review. All36actualactors/modes/payloads/2993orderedassertions matchapprovedShieldsource exactly; completeinitial/finalschema snapshots parsed, originalUIDownership/economy/Heroidentities/sourceSteam/physicalweapon/Pitch/cleanup checked. NoPHP/native/replay/R/backend executed. FailedTremor40inputpower6\u21928witness boundtosameimmutablearchive butnotpassing/saved/covered; classificationpendingRootcapturedprefix.",
+  "limits": [
+    "Savedcreationreviewonly; RoottwoShield-onlyfocusedreplays areseparate evidence, notrunbyreviewer.",
+    "OnepositiveactualSteam3\u21922cost/next1physicalprevention ofactual1damage. NozeroSteam/emptydestroy/entry/Crank/upkeep/preventiondistribution/arcane/unpreventable/otherpacket/hero/supportweapon/fullcard/control/siblingcredit.",
+    "Tremorfailedandnofixture; originalpower6expectationretained, noenginebugclassificationfromthissavedsubsetreview. Noothercase/historicalcontextretag/sourcefix/oldcorpus audit."
+  ]
+}

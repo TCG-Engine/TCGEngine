@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch409.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T02:12:32.614952+00:00",
+  "fixtures": [
+    {
+      "slug": "card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+      "fixture_sha256": "193a2e98df497920f89e89d57483229001c29225fc1c9b3a8d8a1e5f571daee9",
+      "passed": true,
+      "result": "[PASS] twinkle_toes / four live distinctive effect"
+    },
+    {
+      "slug": "card-four-finger-gloves-four-live-sparse-real-damage-earns-destroy-prevent-one-of-next-arcane-packet",
+      "fixture_sha256": "a53b77ac0d1472b821a89ff3f923d580a4ee72a0eee2c1558f5b11c3c6b34e76",
+      "passed": true,
+      "result": "[PASS] four_finger_gloves / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+      "returncode": 0,
+      "stdout": "[PASS] twinkle_toes / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-four-finger-gloves-four-live-sparse-real-damage-earns-destroy-prevent-one-of-next-arcane-packet",
+      "returncode": 0,
+      "stdout": "[PASS] four_finger_gloves / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

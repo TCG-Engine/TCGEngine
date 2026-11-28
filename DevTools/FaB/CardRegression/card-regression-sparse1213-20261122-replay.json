@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-astral-ambience-yellow-four-live-sparse1213-real-active-attack-taps-owned-shield-for-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-astral-ambience-yellow-four-live-sparse1213-real-active-attack-taps-owned-shield-for-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1213-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1213-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d9b61b5f97a9f1f87a4cea182b77e781e6e9a1e2142bf092a64d7ede94a3ac29",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ce97ee6c05f8c0940fb4a647727df2ac9032104dc0c54b6e44c43a2a9b8df91",
+        "actions.json": "6fdd9899a9dd99d5191dc76abf89c6615f5525ebef1b22959251205822dc6b29",
+        "assertions.json": "8869c6b66838d4fadb23cdbf5a32fba7200916177dd816462753cb7cc7ad8bae",
+        "expected_final_gamestate.txt": "4b82ac447596a0907e1bf21b69855db3d1dad04c79c05243802e872d4df72019",
+        "meta.json": "b84d9beb363124245c040d48c0c985a3a2a50472b23c7151ec434d47867ef63c"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-maxx-the-hype-nitro-two-live-sparse1325-earned-boost-funds-paid-two-steam-token-and-real-crank",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1325-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1325-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "11a658b9e3e81f7ee520b317c00b683060e88f640cba662c5da85753de6ba0b2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f35ca9a5fb7a491c351b83d97b664a9c8a9de99f6e4c6ff02d481dc130f29b5c",
+        "actions.json": "9429d2b43927a85060839873a1905fb962365e6fd948258a75ab1491ff2e1e7a",
+        "assertions.json": "f5f038a9102d61cdb852e949a14c6a69483a518468a14837df954aca161a2903",
+        "expected_final_gamestate.txt": "21c2d72edeee4830822530b496455ddc3c17f4f02b56412999459546ab938951",
+        "meta.json": "856590d151fb99c51e6d218720780ea3484ca6c6d840ce48d74dd4be8997d446"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

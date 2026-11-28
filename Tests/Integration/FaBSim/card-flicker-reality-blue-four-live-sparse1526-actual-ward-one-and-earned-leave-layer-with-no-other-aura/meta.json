@@ -1,0 +1,7 @@
+{
+    "name": "Flicker Reality / real Ward1 and separately responseable leave trigger without another aura",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T10:55:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualWounding5fourdamageagainstZyggy4soleFlicker6Ward1. Mandatorychooser4destroysowned6/prevents1=>actual3damageHP17; unconditionalleaveearnsABI7Controller4Source6omnLeave despiteemptyotherAura set. Fourfreshmanualresponses anchoredsameABI7, thennochoice/blink/newUID andlayerfinishes. Fullcombatclosephysical5GY1/6GY4/UID7/APR0/StackDQclean. PositiveWard1 only; positiveotherAura blink/094awaitlifetime, primaryplay/siblings untested. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#flicker_reality_blue FaBSim/Custom/MSTCards.php#FaBMSTWardRefs FaBSim/Custom/OMNCards.php#FaBOMNAfterMove FaBSim/Custom/OMNCards.php#FaBOMNBlinkChoices FaBSim/Custom/ROSCards.php#FaBROSQueue FaBSim/GeneratedCode/GeneratedMacroCode.php#flicker_reality_blue:0:ResolveAbility"
+}

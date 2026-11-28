@@ -1,0 +1,79 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-03T01:35:42.343336+00:00",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "source_spec": "card-regression-batch271.json",
+  "source_spec_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 61,
+  "native_assertions": 4624,
+  "manual_passes": 54,
+  "totals": {
+    "saved_registered_scenarios": 3558,
+    "duels": 3074,
+    "four_live": 484,
+    "recorded_primary_ids": 714,
+    "identity_denominator": 5196,
+    "recorded_groups": 588,
+    "group_denominator": 3324,
+    "four_live_groups": 479,
+    "phase_qualified_scenarios_at_actual_contexts": 195,
+    "phase_qualified_unique_groups": 192,
+    "creation_replay_passes": 390,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "nimble_strike_red",
+      "group_id": "pitch-cycle:nimble_strike",
+      "scenario_id": "card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "effect_branches": [
+        "nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-nimble-strike-red-four-live-sparse-correct-assets-before-real-nimblism-banish-eight-go-again-followthrough",
+      "source_spec": "card-regression-batch271.json",
+      "source_spec_sha256": "c468cea666c1729a7f3a6bcd73d7bc290f6d7db4dff113accb61437481599521",
+      "review_evidence": "review-evidence/nimble062-saved-45b1-independent-review.json",
+      "review_evidence_sha256": "5cf5e5006e4fe9a4ba0d51a812bea5b2a11040d07f299bce0e3ae29b71db4e0d",
+      "recorded_runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+      "qualification_runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-nov3-nimble062-45b1-r1.json",
+          "sha256": "730478ab80dfdbe5dd393df3b4f4da8ee3507658023a6e8b7cfa3a42d5abd90f",
+          "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-nov3-nimble062-45b1-r2.json",
+          "sha256": "9afd6c2c12e9b12d61e63bac6010599fe45c3a3036316cd36f99c0c14b02ed4f",
+          "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 1,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-open-the-center-red-four-live-sparse-real-head-jab-same-chain-combo-six-go-again-followthrough"
+  ],
+  "new_distinct_gameplay_defect_groups": 0,
+  "fixed_existing_family_callers": 1,
+  "qualified_issue": "FAB-REG-062",
+  "qualification_evidence": "review-evidence/062064-qualified-cost-repairs.json"
+}

@@ -1,0 +1,181 @@
+{
+  "status": "NATIVE_CONFIRMED_FIRST_TENET_GRANTED_ATTACK_DRAW_EXECUTES_EARLY_BEFORE_TRIGGER_RESPONSES",
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-03T18:19:19.802737+00:00",
+  "proposed_named_record": "FAB-REG-081_ROOT_TO_ASSIGN",
+  "classification": "existing043_missing_responseable_trigger_granted_attack_event_caller",
+  "related_prior_issue": "FAB-REG-043",
+  "secondary_related_issues": [
+    "FAB-REG-004",
+    "FAB-REG-076"
+  ],
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_count_limitation": "Named new native witness/caller extension; no additional global shared-root count inferred.",
+  "runtime_sha256": "c90ad7d34900eb8cbcfccd8c5e0c3a45f7f9ba7a6cbaabf97328e00033dc51d3",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch359-correct-trigger-probe.json",
+  "input_sha256": "e2b9f56abdc973063166684c519eaabdd77529aca249aa1d6dad6fd9410951cb",
+  "manifest_sha256": "5a19a2ecf52a1b6ab5cb15abcb515bb5d996dde060ace778aac5ddac7dfca06a",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch359-independent-source-review.json",
+    "sha256": "3db0fd7b71a0299978529ec810b37ad849a7d77ba955b062a8d56184de8abc2f"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch359-correct-trigger-native-before-r1\\receipt.json",
+    "sha256": "7cec0247ff68bbd035fd733a9126decf5e795146182ad91a3d3935494093a717"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch359-correct-trigger-probe-20261103T181428Z-6aea2484eb0f4.json",
+    "sha256": "5ef6c12f72144c8711bb901b7238de97c863e14139d7fa2fecf70e377b2592ad"
+  },
+  "last_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch359-correct-trigger-probe.recording-results.json",
+    "sha256": "89bd4e00612248105baac2b3cf0b3323e3680ba9bef2802ee5feb062394ba703"
+  },
+  "initial_snapshot_sha256": "a4ddbb9f8c3dd6006e402d6e7ea175d3bfea3521673237051078edaea02e1b83",
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "actual_native_inputs": 12,
+  "actual_manual_priority_inputs": 8,
+  "manual_pass_actor_counts": {
+    "1": 2,
+    "2": 2,
+    "3": 2,
+    "4": 2
+  },
+  "observed_error": "Expected p1Deck count 2, got 1.",
+  "actual_observations": {
+    "deck_count": 1,
+    "deck_count_basis": "Recorder first-mismatch actual count; expected2 retained.",
+    "hand_refs": {
+      "1": [
+        "p1Hand-0"
+      ],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "observed_decisions": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "window": "ATTACK",
+    "combatStep": "ATTACK",
+    "combatOpen": true,
+    "attackUID_state_pointer": 6,
+    "attacker": 1,
+    "defender": 4,
+    "damageDealt": 0,
+    "pendingPayment": null,
+    "cardsPlayedThisTurn": {
+      "1": [
+        "first_tenet_of_chi_moon_blue",
+        "raging_onslaught_blue"
+      ]
+    },
+    "DTD_DRAWN_amount_sum": 1,
+    "SEA_DRAWN_amount_sum": 1
+  },
+  "not_observed_or_unreached": [
+    "No full raw postfailure snapshot is present in recording-results; do not label Stack empty or claim raw Chain/Hand/Deck UID identities from this record. attackUID6 above is the observed GameState pointer, not a raw card-zone observation.",
+    "Expected trigger ABI existence/source fields were after the first failed Deck-count check and are not native-observed. No virtual UID, Params, SourceZone or allocation counter claimed.",
+    "No trigger response inputs13-16, subsequent attack/defend/reaction/damage/APrefund/fullcleanup suffix were executed or credited. All original37-input material oracles remain unchanged."
+  ],
+  "correct_rule_basis": {
+    "printed_face": "FirstTenetBlue grants When this attacks draw1 to nextblueattack; source is actualgranted attack6, not primary5.",
+    "sources": [
+      "https://rules.fabtcg.com/en/cr/06-effects/",
+      "https://rules.fabtcg.com/en/cr/07-combat/"
+    ],
+    "sections": [
+      "6.6.1",
+      "6.6.5",
+      "6.6.6",
+      "7.2.2a",
+      "7.2.3",
+      "7.2.4"
+    ]
+  },
+  "causal_source_finding": {
+    "path": "FaBSim/Custom/MSTCards.php",
+    "sha256": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+    "line": 127,
+    "function": "FaBMSTDeclared",
+    "literal": "foreach((array)$o->TurnEffects as $t)if($t==='MST_DRAW_ATTACK')DoDrawCard($p,1);",
+    "finding": "Current named tag consumer draws synchronously at attack declaration instead of queuing its earned responseable draw layer. Native early Deck reduction plus actualdrawn1 and prior exact paid-blue prefix match this source cause; not a recorder-coordinate or Core lookup defect."
+  },
+  "dedup": {
+    "ledger": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+    "ledger_sha256": "4cb884e920a8ebad18e38e9d1b1a5ac537833daef5c3f3d575c5334ff89498b7",
+    "issue_rows_at_read": 80,
+    "existing_family": "043 missing responseable trigger named producer",
+    "comparators": {
+      "FAB-REG-004": {},
+      "FAB-REG-043": {
+        "classification": "native_confirmed_missing_responseable_trigger",
+        "source_paths": [
+          "FaBSim/Custom/CRUCards.php",
+          "FaBSim/Custom/ROSCards.php"
+        ]
+      },
+      "FAB-REG-066": {
+        "classification": "missing earned on-play trigger response window",
+        "related_prior_issue": "FAB-REG-043",
+        "source_paths": [
+          "FaBSim/Custom/MONCards.php",
+          "FaBSim/Custom/ROSCards.php"
+        ]
+      },
+      "FAB-REG-068": {
+        "classification": "missing earned delayed hit trigger response window",
+        "related_prior_issue": "FAB-REG-043",
+        "source_paths": [
+          "FaBSim/Custom/EVRCards.php",
+          "FaBSim/Custom/ROSCards.php"
+        ]
+      },
+      "FAB-REG-076": {
+        "classification": "existing043_missing_responseable_trigger_intrinsic_attack_event_caller",
+        "related_prior_issue": "FAB-REG-043",
+        "source_paths": [
+          "DevTools/FaB/mon_abilities.json",
+          "FaBSim/Custom/GameLogic.php",
+          "FaBSim/Custom/MONCards.php"
+        ],
+        "root_cause_group": "missing_responseable_trigger_named_producer"
+      }
+    },
+    "scope": "Compared named trigger family and exact selected card/tag; no broad old-issue re-audit or corpus replay."
+  },
+  "source_guards_verified": 19,
+  "source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+    "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+    "FaBSim/Custom/WTRAbilities.php": "f33a915de3a95208a7d29b7acb5dbbc8c5b0f4f2d56ace281c3c9c7b8bbc5448",
+    "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+    "FaBSim/Custom/ARCCards.php": "542227b196338a40c49f83966d9d2b0979a98676d4c9d39d00b0f5cc9a32323f",
+    "FaBSim/Custom/MSTCards.php": "42f119459e4aec25ccba37a43a6891b5ba123195a23e58402bdd2723948b9a45",
+    "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+    "FaBSim/Custom/MONCards.php": "50ccaa44bdd2c94db708dbf2b358aa066d71ceb2c56b8dad14bc2fd1d242953f",
+    "FaBSim/Custom/ROSCards.php": "daf6eea7ee5ac409e0f45e69e539df4de47af1877b65f04964a204d3e7b071f7",
+    "FaBSim/Custom/ROSRuntime.php": "3b8c1f2c03339b46500221a61c83a2aef06eb2845331c6bcf18c6f72287c61e1",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df",
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a",
+    "DevTools/FaB/mst_abilities.json": "c2bb091212e461c3a5f20be54b81c90fc81df1554d563d7c59289a17465bae35"
+  },
+  "limits": [
+    "Only one actually paidBlueAA/grantedWHEN draw witness,12inputs/noFixture. No othercolor/weapon/multiplicity/suppression/removedsource/Chi/hero/expiry or suffix credit.",
+    "Independent native-before classification is complete; W-only bounded repair proposal, independent source peer, Root application and after-native qualification remain separate.",
+    "Tenheld070079/SmashingItem untouched; no PHP/native/R writes/source changes/generation/fullsuite by reviewer."
+  ]
+}

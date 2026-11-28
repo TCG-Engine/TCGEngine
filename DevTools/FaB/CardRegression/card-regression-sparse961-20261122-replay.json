@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-offensive-behavior-blue-four-live-sparse961-actual-exact-two-block-without-might-vigor-bonus-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fba1a77795682904f1ab77b47ac2895f40f7fd7d27a99bdedfaeecee4a8e8ff8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c35cfdf8981ff0f09722ef2387008bacbe4ebf7afe884180131f07321550da69",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "a5b20c3264932772997efc5d4f21258fd8383ddde669092a6df3282244c2f780",
+        "expected_final_gamestate.txt": "b7b4b1d7a5bb10a1d9547b763a2538e701703f87c7abffed9ac7444c2977b26f",
+        "meta.json": "c7e67bdcf78f62412f83d708ed24c3c8d2c306db3c977c9eadacfe4b5ef92740"
+      }
+    },
+    {
+      "slug": "card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spew-obscenities-yellow-four-live-sparse961-actual-halved-base-two-exact-block-without-token-bonus-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ba496ee943d521ee60044d3d50bd7e76b2d8f62c3e458d5bbc811f40e112572e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "48ef2f82828aea8d0433b3fcadb7047c946fcf0feca5658ada8238cc960cca0d",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "4801cb77be5d05eaab10ab23a9b6fc00cbb1b05bbfa3cf27d591849d123e34e5",
+        "expected_final_gamestate.txt": "7f028470668274fa895cfe16eba882d4c2a32dfba8b4c3c8d557b6e46dd2e888",
+        "meta.json": "22fe008a801cde470b91d12cde116fb036099980a8d3e12607a953610dc9f194"
+      }
+    },
+    {
+      "slug": "card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-uplifting-performance-blue-four-live-sparse961-actual-exact-five-block-without-confidence-toughness-bonus-or-hit",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "94f0eabe22d4fb6563ac6521ebf494095466ffaf92d9bfa52e3a7bdd08175986",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5e8d65aa2a97fa1a872a72ee62e2d0a6271cdbf3543e4f9d4ffe98e78f2235a",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "fee0e1c64e4d329a84d6b9ba3bf0eeb46f6220056ba5090ab2fbce078327ae2d",
+        "expected_final_gamestate.txt": "ff2daed22b9bd5c1059e194d66689331445bace6a0cef0659ee123988e9f8f9a",
+        "meta.json": "c7d685099b65eb7133f3e9b271cb283e9e1e40f8daaea70d62d8392f7972f934"
+      }
+    },
+    {
+      "slug": "card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chain-of-brutality-red-four-live-sparse961-actual-base-two-below-six-without-go-again-or-hit-grant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse961-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7d06e9d7b57cf3c34e70da47cb5d57ce8652fe69de526abfe3c1439094179d92",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "acdb06f55f1b0e74b658632bd8d9b483e0dd0c2f8d20c020428cfaf68deff6c9",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "332f5fdd9f942e756492d3810c50459fbf29bdffbf891e09190d4f08fff4ec6e",
+        "expected_final_gamestate.txt": "bb977316068d1b931d364213c95324316efc93974723d1f361aa7a89617d3cf7",
+        "meta.json": "d5dc4a143166b45e29329d5cafdffbca6792b894e36e74f3838bc6b4eb2031b9"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

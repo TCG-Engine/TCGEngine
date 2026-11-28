@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T15:22:58.854382+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1409-20261122.json",
+  "source_spec_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 27,
+  "native_assertions": 325,
+  "manual_passes": 21,
+  "totals": {
+    "saved_registered_scenarios": 5416,
+    "duels": 3113,
+    "four_live": 2303,
+    "recorded_primary_ids": 2564,
+    "identity_denominator": 5196,
+    "recorded_groups": 2438,
+    "group_denominator": 3324,
+    "four_live_groups": 2292,
+    "phase_qualified_scenarios_at_actual_contexts": 2053,
+    "phase_qualified_unique_groups": 2043,
+    "creation_replay_passes": 2795,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1214,
+  "scenarios": [
+    {
+      "card_id": "sonata_dystopia_blue",
+      "group_id": "identity:sonata_dystopia_blue",
+      "scenario_id": "card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+      "effect_branches": [
+        "native_zero_runechant_x_zero_go_again_next_attack_overpower_rejects_second_action_card_but_allows_equipment_real_zero_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sonata-dystopia-blue-four-live-sparse1409-zero-x-still-grants-overpower-real-hand-rejection-and-equipment-block",
+      "source_spec": "card-regression-sparse1409-20261122.json",
+      "source_spec_sha256": "02ab24fa8ad61f7c974b05d731862d6e9f7acbadb693badc98553b74c513a394",
+      "review_evidence": "review-evidence/sparse1409-20261122-qualified-saved.json",
+      "review_evidence_sha256": "dedf98215daccb4759908ccc16c636926cb5058511b5cc0369558ef9c325b4fd",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1409-20261122-replay.json",
+          "sha256": "f37c90603172c208ce945624759dac997a9b082261f6289da0a7dd2a788a155c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

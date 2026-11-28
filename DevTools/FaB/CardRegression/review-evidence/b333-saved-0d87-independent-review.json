@@ -1,0 +1,117 @@
+{
+  "status": "APPROVED_EXACT_SAVED_FLETCH_BLUE_TAIL_REAL_PAID_ARROW_TWO_NO_AIM_FULL_BLOCK_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T12:06:34.133611+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch333.json",
+  "input_sha256": "c1b9c4bc29c71f91f1dedb134d5e86d7f7b544dfe1e3955e5e11048268ab531f",
+  "fixtures": [
+    {
+      "slug": "card-fletch-a-blue-tail-blue-four-live-sparse-real-paid-next-arrow-plus-two-no-aim-full-block",
+      "card_id": "fletch_a_blue_tail_blue",
+      "group_id": "identity:fletch_a_blue_tail_blue",
+      "fixture_sha256": "9fe23e2e26e0cfabc633106f72c89061bccec2e8f990d83b8eac3a4cc8859a63",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0048dceaba171c76ee9aa76c9246b7119b6898ca2f4c380f3c1ac6a4f002dd2e",
+        "actions.json": "ac3e30a7392f24cf364d5e3e2a690302de6b509b02be5c5e8fb442d918a8310d",
+        "assertions.json": "72b8f6d32df4ef22b0f57d677756133be8165f659b74e9e201b33481ffd57b9e",
+        "expected_final_gamestate.txt": "8bda9eb3264fee48d713ba8241155c5386c0832575f88b7564a9e4095c3cf5b7",
+        "meta.json": "89320555b4b141870877e9ab4b46de9b8e3cfc9085a54684e12ec9a26eee5d04"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "0048dceaba171c76ee9aa76c9246b7119b6898ca2f4c380f3c1ac6a4f002dd2e",
+        "actions.json": "ac3e30a7392f24cf364d5e3e2a690302de6b509b02be5c5e8fb442d918a8310d",
+        "assertions.json": "72b8f6d32df4ef22b0f57d677756133be8165f659b74e9e201b33481ffd57b9e",
+        "expected_final_gamestate.txt": "8bda9eb3264fee48d713ba8241155c5386c0832575f88b7564a9e4095c3cf5b7",
+        "meta.json": "89320555b4b141870877e9ab4b46de9b8e3cfc9085a54684e12ec9a26eee5d04"
+      },
+      "actions": 35,
+      "native_assertions": 3315,
+      "actual_manual_passes": 29,
+      "manual_passes": 29,
+      "priority_response_passes": 28,
+      "defender_declaration_finish_inputs": 1,
+      "manual_pass_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "original_uid_ownership_conserved": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          9,
+          10
+        ]
+      },
+      "final_pitch_uid_sets": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "Actual legal youngAzalea20/threeDori20/manual4; primary5 and realBlue6Hand, facedownSleepYellow7Arsenal/Counters[]/actualownedreadyBow8, twoactualP4BlueDriving9/10. RealBlue3paysprimary1/AP1\u2192R2AP0 beforefourfresh1,2,3,4 responses. Same5Stack throughfirstthree; onlyfourthsame5ownGY/primaryownGAAP1. ActualArrow7freshP4targetwhile7Arsenal thenfloatingR2paysArrow1/AP1\u2192R1AP0, same7Stack SourceArsenal with earnedPOWER2/FLETCH3. Fourfreshsource responses then physical7Chain/FromArsenal/link1/computed4+2=6/noGA. RealownedBlueHand9/10 ordinarydefense3+3 blocks6 foractual0/nohit/allHP20, with no erroneous unconditionalBlue\u22121 penalty. InitialnoAim and noAim-producingaction/sourcepath support noAim inference; midframecounterbytes are not independently snapshotted or invented. NoSleepDart hittrigger earned. FullDAMAGE/RES closesexactGY1{5,7}/GY4{9,10}/Pitch6/unchangedreadyBow8/R1AP0/Counter10/Random0/physicalUID1-10ownershipconserved/no virtuals or tokens/StackChainsqueuespaymentawait clear. All35nativeinputs and3315orderedassertions exactly equal independentlyapprovedfrozeninput;29actualmanualactors7,7,7,8/all11shortcutwindowsfalse verified.",
+      "qualification": "Only paidnextArrow+2/primaryownGA/noAim/fullblock/fullcleanup. No positiveAim/reduction/hit/SleepEffect/Bow/heroactivation/supportprimary/expiry/secondattack/sibling/fullcard/control credit."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch333-independent-source-review.json",
+    "sha256": "dacb28a7b673835bcf7cffdb853a5e4d387b64f2388316c3adec9c78ab41df95",
+    "manifest_sha256": "c7e5409c16852f832b9e8ff1287eeff766eee3d99989a647578b42110e059190"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch333-20261103T120333Z-6ae9cd9572c52.json",
+    "sha256": "5c5a3456121f47a2ebbd5a17af27aaf5db8003acd31c421f3b020122efb31d25"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch333.recording-results.json",
+    "sha256": "c815904bbc039079adc731fb43b230d8d717e9f714e675b851161bb963fb5630"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch333-native-r1\\receipt.json",
+    "sha256": "a6848034534ce21dc59741e888d210efca4a3baedfdc81f04682c4433a6d5508",
+    "stdout_sha256": "026d3acc712d1c71e01bdbc56c338959950cb4341780dd11a87801c3ffde93aa",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independent actual saved rawfive review; all35 native actors/modes/payloads and3315 ordered assertions equal approved expected spec; complete parsed initial/final UID/ownership/economy/manual settings plus actual payments/primaryGA/Arrowpower6/noArrowGA/Blue3+3 fullblock/cleanup checked. Existing pure parser/normalization only, no author builder/PHP/native/replay/R/source writes.",
+  "limits": [
+    "Saved creation review only; Root two focused replays are separate evidence, not executed by reviewer.",
+    "Only paidnextArrow+2/primaryownGA/noAim/fullblock/fullcleanup. No positiveAim/reduction/hit/SleepEffect/Bow/heroactivation/supportprimary/expiry/secondattack/sibling/fullcard/control credit.",
+    "No midframe native snapshot or arbitrary internalAim/phase claims; noAim is established by actual initialCounters[], noAimproducer and guarded consumer/zero realdamage.",
+    "Current0d retained; no sourcefix/application/proposal/runtime migration/deniedauthorizationretry."
+  ]
+}

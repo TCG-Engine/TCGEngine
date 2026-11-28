@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1053-20261122.json",
+  "source_spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+  "input_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "gauntlets-of-the-boreal-domain-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "card_id": "gauntlets_of_the_boreal_domain",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e78c87309fefb3eb24ecffec57dffc6e400edbc49316e41d8f864f0e63365f0b",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "f527e3b48c60283793a900d8908d7afbf9c2c3e8ad0bc58c5bbe489ec185a523",
+        "expected_final_gamestate.txt": "ba6b45c9cee096ae9a59855502a2cf270a3c1698f422ff0e8deba05e87810718",
+        "meta.json": "2d23361d03da6e966836d6cda95a56c2431e38fd84a3dd5ed3cd01aaf90890ad"
+      },
+      "fixture_sha256": "1f2ce2394f3eec058322ff2125b2a6831d3f80d97444c7cccd763fb412bea17c",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "input_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1053-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "gauntlets-of-the-boreal-domain-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "gauntlets-of-the-boreal-domain-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "heavy-industry-power-plant-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "card_id": "heavy_industry_power_plant",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be6889944dbd2edda2433dad26299290e4956761cb622a6a8e78392184f37d72",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "1d012037e9037ccec8be8f2f89c9ba2d6eb8451e365e0549e929d3ea62b35398",
+        "expected_final_gamestate.txt": "b2cff50793d31666e3c4d3e768f464de6cbf098a93ed769328f234d5aaf88e5b",
+        "meta.json": "1fd3d24e30ad6ad2ba193e6670527cb26d7d8cdcf946e3b606be52dc52c9710a"
+      },
+      "fixture_sha256": "6087989e2dd243c87f5150aee3b9f7f403d3ee803eccea7b516da3978f601f34",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "input_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1053-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "heavy-industry-power-plant-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "heavy-industry-power-plant-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "ironsong-versus-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+      "card_id": "ironsong_versus",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0e22c4f09536f05d135ee0d07cb15c13a64003734c148cef8b2220d23d585e8b",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9c3ce0c556513ac314e1723a3c0ae35a29a1c4114b341a352ef565ee7f090897",
+        "expected_final_gamestate.txt": "a2218cddf21c30ab29cd0363e2b02f9d0f68992cbcdaa67aa11d3cc10ac30765",
+        "meta.json": "1f94741d7187bd282e6ef5b9e0c74302b18697c0ebcdceba7b0b60dd1fccb209"
+      },
+      "fixture_sha256": "318c2d903cccc31b96df397e53e1766d1db2d7ff2422a4c7d77df546b93d7b7d",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "input_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1053-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "ironsong-versus-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "fixture_slug": "ironsong-versus-four-live-sparse1053-actual-printed-two-defense-and-temper-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "scabskin-leathers-four-live-sparse1053-actual-printed-two-defense-and-battleworn-close",
+      "card_id": "scabskin_leathers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "02b15982f24b9274944f93387e33873f377c33767f23a5651cb18dd34284b4e6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "0920246793b751cb1d6b2dd06c2b70486baf870ae172e0b14ae58febbd443627",
+        "expected_final_gamestate.txt": "0134b18d5d88826c61a19d7225abf99edbfe1130ee62380032bf415f349ff54f",
+        "meta.json": "ed8dba6b58edb230222e2b5983277291e0c4f99422e3b9e2c18ba709bdd0558b"
+      },
+      "fixture_sha256": "752992e6402afc8bda2b9f31a657e2d36b5a97b027560de0b5c60576036cf063",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1053-20261122.json",
+      "input_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1053-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "scabskin-leathers-four-live-sparse1053-actual-printed-two-defense-and-battleworn-close",
+        "fixture_slug": "scabskin-leathers-four-live-sparse1053-actual-printed-two-defense-and-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "cd218086a674d179f23322a003178def157b3bb8b19690b7c7ef08f61d4bd8ca",
+    "reviewer": "breadth_review independent cached-text/spec delta review",
+    "basis": [
+      "Oldhim Essence Earth/Ice legally permits Boreal; other owners Dash/Dorinthea/Rhinar match class. Boreal and PowerPlant and Ironsong activated bodies not used; Scabskin action/die not used. No defending WHEN body or earned owner-hit/boost/mangle event. Scabskin printed Battleworn, other three Temper; after one block all correctly retain DEFENSE1 at remaining defense1.",
+      "All exact native controls and persisted assertions equal qualified1037 Steelbraid donor after only primaryID/defenderHero and descriptive headers are rebound. Actual owned Equipment5 DEF2 plus real NAA6 DEF2 versus Rhinar Club7 power4; actual Blue8 pays2/R1/AP0, all four seats manual, zero damage/noHit/HP20. Equipment5 declared DEFENSE then retained owned Equipment with DEFENSE1 after close; NAA6 owned graveyard, weapon7 used, Blue8 Pitch. No author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary defense and first keyword close only. No activated body, hero ability, charge/beat chest/boost/sharpen/die/Gold creation/wager/positive hit, repeated defense/destruction threshold/future phase/support/sibling/full-card credit; no prior hold closure. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1053-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "749737df98079975d2a9cf9649fa181674548f07b107557a4b5d4a3669f9b569"
+  },
+  "full_suite_run": false
+}

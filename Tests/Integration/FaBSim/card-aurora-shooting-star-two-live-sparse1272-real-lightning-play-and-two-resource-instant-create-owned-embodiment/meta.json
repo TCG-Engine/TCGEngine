@@ -1,0 +1,7 @@
+{
+    "name": "Aurora Shooting Star / actual Lightning play earns paid Hero Instant token creation",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:46:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_AURORA_SHOOTING_STAR40_DUEL_PRINTED_POSITIVE_BRANCH. RealBlinkBlue3LightningInstantHandplayedatAP1noR, actual3Stackbeforebothresponses,noearlyAPgain; afterbothresponsesreal3GY/AP2. ActualHeroInstant2nowlegalfromrealLightningplay(notseededhistory), realBlue4pitch3pays2/R1, AP2unchanged,HeroABI5heldbeforebothresponses/noearlytoken. OnlyafterbothresponsesexactoneownedEmbodimentLightning6Arena/UID6,3GY4Pitch/AP2/R1/HP40both/RNG0/noStackDQCC. No initial-false or repeat limit control, noYoung/four-live, Essenceconstruction, tokenconsumer/endphase/otherLightning/alternateability/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aurora_shooting_star FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

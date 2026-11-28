@@ -1,0 +1,7 @@
+{
+    "name": "Vynserakai / actual Ally hit earns no Hero-hit arcane effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T14:43:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20Dromai/Dori/Dori/Dromai. PriorcanonicallyInvokedVynserakai6withfront/Ashmaterialcounters andStorm5, opposingpriorAshmaterialAetherAshwing7TokenAlly1HP. ActualDragonAction0targetsAlly7PERMANENTnotHero4, AP1to0/tap6/proxy8/source6/power6/noGA(noRedplayed/pitched). NoCarddefendersforAllytarget, so Ash-grantedPhantasmnevertriggered; old1217normalAshPhantasm-destruction/proxyfateconcernnotretried. Actualphysical6damagedealttoAllykillsTokenceases/noGY, allHero20/noarcane3/noHeroHittrigger. FullordinaryfourmanualClose retainsprimary6used1lifeDamage0/canonicalcounters+UseWeapon/Storm5ready, proxy8retired/UID8RNG0/APR0. PositiveHeroHit/Phantasm/Invocation/sibling/support/fullcarduncredited; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#vynserakai FaBSim/Custom/UPRCards.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

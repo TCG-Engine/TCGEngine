@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T10:57:43.697513+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1535-20261122.json",
+  "source_spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 81,
+  "native_assertions": 1392,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 5621,
+    "duels": 3136,
+    "four_live": 2485,
+    "recorded_primary_ids": 2769,
+    "identity_denominator": 5196,
+    "recorded_groups": 2643,
+    "group_denominator": 3324,
+    "four_live_groups": 2474,
+    "phase_qualified_scenarios_at_actual_contexts": 2258,
+    "phase_qualified_unique_groups": 2248,
+    "creation_replay_passes": 3000,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1419,
+  "scenarios": [
+    {
+      "card_id": "dracona_optimai",
+      "group_id": "identity:dracona_optimai",
+      "scenario_id": "card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "effect_branches": [
+        "actual_Dragon_attack_targets_Ally_not_Hero_so_Hero_attack_layer_and_reward_are_unearned"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dracona-optimai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "source_spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "review_evidence": "review-evidence/sparse1535-20261122-qualified-saved.json",
+      "review_evidence_sha256": "82d77280a2124b0e63d874d878db372700c440cd05fcbe281e1657f64a215a21",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1535-20261122-replay.json",
+          "sha256": "fc2d6bd2326f2254adffb58b41c6381acc6807d88317586da2b461bc6cca9c06",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "tomeltai",
+      "group_id": "identity:tomeltai",
+      "scenario_id": "card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "effect_branches": [
+        "actual_Dragon_attack_targets_Ally_not_Hero_so_Hero_attack_layer_and_reward_are_unearned"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-tomeltai-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "source_spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "review_evidence": "review-evidence/sparse1535-20261122-qualified-saved.json",
+      "review_evidence_sha256": "82d77280a2124b0e63d874d878db372700c440cd05fcbe281e1657f64a215a21",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1535-20261122-replay.json",
+          "sha256": "fc2d6bd2326f2254adffb58b41c6381acc6807d88317586da2b461bc6cca9c06",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "dominia",
+      "group_id": "identity:dominia",
+      "scenario_id": "card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "effect_branches": [
+        "actual_Dragon_attack_targets_Ally_not_Hero_so_Hero_attack_layer_and_reward_are_unearned"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dominia-four-live-sparse1535-real-ally-attack-excludes-hero-attack-trigger",
+      "source_spec": "card-regression-sparse1535-20261122.json",
+      "source_spec_sha256": "2d69f8492230c0cd2da98990b49367500adcc2dfbfd14a69a6f96e0d6b39a98f",
+      "review_evidence": "review-evidence/sparse1535-20261122-qualified-saved.json",
+      "review_evidence_sha256": "82d77280a2124b0e63d874d878db372700c440cd05fcbe281e1657f64a215a21",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1535-20261122-replay.json",
+          "sha256": "fc2d6bd2326f2254adffb58b41c6381acc6807d88317586da2b461bc6cca9c06",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

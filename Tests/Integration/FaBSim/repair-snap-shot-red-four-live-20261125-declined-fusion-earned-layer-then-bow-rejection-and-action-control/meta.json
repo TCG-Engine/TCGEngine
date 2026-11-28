@@ -1,0 +1,7 @@
+{
+    "name": "Repair Snap Shot / declined Fusion earns WHEN layer but no Bow permission",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T21:06:40+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Original declinedFusionnegativeandlegalActionBowoutcomespreserved withoneearnedSnapWHEN/freshfourresponses. NoSNAPpayloadwhenunfused. SamefundableBowrejectsinReactionbutlaterload/drawActiongoagainworks. AlloriginalcheckpayloadsretainedexceptrequirednewABIUIDaccounting; noquarantine restorationbyassumption. Sources: FaBSim/GeneratedCode/cardArrayCache.json#snap_shot_red FaBSim/GeneratedCode/GeneratedMacroCode.php#snap_shot_red FaBSim/Custom/ELECards.php#FaBELEFinishFusion FaBSim/Custom/ARCAbilities.php#FaBARCAbilityLegal FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+}

@@ -1,0 +1,57 @@
+{
+  "id": "FAB-REG-213",
+  "status": "CONFIRMED_NATIVE_COST_UNDERCHARGE_NO_SAVED_FIXTURE",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1100-held-roiling-fixed-cost-20261123.json",
+  "source_spec_sha256": "1ba5b6bdbc5b0cf3ce353c9595a85d30f3a2b4f57b5496869b5d3c1ad41869ed",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "1",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "expected": "X1 cached/printed base means X+1. Announcing1 plus fixed1 costs2; actual Blue pitch3 must leave1 resource before responses. No cost discounts or prior turn effects in this scenario.",
+  "observed": "After actual play, NUMBERCHOOSE1 and real Blue pitch, windowPRIORITY/AP0, evoX1 stored, queues empty, expected Resources1 got2. One resource was charged; no source responses or destruction/repeat effect executed.",
+  "source_explanation": [
+    "GameLogic.php:939-940 base uses intval(CardCost(...)); intval X1=0.",
+    "EVOCards.php:87 adds declared X to pending cost; HVYSetX delegates. This creates cost1 at X1, missing fixed1.",
+    "Correct probe would next destroy a real opposing cost1 aura and decline an actual optional Surge repeat. Those later branches were not reached or validated."
+  ],
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+    "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1"
+  },
+  "initial_gamestate_sha256": "e646be1150c450ce3212688e2da50da156e8813fda829f00d4b0106dfc0058d2",
+  "raw_local_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1100-local-20261122\\save\\receipt.json",
+  "raw_local_receipt_sha256": "d02bd85ee5d3c966e6a730909650f9fcf2f8c0b6ac9bf49bbbe681ec6b2a14c0",
+  "public_verification_limits": [
+    "Configured catalog has cost X1 and generated macro announcesX. Publisher HNT release-note fetch returned403; its content was not verified. Official card-image Web tool could not open the webp. No alternate authenticated transport or retry used.",
+    "Only this card was executed; no catalog-wide X-cost audit or fix."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changed": false,
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Big Bully / equal-life Crowd prerequisite guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T04:21:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_YOUNGkayo_strong_arm20_MANUAL_UPF_PARTIAL_EQUAL_LIFE_FALSE_CROWD_PREREQUISITE. Actualprimary5Hand/actualGeneric6pitch2paysexactnormalcost/AP1to0/R0; actualadjacentHero4Dori20neutralWarrior(notReviled). Allfourresponseflow/initialActorHP20equalsDefender20, noBoo/Cheerhistoryseed. WHENifmore/lessLifeinterveningconditionfalseatequal20, so noearnedCrowdlayer/token. Printedpower4notBoo/Cheerbonus andnoGA; actualpositiveHeroHitlowersdefenderlife, butmustNOTretroactivelyre-triggerattackhealthcondition. Livepower/goagainafterdamageandallArena0/noextraUIDpinnoearnedbonuses. Actual4physicaldamageHP4=16/allotherHero20; full5ownedGY1/actualfunderPitchifany/APR0/UID6RNG0/StackDQsCCclean. No trueCrowd/producer/positiveBooCheerbonus/trueReviledHero/permissionpositive/support/pitchsibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#big_bully_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/SUPCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,2330 @@
+{
+  "status": "ONE_FINAL_SUITE_COMPLETE_REVIEW_PAUSE",
+  "utc": "2026-11-26T03:04:48.518061+00:00",
+  "runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+  "strict_comparator": true,
+  "update_snapshots": false,
+  "full_suite_runs_this_repair": 1,
+  "command": [
+    "C:\\xampp\\php\\php.exe",
+    "DevTools/RunIntegrationTests.php",
+    "--root=FaBSim",
+    "--verbose",
+    "--compact",
+    "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\final-suite-20261126\\runner-full.log"
+  ],
+  "summary": {
+    "total": 5730,
+    "pass": 5660,
+    "fail": 70,
+    "discovered": 5730,
+    "not_run": 0,
+    "skipped": 0
+  },
+  "original_baseline": {
+    "total": 5671,
+    "passed": 5151,
+    "failed": 520,
+    "skipped": 0,
+    "not_run": 0
+  },
+  "original_520_now_passing": 520,
+  "original_520_still_failing": [],
+  "new_failure_ids": [
+    "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+    "card-abyssal-force-blue-four-live-real-intrinsic-banish-play-grants-shadow-overpower-first-action-allowed-second-rejected-four-damage",
+    "card-arknight-descendancy-blue-four-live-sparse1548-real-five-runechant-discount-and-eleven-total-damage",
+    "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+    "card-battlefield-breaker-red-four-live-real-six-power-hand-banish-earns-plus-one-and-ten-damage",
+    "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+    "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+    "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+    "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+    "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+    "card-bounding-demigon-red-four-live-sparse927-actual-hand-three-without-banish-origin-power-gain",
+    "card-breach-flesh-red-four-live-sparse967-actual-hand-play-full-block-no-gate-creation",
+    "card-break-of-dawn-red-four-live-sparse-real-light-instant-prevents-four-from-actual-shadow-attack",
+    "card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+    "card-corporeal-chasm-yellow-four-live-sparse967-actual-yellow-hand-play-full-block-no-gate-creation",
+    "card-corrupt-and-conquer-red-four-live-sparse967-actual-hand-play-full-block-retains-enemy-arsenal",
+    "card-cullingsong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+    "card-darkest-hour-blue-four-live-real-normal-payment-and-next-shadow-plus-two-consumer",
+    "card-deep-rooted-evil-yellow-four-live-real-six-power-cost-banish-earns-flag-zero-banish-play-paid-six-damage",
+    "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+    "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+    "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+    "card-diabolic-offering-blue-four-live-real-paid-six-power-hand-banish-earns-six-damage",
+    "card-dread-screamer-blue-four-live-repair164-assets-before-random-three-cost-earned-go-again-full-close",
+    "card-eloquent-eulogy-red-four-live-real-rune-gate-and-automatic-close-eloquence",
+    "card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+    "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+    "card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+    "card-graveling-growl-red-four-live-real-six-power-hand-cost-banish-earns-paid-seven-damage",
+    "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+    "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+    "card-hungering-demigon-red-four-live-sparse967-actual-hand-play-full-block-retains-real-enemy-soul",
+    "card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+    "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+    "card-mark-of-the-beast-yellow-four-live-real-paid-six-damage-and-own-banish-graveyard-replacement",
+    "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+    "card-open-the-gate-to-iarathael-red-four-live-sparse967-actual-hand-play-full-block-no-hit-or-banish-gate-event",
+    "card-piercing-shadow-vise-red-four-live-sparse-real-banish-play-runechant-arcane-earns-two-power",
+    "card-plundersong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+    "card-putrid-stirrings-red-four-live-sparse-real-banish-action-earns-plus-five-on-actual-rune-gated-attack",
+    "card-reality-refractor-four-live-real-aura-weapon-two-paid-five-damage",
+    "card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+    "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+    "card-rifted-torment-red-four-live-sparse927-actual-hand-four-without-banish-origin-arcane-trigger",
+    "card-rip-through-reality-red-four-live-sparse-real-banish-play-runechant-arcane-earns-go-again",
+    "card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+    "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+    "card-shadow-of-ursur-blue-four-live-sparse1163-actual-play-from-banish-without-optional-cost-or-go-again",
+    "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+    "card-shadowrealm-harrower-blue-four-live-sparse974-actual-hand-origin-base-damage-without-banish-bonus-or-heal",
+    "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+    "card-shadowrealm-reaper-yellow-four-live-sparse906-actual-hand-origin-without-banish-origin-bonus",
+    "card-slithering-shadowpede-red-four-live-sparse906-actual-hand-origin-without-banish-permission-claim",
+    "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+    "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+    "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+    "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+    "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+    "card-tribute-to-demolition-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-eight-damage",
+    "card-tribute-to-the-legions-of-doom-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-nine-damage",
+    "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+    "card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+    "card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+    "card-usurp-the-shadow-throne-blue-four-live-sparse1503-unusurped-hand-full-thirteen-resource-cost-and-fully-blocked-attack",
+    "card-vantom-banshee-blue-four-live-real-rune-gate-and-three-targeted-runechants",
+    "card-vantom-wraith-blue-four-live-real-rune-gate-two-runechants-and-four-physical",
+    "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+    "card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+    "card-wall-breaker-blue-four-live-real-seven-power-hand-banish-earned-overpower-one-action-defense",
+    "probe-shimmers-of-silver-blue-four-live-real-iris-aura-weapon-earned-permanent-power"
+  ],
+  "failures": [
+    {
+      "slug": "card-abyssal-bite-blue-four-live-sparse-actual-paid-shadow-action-buffs-real-paid-shadow-attack",
+      "passed": false,
+      "headline": "[FAIL] Abyssal Bite / four live sparse positive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "58aabcd31dfe7e4dfb7aa9690ac0c2379285ff91853ef5c148ba300c6789d394",
+        "actual_line_sha256": "92fb8fabd751a97003f34b9e818397dd3670f48f3aee2bc9d5f2f8f404f44611",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-abyssal-force-blue-four-live-real-intrinsic-banish-play-grants-shadow-overpower-first-action-allowed-second-rejected-four-damage",
+      "passed": false,
+      "headline": "[FAIL] abyssal_force_blue / four live distinctive effect: Final snapshot mismatch at line 92 (expected 117 lines, actual 117 lines).",
+      "message": "Final snapshot mismatch at line 92 (expected 117 lines, actual 117 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "1771df013efe23c0afed39afa14c5c6c2cb3ae43361f7cbe97f8c9d422ce6994",
+        "actual_line_sha256": "fc0f3a5e27dc0f4e4a9e46232126f37919f59fe03e1b093bfa7ffc22d7415480",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-arknight-descendancy-blue-four-live-sparse1548-real-five-runechant-discount-and-eleven-total-damage",
+      "passed": false,
+      "headline": "[FAIL] Arknight Descendancy / five actual Runechants reduce printed five to zero, real arcane plus attack damage: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "186a96b08ca86d6b0c2d2cd479758f9e5e8d50468bf6b6710e704d08d867c075",
+        "actual_line_sha256": "7e9e88a5eba060924f29421d553c3e2561a69024ed0ab825d8f56b4140e4aac2",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-baalghor-omen-of-the-end-four-live-sparse1137-real-banish-attack-gets-three-and-deals-seven-without-pitch-event",
+      "passed": false,
+      "headline": "[FAIL] Baalghor / intrinsic real banished-attack power bonus without a pitch event: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "21d4e6d9c8ae7193f6bccd787676ef9829455fec4283b464c6d8ce1a78e9f465",
+        "actual_line_sha256": "6c3472a6df958fbe5b2af488d25eeaebbc7b74709dd77a258976903bb159dd0c",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-battlefield-breaker-red-four-live-real-six-power-hand-banish-earns-plus-one-and-ten-damage",
+      "passed": false,
+      "headline": "[FAIL] battlefield_breaker_red / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "dc480e24f6f305748aeb4aa95ff7a70154c66482f67c340f22540bfe4a9272f3",
+        "actual_line_sha256": "3840c381ce08db398ff6c021f1453126f21afe94d511246ebd32c4b06d64d058",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-beseech-the-demigon-red-four-live-sparse1009-choose-real-banished-ghostly-then-seven-damage",
+      "passed": false,
+      "headline": "[FAIL] Beseech the Demigon / four-live chosen banished attack actually consumes +3: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "5b9afe0b7d8a45c24572a886d577f810bbfaad7fed8d2ab0032b492b0cd79a8b",
+        "actual_line_sha256": "b87ef4bcf83d6c58b4fa74ff8d06057989eacff7b8c4303b037d291030449eb8",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-blasmophet-the-insatiable-hunger-four-live-sparse1193-real-permission-plays-blood-debt-from-banish-without-inherent-permission",
+      "passed": false,
+      "headline": "[FAIL] Blasmophet, the Insatiable Hunger / actual granted banish play without inherent permission: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "7aa1bfc5383e0e4024a847df36fe55e8cc0419041e105386f772ecc0c6040a2b",
+        "actual_line_sha256": "32b7ae2b211019471372ea5d3b2c755aafc6f485ab5302ae21b9bde3bfae239a",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-blasmophets-boon-blue-four-live-repair-controlled-blasmophet-base-six-real-damage",
+      "passed": false,
+      "headline": "[FAIL] Blasmophet's Boon / four live controlled Blasmophet defines six power: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "07b04687d0e374d4590fc925799286c173560e93337e45fee6d90e708518c1bc",
+        "actual_line_sha256": "306746e537522be33347d29ec8976dd18215ffd523ce8d55d481013b9135631d",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-bloodfrenzy-gloomblade-red-four-live-sparse928-actual-three-damage-to-defender-earns-static-go-again",
+      "passed": false,
+      "headline": "[FAIL] Bloodfrenzy Gloomblade / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "4683db7c6ce2e1941abd2e7a46ee1c7b49464ec7a7db4f500f86fb3532dc58c6",
+        "actual_line_sha256": "77c58ea0b268b5e96d57b3eeed421a22d0d54370b38aeda1da2e627e6772b638",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "passed": false,
+      "headline": "[FAIL] Bloodsong Gloomblade / actual intrinsic Banish play with an Ally target: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "8e8b59353616923b01725918994d4bfb0a2743f510b831ac38e271d8d6efa4bd",
+        "actual_line_sha256": "a5247544c1ce8f9a2e95ca1f9e038a7bbaa5d2bcde1cc6e435dcaedc937e1db0",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-bounding-demigon-red-four-live-sparse927-actual-hand-three-without-banish-origin-power-gain",
+      "passed": false,
+      "headline": "[FAIL] Bounding Demigon / sparse four-live representative: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "6704cdd23eb6524295df02d0191d6eff1a0027b8b04027b207f860536998ddc8",
+        "actual_line_sha256": "d17b139d4c6732c12c99506194b63fc7e7b2778f9a4e5e36a79bfa8826885c30",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-breach-flesh-red-four-live-sparse967-actual-hand-play-full-block-no-gate-creation",
+      "passed": false,
+      "headline": "[FAIL] Breach Flesh / sparse four-live representative: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "18daa1def69b998c4d665ed00059d9693da184e8e210540bd9bff6888621f784",
+        "actual_line_sha256": "817ff3df2d8864166b4ff4676054cce1ef1e3a85a6bccf0b39938f5cfd6bed46",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-break-of-dawn-red-four-live-sparse-real-light-instant-prevents-four-from-actual-shadow-attack",
+      "passed": false,
+      "headline": "[FAIL] break_of_dawn_red / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "9e7908e9ecde6b24f229fafdd7aa1410fc9d9d4973c6d1c21197be694e624705",
+        "actual_line_sha256": "1ee95142fe1417007b45767047e6ea51e924d685a4edc7c8a2b9b69d837ffc36",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-chane-bound-by-shadow-two-live-sparse1265-real-soul-shackle-cost-before-responses-then-actual-shadow-attack-go-again",
+      "passed": false,
+      "headline": "[FAIL] Chane Bound by Shadow / real Shackle cost then granted Shadow attack go again: Final snapshot mismatch at line 87 (expected 110 lines, actual 110 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 110 lines, actual 110 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "7c00b0832fc13b4998b070e847c74af09fc8c89aebb6500a42ab1fc9ca70de96",
+        "actual_line_sha256": "0623460c7ddfbf8210b87fd1b3f6ca40b22477442c55850531a06a2b93267db7",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-corporeal-chasm-yellow-four-live-sparse967-actual-yellow-hand-play-full-block-no-gate-creation",
+      "passed": false,
+      "headline": "[FAIL] Corporeal Chasm / sparse four-live representative: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "d0c3b7415c16610bb45696f3b9d796317a1f54e232d573b0a6faa8ae7da8670e",
+        "actual_line_sha256": "9a2e312a4fba421fbfb2aeb570dd21e441b7c79fd322501d21579f6c807868d9",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-corrupt-and-conquer-red-four-live-sparse967-actual-hand-play-full-block-retains-enemy-arsenal",
+      "passed": false,
+      "headline": "[FAIL] Corrupt and Conquer / sparse four-live representative: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "7b7bffc571b9bdf08a7e2a4496325f6a10ba15c065f9eb29ebcc9392e2d75a73",
+        "actual_line_sha256": "e8ed0726022ddb1a6069c1a928b014719c4f52ad4ec77f5206673243d3da0b2f",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-cullingsong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+      "passed": false,
+      "headline": "[FAIL] Cullingsong Gloomblade / native play from Banish attacks a real Ally without Hero-hit banishment: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "f631129906140116bc3f879f6cf9ffaee1e7c04d73a08d34ae193f833e79813b",
+        "actual_line_sha256": "a82728ac0d633dc22cf65b61db3abe9bf9175e196982346938a8b87db624097a",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-darkest-hour-blue-four-live-real-normal-payment-and-next-shadow-plus-two-consumer",
+      "passed": false,
+      "headline": "[FAIL] darkest_hour_blue / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "59a0d2d9b6cd7fe98a258777a252debcf17e21e32f7277e78e91dea98f42d77d",
+        "actual_line_sha256": "143364e2c8d9253ee7d867fcc3c3bc05b584f4b89985b521d0c271d38f4ce820",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-deep-rooted-evil-yellow-four-live-real-six-power-cost-banish-earns-flag-zero-banish-play-paid-six-damage",
+      "passed": false,
+      "headline": "[FAIL] deep_rooted_evil_yellow / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "a2d1223916327600067ad029711d1770b45c0a398b7c338d1b7e41a2cfa1ff8a",
+        "actual_line_sha256": "518c049bae1b1bbb36482a3276982d60a4dd1a8804837dd1ab7defbdfcf5759e",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-demonbound-gloomblade-red-four-live-sparse928-actual-hand-three-with-no-runechant-for-usurp",
+      "passed": false,
+      "headline": "[FAIL] Demonbound Gloomblade / sparse four-live representative: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "1e8df6b4c8a8a22724487dd5c01f0ed32bd34c2f08becab9b0d7c8b2031d6b83",
+        "actual_line_sha256": "0883f8924d8c69160727e65341f0073bb560f018fa448c2e6ff166f92f073558",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+      "passed": false,
+      "headline": "[FAIL] Depths of Despair / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "f2628309f371c7163395e71842c2fb252b9429831a7931867d6275cd5b0bcf47",
+        "actual_line_sha256": "f1d075b8632abaeec3f275ca32ae4a5c2529e0b77fe9302dd753abaa6e028868",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-devouring-doomwake-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "passed": false,
+      "headline": "[FAIL] Devouring Doomwake / sparse four-live representative: Final snapshot mismatch at line 93 (expected 118 lines, actual 118 lines).",
+      "message": "Final snapshot mismatch at line 93 (expected 118 lines, actual 118 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "4a404dd1a913c29add0e3e32ad21f86ef4dc39adb71021298f758a00b12cc7ba",
+        "actual_line_sha256": "e93ff0288efb2295c51737a2e56f3f8ec53edb357319ffdd3f8902569e9118e3",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-diabolic-offering-blue-four-live-real-paid-six-power-hand-banish-earns-six-damage",
+      "passed": false,
+      "headline": "[FAIL] diabolic_offering_blue / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "a60b9f4d4ed2e6cd043a8299bd2243cf9b6bec543fe711e11a8f0b28dadac4bf",
+        "actual_line_sha256": "531af2d7cf60f32f34cf241bb9d4c0d6b808c44e120a2bfd983b8d4335c6c2c7",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-dread-screamer-blue-four-live-repair164-assets-before-random-three-cost-earned-go-again-full-close",
+      "passed": false,
+      "headline": "[FAIL] Dread Screamer Blue / existing164 repair completion / real asset payment then random-three cost: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "b431b1ce7c955d393e67cbf1ddcc7f4043e386be23ec6b7e5f3c3c2b9ffa5d64",
+        "actual_line_sha256": "66407eb0213f002ce106d0036670b1870a3933b94d0bf0dc3a85ebc4c3dc0d3d",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-eloquent-eulogy-red-four-live-real-rune-gate-and-automatic-close-eloquence",
+      "passed": false,
+      "headline": "[FAIL] eloquent_eulogy_red / four live distinctive effect: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "d6815e4bcb7bcba761bb348724252428dfade0f9f4f1a43f7a94abd474e5bab8",
+        "actual_line_sha256": "2cb3730c33e1d9e0a388b9ca5bd328bd50e1e014ae56bd06ee1e661f7dea210b",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-endless-maw-red-four-live-sparse883-actual-three-random-graveyard-cost-cards-earn-nine-unblocked-damage",
+      "passed": false,
+      "headline": "[FAIL] Endless Maw / sparse four-live representative: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "79d62b4ef639e50c4669981650e31dd46e22c6f3197940a296d742411282420a",
+        "actual_line_sha256": "f370b3ea8c03298098dca9ec8fbdc2b728baf52956048241e04baf7d100b983d",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+      "passed": false,
+      "headline": "[FAIL] Enigma, Ledger of Ancestry / actual first Spectral Shield attack is free at zero resources: Final snapshot mismatch at line 86 (expected 109 lines, actual 109 lines).",
+      "message": "Final snapshot mismatch at line 86 (expected 109 lines, actual 109 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "d69ec18ee7c13efb6fa418e10f3f151d2d7009a540889c53737db33ceac756d5",
+        "actual_line_sha256": "6c471207abcf006288352d0f0a7c31e017ae52bf826f0ccd9856442bbcc4b0f4",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 19,
+            "actual_length": 20,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-ghostly-visit-red-four-live-sparse-intrinsic-faceup-banish-play",
+      "passed": false,
+      "headline": "[FAIL] Ghostly Visit / four live sparse representative: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "80e3dcbfcb4b18fff6528563ba02ad60cf87aef78d0e374e221305bf63b3dbe9",
+        "actual_line_sha256": "e54f2a633ecdd5ff3958522e58cae028ace40f5666025b32fd95ff2f04336457",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-graveling-growl-red-four-live-real-six-power-hand-cost-banish-earns-paid-seven-damage",
+      "passed": false,
+      "headline": "[FAIL] graveling_growl_red / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "5f5a9ce6036ec1977b9aca426ffdc5f46ca0034ff5ec2a6b272a5da1e955725c",
+        "actual_line_sha256": "2316690457f6163738c3f9da55077aac3595d49fce2d68e1a7c2dbd4c23a9412",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-hellbound-assault-blue-four-live-earned-hit-self-banish-and-real-end-phase-blood-debt",
+      "passed": false,
+      "headline": "[FAIL] hellbound_assault_blue / earned trigger and native follow-through: Final snapshot mismatch at line 97 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 97 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "9d394603bc612072e2bde103608ef00452868e6bd4dee017782d4cdef7b8209a",
+        "actual_line_sha256": "43f8bfdd422dd864c99be775f2194a71ef50f20d862a076de67ffd12b8892320",
+        "observed_group": "non-JSON first-line difference"
+      }
+    },
+    {
+      "slug": "card-howl-from-beyond-red-four-live-sparse-actual-paid-shadow-action-next-paid-attack-action-plus-three",
+      "passed": false,
+      "headline": "[FAIL] Howl from Beyond / four live sparse positive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "d635015c354748c1051b7b5b38d2cd741d7d5b40854a80beb5101b54c3da5318",
+        "actual_line_sha256": "029e754d1677ce04ab777a7997697491fde2af170fb5218c48ba9f52d07801b8",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-hungering-demigon-red-four-live-sparse967-actual-hand-play-full-block-retains-real-enemy-soul",
+      "passed": false,
+      "headline": "[FAIL] Hungering Demigon / sparse four-live representative: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "04988873eb31d348bfda094b3892c2be2a69f07fda9e31191ed312dde1622d14",
+        "actual_line_sha256": "ba92c877612a2a4fe92eed7df7a5dbe18e631e1204013c5882bbc84eb0535c5e",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-iris-of-reality-four-live-sparse-real-owned-illusionist-aura-paid-weapon-four-damage-and-go-again",
+      "passed": false,
+      "headline": "[FAIL] iris_of_reality / meaningful first-pass four-live representative: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "78776201389012c130b9b207e3663a0f6f9919dd717b23aaabb941581972af55",
+        "actual_line_sha256": "42047c33cc8a40d30220626c0f247d7d7df76582fd2f9303c86fb4160251c0a2",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 20,
+            "actual_length": 21,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-luminaris-four-live-sparse1145-actual-aura-weapon-one-power-and-yellow-pitch-go-again",
+      "passed": false,
+      "headline": "[FAIL] Luminaris / actual aura weapon attacks for one and gains yellow-pitch go again: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "4391543a0e6baebc0c5373a8e9a5f9bc633462d106b46a8097196064ae3a02fb",
+        "actual_line_sha256": "1f676bb775101196bfa57d72f9c65dc93bfe64e979fd6d73706730e5784b9229",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 19,
+            "actual_length": 20,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-mark-of-the-beast-yellow-four-live-real-paid-six-damage-and-own-banish-graveyard-replacement",
+      "passed": false,
+      "headline": "[FAIL] mark_of_the_beast_yellow / four live distinctive effect: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "91413c7020c5e29a853e98ef6ce4744ec47e217ca7c43130eb68a4df574ff19c",
+        "actual_line_sha256": "617e8b08ba237cb942f5d57198f93fdac14dd24f999a0459583302bb32bff427",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-mutated-mass-blue-four-live-sparse928-one-actual-distinct-pitch-cost-sets-star-power-to-two",
+      "passed": false,
+      "headline": "[FAIL] Mutated Mass / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "6366fc61221159aebbff922b31d8209966799c1f45488d8fdbd0edfa582b5b3b",
+        "actual_line_sha256": "d361bf77b9436e5709f8b9ac8abbdfc4f8513e3216c7548b5e25cb9033f6acb6",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-open-the-gate-to-iarathael-red-four-live-sparse967-actual-hand-play-full-block-no-hit-or-banish-gate-event",
+      "passed": false,
+      "headline": "[FAIL] Open the Gate to i'Arathael / sparse four-live representative: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "0844e4b68a25b43c7b51f9aad896b78255fef530a4e707c2789d75daba9caf94",
+        "actual_line_sha256": "c5b5a07acd8f0cb784d2a285145f5ab57cc063d19b0b145d4b1d651637ec4b41",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-piercing-shadow-vise-red-four-live-sparse-real-banish-play-runechant-arcane-earns-two-power",
+      "passed": false,
+      "headline": "[FAIL] piercing_shadow_vise_red / four live distinctive effect: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "d357227bfb2b8c99246019273134e4dbaa37a1371a83691d10159cd3e4ae1758",
+        "actual_line_sha256": "e3b79b3e62ecbcdfddebc4a0c1c03331b37f5966d3b4dda4d5911ddc2590c41f",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-plundersong-gloomblade-red-four-live-sparse1293-actual-intrinsic-banish-play-attacks-ally-no-hero-hit-banish",
+      "passed": false,
+      "headline": "[FAIL] Plundersong Gloomblade / native play from Banish attacks a real Ally without Hero-hit banishment: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "b627a73f930a5915c73021852ffc4f0202d7c682730e3da74e4ea24a65a28b0c",
+        "actual_line_sha256": "a1dae007a3d11539b4205d95ae568efee51fec5362f72c6c589c0134187fb222",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-putrid-stirrings-red-four-live-sparse-real-banish-action-earns-plus-five-on-actual-rune-gated-attack",
+      "passed": false,
+      "headline": "[FAIL] putrid_stirrings_red / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "0b2d2951e100041fca4aa2fb9ca643a2c513fb74c76003586dbb01bd2e76e155",
+        "actual_line_sha256": "a45f6024a0abaec5d40a979914f6f7bbb5fbf31c3391c9439e394b47cb4b2c22",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-reality-refractor-four-live-real-aura-weapon-two-paid-five-damage",
+      "passed": false,
+      "headline": "[FAIL] Reality Refractor / actual aura weapon pays two and deals five: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "cdfd2194ff056a21f3b548f637c8854b41457bfd504ce79534aa49e9414b422d",
+        "actual_line_sha256": "a52ad71671f99dbfa5c28d69b2ccfb11638abf7e1c59111438b3953448096f04",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 20,
+            "actual_length": 21,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-rift-bind-red-four-live-correct-banish-play-when-after-real-nonattack-action-and-five-damage",
+      "passed": false,
+      "headline": "[FAIL] rift_bind_red / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "fe26b2faf2b4b3bdcde256bdca53ba918ddd192e81371a5c36bd92913008b03e",
+        "actual_line_sha256": "0b47847ff81e2888efe785689d673a426f4f07cea6ab614eeaafbf266346cb4c",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-rift-skitter-red-four-live-sparse-actual-three-resource-hand-attack-deals-four-and-printed-go-again-restores-ap",
+      "passed": false,
+      "headline": "[FAIL] Rift Skitter / four live sparse paid Hand attack and go again: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "ce29824b16ac5b9c1bc5cb45436ad4f7dbc14dcfa131cd5b44baf553b5400017",
+        "actual_line_sha256": "045a8f42e3c198c28eaff3635831097619951f3486c531115ab089cc19f408ff",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-rifted-torment-red-four-live-sparse927-actual-hand-four-without-banish-origin-arcane-trigger",
+      "passed": false,
+      "headline": "[FAIL] Rifted Torment / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "a794557fd88a352c99e4c9c54bfdacf3f140f2a0bd094b570cd08c9c92b5e782",
+        "actual_line_sha256": "67b6f98cb13712bf7ad7c15667f2648eb8025e3f813d95104f0f2b265e597df8",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-rip-through-reality-red-four-live-sparse-real-banish-play-runechant-arcane-earns-go-again",
+      "passed": false,
+      "headline": "[FAIL] rip_through_reality_red / four live distinctive effect: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "5a580f655e1570b007e89cf5d928578277ee7fa71052fd0574ec65acb1607812",
+        "actual_line_sha256": "2707aa34da4c6407cb27ba98b10ca02b4781a46b2b86028fe1c96b3a8714ae45",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-rip-up-their-virtues-blue-four-live-sparse879-destroys-three-real-tokens-across-seats-and-creates-three-owned-replacements",
+      "passed": false,
+      "headline": "[FAIL] Rip Up Their Virtues / sparse four-live representative: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "e3611114816937b86802a8b35759ff0827147225c4f5f274a1b693cd9c597852",
+        "actual_line_sha256": "5143a7f148cbfea5ad204b5e2c3d42f4962bdd38d93125d2733e3bea7e615fee",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 22,
+            "actual_length": 23,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"PEN_TOUGHNESS_LEFT\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          },
+          {
+            "path": "$.turnEffects.2",
+            "expected_length": 1,
+            "actual_length": 2,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"PEN_TOUGHNESS_LEFT\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          },
+          {
+            "path": "$.turnEffects.4",
+            "expected_length": 1,
+            "actual_length": 2,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"PEN_TOUGHNESS_LEFT\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "other first-line JSON delta"
+      }
+    },
+    {
+      "slug": "card-rumbling-hunger-red-four-live-sparse969-actual-printed-payment-full-hand-block-no-hit-effect",
+      "passed": false,
+      "headline": "[FAIL] Rumbling Hunger / sparse four-live representative: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "0c203198fe4aa5f30b3b395cd0b4678c9a9f86e0ac0303f5b77ed732d12888e6",
+        "actual_line_sha256": "abc45e93421305b61691d7ada0fd67079cd9fbb490f35a3ea62f437f144493d0",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-shadow-of-ursur-blue-four-live-sparse1163-actual-play-from-banish-without-optional-cost-or-go-again",
+      "passed": false,
+      "headline": "[FAIL] Shadow of Ursur / real printed Banish permission, optional cost unpaid: Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "message": "Final snapshot mismatch at line 87 (expected 112 lines, actual 112 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "779bb87c091c1d324ff6c4289f8781cfecf476ccdf1f8fbfe1d80356bd6f3143",
+        "actual_line_sha256": "711a34847536a268de393356e759f549b79a42f1ca045bfdfce312290e2349d5",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+      "passed": false,
+      "headline": "[FAIL] Shadowake Gloomblade / actual intrinsic Banish play with full defense: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "0cc1703a101714000e9b241f52653475be35d2f4083bde7d5399794aac4c3196",
+        "actual_line_sha256": "d13d3a8571c7e2188212ed073f70ea50211743351b607ba2f442539b9ba4f318",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-shadowrealm-harrower-blue-four-live-sparse974-actual-hand-origin-base-damage-without-banish-bonus-or-heal",
+      "passed": false,
+      "headline": "[FAIL] Shadowrealm Harrower / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "1db3178f528910d475f8eab25c22cd4104279a5e975dbff27c41c915f6607309",
+        "actual_line_sha256": "d41d988771329c0a122579128a27d39007117ec3bc421d4a4ca1f6704be3b39f",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-shadowrealm-harvester-red-four-live-sparse905-actual-hand-play-and-blue-cost-two-deal-six-without-banish-origin-bonus",
+      "passed": false,
+      "headline": "[FAIL] Shadowrealm Harvester / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "8cafb9fcc33497dfe900f37207e1c3ece4d4b30a1272a80c23d5b61d050a95ef",
+        "actual_line_sha256": "9758752b790fdf0dba9a6feb72dff69233ef7614440167e5eb88d9f5d02fb952",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-shadowrealm-reaper-yellow-four-live-sparse906-actual-hand-origin-without-banish-origin-bonus",
+      "passed": false,
+      "headline": "[FAIL] Shadowrealm Reaper / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "81655fa950931d0bbd6c47813a9e8e1e3d8664cb041dfc3653d5a3b8059f9a8f",
+        "actual_line_sha256": "449b37a6486b59bc733a803ce1d484c65ed77704fa556271c4891a651a2a9e89",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-slithering-shadowpede-red-four-live-sparse906-actual-hand-origin-without-banish-permission-claim",
+      "passed": false,
+      "headline": "[FAIL] Slithering Shadowpede / sparse four-live representative: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "9b6445b198853811531de38df018e92507fb1c0f61099ae52059a665ae841e3c",
+        "actual_line_sha256": "b6f6b95c8484ce73428fc52e22ab6f9242a463e502258232174ccdddf268a555",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-soul-butcher-red-four-live-sparse-defending-hero-physical-soul-grants-two-power",
+      "passed": false,
+      "headline": "[FAIL] Soul Butcher / four live sparse positive condition: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "aa0d6b08ef2db09e1b6b91f50dfd2caadd93ef0a173ae9c7ae4e0e6bbd4d4c84",
+        "actual_line_sha256": "666be51f971ef603c4f7b6204f129acf4d4f6f43f0e6db182cf7a55a8ef503ab",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-soul-cleaver-red-four-live-sparse-defending-hero-physical-soul-grants-go-again",
+      "passed": false,
+      "headline": "[FAIL] Soul Cleaver / four live sparse positive condition: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "8eb7a0029cb1f9ab7ec904e0c31c089d33915bb7164c19a3e870885c4c838ee7",
+        "actual_line_sha256": "8fb788cc57144e165fcb17af827417a519b6ac25e52a22e085b1d1da70c2d476",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+      "passed": false,
+      "headline": "[FAIL] Step through Realms / four-live actual buff consumer: Final snapshot mismatch at line 92 (expected 117 lines, actual 117 lines).",
+      "message": "Final snapshot mismatch at line 92 (expected 117 lines, actual 117 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "ee27cce1dfee400333befbbfdeae2f30fdb0be78e8583f01f19954e35ed973c0",
+        "actual_line_sha256": "73741306ed722c1817cc7cab7b96a41000f0e7d299e0864f616d5c45b2629ec8",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-tear-through-the-portal-red-four-live-sparse1075-real-red-banished-attack-selection-and-consumed-go-again",
+      "passed": false,
+      "headline": "[FAIL] Tear Through the Portal / four-live actual selected attack go again: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "37d7972631e429abfc1065630194a405ef37bdcd3b01ca703f8f8bf814145526",
+        "actual_line_sha256": "1f987d8a20fbec1eda81f28e0e2daeeba1e346f8ce813c3a952a44b394de489a",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-toughness-four-live-sparse889-natural-opponent-turn-start-then-real-action-defends-for-four-and-limits-damage-to-three",
+      "passed": false,
+      "headline": "[FAIL] Toughness / sparse natural start effect representative: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "c230f925772964e51488d303bc1b662545ba91b44a0af0b8dd6d97c669cd2ff2",
+        "actual_line_sha256": "be772a807384cfcd1d7e608b7b01bada73b36878443040242f66815103041326",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.4",
+            "expected_length": 13,
+            "actual_length": 14,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"PEN_TOUGHNESS_LEFT\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "other first-line JSON delta"
+      }
+    },
+    {
+      "slug": "card-tribute-to-demolition-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-eight-damage",
+      "passed": false,
+      "headline": "[FAIL] Tribute to Demolition / sparse four-live representative: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "4ace5e8915ac9c52171b7939eb46a8bb82ee02f5ee2d5aa95d87bd1406b1a350",
+        "actual_line_sha256": "e71b5e0f061bf1dcc0566922e681deb528e9d830a4511873bdef35dc17ed7d6d",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-tribute-to-the-legions-of-doom-red-four-live-sparse884-real-blue-pitch-before-single-random-six-power-banish-earns-nine-damage",
+      "passed": false,
+      "headline": "[FAIL] Tribute to the Legions of Doom / sparse four-live representative: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "53f299180a0d349322fdd42826f4f435ea9a641bee36ae72d27ce575928d11fb",
+        "actual_line_sha256": "8fb037e5b30e67a53608435ba4b45d3536cc48d56287b4c6eca42f41bfecbb08",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-unbound-by-shadow-red-four-live-sparse1342-actual-hand-play-not-banish-no-gate-creation-or-action-refund",
+      "passed": false,
+      "headline": "[FAIL] Unbound by Shadow / real base attack with false grant condition: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "914e56c46116430988c9d3830bef7460ca05b226aa922214fc519c1b957ff951",
+        "actual_line_sha256": "834520d9449142683c81c7dc33063aa866fd68d2e5b676448728f7c43a850ae9",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-unhallowed-rites-red-four-live-sparse-real-non-attack-play-earns-public-banish-attack-permission",
+      "passed": false,
+      "headline": "[FAIL] unhallowed_rites_red / four live distinctive effect: Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "message": "Final snapshot mismatch at line 89 (expected 114 lines, actual 114 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "40cab89b09f79e44885ad1f2fcbe01b4bb9e9a42206c128600bf89a41aa06b75",
+        "actual_line_sha256": "6a7e85246e4ba0464bd2d94bccdfe5cb4f1ca2c069cc1e033e8dcfa13b581cd5",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-uphold-tradition-four-live-original-correct-counter-and-damage-diagnostic",
+      "passed": false,
+      "headline": "[FAIL] uphold_tradition / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "ce1be9da95734bcbd6d68c53caf7ee8c6f3613a344f8995ceec7e6a8c23aeb3e",
+        "actual_line_sha256": "eef976417117beeed228deea8e73e8431bed33933db3a2789b36d13d45caabcd",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 21,
+            "actual_length": 22,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-usurp-the-shadow-throne-blue-four-live-sparse1503-unusurped-hand-full-thirteen-resource-cost-and-fully-blocked-attack",
+      "passed": false,
+      "headline": "[FAIL] Usurp the Shadow Throne / no usurp full13cost and actual13attack fully blocked: Final snapshot mismatch at line 98 (expected 123 lines, actual 123 lines).",
+      "message": "Final snapshot mismatch at line 98 (expected 123 lines, actual 123 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "540c4b174a796c5ceaed6de246b1b29fadeccfe121df2663feb5c298e8eacb30",
+        "actual_line_sha256": "f9bba66107cd50f67310e55a34f48bed95e73aca00fb02d49064b539f6588b9f",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-vantom-banshee-blue-four-live-real-rune-gate-and-three-targeted-runechants",
+      "passed": false,
+      "headline": "[FAIL] vantom_banshee_blue / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "e26e5c2089896b4d901cf550801c505399f61444d19d99d3ea86b56ba6e90db5",
+        "actual_line_sha256": "d7eccb71b0994e4e9f2e9744ee70d21381370c60d4fa527f9ea14d1412d0685e",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-vantom-wraith-blue-four-live-real-rune-gate-two-runechants-and-four-physical",
+      "passed": false,
+      "headline": "[FAIL] vantom_wraith_blue / four live distinctive effect: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "56fccdaae4e93dd33cc674bcec506b41311c094fbde5daa45231f656286e9b1a",
+        "actual_line_sha256": "419da2283267190624df65cc8f6fa7eeec40193273db5828bec435d46826aa52",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "passed": false,
+      "headline": "[FAIL] Vexing Gloomblade / actual intrinsic Banish play with an Ally target: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "30128e1586e7cd5fb5db0f621473f774c55cc5ffc1e82fd96cf22b6c57ee3a28",
+        "actual_line_sha256": "3b3d167ac4250fc3b4e25f569df7acce78eaa3b90f8070c751323ca2087667f3",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-void-wraith-red-four-live-sparse-real-public-banish-play-pays-two-and-deals-five",
+      "passed": false,
+      "headline": "[FAIL] void_wraith_red / four live distinctive effect: Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "message": "Final snapshot mismatch at line 88 (expected 113 lines, actual 113 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "4f0043cb110da7352df21008d882a510f19632cfddd59fcc69793a0172d035c2",
+        "actual_line_sha256": "b4eefa63f7d20de662a9f4ce2ff76d105201251f9b7340494887615dfc16baa3",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "card-wall-breaker-blue-four-live-real-seven-power-hand-banish-earned-overpower-one-action-defense",
+      "passed": false,
+      "headline": "[FAIL] wall_breaker_blue / four live distinctive effect: Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "message": "Final snapshot mismatch at line 91 (expected 116 lines, actual 116 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "cb3fffbb834fb24e553c7072949306b84a82e27005907deece4edf6b4e59de24",
+        "actual_line_sha256": "0d676eca4a2e1b626f723b274f0a7d691367a6087b7baa7ed216a084c6963326",
+        "json_delta": [
+          {
+            "path": "$.iar",
+            "added": {
+              "2": {
+                "1": {
+                  "DEBT_ATTACK": 1
+                }
+              }
+            }
+          }
+        ],
+        "observed_group": "first-line added DEBT_ATTACK history"
+      }
+    },
+    {
+      "slug": "probe-shimmers-of-silver-blue-four-live-real-iris-aura-weapon-earned-permanent-power",
+      "passed": false,
+      "headline": "[FAIL] Shimmers of Silver / real Aura weapon earns permanent power counter: Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "message": "Final snapshot mismatch at line 90 (expected 115 lines, actual 115 lines).",
+      "first_difference_diagnostic": {
+        "scope": "Complete first differing line emitted by the strict runner; remaining state lines not captured by this diagnostic.",
+        "expected_line_sha256": "e2083753d0a4a1c03009a063827b081595721fb23486a0fb4dd476e74c1881f1",
+        "actual_line_sha256": "bef7b59410877d6797b64e2164ab37a7d0865136974efaf58fc77a4e55134386",
+        "json_delta": [
+          {
+            "path": "$.turnEffects.1",
+            "expected_length": 20,
+            "actual_length": 21,
+            "added_entries": [
+              "{\"amount\": 1, \"type\": \"MST_SHIELD_ATTACK\", \"uses\": 1}"
+            ],
+            "removed_entries": []
+          }
+        ],
+        "observed_group": "first-line added MST_SHIELD_ATTACK history"
+      }
+    }
+  ],
+  "observed_failure_kinds": {
+    "final_snapshot": 70,
+    "assertion": 0,
+    "other": 0
+  },
+  "observed_first_difference_groups": {
+    "first-line added DEBT_ATTACK history": 61,
+    "first-line added MST_SHIELD_ATTACK history": 6,
+    "non-JSON first-line difference": 1,
+    "other first-line JSON delta": 2
+  },
+  "classification_limit": "Failure kinds describe runner output, not an automatic stale-oracle or harmless-order verdict. Full-state equivalence is not inferred from the first differing line.",
+  "frozen_confirmed_records": [
+    {
+      "id": "FAB-REG-203",
+      "title": "Codex of Bloodrot four-live completion gives caster Bloodrot Pox instead of Ponder",
+      "status": "FIXED_QUALIFIED_NATIVE_ORIGINAL_CREATOR_AND_RECIPIENT",
+      "targeted_evidence": "review-evidence/codex-of-bloodrot-yellow-creator-qualified-repair-20261126.json",
+      "targeted_runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-codex-of-bloodrot-yellow-four-live-20261126-original-creator-and-recipient",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only named original branches; no additional pitch/coverage breadth.",
+        "Existing Mindstate usable-Tiger follow-through is an adjacent check, not a new coverage claim.",
+        "No blanket claim that all cross-player awaits or token producers are repaired.",
+        "Fifteen actual provider guard checks are isolated from gameplay.",
+        "Primary-agent semantic/saved review; fullsuite unrun; default strict comparator unchanged."
+      ]
+    },
+    {
+      "id": "FAB-REG-205",
+      "title": "Song of Larinkmorth White Frostbite ownership defaults to receiving hero",
+      "status": "FIXED_QUALIFIED_NATIVE_ORIGINAL_CREATOR_AND_RECIPIENT",
+      "targeted_evidence": "review-evidence/song-of-larinkmorth-white-blue-creator-qualified-repair-20261126.json",
+      "targeted_runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-song-of-larinkmorth-white-blue-four-live-20261126-original-creator-and-recipient",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only named original branches; no additional pitch/coverage breadth.",
+        "Existing Mindstate usable-Tiger follow-through is an adjacent check, not a new coverage claim.",
+        "No blanket claim that all cross-player awaits or token producers are repaired.",
+        "Fifteen actual provider guard checks are isolated from gameplay.",
+        "Primary-agent semantic/saved review; fullsuite unrun; default strict comparator unchanged."
+      ]
+    },
+    {
+      "id": "FAB-REG-206",
+      "title": "Show Time enters then starts search without separate earned-trigger responses",
+      "status": "FIXED_QUALIFIED_NATIVE_NAMED_ENTRY_OR_RESOLUTION",
+      "targeted_evidence": "review-evidence/show-time-blue-entry-resolution-qualified-repair-20261126.json",
+      "targeted_runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-show-time-blue-four-live-20261126-earned-entry-search-response-window",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "ShowTime other non-play entry routes and source-departure responses not newnativequalifiedbranches.",
+        "Copper native normalplay+acceptCrank; no newreentry/doubleinitializer catalog audit.",
+        "Library originalforeignactivation and sourceownerfate tested; sourceleave/reenter or lateabilitysuppression branches unverified.",
+        "Primary-agent semantic/saved review; strict comparator unchanged, fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-207",
+      "title": "Copper Cog normal play omits printed entry steam counters and Crank opportunity",
+      "status": "FIXED_QUALIFIED_NATIVE_NAMED_ENTRY_OR_RESOLUTION",
+      "targeted_evidence": "review-evidence/copper-cog-blue-entry-resolution-qualified-repair-20261126.json",
+      "targeted_runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-copper-cog-blue-four-live-20261126-two-steam-entry-real-crank",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "ShowTime other non-play entry routes and source-departure responses not newnativequalifiedbranches.",
+        "Copper native normalplay+acceptCrank; no newreentry/doubleinitializer catalog audit.",
+        "Library originalforeignactivation and sourceownerfate tested; sourceleave/reenter or lateabilitysuppression branches unverified.",
+        "Primary-agent semantic/saved review; strict comparator unchanged, fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-208",
+      "title": "Mindstate of Tiger creates its physical Crouching Tiger in Hand with Owner0",
+      "status": "FIXED_QUALIFIED_NATIVE_ORIGINAL_CREATOR_AND_RECIPIENT",
+      "targeted_evidence": "review-evidence/mindstate-of-tiger-blue-creator-qualified-repair-20261126.json",
+      "targeted_runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-mindstate-of-tiger-blue-four-live-20261126-original-creator-and-recipient",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only named original branches; no additional pitch/coverage breadth.",
+        "Existing Mindstate usable-Tiger follow-through is an adjacent check, not a new coverage claim.",
+        "No blanket claim that all cross-player awaits or token producers are repaired.",
+        "Fifteen actual provider guard checks are isolated from gameplay.",
+        "Primary-agent semantic/saved review; fullsuite unrun; default strict comparator unchanged."
+      ]
+    },
+    {
+      "id": "FAB-REG-209",
+      "title": "Frost Spike assigns created Frostbite ownership to recipient rather than instructed creator",
+      "status": "FIXED_QUALIFIED_NATIVE_ORIGINAL_CREATOR_AND_RECIPIENT",
+      "targeted_evidence": "review-evidence/frost-spike-blue-creator-qualified-repair-20261126.json",
+      "targeted_runtime": "415b76003c8cc494af68c8a6075f91521e1c22b55597a460d4225bc2b91c3b81",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-frost-spike-blue-four-live-20261126-original-creator-and-recipient",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only named original branches; no additional pitch/coverage breadth.",
+        "Existing Mindstate usable-Tiger follow-through is an adjacent check, not a new coverage claim.",
+        "No blanket claim that all cross-player awaits or token producers are repaired.",
+        "Fifteen actual provider guard checks are isolated from gameplay.",
+        "Primary-agent semantic/saved review; fullsuite unrun; default strict comparator unchanged."
+      ]
+    },
+    {
+      "id": "FAB-REG-210",
+      "title": "Kick the Hornets Nest incorrectly creates tokens on normal own combat resolution",
+      "status": "FIXED_QUALIFIED_NORMAL_COMBAT_CAUSE_EXCLUSION",
+      "targeted_evidence": "review-evidence/kick-normal-rule-move-qualified-repair-20261126.json",
+      "targeted_runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Native repair proves negative rule-movement case only.",
+        "Positive opponent-effect earned-layer timing is untested; isolated token I/O proves condition, not native trigger timing.",
+        "No sibling/whole-card credit; strict comparator unchanged; no fullsuite yet.",
+        "Primary-agent saved/source review, not separate-agent approval."
+      ]
+    },
+    {
+      "id": "FAB-REG-211",
+      "title": "Ordinary Cloud City Steamboat and Cogwerx Zeppelin attacks incorrectly require separate Cog-tap preparation",
+      "status": "FIXED_QUALIFIED_NATIVE_ORDINARY_ATTACK_COST",
+      "targeted_evidence": "review-evidence/cogwerx-zeppelin-red-lifetime-cost-qualified-repair-20261126.json",
+      "targeted_runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-cloud-city-steamboat-red-four-live-20261126-ordinary-cost-not-cog-activation",
+          "passed": true,
+          "message": ""
+        },
+        {
+          "slug": "repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Two named red ordinary attack routes only; their positive hit abilities and untested pitchsiblings uncredited.",
+        "Marlynn native young Hero exactdrawroute, no adult/othernamed-event enrollment.",
+        "Nine isolated virtual-classification controls, not gameplay fixtures.",
+        "Primary-agent semantic/saved review; strict comparator unchanged; fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-213",
+      "title": "Roiling Fissure X+1 cost ignores its fixed one resource",
+      "status": "FIXED_QUALIFIED_NATIVE_FIXED_PLUS_X_RESOURCE_COST",
+      "targeted_evidence": "review-evidence/roiling-fixed-plus-x-qualified-repair-20261126.json",
+      "targeted_runtime": "73c53589cacec350594e17c63e2e7f41a59ca737fb15a858a9d6e1dc76eab876",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-roiling-fissure-four-live-20261126-fixed-one-plus-x-paid-before-response",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "One actualX1 caller; parser controls cover numeric/X/XX/mixed forms, not every X card.",
+        "Imposing Visage special3 fixedbase retained and focused native replay.",
+        "Optional Surge repeat positive branch untested; original realdecline retained.",
+        "Strict comparator unchanged; no fullsuite yet. Primary-agent saved/source review."
+      ]
+    },
+    {
+      "id": "FAB-REG-214",
+      "title": "Marlynn earned draw trigger retires while its arrow choice is pending",
+      "status": "FIXED_QUALIFIED_NATIVE_NAMED_DRAW_LAYER_THROUGH_CHOICE",
+      "targeted_evidence": "review-evidence/marlynn-lifetime-cost-qualified-repair-20261126.json",
+      "targeted_runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-marlynn-four-live-20261126-earned-draw-layer-keeps-arrow-await",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Two named red ordinary attack routes only; their positive hit abilities and untested pitchsiblings uncredited.",
+        "Marlynn native young Hero exactdrawroute, no adult/othernamed-event enrollment.",
+        "Nine isolated virtual-classification controls, not gameplay fixtures.",
+        "Primary-agent semantic/saved review; strict comparator unchanged; fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-215",
+      "title": "Sigil of Fate destruction loses its earned leave-arena Opt trigger",
+      "status": "FIXED_QUALIFIED_NATIVE_EARNED_LEAVE_OPT",
+      "targeted_evidence": "review-evidence/sigil-of-fate-arena-exit-qualified-repair-20261126.json",
+      "targeted_runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-sigil-of-fate-four-live-20261126-real-token-leave-observed",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Glory native witness ends at originalDAMAGE checkpoint; Guardwell close and other-controller Toughness quantifier remain untested.",
+        "Toughness history is observable even if token suppressed; Sigil ability suppression still prevents its trigger.",
+        "Nine isolated actual-observer controls are distinct from native cases.",
+        "No broad PEN departure/card-pool audit. Primary-agent saved/source review, strict comparator unchanged; fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-216",
+      "title": "Peaceful Sanctuary permits another player to create an aura token through Prismatic Shield",
+      "status": "FIXED_QUALIFIED_NATIVE_AURA_TOKEN_PROHIBITION",
+      "targeted_evidence": "review-evidence/peaceful-sanctuary-red-token-creation-qualified-repair-20261126.json",
+      "targeted_runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-peaceful-sanctuary-red-four-live-20261126-paid-spell-aura-token-prohibited",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only two named native routes; no catalog-wide token producer audit.",
+        "Terrain startAction draw/heal and Sanctuary startAction destruction not added/tested here.",
+        "Twelve isolated instruction/restriction controls, distinct from native fixtures.",
+        "Primary-agent source/saved review; strict comparator unchanged; fullsuite notyet run."
+      ]
+    },
+    {
+      "id": "FAB-REG-217",
+      "title": "Promising Terrain applies its plus-one replacement three times to one Seismic Stir create-three instruction",
+      "status": "FIXED_QUALIFIED_NATIVE_SINGLE_BATCH_REPLACEMENT",
+      "targeted_evidence": "review-evidence/promising-terrain-blue-token-creation-qualified-repair-20261126.json",
+      "targeted_runtime": "f70e854eeadde93b82dc4f880dae3c8d59e8307d3fa89c321cbb887bb2a063b5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-promising-terrain-blue-four-live-20261126-single-create-three-replaced-by-four",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Only two named native routes; no catalog-wide token producer audit.",
+        "Terrain startAction draw/heal and Sanctuary startAction destruction not added/tested here.",
+        "Twelve isolated instruction/restriction controls, distinct from native fixtures.",
+        "Primary-agent source/saved review; strict comparator unchanged; fullsuite notyet run."
+      ]
+    },
+    {
+      "id": "FAB-REG-219",
+      "title": "Enigma accepts a second Spectral Shield attack at zero resources after first discount was spent",
+      "status": "FIXED_QUALIFIED_NATIVE_FIRST_SHIELD_ONLY",
+      "targeted_evidence": "review-evidence/enigma-first-shield-history-qualified-repair-20261126.json",
+      "targeted_runtime": "dfc8cc25d5404fb51fcc9357d219920b13b03bb2febb951fcf3ae1234083bea5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-enigma-ledger-two-live-20261126-first-shield-paid-once-next-unaffordable-rejected",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Adult natural duel, not four-live.",
+        "No blanket claim that all first-only counters share this cause.",
+        "Default strict comparator; no fullsuite yet.",
+        "Primary-agent semantic/saved review; no separate-agent approval."
+      ]
+    },
+    {
+      "id": "FAB-REG-220",
+      "title": "Great Library of Solana is destroyed during its discard cost before responses",
+      "status": "FIXED_QUALIFIED_NATIVE_NAMED_ENTRY_OR_RESOLUTION",
+      "targeted_evidence": "review-evidence/great-library-of-solana-entry-resolution-qualified-repair-20261126.json",
+      "targeted_runtime": "18b5dfaebbb9a0ccf98d50ae1de6fb6fc4b592059d7f7c37add3c2fad8b5e574",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-great-library-of-solana-four-live-20261126-discard-cost-then-destroy-on-resolution",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "ShowTime other non-play entry routes and source-departure responses not newnativequalifiedbranches.",
+        "Copper native normalplay+acceptCrank; no newreentry/doubleinitializer catalog audit.",
+        "Library originalforeignactivation and sourceownerfate tested; sourceleave/reenter or lateabilitysuppression branches unverified.",
+        "Primary-agent semantic/saved review; strict comparator unchanged, fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-224",
+      "title": "Glory Plate gives zero defense after an actual owned Toughness token leaves the arena",
+      "status": "FIXED_QUALIFIED_NATIVE_OWN_TOUGHNESS_EXIT_DEFENSE_DAMAGE",
+      "targeted_evidence": "review-evidence/glory-plate-arena-exit-qualified-repair-20261126.json",
+      "targeted_runtime": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-glory-plate-four-live-20261126-real-token-leave-observed",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Glory native witness ends at originalDAMAGE checkpoint; Guardwell close and other-controller Toughness quantifier remain untested.",
+        "Toughness history is observable even if token suppressed; Sigil ability suppression still prevents its trigger.",
+        "Nine isolated actual-observer controls are distinct from native cases.",
+        "No broad PEN departure/card-pool audit. Primary-agent saved/source review, strict comparator unchanged; fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-225",
+      "title": "Viserai Usurper grants go again to a second Blood Debt attack after full chain close in the same turn",
+      "status": "FIXED_QUALIFIED_NATIVE_FIRST_ONLY_ACROSS_CHAIN_CLOSE",
+      "targeted_evidence": "review-evidence/viserai-first-debt-history-qualified-repair-20261126.json",
+      "targeted_runtime": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-viserai-usurper-four-live-20261126-first-blood-debt-history-survives-chain-close",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "One named reproduced caller and shared reset behavior; no catalog-wide IAR branch claim.",
+        "Ten actual-function controls distinguish named current/obsolete turn, other seats, unrelated history, pure input and combat reset.",
+        "Default strict comparator; fullsuite notyet run.",
+        "Primary-agent semantic/saved review only."
+      ]
+    },
+    {
+      "id": "FAB-REG-226",
+      "title": "Light the Way and Spirit of War Prepare Charge choosers name removed Hand coordinates after persistence",
+      "status": "FIXED_QUALIFIED_NAMED_PREPARED_HAND_REFERENCES",
+      "targeted_evidence": "review-evidence/spirit-of-war-red-prepared-hand-choice-qualified-repair-20261126.json",
+      "targeted_runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-light-the-way-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "passed": true,
+          "message": ""
+        },
+        {
+          "slug": "repair-spirit-of-war-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "No sibling-pitch or whole-card credit.",
+        "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+        "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+        "Primary-agent semantic/saved review only; no separate-agent approval.",
+        "Default strict comparator unchanged; full suite not yet run."
+      ]
+    },
+    {
+      "id": "FAB-REG-227",
+      "title": "Universal Wage Gold is not treated as Mechanologist for actual Boost under Dash",
+      "status": "FIXED_QUALIFIED_NATIVE_UNIVERSAL_BOOST_CLASS",
+      "targeted_evidence": "review-evidence/universal-boost-qualified-repair-20261126.json",
+      "targeted_runtime": "32c238622e4f70eb18a45412c72b36d804a11212ce3f8ecfc8f381666822c140",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-wage-gold-four-live-20261126-universal-mechanologist-boost-native-go-again",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Native witness stops at originalattackwindow; damage/refund and pitchsiblings nottested here.",
+        "Twelve helper controls isolate owner/control/hybrid classes/suppression/reentry; not native separate fixtures.",
+        "Explicit type overrides currently bypass later type effects by existing engine policy; those branches unverified.",
+        "No catalog-wide Universal audit or class-gain-prohibition claim.",
+        "Primary-agent saved/source review; strict comparator unchanged, fullsuite unrun."
+      ]
+    },
+    {
+      "id": "FAB-REG-228",
+      "title": "Restless Commander's continuous +1 power does not increase another owned zombie's actual attack damage",
+      "status": "FIXED_QUALIFIED_NATIVE_ZOMBIE_ALLY_POWER_DAMAGE",
+      "targeted_evidence": "review-evidence/commander-zombie-power-qualified-repair-20261126.json",
+      "targeted_runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Native named other-Zombie positive; self/multiple/removed/suppression controls are isolated helper tests, not separate gameplay fixtures.",
+        "No catalog-wide Zombie or continuous-power audit.",
+        "Strict comparator unchanged, no fullsuite yet; primary-agent semantic/saved review."
+      ]
+    },
+    {
+      "id": "FAB-REG-229",
+      "title": "Submerge played from Hand exposes stale additional-cost Hand choices after source removal",
+      "status": "FIXED_QUALIFIED_NAMED_PREPARED_HAND_REFERENCES",
+      "targeted_evidence": "review-evidence/submerge-red-prepared-hand-choice-qualified-repair-20261126.json",
+      "targeted_runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-submerge-red-four-live-20261126-hand-cost-choice-and-attack-entry",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "No sibling-pitch or whole-card credit.",
+        "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+        "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+        "Primary-agent semantic/saved review only; no separate-agent approval.",
+        "Default strict comparator unchanged; full suite not yet run."
+      ]
+    },
+    {
+      "id": "FAB-REG-230",
+      "title": "Lay to Rest gains Shadow-Hero-only power against an Ally controlled by a Shadow Hero, causing incorrect lethal damage",
+      "status": "FIXED_TARGETED_SHADOW_ALLY_EXCLUSION_AND_HERO_OWNED_WHEN_PREFIX",
+      "targeted_evidence": "review-evidence/lay-to-rest-shadow-hero-target-owned-bonus-qualified-repair-20261126.json",
+      "targeted_runtime": "55e463af3c1ff4d6bb4e60f450ba0c6115ef862ec071e994f8c1213a382e166a",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-lay-to-rest-red-four-live-20261126-shadow-ally-five-damage-survives-full-close",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Red only native-qualified; pitch siblings and printed Hero-hit face-down ability untested.",
+        "ShadowHero positive control stops after earned-layer responses and power6; it is an unsaved repair diagnostic, no new scenario/group credit.",
+        "Existing Lay group/Red identity already represented: new witness only, no additional group or identity credit.",
+        "The first positive control caught a new target-descriptor/object API mistake before Save; corrected by reacquiring live Hero via validated UID. Failed evidence retained, final controls pass.",
+        "Primary-agent source/saved verification; no new separate-agent approval.",
+        "Three strict focused passes, not a fullsuite.",
+        "Strict existing nonShadow control exposed missing legacy dispatch vars; fixed source dispatch instead of changing old expected snapshots. New unregistered owned fixture was rerecorded after verified outside-repo backup; original actions/assertions/setup hashes unchanged."
+      ]
+    },
+    {
+      "id": "FAB-REG-231",
+      "title": "Emerging Avalanche and Force of Nature Hand-source Fusion choices retain removed-slot references",
+      "status": "FIXED_QUALIFIED_NAMED_PREPARED_HAND_REFERENCES",
+      "targeted_evidence": "review-evidence/emerging-avalanche-red-prepared-hand-choice-qualified-repair-20261126.json",
+      "targeted_runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-force-of-nature-blue-four-live-20261126-hand-cost-choice-and-main-resolution",
+          "passed": true,
+          "message": ""
+        },
+        {
+          "slug": "repair-emerging-avalanche-red-four-live-20261126-hand-declined-fusion-correct-owned-entry",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "No sibling-pitch or whole-card credit.",
+        "Charge/Submerge witnesses end at real four-seat attack entry; their later hit rewards are untested.",
+        "Emerging Avalanche uses correct declined Fusion and owned entry; positive Fusion control proves only prepayment reservation.",
+        "Primary-agent semantic/saved review only; no separate-agent approval.",
+        "Default strict comparator unchanged; full suite not yet run."
+      ]
+    },
+    {
+      "id": "FAB-REG-232",
+      "title": "Chorus of Ironsong rejects an equipped Dawnblade target while another card attacks",
+      "status": "FIXED_QUALIFIED_NATIVE_PERMANENT_ADMISSION_DECLARATION",
+      "targeted_evidence": "review-evidence/chorus-dawnblade-declaration-qualified-repair-20261126.json",
+      "targeted_runtime": "73d79c7ff0ab772d88fc49c6ce539a88e9617d45c1e639f73d12e858f622268d",
+      "full_suite_witnesses": [
+        {
+          "slug": "repair-chorus-of-ironsong-four-live-20261126-equipped-dawnblade-declared-before-payment",
+          "passed": true,
+          "message": ""
+        }
+      ],
+      "limits": [
+        "Native own equippedDawnblade while otherAA attacks; foreign-controller weapons and unusual weapon-zone changes untested in gameplay.",
+        "Ten actual stamp/resolution component checks cover staleepoch/departure/wronguid/name/suppressedsource; isolated lookup/tag I/O.",
+        "Later Dawnblade attack and damage-prevention outcome not tested. Existing weapon-proxy propagation of permanent UPR_UNPREVENTABLE tag is a source-only concern, not demonstrated repair coverage or a new confirmed backlog gate.",
+        "One newly authored provenance-marker assertion corrected from actual FaBTagUID\u2192FaBCRUSelfTag semantics; original oracle and4damage expectations unchanged.",
+        "Primary-agent semantic/saved review; strict comparator unchanged. No fullsuite yet."
+      ]
+    }
+  ],
+  "frozen_confirmed_count": 24,
+  "scoped_targeted_qualified_count": 24,
+  "full_suite_failed_repair_records": [],
+  "fixture_bytes_unchanged": true,
+  "runtime_unchanged": true,
+  "fixture_freeze_sha256": "20eeb75abee2b2f94293881c8a8d00c57f35357d855b3fcbe6c15fda5cf9d460",
+  "runner_sha256": "a633f190500c1ce644b579d910d465a205ee347664f96e48ba0b533bd3a7a51a",
+  "full_log": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\final-suite-20261126\\runner-full.log",
+    "sha256": "5f30bcc3004af4646a3099705b3bd3754aec8c075c8735cc56f3590f2668e059"
+  },
+  "detailed_result": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\final-suite-20261126\\results.json",
+    "sha256": "47d4caaff1aa3ff775e73d2dc0a9080efba2c462f134e61acdd041eaa6703382"
+  },
+  "operation_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\final-suite-20261126\\operation.json",
+  "stderr_bytes": 0,
+  "limits": [
+    "Records overlap shared root causes; 24 records is not a count of 24 independent engine defects.",
+    "Only the reproduced named branches are qualified; pitch siblings and other untested branches receive no new credit.",
+    "This continuation used primary-agent semantic and saved review; no separate-agent approval is claimed.",
+    "Chorus later Dawnblade damage-prevention propagation is a source-only concern, not a demonstrated repaired branch.",
+    "FAB-REG-204 strong-entropy replay and other source-only, rules, and unattempted leads remain separate from the frozen confirmed set.",
+    "No deployment, remote integration, original-checkout comparison, or fresh credentialed service verification was performed."
+  ]
+}

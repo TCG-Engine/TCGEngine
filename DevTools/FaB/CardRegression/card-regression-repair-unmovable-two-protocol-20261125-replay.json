@@ -1,0 +1,36 @@
+{
+  "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "fixtures": [
+    {
+      "slug": "card-unmovable-blue-hand-paid-blue-three",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unmovable-blue-hand-paid-blue-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unmovable-two\\replay426.log"
+      ],
+      "complete_log_sha256": "ba3316b121b9f9dca3504b2b9d525071a15f76b1212559e704037018e20feb8e"
+    },
+    {
+      "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-unmovable-blue-hand-paid-red-one-yellow-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\unmovable-two\\replay427.log"
+      ],
+      "complete_log_sha256": "a73b58fe597b6e6eb72a83bb8bafa734c6dd7e4cd3875e124aee025ad6cdc274"
+    }
+  ],
+  "full_suite_run": false
+}

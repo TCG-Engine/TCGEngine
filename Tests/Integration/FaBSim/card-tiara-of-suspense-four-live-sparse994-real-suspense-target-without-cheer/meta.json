@@ -1,0 +1,7 @@
+{
+    "name": "Tiara of Suspense / four-live no-cheer activation restriction",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:59:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - Destroy this: Put a suspense counter on an aura of suspense you control. Activate this only if you've been cheered this turn.\n\n**Guardwell** Named no-cheer restriction only. LegalPleiadesnatural20, ownreadyTiara5/realHandWounding6 andactualownedSuspenseAura7withoneSUSPENSEcounter. NoCHEERhistory. Aura7iseligibleactualtarget, so absenceoftargetcannotmaskthefalsecheercondition. Instant0destroyactivationmustrejectbeforechoice/destruction/counterchange: Tiara5readyretained/AP1/R0/Hand6/Aura7counter1/Stack0/allqueuesempty. Then legalGenericAA6cost0deals4toHero4throughall4manual; AP0/ownedGY6 whileTiara5andAura7retainedunchanged. InitialAura/counterisdeclaredasset, noclaimofcreating/playingorpositiveaddcounter/cheer/Pleiadesability/leaveArena/wholecard/support/siblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#tiara_of_suspense"
+}

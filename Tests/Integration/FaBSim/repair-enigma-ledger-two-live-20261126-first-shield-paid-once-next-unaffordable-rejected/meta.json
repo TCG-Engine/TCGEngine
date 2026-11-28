@@ -1,0 +1,7 @@
+{
+    "name": "Enigma Ledger of Ancestry / actual first Shield cost discount is consumed once",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:42:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_ENIGMA40_TWO_LIVE_FIRST_SHIELD_COST_DISCOUNT_ONLY. NaturalEnigmaLedger40/Dori40, priorrealShields3/4Arena(nopowercounters), Cosmo5WeaponsgrantsAuraWardWeaponAttack1, realPotion6Arena; noresource/pitch/attackhistory/discountflagseed. ActualPotionActiondestroy6/AP0/ABI7beforebothresponses\u2192actualAP2/R0. FirstactualShield3attackmustsucceedatR0/noHandbecauseprimaryreducesnormal1to0, paysoneAP2to1/proxy8/source3usedStatus1/4freshStatus2. Bothresponses\u2192actualWard1power/noGA/real1damageHP39, linkendsAP1/R0. ActualsecondFRESHShield4clickwithAP1andStatus2butR0/noPitchassetmustrejectbecausefirstdiscountspentandnormal1unaffordable, notbecauseactionexhaustedorusedsource; noStack/Target/Pitch/payment/UID/APchange,4stillfresh. FinalShields3/4Arena/Cosmo5ready/Potion6GY/HP40vs39/AP1/R0/UID8RNG0clean. NoYoung/four-live/Chi3ability/Shieldproduction/Wardprevention/Cosmoactivation/counterGA/otherAuras/discountreset/otherturn/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#enigma_ledger_of_ancestry FaBSim/Custom/MSTCards.php FaBSim/Custom/MSTRuntime.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/GameLogic.php"
+}

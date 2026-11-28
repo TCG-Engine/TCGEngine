@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bigger-than-big-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a3b871386d652ed758393300e41fdf8d78af6296db278a32f4e6f3802dca99e4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c324629c337d312b3a1fe96ea4f577d87b10d91c9bdb1d430f3cb7b8f64ae642",
+        "actions.json": "964d74e9025aff1e5dda0ff675107626c47f375330cd86f023bf102cb325399a",
+        "assertions.json": "f4bde9d37066a966120f2df5dda3fde1703858f20c476481f5c41a7b56abe4a5",
+        "expected_final_gamestate.txt": "edcb6368781289cc3cbaaca62d53e2db3cd59dd55c26e7137f6a9e9c082b376f",
+        "meta.json": "f9f0b0bae2411889db5eccd4ab60098d12120e74f7c7116df19557d3b1bfcf01"
+      }
+    },
+    {
+      "slug": "card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-big-bop-red-four-live-sparse1383-actual-guardian-attack-same-turn-no-premature-five-power-or-wager",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1383-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "201e5f24b2ffa6403559abd07d908e6aa5cff8a2e260f9860f2e9d4b0c30ebcc",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "17afd4054318185b963fd6ba05fd56710b4c9134022e604892845dd129c531b4",
+        "actions.json": "964d74e9025aff1e5dda0ff675107626c47f375330cd86f023bf102cb325399a",
+        "assertions.json": "9d4db0d970ed57dfa5cf2a02957fc217c1a005475bf245f07a70fc12c7410527",
+        "expected_final_gamestate.txt": "d1493aadb6af2fcdeb57293dc4ea28412c8c0a1bf5cbc82aaccdc04b51882694",
+        "meta.json": "84ed46e13f8cdb9037842eda5f096726ab8eb6d4e13e67c02d0900d5b7e0944f"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

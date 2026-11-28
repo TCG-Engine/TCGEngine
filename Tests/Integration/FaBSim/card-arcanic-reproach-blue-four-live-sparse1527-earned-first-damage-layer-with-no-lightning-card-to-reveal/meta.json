@@ -1,0 +1,7 @@
+{
+    "name": "Arcanic Reproach / first opponent damage still earns a layer with no Lightning reveal available",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T10:59:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualGenericWounding5fourdamageagainstAurora4HP16/ownedArcanic6Arena. FirstopponentdamageearnsABI7Controller4Source6omnDamageTargetActor1 despiteemptyHand/noLightning; freshallfourmanualresponses anchoredsameABI7 thennochooser/reveal/retaliation, Aura6staysArena. Fullclose5GY1/6Arena4/UID7/APR0/StackDQclean. Onlyearnedtrigger/no-reveal subset; nopositivearcane/094await/startaction/once-reset/siblingcredit. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arcanic_reproach_blue FaBSim/Custom/OMNCards.php#FaBOMNDamaged FaBSim/Custom/ROSCards.php#FaBROSQueue FaBSim/GeneratedCode/GeneratedMacroCode.php#arcanic_reproach_blue:0:ResolveAbility"
+}

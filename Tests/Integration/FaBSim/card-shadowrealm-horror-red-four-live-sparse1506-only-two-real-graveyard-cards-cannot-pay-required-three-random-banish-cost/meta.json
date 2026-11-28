@@ -1,0 +1,7 @@
+{
+    "name": "Shadowrealm Horror / two real graveyard cards fail additional3cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T07:34:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual legal young natural20 Heroes. Levia20 satisfies ShadowBrute; primary5printed2 has actualBlue3Hand6 for resources and Action/AP1. Two owned real Graveyard cards8/9 cannot pay mandatory3random-card additional cost. Primary must reject before target/payment/randomness/movement/Stack/AP. Only afterward realSigil7 plays and allfour seats respond toHP21/GY7/AP1. That control makes Graveyard3 at the endpoint; primary is NOT retried there. Exact two original cards remain Graveyard, no Banish/primary play/RNG. This separate rejection branch does not bypass or clear the existing039 positive cost-order hold. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shadowrealm_horror_red FaBSim/Custom/GameLogic.php#FaBCanPlayCard"
+}

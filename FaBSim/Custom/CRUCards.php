@@ -53,6 +53,7 @@ function FaBCRUCoax(string $choice): void {
     }
 }
 function FaBCRUAfterMove(int $p,object $o,string $from,string $to): void {
+    FaBAdvanceCapturedSourceEpochs($o,$from,$to,['cruDataDollBanishEpoch','cruFeatherfootArenaEpoch']);
     // Physical Saber identity changes only when it crosses the arena boundary.
     // Attack proxies carry WEAPON_UID and must not acquire weapon-instance metadata.
     if($o->CardID==='cintari_saber'&&intval(FaBObjectCounters($o)['WEAPON_UID']??0)===0){
@@ -61,9 +62,7 @@ function FaBCRUAfterMove(int $p,object $o,string $from,string $to): void {
             $uid=intval($o->UniqueID);FaBARCSetCard($uid,'cruSaberArenaEpoch',intval(FaBARCCard($uid,'cruSaberArenaEpoch'))+1);
         }
     }
-    if($from==='Deck'&&$to==='Banish'&&FaBCRUHero($p,'data_doll_mkii')&&FaBHasType($o,'Mechanologist')&&FaBHasType($o,'Item')&&intval(CardCost($o->CardID))<=2){
-        $item=FaBMoveUID(intval($o->UniqueID),'Arena',$p);if($item)FaBARCEnterItem($p,$item);
-    }
+    if($from==='Deck'&&$to==='Banish')FaBCRUQueueDataDollItem($p,$o);
     if($to==='Graveyard'&&$from!=='CombatChain'&&$o->CardID==='beast_within_yellow'){
         while(FaBSeatIsLive($p)){
             $ref=FaBChoiceRefs($p,'Deck')[0]??'';$f=FaBIdentityFromMZ($ref);if(!$f){FaBARCLoseLife($p,1,$p);continue;}
@@ -72,6 +71,85 @@ function FaBCRUAfterMove(int $p,object $o,string $from,string $to): void {
             if($six){if(FaBSeatIsLive($p))FaBMoveUID($uid,'Hand',$p);break;}
         }
     }
+}
+function FaBCRUQueueDataDollItem(int $p,object $o): void {
+    $uid=intval($o->UniqueID??0);$cost=CardCost($o->CardID);
+    if(!FaBSeatIsLive($p)||$uid<1||!FaBCRUHero($p,'data_doll_mkii')
+        ||!FaBHasType($o,'Mechanologist')||!FaBHasType($o,'Item')||!is_numeric($cost)||intval($cost)<0||intval($cost)>2)return;
+    $target=FaBFindUID($uid);
+    if(!$target||$target['zone']!=='Banish'||$target['player']!==$p||!empty($target['object']->removed)
+        ||intval($target['object']->Owner??0)!==$p||intval($target['object']->Controller??0)!==$p)return;
+    foreach(FaBChoiceRefs($p,'Hero',['base'=>'data_doll_mkii']) as $ref){
+        $found=FaBIdentityFromMZ($ref);$hero=$found['object']??null;
+        if(!$found||$found['zone']!=='Hero'||$found['player']!==$p||!is_object($hero)||!empty($hero->removed)
+            ||($hero->CardID??'')!=='data_doll_mkii'||intval($hero->UniqueID??0)<1
+            ||intval($hero->Controller??0)!==$p||HasNoAbilities($hero))continue;
+        $epoch=FaBArmCapturedSourceEpoch($uid,'cruDataDollBanishEpoch');
+        FaBROSQueue($p,'data_doll_mkii',intval($hero->UniqueID),
+            ['rosEvent'=>'cruDataDollItem','cruDataDollItem'=>$uid,'cruDataDollEpoch'=>$epoch]);
+    }
+}
+function FaBCRUResolveDataDollItem(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];
+    $uid=$params['cruDataDollItem']??null;$epoch=$params['cruDataDollEpoch']??null;
+    if(($layer->CardID??'')!=='data_doll_mkii'||($layer->Kind??'')!=='ABILITY'
+        ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='cruDataDollItem'
+        ||!is_int($uid)||$uid<1||!is_int($epoch)||$epoch<1
+        ||intval(FaBARCCard($uid,'cruDataDollBanishEpoch',0))!==$epoch)return;
+    $target=FaBFindUID($uid);
+    if(!$target||$target['zone']!=='Banish'||!empty($target['object']->removed))return;
+    // Eligibility belongs to the banish event; the earned Hero ability is independent.
+    $item=FaBMoveUID($uid,'Arena',$p);if($item)FaBARCEnterItem($p,$item);
+}
+function FaBCRUNotifyFeatherfoot(int $uid): void {
+    $s=FaBGetState();$attack=FaBFindUID($uid);$o=$attack['object']??null;
+    $p=is_object($o)?intval($o->Controller??0):0;$link=intval($s['chainLink']??0);$turn=intval(GetTurnNumber());
+    if(($s['combatStep']??'')!=='REACTION'||empty($s['combatOpen'])||!$attack||$attack['zone']!=='CombatChain'
+        ||!is_object($o)||!empty($o->removed)||($o->Role??'')!=='ATTACK'||$uid<1
+        ||intval($s['attackUID']??0)!==$uid||$link<1||intval($o->ChainLink??0)!==$link||$turn<1||!FaBSeatIsLive($p))return;
+    $context=$s['cruFeatherfootAttack']??null;
+    $token=is_array($context)&&intval($context['uid']??0)===$uid&&intval($context['link']??0)===$link
+        &&intval($context['turn']??0)===$turn?intval($context['token']??0):0;
+    foreach(FaBMONArena($p,'talisman_of_featherfoot') as $ref){
+        $found=FaBIdentityFromMZ($ref);$item=$found['object']??null;
+        if(!$found||$found['zone']!=='Arena'||$found['player']!==$p||!is_object($item)||!empty($item->removed)
+            ||($item->CardID??'')!=='talisman_of_featherfoot_yellow'||intval($item->UniqueID??0)<1
+            ||intval($item->Controller??0)!==$p||HasNoAbilities($item))continue;
+        $source=intval($item->UniqueID);$epoch=FaBArmCapturedSourceEpoch($source,'cruFeatherfootArenaEpoch');
+        $layer=AddStack(CardID:'talisman_of_featherfoot_yellow',Controller:$p,Kind:'ABILITY',SourceUniqueID:$source,
+            Params:['rosTrigger'=>true,'rosEvent'=>'cruFeatherfootPowerGain','cruFeatherfootEpoch'=>$epoch,
+                'cruFeatherfootAttackUID'=>$uid,'cruFeatherfootLink'=>$link,'cruFeatherfootTurn'=>$turn]);
+        // One real allocated layer identifies this attack until the existing reset drops the context.
+        if($token<1)$token=intval($layer->UniqueID??0);
+        $layer->Params['cruFeatherfootAttackToken']=$token;
+        $s=FaBGetState();$s['cruFeatherfootAttack']=['uid'=>$uid,'link'=>$link,'turn'=>$turn,'token'=>$token];
+        if($s['pendingPayment']===null)$s['window']='PRIORITY';FaBSetState($s);
+    }
+}
+function FaBCRUResolveFeatherfoot(int $p,object $layer): void {
+    $params=is_array($layer->Params??null)?$layer->Params:[];$epoch=$params['cruFeatherfootEpoch']??null;
+    $uid=$params['cruFeatherfootAttackUID']??null;$link=$params['cruFeatherfootLink']??null;
+    $turn=$params['cruFeatherfootTurn']??null;$token=$params['cruFeatherfootAttackToken']??null;
+    if(($layer->CardID??'')!=='talisman_of_featherfoot_yellow'||($layer->Kind??'')!=='ABILITY'
+        ||intval($layer->Controller??0)!==$p||!FaBSeatIsLive($p)||intval($layer->SourceUniqueID??0)<1
+        ||($params['rosTrigger']??false)!==true||($params['rosEvent']??'')!=='cruFeatherfootPowerGain'
+        ||!is_int($epoch)||$epoch<1||!is_int($uid)||$uid<1||!is_int($link)||$link<1
+        ||!is_int($turn)||$turn<1||!is_int($token)||$token<1)return;
+    $source=intval($layer->SourceUniqueID);$item=FaBFindUID($source);
+    if($item&&$item['zone']==='Arena'&&empty($item['object']->removed)
+        &&intval(FaBARCCard($source,'cruFeatherfootArenaEpoch',0))===$epoch){
+        $previous=$GLOBALS['fabEffectController']??0;$GLOBALS['fabEffectController']=$p;
+        try{FaBMONDestroy($source);}finally{$GLOBALS['fabEffectController']=$previous;}
+    }
+    // 'And', not 'if you do': destruction and the captured attack's grant are independent.
+    $s=FaBGetState();$context=$s['cruFeatherfootAttack']??null;$attack=FaBFindUID($uid);
+    if(!is_array($context)||intval($context['token']??0)!==$token||intval($context['uid']??0)!==$uid
+        ||intval($context['link']??0)!==$link||intval($context['turn']??0)!==$turn||$turn!==intval(GetTurnNumber())
+        ||empty($s['combatOpen'])||intval($s['attackUID']??0)!==$uid||intval($s['chainLink']??0)!==$link
+        ||!$attack||$attack['zone']!=='CombatChain'||!empty($attack['object']->removed)
+        ||($attack['object']->Role??'')!=='ATTACK'||intval($attack['object']->ChainLink??0)!==$link)return;
+    FaBWTRTag($attack['object'],'GO_AGAIN');
 }
 function FaBCRUItemEntered(int $p,object $o): void {
     if($o->CardID==='absorption_dome_yellow'){
@@ -157,7 +235,7 @@ function FaBCRUCardPlayed(int $p,object $o,string $from): void {
     }FaBWTRSetEffects($p,$left);
     if(FaBHasType($o,'Action')&&FaBCRUCount($p,'REMORSELESS'))FaBARCLoseLife($p,FaBCRUCount($p,'REMORSELESS'),$p);
     if($b==='promise_of_plenty'&&$from==='Arsenal')FaBWTRTag($o,'GO_AGAIN');
-    if(FaBWTRIsWeapon($o)||$aa){FaBCRUAdd($p,'ATTACKS');if(FaBCRUHero($p,'ira_crimson_haze')&&FaBCRUCount($p,'ATTACKS')===2)FaBWTRTag($o,'WTR_POWER:1');}
+    if(FaBWTRIsWeapon($o)||$aa){FaBCRUAdd($p,'ATTACKS');if((FaBCRUHero($p,'ira_crimson_haze')||FaBCRUHero($p,'ira_scarlet_revenger'))&&FaBCRUCount($p,'ATTACKS')===2)FaBWTRTag($o,'WTR_POWER:1');}
     if(FaBWTRIsWeapon($o)){FaBCRUAdd($p,'WEAPONS');if(FaBHasType($o,'Sword'))FaBCRUAdd($p,'SWORDS');}
     if($aa&&FaBHasKeyword($o,'Combo')&&FaBCRUCount($p,'BREEZE'))FaBWTRTag($o,'GO_AGAIN');
     if(FaBHasType($o,'Arrow')&&$from==='Arsenal'&&FaBARCCard($uid,'faceUp')&&FaBCRUCount($p,'PERCH'))FaBWTRTag($o,'GO_AGAIN');
@@ -183,6 +261,14 @@ function FaBCRUAttack(int $p,object $o): void {
 }
 function FaBCRUGoAgain(int $p,object $o,array $s): bool {
     $b=FaBWTRBase($o->CardID);
+    // Seek's printed Combo belongs to its current attack and this combat chain.
+    if($o->CardID==='seek_vengeance_blue'&&intval($s['chainLink']??0)>1&&intval($s['attacker']??0)===$p){
+        $active=FaBFindCurrentAttack($s);
+        if($active!==null&&intval($active['object']->UniqueID??0)===intval($o->UniqueID??0)
+            &&$active['object']->CardID==='seek_vengeance_blue'
+            &&intval($active['object']->Controller??0)===$p&&!HasNoAbilities($active['object'])
+            &&FaBComboActive($s,'edge_of_autumn'))return true;
+    }
     return (FaBWTRIsAttackAction($o)&&FaBHasKeyword($o,'Combo')&&FaBCRUCount($p,'BREEZE'))||in_array($b,['edge_of_autumn','zephyr_needle'],true)||($b==='mandible_claw'&&FaBCRUCount($p,'DISCARD_SIX'))||($b==='barraging_big_horn'&&FaBWTRNonEquipmentBlockCount($s)<2)||($b==='meat_and_greet'&&FaBCRUArcane($p,true)>0);
 }
 function FaBCRUBasePower(object $o,int $base): int {
@@ -305,6 +391,7 @@ function FaBCRURestoreOther(int $p,int $target,array $uids,string $order): void 
 }
 
 function FaBCRULegacyRoll(int $p,string $id,int $roll): void {
+    FaBEVRRememberDieRoll($p,$roll);
     if($roll===6)FaBDTDAdd($p,'ROLL_SIX');
     if($id==='scabskin_leathers')AddActionPoints($p,intval(GetActionPoints($p))+intdiv($roll,2));
     elseif($id==='barkbone_strapping')AddResources($p,intval(GetResources($p))+intdiv($roll,2));
@@ -566,4 +653,52 @@ function FaBCRUApplySnag(): void {
         if(!FaBCRUCount($p,'SNAG'))foreach(['CombatChain','Stack'] as $zone)foreach(FaBZoneGet($zone,$p) as $o)if(is_object($o)&&empty($o->removed)&&intval($o->Controller??$o->Owner??0)===$p&&FaBWTRIsAttackAction($o))FaBARCSetCard(intval($o->UniqueID),'snagRetained',FaBCRUOwnPower($p,$o));
         FaBCRUAdd($p,'SNAG');
     }
+}
+
+
+/** Flood needs the predecessor recorded before this source became the active attack. */
+function FaBCRUQueueFloodAttack(int $p,object $source,array $params): int {
+    $s=FaBGetState();$uid=intval($source->UniqueID??0);$link=intval($source->ChainLink??0);
+    if((string)$source->CardID!=='flood_of_force_yellow'||$uid<1||$link<1
+        ||($source->Role??'')!=='ATTACK'||intval($source->Controller??0)!==$p
+        ||empty($s['combatOpen'])||intval($s['attackUID']??0)!==$uid
+        ||intval($s['attacker']??0)!==$p||intval($s['chainLink']??0)!==$link)return 0;
+    $names=(array)($s['outPreviousNames'][$p]??[]);
+    // Use the same ordinary predecessor-name history as the existing Combo evaluator.
+    if(!array_key_exists($p,(array)($s['outPreviousNames']??[]))){
+        $prior=(string)($s['previousAttackCardID']??'');
+        if($prior!=='')$names=[(string)(CardName($prior)?:$prior)];
+    }
+    $params['cruFloodContext']=['sourceUID'=>$uid,'sourceCardID'=>(string)$source->CardID,
+        'controller'=>$p,'turn'=>intval(GetTurnNumber()),'link'=>$link,
+        'previousNames'=>array_values(array_unique(array_filter($names,'is_string')))];
+    // Conditional payloads still earn their layer when the condition is false.
+    return FaBQueueOwnedEventMacro($p,$source,'AttackDeclared',$params);
+}
+function FaBCRUResolveFloodAttack(int $p,object $layer): void {
+    $params=(array)($layer->Params??[]);$c=$params['eventParams']['cruFloodContext']??null;
+    if((string)$layer->CardID!=='flood_of_force_yellow'||($layer->Kind??'')!=='ABILITY'
+        ||($params['rosEvent']??'')!=='ownedCardMacro'||($params['eventMacro']??'')!=='AttackDeclared'
+        ||!is_array($c)||intval($c['controller']??0)!==$p||intval($layer->Controller??0)!==$p
+        ||intval($c['sourceUID']??0)<1||intval($layer->SourceUniqueID??0)!==intval($c['sourceUID'])
+        ||($c['sourceCardID']??'')!=='flood_of_force_yellow'||intval($c['turn']??0)<1
+        ||intval($c['link']??0)<1||!is_array($c['previousNames']??null)
+        ||!FaBSeatIsLive($p)||!empty($params['cruFloodResolved']))return;
+    $layer->Params['cruFloodResolved']=true;
+    if(!array_intersect(['Rushing River','Flood of Force'],$c['previousNames']))return;
+    $ref=FaBChoiceRefs($p,'Deck')[0]??'';$top=FaBIdentityFromMZ($ref);
+    if(!$top||$top['zone']!=='Deck'||intval($top['player'])!==$p)return;
+    $uid=intval($top['object']->UniqueID);$id=(string)$top['object']->CardID;
+    $combo=FaBHasKeyword($top['object'],'Combo');FaBRevealChoices($p,$ref);
+    if(!$combo)return;
+    $current=FaBFindUID($uid);
+    if($current&&$current['zone']==='Deck'&&intval($current['player'])===$p
+        &&(string)$current['object']->CardID===$id)FaBMoveUID($uid,'Hand',$p);
+    // Putting the revealed card and modifying this attack are separate effects.
+    $source=FaBFindUID(intval($c['sourceUID']));
+    if(!$source||$source['zone']!=='CombatChain'||intval(GetTurnNumber())!==intval($c['turn']))return;
+    $o=$source['object'];
+    if((string)$o->CardID!==$c['sourceCardID']||($o->Role??'')!=='ATTACK'
+        ||intval($o->Controller??0)!==$p||intval($o->ChainLink??0)!==intval($c['link']))return;
+    FaBCRUSelfTag($o,'WTR_POWER:3');FaBWTRTag($o,'GO_AGAIN');
 }

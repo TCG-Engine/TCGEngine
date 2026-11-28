@@ -1,0 +1,7 @@
+{
+    "name": "Scouting Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:15:26+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this is put face-up into your arsenal, you may look at the top card of your deck. Representative only: actual_facedown_arsenal_four_without_faceup_entry_look. No face-up loading effect or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scouting_shot_red"
+}

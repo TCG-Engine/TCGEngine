@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-danger-digits-four-live-sparse1363-opponent-dagger-is-not-controlled-no-destruction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bacc04721021be9eab7f561c57876e2363bfe5aafc0abd1caa2b2c4d025e2ca2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe6926c6f2df9f95f817666a4a6127edb7c186626e2db03d386df4d5d6fbf98d",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "3c44f13a8702f94a5b0065468d85b7e8acf1d2a5c1ce851350dd3a751c232b1b",
+        "expected_final_gamestate.txt": "c19ac32f8f1f406f0192ce29ed49352b3e7f594fc2e2cb672e228d287297d1f2",
+        "meta.json": "8b49ed260633938f1b800f02c9b408d3d6493be34863d8f10b1b4ce6e70d5cf6"
+      }
+    },
+    {
+      "slug": "card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fingers-of-fragmentation-four-live-sparse1363-unfragmented-active-attack-no-target-no-payment-or-destruction",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1363-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "18faf71937885be48a1cb9933987c4f767890e1fb8dc929a0eb5bf5662aaf82e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d4e275f41842a194ba0449ceb39c2111cff3e9648841566b7c1c67e3c0ef5ac7",
+        "actions.json": "fbb2cdc81a50af1492bb5aec6f05e67709bb8ba0f917d5c73fab3a7f5ce44bde",
+        "assertions.json": "15fe78453717c2955ff7fa0f1596103a7dccc6aa166aa80dc37d69de166f9a64",
+        "expected_final_gamestate.txt": "4e2f31c3efad85b8a2902f5226b63aee7661121cbca3d08749fb4bf2f47fec5a",
+        "meta.json": "1877c69417cce62666a78ec111e5d193f5fc582162704fd67c407cc9b869796b"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

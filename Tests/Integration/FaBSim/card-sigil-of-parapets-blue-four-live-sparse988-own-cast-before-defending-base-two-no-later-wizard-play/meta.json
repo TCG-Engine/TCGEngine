@@ -1,0 +1,7 @@
+{
+    "name": "Sigil of Parapets / sparse four-live defense-reaction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:43:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is defending, whenever you play a Wizard card, this gets +2{d}. Named partial branch: own_cast_before_defending_base_two_no_later_wizard_play. Real defender4 kano natural15, owned source5 plays in actual Reaction. Printed cost1 paid by actual Blue6 if positive (residue2/AP0); no seeded resources or defense. Actual Generic Raging7/Blue8 paid3, no normal blocks. Four actual DR responses4,1,2,3 resolve same source5 as DEFENSE_REACTION, fresh1,2,3,4 yields persisted defenseValue2/damage5/HP10; source5/attack7 finish respective owned graveyards, attackerNAA9 retained. No author-only defense/can_play/can_activate diagnostics; persisted state/HP/card/role/fate/cost checks only. The Wizard card is not defending while its own cast is on Stack; no Wizard card is played after it becomes defending. Base2 only. Positive Wizard-play-trigger/bonus timing remains untested; Kano activation never used. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sigil_of_parapets_blue"
+}

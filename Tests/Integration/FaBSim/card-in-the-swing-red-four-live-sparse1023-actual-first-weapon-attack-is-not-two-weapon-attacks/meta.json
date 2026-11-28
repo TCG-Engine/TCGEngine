@@ -1,0 +1,7 @@
+{
+    "name": "In the Swing / four-live supported reaction prerequisite",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:10:11+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Play this only if you've attacked 2 or more times with weapons this turn.\n\nTarget weapon attack gets +3{p}. Namedfalseprerequisiteonly. Legalnatural20Dori, physicalprimary5Hand, realDawnblade6cost1paidactualBlue7/R2/AP0. FirstrealweaponattackcurrentREACTION1 withrealnonattackActionWarriorsValor8defending/DEF3vsbase3 suppliescurrentattack anddefender; R2coversFatalprinted2, others0. Onlyoneactualweaponattackthisturn<2, soInSwingguardfalse. Rejectbeforeanycost/choice/Stack/destroy/prioritychange; thenall4manual0actualdamage/noHit/HP20/AP0, primary5Hand, physicalweapon6used1/Pitch7/defender8ownedGGY. NoearnedDori/DawnbladeHitability. Positiveprerequisite/reactionpower/targets/wager/secondattack/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#in_the_swing_red"
+}

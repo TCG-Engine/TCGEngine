@@ -1,0 +1,161 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-text/source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1008-20261122.json",
+  "source_spec_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+  "input_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-bolt-of-courage-red-four-live-sparse1008-uncharged-actual-hit-does-not-draw-real-deck-card",
+      "card_id": "bolt_of_courage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21058b94f410f76d91aac2bbd98ae974b7f52386d985f966bc2b38841d519148",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "e7ff560388638d4dbf1b8e80d0546792d83263bcd0e513a3a21d353d375f064f",
+        "expected_final_gamestate.txt": "44fea036b15d37aa6b4a2b5538749a2f329ed6da113a3a2cafe7f01a6d5a48e9",
+        "meta.json": "20db25abe27aeee894990fb5d7ed04c03d178d0f22ccaf634c9c114722837725"
+      },
+      "fixture_sha256": "d8dd6d5484da015e6022c9f719f26169f0a7db965359ce80ac6177f043bab308",
+      "actions": 27,
+      "native_assertions": 204,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1008-20261122.json",
+      "input_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-bolt-of-courage-red-four-live-sparse1008-uncharged-actual-hit-does-not-draw-real-deck-card",
+        "fixture_slug": "card-bolt-of-courage-red-four-live-sparse1008-uncharged-actual-hit-does-not-draw-real-deck-card",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-engulfing-light-red-four-live-sparse1008-old-soul-card-is-not-charge-history-source-goes-graveyard",
+      "card_id": "engulfing_light_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f688054c73f159f0db4c8705879bc57fe045e7d448d4598dad76ef76ab1da26",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "d0280973bb9d892921ce976b716320439ba387a7e860cc14c2be11b64b06e9ff",
+        "expected_final_gamestate.txt": "90c3cd290b238becc5c97b9330828732689d009370ff549e8fec1bcf13a7b677",
+        "meta.json": "b825e56280a72f02dea1f5c95e5f9759c96abcf2ef59a5e5bb25ab3243994092"
+      },
+      "fixture_sha256": "21a6093f7be64cb88a28ae55e99d43dd9ece87abd7fdc1fa0ac50d1c3c316484",
+      "actions": 27,
+      "native_assertions": 200,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1008-20261122.json",
+      "input_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-engulfing-light-red-four-live-sparse1008-old-soul-card-is-not-charge-history-source-goes-graveyard",
+        "fixture_slug": "card-engulfing-light-red-four-live-sparse1008-old-soul-card-is-not-charge-history-source-goes-graveyard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+      "card_id": "hunt_to_the_ends_of_rathe_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c30567103116cc6d73ef08567918148a441bc55f4c5bf44bd9cb40ed75ce3966",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "0bf081dda1629fb353816bc6053b52a36954f8d406c8eeeb7865d4fa0e477ee1",
+        "expected_final_gamestate.txt": "e2dbf05ba2a9a77afbefaba6d113442310c57aae95a8023a5e622193a12a3087",
+        "meta.json": "fd4c0a8a09bcb5458060dc48accbb85b2bd24ffc35f4c2dbf577acb50693ddb4"
+      },
+      "fixture_sha256": "f3a0fbe046b12373f6e71dcd9d27c4804c9bafc2277438be3d1d59e9eecd0b00",
+      "actions": 27,
+      "native_assertions": 162,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1008-20261122.json",
+      "input_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+        "fixture_slug": "card-hunt-to-the-ends-of-rathe-red-four-live-sparse1008-unmarked-non-arakni-printed-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "6bb723dbd5d53de32ae0c05a59b4874f9e11e8b973223f0e1253cb5ead4e2ce3",
+    "reviewer": "breadth_review independent printed-text/source/transport review",
+    "basis": [
+      "BoltCourage and EngulfingLight legal LightWarrior Boltyn20 cost0/base3. Source5soleHand movesStack before optionalCharge and no otherHand card remains, so no charge history or granted hit ability. Correct actual3hit/HP17/AP0/source5ownedGY. Bolt realDeck6 retained/Hand0 rules out draw; Engulfing oldinitialSoul6 is not charged history and remains count1 while source5goesGY.",
+      "Exact four-query deletion verified by reconstructing prior1008 bytes: reinserting only Soul.Owner/Controller checks after initial/finalSoulUID6 reproduces originalSHA1e6a22c9206c9ca15257ceeaaad2680a2f82d949ad019489d1c3c97a62915b4c. No other spec/input/oracle change. Schema153 and Soul class serialize onlyCardID/UniqueID; currentCount1/CardID/UID6 and source5ownedGY correctly retain observable physical fate.",
+      "Hunt legal DraconicFai20 targets actual unmarked Dorinthea4, notArakni. Printed WHENattacksArakni event is absent, unlike held positive-Arakni timing branch. Static marked+2 false, correct persistedpower2/actual2damageHP18; printedintrinsicGA restoresAP1 onlyatResolution. Hero4Counters[]retained/noMark. Fai has no automatic attack-hit Hero trigger.",
+      "Allfour live/manual, source5physicalStack/ATTACK/GY ownership, actual assets/printed costs/HP/AP and no forbidden diagnostics. Rule expectations derive from cache/source, not native output."
+    ],
+    "correction_proof": {
+      "original_spec_sha256": "1e6a22c9206c9ca15257ceeaaad2680a2f82d949ad019489d1c3c97a62915b4c",
+      "exact_removed_query_count": 4,
+      "removed_queries": [
+        {
+          "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+          "query": {
+            "type": "card_property_equals",
+            "mzId": "p1Soul-0",
+            "property": "Owner",
+            "value": "1"
+          }
+        },
+        {
+          "checkpoint": "explicit_four_live_initial_state_and_actual_owned_source",
+          "query": {
+            "type": "card_property_equals",
+            "mzId": "p1Soul-0",
+            "property": "Controller",
+            "value": "1"
+          }
+        },
+        {
+          "checkpoint": "actual_primary_finish_in_owned_zones",
+          "query": {
+            "type": "card_property_equals",
+            "mzId": "p1Soul-0",
+            "property": "Owner",
+            "value": "1"
+          }
+        },
+        {
+          "checkpoint": "actual_primary_finish_in_owned_zones",
+          "query": {
+            "type": "card_property_equals",
+            "mzId": "p1Soul-0",
+            "property": "Controller",
+            "value": "1"
+          }
+        }
+      ]
+    },
+    "limits": [
+      "Positive Charge/draw/Soul/hero effects, positive Hunt-versus-Arakni/Mark/earned-trigger timing, support identities/siblings/full-card behavior untested. Existing positive-Arakni source-only hold remains branch-scoped; no repair or coverage for that branch.",
+      "Native input preservation, saved assertion review and one clean replay remain Root-owned. Reviewer ran no native/PHP/test/game and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1008-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "49e784f384ab6087bb8abd978467ed2206beb56360b4af184d2fc303af5aa512"
+  },
+  "full_suite_run": false
+}

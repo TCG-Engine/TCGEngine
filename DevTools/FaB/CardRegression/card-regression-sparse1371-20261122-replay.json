@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-betsy-skin-in-the-game-two-live-sparse1371-real-bet-big-hand-defense-is-not-attack-or-wager-with-blue-hand-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-betsy-skin-in-the-game-two-live-sparse1371-real-bet-big-hand-defense-is-not-attack-or-wager-with-blue-hand-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1371-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1371-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0f753ee9963135b0529cde75f8186fd82427ca32e52170aa3ba59814264d1a67",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5c5337d4494359140bdd7dc5564f55e27e66ca2266cd5d136cbd5db80b513e3d",
+        "actions.json": "44336d41ae81d3afbea90b1436503a13174590061f58c41353dc9d487b6ca140",
+        "assertions.json": "efd103c1558c24646f87f1a91b46a703db6cc3ca02c414c275f97388648cee78",
+        "expected_final_gamestate.txt": "1281b7def3c271a6a8e57562ec2cf035019c483c8b0ccc77f3c7c9e57737ad6f",
+        "meta.json": "ae14a5659bc9a7974178ece5e9c9d26f4a94487b868edb66dda91f264fd03e09"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Regicide / printed same-name defense restriction with legal control",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T17:58:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_MANUAL_YOUNG_ARAKNI20_THREEDORI20/cachedUPF. ActualRegicide5Hand1Specialization(noContract/StealthsoHeroWHENnotearned), WoundingRed6Banish4priorstate, WoundingYellow7Hand4SAMEPRINTEDNAME/differentpitchID, CriticalStrikeRed8Hand4differentName. NativeAA0targetHero4beforeAP0/all4responses/base3/noGA. AtactualDefendDeclare4 nativeclick7sameNamemustREJECTunchangedHand/Banish/CC/HP/priority; actualclick8differentNameLEGALdef3. All4defense/reactionmanualwindows\u2192real3power-3defense=0/nothit/HP20unchanged/same7Hand/6Banish/8CC/5CC/StackDQquiet/UID8RNG0. PrefixSTOPSINDAMAGEBEFOREremainingDamagepassesandRESOLUTION/chainclose; noRoyalhit/elimination/self-loss/cleanup/contract/wholecard/supportcredit. Definerstaticprintedrestrictionpositivewlegaldifferentnamecontrolonly; notfullytestedcardorWHENtiming. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#regicide_blue FaBSim/Custom/GameLogic.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/WTRCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

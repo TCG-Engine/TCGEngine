@@ -1,0 +1,7 @@
+{
+    "name": "Cullingsong Gloomblade / native play from Banish attacks a real Ally without Hero-hit banishment",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:48:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "POSITIVE_INTRINSIC_BANISH_PLAY_PERMISSION_ONLY_WITH_ALLY_NOT_HERO_HIT_GUARD. FourrealYoungVynnset20/Dori20/Dori20/Dromai20/manualUPF. Actualfaceupprimary5Banish noPlayableFromBanishflag/noexternalpermission/historyseed, noRunechantsANYArena(onlyrealAshwing6under4withpriorAshmaterial). Actual7Hand4/8Arsenal4faceDowncontrols. NativeBanishclickmustadmitprintedpermissionanddeclareadjacentAlly6; same5StackfromBanish/paysAP1to0/R0(noHand/Pitchfunding). UsurpCR8.3.49mandatorydestroyifable: noRunechantsmeansunable, no+2/noUsurpcredit. Fouractualsource/combatresponses, realprinted2power/noGA, actual2physicaldamagekills1lifeTokenAlly6/ceasesnoGY4/noHeroHPchange. ActualtargetAllynotHero\u2192whenhitsHEROconditionfalse/noearnedbanishtrigger;7Hand8Arsenalstay4/noBanish/choice/RNG. Fullsame5ownedGY1/Banish1empty/APR0/UID8RNG0/StackDQsCCclean. NOpaidUsurp/crossseatRunechant/trueHeroHit/BloodDebtend/Vynnsetability/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#cullingsong_gloomblade_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/IARCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php"
+}

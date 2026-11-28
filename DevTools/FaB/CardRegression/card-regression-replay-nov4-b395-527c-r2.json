@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch395.json",
+  "runtime_sha256": "527c3e3bf7e18d626fbaf23ae221d77fc65bf1ec080080758a7009069800afa2",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T22:25:56.332113+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rise-from-the-ashes-red-four-live-sparse-real-ninja-buff-adds-three-to-paid-surging-strike",
+      "fixture_sha256": "af12275351798ace927342c6f5f898101c3b5dbcfb43dcaf0fe2aa4c9faeaa13",
+      "passed": true,
+      "result": "[PASS] rise_from_the_ashes_red / four live distinctive effect"
+    },
+    {
+      "slug": "card-shield-wall-red-four-live-sparse-two-real-blue-pitches-and-guardian-offhand-add-exact-four-defense",
+      "fixture_sha256": "0869b2ab248eda4ac1b96ab3f50954ca2f7c0031cc8d8dbeebeec216cbfdcfb1",
+      "passed": true,
+      "result": "[PASS] shield_wall_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rise-from-the-ashes-red-four-live-sparse-real-ninja-buff-adds-three-to-paid-surging-strike",
+      "returncode": 0,
+      "stdout": "[PASS] rise_from_the_ashes_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-shield-wall-red-four-live-sparse-two-real-blue-pitches-and-guardian-offhand-add-exact-four-defense",
+      "returncode": 0,
+      "stdout": "[PASS] shield_wall_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

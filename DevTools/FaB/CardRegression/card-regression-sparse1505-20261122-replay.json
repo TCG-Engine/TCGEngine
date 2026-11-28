@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-construct-nitro-mechanoid-yellow-four-live-sparse1505-two-real-drivers-are-fewer-than-required-three-with-all-equipment-and-full-cost-available",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-construct-nitro-mechanoid-yellow-four-live-sparse1505-two-real-drivers-are-fewer-than-required-three-with-all-equipment-and-full-cost-available",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1505-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1505-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b9001ef92e89d74d41f2ed21cf74d1bb3990eda8f10c7a286efcc9ac15bc0b7b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0690532568aff98a899cae3e7b55ffc2f9022baef6f46335c4f05386faac7bf6",
+        "actions.json": "33a09cf9c983c0500ea7af7a916466b1b436968329011005efe02f6aa494166b",
+        "assertions.json": "2f3c76857813271b421e438a45e1986b534a67eb18d1abe62b4872ad30dc3229",
+        "expected_final_gamestate.txt": "24703eeba47ed97ef32de1ceb496f50ddcee55f88ac7c964860f463548d5b5da",
+        "meta.json": "b8bae2b647ed335fed537bdd74cfcd7cebce6361937a80956503054e07f3aacd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

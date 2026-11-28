@@ -1,0 +1,7 @@
+{
+    "name": "eclipse_existence_blue / positive_own_GY_Action_banish_with_more_life_than_Light_Hero_earned_by_real_Sigil_play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T05:45:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Actual Blue Sigil5 four-response resolution makes LeviaHP21 from natural20 while opposing LightPrism stays20. No life/history/effect seed. Primary physicalInstant6 cost0 retains AP1/R0 and staysStack through fourresponses and positive ownGYAction7 MZMAYCHOOSE. Actual choice moves sameWounding7 GYtoownedBanish, then source6GY behindSigil5, no newUID/earlyGY/Soul/HP change. Immediate conditional effect/lifetime only. Later granted hitSoul trigger and no-greater-life control explicitly untested, no fix/clearance of that consumer. Sources: FaBSim/GeneratedCode/cardArrayCache.json#eclipse_existence_blue FaBSim/GeneratedCode/GeneratedMacroCode.php#eclipse_existence_blue FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Prism, Sculptor of Arc Light / actual printed paid Hero ability in native duel",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:10:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_TWO_LIVE_NATIVE_DUEL_ONLY. Naturalprism_sculptor_of_arc_light40/DoriIronsong40/seats12/defaultemptygameMode/noPassives/bothmanual. PriorrealSoulHerald3hasSoulSchemaCardID/UIDonly,noOwnerControllerquery; realBlue4Hand. ActualHeroInstant2ABI5choosesSoul3butmustretainSoul3untildueR2paidbyactualBlue4pitch3leavesR1. Beforebothresponsesactual3Banishfaceup/4Pitch/HeroABI5Stack/AP1/Arena0. OnlyresolutionafterbothresponsescreatesexactoneownedSpectralShield6Arena1. Soulproducer/foreignSoulprovenance/Shieldconsumerunearned. Allotherphysicalzonesempty, HPunchanged/RNG0/noStackDQCC. NoYoung/four-live/onceRepeat/cancel/tax/otherchoices/Heroother/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#prism_sculptor_of_arc_light FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php"
+}

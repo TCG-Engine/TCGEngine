@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T15:50:16.451362+00:00",
+  "runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+  "source_spec": "card-regression-repair-fluxor157-blue-pitch-amount.json",
+  "source_spec_sha256": "f520a3a7d965987fbcbeef8bce7c5f2283846b07a629b1b7aea222dac920d8d2",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 56,
+  "native_assertions": 4346,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4175,
+    "duels": 3074,
+    "four_live": 1101,
+    "recorded_primary_ids": 1327,
+    "identity_denominator": 5196,
+    "recorded_groups": 1201,
+    "group_denominator": 3324,
+    "four_live_groups": 1093,
+    "phase_qualified_scenarios_at_actual_contexts": 812,
+    "phase_qualified_unique_groups": 806,
+    "creation_replay_passes": 1553,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "volatile_fluxor_blue",
+      "group_id": "pitch-cycle:volatile_fluxor",
+      "scenario_id": "card-volatile-fluxor-blue-four-live-instant-link-plus-one-fully-blocked-and-followthrough",
+      "effect_branches": [
+        "volatile-fluxor-blue-same-link-instant-fully-blocked-followthrough"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-volatile-fluxor-blue-four-live-instant-link-plus-one-fully-blocked-and-followthrough",
+      "source_spec": "card-regression-repair-fluxor157-blue-pitch-amount.json",
+      "source_spec_sha256": "f520a3a7d965987fbcbeef8bce7c5f2283846b07a629b1b7aea222dac920d8d2",
+      "review_evidence": "review-evidence/fluxor157-6d4e-qualified-saved.json",
+      "review_evidence_sha256": "47d1385933a4cc0e45934bfc9f89734b78c546ec14a7fd16431e6afc199043d1",
+      "recorded_runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+      "qualification_runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov20-fluxor157-6d4e-replay.json",
+          "sha256": "9c973564a531e4043baf7977bad3a83651766da8295ddef2612ec54fa512c3dd",
+          "runtime_sha256": "6d4e73c844ac1b7a01981e6725770b2bc9489ce39e2a993958d4656ead431991",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,74 @@
+{
+  "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+  "fixtures": [
+    {
+      "slug": "repair-blossom-of-spring-four-live-20261126-real-destroy-cost-resource-and-go-again",
+      "passed": true,
+      "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-blossom-of-spring-four-live-20261126-real-destroy-cost-resource-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "47afddbb5256fc3f1fea92753767b65f145b793ec631e653b0ea819c948f537b",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+      "passed": true,
+      "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stubby-hammerers-four-live-sparse-real-arms-destroy-and-low-base-attacking-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "e665b52e95c9c022bf0b00f3bb0ea0c6fe957a38b75802847bb1117cdb1bc009",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+      "passed": true,
+      "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-energy-potion-blue-activation-deploy-then-instant-at-zero-ap",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "c4a89dfb08272b50e8965598afb243129c30b519113cbc8f9a387d05a8bcc97b",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-timesnap-potion-blue-activation-zero-action-points-rejected",
+      "passed": true,
+      "runtime": "430d065d6f9e9b1dde4ecdc7e25d75b87871324a27f5931852d608e30644aec4",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-timesnap-potion-blue-activation-zero-action-points-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\blossom234\\strict4.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "86737a48105f987712d412c57ea834d38ee6c6de9ac567064f0ef38e6c9976ce",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

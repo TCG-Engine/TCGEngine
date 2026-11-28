@@ -1,0 +1,292 @@
+{
+  "status": "CONFIRMED_NATIVE_ANTHEM_NEXT_AA_PLUS_ONE_MISSING_ON_ACTUAL_AA_NO_FIXTURE",
+  "approved": true,
+  "classification_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-04T18:39:47.400899+00:00",
+  "runtime_sha256": "f7511a245981f49fce106a3d920c9f1a474d1e09c6107463fea92c426701965f",
+  "input_sha256": "ae6174dead625cd05cbdf855fc2238e3ad486b0b52ec7ec9e7f5e91346612a7a",
+  "source_spec": "card-regression-batch378.json",
+  "card_id": "anthem_of_spring_blue",
+  "group_id": "identity:anthem_of_spring_blue",
+  "slug": "card-anthem-of-spring-blue-four-live-original-correct-probe-real-next-attack-action-plus-one-fullblock",
+  "prior_independent_rule_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch378-independent-source-review.json",
+    "sha256": "02cfb9ce5d076a249a8bbd2d7496d532fe313835dfa08948cbbe0017edb12a53",
+    "current_plus_one_rule_unchanged": true
+  },
+  "native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-b378-native-f751-r1\\receipt.json",
+    "sha256": "5993730d0bdcebdb5486f1f58aac509fe1081ca9a8d58950cdfe1c86e3768d11"
+  },
+  "immutable_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch378-20261104T183422Z-6aeb7aae949c8.json",
+    "sha256": "e589ae128dfcc89eaac34b410a3c3e0f235e363a009c2461801f508e0ad3f045"
+  },
+  "actual_boundary": {
+    "recipe_step": 22,
+    "check_index_zero": 58,
+    "native_action_count": 11,
+    "completed_prior_checks_derived_from_sequential_prefix": 901,
+    "failed_assertion": {
+      "kind": "power",
+      "value": 5
+    }
+  },
+  "actual_last_action": {
+    "playerID": 4,
+    "mode": 10001,
+    "buttonInput": "",
+    "cardID": "!CustomInput!Pass",
+    "chkInput": [],
+    "inputText": ""
+  },
+  "raw_observed_state": {
+    "window": "ATTACK",
+    "combatOpen": true,
+    "combatStep": "ATTACK",
+    "chainLink": 1,
+    "attacker": 1,
+    "defender": 4,
+    "attackUID": 6,
+    "attackTarget": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "Wounding Blow",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "MST_BLUE_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_BLUE_GRAVE",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "NEXT_AA",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_AA_ATTACK",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "HNT_ATTACKED_4",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SUP_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_LAST_wounding_blow",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ELE_AA_COMBAT",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "SEA_ATTACKED_HERO",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "anthem_of_spring_blue",
+        "wounding_blow_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "mstBluePlayedTurn": 2,
+        "mstBluePlayedPlayer": 1,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false,
+        "iarPermission": [],
+        "mstReactions": 0,
+        "mstBanished": [],
+        "supFirst": true
+      }
+    },
+    "arcActions": {
+      "1": 2
+    },
+    "outPreviousNames": {
+      "1": []
+    },
+    "lastAttackCardID": "wounding_blow_red",
+    "attackTargets": [
+      {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      }
+    ],
+    "defendIndex": 0,
+    "attackGoAgain": false
+  },
+  "raw_observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "raw_observed_hand_refs": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [
+      "p4Hand-0",
+      "p4Hand-1"
+    ]
+  },
+  "initial_raw_snapshot_sha256": "41730c94d3ebd9c76517bd84ecb2c507ae3e6d7b90e9ce515e15baa739dc9a4e",
+  "direct_observations": [
+    "Native error reports fresh computed power expected5 got4 after actualfourthAA-source response.",
+    "Archived raw state is ATTACK/open/link1/attackUID6, actualplayed Anthem thenWounding; unconsumed NEXT_AA1/uses1 remainsP1; no damage/hit yet and allDQs empty.",
+    "Raw cached attackPower0 at ATTACK is distinct from computed4 error measurement. Full postfailurephysicalzone snapshot not archived; no invented raw missingTag value."
+  ],
+  "sequential_passed_prefix": [
+    "901 prior checks is derived from exact sequential source order before recipe22/q58, not a separate archived counter.",
+    "Physical sameUID6/CardIDWounding/OwnerController1/ATTACKRole/FromHand/link1 checks precede firstfreshcomputedpower failure.",
+    "Explicitphysical WTR_POWER1 assertion follows failedpower and is unexecuted; no statement about its actual raw TurnEffects is made."
+  ],
+  "causal_source_inference": [
+    "Printed/currentofficial Anthem grants nextattackACTIONcard+1. LegalBriar and actualAA4 expectation5 are independently approved; zero damage later would not distinguish missingbuff.",
+    "Canonical+compiled producer stores NEXT_AA1. Existing WTRCardPlayed typed consumer recognizes SUP_NEXT_AA/other variants but not thiskey. ActualnativeAAplay leaves NEXT_AA1 unconsumed and computes4, supporting a producer-consumer effect-key mismatch.",
+    "This confirms this one selectedAnthem positiveeffect defect, not Unity/hero/weapon/damage or sibling branches."
+  ],
+  "narrow_recommendation": "Correct the scoped NEXT_AA producer/consumer contract using existing AA-only semantics; preserve printed+1/AA-only scope and original strict input. Root-assigned Next owns independent W proposal. No code change made by reviewer.",
+  "deduplication": {
+    "checked_issue": "FAB-REG-027",
+    "selected_fields": {
+      "card_ids": [
+        "en_garde_red"
+      ],
+      "resolution": "FaBWTRResolveCard buff map gains only en_garde=>NEXT_WEAPON[3]. Existing typed use1/consumption/subtype filters/expiry are used. No sourceownGA/payment/weaponGA/rules/generator changes. OriginalreviewedCRLFcandidate metadata mismatch was caught beforewrite; LF-only correction f31e independently approved and preserves oneentry/nativeLF. Later028changes preserve thisentry.",
+      "source_location": "FaBSim/Custom/WTRCards.php:FaBWTRResolveCard $buffs"
+    },
+    "finding": "Analogous missing printed buff but old027 repaired missing EnGarde producer-table entry NEXT_WEAPON; this actual Anthem producer exists and survives unconsumed through actualAA play. Exact causal location differs. No new global/root/Core count assigned by reviewer."
+  },
+  "fixture_saved": false,
+  "semantically_approved": false,
+  "correct_expectation_spec_approved": true,
+  "coverage_credit": false,
+  "new_global_root_count": false,
+  "new_core_root_count": false,
+  "bug_fix_applied": false,
+  "unreached": [
+    "strictphysicalPOWER1 check",
+    "defender/fullblock",
+    "damage andBriarhit conditions",
+    "fullclose suffix"
+  ],
+  "limits": [
+    "No correctfixture or coverage for failedAnthem; healthyBuckle saved subset reviewed separately.",
+    "Observed rawGameState and sequential passedassertions distinguished from fullrawphysicalzone evidence.",
+    "NoPHP/native/R/source/service/generation/full-suite by reviewer; tenoldholds/SmashItem unchanged."
+  ]
+}

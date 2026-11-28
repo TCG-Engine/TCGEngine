@@ -1,0 +1,91 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/current-source/transport review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1020-20261122.json",
+  "source_spec_sha256": "5906c57e56f429299efccab16a944fa7a2d838a752f5e75f300ece5b0c86e103",
+  "input_sha256": "5906c57e56f429299efccab16a944fa7a2d838a752f5e75f300ece5b0c86e103",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-terminator-tank-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+      "card_id": "terminator_tank_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2c39b03c4fa53b85ba7cb5c9170a401724ee4d2220acdb18d4a6d96d2594a39c",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "78628c1c3b6e54754c81669eb4c6ceff951a22632bb47f5823395f16c5b25d92",
+        "expected_final_gamestate.txt": "ee288019dcb00ed9ab81c99ee053beb44d85fb4651fb64417a4216740f0659e3",
+        "meta.json": "79854753cb8001acb8268d0e2f60ab87b94a80f9701aa95fea069750c14e4c17"
+      },
+      "fixture_sha256": "a0256a37f78412b51f2f341ed16996b4c5fe1f782616b50f58667baea414f991",
+      "actions": 29,
+      "native_assertions": 168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1020-20261122.json",
+      "input_sha256": "5906c57e56f429299efccab16a944fa7a2d838a752f5e75f300ece5b0c86e103",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1020-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-terminator-tank-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+        "fixture_slug": "card-terminator-tank-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-war-machine-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+      "card_id": "war_machine_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a1697e90c3fbce72e57b865a7c6163b13460391393f613a0dd9ce7839144dca6",
+        "actions.json": "e22a6cb0fbc57b85cb4c085dff11ef900ce5afc681d1998045a7b38700519346",
+        "assertions.json": "497fea3351758d956ad67057e6bec72dfc76965fc04a43a7fb746d4d48b7208b",
+        "expected_final_gamestate.txt": "74d85994b22b68519761d37ae0dd65ef228095847c75bc466421ca9218ce5172",
+        "meta.json": "45c30b3257067b523951140c8a3f85b3397616d2bf9d455bfb8bbd2baa14ec9c"
+      },
+      "fixture_sha256": "66c726aa6f0253b8ed04574d27b500295cac4f4c27029b60e3bb30656c3e6137",
+      "actions": 29,
+      "native_assertions": 168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1020-20261122.json",
+      "input_sha256": "5906c57e56f429299efccab16a944fa7a2d838a752f5e75f300ece5b0c86e103",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1020-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-war-machine-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+        "fixture_slug": "card-war-machine-red-four-live-sparse1020-zero-evo-full-six-cost-real-six-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "5906c57e56f429299efccab16a944fa7a2d838a752f5e75f300ece5b0c86e103",
+    "reviewer": "breadth_review independent cached-text/current-source/transport review",
+    "basis": [
+      "Exact two cases unchanged from originalfirst2; Evergreen removedunrun andexcludedfromthisapproval. BothcurrentprintedTank/WarMachine use IF>=1Evo getsquotedWHENhitability; zeroEquipment/Evos meansno grantedhitability exists. This is staticgrant absence, not ignored unconditionalWHEN...IF trigger. ActualTankHit6cannotdiscardrealHand8; WarHit6cannotdestroyrealFaceDownArsenal8. Retainedphysicalmarkers proveobservableabsence.",
+      "LegalMechanologistDash20, printedcost6/power6 andzeroEvo eliminate>=2costdiscount/>=3Overpower/>=4power modifiers. ActualtwoBlue6/7 pays6: firstR3/AP1/PITCH, secondR0/AP0; source5Stack/actualATTACK/ownedGY afterfullfourmanualunblocked6damageHP14. NoBow/ability/boost/reveal/target/mode/additionalcost route dependency. ActualcostAP/HP andownedsource/pitches/targetmarkers/quietqueues pin namedmainbranch.",
+      "No sourceWHENattack/play effect isearned bythesetexts. PositiveHero/Equipment/Evo thresholds untested. No author-onlydiagnostic kinds, no previouscase execution orsourcechanges."
+    ],
+    "limits": [
+      "Only zeroEvo mainpaid/unblocked branches; no positiveEvo1grant/2discount/3Overpoweradmission/4power/actualHitdiscard-or-destroy, hero/support/siblings/fullcards. EvergreenHandclose-event timing remains source-only/unrun/no fixture/credit, not certified bythisscope.",
+      "Root owns nativeinput retention/savedassertionreview/onecleanreplay. Reviewer ran no native/PHP/game/test and changed no T/source/original/Git/network/auth/engine; only this W receipt."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1020-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2fc4ab4f2a65a1e2c2c36bfebc9a754de94a66d2d3f0821f1daf30ce45f72ca3"
+  },
+  "full_suite_run": false
+}

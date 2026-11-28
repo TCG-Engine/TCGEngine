@@ -1,0 +1,165 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1352-20261122.json",
+  "source_spec_sha256": "78a192cdccc2c6e4d7045f8f4d86ad1136c6aa3ffcc33599b10303336c41045f",
+  "input_sha256": "78a192cdccc2c6e4d7045f8f4d86ad1136c6aa3ffcc33599b10303336c41045f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arakni-four-live-sparse1352-defending-contract-card-is-not-playing-no-hero-peek-or-deck-movement",
+      "card_id": "arakni",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33bc08de73f8403e885d1d3a5d8d45184b59fcd63140ba65152b13e0e98341b6",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "2c67d21bb4ffca9f8427f763199ec9fbfd5fd2a80b83421fd86768d9f617d7a6",
+        "expected_final_gamestate.txt": "8b862d7d869dd4536d14936ddfa20420ab576d698b1a3110c08bfcb87f83c867",
+        "meta.json": "826479cb98116aa5ac0c6967148b272200716b42bffdb59fe9d0bebd5780492f"
+      },
+      "fixture_sha256": "2a02d03223d2e2977b1337d50d3d94d369271194e22d94ba04aedb2121cb1338",
+      "actions": 29,
+      "native_assertions": 382,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1352-20261122.json",
+      "input_sha256": "78a192cdccc2c6e4d7045f8f4d86ad1136c6aa3ffcc33599b10303336c41045f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arakni-four-live-sparse1352-defending-contract-card-is-not-playing-no-hero-peek-or-deck-movement",
+        "fixture_slug": "card-arakni-four-live-sparse1352-defending-contract-card-is-not-playing-no-hero-peek-or-deck-movement",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-betsy-four-live-sparse1352-defending-wager-text-card-is-not-wagering-no-hero-payment-despite-blue-funder",
+      "card_id": "betsy",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1cfbc01856cf084632beebffb924ef427ea50d9f50f5f234e15377d0fa8024e8",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "d8c0d4737b2c75a65ad7e7814e726b6c4008c4f3109ec2f317d79d8942501eff",
+        "expected_final_gamestate.txt": "6ea5d24fcaaa07b90a120c7a5d8bace6ffcd17fc9ce5180c1c9a6a935bd43377",
+        "meta.json": "812f6d6b3fd4268458cf301cd4753b32c2a8bc36cad35e70022165baf8db0b41"
+      },
+      "fixture_sha256": "201987615dfafb69d14ed9ed3278e62a6ea2db4d24a98f940453e28b5efedb63",
+      "actions": 29,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1352-20261122.json",
+      "input_sha256": "78a192cdccc2c6e4d7045f8f4d86ad1136c6aa3ffcc33599b10303336c41045f",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-betsy-four-live-sparse1352-defending-wager-text-card-is-not-wagering-no-hero-payment-despite-blue-funder",
+        "fixture_slug": "card-betsy-four-live-sparse1352-defending-wager-text-card-is-not-wagering-no-hero-payment-despite-blue-funder",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "78a192cdccc2c6e4d7045f8f4d86ad1136c6aa3ffcc33599b10303336c41045f",
+    "source_note_sha256": "290d8b93b7e3606e84097ef707dd16e3eed39b3551b4143ae4e72f27402ec7b5",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 58,
+    "query_checks": 755,
+    "persistable_assertions": 755,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_EVENT_ROLE_GUARD_THROUGH_REAL_HAND_DEFENSE_AND_DAMAGE",
+    "per_case": [
+      {
+        "card_id": "arakni",
+        "group_id": "identity:arakni",
+        "native_controls": 29,
+        "persistable_assertions": 382
+      },
+      {
+        "card_id": "betsy",
+        "group_id": "identity:betsy",
+        "native_controls": 29,
+        "persistable_assertions": 373
+      }
+    ],
+    "basis": [
+      "Cached naturalYoungArakni20Assassin orYoungBetsy20Guardian asactualHero4 plus YoungDori20seats1..3/manual4UPF; distinctHeroidentitiesunrepresented/unheld. PlunderPoorRedAssassinContractAA0/DEF3 legalunderArakni; BetBigRedBetsySpecializationGuardianAA4/DEF3 legalunderBetsy. ActualactorDori1GenericCriticalRed5Hand/cost1/base5 fundedBlue6pitch3/R2/AP0, defender7Hand4 andactualextra8 correctlyowned. PrimaryHero4 neveractivated; onlyevent-rolefalseguards represented.",
+      "ReusedqualifiedHanddefenseflow movesactualsupport7 fromHand0 toCC4 RoleDEFENSE/FromZoneHand withownedUID7, notCardplay orattack. GameLogic OnDefended dispatchesthe defending event; no FaBDYNPlayed/AttackDeclared fromnormalblock. DYNRuntime74 contractHero hook is in played path, so defendingPlunder doesnotearnArakniWhenPlay. PlunderHitHero andContractfulfillmentnotearned: support7neverattacks/hits/nobanish occurs, noSilver. Existingopponentactor1DeckWounding8 remainsphysicalUID/OwnerController1/count1; allTemp/Banish/Arenas/choices/RNG unchanged.",
+      "Betsy HVYCards154-159 invokesHero ability whenanownattackwagers. BetBig7normalDEFENSErole neverattacks, its printedWhenAttacksHero wager is unearned; normalHVYDefended246 doesnotdispatchBetBig wager. IncomingCriticalRed5 isactor1Doriattack, notBetsycontrolledattack andhasnowager. Therefore noearnedBetsyoptional2payment/+1/Overpower/token events. ActualownCriticalBlue8Hand4pitch3 is potentiallysufficient2fundingbutunspent, index1beforeblock\u2192index0after7moves, remainsownedController4; resources0/Pitch4empty/UID8/RNG0.",
+      "Both actualsource/combat allfourresponses and real5-3=2damageHP4=18 retained. Exactowned5GY1/6Pitch1/7GY4, ArakniDeck1unchangedversusBetsyHand4=1andDecks0, allArena0/quietStackDQsCC/AP0R2/readyHero4Status2/UID8/RNG0 correct. DoriGenericAAnotweapon,noDoriweaponhit event; primaryHero supportCardabilitiesuncredited. Counts29/382+29/373=58/755 persistable."
+    ],
+    "limits": [
+      "Approved only defending-not-playing/not-attacking-or-wagering Heroguards throughactualHandblock/damage/physicalretention, pendingnative save/replay. No nativepass/qualifiedcoverage creditclaimed.",
+      "No positiveContractplay/Araknipeek/target/choice/timing/Contractbanish/Silver, Betsywager/payment/+1/Overpower/payout/timing, Heroactivation/adult/support/sibling/fullcardcoverage. UnchangedDeck alone doesnotproveabsenceofprivateviewing; selectedevent-rolepredicateandnoqueuesarethecredit. Existingpositivewager/cost/timingholdsuntouched/noenginerepair.",
+      "Only W reviewreceipt written; no nativegame/test/replay, T/source/engineedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DYNCards.php": "c3460cf12b68a92af4d9c4f836de4c2495d117e3a97e73fb23e8c026aa2f20f4",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/OUTCards.php": "93f83523894205662afb911abd42b5c82b618020597b2ffecf6612fccc362d91",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1352.py": "1b5e748659ced7f6775fb81b048ea966d7e13b70f4807fba34ccddd258b8e29a",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1352-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "04fa0038439f6bcc8573e856d753c893f30ec2456592f4b6b0dd5b4516fccb33"
+  },
+  "full_suite_run": false
+}

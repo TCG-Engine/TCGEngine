@@ -43,17 +43,20 @@ function FaBELEActivated(int $p,object $stack): void {
 function FaBELERecordPitch(int $p,string $id): void {
     $s=FaBGetState();$pending=$s['pendingPayment']??null;if(!$pending||intval($pending['player'])!==$p)return;
     foreach(['Earth','Ice','Lightning'] as $e)if(FaBHasType($id,$e))FaBARCSetCard(intval($pending['uid']),'elePitched'.$e,true);
+    FaBELERecordBrackenEarthPayment($p,$id,$pending);
 }
-function FaBELEDealArcane(int $p,int $target,int $n,int $payment,int $uid): int {
+function FaBELEDealArcane(int $p,int $target,int $n,int $payment,int $uid,string $sourceRef=''): int {
     if(FaBEVRUnpreventable($p,$target))$payment=0;
     $payment=max(0,min($payment,intval(GetResources($target))));AddResources($target,intval(GetResources($target))-$payment);
-    $f=FaBFindUID($uid);$dealt=DoDamage($p,$f['mzID']??'',$target,max(0,$n-$payment),'ARCANE');
+    $f=FaBDamageSourceView($sourceRef,$uid);$dealt=DoDamage($p,$sourceRef!==''?$sourceRef:($f['mzID']??''),$target,max(0,$n-$payment),'ARCANE');
     $s=FaBGetState();$s['arcaneDealt'][(string)$p][(string)$target]=intval($s['arcaneDealt'][(string)$p][(string)$target]??0)+$dealt;FaBSetState($s);return $dealt;
 }
 function FaBELEDestroyHook(int $uid): void {
     $f=FaBFindUID($uid);if($f&&$f['object']->CardID==='new_horizon')foreach(FaBChoiceRefs($f['player'],'Arsenal') as $r)FaBMONDestroy(intval(FaBIdentityFromMZ($r)['object']->UniqueID));
 }
 function FaBELEAttack(int $p,object $o): void {
+    FaBELEQueueSnapShotAttack($p,$o);
+    FaBELEQueueBrackenAttack($p,$o);
     if(FaBWTRBase($o->CardID)==='ball_lightning'&&!HasNoAbilities($o))FaBELEAdd($p,'BALL');
     if(FaBELEPower($p,$o)>0)FaBELEKorshemActivity();
     if(FaBWTRIsAttackAction($o))FaBELEAdd($p,'AA_COMBAT');$uid=intval($o->UniqueID);
@@ -61,6 +64,90 @@ function FaBELEAttack(int $p,object $o): void {
     $n=(FaBWTRIsAttackAction($o)?count(FaBMONArena($p,'sting_of_sorcery')):0);foreach((array)$o->TurnEffects as $tag)if(str_starts_with($tag,'ELE_ARCANE:'))$n+=intval(substr($tag,11));
     for($i=0;$i<$n;++$i)FaBRunSourceMacro('ResolveAbility',$p,'sting_of_sorcery_blue',['mzID'=>FaBFindUID($uid)['mzID']]);
     if($o->CardID==='duskblade'&&FaBELEBothActions($p)){$f=FaBFindUID(intval(FaBObjectCounters($o)['WEAPON_UID']??0));if($f)FaBSetObjectCounter($f['object'],'POWER',intval(FaBObjectCounters($f['object'])['POWER']??0)+1);}
+}
+/** A Bracken-only announcement epoch survives physical UID reuse. */
+function FaBELEInitializeBrackenPlay(int $p,object $o): void {
+    if(!in_array($o->CardID,['bracken_rap_red','bracken_rap_yellow','bracken_rap_blue'],true))return;
+    $uid=intval($o->UniqueID);$s=FaBGetState();$pending=$s['pendingPayment']??null;$f=FaBFindUID($uid);
+    if(!is_array($pending)||intval($pending['player']??0)!==$p||intval($pending['uid']??0)!==$uid
+        ||($pending['kind']??'')!=='ATTACK'||!empty($pending['isAbility'])
+        ||!empty($pending['isWeaponAttack'])||!empty($pending['isArenaAttack'])
+        ||!$f||$f['zone']!=='Stack'||$f['object']!==$o||($o->Kind??'')!=='ATTACK'
+        ||intval($o->Controller)!==$p)return;
+    $turn=intval(GetTurnNumber());$previous=intval(FaBARCCard($uid,'eleBrackenPlayEpoch',0));
+    if(intval($pending['eleBrackenPlayEpoch']??0)>0
+        &&intval($pending['eleBrackenPlayEpoch'])===$previous
+        &&intval(FaBARCCard($uid,'eleBrackenPlayTurn',0))===$turn)return;
+    $epoch=$previous+1;
+    FaBARCSetCard($uid,'eleBrackenPlayEpoch',$epoch);
+    FaBARCSetCard($uid,'eleBrackenPlayTurn',$turn);
+    FaBARCSetCard($uid,'eleBrackenEarthPaymentEpoch',0);
+    // Do not overwrite those writes with the pre-epoch local state snapshot.
+    $s=FaBGetState();$s['pendingPayment']['eleBrackenPlayEpoch']=$epoch;FaBSetState($s);
+}
+function FaBELERecordBrackenEarthPayment(int $p,string $id,array $pending): void {
+    if(!FaBHasType($id,'Earth')||intval($pending['player']??0)!==$p
+        ||!empty($pending['isAbility'])||!empty($pending['isWeaponAttack'])||!empty($pending['isArenaAttack'])
+        ||($pending['kind']??'')!=='ATTACK')return;
+    $uid=intval($pending['uid']??0);$f=FaBFindUID($uid);$epoch=intval($pending['eleBrackenPlayEpoch']??0);
+    if(!$f||$f['zone']!=='Stack'||($f['object']->Kind??'')!=='ATTACK'
+        ||intval($f['object']->Controller)!==$p
+        ||!in_array($f['object']->CardID,['bracken_rap_red','bracken_rap_yellow','bracken_rap_blue'],true)
+        ||$epoch<1||$epoch!==intval(FaBARCCard($uid,'eleBrackenPlayEpoch',0))
+        ||intval(FaBARCCard($uid,'eleBrackenPlayTurn',0))!==intval(GetTurnNumber()))return;
+    FaBARCSetCard($uid,'eleBrackenEarthPaymentEpoch',$epoch);
+}
+function FaBELEQueueBrackenAttack(int $p,object $o): void {
+    if(!in_array($o->CardID,['bracken_rap_red','bracken_rap_yellow','bracken_rap_blue'],true)
+        ||HasNoAbilities($o)||FaBMPGSuppressed($o)||FaBSUPSuppressed($o))return;
+    $uid=intval($o->UniqueID);$s=FaBGetState();$f=FaBFindUID($uid);
+    $epoch=intval(FaBARCCard($uid,'eleBrackenPlayEpoch',0));$turn=intval(GetTurnNumber());
+    if($uid<1||$epoch<1||!$f||$f['zone']!=='CombatChain'||($o->Role??'')!=='ATTACK'
+        ||intval($s['attackUID'])!==$uid||intval($o->Controller)!==$p
+        ||intval(FaBARCCard($uid,'eleBrackenPlayTurn',0))!==$turn)return;
+    $key=$turn.':'.$epoch;
+    if(FaBARCCard($uid,'eleBrackenAttackEvent','')===$key)return;
+    FaBARCSetCard($uid,'eleBrackenAttackEvent',$key);
+    FaBROSQueue($p,(string)$o->CardID,$uid,['rosEvent'=>'eleBrackenAttack',
+        'eleBrackenPaidEarth'=>intval(FaBARCCard($uid,'eleBrackenEarthPaymentEpoch',0))===$epoch,
+        'eleBrackenTurn'=>$turn]);
+}
+function FaBELEResolveBrackenAttack(int $p,object $layer): void {
+    if(($layer->Params['rosEvent']??'')!=='eleBrackenAttack'||($layer->Kind??'')!=='ABILITY'
+        ||!in_array($layer->CardID,['bracken_rap_red','bracken_rap_yellow','bracken_rap_blue'],true)
+        ||intval($layer->Controller)!==$p||!FaBSeatIsLive($p)
+        ||intval($layer->UniqueID)<1||intval($layer->SourceUniqueID)<1
+        ||intval($layer->Params['eleBrackenTurn']??0)!==intval(GetTurnNumber()))return;
+    $uid=intval($layer->UniqueID);if(FaBARCCard($uid,'eleBrackenResolved',false))return;
+    FaBARCSetCard($uid,'eleBrackenResolved',true);
+    // Captured Action source and controller survive foreign response context.
+    if(($layer->Params['eleBrackenPaidEarth']??null)===true)FaBHVYToken($p,'might',1,$p,true);
+}
+
+/** Snap Shot earns its attack layer even when the fused payload is false. */
+function FaBELEQueueSnapShotAttack(int $p,object $o): void {
+    if(!in_array($o->CardID,['snap_shot_red','snap_shot_yellow','snap_shot_blue'],true)
+        ||HasNoAbilities($o)||FaBMPGSuppressed($o)||FaBSUPSuppressed($o))return;
+    $uid=intval($o->UniqueID);$s=FaBGetState();$f=FaBFindUID($uid);
+    $play=intval(FaBObjectCounters($o)['FAB_PLAY_ORDER']??0);
+    if($uid<1||$play<1||!$f||$f['zone']!=='CombatChain'||($o->Role??'')!=='ATTACK'
+        ||intval($s['attackUID'])!==$uid||intval($o->Controller)!==$p)return;
+    $key=intval(GetTurnNumber()).':'.intval($s['chainLink']).':'.$play;
+    if(FaBARCCard($uid,'eleSnapAttackEvent','')===$key)return;
+    FaBARCSetCard($uid,'eleSnapAttackEvent',$key);
+    FaBROSQueue($p,(string)$o->CardID,$uid,['rosEvent'=>'eleSnapAttack',
+        'eleSnapFused'=>FaBELEFused($uid),'eleSnapTurn'=>intval(GetTurnNumber())]);
+}
+function FaBELEResolveSnapShotAttack(int $p,object $layer): void {
+    if(($layer->Params['rosEvent']??'')!=='eleSnapAttack'||($layer->Kind??'')!=='ABILITY'
+        ||!in_array($layer->CardID,['snap_shot_red','snap_shot_yellow','snap_shot_blue'],true)
+        ||intval($layer->Controller)!==$p||!FaBSeatIsLive($p)
+        ||intval($layer->UniqueID)<1||intval($layer->SourceUniqueID)<1
+        ||intval($layer->Params['eleSnapTurn']??0)!==intval(GetTurnNumber()))return;
+    $uid=intval($layer->UniqueID);if(FaBARCCard($uid,'eleSnapResolved',false))return;
+    FaBARCSetCard($uid,'eleSnapResolved',true);
+    // The earned layer survives later source departure or ability suppression.
+    if(($layer->Params['eleSnapFused']??null)===true)FaBELEAdd($p,'SNAP');
 }
 function FaBELEDefended(int $p,object $o): void {
     if(FaBELEDefense($p,$o)>0)FaBELEKorshemActivity();
@@ -70,16 +157,48 @@ function FaBELEDefended(int $p,object $o): void {
     if(($o->FromZone??'')==='Hand'&&FaBELEElement($a,'Lightning|Elemental'))foreach(FaBCRUEquipment(intval($s['attacker']),'mark_of_lightning') as $r)FaBRunSourceMacro('ResolveAbility',intval($s['attacker']),'mark_of_lightning',['mzID'=>$r]);
     if($o->CardID==='rampart_of_the_rams_head')FaBRunSourceMacro('ResolveAbility',$p,$o->CardID,['mzID'=>FaBFindUID(intval($o->UniqueID))['mzID']]);
 }
+/** The next AA hit consumes its grant now; each damage event resolves as a separate layer. */
+function FaBELEQueueNextAAHitDamage(int $p,object $attack,int $target,int $amount): void {
+    if($amount<=0||intval($attack->UniqueID??0)<1)return;
+    FaBROSQueue($p,(string)$attack->CardID,intval($attack->UniqueID),
+        ['rosEvent'=>'eleNextAAHitDamage','eleDamageTarget'=>$target,'eleDamageAmount'=>$amount]);
+}
+function FaBELEResolveNextAAHitDamage(int $p,object $trigger): void {
+    $target=intval($trigger->Params['eleDamageTarget']??0);$amount=intval($trigger->Params['eleDamageAmount']??0);
+    if(($trigger->Params['rosEvent']??'')!=='eleNextAAHitDamage'||intval($trigger->Controller)!==$p
+        ||intval($trigger->SourceUniqueID)<1||$amount<=0||!in_array($target,FaBSeatOrder(),true))return;
+    $source=FaBFindUID(intval($trigger->SourceUniqueID));
+    DoDamage($p,$source['mzID']??'',$target,$amount,'PHYSICAL');
+}
+/** The granted WHEN belongs to the hit attack; its victim is fixed when earned. */
+function FaBELECapturedTearVictim(int $controller): int {
+ $s=FaBGetState();$pending=$s['resolvingReaction']??null;
+ if(is_array($pending)&&($pending['resolutionClass']??'')==='ROS_EVENT'
+  &&($pending['cardID']??'')==='tear_asunder_blue'&&intval($pending['controller']??0)===$controller){
+  $layer=FaBFindUID(intval($pending['uid']??0));
+  if($layer&&$layer['zone']==='Stack'&&($layer['object']->CardID??'')==='tear_asunder_blue'
+   &&($layer['object']->Kind??'')==='ABILITY'&&intval($layer['object']->Controller??0)===$controller
+   &&($layer['object']->Params['rosEvent']??'')==='ownedCardMacro'
+   &&($layer['object']->Params['eventMacro']??'')==='ResolveAbility'
+   &&intval($layer['object']->SourceUniqueID)===intval($pending['sourceUniqueID']??0)){
+   $victim=intval($layer['object']->Params['eventParams']['tearVictim']??0);
+   return FaBSeatIsLive($victim)?$victim:0;
+  }
+  return 0;
+ }
+ return 0;
+}
 function FaBELEHit(int $p,object $o,int $n): void {
     if(!FaBFaiHeroHit()||$n<=0)return;$s=FaBGetState();$target=intval($s['defender']);$uid=intval($o->UniqueID);$ref=FaBFindUID($uid)['mzID'];
     if(FaBELECount($p,'FORCE')&&FaBWTRIsAttackAction($o)&&FaBAttackPower($s)>intval(CardPower($o->CardID)))DoDrawCard($p,FaBELECount($p,'FORCE'));
     FaBELEFrost($target,FaBELECount($p,'QUAKE'));
     if(FaBELEElement($o,'Ice|Elemental')){FaBELEFrost($target,FaBELECount($p,'CHILL'));FaBELEClear($p,'CHILL');}
-    $events=[];
-    foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';if($k==='ELE_BUZZ'||$k==='ELE_FLASH_LIGHTNING'||($k==='ELE_ELECTRIFY'&&FaBWTRIsAttackAction($o)))$events[]=intval($e['amount']);}
+    $events=[];$nextAAHit=[];
+    foreach(FaBWTREffects($p) as $e){$k=$e['type']??'';if($k==='ELE_ELECTRIFY'&&FaBWTRIsAttackAction($o))$nextAAHit[]=intval($e['amount']);elseif($k==='ELE_BUZZ'||$k==='ELE_FLASH_LIGHTNING')$events[]=intval($e['amount']);}
     foreach((array)$o->TurnEffects as $tag)if(str_starts_with($tag,'ELE_HIT_DAMAGE:'))$events[]=intval(substr($tag,15));
     if(FaBWTRIsAttackAction($o))FaBELEClear($p,'ELECTRIFY');
+    foreach($nextAAHit as $damage)if($damage>0)FaBELEQueueNextAAHitDamage($p,$o,$target,$damage);
     foreach($events as $damage)if($damage>0)DoDamage($p,$ref,$target,$damage,'PHYSICAL');
     if(in_array('ELE_SEEK_DESTROY',(array)$o->TurnEffects,true))FaBWTRAddEffect($target,'ELE_SEEK_DESTROY',1,['expiresAfterTurnOf'=>$target],true);
-    if(in_array('ELE_TEAR',(array)$o->TurnEffects,true))FaBRunSourceMacro('ResolveAbility',$p,'tear_asunder_blue',['mzID'=>$ref]);
+    if(in_array('ELE_TEAR',(array)$o->TurnEffects,true))FaBQueueOwnedEventMacro($p,$o,'ResolveAbility',['mzID'=>$ref,'tearVictim'=>$target],'tear_asunder_blue');
 }

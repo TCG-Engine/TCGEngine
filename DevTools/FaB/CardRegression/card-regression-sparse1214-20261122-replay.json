@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-chum-friendly-first-mate-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-forces-real-attack-to-surviving-ally-not-hero",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-chum-friendly-first-mate-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-forces-real-attack-to-surviving-ally-not-hero",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "23b8c4dc3871b6733ccf68ec470e039ca9ffb3fa7be2f1dfb442c7c78dd819e8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "981ed45f23651c6153f4335c23018819955d8a62d530c24df09d1d54308ec259",
+        "actions.json": "bdea3392ec5413c1a4247b0ea3e8efc13cc2f48b89c1d28cbd9c7b00836332da",
+        "assertions.json": "5e1d006fa60ad1015ed50543e10238160428358f54e41c0ef27f7f89e8a0dbb1",
+        "expected_final_gamestate.txt": "33b72371c0f1a18e2869ca433cc870beba08f9012ac75c5d3d264162c4bb7145",
+        "meta.json": "b9707695873e94c0b46572da577e1ca3d5ea525df40bd7d7d1cd664ad2953eec"
+      }
+    },
+    {
+      "slug": "card-gallow-end-of-the-line-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-suppresses-real-opposing-hit-draw-without-preventing-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-gallow-end-of-the-line-yellow-four-live-sparse1214-actual-offturn-tap-and-watery-discard-suppresses-real-opposing-hit-draw-without-preventing-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1214-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d942bd12b7f05b7f939e96f8215524d2cd0222037e452c307a1e3a4d4583013b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1b8a6c57dd47409d9d3b387bc0669321ed8da00e2ce2de8229efe0ed975be272",
+        "actions.json": "175b4fc42ae313e1ca095d4c1d88e850bc551f6a5ed14560e9a032340ad084b5",
+        "assertions.json": "1e6d6f95576a3e513220a4b1282b1a9023d89eec852c61c0d4896a98cbb678e5",
+        "expected_final_gamestate.txt": "ca430c23ad3ecd735eed7e4bdb99dd24b8a9062043888202b1cbfc7e258480b2",
+        "meta.json": "b56fef24d856d4c2344645ab8625396c7ef9f2ecce4865c32ae33eafdd4c0580"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vigor-four-live-sparse888-natural-owner-turn-start-destroys-real-token-and-gains-one-resource",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vigor-four-live-sparse888-natural-owner-turn-start-destroys-real-token-and-gains-one-resource",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "75997b644a2b26e2c1a172f4f79277b3679833b14f2492c69980c0bcb07f1ae9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98dbf055ae3c32bb2c13b78aee22e2b8e0fd2e56d9879193c05273316ecbcf79",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "a4c2cc5543354e3e678d8eb98c48ac223d370aaeb165a50ff129d4c1b16731f1",
+        "expected_final_gamestate.txt": "2c65eee69650ef07dc563e4c565a5587b19e794246d32f0bf71c8ae3bfe73c42",
+        "meta.json": "120206bac8cd470b869ad4667f47bdcbed986ecf6cc0c4e9b4f531f7d47d122e"
+      }
+    },
+    {
+      "slug": "card-might-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-deals-five",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-might-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-deals-five",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "82ee38197d42a89a3f883510be24b8dd2dbd1def6e4991f2b221b7e71df348c9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8f6cfebaded570cc459cf3a4ce89d0b53dcd7ec8be237b2e786c5a0450f6442d",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "fe1f1b3ebfb87df13d26713051824a741bf842d71ad0151cc97d33d0edabe83c",
+        "expected_final_gamestate.txt": "caa6705d79ea7acc8db9e3c36789d0e064044b7ba3623ddb12fe34b6d7974c15",
+        "meta.json": "1cc967705a63a14449d6c57c5fdb13da83bb778bcfdc32e6412b9639c120a8ec"
+      }
+    },
+    {
+      "slug": "card-agility-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-earns-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-agility-four-live-sparse888-natural-owner-turn-start-then-actual-next-attack-earns-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse888-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "471a7c853cacdfc33abfac0799639f182f074f1ed9c60536dbe610c21f65b41e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "06400907d03d2be905c4b82556fce749d030f6b7382ffc97de3d48ccb68d57da",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "816db515fc02059cb6006ddb88d921cb2d641b3bb3502d18768bc7decd29bfe8",
+        "expected_final_gamestate.txt": "dda615f895082568ee157f3a6f40ebe685030b6b2d2c9c9300e105ab286e07c9",
+        "meta.json": "5ce4fdfd18b6a5d42ad383dad594c1ab1c86b79e51b26573b02f16461f8069ef"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

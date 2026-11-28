@@ -1,0 +1,183 @@
+{
+  "status": "APPROVED_EXACT_SAVED_TWO_EARNED_EFFECT_CASES_REPLAYS_SEPARATE",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T04:11:27.562291+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch283.json",
+  "input_sha256": "30ef18116b7b4ec7b2d04e200497ea1c44921053d3f7aaa9e468b3dfb04fa8d9",
+  "fixtures": [
+    {
+      "slug": "card-runaways-four-live-sparse-real-kodachi-hit-earns-destroy-instant-prevents-one-of-next-seven",
+      "card_id": "runaways",
+      "group_id": "identity:runaways",
+      "fixture_sha256": "a99ae1d1b5317389c1deab4b60dde80895d410ad6d1040b657d8c9a5bb77469b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "61b36b969c67bdcfad61e66e504d6b1288b8c84b580c14f42bc5839a3f791409",
+        "actions.json": "c83fe10ef4245e7a506ea5182010d22743acd2edfa06d9fa183e5875b207d3ce",
+        "assertions.json": "f0e34c9976f35c87cf6755cceaf95665135208fc0009afc22a9ddc222cd4b5a2",
+        "expected_final_gamestate.txt": "26bfc5408068d23c88bf71d2def99abb87c2c4051a223e8020cf8c5f7a28d200",
+        "meta.json": "b346aff74d5f6aea9750670712d50a571bf7bea87779fe69867b1dbb71743d0a"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "61b36b969c67bdcfad61e66e504d6b1288b8c84b580c14f42bc5839a3f791409",
+        "actions.json": "c83fe10ef4245e7a506ea5182010d22743acd2edfa06d9fa183e5875b207d3ce",
+        "assertions.json": "f0e34c9976f35c87cf6755cceaf95665135208fc0009afc22a9ddc222cd4b5a2",
+        "expected_final_gamestate.txt": "26bfc5408068d23c88bf71d2def99abb87c2c4051a223e8020cf8c5f7a28d200",
+        "meta.json": "b346aff74d5f6aea9750670712d50a571bf7bea87779fe69867b1dbb71743d0a"
+      },
+      "actions": 64,
+      "native_assertions": 5421,
+      "actual_manual_passes": 57,
+      "manual_passes": 57,
+      "manual_pass_actor_counts": {
+        "1": 14,
+        "2": 14,
+        "3": 14,
+        "4": 15
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          8
+        ],
+        "2": [],
+        "3": [],
+        "4": [
+          5
+        ]
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          7,
+          9
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualKodachi6targetP4/Blue7pitch3 pays1/AP1\u2192R2/AP0; physical6used, proxy10Source6. Actual1damage/P4HP19earnsthis-turnRunawayscondition andKodachiconditionalGAearnsAP1. RealP4ResolutionprioritythenactualInstant5destroycostmoves5ownpublicGYbeforefreshresponders4/1/2/3 retaincapturedSourceEquipment5ability; bodyprevention1onlythenresolves. Firstchainfullcloseceasesproxy10/retainsused6. RealRaging8cost3cannotuseR2alone; secondBlue9pitch3funds3/AP1\u2192R2/AP0. Actual7packetprevents1/deals6/P4HP13. FullGY4{5}/GY1{8}/Pitch7,9/used6/R2/AP0, allotherHP20; exactoriginalphysicalUIDs/ownersconserved andallvirtualsabsentfinal.",
+      "qualification": "Onlyearnedcondition/destroyInstant/nextonephysicaldamageprevention. No earlierillegalactivation/rejection, noheal/arcane/unpreventable/otherpacket/endphase/normalblock/hero/support/fullcard/controlcredit. ExactabilityvirtualUID is not a printed-rule oracle."
+    },
+    {
+      "slug": "card-chain-lightning-yellow-four-live-sparse-real-first-wizard-action-earns-zap-as-instant-at-zero-ap",
+      "card_id": "chain_lightning_yellow",
+      "group_id": "identity:chain_lightning_yellow",
+      "fixture_sha256": "9b9143801a4912995b64c3865c6464a643d968ac93282b4fee6f4230556e403a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "82e98825840c3d365382aaa883e71851575d4118264f5ef4d25e7bd67e1e3fde",
+        "actions.json": "a7e4e2b5e9cb2f1d533fab54e084028f14a3475a22d354e181dc9fe8bf3aedb4",
+        "assertions.json": "c76e13bff3bfcc0a6dbc1bd63a8399dd797f62335703a930a9aa99e22a4c6f4e",
+        "expected_final_gamestate.txt": "89cb53fc1416679a057a0fc0da3b8f54ee012f10df901b37a47363cf7ad2549c",
+        "meta.json": "3c6099bfc998a2d11637b362aeb48c603357abc42cac3b14ad4bf10792bd6f76"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "82e98825840c3d365382aaa883e71851575d4118264f5ef4d25e7bd67e1e3fde",
+        "actions.json": "a7e4e2b5e9cb2f1d533fab54e084028f14a3475a22d354e181dc9fe8bf3aedb4",
+        "assertions.json": "c76e13bff3bfcc0a6dbc1bd63a8399dd797f62335703a930a9aa99e22a4c6f4e",
+        "expected_final_gamestate.txt": "89cb53fc1416679a057a0fc0da3b8f54ee012f10df901b37a47363cf7ad2549c",
+        "meta.json": "3c6099bfc998a2d11637b362aeb48c603357abc42cac3b14ad4bf10792bd6f76"
+      },
+      "actions": 12,
+      "native_assertions": 978,
+      "actual_manual_passes": 8,
+      "manual_passes": 8,
+      "manual_pass_actor_counts": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "semantically_approved": true,
+      "every_native_action_and_assertion_exactly_maps_to_approved_source": true,
+      "initial_and_final_snapshots_fully_parsed": true,
+      "physical_uid_conservation_without_duplicates": true,
+      "final_graveyard_uid_sets": {
+        "1": [
+          5,
+          7
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_pitch_uid_order": {
+        "1": [
+          6
+        ],
+        "2": [],
+        "3": [],
+        "4": []
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_action_points": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "physical_findings": "ActualfirstWizardChain5cost1/Blue6pitch3/AP1\u2192R2/AP0. Fouractualrespondersretain5throughfirstthree; fourthownGY5/earnednextWizardInstantpermission, allfourHP20noconcurrentAoE. ActualZap7atAP0isKindINSTANT/sourceHand7, actualtargetP4declaredbeforefreshsourcefourresponders1/2/3/4; onlyfourthdeals3arcane/P4HP17 andclearsphysical7toownGY. AllothersHP20throughChainandZap, noArcaneBonus/APgrant. RawfinalGY1exactunorderedUIDset{5,7}, Pitch6/R2/AP0/nootherGYs/noHandStackqueues; allphysicalownershipconserved.",
+      "qualification": "OnlyfirstWizardChainpermission/actualnextZapInstantatAP0/damagefollowthrough. NoanotherWizard/positiveAoE/thirdcardpermissionrejection/prevention/hero/sibling/support/fullcard/controlcredit; no asyncbodybranch exercised."
+    }
+  ],
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch283-independent-source-review.json",
+    "sha256": "9105abdbfcd77fd31b86a7a444aef52a312cc564af9eacfec0d770b99a72d7f0",
+    "manifest_sha256": "c1b7adc1bfd49eb782e123d46f3540750acd86e5869f356c47355af1d6120682"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch283-20261103T040858Z-6ae95e5a6036d.json",
+    "sha256": "24cb1e77512f4a8ce23af8ddeecd183fb76e4ead5facea909c4c1824d16fcb3d"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch283.recording-results.json",
+    "sha256": "49ba15f1bb425a41ff0bae03f123c9c4a946b57c28e27b9c9f92a5d333bfca7f"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch283-native-r1\\receipt.json",
+    "sha256": "3c817bb87c513ea5ac586df13b51131ae0c0c313cf24c13bf1297ace5fdf4e42",
+    "stdout_sha256": "f2332e5de3cb4dd841b544b369285711bfaad7ecda34994aacaee3394e07f7c2",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "exit_code": 0,
+    "stderr_bytes": 0,
+    "runtime_before": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+    "runtime_after": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66"
+  },
+  "method": "Independentread-only exactsavedraw5 review. All76actualactors/modes/payloads and6399orderedassertions match approvedinput; fullschema-backedinitial/finalsnapshotphysicalUID/ownership/economy/HP/Counters/GY/Pitch parsed. Actualallseatmanualresponsesverified. Reusedpurepriorparser/normalizer/actiondefinitions viaASTonly; noauthorbuilder/PHP/native/replay/R/backend executed.",
+  "limits": [
+    "Savedcreationreviewonly; root twofocusedbatchreplays/fourcasepasses remainseparateevidence.",
+    "OnepositiveRunawaysearnedcondition/destroy/prevention andChainfirstWizardpermission/AP0Zap only; nofalsecondition/positiveAoE/othercards/fullcard/control/legacy/fullsuite credit.",
+    "NoR/sourcefix/application/authorizationretry or runtime migration byreviewer; actual0d context retained."
+  ]
+}

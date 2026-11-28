@@ -1,0 +1,7 @@
+{
+    "name": "Relentless Pursuit / actual four-live mark effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T09:13:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Mark** target opposing hero.\n\nIf you've attacked them this turn, put this on the bottom of its owner's deck.\n\n**Go again** Named actual branch only. Natural young Fai20, four live UPFmanualresponses, no preseeded effects/history/marks. Formal adjacent opposingHero4 choice before cost/priority. RealHeadJabRed6 firstattacks4cost0, allfourresponses/fullcombat, actual3damageHP20to17 andGArestoresAP1/source6ownedGY1. Then primary5realcost0predeclaredsamehero4/fourresponses; realearnedattackedthemcondition true, mark4andphysicalprimary5toownerDeckbottom instead ofGY, primaryGAAP1. SinglecardDeckalsoTop; no multi-cardbottomordering credit. No alternatehero/negativecondition/pitchsibling/secondconsumer/expiry/supporthero/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#relentless_pursuit_blue"
+}

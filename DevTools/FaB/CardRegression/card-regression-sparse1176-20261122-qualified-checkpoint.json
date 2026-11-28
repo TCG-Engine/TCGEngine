@@ -1,0 +1,300 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T12:48:43.561316+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1176-20261122.json",
+  "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+  "new_scenarios": 9,
+  "new_groups": 9,
+  "new_primary_ids": 9,
+  "actions": 66,
+  "native_assertions": 2832,
+  "manual_passes": 36,
+  "totals": {
+    "saved_registered_scenarios": 5056,
+    "duels": 3075,
+    "four_live": 1981,
+    "recorded_primary_ids": 2204,
+    "identity_denominator": 5196,
+    "recorded_groups": 2078,
+    "group_denominator": 3324,
+    "four_live_groups": 1970,
+    "phase_qualified_scenarios_at_actual_contexts": 1693,
+    "phase_qualified_unique_groups": 1683,
+    "creation_replay_passes": 2435,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 854,
+  "scenarios": [
+    {
+      "card_id": "invoke_kyloria_red",
+      "group_id": "identity:invoke_kyloria_red",
+      "scenario_id": "card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-kyloria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_miragai_red",
+      "group_id": "identity:invoke_miragai_red",
+      "scenario_id": "card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-miragai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_nekria_red",
+      "group_id": "identity:invoke_nekria_red",
+      "scenario_id": "card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-nekria-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_themai_red",
+      "group_id": "identity:invoke_themai_red",
+      "scenario_id": "card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-themai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_vynserakai_red",
+      "group_id": "identity:invoke_vynserakai_red",
+      "scenario_id": "card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-vynserakai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_yendurai_red",
+      "group_id": "identity:invoke_yendurai_red",
+      "scenario_id": "card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-yendurai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_dominia_red",
+      "group_id": "identity:invoke_dominia_red",
+      "scenario_id": "card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-dominia-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_dracona_optimai_red",
+      "group_id": "identity:invoke_dracona_optimai_red",
+      "scenario_id": "card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-dracona-optimai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "invoke_tomeltai_red",
+      "group_id": "identity:invoke_tomeltai_red",
+      "scenario_id": "card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "effect_branches": [
+        "actual_prepared_owned_ash_target_paid_transform_to_named_dragon_with_one_encoded_material_and_go_again"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-invoke-tomeltai-red-four-live-sparse1176-real-paid-owned-ash-transform-and-go-again",
+      "source_spec": "card-regression-sparse1176-20261122.json",
+      "source_spec_sha256": "92c57e00cdd4c295cf8f3b54a6a45037857f06d19d5b005e2de30c26818698bc",
+      "review_evidence": "review-evidence/sparse1176-20261122-qualified-saved.json",
+      "review_evidence_sha256": "3b9aa44114a9b53463deb7d6772bd19d4888b5a37245689ff1d917fbcf737334",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1176-20261122-replay.json",
+          "sha256": "4ddeee0dd77ad723db1750601b330243767d3baea9ac56de5fc7d3bbffdcd9f7",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

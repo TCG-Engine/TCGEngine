@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hypothermia-blue-four-live-sparse1132-controller-two-real-granted-weapon-go-again-is-suppressed",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hypothermia-blue-four-live-sparse1132-controller-two-real-granted-weapon-go-again-is-suppressed",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1132-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1132-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a1efddf86933dceb839ea058df007f1689de5e395d1219fee2df5c43f2817ceb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ca1b5d219d9c19817cc9ba30ee5ea6d74745b0ee28ba490839189f36c13c1996",
+        "actions.json": "ec1409cc0442cef33ec571edf34a3d14f2bd03daeb7ab559affe0be0baa6afe1",
+        "assertions.json": "e822b990d5f5c27d18d5a0bc3cb67a9ad486a6b5f84ebe048a2ac3b290eca533",
+        "expected_final_gamestate.txt": "644ab421eab2eb23fd208eed5e30f0a0814fa137ab337e5bc758fb3cf89b9797",
+        "meta.json": "e796df865ddff5f6cc2ff5bf1c097f3ed3e11dbaa30480faa71af246c4de4c54"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

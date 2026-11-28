@@ -1,0 +1,67 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse882-show-time-held-20261122.json",
+  "source_spec_sha256": "0db8fb3dc4b1b2920ea4859810ba9743b483dee71a93e394929df696ec77aec4",
+  "original_native_input_sha256": "dd75ad902a0c2c8ea93bdb5c1ebbb76818c5b177e8a84cfcd136b0e72a2eea23",
+  "initial_gamestate_sha256": "b770b2cb0a8b72e1ad7da2d3fd36c4632516681848bd6cd1a8c2f2bdbb2fe416",
+  "native_inputs": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p1Temp count 0, got 1.",
+  "expected": "After source Aura resolves into Arena, its WHEN-entry search earns a separate source5 trigger and four responses before any Deck search stage/choice.",
+  "observed": "Six native inputs: source play, actual Blue pitch and four manual responses. Aura entry was verified; Temp already contains1 eligible Guardian attack while expected0, before earned trigger responses. No saved fixture or coverage credit.",
+  "later_branches": "Subsequent earned-layer source/queue/second-response/search-completion expectations unrun after first failure.",
+  "root_relationship": "Known earned-trigger producer family extension; no new distinct shared root claim.",
+  "source_changed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "full_suite_run": false
+}

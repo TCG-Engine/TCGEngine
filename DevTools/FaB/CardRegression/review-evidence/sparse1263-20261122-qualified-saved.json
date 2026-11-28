@@ -1,0 +1,96 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1263-20261122.json",
+  "source_spec_sha256": "4b57f868bc4d93d81f2f9dc9e963aa0cde21a39ebd601d61e991af4ff8811dfd",
+  "input_sha256": "4b57f868bc4d93d81f2f9dc9e963aa0cde21a39ebd601d61e991af4ff8811dfd",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-kano-dracai-of-aether-two-live-sparse1263-real-three-cost-look-banish-grant-plays-actual-zap-with-zero-action-points",
+      "card_id": "kano_dracai_of_aether",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "984be9a56e641b649d6442917051f930ca1a0068ab425ee4d098ca28532e61b8",
+        "actions.json": "d3c65d7a00acb6297d3ab4ef2b9519450687234fac8e811662421cc31c514612",
+        "assertions.json": "606875f82da175aad8f0560a59ee8e9a8c5bd485ebca9e881637db697154ed23",
+        "expected_final_gamestate.txt": "0c842b3fae3bc186d8ff2803e33bcce5b5e1ebcd30228a0811899ff87f68fc9a",
+        "meta.json": "fd8b6a2e1f68924a6c9537f5ffc2ac5960a73e21e4e852e3291c3ba06edd3c75"
+      },
+      "fixture_sha256": "9b0ba0b733a646282157de735b4a56190491d37b9424d45b8f702113712d9ee2",
+      "actions": 9,
+      "native_assertions": 226,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1263-20261122.json",
+      "input_sha256": "4b57f868bc4d93d81f2f9dc9e963aa0cde21a39ebd601d61e991af4ff8811dfd",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1263-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-kano-dracai-of-aether-two-live-sparse1263-real-three-cost-look-banish-grant-plays-actual-zap-with-zero-action-points",
+        "fixture_slug": "card-kano-dracai-of-aether-two-live-sparse1263-real-three-cost-look-banish-grant-plays-actual-zap-with-zero-action-points",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "4b57f868bc4d93d81f2f9dc9e963aa0cde21a39ebd601d61e991af4ff8811dfd",
+    "source_note_sha256": "026203dd1d58097e2942adfab41f7a1a23a9610b16c13080b859b995d1ab9cfd",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 9,
+    "query_checks": 226,
+    "persistable_assertions": 226,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_KANO_DUEL_TOP_NAA_BANISH_PERMISSION_AND_ZERO_AP_INSTANT_PLAY",
+    "basis": [
+      "Natural adult Kano30 Wizard versus adult DorintheaIronsong40 with native legacy duel admission through omitted activeSeats. Exact seats12/defaultgameModeempty/passive[]/manual disabled shortcut windows and AP0/R0, physical Blue3Hand1/Zap4Deck1 are lawful. No permission, played history or effect flag is seeded. No young or four-live credit.",
+      "Printed Kano Instant3 and current ARC ability row agree. Actual activation creates ABI5 from realHero1, actualBlue3 pitches3/pay3/R0/AP0 and initial native duel Priority2. Real seat2 pass reaches1 while originalDeck4 and ABI5 remain; seat1 pass begins actual resolution, stages sameDeck4 into Temp and offers MZMAYCHOOSE only because Zap is a real non-attack Wizard Action.",
+      "Current managed virtual-layer selector classifies ABILITY with arcSpec and no rosTrigger as ARC_ABILITY. Its resolver retains actualABI5 while the generated await frame owns the pending choice. The correct current expectation is Stack1/UID5 through that choice; no historical early-Stack0 oracle or held body-class behavior is accepted.",
+      "Generated Kano macro chooses qualifying actualTemp4, calls normal ARCBanishInstant and finishes ordering. The helper moves samephysical4 to Banish faceup, sets PlayableFromBanish and current-turn instant permission; only completing the choice clears virtualABI5 and returns ACTION1 without addingAP. This is an earned permission on the real top object, not a seeded proxy.",
+      "Actual Banish4 click with AP0 must enter ordinary Instant play, keep physicalUID4/owner1, sourcezoneBanish and request formal Hero target before payment/resolution. AnswerHero2 pays cost0/AP0/R0, native duel Priority2 then real responses2and1 precede resolution. No arcane barrier, prevention, modifier or observer exists; printed Zap3 must deal3 actual arcane and Hero2HP40to37.",
+      "Final actualZap4ownedGY1/Blue3Pitch1, Kano30ready/HP2=37/R0/AP0, UID5/RNG0 and empty Stack/two queues/combat chains/HandDeckTempBanish establish complete observed ability use if all queries pass. All226 checks are native assertion/state checks and persist."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and targeted replay. No native success, replay or coverage credit claimed.",
+      "Only one positive actual top NAA/choose-banish/current-turn zeroAP Instant play branch in adult duel. No nonNAA/decline/expiry/out-of-turn/alternate target, discount/tax/barrier, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No tests/native/replay execution, T/source/repository edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1263-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fc7219bd6bf7585876354e99d4a914f3ec3390267e014a531c7c521e2d38c79f"
+  },
+  "full_suite_run": false
+}

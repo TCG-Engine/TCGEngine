@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-celestial-reprimand-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-celestial-reprimand-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "28b6832102df9e07b75e808604554688e45dce50744dc550aa60a6ff58646cf8",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fdf4fa2d7c78d90c7f90649da097d4f48cdb97260f47f54d78265edff9934cf4",
+        "actions.json": "0a789578aa61486d0b95456fd40f727c762e3a3f609e20cab4c236d4ad29e4f2",
+        "assertions.json": "111a211bba17c9af0f347e2a50b2af36665eecf52c8977041bcfdc5928839b81",
+        "expected_final_gamestate.txt": "1096a5f87a1ffe6ab1525ca348b57fac695140722525a4926d26b6d5f1cfcaaf",
+        "meta.json": "d4456c4d282e837ff2b41734cd0ed42ed3a075f61aa404199485a31ea7e5c19e"
+      }
+    },
+    {
+      "slug": "card-summerwood-shelter-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-summerwood-shelter-red-four-live-sparse1491-real-ineligible-defending-combat-target-rejection",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1491-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5afe424b07de1b7ece3f11126f6b50265a6c780352da8723f2ec309f220ded7b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dd31258d7b0c50c7fb508cb2ec50c87ab2114a98456050179f0870540679bb5e",
+        "actions.json": "7b8f5c86541461411c11a3ec8e1c3ec7668e96c00f174a032b20961e558a21a0",
+        "assertions.json": "8805c84df43d56b80aa5fcf3847ff33df6709c77759c00bd83f1b94e27d81d95",
+        "expected_final_gamestate.txt": "0cb964cea53be7eb8c370fcb34a417514c68edeeedee7fc1193939eab18a8c05",
+        "meta.json": "ab24b50bb99a0a1263a7e40f5250aae499631e245a3d8fc64d0ea9d81e844d74"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

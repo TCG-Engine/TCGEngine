@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-astral-bridge-red-two-live-sparse1411-official-single-opponent-default-real-noninstant-mill-no-permission-or-self-starfall",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1411-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1411-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c6f69955b762875cc10223b83ca4463016dfd06d8955e87c93bce158bce79e4c",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c3bbe79f7e500f8bef163554c1c8648e02563950c691d091a7226d1bc476ac5f",
+        "actions.json": "0ce644897d5409ddab8831c9142933a350b3a9b79923ea2582a54baf3677c301",
+        "assertions.json": "fd304f799c3b2a9a05a6958e0d9ac8da7840903ac4a0d33ed667eea16f8a204b",
+        "expected_final_gamestate.txt": "7900abf6c318172e6490d4368f0914ffffc06faab8f2191dae5f84f45c6d9b8f",
+        "meta.json": "608c519f50a7d95f6ec58fa47d13693b86b769abb6f48c2db08ed9ddcdae57b7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

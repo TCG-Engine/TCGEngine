@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blue-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-blue-hand-without-go-fish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blue-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-blue-hand-without-go-fish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "408c9847b4a1db848d95bf06a8489105c2e74dba67f037089fd7cbbcf489a775",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a6877012a001c4bee23b49920f7ae29117738a6f5310a9c48cf0b10bc7a01613",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "0c1587e7a1efd5948e4b58e2ddb1feb87f52fd0df8f0c09fa25c614f301481b7",
+        "expected_final_gamestate.txt": "33702598be43bb22b37449b7e7e7dba7128fe893a58a13a49754c5a1b21c0465",
+        "meta.json": "dea91f8769d40d645ac0e4b86210c91a0a1312677b9fbebcbee381fb5363038b"
+      }
+    },
+    {
+      "slug": "card-red-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-red-hand-without-go-fish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-red-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-red-hand-without-go-fish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2a4208498b42dcb1e0f27b0a149df12473e60cececfc4ff6320b5f022f887f50",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0239dc9f97d7f664add38fe595e4eda29198f01f2e1131c0b4b2543d98a16d92",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "df7081b30378c8935188c7a4c739ff7f9c39753ea5ac39594e827519e1099132",
+        "expected_final_gamestate.txt": "140bf1a8d1a4c643cb64b3e411f00393858c28dc6d1c4e80448bc357f8453091",
+        "meta.json": "949e04659b7f182315ca52b222379e0ada1705d8eecad9c6c84ebff0668eae24"
+      }
+    },
+    {
+      "slug": "card-yellow-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-yellow-hand-without-go-fish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-yellow-fin-harpoon-blue-four-live-sparse966-actual-full-block-retains-eligible-yellow-hand-without-go-fish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c0c4ce85a5ba5c07475aa8b2a38f5212dc702b5facf5580cbf00d0afb49a6d19",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0523b906406e36f5d6064a6df095d9c97dedd2cb52d97cfd5acf39f5400c2f9a",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "61e9951cb13f2bf762bb6c263586a339eef05fd94c408bf52005021061c258cc",
+        "expected_final_gamestate.txt": "bab117b08a84aacc63212e06e85377239e62d76f8f11628bf15dca1410ffedb2",
+        "meta.json": "231ba7a5a48d85ac7061686e18a2156321ba3190c8c142906fa36cee322559cf"
+      }
+    },
+    {
+      "slug": "card-king-kraken-harpoon-red-four-live-sparse966-actual-full-block-retains-eligible-non-attack-action-hand-without-go-fish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-king-kraken-harpoon-red-four-live-sparse966-actual-full-block-retains-eligible-non-attack-action-hand-without-go-fish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f48b9e0906fa543a20c0ba6888988d95f9175b9d117637d0710db2967425cf4d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf7589fa16c43ec50415cba6e9dbf6e374624a8893fb4624338ed5ae9997da91",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "6cfe0413291a3fef9f40f261fd0def3157039154e96b1e25b191ee8b6f53fed2",
+        "expected_final_gamestate.txt": "75712234450ac41aff552d63d1a49f954657f2eb89af3fd5dbe472380e24f2e7",
+        "meta.json": "6e84eff716f37977b047cf13e4065beaa7dfab1c93c5c7cb61a0fa891acc5a32"
+      }
+    },
+    {
+      "slug": "card-king-shark-harpoon-red-four-live-sparse966-actual-full-block-retains-eligible-attack-action-hand-without-go-fish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-king-shark-harpoon-red-four-live-sparse966-actual-full-block-retains-eligible-attack-action-hand-without-go-fish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse966-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eae3d27131f37a2743e605735156ffca1d3667fd97362405f4c738f3ad3bd2aa",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f98c8cc066327c5765ce26f6553a48a323792ae2e4217975931ad27c9e466d5e",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "4407e12a00217782fd6d0dd4c2a72e3870f0f1983b1117b164e0460fee6ac726",
+        "expected_final_gamestate.txt": "db66fe0e8c1605f0c18223b78a5731b752cca94c6245784f11b3014f44b77426",
+        "meta.json": "514a9beb8c3b77d154bcfbd100439d92ff27f7372d870b4ec8b0236974746ba7"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-not-so-mighty-blue-four-live-sparse1468-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-not-so-mighty-blue-four-live-sparse1468-generic-non-overpower-attack-does-not-earn-printed-defense-condition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1468-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1468-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c727ac56eb048065eeb082cfeac1c2d328330d4957e70395c3c95b38444ef13a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "647aab5ddcf149b9de5bb36fb811806a9f0a555654951dd304dbf3273589ddc0",
+        "actions.json": "c9623e6339a78aa9fd0929947f0f2a5e72c9788faf31ad689ec5cfa006f71296",
+        "assertions.json": "f2218945364f2c86f0ac150f90a6416f251a3741190e16118291f18e7eda9398",
+        "expected_final_gamestate.txt": "eb3714ee9d62e4fb662351f5a1faea3db2ca693e756732cab523da8c204362be",
+        "meta.json": "d74b4b1f4746f171e50d21585bdb093f60e7628add9024117615e7dc37697bc8"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

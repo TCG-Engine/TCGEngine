@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T00:19:59.543045+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse999-20261122.json",
+  "source_spec_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 56,
+  "native_assertions": 370,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4713,
+    "duels": 3075,
+    "four_live": 1638,
+    "recorded_primary_ids": 1861,
+    "identity_denominator": 5196,
+    "recorded_groups": 1735,
+    "group_denominator": 3324,
+    "four_live_groups": 1627,
+    "phase_qualified_scenarios_at_actual_contexts": 1350,
+    "phase_qualified_unique_groups": 1340,
+    "creation_replay_passes": 2092,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 511,
+  "scenarios": [
+    {
+      "card_id": "amulet_of_echoes_blue",
+      "group_id": "identity:amulet_of_echoes_blue",
+      "scenario_id": "card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+      "effect_branches": [
+        "no_hero_played_two_same_name_cards"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+      "source_spec": "card-regression-sparse999-20261122.json",
+      "source_spec_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+      "review_evidence": "review-evidence/sparse999-20261122-qualified-saved.json",
+      "review_evidence_sha256": "422d42d8efc6694097b2a690fbc7d07c607c05ee9bfb561d27e1f2ed7e25cb50",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse999-20261122-replay.json",
+          "sha256": "01382944038bd4a543a687111a37ef709cc81812a48709ff17ca285f57bc69fe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "amulet_of_oblation_blue",
+      "group_id": "identity:amulet_of_oblation_blue",
+      "scenario_id": "card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+      "effect_branches": [
+        "real_current_attack_and_old_graveyard_not_this_turn_entry"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+      "source_spec": "card-regression-sparse999-20261122.json",
+      "source_spec_sha256": "d38d34c48428f19f29d0f8c6ada3259d3fc449ec9da19ea4f7dd8104c49c9cfc",
+      "review_evidence": "review-evidence/sparse999-20261122-qualified-saved.json",
+      "review_evidence_sha256": "422d42d8efc6694097b2a690fbc7d07c607c05ee9bfb561d27e1f2ed7e25cb50",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse999-20261122-replay.json",
+          "sha256": "01382944038bd4a543a687111a37ef709cc81812a48709ff17ca285f57bc69fe",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

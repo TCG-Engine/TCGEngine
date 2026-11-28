@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-old-favorite-yellow-four-live-sparse1350-real-three-defense-below-six-goes-graveyard-not-bottom-of-existing-deck",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-old-favorite-yellow-four-live-sparse1350-real-three-defense-below-six-goes-graveyard-not-bottom-of-existing-deck",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1350-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1350-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a228c9e84432050747bee48a576ab0f1433314befc832da914a04964b3c8bc52",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "458b1d629fcf3cb745ee3f9821e4713b1ba51a9eaf2b38037cf4c49e76269fa3",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "984d45d2d43eafb354cec99a3398ff9733f00c7b609a2c32de60b2e58562b7bc",
+        "expected_final_gamestate.txt": "b070d532e5af5c35b262c822ecc36154cd09ccab152e600ce0a75a0f4f449803",
+        "meta.json": "9adb91122b082f09a96206b732fc4d53b9cd8088cbe264aab424f5ed05b724c3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,200 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse912-20261122.json",
+  "source_spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+  "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cryptic-crossing-yellow-four-live-sparse912-one-actual-attack-action-pitch-without-mixed-type-draw-discard",
+      "card_id": "cryptic_crossing_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2120fc28847579cd22be2a23bf05b5f34cfc981c7c03b9e775e5083183821396",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "2e9762b9d479d48a81dbaeb85081b22f038a970dc974e4b45f230ac92181e28f",
+        "expected_final_gamestate.txt": "0755ffc52ef30707b3bc66e5a541a86afd8068b623ccdee1435f6bf7c52582d1",
+        "meta.json": "692da84a88cffcc7c0e8fa7bea8ecd36145f72ae3ea27052a76ac10dd5bcc4b5"
+      },
+      "fixture_sha256": "210ec28e5729126e9fcd4532bea48f1f4d5dd209aff7e0f8f8b7477b6f7baa86",
+      "actions": 28,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cryptic-crossing-yellow-four-live-sparse912-one-actual-attack-action-pitch-without-mixed-type-draw-discard",
+        "fixture_slug": "card-cryptic-crossing-yellow-four-live-sparse912-one-actual-attack-action-pitch-without-mixed-type-draw-discard",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-brothers-in-arms-red-four-live-sparse912-actual-six-attack-without-defending-payment-branch",
+      "card_id": "brothers_in_arms_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e11807ec7d3ae3eb7dd2ac9b8faf198a7d164c193f84319435410e7a564b1981",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e752b5734fa9668ec00dfb9a0c5f8a96e6489be57c6528f13051e9da855d918b",
+        "expected_final_gamestate.txt": "a7dba44a34e15438b11733c013e84d95facc9ef801737e1b0ab319e62021b37b",
+        "meta.json": "c2e0cc7a926f9789dde45b93de42bfa1b55b91802c140c58ce5236d476f4b864"
+      },
+      "fixture_sha256": "6e162d7b1a02de37234c01ffbfd812d11084be1293b41000fa9dcad0528b0934",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-brothers-in-arms-red-four-live-sparse912-actual-six-attack-without-defending-payment-branch",
+        "fixture_slug": "card-brothers-in-arms-red-four-live-sparse912-actual-six-attack-without-defending-payment-branch",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-skull-crack-red-four-live-sparse912-actual-six-attack-without-random-discard-resource-event",
+      "card_id": "skull_crack_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "640ffa4c36ef5aa4572163f26f85e3e359ffd4f062a8b918d26a682578b68b73",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "fb9ab279b0769246e3519e31ca9efc23318f8ff741c2960491235b38f5d64ad0",
+        "expected_final_gamestate.txt": "1ec81acf89b2189c5df5c18409506d749c4654da1006fc7d262852417e1a85be",
+        "meta.json": "055920099c2c3de3beaa1ded56d299532c0fb8df195b4a1d12e600cad24b5f41"
+      },
+      "fixture_sha256": "a28b1a0f3b9e855996b272418bac7a3e333ce59386d6cede8a1bd5e6cd9d7fa8",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-skull-crack-red-four-live-sparse912-actual-six-attack-without-random-discard-resource-event",
+        "fixture_slug": "card-skull-crack-red-four-live-sparse912-actual-six-attack-without-random-discard-resource-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-whispers-within-red-four-live-sparse912-actual-seven-attack-without-defending-opt",
+      "card_id": "whispers_within_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "be392420a33cd4732bfbac0fffacda5bea90b195b024ce6c8b550fc82decc63f",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "c64703ca03126dbdd0ea7ccef5e05206c7f50852962033c0d0e48ff5137430b9",
+        "expected_final_gamestate.txt": "ebbee015d40fd5bbaf7feb51b4b5953a57198646e611de6b75766247a475dc22",
+        "meta.json": "9e759097ec7866b0183e38239628bbe5997fa91010316b8bd54e41dfdbc75ddf"
+      },
+      "fixture_sha256": "fd506bb3beb8f52fccde18aa7fadeb27ea2e0990d3bc612f83691b09ad702995",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-whispers-within-red-four-live-sparse912-actual-seven-attack-without-defending-opt",
+        "fixture_slug": "card-whispers-within-red-four-live-sparse912-actual-seven-attack-without-defending-opt",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-defender-of-daybreak-red-four-live-sparse911-actual-four-attack-without-defending-shadow-trigger",
+      "card_id": "defender_of_daybreak_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ed5670d46a5192287a85b211daf115ff39c18e95c3dccf1853511321079fa0e",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "10515add55c703f5f4984fed79f1a51c07fb7d9ad87ab53c825599dd63fe51e3",
+        "expected_final_gamestate.txt": "d37962f5d21adf5fe34e34367e5e8891e1715c13dea3109b339873f1d2c178c3",
+        "meta.json": "64331611b06f3b5eaf908dd08dfddab06e5ddb9a07ad6ab8a2434e6a7b9d6fae"
+      },
+      "fixture_sha256": "3292f37f5a71a833c15f45dbfe4779fd0b720857b5f95d3918ba54a4f0b96fd8",
+      "actions": 27,
+      "native_assertions": 120,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-defender-of-daybreak-red-four-live-sparse911-actual-four-attack-without-defending-shadow-trigger",
+        "fixture_slug": "card-defender-of-daybreak-red-four-live-sparse911-actual-four-attack-without-defending-shadow-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-alpha-instinct-blue-four-live-sparse912-legal-rhinar-attack-without-beat-chest-discard-event",
+      "card_id": "alpha_instinct_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba6d7b831d56832303245e3730db2239dadb6bca22873ed3014b6c5a1a9d5df3",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "08f9ea4ca6057127ca48885b7ec3568610b9f0407683b4249cab317a1e11f3c6",
+        "expected_final_gamestate.txt": "04f51a877759ff5b2b3ecdb53ba87487b780ea77aa913f4729888aed444e8c68",
+        "meta.json": "9175379c62a744cd753a123da98e221deabb2611255f44df7d9865386db14a52"
+      },
+      "fixture_sha256": "65db98183eec4e049fa966a9cd4f0d852e3b9ff7b579c794302204beee6f8726",
+      "actions": 28,
+      "native_assertions": 142,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse912-20261122.json",
+      "input_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-alpha-instinct-blue-four-live-sparse912-legal-rhinar-attack-without-beat-chest-discard-event",
+        "fixture_slug": "card-alpha-instinct-blue-four-live-sparse912-legal-rhinar-attack-without-beat-chest-discard-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "26c47332eb6310996267e46bc172a4711719b5096a55a1434ee7e0f2078dad19",
+    "basis": [
+      "Final6 mainattack branches: cached costs/powers Cryptic3/6, Brothers2/6, Skull2/6, Whispers3/7, Defender0/4, Alpha3/6 match actual Blue payment where needed, damage and AP0. Four living manual seats, normal fixed target-before-assets/physical5 attack flow and ownGY.",
+      "Cryptic now uses legal natural20HP Aurora, whose only relevant hero ability is manual; Viserai conditional-WHEN hero route excluded before native. Exactly one AA Blue pitched, no NAA, so conditional granted damage-trigger absent. Real ownDeck7 and enemyHand8 retained make false discard/draw observable.",
+      "Brothers/Whispers/Defender are attackers, never defenders, so their printed defending events do not occur. Skull/Alpha never discarded or beat-chested; Rhinar no actual discard event; Alpha legally uses Rhinar specialization. Dorinthea weapon-hit trigger irrelevant to ordinaryAA; Oldhim/Boltyn extra abilities/conditions inactive."
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "No positive mixed pitch/defense/Opt/discard/beat-chest/tokens or dormant hero branches, siblings or support-group credit.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse912-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "fe498cc1b12f90d709ac33af4dcde1a4cfcbde4e592d58af07d3475cc4635b09"
+  },
+  "full_suite_run": false
+}

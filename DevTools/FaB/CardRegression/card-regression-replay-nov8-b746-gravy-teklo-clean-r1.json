@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch746.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-08T21:16:49.171805+00:00",
+  "fixtures": [
+    {
+      "slug": "card-gravy-bones-four-live-real-gold-destruction-hero-tap-draw-and-red-discard",
+      "fixture_sha256": "969cea0bb3721180fb8bb796f2f04ecc35cb7390394aaec54d2e62d3e4f7bb84",
+      "passed": true,
+      "result": "[PASS] gravy_bones / four live distinctive effect"
+    },
+    {
+      "slug": "card-teklo-leveler-four-live-real-two-equipped-evos-grant-attack-cost-one-and-two-damage",
+      "fixture_sha256": "f3ef54571542017024b039dd719be5f8365af718015f87326c53a632ca1c7356",
+      "passed": true,
+      "result": "[PASS] teklo_leveler / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-gravy-bones-four-live-real-gold-destruction-hero-tap-draw-and-red-discard",
+      "returncode": 0,
+      "stdout": "[PASS] gravy_bones / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-teklo-leveler-four-live-real-two-equipped-evos-grant-attack-cost-one-and-two-damage",
+      "returncode": 0,
+      "stdout": "[PASS] teklo_leveler / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-stone-rain-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stone-rain-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5bc05e8d8cbeac1d81141eb58ab80bce020aaa10219a2b32bd3590c3d25a2b3f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a42d862b91398b4ab34359b2c2143bc47fc25ed56226cd8acf8bbfb2e06d9f82",
+        "actions.json": "cc67f7d65a77546709030e1fe3686bb05d1ab8f278cc34ab0e82a711635d5012",
+        "assertions.json": "67658d261562cf0a64c925bb2187ec911aa366f3cdca7d9d18851fbbb2abe1f3",
+        "expected_final_gamestate.txt": "3e37c0e6ef9b789509bfdc6a5370c24bbeb2214306b18d992899bb168b01d61c",
+        "meta.json": "12d160ccb37a87f92f32d4d40894c8635f63f0afa140472e6b6726e93abb886e"
+      }
+    },
+    {
+      "slug": "card-hemorrhage-bore-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hemorrhage-bore-red-four-live-sparse959-actual-no-aim-arrow-base-damage-keeps-real-enemy-object",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fbbcc3b0345e9fa9f76389df53db65ed058f357fe7a976c4355f2215c437ddd9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6077fda55c49684a0e5f7d0840017ba5567c01d5100ddc0fecde6e5f8377b0a8",
+        "actions.json": "b96e8c04efb76e5837c8044bbe521bb58679cd607490b707f44b4b59901b066f",
+        "assertions.json": "d6a00fe3b3f0dec86728850978f1b093c825175a0cf3747fe1b96ce250b286d7",
+        "expected_final_gamestate.txt": "e58d9cf3dc03cbb32f579d9d72710c9f77a810130dc284ba3ea194ced46b9d31",
+        "meta.json": "f3a0894526edcca1a38b64c206b7c6b174f83554e86865d2e02214098d90dfa3"
+      }
+    },
+    {
+      "slug": "card-endless-arrow-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-endless-arrow-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ec973126639d1ce94d7e81c4d6ef18b8876d6db25dc9e63bfbbeba3aa9a5de8d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f3f804f621e4d33bacf613baed2b3382e6c754ac91945a7b114331c24e4151d7",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "e2b8344f608e33fabc1f4c9821a9d427b09bb936ae236569f6abac032ad2f6c4",
+        "expected_final_gamestate.txt": "270541ca6d974d378a65df633535c0f47fb26ad31349c4b7cb9826847a12d0ee",
+        "meta.json": "30f55511317681b5fa29cccd43e606f95303df5c24243c052c07b2897e98b808"
+      }
+    },
+    {
+      "slug": "card-pathing-helix-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pathing-helix-red-four-live-sparse959-actual-full-block-keeps-source-in-graveyard-and-real-hand-unloaded",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse959-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d3ce272ebe474f10cf1473fc12539ae26c2e43fbf090017ba90078080ba97eea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "980eb43bcaeec038cf487d337833e3272d1adc8bef1d8873c9f78798d4f16234",
+        "actions.json": "a79583f83358a5f29c609023e511e05439c19adf87bc4c43adfa44c9cc5c0a2f",
+        "assertions.json": "047952267db04409ef0519d9db7e440e60fea44843140aa9b6d21d58791f19fb",
+        "expected_final_gamestate.txt": "5ae4db111316423b52cd70e7841645e46a2020ca26c520aa82faaf16eec77192",
+        "meta.json": "9683ef04585b1b2c489275c620f70ab8f51c7e1793a30e10775325914acc5cc4"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

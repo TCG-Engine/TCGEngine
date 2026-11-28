@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T20:50:35.139977+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse956-20261122.json",
+  "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 119,
+  "native_assertions": 698,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4557,
+    "duels": 3075,
+    "four_live": 1482,
+    "recorded_primary_ids": 1705,
+    "identity_denominator": 5196,
+    "recorded_groups": 1579,
+    "group_denominator": 3324,
+    "four_live_groups": 1471,
+    "phase_qualified_scenarios_at_actual_contexts": 1194,
+    "phase_qualified_unique_groups": 1184,
+    "creation_replay_passes": 1936,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 355,
+  "scenarios": [
+    {
+      "card_id": "devotion_never_dies_red",
+      "group_id": "identity:devotion_never_dies_red",
+      "scenario_id": "card-devotion-never-dies-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "effect_branches": [
+        "actual_two_hand_blocks_no_hit_printed_go_again_and_real_hand_retention"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-devotion-never-dies-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "review_evidence": "review-evidence/sparse956-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32c272212dd5951edf43c4c707639de996caeb36b226a383b169698b4647e2bf",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse956-20261122-replay.json",
+          "sha256": "bfcf4a06c911fba9ecc3af06f20b34d3790167d39e2357212056906deec40ffa",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "rising_resentment_red",
+      "group_id": "pitch-cycle:rising_resentment",
+      "scenario_id": "card-rising-resentment-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "effect_branches": [
+        "actual_two_hand_blocks_no_hit_printed_go_again_and_real_hand_retention"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-rising-resentment-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "review_evidence": "review-evidence/sparse956-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32c272212dd5951edf43c4c707639de996caeb36b226a383b169698b4647e2bf",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse956-20261122-replay.json",
+          "sha256": "bfcf4a06c911fba9ecc3af06f20b34d3790167d39e2357212056906deec40ffa",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "soaring_strike_red",
+      "group_id": "pitch-cycle:soaring_strike",
+      "scenario_id": "card-soaring-strike-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "effect_branches": [
+        "actual_two_hand_blocks_no_hit_printed_go_again_and_real_hand_retention"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-soaring-strike-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "review_evidence": "review-evidence/sparse956-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32c272212dd5951edf43c4c707639de996caeb36b226a383b169698b4647e2bf",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse956-20261122-replay.json",
+          "sha256": "bfcf4a06c911fba9ecc3af06f20b34d3790167d39e2357212056906deec40ffa",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mounting_anger_red",
+      "group_id": "pitch-cycle:mounting_anger",
+      "scenario_id": "card-mounting-anger-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "effect_branches": [
+        "actual_two_hand_blocks_no_hit_printed_go_again_and_real_hand_retention"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mounting-anger-red-four-live-sparse956-actual-two-hand-blocks-no-hit-printed-go-again-and-real-hand-retention",
+      "source_spec": "card-regression-sparse956-20261122.json",
+      "source_spec_sha256": "81deb5e522ede57acd747975d285682862176f81d98ac212a92efe8bfd8baf3d",
+      "review_evidence": "review-evidence/sparse956-20261122-qualified-saved.json",
+      "review_evidence_sha256": "32c272212dd5951edf43c4c707639de996caeb36b226a383b169698b4647e2bf",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse956-20261122-replay.json",
+          "sha256": "bfcf4a06c911fba9ecc3af06f20b34d3790167d39e2357212056906deec40ffa",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

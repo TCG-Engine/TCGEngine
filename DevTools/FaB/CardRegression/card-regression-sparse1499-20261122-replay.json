@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-take-up-the-mantle-yellow-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c5b4b8e8e1192058e4c86fdbb24b6086ddec65256e4a603a84e6685f7f87ad05",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d5d6db117de37b9428bd319acbf8ab251a1ae5a82594db230a988868e52517fb",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "7776eec67bc76e40d3b63b37eeda6673003eca1415e7b675d301ac25029d9603",
+        "expected_final_gamestate.txt": "49ee6a1761da5859bcbc919dc19741b91c247f49f7f1ec752289e2135548a5c9",
+        "meta.json": "14bb480c83fcfe7829604774372024e6aa94f7f181af718b520ea128d73a31ef"
+      }
+    },
+    {
+      "slug": "card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-two-sides-to-the-blade-red-four-live-sparse1499-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1499-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f62ae01abcd3e58a0e13a90d8f90ccc5a810a42d1ea0415dee1594e83a785309",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "755622eceffb7f4a7cda894ba21283d27db47ea118db3ea57dde47561000c756",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "b48ff5da80b2aec32e4c7de19cd71f2e8fa185b9085853c75de853408d2f0539",
+        "expected_final_gamestate.txt": "fabaac47426844f3efa38fd37a35ef131d302e4991d248637199987eed1b1624",
+        "meta.json": "5d0dded2cb77b38c84a442c47698762e5f71700e24186dd23481c5166fecf367"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

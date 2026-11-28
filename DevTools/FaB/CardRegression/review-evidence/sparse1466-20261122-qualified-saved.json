@@ -1,0 +1,91 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review independent cached-text/source-spec batch semantic review; Root exact saved mapping and native clean replay",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1466-20261122.json",
+  "source_spec_sha256": "ccbb42b3a8f7e32d3894080368afdcefd1c3c35f589b6130429481aa568731ab",
+  "input_sha256": "ccbb42b3a8f7e32d3894080368afdcefd1c3c35f589b6130429481aa568731ab",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+      "card_id": "lay_to_rest_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9c8143caa28e6bbec93fdbd4ce765bdf3454b09f21265e7000e1ef493fe6e7b8",
+        "actions.json": "386a58cf11a83fb06512f7989a3b0e293204789ecf439c6cac47297cd7eecbaa",
+        "assertions.json": "116836c6c8a99b20e9703277d42c8f45b3897ded0397060892cacb6e37da68b5",
+        "expected_final_gamestate.txt": "de87b458d5a050bfdd414a2d69612d96ca5f78183170beb10c1619038bc9c831",
+        "meta.json": "1864f236ee61844d64aaba7d35116bf351d17ce339e25acc38ee53593d31a56f"
+      },
+      "fixture_sha256": "b0335e37adf6b56dc76daa9e5619de67ddbf64c02288a942288acde2ac4c149d",
+      "actions": 29,
+      "native_assertions": 629,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1466-20261122.json",
+      "input_sha256": "ccbb42b3a8f7e32d3894080368afdcefd1c3c35f589b6130429481aa568731ab",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1466-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+        "fixture_slug": "card-lay-to-rest-red-four-live-sparse1466-real-ally-target-excludes-hero-only-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1466,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T02:22:26.937590+00:00",
+    "spec_sha256": "ccbb42b3a8f7e32d3894080368afdcefd1c3c35f589b6130429481aa568731ab",
+    "source_note_sha256": "1bb37cdc25c4180a0d2c3684dd8821b3398fbc4d3ff8b4f5ab5cefab76b3c591",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_hashes": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/FaiCards.php": "222e95c7670e2df62aaec1185f75e63b6cc563bbd8fcfd52b4dd8f1f14110786",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0"
+    },
+    "cases": 1,
+    "planned_actions": 29,
+    "persistable_checks": 629,
+    "named_primary_ids": [
+      "lay_to_rest_red"
+    ],
+    "findings": [
+      "Unrepresented/unheld Light attack under legal young Boltyn1, four manual young UPF seats. Actual formal PERMANENT/player4/UID9/Arena target binds canonical prior Ashwing under non-Shadow Dromai.",
+      "Native printed cost1 from actual Blue pitch leaves R2/AP0; base5 actual Ally damage/death and all physical fates are asserted. Exact compiled Hit callback guards FaBFaiHeroHit, false for Ally, so opposing real BanishBlue16 remains face-up.",
+      "The +1 attack bonus is implemented as DTDRuntime power helper checking defending Hero Shadow type without target.type; Dromai non-Shadow makes it false in this exact case. This passing case does not certify exclusion against a Shadow Hero controller."
+    ],
+    "limits": [
+      "Source/spec review only; no reviewer games/replays or passing coverage granted.",
+      "Limited non-Shadow-controller Ally branch only. No positive Shadow-Hero bonus, attack-trigger timing, Hero-hit face-down effect/timing, pitch sibling, support identity, prior Ally creation or whole-card credit.",
+      "Separate no-save Shadow-controller diagnostic has no qualification eligibility and is not part of this passing spec."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1466-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "930ae6f499886abe461241699c60aa4588743d1ac0da171863314fcf58c8865c"
+  },
+  "full_suite_run": false
+}

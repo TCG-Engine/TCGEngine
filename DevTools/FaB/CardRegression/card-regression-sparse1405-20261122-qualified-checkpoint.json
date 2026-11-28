@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:45:32.878220+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1405-20261122.json",
+  "source_spec_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 388,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5412,
+    "duels": 3113,
+    "four_live": 2299,
+    "recorded_primary_ids": 2560,
+    "identity_denominator": 5196,
+    "recorded_groups": 2434,
+    "group_denominator": 3324,
+    "four_live_groups": 2288,
+    "phase_qualified_scenarios_at_actual_contexts": 2049,
+    "phase_qualified_unique_groups": 2039,
+    "creation_replay_passes": 2791,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1210,
+  "scenarios": [
+    {
+      "card_id": "pulse_of_candlehold_yellow",
+      "group_id": "identity:pulse_of_candlehold_yellow",
+      "scenario_id": "card-pulse-of-candlehold-yellow-four-live-sparse1405-zero-optional-return-targets-real-self-banish-go-again-and-blocked-attack",
+      "effect_branches": [
+        "native_zero_cost_no_eligible_graveyard_targets_self_banish_and_go_again_then_actual_fully_blocked_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pulse-of-candlehold-yellow-four-live-sparse1405-zero-optional-return-targets-real-self-banish-go-again-and-blocked-attack",
+      "source_spec": "card-regression-sparse1405-20261122.json",
+      "source_spec_sha256": "72bc6c4b7eb086e20f617f1682a314f6ff1cfb22efcc853646884fae7c39f512",
+      "review_evidence": "review-evidence/sparse1405-20261122-qualified-saved.json",
+      "review_evidence_sha256": "80ba0fbd16bc775c468de13a651330e1d0f57e1a48d7b1c387ce09dda1355698",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1405-20261122-replay.json",
+          "sha256": "eb82ad81ddae8b1d0d2a5d41925565df49132746230eb30ce4a1ec42aa5433ef",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

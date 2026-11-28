@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T01:06:57.551838+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1276-20261122.json",
+  "source_spec_sha256": "5abf5df12b92e9841d1567838dfca318daf72561961721c21c71719507fcf7c0",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 4,
+  "native_assertions": 185,
+  "manual_passes": 2,
+  "totals": {
+    "saved_registered_scenarios": 5180,
+    "duels": 3090,
+    "four_live": 2090,
+    "recorded_primary_ids": 2328,
+    "identity_denominator": 5196,
+    "recorded_groups": 2202,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1817,
+    "phase_qualified_unique_groups": 1807,
+    "creation_replay_passes": 2559,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 978,
+  "scenarios": [
+    {
+      "card_id": "teklovossen_esteemed_magnate",
+      "group_id": "identity:teklovossen_esteemed_magnate",
+      "scenario_id": "card-teklovossen-esteemed-magnate-two-live-sparse1276-intrinsic-permission-real-banished-evo-paid-and-equipped",
+      "effect_branches": [
+        "adult_duel_intrinsic_permission_real_faceup_unpermitted_banished_evo_paid_three_then_equipped_over_matching_base"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-teklovossen-esteemed-magnate-two-live-sparse1276-intrinsic-permission-real-banished-evo-paid-and-equipped",
+      "source_spec": "card-regression-sparse1276-20261122.json",
+      "source_spec_sha256": "5abf5df12b92e9841d1567838dfca318daf72561961721c21c71719507fcf7c0",
+      "review_evidence": "review-evidence/sparse1276-20261122-qualified-saved.json",
+      "review_evidence_sha256": "a338ae4abb3e77d84489cb047b307db00815da7069351f708e98fd1e450910fb",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1276-20261122-replay.json",
+          "sha256": "31f0b4105b31f04a1d9b4233fd078e9048c31f20de18538c199b05b2be18ff3f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

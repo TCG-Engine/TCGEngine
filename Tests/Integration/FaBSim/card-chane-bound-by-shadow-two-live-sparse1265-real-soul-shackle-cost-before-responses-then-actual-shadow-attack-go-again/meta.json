@@ -1,0 +1,7 @@
+{
+    "name": "Chane Bound by Shadow / real Shackle cost then granted Shadow attack go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:11:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_CHANE40_TWO_LIVE_NATIVE_DUEL_ONLY. NaturalChaneBoundShadow40/Dori40/nohistory/effect/tokenpermissionseed. ActualHeroAction0additionalSoulShacklecostmustcreatephysicalToken6beforefirstresponderwhileABI5heldandAP1to0; bothmanualresponses2then1onlyheroresolutionGArestoresAP1andgrantsnextShadoworRunebladeattackGA. ActualGhostlyVisitRed3Hand(notBanish)cost1auto-declaresonlyHero2, actualBlue4pitch3pays1/R2/AP0. Bothfreshresponses\u2192actualShadow4powerGAtrue, actual4damageHP36whileAP0; onlyResolutionreturnsAP1. FinalownedShadow3GY/Blue4Pitch/realSoulShackle6Arena/Hero1retained/HP40/AP1/R2/UID6RNG0cleanACTION. Thiswitnesscurrentcost/GApath, notnewrepair. NoYoung/four-live/repeat/cancel/noToken/upkeep/Banishpermission/BloodDebt/RunebladenonShadow/secondgrant/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#chane_bound_by_shadow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/MONAbilities.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,16 @@
+{
+  "batch": 1431,
+  "card_id": "inspire_lightning_red",
+  "status": "UNRUN_INDEPENDENT_REVIEW_WITHHELD_KNOWN_FUSION_REFERENCE_DEPENDENCY",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "spec_local_sha256": "4088e689fcaaf4d299e20a8285bc969f7a3a83d650e9630404aede3456d4e9be",
+  "source_note_local_sha256": "9a909c4991ed34902dcf7f1f4daad418ba08b89f368bf2234ee5fd24874cf08a",
+  "reviewer": "/root/breadth_review1252",
+  "review_reason": "Generated Inspire Prepare131661-131678 chooses raw Lightning Hand references then FinishFusion before payment. ELECards17 limits save remap to ATTACK and21 to entwine_earth_red, not this ACTION. Existing stale Prepare reference dependency remains unestablished for this route; no new probe. Reveal-then-pitch is lawful and3damage expectation sound. Separate draft eligibility error: Aurora cache cc_living_legend=true, so ordinaryCC claim cannot stand; cachedLL format would not solve reference dependency.",
+  "scope": "Known025/087/226-type preparation-reference family; source-only selected-route hold, no new native defect or repair. Draft remains workspace-only/unapproved."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Lay to Rest / actual Ally target does not earn Hero-only trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:22:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFboltyn1/Dori2/3/Dromai4all20. Reallay_to_rest_red5formallytargetsrealAshwing9Arena4withnativePERMANENTdescriptor/notHero4. CanonicalpriorAshmaterialUPR_ASH1/DYN_ASHash andMight10; actualController4HandPotion11/Razor12andDeck13nonempty. Printedcost1paidactualBlue6/7ifneeded\u00e2\u2020\u2019R2/AP0; printedpower5; Hero-onlyWHENnotearned. Actual5physicalkillsAllyonly, allHeroHP20anduntouchedMight/Hand/Deckfatesretained.  NoGO/refund; actualretainedWounding8zero-costclickrejectsAP0. LimitednegativeHero-eventconditiononly. NoAllycreation/history/support/siblings/fullcardcredit/enginechange. Exact current defenderHero is Dromai nonShadow, so no+1. ActualFaceUpBanishBlue16 retained; noHeroHit. Shadow-controllerAlly branch is not credited here. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lay_to_rest_red FaBSim/GeneratedCode/GeneratedMacroCode.php#lay_to_rest_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

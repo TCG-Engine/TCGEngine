@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-florian-rotwood-harbinger-two-live-sparse1262-eight-real-earth-banish-replaces-one-runechant-with-two",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-florian-rotwood-harbinger-two-live-sparse1262-eight-real-earth-banish-replaces-one-runechant-with-two",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1262-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1262-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e98b966131c559be69e564e1697f627f93cb8032e7b31ec37fa62b4b97e093c1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42bacae4f3dc60997ce3c15936dc70b51064b12ce3f66feb4f390af94f9dd3e8",
+        "actions.json": "d092fc7c4cda805e63b782b6b911c7c0a735f25c94c6bd666b8e7608c7e3f591",
+        "assertions.json": "c0105c6461d10b4ffd779eb992913d7ed765526a9cc8a4a287fe580ebb21b9e9",
+        "expected_final_gamestate.txt": "e84869e234cb81f300bf673595c7d15f9c04240e197639e0a877b598594b625b",
+        "meta.json": "197f66131bf0fb583a9942430cf2fce1b0d0480dd63e5667d1e27e58d5926370"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

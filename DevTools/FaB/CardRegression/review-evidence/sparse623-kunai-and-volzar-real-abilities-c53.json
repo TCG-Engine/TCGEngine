@@ -1,0 +1,534 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_KUNAI_AND_VOLZAR_PAIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T17:04:29.167665+00:00",
+  "source_spec": "card-regression-batch623-weapon-abilities.json",
+  "input_sha256": "59ce409d876002a9444c2f7f10ab9a741024472f625c2c4e6575b2fbc46a56df",
+  "manifest_sha256": "568e87d7277d487e5d22b2eeb4b94cab0e925926f6fd61b84b203f340a683d32",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch623-independent-source-review.json",
+    "sha256": "89ce744f98a99d21b0481d797ca0c299b561f95e7a681b43c711807c32d38856",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch623-weapon-abilities-20261106T170109Z-6aee07d52f80e.json",
+    "sha256": "5e26beae46d49c82005c6237d9b88ec41d2d57b68390ec953697c91de7078241"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch623-weapon-abilities.recording-results.json",
+    "sha256": "6104cef295854bda12b5b37638522503abd76adcbca61fb294fc35571326f80b"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch623-weapon-abilities-native-c53\\receipt.json",
+    "sha256": "1a0d91f531c2746c7052b571d0b1d9e0c34b46ee737cc33bef3e6ee9dc1129c9"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "kunai_of_retribution",
+      "group_id": "identity:kunai_of_retribution",
+      "slug": "card-kunai-of-retribution-four-live-real-paid-go-again-consumer-and-close-destruction",
+      "source_spec": "card-regression-batch623-weapon-abilities.json",
+      "input_sha256": "59ce409d876002a9444c2f7f10ab9a741024472f625c2c4e6575b2fbc46a56df",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_KUNAI_DEFERRED_COST_AND_GA_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-kunai-of-retribution-four-live-real-paid-go-again-consumer-and-close-destruction",
+      "fixture_sha256": "f5e4f7e6c435464442a0ba23466bf18c60ce2c332a316e09445629157d1b083f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "49a71849be5cfdaa96138fa8c561d4abd3bcb9ab60bf3c9e6f3974b7ac02fcb2",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "5199301dabb8d554267e1fa30727c8a8a8550f741e76868a316b26e5fd0e9ad2",
+        "expected_final_gamestate.txt": "5a10c2fe78707262aa1ff2c261183e75d119c35a98ec1ba825a1283033aa97ee"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "49a71849be5cfdaa96138fa8c561d4abd3bcb9ab60bf3c9e6f3974b7ac02fcb2",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "5199301dabb8d554267e1fa30727c8a8a8550f741e76868a316b26e5fd0e9ad2",
+        "expected_final_gamestate.txt": "5a10c2fe78707262aa1ff2c261183e75d119c35a98ec1ba825a1283033aa97ee",
+        "meta.json": "c3b7ea02925ee6cb59696db7831ba416333e153ac7b2ea1dbc48b7f39bc02fcb"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "49a71849be5cfdaa96138fa8c561d4abd3bcb9ab60bf3c9e6f3974b7ac02fcb2",
+        "actions.json": "3c36009acfbf5285fd72472d01c6ff863a25fd85750aa02f3f32be8fcba578c1",
+        "assertions.json": "5199301dabb8d554267e1fa30727c8a8a8550f741e76868a316b26e5fd0e9ad2",
+        "expected_final_gamestate.txt": "5a10c2fe78707262aa1ff2c261183e75d119c35a98ec1ba825a1283033aa97ee",
+        "meta.json": "c3b7ea02925ee6cb59696db7831ba416333e153ac7b2ea1dbc48b7f39bc02fcb"
+      },
+      "actions": 50,
+      "native_assertions": 4149,
+      "actual_manual_passes": 46,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 13
+      },
+      "schema_property_assertions": 1208,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "kunai_of_retribution",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "fai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "kunai_of_retribution",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        5,
+        6
+      ],
+      "temporary_UID8_ceased": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "5ae520aec1232cd5c2589615e76b3add46925b1c76ae1dff6ca775e92aaee4d4",
+      "native_assertion_mapping_sha256": "4b2e04dae7a5a79fa171d5d40a3348882e67549d5a4310b68ed0120f29f86102"
+    },
+    {
+      "index": 1,
+      "card_id": "volzar_meteor_storm",
+      "group_id": "identity:volzar_meteor_storm",
+      "slug": "card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "source_spec": "card-regression-batch623-weapon-abilities.json",
+      "input_sha256": "59ce409d876002a9444c2f7f10ab9a741024472f625c2c4e6575b2fbc46a56df",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_VOLZAR_EARNED_INSTANT_GY_TAP_AND_AMP_CONSUMER",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "fixture_sha256": "183ff113a4d2a346cdc359ea021b47a3509fc4a77e66db607dd7d44998fe9adf",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "6ced44df35717010b974b48fe715ad56028bd7f69108567572c757598d349eb0",
+        "actions.json": "9a6cb0fcfd216162514661f80c5d7c9b9093571ede80e4b85c00ba4b51172246",
+        "assertions.json": "62ff96fc013690cde286beeaaffebf537ec44bfd4260a78260caaa1ec76b4239",
+        "expected_final_gamestate.txt": "def49d2d206efe03fb09bdf8d732aed03ced204ce535abd19ff303277eebb85a"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ced44df35717010b974b48fe715ad56028bd7f69108567572c757598d349eb0",
+        "actions.json": "9a6cb0fcfd216162514661f80c5d7c9b9093571ede80e4b85c00ba4b51172246",
+        "assertions.json": "62ff96fc013690cde286beeaaffebf537ec44bfd4260a78260caaa1ec76b4239",
+        "expected_final_gamestate.txt": "def49d2d206efe03fb09bdf8d732aed03ced204ce535abd19ff303277eebb85a",
+        "meta.json": "2cd77892635a36248cab8fb48dc513ca6b449a65e63488659fb6e2426c869251"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "6ced44df35717010b974b48fe715ad56028bd7f69108567572c757598d349eb0",
+        "actions.json": "9a6cb0fcfd216162514661f80c5d7c9b9093571ede80e4b85c00ba4b51172246",
+        "assertions.json": "62ff96fc013690cde286beeaaffebf537ec44bfd4260a78260caaa1ec76b4239",
+        "expected_final_gamestate.txt": "def49d2d206efe03fb09bdf8d732aed03ced204ce535abd19ff303277eebb85a",
+        "meta.json": "2cd77892635a36248cab8fb48dc513ca6b449a65e63488659fb6e2426c869251"
+      },
+      "actions": 16,
+      "native_assertions": 1330,
+      "actual_manual_passes": 12,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 3,
+        "2": 3,
+        "3": 3,
+        "4": 3
+      },
+      "schema_property_assertions": 362,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "volzar_meteor_storm",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "oscilio",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "volzar_meteor_storm",
+          "zone": "p1Weapons",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "sigil_of_solace_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6,
+        7
+      ],
+      "temporary_UID8_ceased": true,
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        19,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "6c73fff9c8555d73d0e4d309aeba0ac93dfec7e3a7241f9753e45db904c4335d",
+      "native_assertion_mapping_sha256": "141dfc7de966b404077ee8452d14561211d2a4f13dd53c1dbd8f2f0246908944"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 66,
+  "total_native_assertions": 5479,
+  "total_manual_passes": 58,
+  "total_schema_property_assertions": 1570,
+  "material_findings": [
+    "Raw10/all66nativeenvelopes5479orderedchecks58genuinemanualinputs/raw48preferencesateachendpoint/70currentc53guards+ab33/specificimmutablearchiveexactlymatchsource89ce. Sparseintermediatepropertiesretainallmaterialsource/cost/priority/effect/damagewitnessesandfullphysicalendpoints.",
+    "Kunai: realBlue7pays1/AP1→R2AP0; actualproxy8base1/ownGA/physical1HP19refundAP1fundsrealWounding6samefocusedchain4damageHP15/noGA. OriginalWeapon5HNT_KUNAIarmedafterpaymentandretaineduntilfullClose; actualsame5destroys/GY1exactUIDset{5,6}, proxy8ceased/Blue7Pitch/R2AP0. No printedtapcostclaimed.",
+    "Volzar: actualSigil6Instant0/freshfourhealsOscilio18→19/GYthisturn; realStaff5printedtapbeforecapturedABI8/freshfour/AP1unchanged. ActualZap7Action0/legalHero4/AP0/freshfour→3+Amp1=4arcaneHP16/AMPspent. SameStaff5tappedDamage0retained, exactGY1{6,7}/virtual8ceased/RAP0, no historyseed orHeroactivation.",
+    "BothoriginalphysicalUID1..7fullyconserved/onlytemporary8allocated/counter8/RNG0/fullquietStackchainsDQpaymentawaitcleanup. Rootreplaysandregistrationnotclaimedbyreviewer."
+  ],
+  "primary_sources": [
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\kunai_of_retribution.webp",
+      "sha256": "61b4abebf5bf899579b0b0513ad6502b2777690df8082d98839021b9bec1642a",
+      "actually_viewed": true,
+      "printing": "CIN002"
+    },
+    {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\volzar_meteor_storm.webp",
+      "sha256": "5eb0cc5e4384174344a4a3cc8ca3d1166bbcd88ac2ca1317484b0b0c6605c4f4",
+      "actually_viewed": true,
+      "printing": "GEM144"
+    },
+    {
+      "url": "https://fabtcg.com/articles/dev-touch-kunai-of-retribution/",
+      "indexed": true,
+      "finding": "Current issuer Kunai deferred destruction cost text."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/the-hunted/",
+      "indexed": true,
+      "finding": "Activated Kunai destroyed when combat chain closes."
+    },
+    {
+      "url": "https://fabtcg.com/rules-and-policy-center/release-notes/omens-of-the-third-age/",
+      "indexed": true,
+      "finding": "Current Volzar Meteor Storm tap/Amp1/InstantGY restriction."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "retrieved": true,
+      "rules": [
+        "8.5.47",
+        "8.5.55"
+      ],
+      "finding": "Amp increases next controlledarcane event; tapping is an actual cost for Volzar."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "retrieved": true,
+      "section": "9.3",
+      "finding": "Selected fourlive actor1 can target adjacent2/4; same open combat chain remains focused on4."
+    }
+  ],
+  "limits": [
+    "OnepositiveKunai paidattack/GAconsumer/deferredClosecost andonepositiveVolzar realInstantGY/tap/Amp-consumedbranchonly. No repeatedweaponuse/equip-fromGY/secondKunai/failedGYcondition/secondAmp/multi-packet/Endexpiry/Hero/support/sibling/fullcardcertification.",
+    "No source/historyreaudit or PHP/native/replay/R/source/fullsuite/remote/deniedrepair byreviewer. OnlyactualSaved gate; qualificationcreditawaitsRootregistration. Opaqueundodatahash-bound/excludedfromcurrentphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch623_saved_readonly.py",
+    "sha256": "c97f1f0764dca62b9adea2cac19f05014581870588690bba340bfe3c8ccb96f3"
+  }
+}

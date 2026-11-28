@@ -1,0 +1,36 @@
+{
+  "reviewer_scope": "Root bounded source preflight; no new native test or independent certification",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "new_distinct_gameplay_root_credit": 0,
+  "source_sha256": {
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "custom_inventory_sha256": "1079ad641a05811ca8647de732d25a7120980715dc70c4ba1e2f0cf31bd7481a",
+  "observations": [
+    {
+      "card_ids": [
+        "arknight_shard_blue",
+        "authority_of_ataya_blue",
+        "blood_of_the_dracai_red",
+        "eye_of_ophidia_blue"
+      ],
+      "classification": "SOURCE_ONLY_KNOWN_PAYMENT_TIME_TRIGGER_INVOCATION_DEPENDENCY",
+      "basis": "GameLogic FaB pitch handler moves to Pitch/adds resources, calls FaBRunSourceMacro(CardPitched), then FaBTryCompletePayment; ARC pitch helper also directly calls it. Active generated CardPitched callbacks perform Runechant/ATAYA/BLOOD/Opt bodies. Skip the existing timing family rather than record positive inline outcomes or duplicate native probes. No new isolated failures or root count."
+    },
+    {
+      "card_ids": [
+        "bone_vizier"
+      ],
+      "classification": "SOURCE_ONLY_ABILITY_ROUTE_NOT_SUBSTANTIATED",
+      "basis": "Bounded literal Custom/generated callback inspection did not substantiate Bone Vizier printed reveal/top-or-bottom destruction ability. No test authored or game run. Not exhaustive proof of absence or a confirmed native defect."
+    }
+  ]
+}

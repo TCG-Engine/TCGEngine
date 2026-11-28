@@ -1,0 +1,123 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Exactarchivedsourceandrestorationplan; falseHatchetcondition/physicalsource7 versusproxy10or8, freshfourresponses, primaryABittruehitdiscard andShiftbelowbaserejection, exactsavedproofbinding+normalrootreplays. Reviewer no games/writes.",
+  "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+  "source_spec": "card-regression-repair-original-two-hatchet-support-20261125.json",
+  "input_sha256": "5fa3189cd64ab6b40307ad7c65c00204e8e09426278955090ba9a1503c24b2cc",
+  "fixtures": [
+    {
+      "slug": "repair-a-bit-off-the-side-red-four-live-20261125-original-hatchet-support-route-restored",
+      "card_id": "a_bit_off_the_side_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "50feccccc4f36da3546dcc1a989244e8ee127d97e1b2caeea37279f8b123e2cf",
+        "actions.json": "0035b21f0207f04815c840a118a891448a5dbffc6924816f4752d1069c200946",
+        "assertions.json": "4d2a6e46c913d64b2f38bc3ca95223a16e6d5adbbc1c06584bfe781c071faa2f",
+        "expected_final_gamestate.txt": "edea67aff4f4947a08b422a78fe49cd0d98a49d8157df858d41567c03c83801a",
+        "meta.json": "93f6638f4cf19cf19f45074d35f56a9bf11987818f65fa544dc29fcdcec82b20"
+      },
+      "fixture_sha256": "11cc273dd43464642039624bba8951c6843bfcdf78598b326f95245d3ea95c67",
+      "actions": 42,
+      "native_assertions": 723,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 37,
+      "recorded_runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "source_spec": "card-regression-repair-original-two-hatchet-support-20261125.json",
+      "input_sha256": "5fa3189cd64ab6b40307ad7c65c00204e8e09426278955090ba9a1503c24b2cc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "repair-shift-the-tide-of-battle-yellow-four-live-20261125-original-hatchet-support-route-restored",
+      "card_id": "shift_the_tide_of_battle_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b33cf3a076517f106954f3a6d0cf9e322975e9bef298b7b5fa6bf30c2d2b746c",
+        "actions.json": "4d16bc7a9b93429e412a79df9540cd5faf5239ec0229b0138a6e694b1f58e7d5",
+        "assertions.json": "e3903e47129f935832a4452cc6d40a314457b63ccf9c2c3e700a5a478d1a6e6a",
+        "expected_final_gamestate.txt": "fe4712eac98ef91fc0fecfc89f066fca6010eacd465be50d530d35826b71721c",
+        "meta.json": "4623178bc54f7b27fff98aec6aa208a49c63b7df19c0211690e3595c89cce9b8"
+      },
+      "fixture_sha256": "76737b0fa57a153dfcce5cd82024ef5a01232429d3977ce50633f81fb8591796",
+      "actions": 33,
+      "native_assertions": 415,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "runtime_sha256": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+      "source_spec": "card-regression-repair-original-two-hatchet-support-20261125.json",
+      "input_sha256": "5fa3189cd64ab6b40307ad7c65c00204e8e09426278955090ba9a1503c24b2cc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "restored_group_credit": 0,
+  "restored_tested_primary_identity_credit": 0,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal_sha256": "43e46fed6014e9978490bcea907e84d4dcbd891ab92a8788ad625f278289c0fb",
+  "targeted_replays": {
+    "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+    "full_suite_run": false,
+    "fixtures": [
+      {
+        "slug": "repair-a-bit-off-the-side-red-four-live-20261125-original-hatchet-support-route-restored",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-a-bit-off-the-side-red-four-live-20261125-original-hatchet-support-route-restored",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\original-two-hatchet\\clean1.log"
+        ],
+        "complete_log_sha256": "6a503ac052ea2b5e412638ffce6f75082ba82da17f76552f5e0b97bbf0c1bfe2",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "repair-shift-the-tide-of-battle-yellow-four-live-20261125-original-hatchet-support-route-restored",
+        "passed": true,
+        "runtime": "e30e2324afd40422257209774e9b99674b7727aabcc26689df6507e9fb606169",
+        "returncode": 0,
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-shift-the-tide-of-battle-yellow-four-live-20261125-original-hatchet-support-route-restored",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\original-two-hatchet\\clean2.log"
+        ],
+        "complete_log_sha256": "74ad1fb8ecd0a28881ab0230104082833879ca8da464caa05d7bd901cba66ddb",
+        "raw5_unchanged": true
+      }
+    ]
+  },
+  "limits": [
+    "No new engine changes; supportingHatchet earned-layer repair alreadyqualified.",
+    "No new group/identity/siblingcredit: existing separateDecimator cases remain valid.",
+    "Shift remains precise below-base rejection-only primary ability evidence, no positive Shift effect credit from thiscase.",
+    "Original wrong raw5 are archived and original badslugs remain absent.",
+    "Original physicalassets/cost/payment/damage/primarychoices retained; only additionalfour freshresponse passes/virtualallocations changed.",
+    "No final fullsuite yet."
+  ]
+}

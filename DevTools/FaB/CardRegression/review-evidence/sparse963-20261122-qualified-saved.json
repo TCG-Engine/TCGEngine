@@ -1,0 +1,198 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse963-20261122.json",
+  "source_spec_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+  "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-boulder-drop-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "boulder_drop_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "703047dd220def8f1d948c3cc609bbf7818cfca6b4341af5ef3e30fb6a14f07f",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "9987d685969aaffe7a48807da2b84f7545d8aeb4da021c956d3ac225a31c52eb",
+        "expected_final_gamestate.txt": "f74928dd76256945e08701215d7572d2b37cb41c1a7e51024de22a424f52685d",
+        "meta.json": "f7dd17c3923d49d0dbbb5c9dc02b98191055798bf6aff2ecabd60764f42edb9b"
+      },
+      "fixture_sha256": "e0e5211d3b76bfcb54715761cd1beb42367dfc37b0adbd01e8423d563142a2f5",
+      "actions": 31,
+      "native_assertions": 164,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-boulder-drop-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-boulder-drop-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crush-confidence-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "crush_confidence_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42d02cf2338ff5be07e19279f9ed01887b058abfccd5c9fdc3d30737f51139c6",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "41dcd164fba0d598ead123bc97b1252bb28dd85e6e7c23a0275b51e33d45891a",
+        "expected_final_gamestate.txt": "b0f0aef8794a22c1bdbe998e4447b695ab0c3e1ed94f140f02a8150235441f2e",
+        "meta.json": "d0b6e8828469edb10e314bef950d4abe97b6f89154b85dc32486191d7890c461"
+      },
+      "fixture_sha256": "93ec2ff5855e6481a08cfa21d05ab3ee3b1ca5461676f010c26810bf3f7aa712",
+      "actions": 31,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crush-confidence-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-crush-confidence-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-crush-the-weak-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "crush_the_weak_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ef7d675b00054267f0806397fb962795b74ac365f9cfbf196f3426a487e32fd7",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "4f14911abd3861ea33b56f59cc573143c1766b80b143b1c4d949210dcde5ac7f",
+        "expected_final_gamestate.txt": "6345b73ee6825f4648e3d599778ae2930490958b54bbc85e17d8c730ba94c03f",
+        "meta.json": "5e65fe92da6e908c4e15fc3de68ed83d041b2171ca0b3e1f6318b4c99a4080e1"
+      },
+      "fixture_sha256": "4fd4d0c16aa31a6bf0aa88c4a44c85d22586b3d9d1466bc980a034ebe96b1603",
+      "actions": 31,
+      "native_assertions": 157,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-crush-the-weak-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-crush-the-weak-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-grind-them-down-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "grind_them_down_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "eef1886560876ba952150543a94a0a2a5e22b373505f2cf14b8af8a15f61e1b9",
+        "actions.json": "b9996f47ad8378619b85a79eb0a8a53a9e095b4296bec37843ce3c891f30ed90",
+        "assertions.json": "6a1a8b21161929c739012a7ec0a30bbcb7216ff61686e3c2602cba415216a564",
+        "expected_final_gamestate.txt": "3a41731a93df368a5d98bc94105bddd7aadde3959e61e3bc5fd8ae6405fd4be5",
+        "meta.json": "f4caa473c5a8f0f529470aaf9dcf33a0c338fa561a04497f0f04dedbfa2044f2"
+      },
+      "fixture_sha256": "d2f9cf4fcfc899c7a131c3a60b8a6a8ad57a446489fba155518d8bd1bfa8ecd2",
+      "actions": 31,
+      "native_assertions": 165,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-grind-them-down-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-grind-them-down-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-command-respect-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "command_respect_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e70c1554645f6955ecea59d29f644fe41c661aff9aa06641310b73182ab0fe08",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "8b528338b2405927d805a2c73e1aae809a319a65c1fa4a51cd80d2d5a08f8be6",
+        "expected_final_gamestate.txt": "6def6e3e245f0302f9983bbad999e2b416a08bb9b4f19cf05327de676b0acb7d",
+        "meta.json": "d55eef6fcbac5665e4d6321cb143a853882e5c5af98674749a32e6c7ea4ae7d8"
+      },
+      "fixture_sha256": "3e95f7a75f5a874798165b05e9d4ada28b01e94ce3343a5279b0c0cb83a25250",
+      "actions": 30,
+      "native_assertions": 156,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-command-respect-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-command-respect-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-concuss-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+      "card_id": "concuss_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6930cc0103a099b3f60adfd33187deb3f4810408b4aeae9b63436c7528f2e5fd",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "1db379f53fec08fbca13c14c3ac2dbe4379989525b4d678c6d543fe634be71d1",
+        "expected_final_gamestate.txt": "b4c1175b96c39d85117631bed9276fa370dbfc2355aa11326585cee5060c0b66",
+        "meta.json": "4c1ed0883a624b5f7685e418159fc629fd9bb4ff67dfc0d14ae6c81197803fc1"
+      },
+      "fixture_sha256": "49f884981ea5813c167bb9075f0c4ccaee2b73f5e9024c1870d89b10a0368aa9",
+      "actions": 30,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse963-20261122.json",
+      "input_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-concuss-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "fixture_slug": "card-concuss-red-four-live-sparse963-actual-multi-blue-payment-and-multi-hand-full-block-no-crush",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "90240e67bcec9554b2d04686906d956d5a0285625503a26ac9d85a9bdeba95a4",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Guardian attacks and legal Bravo20 natural health match all six. Printed cost3 paid by real Blue6 leavesR0/AP0. First four printed7 are fully blocked by three actual Generic Hand AA eachdef3; last two printed6 by two actual AA eachdef3. None has an unconditional WHEN attacks/play trigger, dominate or additional cost.",
+      "Actual adjacent Hero4 target before assets; shifted Hand0 defense clicks place physical blocker7/8/9 or7/8 with owner4 graveyard fate, source5 owner1 graveyard. Zero damage/HP20/attackHit=false/Stack0 means no hit or4+ Crush event is earned, including Command/Concuss WHEN-hit with later power IF. Four live seats manually respond each combat window. Initial counts/UIDs are consistent.",
+      "Boulder retains real NAA Hand10/Hand1/Deck0; Grind retains real Deck10/Deck1 while target graveyard contains only three actual defenders. Command retains real facedown NAA Arsenal9/CardID/UID/Owner4/FaceDown1; Concuss retains real NAA Hand9/Hand1/Deck0. These are physical retained-card checks, not empty eligibility claims. WTRCards873 Crush Confidence branch is an actual future hero restriction; that positive route is not exercised here."
+    ],
+    "limits": [
+      "Only full-block/payment/source fate/physical marker retention/no earned hit or Crush. No exact unblocked power, positive Crush/hand-top/deck destruction/arsenal destruction/discard, hero suppression, next-turn play legality, power-bonus predicate isolation, siblings or whole-card certification. Positive Boulder hand-top producer is not verified by this bounded no-hit review. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse963-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0c6a2ffa2a6f85de7598a3ed41be8e341d7af88f0d7815436c0f87a96048d637"
+  },
+  "full_suite_run": false
+}

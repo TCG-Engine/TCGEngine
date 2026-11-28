@@ -1,0 +1,111 @@
+{
+  "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "full_suite_run": false,
+  "fixtures": [
+    {
+      "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay147.log"
+      ],
+      "complete_log_sha256": "330891f9b3db0266729286e6a3c34303803bb4b8e289af319edd0f9de0720e23"
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-blue-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay148.log"
+      ],
+      "complete_log_sha256": "3d4501da1db71b2a242af2c7338d9ab2509f56b39a4d29dffee5a0faed9be558"
+    },
+    {
+      "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay149.log"
+      ],
+      "complete_log_sha256": "bcdb687c898237c1ab1037106e72f2c7e2ff399fc3afd69ce5162c551fbcdbd4"
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-red-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay150.log"
+      ],
+      "complete_log_sha256": "cefb6a62a2d8f32c1acef2df04aec126210d0f4255a1cbf75d17e9e61b6299c1"
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-nonattack-action-preserves-buff",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay151.log"
+      ],
+      "complete_log_sha256": "4f38677d7ffd2e3c58eabcd9993853f2fb070b9f12c484969eb51a66de066926"
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-felling-swing-yellow-opponent-response-before-buff-resolves",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay152.log"
+      ],
+      "complete_log_sha256": "be7689d69770668cbc54be6a13cf1323a818b5a6bb1fe6b6e98e6941ad74695f"
+    },
+    {
+      "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "passed": true,
+      "runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\hatchet-seven\\replay396.log"
+      ],
+      "complete_log_sha256": "5ff4f99b83000385b49cac7c7726b6e029b0fc40232ffa53cfa92eff54e895f1"
+    }
+  ]
+}

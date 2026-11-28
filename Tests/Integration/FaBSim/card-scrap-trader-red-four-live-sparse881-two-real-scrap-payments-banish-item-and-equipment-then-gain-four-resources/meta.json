@@ -1,0 +1,7 @@
+{
+    "name": "Scrap Trader / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:56:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Scrap**\n\n**Scrap**\n\nGain {r}{r} for each card this **scrapped**. Representative only: two_real_scrap_payments_banish_item_and_equipment_then_gain_four_resources. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#scrap_trader_red"
+}

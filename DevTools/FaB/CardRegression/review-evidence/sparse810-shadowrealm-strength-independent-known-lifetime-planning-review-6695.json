@@ -1,0 +1,121 @@
+{
+  "status": "B810_SHADOWREALM_STRENGTH_INDEPENDENT_KNOWN_SOURCE_LIFETIME_PLANNING_REVIEW",
+  "phase": "PLANNING",
+  "batch": 810,
+  "reviewer": "/root/b809_review_recover",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T02:18:32.194815+00:00",
+  "card_id": "shadowrealm_strength_red",
+  "group_id": "identity:shadowrealm_strength_red",
+  "members": [
+    "shadowrealm_strength_red"
+  ],
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch810-firm-reservation.json",
+    "sha256": "64344e03ccd689e0dc01667147404f5b8631122663f4148b35a0a11ede37d845"
+  },
+  "author_planning_note": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch810-shadowrealm-strength-known-lifetime-unattempted-planning-hold.json",
+    "sha256": "9b7a422ea5a1dce57ba8eed40a5e01c2dfcf083d6104cad14f1db27f82d5060e"
+  },
+  "whole_family_alias_printing_helper_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch810-selected-helper-preflight.json",
+    "sha256": "cce51124b8b7b6a9803919a7a2119e0543dd45b49f5af17bc36afe320bfaf5e5"
+  },
+  "independent_printed_helper_preparation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch810-independent-printed-selected-path-preparation.json",
+    "sha256": "fd4138ef36927612b1346c27e40f02b06db372a856e0f7690031b4cc8f58cb31"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "all25_selected_actual_preimages_current": true,
+  "required_source_preimages": {
+    "FaBSim/Custom/GameLogic.php": "a72657da1bbb2520e4ee5f8d71488f268914d539ce235b0a18ea4a03f6793ffd",
+    "FaBSim/Custom/IARCards.php": "d7462a79d8deea9b6270c5c878972878177c44726e389d1918022b6368d7e82a",
+    "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "46204cec1b6bb44e3086f56ebe64bee747724f5ac0684ef8c9bdc27047688086",
+    "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae"
+  },
+  "known_required_context_rows": [
+    {
+      "index": 237,
+      "card_id": "index_blue",
+      "row_sha256": "3e3b120616aee957327cb51039a261ce96a4cf6f321ce97ffddab9e6f33ad1b3",
+      "reason": "Current exact ordinary-spell predicates exclude Index while its real emitted StageTop/chooser/Rearrange awaits remain. The fixed positive route inherits known physical source clearance before resolving await; no substitute or missing-body claim."
+    },
+    {
+      "index": 238,
+      "card_id": "shadowrealm_solace_blue",
+      "row_sha256": "e059954432f260b50983871d6566a483dc2ea606044b91aee46a522e3e7c074c",
+      "reason": "Real emitted optional Banish-to-Graveyard chooser exists, but both current managed ordinary-spell predicates exclude Solace. Same known Index/unmanaged resolving-source lifetime dependency."
+    },
+    {
+      "index": 245,
+      "card_id": "tentacular_toll_blue",
+      "row_sha256": "3fd5e879f2ce2980486bd39f51e899c665ee6dc591bb06bb2367c044f0ba5dd1",
+      "reason": "Fixed positive Blue ally-graveyard resolution choice awaits MZMultiChoose. Actual managed plain-spell predicates exclude Toll; physical source clears to graveyard and go-again refunds before the required choice completes. Same known Index/Solace238 awaited-source lifetime dependency. No alternate route or Gold consumer attempt."
+    }
+  ],
+  "current_holds": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+    "sha256": "143be044cdc3c6c43763435b7283f1d20f9022bcdb78b5ecd0257e7103e430c2"
+  },
+  "printed": "Red ShadowNecromancer Action0: optional card from ownBanish toGY; if Zombie nextattackthisturn+3; GoAgain. Fixed youngMalice20 is legal; faceup RestlessCleric is actual nonToken Zombie Ally, not Arena source or death event.",
+  "actual_required_trace": [
+    {
+      "path": "DevTools/FaB/iar_abilities.json",
+      "card_id": "shadowrealm_strength_red",
+      "fact": "Actual canonical ResolveCard optionalMZMultiChoose0..1; positiveReturnBanish; then FaBIARNext3ANY."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "lines": "6810–6815;95765–95811",
+      "fact": "Compiled await frame and actual choice/positive move/buff body exist. No implementation-absence claim."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1571–1573;1637–1682",
+      "fact": "Both exact current ordinaryspell managed predicates independently read in full. Strength absent from fixed cohorts; owner/controller equal does not admit it."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1822–1827",
+      "fact": "Required current fallthrough first moves physical sourceStack toGY, then runs awaiting rule body, then grants GoAgain before optional choice completes. Exact known Index/Solace/Toll required lifecycle contract."
+    },
+    {
+      "path": "FaBSim/Custom/IARCards.php",
+      "lines": "145–165;71–110",
+      "fact": "Real Banishselection/physicalReturn and nextattack modifier exist. Later possible result cannot substitute for required source lifetime and is unattempted/uncredited."
+    }
+  ],
+  "official_source": {
+    "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "rules": [
+      "5.3.4",
+      "5.3.5",
+      "5.3.6",
+      "5.3.7"
+    ],
+    "finding": "Resolution effects and parameters finish before printedGoAgain, leaveStack and clearing."
+  },
+  "disposition": "UNATTEMPTED_SAME_KNOWN_REQUIRED_AWAITED_PHYSICAL_SOURCE_LIFETIME",
+  "independent_planning_review_complete": true,
+  "planning_hold_approved": true,
+  "source_executable_approved": false,
+  "correct_required_contract": "Actual Strength source stays onStack through positive own nonTokenZombie choice and Banish->GY/+3 effect, then printsGoAgainAP1 and clears. No earlyGY/GA or optional-noop baseline.",
+  "executable_cases": 0,
+  "native_attempted": false,
+  "diagnostic_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": false,
+  "new_issue_claimed": false,
+  "new_root_cause_group": false,
+  "source_fix": false,
+  "repair_proposal": false,
+  "B787_denied_operation_untouched": true,
+  "limits": [
+    "No duplicate probe, optionaldecline/emptyBanish/earlyGA/partialbuff/alternateproducer substitute.",
+    "No physicalCleric transfer, +3 buff, GAAPconsumer7damage, HP13, cleanup, Maliceactivation/death/Corpse or ClericArenaheal/decay outcome observed or credited.",
+    "ONE source-only knowncontract note; Root append-only planningledger separate. W-only/read-onlyR/no PHP/native/replay/R/source/Git/heldrepair/newagent action by reviewer."
+  ]
+}

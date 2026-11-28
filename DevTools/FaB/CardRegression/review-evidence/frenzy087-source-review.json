@@ -1,0 +1,371 @@
+{
+  "status": "APPROVED_BOUNDED_087_PREPARE_PITCH_SAVE_COPY_SOURCE_AND_VALIDATION_PLAN",
+  "approved": true,
+  "source_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewed_utc": "2026-11-04T19:39:56.016950+00:00",
+  "manifest": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\manifest.json",
+  "manifest_sha256": "4b56c68d07621c0dc9095d4bd2b8e22c1f18be553ad4cf7750cec6867a30ace3",
+  "patch_sha256": "fe608fb84a12c1f44a78c77f56a55e7c639844e896caf2b78e68d9c6697dff17",
+  "candidate": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\candidates\\FaBSim\\Custom\\WTRCards.php",
+  "candidate_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+  "target": "FaBSim/Custom/WTRCards.php",
+  "before_sha256": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+  "after_sha256": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517",
+  "proposal_runtime_before_sha256": "a06b73d86676fe07a17afc400f983d03f85d55356c2347621ccd8196ad6645d3",
+  "proposal_projected_source_only_runtime_sha256": "700f24d0a163b847cb85ad630676eb959809e5ae40c75debbe1c5e05befc52cd",
+  "runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "runtime_context": "087 remains unapplied. Current16008 is the independently checked unrelated Cull-only GameLogic addition; original a06 proposal context is preserved, not retagged. No applied087 runtime or replay is claimed.",
+  "original_source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/WTRCards.php": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+    "FaBSim/Custom/GameLogic.php": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "DevTools/FaB/dtd_abilities.json": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "current_source_guards": {
+    "AGENTS.md": "98e92f639d0768613c07759d84393fe2a58ff145e239bbd5bb0c3f8fdcf1f09d",
+    ".github/copilot-instructions.md": "27d6d8211b219cc826a4f2bf63d6d59765ed805feea6fb6571bfd225eb824543",
+    "FaBSim/Custom/WTRCards.php": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/DTDCards.php": "059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd",
+    "FaBSim/Custom/DTDRuntime.php": "b5dcaff474c60a21cb71a7b4923bdf2192c3f9d63de24e60e54fa0067e9f19f2",
+    "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+    "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+    "FaBSim/GamestateParser.php": "e737f95f81ce4656b165ac6a9acd3fc5afaf847136ce321d375a9807d5daa988",
+    "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d",
+    "Core/EngineActionRunner.php": "f64e3d31c9524103bc14aa6ace7611c90be6ae0a0d09a421b81d87593aefebec",
+    "DevTools/FaB/dtd_abilities.json": "eca8a13fd892fa879ec3e6b527e8661a0cc656551594bd313ec50ab4817de9e5",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "unchanged_guards": 12,
+  "intervening_guard_delta": {
+    "path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "04c1e0cfc89e837ab2d93573effdbbdcf947aa50b95d78e43522e970f9758135",
+    "after_sha256": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "exact_inverse_verified": "Remove the one literal ,'cull_red' from current file to reproduce exact04c1 bytes.",
+    "receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-cull088-source-application\\receipt.json",
+    "receipt_sha256": "aaee1e5890207cdf1fd455fe184e978ced9a8c25889bbb7fb18f0471572a999e",
+    "material_087_dependencies_unchanged": true,
+    "does_not_reapprove_Cull_or_retag_native_evidence": true
+  },
+  "native_before": {
+    "independent_classification": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-batch381-frenzy-independent-native-before-classification.json",
+    "sha256": "b440a9d57925fb6c1e4115302eb078ea6b8de0236290fe1c523ae3a30693da51",
+    "input_sha256": "e01f5e99c997d6860d56be6142e945a4fea10e923f000f6adfb73f141e95c00c",
+    "observed": "After1actualFrenzyclick, correctParam0&1 vsactual1&2; earlierpassingUIDchecksBlue6at0/Dread7at1; noanswer/banish/draw/buff/suffix/fixture.",
+    "save_vs_splice": "Observed persisted/reparsed stale selector. Core live CleanupRemovedCards not claimed to have run; existing serializer COPY transform is the actual repair seam."
+  },
+  "exact_edit_findings": {
+    "new_functions": [
+      "FaBDTDPreparePitchChoicesForSave"
+    ],
+    "changed_existing_function": "EngineRemapZoneForSave adds one helper call only",
+    "all_other_WTR_bytes_preserved": true,
+    "exact_inverse_sha256": "10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386",
+    "before_CRLF": 802,
+    "after_CRLF": 882,
+    "bare_LF_added": 0,
+    "all_six_existing_named_remapper_routes_preserved": true,
+    "Core_generated_canonical_DTD_and_live_Hand_unchanged": true
+  },
+  "material_source_findings": [
+    "Helper enters only for live seat, owned pending player/source on Stack, ACTION or ATTACK, still-insufficient resources, positive exactUID, sourceCardID in the proven Prepare cohort, actualOwner/Controller, matchingKind/SourceZone/fromZone and SourceUniqueID. No arbitrary card or nonpending source is inferred.",
+    "First two live queue rows must be exact blocking MZCHOOSE/Pitch_before_banish_cost then blocking CUSTOM. Callback must have own card Prepare namespace, actual positive frame key, proven PC and chosen return variable. Actual GetAwaitFrame stores only locals, so sourceUID/mzID/cost/originalrefs equality plus owned pending source are the applicable identity bindings; no nonexistent frame-owner field is assumed.",
+    "All17 exact canonical FaBDTDCostPitchChoices producers and their current generated prompt/callback PC match independently. Frenzy uses reserve0/PC5; other named helper callers use reserve1 and matchingPC5or8. No broader typed-cost policy, dynamic external producer or future regenerated callback is approved.",
+    "Mapping uses exactly writer null/Removed survivor predicate and counts ineligible live survivors. It intersects only originally offered absolute own-Hand positional refs with current actual helper eligibility; foreign/relative/unknown/duplicate/malformed refs fail closed. It never broadens the candidate set. Removed offered slots are omitted and cannot alias a surviving successor.",
+    "Only selected choice is cloned when its Param differs. The live Hand, source object, original queue choice object, frame locals, callback Param, chosen and global variables/state are not rewritten. Repeat save from same live arrays recomputes same result; reprocessing an already transformed copy declines the originalrefs-equality guard rather than shifting again. A reparsed already compact Hand uses identity mapping/no need for a second shift.",
+    "If all originally offered candidates are removed, the nonresolving Hand999999 sentinel has no valid GetZoneObject index; existing Core MZCountChoices tests actual slots and reaches zero-choice policy. This is safe no-alias representation, not a new automatic-success/payment policy; component should exercise it explicitly.",
+    "Generated callback writes returned chosen before its PC consumes it; prior savedrefs is diagnostic until a repeated pitch recomputes refs. Leaving frame/CUSTOM data unchanged is therefore correct for current exact continuations. Native original Blue6 answer remains unchanged after remapping.",
+    "Existing Lunging, declared reaction, plain-barrier, Rise, Rouse and Flock save-copy paths remain byte-identical and disjoint by named prompt/frame/source. No generic rewrite, no live-splice hook, no CORE/parser/generated edits or new framework."
+  ],
+  "cohort_profiles_independently_verified": [
+    {
+      "card_id": "blood_dripping_frenzy_blue",
+      "reserve": 0,
+      "return_pc": 5,
+      "canonical_body_sha256": "c0721c2455b88259f2746412cf6f129f1a7500ef51690b1ccff6c5602865c25e",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "expendable_limbs_blue",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "2dfb9b719970b2723c4e0c8aa7ec69cc741264a61c37af368fa36217842a58ba",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "ram_raider_red",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "a6d2352579a204d95c70d6f6a68bedd1b1f66d5f027951c57565d1b3eab2825d",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "ram_raider_yellow",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "a6d2352579a204d95c70d6f6a68bedd1b1f66d5f027951c57565d1b3eab2825d",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "ram_raider_blue",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "a6d2352579a204d95c70d6f6a68bedd1b1f66d5f027951c57565d1b3eab2825d",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_scream_red",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_scream_yellow",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_scream_blue",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_swing_red",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_swing_yellow",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "shaden_swing_blue",
+      "reserve": 1,
+      "return_pc": 5,
+      "canonical_body_sha256": "ec2894e14b98cbf750a38d470f58dbc926f82131907d0493ee3e359573c59fea",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_demolition_red",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_demolition_yellow",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_demolition_blue",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_red",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_yellow",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_blue",
+      "reserve": 1,
+      "return_pc": 8,
+      "canonical_body_sha256": "f7d3791925a78890cfae126ce7eae8b8309a3cd917c9db93732a9678066585e8",
+      "canonical_and_current_compiled_PC_prompt_verified": true
+    }
+  ],
+  "caller_count": 17,
+  "canonical_literal_lookup": [
+    {
+      "card_id": "blood_dripping_frenzy_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "expendable_limbs_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "ram_raider_red",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "ram_raider_yellow",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "ram_raider_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_scream_red",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_scream_yellow",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_scream_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_swing_red",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_swing_yellow",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "shaden_swing_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_demolition_red",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_demolition_yellow",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_demolition_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_red",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_yellow",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    },
+    {
+      "card_id": "tribute_to_the_legions_of_doom_blue",
+      "macro": "PrepareCard",
+      "snapshot": "DevTools\\FaB\\dtd_abilities.json"
+    }
+  ],
+  "direct_impact": {
+    "proposal_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\direct-impact.json",
+    "proposal_sha256": "cdd881a98674ddb9d63e9b71b8a8d736250714a7c1bc9ec1eed05caf4a43c031",
+    "review_metadata_sha256": "9f75eccb02f4b0fbb898c83ee59f94d70a8797a25138af7afa34f03e9925a922",
+    "review_metadata_rows": 3686,
+    "exact_selected_cohort_hits": {
+      "blood_dripping_frenzy_blue": [],
+      "expendable_limbs_blue": [],
+      "ram_raider_red": [],
+      "ram_raider_yellow": [],
+      "ram_raider_blue": [],
+      "shaden_scream_red": [],
+      "shaden_scream_yellow": [],
+      "shaden_scream_blue": [],
+      "shaden_swing_red": [],
+      "shaden_swing_yellow": [],
+      "shaden_swing_blue": [],
+      "tribute_to_demolition_red": [],
+      "tribute_to_demolition_yellow": [],
+      "tribute_to_demolition_blue": [],
+      "tribute_to_the_legions_of_doom_red": [],
+      "tribute_to_the_legions_of_doom_yellow": [],
+      "tribute_to_the_legions_of_doom_blue": []
+    },
+    "matching_saved_candidates": 0,
+    "fixture_content_crawl": false,
+    "limit": "No claim about opaque old support mentions; no17-card native coverage. Existing AB2 is unmodified pipeline compatibility only, not an affected DTD fixture."
+  },
+  "validation_plan": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\validation-plan.json",
+    "sha256": "4acbe5bf8d3c141651a1aab5fe9a13a1e52bc9d50ed5a5f2c8dde970f7c42a7d",
+    "status": "APPROVED_FOR_ROOT_IMPLEMENTATION_AND_EXECUTION_NOT_EXECUTED",
+    "required_actual_extraction": [
+      "FaBDTDPreparePitchChoicesForSave",
+      "EngineRemapZoneForSave",
+      "FaBDTDCostPitchChoices",
+      "FaBFindUID"
+    ],
+    "required_meaningful_contracts": [
+      "Beforeactualwriter leaves1&2; aftermaps6/7logicalidentities to0&1 onclonedchoice only.",
+      "Repeatedwrites, alreadycompact, seat4, ineligible survivor indexing, subsetnotbroadened, removedcandidate/allremovednoalias.",
+      "All17reserve/PCprofiles; wrongsource/pending/frame/mzID/cost/refs/callback/prompt/seat/type failclosed.",
+      "Originalframe/CUSTOM/liveobjects/variables/state unchanged; old actual AB2 remapper compatibility, with original six routes byte preservation."
+    ],
+    "future_component_code_review_pending": true,
+    "PHP_lint_or_component_PASS_claim": false,
+    "native_required": "Root originalunchangedB381 Frenzy only, exactsavedreview+twofocusedreplays; oneaffected-compatibleexistingbarrierwitness optionalfocusedcontrol. No fullsuite."
+  },
+  "classification": {
+    "existing_family": "025 persisted save-compaction choice references",
+    "scope": "Named087 native-confirmed Prepare-pitch caller extension of the existing save-copy remapper family.",
+    "new_distinct_shared_root_or_Core_claim": false,
+    "only_native_proven_card": "blood_dripping_frenzy_blue",
+    "siblings_or_other16_native_coverage_credit": false
+  },
+  "limits": [
+    "Source and plan approval only; no087 source application, lint/components/native/replays/qualification by reviewer. Projected700f is originala06-only proposal metadata, not current combined-runtime receipt.",
+    "No generic chooser/splice/frame rewrite, no correction to original logical0&1/UID6pitch expectation or physicalcost/draw/X/combat suffix.",
+    "Frenzy earlier source-only asset-before-effect cost-order and synchronous source-lifetime concerns remain excluded/unfixed; no075fusion/077beat-chest/otheroldhold remediation.",
+    "No R/source/service/PHP/native/generation/fullsuite/remoteauthoring/stage/commit/push/deploy. Existing user edits including086 and Cull088 retained."
+  ],
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "R_writes": false,
+    "service": false,
+    "generation": false,
+    "full_suite": false
+  },
+  "source_application": false,
+  "native_qualification": false,
+  "blockers": []
+}

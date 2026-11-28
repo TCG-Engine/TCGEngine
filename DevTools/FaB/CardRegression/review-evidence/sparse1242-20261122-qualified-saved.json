@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1240",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1242-20261122.json",
+  "source_spec_sha256": "8802bb5117facbec1366a00b1759319f7474760f4acb5d2e54d5259d780a1e7a",
+  "input_sha256": "8802bb5117facbec1366a00b1759319f7474760f4acb5d2e54d5259d780a1e7a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-arcane-cussing-red-four-live-sparse1242-foreign-vaporize-earns-owned-three-runechant-leave-trigger-on-controller-turn",
+      "card_id": "arcane_cussing_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e5bbaa306f7f2dcc94f78cd613651fde7cb07d05204c8230f6c9d137c1cfb8d3",
+        "actions.json": "19b3785e471164e5be45016ea3f3adaa9631b3405211a9e47c0364cbc2bc7d30",
+        "assertions.json": "89aba1cecaa05ffe29f215eba9de150a5d55edec6baefd767948e3b4ef81bed5",
+        "expected_final_gamestate.txt": "f64cbf022b99e804b28d114f09285195c48976f84b727584708f30e98fe7f0d0",
+        "meta.json": "20bffaa36bf18e2f2356a438921a88da63262de1d6775ce34b097938eefcfbaa"
+      },
+      "fixture_sha256": "28b7d5540ce4a08c10f0c27188790e2a2991ec12e10735e8f31eced796c83df8",
+      "actions": 24,
+      "native_assertions": 303,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 18,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1242-20261122.json",
+      "input_sha256": "8802bb5117facbec1366a00b1759319f7474760f4acb5d2e54d5259d780a1e7a",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1242-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-arcane-cussing-red-four-live-sparse1242-foreign-vaporize-earns-owned-three-runechant-leave-trigger-on-controller-turn",
+        "fixture_slug": "card-arcane-cussing-red-four-live-sparse1242-foreign-vaporize-earns-owned-three-runechant-leave-trigger-on-controller-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1240",
+    "spec_sha256": "8802bb5117facbec1366a00b1759319f7474760f4acb5d2e54d5259d780a1e7a",
+    "source_note_sha256": "b1ad429a1ef945164344f35a88b2aa6647892957049b5f93419ccd4a72b928e1",
+    "case_count": 1,
+    "native_controls": 24,
+    "query_checks": 303,
+    "persistable_assertions": 303,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EXISTING_AURA_FOREIGN_DESTRUCTION_ON_OWN_TURN_LEAVE_REWARD",
+    "basis": [
+      "Primary Arcane Cussing pitch cycle is unrepresented and has no source-only hold. Existing owned Runeblade Aura5 under natural Young Viserai1 is lawful isolated asset. Natural Young Briar4 admits two Lightning Runeblade Instants6/7, no passive seats or false history seeded. All four natural20health and distinct physical assets are guarded.",
+      "Before native execution, corrected Shock target from oppositeHero2 to legal adjacentHero3. UPRAnyTargets/ARCHeroTargets with multiple=false offers adjacent1,3 for caster4. Real mode1 Shock declares3 during preparation before cost/priority; four fresh responses4/1/2/3 deal1 to3. Owner1 neither deals nor receives damage, so Aura self-destruction WHEN is not earned.",
+      "Real Shock arcane damage earns caster4 ARCANE_OPP1; no artificial X state. Second real mode0 Vaporize can destroy cost1 opposing adjacent Aura5. Vaporize is an untargeted destruction selection at resolution; managed plain spell7 stays Stack through MZMULTICHOOSE. It is actually completed to GY4 before leave-trigger responses.",
+      "MONAfterMove calls ROSAfterMove, whose departure path uses physical Controller1 and current TurnPlayer1, independent of foreign destroyer4. Aura5 leaves to GY1 and queues generic ROS ability8Source5. Generic rosEvent absent is managed; no named-ROS await barrier. No Runechant before its own fresh responses1/2/3/4. Generated ResolveAbility calls CreateRunes1,3, yielding real owned Rune9/10/11.",
+      "Young Viserai1 plays no card, and Briar4 plays only Instants, so their on-play or AA damage Hero observers are not earned. No new turn, attack, Rune spending or blood debt. End HP3=19/others20, P1AP1/others0, resources0, source5GY1, spells6/7GY4, Arena1threeRunes and empty Stack/DQ are consistent observable outcomes."
+    ],
+    "limits": [
+      "Semantic/spec approval only, pending native save and targeted replay; no native success or coverage credit claimed.",
+      "Only existing Aura foreign destruction during own turn and delayed three-Rune leave reward. No Aura entry/go again, damage self-destroy, other turn, multiple Aura, Rune spending, sibling, Hero/support or whole-card credit.",
+      "Only this W review receipt written. No native/test/T/source/network/auth/Git/original-checkout action."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1242-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "49ebb210c3fc8f1565774e4c6a255add2042af313b2b0fa0370067d308eb33aa"
+  },
+  "full_suite_run": false
+}

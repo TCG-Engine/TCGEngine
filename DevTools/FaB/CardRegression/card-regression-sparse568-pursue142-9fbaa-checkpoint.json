@@ -1,0 +1,136 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-06T04:53:10.883369+00:00",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_spec": "card-regression-batch568-after142-r3.json",
+  "source_spec_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 31,
+  "native_assertions": 2297,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 3862,
+    "duels": 3074,
+    "four_live": 788,
+    "recorded_primary_ids": 1016,
+    "identity_denominator": 5196,
+    "recorded_groups": 890,
+    "group_denominator": 3324,
+    "four_live_groups": 781,
+    "phase_qualified_scenarios_at_actual_contexts": 499,
+    "phase_qualified_unique_groups": 494,
+    "creation_replay_passes": 998,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 2,
+  "scenarios": [
+    {
+      "card_id": "pursue_to_the_edge_of_oblivion_red",
+      "group_id": "identity:pursue_to_the_edge_of_oblivion_red",
+      "scenario_id": "card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "effect_branches": [
+        "pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-pursue-edge-oblivion-red-four-live-correct-four-damage-and-responseable-hit-mark-probe",
+      "source_spec": "card-regression-batch568-after142-r3.json",
+      "source_spec_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+      "review_evidence": "review-evidence/sparse568-pursue-after142-9fbaa.json",
+      "review_evidence_sha256": "281566e53eb317396dbf6445d47df28174c65342093a505158921d02e1a4a76e",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "qualification_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "matches_current_runtime": true,
+      "two_clean_replays": [
+        {
+          "path": "card-regression-replay-sparse568-after142-r1-9fbaa.json",
+          "sha256": "79bcd9f419e71b3386d10117fe83f1ab2c247ec5b443fe0c494ff636ed3e9b14",
+          "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+          "passed": true
+        },
+        {
+          "path": "card-regression-replay-sparse568-after142-r2-9fbaa.json",
+          "sha256": "f718090e7da206cd5162015462df86f4ea8160a0eaa770c0680c510c57dd5c5a",
+          "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+          "passed": true
+        }
+      ],
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "qualified_named_repair": {
+    "issue": "FAB-REG-142",
+    "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+    "independent_source_review": {
+      "path": "review-evidence/pursue142-9fbaa-independent-source-review.json",
+      "sha256": "77e61350d692675dfc4131322067a9105f1c020ca1860217daa45aabd244540d"
+    },
+    "source_application": {
+      "path": "review-evidence/pursue142-9fbaa-source-application.json",
+      "sha256": "efdd64ad042b5c52063c4c276955b1845cbd83606044e9ede40aaeb6541e833c"
+    },
+    "independent_saved_review": {
+      "path": "review-evidence/sparse568-pursue-after142-9fbaa.json",
+      "sha256": "281566e53eb317396dbf6445d47df28174c65342093a505158921d02e1a4a76e"
+    },
+    "native_before_evidence": {
+      "path": "review-evidence/pursue142-native-before.json",
+      "sha256": "6077516f78adf719a27b633a195e328312a3e5fea89836cba31964735eff164a"
+    },
+    "native_before_immutable_archive": {
+      "path": "recording-runs/card-regression-batch568-20261106T040952Z-6aed531045e1e.json",
+      "sha256": "0f04d315c1b37e1418293d1f97c92b645872a1d6ee3a689da0ec28d4dca8b3fd"
+    },
+    "all_before_native_reference_hashes_still_valid": true,
+    "isolated_components": {
+      "path": "review-evidence/pursue142-focused-components.json",
+      "sha256": "27eb2d011927ed961a231eb8193c5e728388c412931a740872294efbd62ed836"
+    },
+    "component_harness_review": {
+      "path": "review-evidence/pursue142-component-harness-review.json",
+      "sha256": "860ac4d74c7679b45107262774f4199b1ff81eb57fffce81ce8cb7d63c7a13af"
+    },
+    "oracle_correction": {
+      "path": "review-evidence/pursue142-unmarked-counter-oracle.json",
+      "sha256": "41130b6af5c6547d2ecda6f8156568900c1cfd70e26c009450ca8eb0f47c08d5"
+    },
+    "native_before_input_sha256": "06aa36f22c167b1e2d378cda00d24632bc681224c67c83f0a833cfe490d1c6ff",
+    "qualified_input_sha256": "8ad37836567d2bd9b033a656a7a442f90cdd7e7a6eb716d8eec69e7c915b168a",
+    "oracle_correction_scope": "Exactly four pre-Mark counter serialization values changed from explicitzero map to empty[]; zero counters are removed by the unchanged setter. All timing/damage/post-Mark expectations and prefix through original missing-Stack assertion1307 remain unchanged.",
+    "replay_evidence": [
+      {
+        "path": "card-regression-replay-sparse568-after142-r1-9fbaa.json",
+        "sha256": "79bcd9f419e71b3386d10117fe83f1ab2c247ec5b443fe0c494ff636ed3e9b14"
+      },
+      {
+        "path": "card-regression-replay-sparse568-after142-r2-9fbaa.json",
+        "sha256": "f718090e7da206cd5162015462df86f4ea8160a0eaa770c0680c510c57dd5c5a"
+      }
+    ],
+    "focused_compatibility": [
+      {
+        "path": "card-regression-replay-pursue142-icy-before-0942e.json",
+        "sha256": "2433af40d8df0a60e3c2014f0cc3e80c63222588dad5d39067e8814fdc136697"
+      },
+      {
+        "path": "card-regression-replay-pursue142-icy-after-9fbaa.json",
+        "sha256": "ed3b912bdbab8d460425b1fe11190897898ca291b0ef934537f57fff69353a44"
+      }
+    ],
+    "scope": "Actual4damage/HP16 precedes one earned source5/controller1 hit layer. Unmarked empty counters persist through three fresh responses; the fourth resolves Mark1 on the original Hero4, then full cleanup. One target/positive branch only; no sibling, alternate response spell, other Mark producer or full-card credit.",
+    "new_global_core_or_root_count_credit": false,
+    "full_suite_run": false
+  }
+}

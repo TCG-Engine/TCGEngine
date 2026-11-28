@@ -1,0 +1,7 @@
+{
+    "name": "Dorinthea Ironsong / a fully blocked sword earns no additional attack despite go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T16:32:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Two manual adult Dorinthea Ironsong heroes at natural 40 health in CC. Actual Potion funds two resources. Actual Hit and Run is played before any weapon attack, granting only its printed self go again and next weapon go again, with no conditional +3. Dawnblade costs one resource and AP, attacks for three, and is fully blocked by a physical three-defense Wounding Blow. Zero damage earns no Hero first-weapon-Hit trigger or Dawnblade hit counter. Printed granted go again refunds one AP; full Close leaves one resource and one AP. A real second sword click is rejected before target/cost/layer, proving AP and go again alone do not confer an additional use. Prior positive first-Hit timing hold remains untouched and uncredited. No engine change. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dorinthea_ironsong FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php"
+}

@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+  "source_spec": "card-regression-repair-cogwerx-zeppelin-red-lifetime-cost-20261126.json",
+  "input_sha256": "89586fde920e0490e6b71687b31f3ab0fdb2fcfc4a3e029869a4ad312b963f49",
+  "fixtures": [
+    {
+      "slug": "repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+      "card_id": "cogwerx_zeppelin_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "25ca1d2cbb23c5b06186759fd2f8d7fec04f54a1f600ce78dc9e2f8fdd636603",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "e8482aad7ea81c2523bf938c9138a4498d69de960265aa0de0d8fa1789058e51",
+        "expected_final_gamestate.txt": "a6866541d433d04b3caf23cf56da78158c8d05c3ff5542dc31a3cd6f82cb4e61",
+        "meta.json": "dc82f0caca53b21b2ab1cd16973dd5081ab7900cdd4c01f1eaa543608c2401b1"
+      },
+      "fixture_sha256": "dac1cc892300d4413ee28674735436534b5d84abaa3d79ab1e70ca1b026c81f3",
+      "actions": 30,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "runtime_sha256": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+      "source_spec": "card-regression-repair-cogwerx-zeppelin-red-lifetime-cost-20261126.json",
+      "input_sha256": "89586fde920e0490e6b71687b31f3ab0fdb2fcfc4a3e029869a4ad312b963f49",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "runtime_before": "7fd1365f95dd62624d86af47191911fbd0b3b721983de93497c9087406e7cd9c",
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "path": "FaBSim/Custom/GameLogic.php",
+    "before_sha256": "59da889d7916e9921510542ad9bccc25870bf76538eb1d80e13a213d18ae06a4",
+    "candidate_sha256": "a92971196cc0b1d6a6a821bbc28a3a528ce28a87389576a5cddab3fc884f80cc",
+    "scope": "211 enroll exact two reproduced red ATTACK plays in existing context-bound ordinary-vs-activated Cog Prepare guard; ability path unaffected.214 exact named Marlynn draw ROS layer uses existing managed lifetime through generated arrow choice; dispatch stays namedroute, no universal named-event migration."
+  },
+  "targeted_replays": {
+    "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+    "fixtures": [
+      {
+        "slug": "repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+        "passed": true,
+        "runtime": "3aa989176c22f1a39e08f36a370dfbbfa20e3956059d12417c8afff28a8e4c10",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-cogwerx-zeppelin-red-four-live-20261126-ordinary-cost-not-cog-activation",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\cog211-marlynn214\\cogwerx_zeppelin_red\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "d16e24220d1e80d8cd213ab923caf45a330ffc22876e1ce92b4a45fa9da5c981",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Two named red ordinary attack routes only; their positive hit abilities and untested pitchsiblings uncredited.",
+    "Marlynn native young Hero exactdrawroute, no adult/othernamed-event enrollment.",
+    "Nine isolated virtual-classification controls, not gameplay fixtures.",
+    "Primary-agent semantic/saved review; strict comparator unchanged; fullsuite unrun."
+  ],
+  "scope": "211 exact two reproduced red normalATTACK callers join existing context-bound Prepare bypass; separate activatedCogcost path retained. Original30-input2resource/two-real-Hand-block/no-hit/fullclose oracle passes each.214 exact seaMarlynn layer uses existing managed virtual lifetime without changing named dispatch; original15-input2draw-layer oracle passes through actualArrow7faceupArsenal, otherHand8, bothlayerscomplete/noextraactivation. All original assertions retained.",
+  "additional_validation": {
+    "actual_virtual_classification_checks": 9
+  }
+}

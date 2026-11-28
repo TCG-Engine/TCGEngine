@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T14:22:18.351502+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1399-20261122.json",
+  "source_spec_sha256": "4642aee0c8cada23dc74aa54409cd56759ed0eee7cbbb410a026a0dfb329c481",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 332,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5403,
+    "duels": 3113,
+    "four_live": 2290,
+    "recorded_primary_ids": 2551,
+    "identity_denominator": 5196,
+    "recorded_groups": 2425,
+    "group_denominator": 3324,
+    "four_live_groups": 2279,
+    "phase_qualified_scenarios_at_actual_contexts": 2040,
+    "phase_qualified_unique_groups": 2030,
+    "creation_replay_passes": 2782,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1201,
+  "scenarios": [
+    {
+      "card_id": "put_on_ice_red",
+      "group_id": "pitch-cycle:put_on_ice",
+      "scenario_id": "card-put-on-ice-red-four-live-sparse1399-actual-arsenal-play-zero-allies-draw-go-again-and-drawn-card-attack",
+      "effect_branches": [
+        "native_arsenal_cast_real_one_cost_zero_ally_targets_draw_and_go_again_then_drawn_attack_real_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-put-on-ice-red-four-live-sparse1399-actual-arsenal-play-zero-allies-draw-go-again-and-drawn-card-attack",
+      "source_spec": "card-regression-sparse1399-20261122.json",
+      "source_spec_sha256": "4642aee0c8cada23dc74aa54409cd56759ed0eee7cbbb410a026a0dfb329c481",
+      "review_evidence": "review-evidence/sparse1399-20261122-qualified-saved.json",
+      "review_evidence_sha256": "4575a7f65d987672b5c48cf83c246af18752166b695038feefb082e7b93495ff",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1399-20261122-replay.json",
+          "sha256": "acaa47a076fbdd4fbaf306013e2843b6e41e31a82c5f9bc883ebefac837713ad",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Give 'Em a Piece of Your Mind / actual Hero hit prevents the conditional missed-attack token gift",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T03:44:33+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "PARTIAL_ACTUAL_HERO_HIT_PREVENTS_MISS_GIFT_ONLY. FourrealYoungrhinar20andDori20allfourmanualUPF/naturalhealth/realprimary5/actualfunder6pitch2paysexactnormalcost/AP1to0/R0/nohit-or-token-historyseed. AdjacentHero4actualtarget; fourfreshsourceandcombatresponses. Realunblockedprinted7physicaldamage/attackHittrue/HP4=13. Atfullchaincloseinterveningdid-not-hitconditionfalse, noearnedvigorgifttrigger/layer/token/UIDunderANYseat. Actual5ownedGY1/funder6Pitchifany/R0AP0/RNG0UID6/StackDQsCCclean. Noactualmiss/tokenproducer/true-trigger-timing/support/sibling/fullcardcredit. Positiveprintedattackdamagepluscard-specificfalsemissguard, notpositivegiftcoverage. Sources: FaBSim/GeneratedCode/cardArrayCache.json#give_em_a_piece_of_your_mind_red FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/EVRCards.php"
+}

@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T21:19:23.034698+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse964-20261122.json",
+  "source_spec_sha256": "850d678323cfd75cb3d5ecfdc0f453dda4291b4ac67ee3b08dd6a3c8233417c8",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 91,
+  "native_assertions": 556,
+  "manual_passes": 75,
+  "totals": {
+    "saved_registered_scenarios": 4595,
+    "duels": 3075,
+    "four_live": 1520,
+    "recorded_primary_ids": 1743,
+    "identity_denominator": 5196,
+    "recorded_groups": 1617,
+    "group_denominator": 3324,
+    "four_live_groups": 1509,
+    "phase_qualified_scenarios_at_actual_contexts": 1232,
+    "phase_qualified_unique_groups": 1222,
+    "creation_replay_passes": 1974,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 393,
+  "scenarios": [
+    {
+      "card_id": "gear_turner_red",
+      "group_id": "identity:gear_turner_red",
+      "scenario_id": "card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "effect_branches": [
+        "actual_two_hand_blocks_preserve_real_cog_or_deck_without_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-gear-turner-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "source_spec_sha256": "850d678323cfd75cb3d5ecfdc0f453dda4291b4ac67ee3b08dd6a3c8233417c8",
+      "review_evidence": "review-evidence/sparse964-20261122-qualified-saved.json",
+      "review_evidence_sha256": "92222983a885244a4a52e66e75d0b2e4813b74c3aa6d00a5cdf67166fa317a31",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse964-20261122-replay.json",
+          "sha256": "48b388361afe10736443f041f833ba32088e09f1adfb608e5648df7a1d2228d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cogwerx_dovetail_red",
+      "group_id": "identity:cogwerx_dovetail_red",
+      "scenario_id": "card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "effect_branches": [
+        "actual_two_hand_blocks_preserve_real_cog_or_deck_without_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cogwerx-dovetail-red-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "source_spec_sha256": "850d678323cfd75cb3d5ecfdc0f453dda4291b4ac67ee3b08dd6a3c8233417c8",
+      "review_evidence": "review-evidence/sparse964-20261122-qualified-saved.json",
+      "review_evidence_sha256": "92222983a885244a4a52e66e75d0b2e4813b74c3aa6d00a5cdf67166fa317a31",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse964-20261122-replay.json",
+          "sha256": "48b388361afe10736443f041f833ba32088e09f1adfb608e5648df7a1d2228d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "cogwerx_prong_bot_yellow",
+      "group_id": "identity:cogwerx_prong_bot_yellow",
+      "scenario_id": "card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "effect_branches": [
+        "actual_two_hand_blocks_preserve_real_cog_or_deck_without_hit"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-cogwerx-prong-bot-yellow-four-live-sparse964-actual-two-hand-blocks-preserve-real-cog-or-deck-without-hit",
+      "source_spec": "card-regression-sparse964-20261122.json",
+      "source_spec_sha256": "850d678323cfd75cb3d5ecfdc0f453dda4291b4ac67ee3b08dd6a3c8233417c8",
+      "review_evidence": "review-evidence/sparse964-20261122-qualified-saved.json",
+      "review_evidence_sha256": "92222983a885244a4a52e66e75d0b2e4813b74c3aa6d00a5cdf67166fa317a31",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse964-20261122-replay.json",
+          "sha256": "48b388361afe10736443f041f833ba32088e09f1adfb608e5648df7a1d2228d0",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

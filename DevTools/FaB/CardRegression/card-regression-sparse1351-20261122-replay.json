@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-viserai-four-live-sparse1351-first-runeblade-nonattack-does-not-count-itself-as-another-exact-three-runechants-no-extra-hero-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "c07874d8c66b068cc3d152dee372e11e14cd85d1ff8faee0aa8b8c5dfdbe3d07",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "95baa96a42211aa3262416044a8560d4fb0997b8190eb8b1b9be9a02df630d60",
+        "actions.json": "2fc498690b4373cb4bfedec828403596e6afc9cf12487c75e6b03be6d20cbc46",
+        "assertions.json": "1198ca02504a86ef7fccba4da610bdaa6a50146e42d5616bc64b7c0b6b98625e",
+        "expected_final_gamestate.txt": "c6e5cda619d907cbc2b6ed6868dd3f915ff1a3132d6ac8d183554afc617ea4d9",
+        "meta.json": "4da8fb81d0ac6c98db0321f06ad20a9ec323d1f4e7d3286567642dbd54e34fbe"
+      }
+    },
+    {
+      "slug": "card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-verdance-four-live-sparse1351-four-faceup-non-earth-banished-cards-do-not-enable-heal-arcane-trigger-real-three-heal-then-base-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1351-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4043a8b8d6c2e6504beb7d4afd83f295cfb0148d6a9915062d4c5f2a0659f046",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3cf5e5d92a78e1c06dae2f45a557cb8bd5cd1443f9f085358c1c860fd3273e85",
+        "actions.json": "31dc4ae33f5b786b83f2de575c7b84b1f9ff1c010a2107dd3b2306f3f475ea1f",
+        "assertions.json": "3aed63154ab44915c274df9c0702964ef04d8c6294155e32aec9e15f16095105",
+        "expected_final_gamestate.txt": "335969a2ef270a0055905545be8358bd5c9d2f66d9fc171d8a8e1bbe496d4bc5",
+        "meta.json": "5b357073665023785d006b2d263c2d164b76f062da96eb23be135914284e0291"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

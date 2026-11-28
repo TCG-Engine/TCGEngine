@@ -1,0 +1,105 @@
+{
+  "status": "APPROVED_EXACT_KNOWN_DEPENDENCY_PLANNING_HOLDS_UNATTEMPTED",
+  "batch": 792,
+  "reviewer": "/root/sand_saved_recovery",
+  "reviewer_independent": true,
+  "approved": true,
+  "planning_classification_approved": true,
+  "native_execution_approved": false,
+  "qualification_permitted": false,
+  "created_utc": "2026-11-14T20:36:58.975180+00:00",
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "firm": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-firm-reservation.json",
+    "sha256": "aeb5c7db563532e6c5ebce64f92065fa5d85bc8ab213167e25b9fc1788d733a8"
+  },
+  "metadata_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-primary-support-family-metadata-preflight.json",
+    "sha256": "4d57b7f7cef6ca688e947d646d5b97ae945241d65d2c5c6f59f5e9d061bb6804"
+  },
+  "source_guard_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch791-dark-arcanite-helm-generic-source-shadow-controller-resist-author\\manifest.json",
+    "sha256": "301dc8c172d020563a4e0d7719399469362b6a19d6dbaba104878a883c90e0a7"
+  },
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "c1b296b05874e1f45757c427f517793877ef80b3bbd844f77bf7dc889de944cf",
+  "reused_independent_source_witness": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch790-that-all-independent-correct-positive-source-review.json",
+    "sha256": "5685dc657e69e2ab62a688cc53e2439e7b2300b4d8f72d0bef411a061ac21ad7"
+  },
+  "selected_preimage_count": 12,
+  "selected_preimage_map_sha256": "fd1fbb9bf92ae95505c21247cd0f6cac41bdc36b2c0aa26106373a2a7217224e",
+  "holds": [
+    {
+      "card_id": "shadowrealm_solace_blue",
+      "planning_input": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-solace-known-lifetime-unattempted-planning-hold.json",
+        "sha256": "eb737016476f03a9acd7a0d7736c2262945b01faed72850ec41c4b55678a4148"
+      },
+      "classification_approved": true,
+      "classification": "KNOWN_UNMANAGED_ORDINARY_SPELL_AWAIT_LIFETIME_UNATTEMPTED",
+      "evidence": "Real emitted optional Banish chooser and same-card return/Zombie heal exist. Both exact finite managed predicates exclude Solace; the actual ordinary nonpersistent fallback moves the source before ResolveRules, then applies go again and restores ACTION despite the await. This matches the retained Index/read-the-glide-path/foreboding-bolt family.",
+      "known_family_rows": [
+        ".holds[85]",
+        ".holds[159]",
+        ".holds[237]"
+      ]
+    },
+    {
+      "card_id": "concealed_blade_blue",
+      "planning_input": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch792-concealed-known-target-unattempted-inventory-supported-planning-hold.json",
+        "sha256": "d2bbf15511feaa667ee0a90573f0b99873eb6bd5fa6178673b6c19de2eb938d0"
+      },
+      "classification_approved": true,
+      "classification": "KNOWN_LATE_FORMAL_ATTACK_REACTION_TARGET_UNATTEMPTED",
+      "evidence": "The exact canonical and emitted ResolveCard first choose the formal hybrid attack target during resolution. No selected PrepareCard is registered; the current early-declaration compatibility bridge admits precisely Nip and Shred. This matches the retained Incision/Sutcliffe target-order family; issue035 does not supply general reaction coverage.",
+      "known_family_rows": [
+        ".holds[33]",
+        ".holds[89]"
+      ],
+      "inventory_source_admission": "SUPPORTED_EXISTING_SCHEMA_RECORDER_AND_UID_MOVEMENT; no framework defect. Ordinary AddInventory allocates a native initial UID and movement preserves it. The actual consumer validates owned Inventory Dagger and weapon capacity before Inventory-to-Weapons movement. No inventory recipe or native equip result was authored or certified."
+    }
+  ],
+  "rules_basis_reused": [
+    "CR5.1.4: formal target declaration precedes costs and priority (5.1.10).",
+    "CR5.3.4-7: finish resolving choices/effects before go again and source clearance."
+  ],
+  "metadata_observed_during_review": {
+    "sparse-source-only-holds.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\sparse-source-only-holds.json",
+      "sha256": "680f64e5ac3f0e699dbd856eb9d733fd964b3bef8a0f2618508fa31e5befa748"
+    },
+    "card-regression-issues.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-issues.json",
+      "sha256": "9555f4255868e3de29ecc421abc11d7cd3077ec9c3cb9514f247e8c88ad90c50"
+    },
+    "card-regression-review.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-review.json",
+      "sha256": "bfee57424ae63610fc5fb9ca681514a77e485c24d3e1269ab460ce9818c0ce79"
+    },
+    "coverage-additions-after218.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\coverage-additions-after218.json",
+      "sha256": "4c8c278d5977de4bae6e65746d777d60a8d3e3d810860375b0b7be577d38deae"
+    }
+  },
+  "historical_metadata_limit": "The frozen author notes retain their earlier review/coverage snapshot hashes and 4054/1082 counts. B791 registration changed those mutable metadata files after that snapshot; those figures are historical context, not a current-total assertion. The exact holds/issues and gameplay source remain unchanged.",
+  "counts": {
+    "native_inputs": 0,
+    "executable_cases": 0,
+    "fixtures": 0,
+    "new_issues": 0,
+    "coverage_credit": 0
+  },
+  "limits": [
+    "Planning classifications only; no native failure or confirmed new engine bug.",
+    "No Solace same-Zombie graveyard/life21/go-again/attack followthrough certificate.",
+    "No Concealed target/+1/damage/granted WHEN/response/equip/ownership or cleanup certificate.",
+    "No RGB, full-card, global missing-implementation, or inventory-framework defect claim.",
+    "No PHP, native game, replay, R write, repair, or B787 denied-operation retry."
+  ],
+  "review_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov14_batch792_planning_holds.py",
+    "sha256": "caaec7776beff6299ac2df4599ea9a5ac6a2e738f4b022c9003ed11869d1a222"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rolling-thunder-red-four-live-sparse1115-actual-accepted-6-then-real-brute-attack-7-plus-6-deals-13",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rolling-thunder-red-four-live-sparse1115-actual-accepted-6-then-real-brute-attack-7-plus-6-deals-13",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1115-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1115-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a9f0f5b484a8cea7280f31d14ee6f0f81169f6800295832e60cf33a85ebd870f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b78bd0c21d6f4a8bd64f3c4b851d866b29bdd8f665a12074d127e3a17bee34f",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "60ef9256e0563ceff94b44fb8dbcc0c8b6ce28bea68b1836806e3b03bee16145",
+        "expected_final_gamestate.txt": "0fdd4cbf8fc05b72572983a003c8dac35d355e230efd10f6513c142093188b30",
+        "meta.json": "5b92ac8a0dee1947d6a413c6b5e5717f33bd988f53a3259e1c1a0f62a078545e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

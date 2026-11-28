@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "47649b223871513c78a64d733653484d56fd5c30f605eb53cbaa488ce385fe4f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33c4013fb3bb88bae91e04758daaf7f7007439c75adc19a95e7740f935d71469",
+        "actions.json": "b2848e71087553e93376bbb654cd173ec3d60081458d615d2791c7fec0b6ae9c",
+        "assertions.json": "8349d5b18f4d995a127a391bf30d08c7e7f6e840513f1904aae3954cb5dd8fdf",
+        "expected_final_gamestate.txt": "01969c352d263adb0736b3ccf64ad07584d16723305755d367bd2be8473db483",
+        "meta.json": "d9add471f598045fe21c11616a3313ce31c917c44f0f18c2b06e5bfa61c98970"
+      }
+    },
+    {
+      "slug": "card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4ba6a5f3cce48daee52a62286a1c019539e0e3d5cc77d323b756ff30ffb81125",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d9b4a20206ea8dcd31c151a49d224c943820933a8816b75b90f396d35ab27c5",
+        "actions.json": "b2848e71087553e93376bbb654cd173ec3d60081458d615d2791c7fec0b6ae9c",
+        "assertions.json": "3cd9831c169494900e1bf01cabf4456bb2caf452deceeaea2d5200cd690bfcd5",
+        "expected_final_gamestate.txt": "c563f2edd9afa826f550ff643be294750567151569ed254cfea4d852ae260816",
+        "meta.json": "a7aa36c146df1f319fba8bb0c5f7c86c809466c13948358ac46d7029bd8763a6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

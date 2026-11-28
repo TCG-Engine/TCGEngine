@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed-event and intrinsic-defense review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1105-20261122.json",
+  "source_spec_sha256": "cd7c89814194d045ce3b70488b7e8a597ee033d53f76a4324de06a00f3104513",
+  "input_sha256": "cd7c89814194d045ce3b70488b7e8a597ee033d53f76a4324de06a00f3104513",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-golden-glare-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+      "card_id": "golden_glare",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae2a84a6bf01b8e7394cc1f4ef8e6af61f9e00528c80ecd2290ea87ca548a105",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b50037b93b18ca111aa3f4eec526ae4d5d99a12a743c056fae22196d2bec1726",
+        "expected_final_gamestate.txt": "3bccc6938c1a9b19b5a66bb0a28e71d9dba5cd7b03a29736ed852312e2027765",
+        "meta.json": "3e07fe2e0da8ef95a6675ef1d49dad933e6a123016dd2c87695dba46adbe19df"
+      },
+      "fixture_sha256": "d58c7151e397ca414d2612be83c6478cc8291fc5e097d3968639bdf1f151ccdc",
+      "actions": 29,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1105-20261122.json",
+      "input_sha256": "cd7c89814194d045ce3b70488b7e8a597ee033d53f76a4324de06a00f3104513",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-golden-glare-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "fixture_slug": "card-golden-glare-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-face-purgatory-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+      "card_id": "face_purgatory",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "14d88b89990eae76081616744066f40171dc143ca976fa75fdff4c909c71aa0e",
+        "actions.json": "5e66c904371c6df1bdcfce3c48fa00e040d5b51953374c60e180e1ced402c6ea",
+        "assertions.json": "b239eb909b532b406480b93880c3a74b054325bdf43ade0ea83762fc5bd44190",
+        "expected_final_gamestate.txt": "255122f59d259c1e7a2303947cdee82e8530ccc265305fdf295f514d58da9498",
+        "meta.json": "b216b962065b4d92fde6909c5580ea0ce7500f72390d8afa58cf2535b57231ad"
+      },
+      "fixture_sha256": "979a9e9f68829df676cf9719e9f533f1c9d030dfbae2252454e4bb529ac1cec5",
+      "actions": 29,
+      "native_assertions": 247,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1105-20261122.json",
+      "input_sha256": "cd7c89814194d045ce3b70488b7e8a597ee033d53f76a4324de06a00f3104513",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-face-purgatory-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "fixture_slug": "card-face-purgatory-four-live-sparse1105-real-two-plus-two-block-and-blade-break-with-strictly-absent-joined-defender-event",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "cd7c89814194d045ce3b70488b7e8a597ee033d53f76a4324de06a00f3104513",
+    "reviewer": "breadth_review independent printed-event and intrinsic-defense review",
+    "basis": [
+      "Golden Glare is Guardian/Victor Specialization legal for young Victor20; Face Purgatory is Runeblade legal for young Viserai20. Both have printedDEF2/BladeBreak. All four actual heroes are young/natural20.",
+      "Actual defending companion is only one Red Generic NAA Lead the Charge6: zero yellow partners for Golden Glare, and no defending AA for Face Purgatory. Opponent Wounding7 is the attack, not a defending partner. Thus the qualifying joined defend events are absent, not earned WHEN effects with false IF. No Gold creation/Victor event or Viserai play event occurs.",
+      "Actual source7 cost0/printed4 spends AP1 to0; all four manually respond in source/combat windows. Real NAA6 DEF2 and physical Equipment5 DEF2 declare and exactly fullblock4, yielding damage0/noHit/HP20.",
+      "Normal Close BladeBreak moves both physical defender cards to owner4graveyard [6,5], actual attack7 to owner1graveyard, with markerDeck8 unchanged and no draw/token/extra allocation. UIDmax8 and source7 physical identity remain coherent. All relevant costs/Role/ownership/fates are persisted."
+    ],
+    "limits": [
+      "Only ordinaryDEF2/fullblock/BladeBreak and strict qualifying-event absence. No positive Gold, discard/draw, body trigger timing, hero/support identity/native equip/whole-card claim.",
+      "Native recording/replay pending; held positive-body/timing/ownership branches remain unrun/unrepaired."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1105-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d7558347326ecababa7b8e416bf5a1a29f63f1bd57c84ac5f643f2308d0258ec"
+  },
+  "full_suite_run": false
+}

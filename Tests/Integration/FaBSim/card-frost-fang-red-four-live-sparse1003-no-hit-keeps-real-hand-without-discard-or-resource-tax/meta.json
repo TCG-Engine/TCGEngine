@@ -1,0 +1,7 @@
+{
+    "name": "Frost Fang / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:45:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, they discard a card unless they pay {r}{r}. Named partial branch no_hit_keeps_real_hand_without_discard_or_resource_tax. Legal natural20 oldhim, primary5 Hand, realBlue6 pays printed2 leavingR1/AP0; actual5 attack fully blocked by real Hand AA defense6. Persisted attackPower/defenseValue/0damage/HP20/noHit/Stack0, source5 and all real defenders reach respective owner graveyards. Allfour live/manual; no hero activation or hit effect earned. Real enemy NAAHand9 remains; no discard/resource tax. No positive hit/creator/permission/hero/support/pitch-sibling/full-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#frost_fang_red"
+}

@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T23:43:25.360092+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse988-20261122.json",
+  "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 147,
+  "native_assertions": 1200,
+  "manual_passes": 128,
+  "totals": {
+    "saved_registered_scenarios": 4686,
+    "duels": 3075,
+    "four_live": 1611,
+    "recorded_primary_ids": 1834,
+    "identity_denominator": 5196,
+    "recorded_groups": 1708,
+    "group_denominator": 3324,
+    "four_live_groups": 1600,
+    "phase_qualified_scenarios_at_actual_contexts": 1323,
+    "phase_qualified_unique_groups": 1313,
+    "creation_replay_passes": 2065,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 484,
+  "scenarios": [
+    {
+      "card_id": "turn_timber_red",
+      "group_id": "pitch-cycle:turn_timber",
+      "scenario_id": "card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+      "effect_branches": [
+        "unfused_real_blue_payment_six_defense_one_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "review_evidence": "review-evidence/sparse988-20261122-qualified-saved.json",
+      "review_evidence_sha256": "34e308571cb9c9a9ae3d09a98d58f8a2c37452fa6ef8d4c4e5153f3d2e1cf744",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse988-20261122-replay.json",
+          "sha256": "5e61e1ba1f0cfbb6ca498a706a68d4794a9a7c0c0ab268bd7e46ae820a84f3c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "golden_company_red",
+      "group_id": "pitch-cycle:golden_company",
+      "scenario_id": "card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+      "effect_branches": [
+        "normal_resource_payment_without_gold_six_defense_one_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "review_evidence": "review-evidence/sparse988-20261122-qualified-saved.json",
+      "review_evidence_sha256": "34e308571cb9c9a9ae3d09a98d58f8a2c37452fa6ef8d4c4e5153f3d2e1cf744",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse988-20261122-replay.json",
+          "sha256": "5e61e1ba1f0cfbb6ca498a706a68d4794a9a7c0c0ab268bd7e46ae820a84f3c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sigil_of_parapets_blue",
+      "group_id": "identity:sigil_of_parapets_blue",
+      "scenario_id": "card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+      "effect_branches": [
+        "own_cast_before_defending_base_two_no_later_wizard_play"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "review_evidence": "review-evidence/sparse988-20261122-qualified-saved.json",
+      "review_evidence_sha256": "34e308571cb9c9a9ae3d09a98d58f8a2c37452fa6ef8d4c4e5153f3d2e1cf744",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse988-20261122-replay.json",
+          "sha256": "5e61e1ba1f0cfbb6ca498a706a68d4794a9a7c0c0ab268bd7e46ae820a84f3c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "loyalty_beyond_the_grave_red",
+      "group_id": "identity:loyalty_beyond_the_grave_red",
+      "scenario_id": "card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+      "effect_branches": [
+        "actual_arsenal_reaction_base_three_no_future_start_step"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "review_evidence": "review-evidence/sparse988-20261122-qualified-saved.json",
+      "review_evidence_sha256": "34e308571cb9c9a9ae3d09a98d58f8a2c37452fa6ef8d4c4e5153f3d2e1cf744",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse988-20261122-replay.json",
+          "sha256": "5e61e1ba1f0cfbb6ca498a706a68d4794a9a7c0c0ab268bd7e46ae820a84f3c2",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

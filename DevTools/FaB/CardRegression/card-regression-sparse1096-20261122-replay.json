@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-apex-bonebreaker-four-live-sparse1096-ordinary-defense-with-no-six-power-partner-then-temper-counter-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-apex-bonebreaker-four-live-sparse1096-ordinary-defense-with-no-six-power-partner-then-temper-counter-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1096-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1096-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4de27af213b577be1c1c96ff072e2c4509affc8bbc684bbb70d741c7dd468d29",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7a4c79320a13fcd7e4e90c591588451a0bb639561aa42965ff8a59c96b045247",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "09cfc3beff481d17c4ae524c347ecfe87e6c56c31b646c843400b8ff52737faf",
+        "expected_final_gamestate.txt": "42c6a58c6c86cf437f6eb2964c64cab5c00f2f74aab720455256d2e1eab68648",
+        "meta.json": "9987f0622f2fd70a5e25c0774060ee2eced885746150fe8e7eebf97499d2fdae"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

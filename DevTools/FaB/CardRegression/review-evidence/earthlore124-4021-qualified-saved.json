@@ -1,0 +1,48 @@
+{
+  "status": "EARTHLORE124_ORIGINAL10_1113_SINGLE_CLEAN_REPLAY_PASS",
+  "reviewer": "Root independent of b820 source/checker and original482 recipe author",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+  "input_sha256": "a4dcc36ea71662f84faceee1365520d45c341e465bcf2de965fde3ec67ca1963",
+  "source_spec": "card-regression-repair-earthlore124-grouped-action-draw.json",
+  "fixtures": [
+    {
+      "slug": "card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+      "card_id": "earthlore_bounty",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1268ec8a7a5561cf2e0224fb9ad085ce4e55bedb33b3685b3fe9643a35a8790",
+        "actions.json": "08b7c88dd560dd892dd1da00b1d8e0d9b8e5d04bddb0c383507c568ace9cd4b9",
+        "assertions.json": "ee88e576c2b6400b1ee09c9351dbe7bc72de63d7b66a4fe613e4e978ca38612e",
+        "expected_final_gamestate.txt": "17a5b3ac86f41d23e35bb0353a7a7a99b99bb3400ed1cc77800caf385f553a5d",
+        "meta.json": "c8dc136519c2df04c86c28a95b559068124fa9bcf5ed2f99941f4197391eb3b2"
+      },
+      "fixture_sha256": "7c24f15d8c53d7543f2de84e13bc33c0b7a61eac7849400a91107733fc70c0ea",
+      "actions": 10,
+      "native_assertions": 1113,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+      "runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+      "source_spec": "card-regression-repair-earthlore124-grouped-action-draw.json",
+      "input_sha256": "a4dcc36ea71662f84faceee1365520d45c341e465bcf2de965fde3ec67ca1963"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov17-earthlore124-replay.json",
+    "sha256": "fab90d8b8a932aa534445ce20357091752c3a5ef25e3748e8adc2548ff470240",
+    "passed": true
+  },
+  "source_review_sha256": "8dbd95d9d76e77f66e7d2f5b145ccbe17ff5113d09fd3c726d79f21131ec55fb",
+  "components": 56,
+  "component_receipt_sha256": "3cf37bb643a0f9d3d4e43a3ee5c2c1527e9ca2554f3ecc97577ea8ce40f87008",
+  "basis": "Alloriginal10actions1113queries/setup unchanged. RealHandTomeYellow6paid1withBlue7/AP0/R2 drawsrealDeck8/9together andretainsBlue10tail withoutArsenalheal. OnecapturedEquipment5ability/count2 remainsbeforeSeismics; freshfourmanualresponses precedeactualowned12/13Seismiccreation throughoriginalfactory. Bounty5stillreadyEquipment,6ownGY,7Pitch,8/9Hand,10Deck,HP20/R2/AP0/fullfourlive/StackDQframecleanup verified. No one-trigger-per-card substitute or synthetictokens/outcomes.",
+  "official_source": "https://fabtcg.com/articles/errata-bulletin-10/",
+  "limits": [
+    "OriginalvalidMAINActiondraw2branch only. Otherphases and stale/absent/misattributedmzID effect-source contexts are unqualified; originalattributiongates retained, not certified as generaldrawframework.",
+    "56actual-function components separatelycovergroupedvssplitdrawcalls,functionalEquipment/Equipment-originCC,capturedsourceindependence,countpayloads/contextrestoration. Token/primitives are isolated; actualNativeabove suppliescreation/ownership/UIDorder evidence.",
+    "Otherdrawlisteners includingValda remainunchanged/unqualified, notcertifiedresponseablebythisrepair. No generic094, generated/Core/schema/service/globalfirsttracking edit, fullsuite/historicalcorpusreplay or breadth expansion."
+  ]
+}

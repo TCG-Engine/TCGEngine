@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-harvest194-after0e825.json",
+  "runtime_sha256": "0e8250ae60f0d6180065cf516588546c2b5e2533cb4951533ca1c6fbf004f40a",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T16:55:56.139068+00:00",
+  "fixtures": [
+    {
+      "slug": "card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "fixture_sha256": "0609039af2b79ea2f33a0fff626ec3da250dee0a1a1d4c1470a7bf68ee79de8c",
+      "passed": true,
+      "result": "[PASS] Harvest Season Blue / real next Action phase earned destroy and life"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-harvest-season-blue-four-live-real-next-action-earned-destroy-life-repair",
+      "returncode": 0,
+      "stdout": "[PASS] Harvest Season Blue / real next Action phase earned destroy and life\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,70 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T18:44:33.390792+00:00",
+  "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+  "source_spec": "card-regression-repair-cog105137-after587b.json",
+  "source_spec_sha256": "22a599c7e84ab50cb375a491d7aaa28803dbfca2d789f0429997adfe0026f652",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 40,
+  "native_assertions": 3304,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 4112,
+    "duels": 3074,
+    "four_live": 1038,
+    "recorded_primary_ids": 1265,
+    "identity_denominator": 5196,
+    "recorded_groups": 1139,
+    "group_denominator": 3324,
+    "four_live_groups": 1031,
+    "phase_qualified_scenarios_at_actual_contexts": 749,
+    "phase_qualified_unique_groups": 744,
+    "creation_replay_passes": 1490,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "backspin_thrust_red",
+      "group_id": "identity:backspin_thrust_red",
+      "scenario_id": "card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+      "effect_branches": [
+        "backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-backspin-thrust-red-four-live-sparse-real-gun-tap-earns-cog-untap-cost-and-resolving-power-choice",
+      "source_spec": "card-regression-repair-cog105137-after587b.json",
+      "source_spec_sha256": "22a599c7e84ab50cb375a491d7aaa28803dbfca2d789f0429997adfe0026f652",
+      "review_evidence": "review-evidence/backspin105-qualified-saved-587b.json",
+      "review_evidence_sha256": "fb5855c2ff3336309394d22c50c8a14ffffc8c4e7ed197381995da71985d40ce",
+      "recorded_runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "qualification_runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-backspin105-after587b-replay.json",
+          "sha256": "78c2324a598d2ab8ce880fcda3aad82861aa42ed9bebff4e8e099cb156c43295",
+          "runtime_sha256": "587be9dade3767b542cd4daf172f2cc5000c62c89af020ceaf2c094a5357540d",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [
+    "card-cloud-skiff-blue-four-live-correct-normal-cost-then-separate-cog-tap-instant-deals-four"
+  ]
+}

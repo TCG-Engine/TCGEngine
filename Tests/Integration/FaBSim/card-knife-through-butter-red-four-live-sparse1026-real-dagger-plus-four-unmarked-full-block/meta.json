@@ -1,0 +1,7 @@
+{
+    "name": "Knife Through Butter / four-live actual dagger buff",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T03:22:15+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Your next dagger attack this turn gets +4{p}\nWhenever you attack a marked hero this turn, the attack gets go again.\nGo again LegalDorinthea20 playsprinted1 usingactualBlue6/R2/AP0; allfourmanualNAAresponses, printedGAAP1. RealownedQuicksilverDagger7 targetsunmarkedHero4(Counters[]), paysprinted1fromactualremainingR2\u2192R1/AP0; printed1+4=5 assertedonactualchain/DAMAGEvsactualtwoHandAADEF6/zeroDamage/noHit/HP20. Primary5ownedGY, realBlue6Pitch, weapon7usedretained, actualblockers8/9ownedGY4. TypedWHENattacksaMARKEDhero absent; nootherweaponattackgainedGA, soQSstaticfalse/AP0resolution. No positiveMark/grantedGA/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#knife_through_butter_red"
+}

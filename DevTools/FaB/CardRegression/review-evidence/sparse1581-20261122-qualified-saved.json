@@ -1,0 +1,110 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1581-20261122.json",
+  "source_spec_sha256": "320f5499526afa2e4409dc2797b0f668d957ddda529cdedb33df4dd55f33dedb",
+  "input_sha256": "320f5499526afa2e4409dc2797b0f668d957ddda529cdedb33df4dd55f33dedb",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "status-marked-four-live-sparse1581-foreign-instant-marks-hero-cleared-by-different-opponent-hit",
+      "card_id": "marked",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c1d6e8676338186ecc9130dfc20ac52ef0ea5e4317c00c05ccbe2c77dc9b48e9",
+        "actions.json": "37f4ae46804b5b8528939b0717f749b2e1aea1e7bd806773b1071a7ea928895c",
+        "assertions.json": "572f207fb4701af3f7afc828b926260cfd4f0301a23ea95d58f602a2624da82d",
+        "expected_final_gamestate.txt": "ea060f3cdb417abdd5cf3e36d244c47f3596a901e0d2789e1b51b49f38b5c1d0",
+        "meta.json": "85289fd63400466d3298595baed734c0239f14cee48d2f0ae7d5a215daa765bb"
+      },
+      "fixture_sha256": "6607ea9b7b279ed758bf136daee58bb185f27d89553d6a0c2446d240646fc433",
+      "actions": 43,
+      "native_assertions": 473,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 39,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1581-20261122.json",
+      "input_sha256": "320f5499526afa2e4409dc2797b0f668d957ddda529cdedb33df4dd55f33dedb",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1581-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "status-marked-four-live-sparse1581-foreign-instant-marks-hero-cleared-by-different-opponent-hit",
+        "fixture_slug": "status-marked-four-live-sparse1581-foreign-instant-marks-hero-cleared-by-different-opponent-hit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1581,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T16:10:57.899041+00:00",
+    "spec_sha256": "320f5499526afa2e4409dc2797b0f668d957ddda529cdedb33df4dd55f33dedb",
+    "source_note_sha256": "5fc90db02318ec06ae4792a0220fc8bbb1953286adbed3b4c431971e1de22842",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/HNTRuntime.php": "d5554642848c3f271112e542c20d3744662c0007ebd7bb741d5d4d2dd1b210a1",
+      "FaBSim/Custom/HNTCards.php": "8c58ea4998016d2883b8b44f840000e94bff848ec4c07b65f8f976b283422ccc",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe"
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact review approved identity:marked as an explicit functionalstatus reminder, not playableCard/phantomobject; no extra support identity or broad target-universe credit.",
+      "Actual off-turn Hand activation4, Hero3 formal declaration before physicalTip5discard/GY4, ABI7Controller4/source5/Hand andfreshresponses4,1,2,3 lead back toturnplayer2/ACTION2. AllsourceUIDs/actor2CC/adjacenttarget3 align.",
+      "Mark1 persists before realHala2Hit, then actual2damageHP3=18 andintrinsicMarkremoval removescounterkey. Fullsourcefates correct, and no additionalWHEN layer is owed for status expiry.",
+      "Independent exact correction review verified only two unrelated post-End Hero1 whole-Counters[] assertions removed; all43 controls and primaryMark/HP/fate expectations unchanged, now473checks. First16-input/no-fixture attempt failed on neutral MST_COLORLESS_UNTIL:0 metadata, not gameplay. All15 archived files verified; no prior fixture or replay existed."
+    ],
+    "rules_basis": {
+      "url": "https://rules.fabtcg.com/en/cr/09-additional-rules/",
+      "rules": [
+        "9.3.2b",
+        "9.3.3"
+      ],
+      "paraphrase": "An opposing source hit ends Mark as part of that event; this is not a triggered effect."
+    },
+    "limits": [
+      "Source/spec review only; native/save/replay pending.",
+      "zero_damage_or_self_damage_not_Hit_and_other_expiry_controls",
+      "retarget_or_invalidated_Tip_ability_and_other_status_consumers",
+      "support_identity_or_other_card_or_whole_card_credit"
+    ],
+    "oracle_correction": {
+      "archive": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1581-local-20261122\\failed-first-save-unrelated-ended-hero-counter",
+      "manifest_sha256": "ab65059377588c96b00cb063cb5004ec19e2ec565285128482d1dc120891b4cf",
+      "original_spec_sha256": "c92f1ca7096c6871476140096c9d62166fd350a845f221bf0c4b3e4ca3e75c83",
+      "removed_assertions": 2,
+      "controls_unchanged": 43,
+      "gameplay_expectations_unchanged": true,
+      "new_gameplay_bug": false
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1581-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "967085334eb87fc52c34473713a4b12c91638a1d8abb8f2fe63ae5c5ea752206"
+  },
+  "full_suite_run": false
+}

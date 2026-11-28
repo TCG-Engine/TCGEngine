@@ -1,0 +1,7 @@
+{
+    "name": "Current Funnel / actual previous action not lightning no current go again",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T14:18:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_OSCILIO18_THREEDORI20. ActualTimesnap5DestroyAction0/AP1to0\u2192ABI10all4responses\u2192actual2AP; nofakedhistory/effects/extraAP. RealGenericCriticalBlue6cost1paidBlue7(R2/AP1), actual3power/noGA/all4combat/P4HP17/fullclose. This isactualpreviousActionandNOTLightning. ThenactualCurrentFunnelBlue8LightningAA0/AP0/all4combat/base2/noGA/actual2damageP4HP15/fullclose. ItsownLightningtypenotpreviousAction; ROSPlayedcapturesLAST_LIGHTNINGbeforeupdatingforcurrentUID, independentofheldFAB_PLAY_ORDERcounter. No positiveWHENearnedbecausepriorGenericAction. FullyaffordableHealing9Hand0nativeattemptrejectAP0, preservingcard/UID10/R2/quietStackDQ. Onlyprevious-elementfalseguard/currentGAandreal2attacks/costs. PositivepriorLightning/currentandnextGA/timing,nextActiongrantinspection,otherpitch/initialItemprovenance/support/fullcarduncredited; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#current_funnel_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELECards.php FaBSim/Custom/ROSRuntime.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php"
+}

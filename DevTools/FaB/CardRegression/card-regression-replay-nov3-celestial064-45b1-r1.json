@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch273-celestial-correct-probe.json",
+  "runtime_sha256": "45b1bbec61246447493c60c95e65f86310e1f5fe5ae43725f3b61deb47c5115b",
+  "returncode": 0,
+  "completed_utc": "2026-11-03T01:32:41.828167+00:00",
+  "fixtures": [
+    {
+      "slug": "card-celestial-cataclysm-yellow-four-live-correct-probe-actual-channel-tax-assets-before-three-soul-effect-cost",
+      "fixture_sha256": "ba99c6e83be627297384bef4d6ede2a98b564bf5c214043ec4fedf5939f4d53a",
+      "passed": true,
+      "result": "[PASS] celestial_cataclysm_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-celestial-cataclysm-yellow-four-live-correct-probe-actual-channel-tax-assets-before-three-soul-effect-cost",
+      "returncode": 0,
+      "stdout": "[PASS] celestial_cataclysm_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Glyph Power Spell / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T06:04:54+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Deal 4 arcane damage to any target. If you control a card with Sigil in its name, instead deal 6 arcane damage. Representative only: real_sigil_condition_and_blue_pitch_pay_for_six_arcane. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#glyph_power_spell_red"
+}

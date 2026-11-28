@@ -1,0 +1,7 @@
+{
+    "name": "Sedation Shot / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:21:58+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has an aim counter, it gets +1{p}.\n\nWhen this hits a hero, create an Inertia token under their control. Named main/full-block representative: actual Lexi20 ElementalRanger with owned controlled Shiver7(or6zeroCost), source5 facedownArsenal/Counters[] initially, no Bow/Hero activation. Actual cost0or1/physicalBlue6ifpositive/R2/AP0; exact2+2def4or3+2def5 realHand cards, actual0damage/noHit/Stack0/all4manual. This pins absence of erroneous aim+1 in the three toxin arrows; no hit token is earned. Physical source and both defenders ownedGY. Salvage keeps real ownDeckmarker10 and source5GY instead of bottom. No equipment-defend Piercing, positive Aim/hit/tokens/ownership/future abilities or pitch sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#sedation_shot_red"
+}

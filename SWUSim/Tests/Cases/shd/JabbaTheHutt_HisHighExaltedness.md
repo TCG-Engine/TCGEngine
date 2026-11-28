@@ -211,8 +211,8 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>PlayHand:0
 
@@ -336,8 +336,8 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 - P1>UseUnitAbility:myGroundArena-1
 - P1>AnswerDecision:theirGroundArena-0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>AttackGroundArena:0:0
 
@@ -374,8 +374,8 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080]
 - P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P2>Pass
 - P1>PlayHand:0
 

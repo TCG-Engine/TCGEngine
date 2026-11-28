@@ -1,0 +1,7 @@
+{
+    "name": "Angelic Wrath / real non-Herald attack is not a legal target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T06:03:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalLightIllusionistPrism20/manuallive4. ActualWoundingRed5cost0 targetsadjacentHero4, AP1to0, fourresponses\u2192realgenericnonHeraldCC5power4/noGA. PrimaryInstant6cost0 clickedatATTACKpriority1 (legalInstantwindow/noresourcecost) has nolegalHerald target; samephysicalHand6/CC5 unchanged, StackDQempty/noeffect/buff/GA. Fullmanualcombat actual4damageHP16, support5GY andprimary6Hand/AP0/R0/otherHP20/noStackDQawait/newUID. Rejection-onlyspecificnamedtargetconstraint; no positiveHerald target, effect, declarationtiming, Angelconsumer or siblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#angelic_wrath_red FaBSim/Custom/DTDCards.php#FaBDTDCanPlay FaBSim/Custom/DTDCards.php#FaBDTDAttacks FaBSim/Custom/DTDCards.php#FaBDTDHeraldCards"
+}

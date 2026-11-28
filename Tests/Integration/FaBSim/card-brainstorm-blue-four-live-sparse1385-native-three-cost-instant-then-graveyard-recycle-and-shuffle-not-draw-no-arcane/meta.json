@@ -1,0 +1,7 @@
+{
+    "name": "Brainstorm / graveyard-to-deck recycling is not a draw",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:27:03+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_KANO15_THREEDORI20. ActualBrainstorm5Instant3fromHandfundedbyactualBaubleBlue6pitch3/AP1preserved/R0, all4responses\u2192same5GYandlastingnativeeffect. Noartificialeffectstate. ActualRemembrance7Instant0/all4responses\u2192realoptional0to3ActionchooseronlypriorWounding8GY(validAction), notBrainstorm5Instant. Source7remainsStackthroughchoice, real8GY\u2192singletonDeckshufflenoRNG\u21927selfBanishfaceup/5GY/6Pitch/Hand0. GraveyardrecycleandshuffleareNOTdraws: noCardtoHand/noDrawEvent, noBrainstormWHEN/arcanechooser/layer/damage/extraUID; allHPsame15/20/20/20/AP1/R0/UID8/RNG0/DQquiet. SourceDYNDrawnrequiresactualDoDrawCardevent/actionphase; currentnativeeventsarepitch/play/recycle/shuffle. Onlyevent-typeguard+actualpaidInstant+realrecyclefates, notpositiveDrawWHEN/target/timing/damage/phaseboundaries/stacking/endturn/support/provenance/fullcardcredit. KnowninlinepositiveDrawrouteunrun/uncredited, noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#brainstorm_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/DYNRuntime.php FaBSim/Custom/DYNCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php"
+}

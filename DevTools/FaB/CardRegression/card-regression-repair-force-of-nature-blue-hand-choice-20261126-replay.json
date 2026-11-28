@@ -1,0 +1,23 @@
+{
+  "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+  "fixtures": [
+    {
+      "slug": "repair-force-of-nature-blue-four-live-20261126-hand-cost-choice-and-main-resolution",
+      "passed": true,
+      "runtime": "7d3ae36c63eb83c9e25afd21293da03797410bed3cbe81ff70dfbf362ca47cb5",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-force-of-nature-blue-four-live-20261126-hand-cost-choice-and-main-resolution",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\prepared-hand-226-229-231\\force_of_nature_blue\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "acdb257762201d5aada48cf61887bb5f6cbec3066cc3be8192b0d1ef43959d58",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

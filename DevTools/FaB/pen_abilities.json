@@ -676,7 +676,7 @@
     "abilities": [
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$chosen = \"-\";\n $refs = FaBStageSearch($player, ['base'=>'hyper_driver']);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Find_Hyper_Driver\");\n \n}\nFaBMoveChoice($player, $chosen, 'Temp', 'Arena');\n FaBFinishSearch($player);\n",
+        "abilityCode": "$chosen = \"-\";\n $refs = FaBStageSearch($player, ['base'=>'hyper_driver']);\n if ($refs !== \"\") {\n $chosen = await $player.MZChoose($refs, \"Find_Hyper_Driver\");\n \n}\n$item = FaBMoveChoice($player, $chosen, 'Temp', 'Arena');\nif ($item !== null) {\n $entered = FaBFindUID(intval($item->UniqueID));\n if ($entered !== null && $entered['zone'] === 'Arena' && $entered['player'] === $player && FaBWTRBase($entered['object']->CardID) === 'hyper_driver' && FaBHasType($entered['object'], 'Item') && !FaBHasType($entered['object'], 'Token')) {\n  FaBARCEnterItem($player, $entered['object']);\n }\n}\n FaBFinishSearch($player);\n",
         "isImplemented": true
       }
     ]
@@ -1491,8 +1491,9 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$seats = FaBOpponents($player);\n for ($i = 0; $i < count($seats); $i = $i + 1) {\n $victim = intval($seats[$i]);\n FaBHVYToken($victim, 'frostbite', 1, $player);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "$seats = FaBOpponents($player);\n for ($i = 0; $i < count($seats); $i = $i + 1) {\n $victim = intval($seats[$i]);\n FaBHVYToken($victim, 'frostbite', 1, $player, null, false, $player);\n \n}\n",
+        "isImplemented": true,
+        "previousCodeHash": "b0b0d917bdaf1a7c106c1d0cc81ba6a8b055775672090f8b8ab058940a27da81"
       }
     ]
   },
@@ -2036,7 +2037,7 @@
     "abilities": [
       {
         "macroName": "ResolveCard",
-        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBPENBond($uid, 'Ice')) {\n $victim = intval(FaBGetState()['attacker']);\n FaBHVYToken($victim, 'frostbite', 1, $player);\n \n}\n",
+        "abilityCode": "$uid = intval(FaBIdentityFromMZ($mzID)['object']->UniqueID);\nif (FaBPENBond($uid, 'Ice')) {\n $victim = intval(FaBGetState()['attacker']);\n FaBHVYToken($victim, 'frostbite', 1, $player, null, false, $player);\n \n}\n",
         "isImplemented": true
       }
     ]

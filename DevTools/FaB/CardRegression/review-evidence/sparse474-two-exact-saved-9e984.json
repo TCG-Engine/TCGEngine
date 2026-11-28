@@ -1,0 +1,589 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B474_TWO_DRAW_COST_AND_ALLY_HEAL_PARTIAL_BRANCHES",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T14:16:18.052568+00:00",
+  "source_spec": "card-regression-batch474.json",
+  "input_sha256": "eb957fedc79352bc85e75c52d6f87750a0c7578375792fc98e6a400327b4108a",
+  "manifest_sha256": "7209af2dbe97ed53ec3077fcb677b722c6c3518348596e53799e26fe813aae2a",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch474-independent-source-review.json",
+    "sha256": "89840fb39f44b4c88b809b9d828c79e42abd67749d535fe57d9bb258cc291178",
+    "unchanged_source_and_rules_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch474-20261105T140903Z-6aec8dff6d5de.json",
+    "sha256": "751f22c3c78c69e28b4d4dda82a81544ab557b84a0e8d166f80b5958457187ae"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch474.recording-results.json",
+    "sha256": "53c0466538e94bc1d540aacb83a24aebbacdb6743494d79de298cf828b022d56"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch474-native-r1-9e984\\receipt.json",
+    "sha256": "3d614068cb3c2d769d0eba1df910833a68e20f0f0e893450e609800d1e547c00"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "rising_energy_red",
+      "group_id": "pitch-cycle:rising_energy",
+      "slug": "card-rising-energy-red-four-live-real-tome-draw-earns-cost-two-to-one-and-six-damage",
+      "source_spec": "card-regression-batch474.json",
+      "input_sha256": "eb957fedc79352bc85e75c52d6f87750a0c7578375792fc98e6a400327b4108a",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PARTIAL_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-rising-energy-red-four-live-real-tome-draw-earns-cost-two-to-one-and-six-damage",
+      "fixture_sha256": "d719149d0f131255028414df9616e519d8bb29e0b80b22a98f4fffc97cc341a1",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "1f91301cd1e18bc1411c680ca9d51f31c475d6cce5158b1e050ed25d9107637f",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "8f446d2016de07b1e18c735294827395a875e8d16a78721cd146fe055c84cc34",
+        "expected_final_gamestate.txt": "e9fe43020a970f1a1dc6a0c2e7ed1c37b385b2cbfabc49d73c0f25dc4223121f"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1f91301cd1e18bc1411c680ca9d51f31c475d6cce5158b1e050ed25d9107637f",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "8f446d2016de07b1e18c735294827395a875e8d16a78721cd146fe055c84cc34",
+        "expected_final_gamestate.txt": "e9fe43020a970f1a1dc6a0c2e7ed1c37b385b2cbfabc49d73c0f25dc4223121f",
+        "meta.json": "05d8261493161e2acea109ff1281cc188d047c5647467f79f49d8f37ccc9c6f3"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "1f91301cd1e18bc1411c680ca9d51f31c475d6cce5158b1e050ed25d9107637f",
+        "actions.json": "af0923a412f70c231803d6f1590bd7961df3eebc483a9a90501e4804130a1474",
+        "assertions.json": "8f446d2016de07b1e18c735294827395a875e8d16a78721cd146fe055c84cc34",
+        "expected_final_gamestate.txt": "e9fe43020a970f1a1dc6a0c2e7ed1c37b385b2cbfabc49d73c0f25dc4223121f",
+        "meta.json": "05d8261493161e2acea109ff1281cc188d047c5647467f79f49d8f37ccc9c6f3"
+      },
+      "actions": 33,
+      "native_assertions": 2799,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 848,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rising_energy_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "gorganian_tome",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "bravo",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Deck",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "gorganian_tome",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "rising_energy_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "d1c68a9164b1fe88c436065cb243fe5f591a04f9b4bad0be058744c66e619393",
+      "native_action_mapping_sha256": "6088d860ccef2878802cd6257606b4c7ec8e8e41482723e7e7396b51e4e8bdac",
+      "native_assertion_mapping_sha256": "dd6ac685032c76e49fd52ec6c853912d7c2feb279910bf6605ffc7f6f3c3d669"
+    },
+    {
+      "index": 1,
+      "card_id": "restless_cleric_red",
+      "group_id": "identity:restless_cleric_red",
+      "slug": "card-restless-cleric-red-four-live-real-ally-tap-heals-one-and-go-again-funds-actual-attack",
+      "source_spec": "card-regression-batch474.json",
+      "input_sha256": "eb957fedc79352bc85e75c52d6f87750a0c7578375792fc98e6a400327b4108a",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_PARTIAL_BRANCH",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-restless-cleric-red-four-live-real-ally-tap-heals-one-and-go-again-funds-actual-attack",
+      "fixture_sha256": "d45017f8ada607bc55fb8b8adc2ab8120e2c11a64be1976f4541d89932505776",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e124a6fff3b8558631654e826d6cedec9de276f603be48196904b503e861ee92",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "aef532612b28e5de5267e016556641cecae2bb9cda7856c008c2eaf009f1343c",
+        "expected_final_gamestate.txt": "57430c30b79722404bacc648671518690cad1e53d78ccfc570a7941a4bf73840"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e124a6fff3b8558631654e826d6cedec9de276f603be48196904b503e861ee92",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "aef532612b28e5de5267e016556641cecae2bb9cda7856c008c2eaf009f1343c",
+        "expected_final_gamestate.txt": "57430c30b79722404bacc648671518690cad1e53d78ccfc570a7941a4bf73840",
+        "meta.json": "28a365d399e3c6d2bf4eb9cb9eb6ff06d20639b8b00ade6ad9da4db37125b320"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e124a6fff3b8558631654e826d6cedec9de276f603be48196904b503e861ee92",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "aef532612b28e5de5267e016556641cecae2bb9cda7856c008c2eaf009f1343c",
+        "expected_final_gamestate.txt": "57430c30b79722404bacc648671518690cad1e53d78ccfc570a7941a4bf73840",
+        "meta.json": "28a365d399e3c6d2bf4eb9cb9eb6ff06d20639b8b00ade6ad9da4db37125b320"
+      },
+      "actions": 32,
+      "native_assertions": 2539,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 645,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_cleric_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_cleric_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        21,
+        20,
+        20,
+        16
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "9ccf438f250c96bbb2f37df2b0e745785eaaf26e2bb4a7fa1858a00278368856",
+      "native_action_mapping_sha256": "40381fbb963475c2c8c5b8ebfc34cc726d8e05af5022e170a55cbd489533ad15",
+      "native_assertion_mapping_sha256": "7f566154440a7339328691d2990032c6b0f91668406f1221b70c7bf47ed61c60"
+    }
+  ],
+  "total_actions": 65,
+  "total_native_assertions": 5338,
+  "total_manual_passes": 58,
+  "total_priority_response_passes": 56,
+  "total_defender_declaration_finish_inputs": 2,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 1493,
+  "material_findings": [
+    "All ten raw files,65actual actions and5,338 ordered native assertions match exact approved input. All1,493 properties native/schema-valid,58 manual inputs with all four actors (56responses+2declaration finishes),48raw manual preferences at both endpoints of each case,69unchanged source guards/current9 verified.",
+    "Rising: actual sole Tome6 played0/APspent; original6 remainsStack and allGYcount0/Deck7,8 retained throughfirstthree responses. Fourth draws originalBlue7 only and completesTome/GAAP1. Primary5 actualtargetP4 then pendingcost1 (printed2 minusreal own draw), sameBlue7 pitched3 ->R2AP0. Fresh current power6/noGA and real6damage/P4HP14 all passed. Exact finaloriginalUID1..8: GY6,5 publicown,Pitch7,Deck8; allquiet Heroes rawunchanged/no extra objects/cleanup complete.",
+    "Cleric: normalArena0 click actually selected sole ARC_0; real AP1spent/taps physical5 beforepriority, ABI7capturedSourceArenaUID5 heldthroughsourcefour withHP20untilfourth. Actualheal20->21/ownGAAP1 then realWounding6 consumesAP1 atcost0 and fourdamage/P4HP16. FinalphysicalCleric5 alive/tappedDamage0, originalwhole object unchangedexceptStatus2->1 and priorUPR_LOST_HP1 retained; GY6 publicown, virtual7ceased/counter7/no otherphysical objects. Fullframe/payment/combat cleanup.",
+    "No test correction or engine defect occurred in this batch. Original priors and branch limits remain unchanged; priorCleric Decay/creation is a lawful initial board, not newly executed coverage."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/2899/",
+      "finding": "Fresh current Rising Red printed2/base6/GuardianWarrior and draw-conditioned cost reduction."
+    },
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/5280/",
+      "finding": "Fresh current Cleric Action tap/heal1/ownGA,3life and Decay."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.1.1",
+        "8.3.5a",
+        "8.3.45"
+      ],
+      "finding": "Real action-point asset, own nonattack goagain after other effects, earlier endphase Decay leaves one minus-life counter; no current endphase tested."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+      "rules": [
+        "2.5.3d"
+      ],
+      "finding": "Hero life may exceed printed base; HP20 to21 is correct."
+    },
+    {
+      "url": "https://legendstory-production-s3-public.s3.amazonaws.com/media/cards/large/1HP364.webp",
+      "finding": "Current catalog official Tome image; independently viewed local CRU181 face agrees on Legendary/0/draw1+GYTomes/ownGA."
+    }
+  ],
+  "required_exact_saved_outcomes": [
+    {
+      "card_id": "rising_energy_red",
+      "health": [
+        20,
+        20,
+        20,
+        14
+      ],
+      "R": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "GY1_UIDs": [
+        5,
+        6
+      ],
+      "Pitch1_UIDs": [
+        7
+      ],
+      "Deck1_UIDs": [
+        8
+      ],
+      "actual_drawn_UID": 7,
+      "printed_cost": 2,
+      "actual_paid_cost": 1,
+      "power": 6,
+      "damage": 6,
+      "go_again": false,
+      "counter": 8,
+      "RNG": 0
+    },
+    {
+      "card_id": "restless_cleric_red",
+      "health": [
+        21,
+        20,
+        20,
+        16
+      ],
+      "R": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "Arena1_UIDs": [
+        5
+      ],
+      "Cleric5": {
+        "Owner": 1,
+        "Controller": 1,
+        "Status": 1,
+        "Damage": 0,
+        "Counters": {
+          "UPR_LOST_HP": 1
+        }
+      },
+      "GY1_UIDs": [
+        6
+      ],
+      "ability_source_UID": 5,
+      "ability_proxy_UID": 7,
+      "actual_heal": 1,
+      "actual_GA_AP_consumer_UID": 6,
+      "consumer_damage": 4,
+      "counter": 7,
+      "RNG": 0
+    }
+  ],
+  "limits": [
+    "One Red representative per selected group only. No Rising siblings/no-draw/opponent-draw/multipleDraw or Tome support primary/fullcard credit. No Cleric creation/earlierDecay resolution/current or futureEndPhase/Decay layering/death/Hero/taprepeat/untap/Allyattack/support/fullcard credit.",
+    "Complete snapshots are initial/final only; intermediate facts are exact completed native assertions. Full raw hashes include historical undo bytes; opaque Versions excluded from current inventory, no reviewer undo/replay execution claimed. Historical DQ source IDs are not current physical copies.",
+    "Root targeted replays and registration are separate receipts, not claimed here. Reviewer performed only Python static artifact comparisons and W proof writes: no PHP/native/replay/R/source/service/generation/fullsuite/remote or denied operation retry/reroute/integration."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch474_saved_readonly.py",
+    "sha256": "182074bd12252eeaca7835e43e761b55d78b4a42b38624a1287b84f45447e23e"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  }
+}

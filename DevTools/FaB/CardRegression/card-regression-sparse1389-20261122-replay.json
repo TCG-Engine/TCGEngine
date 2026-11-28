@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-channel-stormgarden-yellow-four-live-sparse1389-real-non-flow-destroy-no-amp-three-arcane-not-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-channel-stormgarden-yellow-four-live-sparse1389-real-non-flow-destroy-no-amp-three-arcane-not-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1389-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1389-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d279f4798a358c9b7da11874ddb8e168ad1abebc3e755f7d67a210caf290c1ae",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e89789558e81e29453570dc0b8701a26a172a07be9766d5b9b94516cd9b20c16",
+        "actions.json": "5ad18f5515ad76df2349f559f91fb687ee1c8b17a121b3ae3c31a8434c030b31",
+        "assertions.json": "a062df57d8dcf38ec563917a6b5fe669ec1dea56f0115178dbc15cdbc1e2f2a9",
+        "expected_final_gamestate.txt": "20cabf6a1cb3a239a2b69ba89f482ff137e9ffc19d193a7e1a04cd654f76fa8a",
+        "meta.json": "0768c5a3d2f4f9a3ad2ce4a8e20d15b7eb74c0eb8303518e520334ee831c32e3"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

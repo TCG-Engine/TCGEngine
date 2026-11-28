@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-essence-of-ancestry-body-red-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1c83c89c5be09d6fa09c97d2b9a5fadc8fbd7db559431d34aeab14cc82622ec9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5d70fa77ca656c67f509ddf194ec826d62549d959fdf2d50abd1416b444f1035",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "294ad8a2b78b45984f94d7707947d4c543bb86d899dde51d97be4131aab84894",
+        "expected_final_gamestate.txt": "a9fcda1c21a8d7b05e73057a57339b32ad2fd897a3b265582d652f256def7d2d",
+        "meta.json": "70a04d52f30719b9d9b9b9e627e853ebdeda360f82cfb67d5af89a49745645b2"
+      }
+    },
+    {
+      "slug": "card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-essence-of-ancestry-mind-blue-four-live-sparse1330-sole-ward-2-prevents-real-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "10d25ed83719e6d05159ea4b961d69deef772587db2a797a8d26053adbd8bd60",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ace2fb2ecc24e47860c68e10f3b912dc72cbae3f5721a5b6b25f048a5f17bee9",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "0b34bdb351e961b7da10cf315206de0476f20b3ea37191765d5afa804c4ab6a9",
+        "expected_final_gamestate.txt": "e392a67510a3907c1bd0d9a9b85448f6daf9787a98181381282978ec05bbabfa",
+        "meta.json": "b95642341eea7f0e45e48bec50b0b5aa396ab69e1266b09eab8ead2c41713f34"
+      }
+    },
+    {
+      "slug": "card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-waning-vengeance-red-four-live-sparse1330-sole-ward-3-prevents-real-unblocked-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1330-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7ef55a7d6e3ceb4779f8b2a7b65ad7a8d7fdde6941d2b9f6c1b8ba2d92ae8403",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2832b0cfe65c5af41783cb01954cd89610e6a1968c70d476337d8ed2a64a89e4",
+        "actions.json": "a651ec66209f5fba1a69512d7c7246a041b8369869a61de636abeb01cc98ff8b",
+        "assertions.json": "bec7d1092adb6cc1974f76711644c7345ffdcda1b3dc7d15abdd4bb142829f20",
+        "expected_final_gamestate.txt": "f347bd5a3c71c40399886c9959c61807adf8ee12ecc15f659b4df33122a49d90",
+        "meta.json": "dd1cf43ce272d9a9092a6a6a3e0dcc53e6347ce5405739f5fbd0ffe7e079417d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "head": "aa67228188d97c1437e4785e471fc44daece8f17",
+  "source_spec": "card-regression-sparse1447-20261122.json",
+  "source_spec_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+  "native_helper_sha256": "bc262ca037f41cb82b611c12d4ffea2ca4eee766f15075626970fb92228d77d9",
+  "component_command_receipt": {
+    "utc": "2026-11-24T22:22:33.515548+00:00",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\mechropotent_native_initial1447.php"
+    ],
+    "returncode": 0,
+    "component_sha256": "bc262ca037f41cb82b611c12d4ffea2ca4eee766f15075626970fb92228d77d9",
+    "log_sha256": "06741cab91e6236deaf6c49aaf5619338c177fcb2c09967a794e201c1ebb634b",
+    "gameplay_or_replays": 0,
+    "scope": "Native current-form constructor via normal DoResolveCard; exact-whitelisted fully quiescent callback locals cleared with native setter before independent serialization. No casting/payment/history integration credit."
+  },
+  "native_initial_checks": 32,
+  "derived_initial_sha256": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+  "recorded_initial_sha256": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+  "portable_component": {
+    "utc": "2026-11-24T22:30:00.684510+00:00",
+    "command": [
+      "C:\\xampp\\php\\php.exe",
+      "C:\\Users\\maxim\\AppData\\Local\\Temp\\fm1122\\DevTools\\FaB\\CardRegression\\test_mechropotent_current_position.php"
+    ],
+    "returncode": 0,
+    "source_path": "DevTools\\FaB\\CardRegression\\test_mechropotent_current_position.php",
+    "source_sha256": "9f165ae594b81873227d15d3098283233848998933ac00e5c4ac36abaedfe55c",
+    "output_sha256": "0cb6b8978550e3ef50d41615ded06ccef2fc8582f889437ed2cd48b1533a6fee",
+    "native_gameplay_or_replays": 0,
+    "scope": "Portable pure component extracted from the reviewed constructor;31 checks overlap32 full native initial-binding checks; no file writes, no distinct extra native-control credit."
+  },
+  "portable_checks": 31,
+  "overlap_note": "31 portable checks overlap32 initial-binding checks, not63 independent checks. No new native-control credit.",
+  "constructor_context_correction": {
+    "before_native_gameplay": true,
+    "failed_case_native_inputs": 0,
+    "fixture_saved": false,
+    "original_native_initial_sha256": "6d29c985813d28a0f978d710e7d43a43b67af61149cb659f15f90656eacc7af5",
+    "new_independently_derived_native_initial_sha256": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+    "new_component_checks": 32,
+    "native_game_state_unchanged": true,
+    "physical_cards_unchanged": true,
+    "cleared_only": [
+      "fabSourceZone",
+      "mzID",
+      "evoEvent"
+    ],
+    "active_or_await_state_allowed_to_be_cleared": false,
+    "difference_evidence_sha256": "39f89bf49f4df6ac429761bb652633a533a1e05cf03b8f3521d8523177bab2e4",
+    "original_spec_sha256": "6c73f869546d44dae960d0b6415236bf0bf9213ece052ae87f6a4b1e49bb9498",
+    "corrected_spec_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+    "script_sha256": "c4e783a2e0b677bece1e69d5c4149a78ac71b3fac7646b37dfc7cc76611554cc"
+  },
+  "scope": "Normal DoResolveCard native prepared Singularity output constructs current form; exact-whitelisted quiescent callback locals are cleared before independent serialization. No Hero/material/history field omitted. Existing initial hash guard matches before recorded actions/save. Actual unboosted Mech AA/go-again/damage and paid NAA/AP0 type boundary replayed.",
+  "limits": [
+    "Singularity_casting_costs_prerequisites_full_transform_timing_or_prior_material_history",
+    "activated_Demi_Hero_attack_Soul_cost_and_discard_trigger",
+    "Battleworn_or_defending_with_Hero",
+    "four_live_or_starting_with_Demi_Hero",
+    "four_Evo_count_as_a_replayed_action_or_other_consumer",
+    "secondary_identities_or_other_support_abilities",
+    "support_Item_Steam_entry_counter_or_bookkeeping_semantics"
+  ],
+  "full_intermediates_retained_outside_repo": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1447-local-20261122"
+}

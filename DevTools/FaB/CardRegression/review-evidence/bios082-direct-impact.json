@@ -1,0 +1,208 @@
+{
+  "status": "BOUNDED_DIRECT_IMPACT_COMPLETE_NO_SAVED_BIOS_PRODUCER_OR_SEEDED_STATE_REFERENCES_FOUND",
+  "reviewer": "/root/nov2_next_author",
+  "completed_utc": "2026-11-03T19:47:49.256781+00:00",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "source_runtime_unchanged": true,
+  "source_query": {
+    "named_terms": [
+      "bios_update",
+      "BIOS_POWER",
+      "BIOS_ITEM"
+    ],
+    "files_searched": 102,
+    "literal_hits": [
+      {
+        "path": "FaBSim/Custom/DYNRuntime.php",
+        "line": 124,
+        "text": " if(FaBDYNCount($p,'BIOS_POWER')){FaBTagUID($uid,'WTR_POWER:'.(3*FaBDYNCount($p,'BIOS_POWER')));FaBDYNClear($p,'BIOS_POWER');}"
+      },
+      {
+        "path": "FaBSim/Custom/DYNRuntime.php",
+        "line": 127,
+        "text": " if(FaBDYNCount($p,'BIOS_ITEM')&&FaBHasType($o,'Mechanologist')&&FaBHasType($o,'Item')&&intval(CardCost($o->CardID))<=2){FaBDYNClear($p,'BIOS_ITEM');$o=FaBMoveUID($banishedUID,'Arena',$p);if($o)FaBARCEnterItem($p,$o);}"
+      },
+      {
+        "path": "DevTools/FaB/dyn_abilities.json",
+        "line": 175,
+        "text": "    \"cardId\": \"bios_update_red\","
+      },
+      {
+        "path": "DevTools/FaB/dyn_abilities.json",
+        "line": 179,
+        "text": "        \"abilityCode\": \"FaBDYNAdd($player, 'BIOS_POWER');\\n FaBDYNAdd($player, 'BIOS_ITEM');\\n\","
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 794,
+        "text": "$resolveCardAbilities[\"bios_update_red:0\"] = function($player) { //bios_update_red"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 797,
+        "text": "  FaBDYNAdd($player, 'BIOS_POWER');"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 798,
+        "text": "   FaBDYNAdd($player, 'BIOS_ITEM');"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 254355,
+        "text": "  \"bios_update_red\" => 1,"
+      },
+      {
+        "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+        "line": 255814,
+        "text": "  \"bios_update_red:0\" => \"bios_update_red\","
+      },
+      {
+        "path": "DevTools/FaB/build_dyn_abilities.py",
+        "line": 111,
+        "text": " if b=='bios_update':add('ResolveCard',\"FaBDYNAdd($player, 'BIOS_POWER'); FaBDYNAdd($player, 'BIOS_ITEM');\")"
+      }
+    ],
+    "source_sha256": {
+      "DevTools/FaB/build_dyn_abilities.py": "6e3bb07bf96f82d413f8b215c64fc910808b3f019f822ab26631726e74a8b1f5",
+      "DevTools/FaB/dyn_abilities.json": "b851c298ff9a31fd3da8cea0b62bd3bf6a6878dd77b22f21f57aef7dab6221cd",
+      "FaBSim/Custom/ARCAbilities.php": "5330205cf8b98a1ba93cb15aa42f67c76d01dac3cb53b206669e7d00b0e9daca",
+      "FaBSim/Custom/DYNCards.php": "769ba9ca4fc0e527144ee5b6e7bf90e612063a2974c78000845b0697862f340b",
+      "FaBSim/Custom/DYNRuntime.php": "85e28425ebd6a99541d5984041e14d573a59109de1097b21cafb2de8e8b82be7",
+      "FaBSim/Custom/GameLogic.php": "7d475db6dcd99f151b41818ad0dca7111329e951af68e97badf943333d927a23",
+      "FaBSim/Custom/ROSCards.php": "e51280ce0c495f835157e6aac3ca9712edbb8e49b28d1307bca985a5bc845ac1",
+      "FaBSim/Custom/WTRCards.php": "4c1331a4f5c53d231f94bff6f08cefec875047ff424aa443ed22eedc8644652c",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "6d481f35d589ba79ec3cdce21d08b7a57112ae76b64b0e4bd45ee57e50f392df"
+    }
+  },
+  "actual_producers": [
+    {
+      "path": "DevTools/FaB/dyn_abilities.json",
+      "card_id": "bios_update_red",
+      "macro": "ResolveCard",
+      "implemented": true,
+      "code": "FaBDYNAdd($player, 'BIOS_POWER');\n FaBDYNAdd($player, 'BIOS_ITEM');"
+    }
+  ],
+  "producer_and_state_path": [
+    {
+      "path": "FaBSim/Custom/DYNCards.php",
+      "lines": "3-5",
+      "functions": [
+        "FaBDYNCount",
+        "FaBDYNAdd",
+        "FaBDYNClear"
+      ],
+      "role": "Generic DYN_-prefixed turn-effect storage/count/clear. Current producer stores BIOS_POWER and BIOS_ITEM without source identity metadata."
+    },
+    {
+      "path": "DevTools/FaB/dyn_abilities.json",
+      "card_id": "bios_update_red",
+      "macro": "ResolveCard",
+      "role": "Sole canonical named producer; compiled wrapper and existing builder repeat the same two calls, not independent card producers."
+    },
+    {
+      "path": "FaBSim/Custom/DYNRuntime.php",
+      "lines": "123-127",
+      "function": "FaBDYNBoost",
+      "role": "Only named runtime consumer: BIOS_POWER applies WTR_POWER3 and clears; BIOS_ITEM checks actual banished cost card Mech/Item/cost<=2, clears and moves inline to Arena/EnterItem. Correct delayed timing proposal owned by Meta, not this lookup."
+    }
+  ],
+  "origin_and_actual_play_hooks": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1099,1121-1152",
+      "role": "Deferred Boost cost completion precedes pendingPayment clear; normal card actual OnCardPlayed then runs before actual priority. Actual source object/mzID/cardID/fromZone are passed, no new synthetic play."
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "lines": "311-347,357-367",
+      "functions": [
+        "FaBARCPayDeferredBoostCosts",
+        "FaBARCApplyBoostConsequences"
+      ],
+      "role": "Pays every accepted real Deck banish before Boost callbacks; Mech card gives actual attack GA, then DYN consumer called with actual attackUID and actual banishedUID."
+    },
+    {
+      "path": "FaBSim/Custom/WTRCards.php",
+      "lines": "163-168,485",
+      "role": "Existing WTR fixed-assets path also calls same deferred Boost payment. Actual FaBWTRCardPlayed calls FaBDYNPlayed with the actual card object and origin zone."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1180-1186",
+      "function": "OnCardPlayed",
+      "role": "Actual played object source binding, WTR card-play chain, then canonical CardPlayed dispatch. Origin capture for a Bios-only future change must use this existing actual event; this lookup authors no change."
+    },
+    {
+      "path": "FaBSim/Custom/DYNRuntime.php",
+      "lines": "67-83",
+      "function": "FaBDYNPlayed",
+      "role": "Existing general next-modifier/Boost-played bookkeeping hook. No current BIOS literal producer or source-origin registration here; future Bios-only source capture must not change unrelated old card semantics."
+    },
+    {
+      "path": "FaBSim/Custom/ROSCards.php",
+      "line": 24,
+      "function": "FaBROSQueue",
+      "role": "Existing captured-source ability transport; no current BIOS dispatcher branch. Generic trigger queue compatibility is separate from a new Bios producer exercise."
+    }
+  ],
+  "reused_metadata": {
+    "base_cycle_index_sha256": "eb7943efb968fddc355551dc6055fc670093760528ef23a4b39c773f17843d09",
+    "incremental_index_sha256": "18f9b747f5ed307a49e48459b968d5ed8d58f267476ce0d8934febb2fa99326a",
+    "primary_reviews_sha256": "f37c0feb0d4936a09826b2b2c4cfbbb1f31284bcb75195dc31cf7d36ebd6610e",
+    "coverage_metadata_sha256": "b24ca2c9c4b3dfcbc86fd87dc8345817fb1a57e02101d8adefba60bb27209b94",
+    "group_primary_absent": true,
+    "reviewed_primary_or_support_mentions": 0,
+    "existing_native_reference_evidence": [],
+    "existing_native_family_reference_evidence": [],
+    "legacy_mentions_not_saved_native_credit": [
+      "DevTools/FaB/dyn_games_test.php"
+    ],
+    "registered_through": "card-regression-sparse365-98e3-checkpoint.json",
+    "reviewed_scenarios": 3656
+  },
+  "saved_reference_query": {
+    "method": "One focused pass over saved initial_gamestate and meta only; no repeated all-five-file content crawl. Producer physical ID and named seeded BIOS state raw/single-base64 markers. Read matching action/assertion ledgers only if a candidate exists.",
+    "canonical_fixture_count": 3656,
+    "files_read": 7312,
+    "per_fixture_files": [
+      "initial_gamestate.txt",
+      "meta.json"
+    ],
+    "raw_terms": [
+      "bios_update_red",
+      "bios_update",
+      "BIOS_POWER",
+      "BIOS_ITEM"
+    ],
+    "encoded_state_markers": [
+      "DYN_BIOS_POWER",
+      "DYN_BIOS_ITEM"
+    ],
+    "encoded_alignments_each": 3,
+    "matching_file_references": [],
+    "matching_fixtures": 0,
+    "actual_played_producers": 0,
+    "unused_setup_pitch_or_support_only_mentions": 0,
+    "seeded_BIOS_state_references": 0,
+    "action_ledgers_needing_followup": 0,
+    "minimal_affected_legacy_candidates": []
+  },
+  "new_failed_probe": {
+    "native_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch363-v3-correct-delayed-native-before-r1\\receipt.json",
+    "native_receipt_sha256": "bacad229177204f3812bae2daf9fee0f15a4a33fd03c0610f50990024f1a9cf0",
+    "source": "card-regression-batch363-correct-delayed-trigger-v3.json",
+    "input_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+    "fixture_saved": false,
+    "coverage_credit": false,
+    "V1_V2_unexecuted_and_not_installed": true,
+    "classification_and_repair_owned_by_Meta": true
+  },
+  "finding": "No directly affected saved legacy candidate found: the sole named Bios producer and its seeded state are absent from the authoritative reviewed/index evidence and the one focused initial-state/metadata query. Source-origin registration plus delayed Item consumer timing therefore need the new correct V3 native probe and focused components, not replay/requalification of an identified old Bios fixture. General CardPlayed/Boost helper users are not automatically affected legacy cases by this lookup.",
+  "limits": [
+    "Lookup only; no independent repair/source proposal, before classification, gameplay qualification or global-root count claim. Meta owns source/probe classification; Root owns application/native.",
+    "All saved initial physical cards and initial seeded named state plus metadata were queried once; no old action ledger or final snapshot reviewed because zero candidate matched. This is not an exhaustive search for arbitrary external runtime creation, dynamic aliases, or multiply encoded undo data. If a proposed repair broadens beyond Bios-only hooks, its own compatibility scope must be reviewed.",
+    "No PHP/native/games/replays/R/source/generator/backend/remote/fullsuite writes. Ten old070079/SmashingItem branches untouched."
+  ]
+}

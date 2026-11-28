@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-earthlore124-grouped-action-draw.json",
+  "runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T02:03:10.394325+00:00",
+  "fixtures": [
+    {
+      "slug": "card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+      "fixture_sha256": "7c24f15d8c53d7543f2de84e13bc33c0b7a61eac7849400a91107733fc70c0ea",
+      "passed": true,
+      "result": "[PASS] earthlore_bounty / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+      "returncode": 0,
+      "stdout": "[PASS] earthlore_bounty / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

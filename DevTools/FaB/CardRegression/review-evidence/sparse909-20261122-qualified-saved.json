@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of packet author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse909-20261122.json",
+  "source_spec_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+  "input_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-thaw-red-four-live-sparse909-actual-hand-attack-deals-six-before-future-graveyard-start-ability",
+      "card_id": "thaw_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "497c7e49710f90cc3952e9ef72338a0953433a4dfcd66cc11da091c191fa01d3",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "e8ce38e5807e7c60497d62389b68683054228f28e958ca0f26cc05291f15101b",
+        "expected_final_gamestate.txt": "52cf74a1c50156361fd43824383a4691a7402ffdf634307d96ab56cdd96536a7",
+        "meta.json": "056940629d1963a2a8af670267fdb9d7c3ff7d3994cf60392cfaa7901d10adc7"
+      },
+      "fixture_sha256": "b40a7ba20f5b7694d26d136ef0c0feddf2a779293b169ad210814c23a8c5723e",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse909-20261122.json",
+      "input_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-thaw-red-four-live-sparse909-actual-hand-attack-deals-six-before-future-graveyard-start-ability",
+        "fixture_slug": "card-thaw-red-four-live-sparse909-actual-hand-attack-deals-six-before-future-graveyard-start-ability",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-cyclone-roundhouse-yellow-four-live-sparse909-actual-five-without-combo-or-granted-reaction-step-banish-trigger",
+      "card_id": "cyclone_roundhouse_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "218a66e47519e5c82c6f09ea7a025d5884c3febee2980c87687d4d35a82b5d23",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "4b63e11fbffc0eb8a9d353452335f3eb56849299787c18bca01d82907beb4947",
+        "expected_final_gamestate.txt": "bbfdd476b6c112480c8fa7e56ae7393178951da0909e5d524e8420b8959b21e3",
+        "meta.json": "e763358fef7f2ed2fcd177a99c1a21ced56cdf9e63fa2140e26ebc18b4ebe6ba"
+      },
+      "fixture_sha256": "8a5b7b9c1ea072a16507295a803749cc8857c20e864ecdbac1aad1a396cb978f",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse909-20261122.json",
+      "input_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cyclone-roundhouse-yellow-four-live-sparse909-actual-five-without-combo-or-granted-reaction-step-banish-trigger",
+        "fixture_slug": "card-cyclone-roundhouse-yellow-four-live-sparse909-actual-five-without-combo-or-granted-reaction-step-banish-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-back-alley-breakline-red-four-live-sparse909-actual-hand-origin-deals-five-without-deck-movement-action-point-trigger",
+      "card_id": "back_alley_breakline_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21ce9da06d0430ca00bea0dba33c3917f7b83874ce0f9161044f12c7cac47327",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5a7500ab1264c56054fefa677fbdea20c47208b92720d51869b14a8283ada5c1",
+        "expected_final_gamestate.txt": "b211d8f083d9398c595c18b04b4d15243fa4df706b149cfc1b4c7d5e4d66ca48",
+        "meta.json": "182202e6184903b4258a62f55eb1e31133db6ec8dbfef730f6d0598cd1a2a9d0"
+      },
+      "fixture_sha256": "84e61ecb3600cd8d3fcba8b30a484ebc40ca4b14c34ad04e6757a1dff050ce14",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse909-20261122.json",
+      "input_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-back-alley-breakline-red-four-live-sparse909-actual-hand-origin-deals-five-without-deck-movement-action-point-trigger",
+        "fixture_slug": "card-back-alley-breakline-red-four-live-sparse909-actual-hand-origin-deals-five-without-deck-movement-action-point-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-stadium-security-red-four-live-sparse909-actual-hand-attack-deals-seven-without-arsenal-ambush-branch",
+      "card_id": "stadium_security_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2a08ab492d557e850a3cf822b9aa670607dd2934429d74546fd646477d39ec9a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "275ed1fb105f9dded6c797b368a8a7ba00289d403c25d7640663be0c88f86bfc",
+        "expected_final_gamestate.txt": "1a2f8a46287a2ae7d136b5ff3086b07fe24097e869d1b47cd9b2ba897a9633aa",
+        "meta.json": "1e4f617f0e7350d40320487c70362254bf924de252e6b38201e692ea0d7d2e56"
+      },
+      "fixture_sha256": "dd35dfc25f21aa367f045403d89a7fc1086ae906a080f1111fbed38665b2ae5d",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse909-20261122.json",
+      "input_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-stadium-security-red-four-live-sparse909-actual-hand-attack-deals-seven-without-arsenal-ambush-branch",
+        "fixture_slug": "card-stadium-security-red-four-live-sparse909-actual-hand-attack-deals-seven-without-arsenal-ambush-branch",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of packet author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3e0351df61615f93dd126c444688e86ff1fcc68e942be983b5dcff2489a775f1",
+    "evidence": [
+      "Cachedprintedrules/types/herohealth independentlychecked. ThawDraconiccost2/base6HandlegalFai20: graveyardstarttriggerfutureeventnotoccurring. FaioptionalPhoenixGYsetupdeclinedandinstantabilityunused.",
+      "CycloneNinjacost2/base5legalFai20: noSpinningWheelpriorattack, sofutureReactionStepabilitynotgranted; no currentearnedlayeromitted. No randomdefenderbanish credit.",
+      "BackAlleyGeneric1/base5actualHandsource, notmovedfromDeck byeffect; printeddeck-zoneeventdidnotoccur. DorinweaponhittriggerinapplicabletononweaponAA.",
+      "StadiumRevered3/base7legalPleiades20: actualHandnotArsenal, noAmbushbranch; Hero hasnoLyathhalvingorcurrentCheerevent so printed7correct. No supportHeroability/Arsenaladmissioncredit.",
+      "ActualBlue6pays2/2/1/3, real6/5/5/7damage/AP0withphysicalsource5GY/Pitch6andfreshfourmanualcombatresponses; allotherconditions/siblings/supportgroupsunqualified."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse909-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2dc1c165756658d63c946c431d9d66c235b50120f69ffa1b7aab7c1262f1c5af"
+  },
+  "full_suite_run": false
+}

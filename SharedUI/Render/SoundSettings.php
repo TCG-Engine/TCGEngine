@@ -17,6 +17,9 @@ function RenderSoundSettings(int $userId): string {
     $chk   = $muted ? ' checked' : '';
     $lang  = SWUSimAccountCardLanguage($userId) ?? 'en';
     $hideHB = SWUSimAccountHideHealthBars($userId) === true ? ' checked' : '';
+    // Home Panels Layout: this browser's choice (the swuHomePanels cookie) when it made one, else the account — what a game here shows.
+    $hpCookie = $_COOKIE['swuHomePanels'] ?? null;
+    $homePanels = ($hpCookie === '1' || ($hpCookie !== '0' && SWUSimAccountHomePanels($userId) === true)) ? ' checked' : '';
     $langs = ['en' => 'English', 'es' => 'Español', 'it' => 'Italiano', 'fr' => 'Français'];
     ob_start(); ?>
 <div class="sound-settings">
@@ -42,6 +45,12 @@ function RenderSoundSettings(int $userId): string {
   </label>
   <p class="sound-settings-hint">Hides base health bars. The HP badge on Twin Suns Home Panels stays.</p>
   <span id="profileHideHealthBarsStatus" class="sound-settings-status" role="status" aria-live="polite"></span>
+  <label class="sound-settings-row sound-settings-hb">
+    <input type="checkbox" id="profileHomePanels"<?= $homePanels ?>>
+    <span>Home Panels Layout</span>
+  </label>
+  <p class="sound-settings-hint">3–4 player games show the Home panels (the previous layout) instead of the table. Phones always use the Home panels.</p>
+  <span id="profileHomePanelsStatus" class="sound-settings-status" role="status" aria-live="polite"></span>
 </div>
 <style>
   .sound-settings-row { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 600; }
@@ -135,6 +144,32 @@ function RenderSoundSettings(int $userId): string {
       box.checked = !want;
     };
     x.send('action=setHideHealthBars&hide=' + (want ? '1' : '0'));
+  });
+})();
+(function () {
+  // "Home Panels Layout" (owner 2026-11-22): the account value, plus this browser's cookie so a game opened here follows at once.
+  var box = document.getElementById('profileHomePanels');
+  var out = document.getElementById('profileHomePanelsStatus');
+  if (!box) return;
+  function base() { var p = location.pathname, i = p.indexOf('/TCGEngine/'); return i >= 0 ? p.slice(0, i + 11) : '/TCGEngine/'; }
+  box.addEventListener('change', function () {
+    var want = box.checked;
+    if (out) { out.className = 'sound-settings-status'; out.textContent = 'Saving…'; }
+    try { document.cookie = 'swuHomePanels=' + (want ? '1' : '0') + '; path=/; max-age=31536000; SameSite=Lax'; } catch (e) {}
+    var x = new XMLHttpRequest();
+    x.open('POST', base() + 'SWUSim/PlayerSettingsApi.php', true);
+    x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    x.onload = function () {
+      var ok = false;
+      try { ok = !!JSON.parse(x.responseText).success; } catch (e) {}
+      if (out) { out.className = 'sound-settings-status' + (ok ? '' : ' is-error'); out.textContent = ok ? 'Saved.' : 'Could not save — try again.'; }
+      if (!ok) box.checked = !want;
+    };
+    x.onerror = function () {
+      if (out) { out.className = 'sound-settings-status is-error'; out.textContent = 'Could not save — try again.'; }
+      box.checked = !want;
+    };
+    x.send('action=setHomePanels&on=' + (want ? '1' : '0'));
   });
 })();
 </script>

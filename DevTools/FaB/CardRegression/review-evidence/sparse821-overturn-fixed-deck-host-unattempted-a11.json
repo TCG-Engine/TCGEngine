@@ -1,0 +1,165 @@
+{
+  "expected_manual_pass_actors": [
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4
+  ],
+  "expected_manual_actor_counts": {
+    "1": 8,
+    "2": 8,
+    "3": 8,
+    "4": 8
+  },
+  "control_mapping_sha256": "7dee0e6a3c155a28dd98646521d4bfb26a8331620d529ae06ac99ff8283351fb",
+  "native_expected_envelope_mapping_sha256": "007de814ceb92ae2f71fca6de4e6da82d54c3c5cf123823e3831c3f798c49fc5",
+  "expected_native_query_mapping_sha256": "bdbd416e13e54ab03a4f682725f58b0fcfe93ddd26ea03d7882595a7d04c96ce",
+  "checkpoint_mapping_sha256": "c7eb7bf86631c4ce6098d1a68a9be0a55478f5260b6d5308766ba50c301984a0",
+  "expected_raw_prevention_chooser": "0|1|p4Arsenal-0",
+  "status": "SOURCE_APPROVED_R3_IDENTICAL_CORRECT_MORLOCK_ROUTE_POST_REVIEWED_REPAIR_MANDATORY_NO_SAVE",
+  "phase": "SOURCE",
+  "batch": 821,
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "diagnostic_source_approved": true,
+  "reviewer": "/root/ebbing_recovery_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-15T18:13:22.772668+00:00",
+  "source_spec": "card-regression-batch821-morlock-original-correct-public-banish-probe-r3.json",
+  "source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r3-guarded-post-application-rebind-author\\morlock-blue-real-lethal-minerva-arsenal-public-banish-probe-r3.json",
+    "sha256": "e338994fa34e7dbfde1b79a6dab3b1e3d35246a8b663c8dcf3af453e6a496fc9"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r3-guarded-post-application-rebind-author\\manifest.json",
+    "sha256": "5e3aa734b7258541d2cb4c8c91ba3a289829fdce7727d26b2715ac559160793c"
+  },
+  "input_sha256": "e338994fa34e7dbfde1b79a6dab3b1e3d35246a8b663c8dcf3af453e6a496fc9",
+  "manifest_sha256": "5e3aa734b7258541d2cb4c8c91ba3a289829fdce7727d26b2715ac559160793c",
+  "runtime_sha256": "a11fb2abaf062a707ad2c9372bf41321fcde25d5fe32a99bf55a1b4d2bae4223",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "prior_unchanged_R2_semantic_Source": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r2-independent-correct-diagnostic-source-review.json",
+    "sha256": "c1cdf74c88634a0134de07eebc55622e19f45679f02d31621cf818019fcc53ea"
+  },
+  "actual_installed_source_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-actual-installed-source-review.json",
+    "sha256": "26e411bffd5e4ae2cebca9bcae18ff9390366ec308a590d3f86290e5a34e8d85"
+  },
+  "root_application_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-b821-morlock-root-source-application\\receipt.json",
+    "sha256": "61a9be4322a5d52cb2e863076a0d94769e3f9d9a7d30c5cdc6bcde060ad9e9f5"
+  },
+  "exact_source_input_bytes_identical_to_R2": true,
+  "only_guard_delta": "Only FaBSim/Custom/DTDCards.php 0599->b596 in source and selected-support maps; other82+35 guards unchanged.",
+  "source_guard_count": 82,
+  "source_guard_map_sha256": "5af562a90c63aa568321dc16e15cbf0e6e8f29164524830996df2da13768ff4e",
+  "selected_support_guard_count": 35,
+  "selected_support_guard_map_sha256": "46457a5cdb70fe4ffa63f4b58d9e0ed9a82686f8b93eaee486d940939bb197ec",
+  "all_current_guards_independently_matched": true,
+  "actions": 36,
+  "declarative_controls": 36,
+  "native_assertions": 4192,
+  "assertions": 4192,
+  "recorded_persisted_assertions": 4192,
+  "manual_passes": 32,
+  "checkpoints": 38,
+  "schema_property_checks": 854,
+  "original_card_FaceDown0_HP4_whole_packet_and_all_suffix_assertions_preserved": true,
+  "independent_semantics_reused_without_legacy_rereview": true,
+  "diagnostic_only": true,
+  "mandatory_probe_only": true,
+  "no_save_even_if_pass": true,
+  "no_automatic_promotion": true,
+  "qualification_permitted": false,
+  "required_native_flags": [
+    "--probe-only"
+  ],
+  "normal_save_approved": false,
+  "native_fixture_recording_approved": false,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "qualification": false,
+  "coverage_credit": false,
+  "confirmed_gameplay_bug": true,
+  "source_fix_applied": true,
+  "source_fix_qualified": false,
+  "independent_actual_probe_review_required": true,
+  "new_distinct_gameplay_root_group": false,
+  "related_existing_visibility_family": "FAB-REG-037 extension, no distinct global root allocation",
+  "PHP_native_network_executed_by_reviewer": false,
+  "R_writes_by_reviewer": false,
+  "B787_denied_operation_untouched": true,
+  "historical_failures_preserved": {
+    "R1_protocol_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-independent-actual-protocol-oracle-stop-review.json",
+      "sha256": "5e8cf2a78283c0646c446e5beaa70675d3ce581a65c4d57a5f3ca381b85392eb"
+    },
+    "R2_native_visibility_failure_review": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-morlock-r2-independent-actual-public-banish-failure-review.json",
+      "sha256": "2c6ae0db686f08533950a3d0c8a9b1e198beb07b7b5c9e165ce1e47bbe75b5ee"
+    },
+    "labels": "Both actual results/proofs retain historical429a; new R3 basename avoids overwriting their evidence."
+  },
+  "source_only_held_cases": [
+    {
+      "card_id": "overturn_the_results_blue",
+      "group_id": "identity:overturn_the_results_blue",
+      "classification": "FIXED_SCENARIO_REVILED_TALENT_MISMATCH_PLUS_KNOWN_DEFENDED_CLASH_HOST_TIMING",
+      "reason": "Fixed Betsy is Guardian Hero Young and lacks Reviled; Overturn has Reviled talent and cannot be put in her starting Deck/card-pool under CR1.1.3/2.11.6b. This is a Root fixed-scenario admission problem, not a confirmed engine defect. The required actual ClashOfMightBlue Defended-WHEN path is also already held because it reveals/clashes directly at OnDefended without a separate responseable captured layer.",
+      "author_note": {
+        "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov15-batch821-overturn-fixed-reviled-deck-and-known-clash-host-unattempted-note.json",
+        "sha256": "03d677911bade3275bec9df46dc09732f7e7766e24ae0b901380fa40cad02ca4"
+      },
+      "known_required_host_contract": {
+        "card_id": "clash_of_might_blue",
+        "classification": "APPROVED_AS_SOURCE_ONLY_UNATTEMPTED_SELECTED_DEFENDED_CLASH_TRIGGER_LAYER_LIMIT",
+        "reason": "The selected earned Defended-WHEN enters its own generated frame and reveals for clash inline without an established separate responseable triggered layer. Actual clash and prize bodies exist; generated await storage is distinct from trigger capture. No defense-only fallback, native bug, fixture or coverage claim.",
+        "proof": {
+          "path": "review-evidence/sparse716-clash-might-defended-when-unattempted-c53.json",
+          "sha256": "583cc98232ddf46f6648a2f417f995b784fe06ce13691c59c0a580fa86c697c2",
+          "kind": "INDEPENDENT_PLANNING_LIMIT_NOT_RUNNABLE_APPROVAL"
+        }
+      },
+      "native_attempted": false,
+      "fixture_saved": false,
+      "coverage_credit": false,
+      "confirmed_new_issue": false
+    }
+  ],
+  "limits": [
+    "Approve exact full mandatory unsavedR3 only, evenifPASS. Same36controls/4192queries/32manual8each/38points/854typed; rule-basedFaceDown0/HP4 expectations are unchanged. No shortened or quiet substitute.",
+    "Ordinary named cost is public before movement after bounded one-file repair; actual full runtime payment/prevention/cleanup still require Native. No presumed passing suffix from prior failure, no normalSave, promotion or coverage certificate.",
+    "If full correct route passes, independent actual review then explicit Root decision and fresh positive Source must precede NativeSave; exactSaved/raw5/raw48both and two clean targeted replays remain.",
+    "OverturnfixedReviledDeck+knownClashhost remains unattempted. No alternativehero/talent/host, Handcost/decline/secondlethal/unpreventable/Mentorstatic/sibling/fullcard credit."
+  ]
+}

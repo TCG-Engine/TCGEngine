@@ -1,0 +1,96 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse904-20261122.json",
+  "source_spec_sha256": "959c5bc592a6c4921f44d410def9b3ba688a30ef3c444f5a2d048c2cc924a4ff",
+  "input_sha256": "959c5bc592a6c4921f44d410def9b3ba688a30ef3c444f5a2d048c2cc924a4ff",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-encase-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-3-arcane-after-declared-hero-target-and-real-cost",
+      "card_id": "encase_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "206bf11b22c40741099d374573f7984a942390ce9037975c27bba081d2267a85",
+        "actions.json": "aa6d1eb088e8fcfde62fd18f65046982f7611fae91d4507b69a4fb4f97989b9a",
+        "assertions.json": "c614d93832b2f7b87b9deceea98a2c33ac9c15668e1c2f1617fab0ff193c1c99",
+        "expected_final_gamestate.txt": "b5dd3af68a54e5f2f00443a343e6f98c6bbbe6b5ec534f4f6e7eabe13d32d7b1",
+        "meta.json": "bc44b73d0a010402aab45947a80c9d9001fd796e3c03818f4f9404c739e2373c"
+      },
+      "fixture_sha256": "bfbf0737f4cf2622785ae87d043371ed70cba4a95bb03472f4d561e3091f2520",
+      "actions": 6,
+      "native_assertions": 89,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse904-20261122.json",
+      "input_sha256": "959c5bc592a6c4921f44d410def9b3ba688a30ef3c444f5a2d048c2cc924a4ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-encase-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-3-arcane-after-declared-hero-target-and-real-cost",
+        "fixture_slug": "card-encase-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-3-arcane-after-declared-hero-target-and-real-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-succumb-to-winter-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-5-arcane-after-declared-hero-target-and-real-cost",
+      "card_id": "succumb_to_winter_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "63cfcc025ed074c23d625d270335527b7b3db2fb82e0038dc2f28fc1087581e8",
+        "actions.json": "b4919fe92f72680ae8cf55e2f90d5378553b2017b964bb40fe0bd1410d074934",
+        "assertions.json": "7f6efa9c80e4eb9bfb7e0e1a3777541612b266686e712f0ccd72c0e6911b8d58",
+        "expected_final_gamestate.txt": "b0312bd7c56372ba907ee08b6f4566158d50895521bc9f2ad068e1353393dad7",
+        "meta.json": "19e0790db174c84f6be69e6c8b917c8403ee9a722c3a3bbe29cecc2526d435fb"
+      },
+      "fixture_sha256": "42c1f0afdef8346120a77bd59bbee89492792ab437518eab7a0c59808612ae02",
+      "actions": 7,
+      "native_assertions": 94,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse904-20261122.json",
+      "input_sha256": "959c5bc592a6c4921f44d410def9b3ba688a30ef3c444f5a2d048c2cc924a4ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-succumb-to-winter-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-5-arcane-after-declared-hero-target-and-real-cost",
+        "fixture_slug": "card-succumb-to-winter-red-four-live-sparse904-no-other-ice-card-so-unfused-actual-5-arcane-after-declared-hero-target-and-real-cost",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "959c5bc592a6c4921f44d410def9b3ba688a30ef3c444f5a2d048c2cc924a4ff",
+    "reviewed": [
+      {
+        "cards": [
+          "encase_red",
+          "succumb_to_winter_red"
+        ],
+        "basis": "Printed Elemental Wizard Actions legal for natural18HP Iyslander. No other Ice card in actual Hand, so optional fusion reveal has no available physical asset and is skipped; then explicit canonical PrepareCard declares legal adjacentHero4 target before FinishPrepared/payment/responses. Encase0cost/AP1spent deals3; Succumb realGenericBlue6 pays3/R0/AP0 and deals5. Four live manual response cycle, same actual5GY and sentinelDeck retained. No source-specific earned attack or end trigger is assumed."
+      }
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Only named unfused base-damage branches. Available-Ice refusal, positive fusion, freeze, arsenal/ally destruction, opponent-turn Iyslander trigger and supporting/pitch sibling groups untested.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse904-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0502aa74c41985cfc42be6636fad47dc9a1b99429e2d1b4aea2971c00da05eef"
+  },
+  "full_suite_run": false
+}

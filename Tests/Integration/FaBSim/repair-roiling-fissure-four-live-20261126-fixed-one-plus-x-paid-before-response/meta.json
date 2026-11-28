@@ -1,0 +1,7 @@
+{
+    "name": "Roiling Fissure / four-live paid X1 and real opposing aura destroyed",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-26T02:50:25+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Destroy an aura with cost X or less, then you may destroy a Seismic Surge you control. If you do, repeat this process.\n\n**Go again** Named actual paidX1/one opposingAura destroyed/declinerepeat branch only. Legal naturalBravo20 owns primary5Hand/Blue6, existingownSeismic8; adjacent4 owns actualSigilProtectionBlue7cost1Arena. Native NUMBERCHOOSE1 precedespayment, actualBlue3 paysX1+fixed1=2 leavesR1/AP0; four live manual responders whileassetsunchanged. Printed wording has noTarget so legitimate resolutionchoice picksactualcost1opposingAura7, which goesowner4GY (Wardreplacementnotapplicable todestruction/no damage). Then real optionalMZMULTICHOOSE forownSurge8 isdeclined withemptychoice, preventingrepeat/destruction. Source5heldStack/GY0/AP0throughchoice; finalownedGY1/GAAP1, sameSurge8retained, noHP/RNG/temp/assetsotherwise. No repeats/otherX/filtermatrix/Surgeproducer/expiry/Warddamageprevention/hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#roiling_fissure_blue"
+}

@@ -1,0 +1,52 @@
+{
+  "status": "CONFIRMED_NAMED_FOUR_LIVE_GAMEPLAY_FAILURE_UNFIXED",
+  "utc": "2026-11-03T01:00:27.122005+00:00",
+  "issue_id": "FAB-REG-064",
+  "runtime_sha256": "f40e5a26ad74eab8ea9d2e3bd779a26c917d8102e67ad41fa9bad5ca7f22e6e7",
+  "source_spec": "card-regression-batch273-celestial-correct-probe.json",
+  "source_spec_sha256": "d3fd775022788d3725f6ef9651f1e680f0a2765e46641238770e5a7872d9ff6b",
+  "immutable_native_archive": {
+    "path": "recording-runs/card-regression-batch273-celestial-correct-probe-20261103T005633Z-6ae931419f366.json",
+    "sha256": "80e39e6d5291eeed5caffab01fad4acc39d8a465d38699f3cefb0a50cc83386d"
+  },
+  "root_cause_group": "prepared_effect_costs",
+  "new_distinct_gameplay_defect_group": false,
+  "related_prior_issue": "FAB-REG-039",
+  "expected": "Afterdeclaration, same3SoulUIDs staySoul until actualresource/AP asset payment; onlythen banish3as effectcost.",
+  "observed": "After3nativeinputs, Soul7/8/9 alreadyBanish whilePITCHtaxcost1pending, R0/AP1/Pitchempty/Blue6stillHand.",
+  "witness": {
+    "failed_prefix": {
+      "workspace_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-celestial273-failed-prefix\\receipt.json",
+      "sha256": "5aa5e18ab4c48eb12bb96b93d0efe96e640e481b904d15534c3432c10aa328da"
+    },
+    "observed_state_core": {
+      "window": "PITCH",
+      "combatStep": "NONE",
+      "chainLink": 0,
+      "pendingPayment": {
+        "player": 1,
+        "uid": 5,
+        "cost": 1,
+        "fromZone": "Hand",
+        "kind": "ATTACK",
+        "returnWindow": "ACTION",
+        "returnCombatStep": "NONE"
+      },
+      "resolvingReaction": null
+    },
+    "resources": 0,
+    "action_points": 1,
+    "pitch_uids": [],
+    "soul_uids": [],
+    "banish_uids": [
+      7,
+      8,
+      9
+    ]
+  },
+  "active_runtime_unchanged": true,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": "Exact named positive branch only. No variant/alternate branch/full-card credit, no full suite, no synthesized passing recording. Separate healthycases retained."
+}

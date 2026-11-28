@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-soul-harvest-blue-four-live-sparse1423-real-six-debt-banish-additional-cost-six-resources-and-twelve-power-fully-defended",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-soul-harvest-blue-four-live-sparse1423-real-six-debt-banish-additional-cost-six-resources-and-twelve-power-fully-defended",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1423-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1423-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e717e69cf3c652775163c424872d43041930bc5f26deff93671f3031adf646d1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a9f07e4f92756d5333e2b7792c63fb8e90d93d9087357b6d088c1591bcfc921f",
+        "actions.json": "527d5675b3feb25c3bb2e986946ff0c57b760a63ac71ec30bbde5c693a4d690d",
+        "assertions.json": "8dd6370b676ae59e4ae237197b1b1866a726616d48743e68612a2776db4e0a7e",
+        "expected_final_gamestate.txt": "5cf1d6bbdf6133fc77d81d5a96b2425753b5885c07b033c29aa8b70e5563780e",
+        "meta.json": "4e8bbf43dbca2e18b2f4f217156ecb6b1d57666024e48aba4479f7aba1328bb1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

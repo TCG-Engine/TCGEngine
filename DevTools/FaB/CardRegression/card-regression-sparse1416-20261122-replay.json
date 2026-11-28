@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cheap-shot-yellow-two-live-sparse1416-default-opponent-actually-discards-to-avoid-damage-source-awaits-foreign-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cheap-shot-yellow-two-live-sparse1416-default-opponent-actually-discards-to-avoid-damage-source-awaits-foreign-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1416-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1416-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2ea8f3042667e754ed56458098019c6dbcf59d637d2fef2aac4cf09adf5c9ae9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a8cac4fea70e96a354adf16a1839567790b30323af10cc4b363431fa4b12c968",
+        "actions.json": "14c2daa568517f1f6457f30a03bbf8157cd409cff2e641aa38c5ea5cad282e8b",
+        "assertions.json": "2174ebb2fa9907b870ba2dd3151806d10ffba4c8f14ba2343546f5d4a87c311e",
+        "expected_final_gamestate.txt": "ffd11950507c29f2c93fadbfe710ed61d082b2cb6d76d2ad2b090befe21d7281",
+        "meta.json": "343b1f7f7d35a4ef68df6da54bb3f6244888eaa91ceaffc1f915604d6e13a416"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

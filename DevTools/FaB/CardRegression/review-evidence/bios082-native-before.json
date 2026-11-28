@@ -1,0 +1,349 @@
+{
+  "status": "NATIVE_CONFIRMED_BIOS_MISSING_RESPONSEABLE_DELAYED_ITEM_TRIGGER_AT_BOOST_COST_BOUNDARY",
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewed_utc": "2026-11-03T19:47:29.675994+00:00",
+  "proposed_named_record": "FAB-REG-082_ROOT_TO_ASSIGN",
+  "classification": "existing043_missing_responseable_trigger_delayed_next_time_BIOS_Boost_Item_caller",
+  "related_prior_issue": "FAB-REG-043",
+  "secondary_related_issues": [
+    "FAB-REG-081",
+    "FAB-REG-076"
+  ],
+  "new_distinct_gameplay_root_group": false,
+  "new_core_root": false,
+  "root_count_limitation": "Namednativecallerwitnessonly; noadditionalglobalshared-rootorCorecount inferred.",
+  "runtime_sha256": "98e3105fdd74db35601cd035de7f8ccb67589a88587d3d53727bf6103c4092a0",
+  "input_file": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch363-correct-delayed-trigger-v3.json",
+  "input_sha256": "3f6ebbe900c02d2179914d4d78e09b458ca6ccc532ed3e6c9ad634098c3f3658",
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch363-v3-independent-source-review.json",
+    "sha256": "1bfc72b6ddfffeb8916e2dd74fa2a7278d0e43d9d254c82a42abc92d14c8467a"
+  },
+  "native_wrapper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch363-v3-correct-delayed-native-before-r1\\receipt.json",
+    "sha256": "bacad229177204f3812bae2daf9fee0f15a4a33fd03c0610f50990024f1a9cf0"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch363-correct-delayed-trigger-v3-20261103T194140Z-6aea38f412f51.json",
+    "sha256": "45d934122550acb4cb7b95bc9fdacf729d76d050efefb0e50734a1ca13c6f477"
+  },
+  "initial_snapshot_sha256": "ba2fec56685fec92640ce62e39bcfd1579033937f8205d4a36205e97b795c34b",
+  "fixture_saved": false,
+  "fixture_absence_verified": true,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "actual_native_inputs": 8,
+  "actual_manual_priority_inputs": 4,
+  "manual_pass_actor_counts": {
+    "1": 1,
+    "2": 1,
+    "3": 1,
+    "4": 1
+  },
+  "observed_error": "Expected Stack count 2, got 1.",
+  "exact_reached_boundary": {
+    "recipe_step": 16,
+    "action_ordinal": 8,
+    "last_action": "P1nativeMZMODALacceptBoost0",
+    "first_failed_assertion_zero_based": 23,
+    "passed_prior_checkpoints": 8,
+    "prior_checks_completed_by_stopfirstmismatch": 684,
+    "checks_before_failure_in_current_checkpoint": [
+      {
+        "type": "scalar_zone_equals",
+        "zone": "PriorityPlayer",
+        "value": 1
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "ConsecutivePasses",
+        "value": 0
+      },
+      {
+        "kind": "state",
+        "key": "combatOpen",
+        "value": false
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p1ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "1"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p2ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "2"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p3ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "3"
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Health",
+        "value": 20
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4Resources",
+        "value": 0
+      },
+      {
+        "type": "scalar_zone_equals",
+        "zone": "p4ActionPoints",
+        "value": 0
+      },
+      {
+        "type": "decision_queue_empty",
+        "player": "4"
+      },
+      {
+        "kind": "state",
+        "key": "pendingPayment",
+        "value": null
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Deck",
+        "value": 0
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Temp",
+        "value": 0
+      },
+      {
+        "type": "zone_count",
+        "zone": "p1Equipment",
+        "value": 0
+      }
+    ],
+    "current_failed_assertion": {
+      "type": "zone_count",
+      "zone": "Stack",
+      "value": 2
+    },
+    "observed_stack_count": 1,
+    "expected_stack_count": 2
+  },
+  "actual_observed_state": {
+    "window": "PRIORITY",
+    "combatOpen": false,
+    "combatStep": "NONE",
+    "chainLink": 0,
+    "attacker": 0,
+    "defender": 0,
+    "attackUID": 0,
+    "attackTarget": null,
+    "pendingAttackTarget": null,
+    "previousAttackCardID": "",
+    "handBlockUIDs": [],
+    "intimidated": [],
+    "pendingPayment": null,
+    "lastAttackName": "",
+    "attackHit": false,
+    "attackPower": 0,
+    "defenseValue": 0,
+    "damageDealt": 0,
+    "declaredBlockUIDs": [],
+    "passiveSeats": [],
+    "gameMode": "UPF",
+    "turnEffects": {
+      "1": [
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "MON_BANISHED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "ARC_BOOSTED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_CHAIN_BOOST",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "CRU_ATTACKS",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "DYN_BOOST_PLAYED",
+          "amount": 1,
+          "uses": 1
+        },
+        {
+          "type": "EVR_PLAYED",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "2": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "3": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ],
+      "4": [
+        {
+          "type": "EVR_GRAVEYARD",
+          "amount": 1,
+          "uses": 1
+        }
+      ]
+    },
+    "nextTurnEffects": [],
+    "hitsThisTurn": [],
+    "cardsPlayedThisTurn": {
+      "1": [
+        "bios_update_red",
+        "zero_to_sixty_red"
+      ]
+    },
+    "arcCards": {
+      "5": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "mstFree": false,
+        "rosLastLightning": false,
+        "iarPermission": []
+      },
+      "6": {
+        "iarOrigin": 1,
+        "mstChiPitched": 0,
+        "rosMeld": -1,
+        "rosSurgeGo": false,
+        "evoDashPlay": false,
+        "boosted": true,
+        "evoBoostEquipment": true,
+        "omnFirstDamage": false,
+        "iarPlayedFrom": "Hand",
+        "outPreviousNames": [],
+        "mstFree": false,
+        "mstPreviousPitch": 0,
+        "mstPreviousAA": false,
+        "rosLastLightning": false
+      },
+      "7": {
+        "iarPermission": [],
+        "penPlayPermission": [],
+        "penBoostTurn": 2,
+        "penMirageChain": -1
+      }
+    },
+    "arcActions": {
+      "1": 2
+    },
+    "eleKorshemActiveTurn": 2
+  },
+  "actual_observed_decisions": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "actual_observed_hand_refs": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": [
+      "p4Hand-0",
+      "p4Hand-1",
+      "p4Hand-2"
+    ]
+  },
+  "evidence_bounds": [
+    "ArchivecapturesGameState/DQs/Handrefsandinitialfullsnapshot, NOTpostfailurephysicalZoneStack/Arena/Banishobjects. ActualStackcount1comeserror; rawremainingStackCardID/UIDorItem7Arena/BanishlocationNOTclaimed.",
+    "SuccessfulearliercheckpointsestablishrealBios5NAAplayed/fourresponses/GYandownGA, Zero6target/Boostdeclaration. Atfirstfailedcheckpointall23earliercheckspassed: R0/AP0/allHP20/DQempty/pendingPaymentnull/Deck0/Temp0/Equipment0. Source/cardpropertiesandnewBanishchecksAFTERStackcountwereunreached.",
+    "No delayedtriggerresponses/ItemArenaresolution/underlyingAAresolution/blocks/damage/APrefund/finalsuffixexecuted. No passingfixtureorcoverage."
+  ],
+  "causal_source_observation": {
+    "path": "FaBSim/Custom/DYNRuntime.php:123-127",
+    "sha256": "85e28425ebd6a99541d5984041e14d573a59109de1097b21cafb2de8e8b82be7",
+    "finding": "ActualeligibleBoostcallbackclearsDYN_BIOS_ITEMandmovesItemdirectlyArenausingFaBMoveUID/FaBARCEnterItem; no responseablelayerqueued. Correctprintednext-timeeffectrequiresdelayedlayerbeforeAAresponses. NativeconfirmsmissingextraStacklayer, sourceexplainsinlinepath; physicalItemlocationawaitsrawprefixifneeded."
+  },
+  "expected_rule_scope": [
+    "BIOSfirstnextboostedAA+3continuouspreserved; secondnext-timeeligibleItemdelayedtriggerinheritsBIOS5/controller1. RealBoostcostbanishbeforequeue.",
+    "ExpectedtwoStacklayers: actualAA6belowearnedBIOSABI; sameItem7publicBanishthroughfreshtriggerresponses, onlyresolutionmoves7Arena; original5staysGY."
+  ],
+  "execution": {
+    "PHP": false,
+    "native": false,
+    "replay": false,
+    "R_write": false,
+    "source_or_generation": false
+  },
+  "limits": [
+    "Classificationboundtoactualfirstfailureonly; no inventedrawphysicalsource/Itemmovementproof or laterbranchfailure.",
+    "V1/V2helduninstalledunexecuted, V3originalunchanged; ten070079/SmashingItemuntouched. Rootledger/native/sourceapplyseparate."
+  ]
+}

@@ -61,6 +61,14 @@ $gameWinners = is_array($gameRec['winners'] ?? null) ? array_map('intval', $game
 if (empty($gameWinners) && $gameWinner > 0) $gameWinners = [$gameWinner];
 sort($gameWinners);
 $seatCount = count($m['players'] ?? []);
+// 1v1 Always Two (spec 2026-11-20): the game has four BOARDS but the match has two people. The end screen speaks in SEATS — board
+// 3 is seat 1's, board 4 seat 2's — and offers no two-player rematch / convert / requeue (those respawn a ONE-deck game), so it
+// reports a multi-seat table: Main Menu + Report Bug, the Twin Suns set.
+if (function_exists('SWUFormatAlwaysTwoMode') && SWUFormatAlwaysTwoMode(strval($m['format'] ?? '')) === '1v1') {
+    $gameWinners = array_values(array_unique(array_map(fn($b) => $b > 2 ? $b - 2 : $b, $gameWinners)));
+    sort($gameWinners);
+    $seatCount = 4;
+}
 // One entry per seat the match actually has (was hardcoded to seats 1 and 2). Seats 1/2 always
 // appear, so a 2-player response keeps its exact previous shape.
 $winsBySeat = ['1' => intval($m['wins']['1'] ?? 0), '2' => intval($m['wins']['2'] ?? 0)];

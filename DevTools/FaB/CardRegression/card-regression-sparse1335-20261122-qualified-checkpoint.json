@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T07:40:51.684104+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1335-20261122.json",
+  "source_spec_sha256": "01b64603d4ba24faa4ca372d980b3fa019235550c9b652afee876e5d01a49908",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 316,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 5289,
+    "duels": 3103,
+    "four_live": 2186,
+    "recorded_primary_ids": 2437,
+    "identity_denominator": 5196,
+    "recorded_groups": 2311,
+    "group_denominator": 3324,
+    "four_live_groups": 2175,
+    "phase_qualified_scenarios_at_actual_contexts": 1926,
+    "phase_qualified_unique_groups": 1916,
+    "creation_replay_passes": 2668,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1087,
+  "scenarios": [
+    {
+      "card_id": "oath_of_loyalty_red",
+      "group_id": "identity:oath_of_loyalty_red",
+      "scenario_id": "card-oath-of-loyalty-red-four-live-sparse1335-not-first-action-rejected-with-real-non-draconic-followup",
+      "effect_branches": [
+        "after_actual_first_action_affordable_oath_play_rejected_no_target_stack_or_spending_then_actual_non_draconic_buffed_attack_remains_legal"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-oath-of-loyalty-red-four-live-sparse1335-not-first-action-rejected-with-real-non-draconic-followup",
+      "source_spec": "card-regression-sparse1335-20261122.json",
+      "source_spec_sha256": "01b64603d4ba24faa4ca372d980b3fa019235550c9b652afee876e5d01a49908",
+      "review_evidence": "review-evidence/sparse1335-20261122-qualified-saved.json",
+      "review_evidence_sha256": "d84f35ef578a67a0f9f545b8d7585a51af5cc2bbb96531abec05e30a52e1f4ba",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1335-20261122-replay.json",
+          "sha256": "5998a8f582434432665fbf6811c125a74dd050ababd34d2c95ccedb6c1965d58",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

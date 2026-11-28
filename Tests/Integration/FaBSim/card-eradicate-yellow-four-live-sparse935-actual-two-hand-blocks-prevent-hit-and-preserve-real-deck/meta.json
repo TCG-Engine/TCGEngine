@@ -1,0 +1,7 @@
+{
+    "name": "Eradicate / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:46:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Contract** - You are contracted to banish opponents' yellow cards. Whenever you complete this contract, create a Silver token.\n\nWhen this hits a hero, banish the top X cards of their deck, where X is the damage dealt this way. ActualtwoGenericHandAA3defeachfullyblock attack; zeroHP loss/nohit/noContract reward, realDeck9/10retained. Positivehit andexactunblockedpower notcertified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#eradicate_yellow"
+}

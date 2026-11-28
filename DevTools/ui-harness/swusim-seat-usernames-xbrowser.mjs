@@ -30,7 +30,7 @@ async function makeGame(schema) {
   if (!j.gameName) throw new Error('TestSchemaSetup failed: ' + JSON.stringify(j));
   return String(j.gameName);
 }
-const url = (gn, pid, mobile = false) => `${BASE}NextTurn.php?folderPath=SWUSim&gameName=${gn}&playerID=${pid}&authKey=testschema`
+const url = (gn, pid, mobile = false) => `${BASE}NextTurn.php?swuTable=off&folderPath=SWUSim&gameName=${gn}&playerID=${pid}&authKey=testschema`
   + (mobile ? '&swuLayout=mobile' : '');
 
 // names: serve the page with SWU_SEAT_USERNAMES already filled — the shape a real match game has at load, so

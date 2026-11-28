@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-16T22:27:22.785524+00:00",
+  "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+  "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+  "source_spec_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 129,
+  "native_assertions": 11975,
+  "manual_passes": 112,
+  "totals": {
+    "saved_registered_scenarios": 4137,
+    "duels": 3074,
+    "four_live": 1063,
+    "recorded_primary_ids": 1290,
+    "identity_denominator": 5196,
+    "recorded_groups": 1164,
+    "group_denominator": 3324,
+    "four_live_groups": 1056,
+    "phase_qualified_scenarios_at_actual_contexts": 774,
+    "phase_qualified_unique_groups": 769,
+    "creation_replay_passes": 1515,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 3,
+  "scenarios": [
+    {
+      "card_id": "blade_rush_yellow",
+      "group_id": "identity:blade_rush_yellow",
+      "scenario_id": "card-blade-rush-yellow-four-live-real-first-sword-go-again-refund-second-distinct-sword-three-damage",
+      "effect_branches": [
+        "blade-rush-yellow-four-live-real-first-sword-go-again-refund-second-distinct-sword-three-damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-blade-rush-yellow-four-live-real-first-sword-go-again-refund-second-distinct-sword-three-damage",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "source_spec_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06",
+      "review_evidence": "review-evidence/warrior117127130-4664-qualified-saved.json",
+      "review_evidence_sha256": "7e57fb9f2d3b01f3828c324584a35fd22765166cbf9c2dd9f2299fd163fb3db9",
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "qualification_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-warrior117127130-replay.json",
+          "sha256": "4108896d54ed23a28a9db3b49dd955f38d2c72a85a7b3b3d5ee39ac0fa09da2a",
+          "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "engage_steel_red",
+      "group_id": "pitch-cycle:engage_steel",
+      "scenario_id": "card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe",
+      "effect_branches": [
+        "engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "source_spec_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06",
+      "review_evidence": "review-evidence/warrior117127130-4664-qualified-saved.json",
+      "review_evidence_sha256": "7e57fb9f2d3b01f3828c324584a35fd22765166cbf9c2dd9f2299fd163fb3db9",
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "qualification_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-warrior117127130-replay.json",
+          "sha256": "4108896d54ed23a28a9db3b49dd955f38d2c72a85a7b3b3d5ee39ac0fa09da2a",
+          "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "overbear_red",
+      "group_id": "identity:overbear_red",
+      "scenario_id": "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe",
+      "effect_branches": [
+        "overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "source_spec_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06",
+      "review_evidence": "review-evidence/warrior117127130-4664-qualified-saved.json",
+      "review_evidence_sha256": "7e57fb9f2d3b01f3828c324584a35fd22765166cbf9c2dd9f2299fd163fb3db9",
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "qualification_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov16-warrior117127130-replay.json",
+          "sha256": "4108896d54ed23a28a9db3b49dd955f38d2c72a85a7b3b3d5ee39ac0fa09da2a",
+          "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

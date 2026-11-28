@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch555.json",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T02:39:35.775528+00:00",
+  "fixtures": [
+    {
+      "slug": "card-apocalypse-automaton-red-four-live-real-two-evos-two-hero-targets-and-six-damage-each",
+      "fixture_sha256": "4d15c385adbd9217b67b3114a7ce40e6dd4d961e0311121360277bd5408b45b9",
+      "passed": true,
+      "result": "[PASS] Apocalypse Automaton / two equipped Evos / two hero targets and six damage each"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-apocalypse-automaton-red-four-live-real-two-evos-two-hero-targets-and-six-damage-each",
+      "returncode": 0,
+      "stdout": "[PASS] Apocalypse Automaton / two equipped Evos / two hero targets and six damage each\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

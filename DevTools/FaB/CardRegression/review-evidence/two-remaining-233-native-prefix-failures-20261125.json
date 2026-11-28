@@ -1,0 +1,25 @@
+{
+  "status": "FAILED_CORRECT_EXPECTATION_PROBES_NOT_PASSING_COVERAGE",
+  "runtime_sha256": "c32be7e2e62e7512ddcd0ce036b5158a5d210349fb65d4de5d9f1c09f708071e",
+  "records": [
+    {
+      "scenario_id": "repair-probe-unforgetting-unforgiving-red-20261125-missing-earned-defend-layer",
+      "status": "CONFIRMED_NATIVE_PREFIX_FAILURE_NO_FIXTURE",
+      "error": "state window expected \"PRIORITY\" got \"DEFEND_PRIORITY\"",
+      "source_fix_applied": false,
+      "scope": "False-condition earned defend layer only; positive payload/targets/search/next-phase routes not exercised by this probe."
+    },
+    {
+      "scenario_id": "repair-probe-emerging-avalanche-red-20261125-missing-earned-entry-layer",
+      "status": "CONFIRMED_NATIVE_PREFIX_FAILURE_NO_FIXTURE",
+      "error": "state window expected \"PRIORITY\" got \"ACTION\"",
+      "source_fix_applied": false,
+      "scope": "False-condition earned entry layer only; positive payload/targets/search/next-phase routes not exercised by this probe."
+    }
+  ],
+  "source_spec_sha256": "27c9393b62e4bc57d1525eda912d6e75661bd3a7b0139333e2bb68b06834ab61",
+  "native_receipt_sha256": "3175a3df7bed28093eee4c2553394f26c6d1da9478c5aac6c6006010046285cb",
+  "fixture_saved": false,
+  "local_only_details": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\remaining233-prefixes",
+  "no_auth_or_engine_changes": true
+}

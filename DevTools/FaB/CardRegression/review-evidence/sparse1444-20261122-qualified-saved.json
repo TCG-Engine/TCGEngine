@@ -1,0 +1,134 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1444-20261122.json",
+  "source_spec_sha256": "42deefef2ef6333f087c135acde54cceb8798f059986d0ed0ede498e24ca64ec",
+  "input_sha256": "42deefef2ef6333f087c135acde54cceb8798f059986d0ed0ede498e24ca64ec",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-drawn-to-the-dark-dimension-red-four-live-sparse1444-real-runechant-two-resource-discount-and-consequences-paid-attack-prefix",
+      "card_id": "drawn_to_the_dark_dimension_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bba077d2867cd214e3fa78634f6b916477d5bb4150bede0510606d570d51a448",
+        "actions.json": "c6bbdadbba0b67d078d06e34467ea4302d68b39cbd4579bbe7f0c339867b9858",
+        "assertions.json": "d0cef1ad6a318a4c6d57f1b7774adb81ddfe53f4d85fc61b92299b629369e5c2",
+        "expected_final_gamestate.txt": "dbde130efcd3e714184135fdcc3e1605492d8ebf7198d559493508c4ea629020",
+        "meta.json": "10ef70bf2d11603b9e04bf2d24b1b5638c9a5e6cf48455dc7708352e7622ed21"
+      },
+      "fixture_sha256": "7f693d9779d84ba9897e1cdf17a2e4c593a22cf0ca61d64fc7e22c0cd6319952",
+      "actions": 17,
+      "native_assertions": 410,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1444-20261122.json",
+      "input_sha256": "42deefef2ef6333f087c135acde54cceb8798f059986d0ed0ede498e24ca64ec",
+      "coverage_endpoint": "PAID_RUNECHANT_DISCOUNT_BOUNDARY",
+      "covered_abilities": [
+        "Printed cost reduction by actual controlled Runechants; separate played-attack Runechant consequences"
+      ],
+      "prefix_limits": [
+        "No primary attack resolution, when-this-attacks drawing/timing, physical damage, below-threshold costs or pitch-sibling credit"
+      ],
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1444-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-drawn-to-the-dark-dimension-red-four-live-sparse1444-real-runechant-two-resource-discount-and-consequences-paid-attack-prefix",
+        "fixture_slug": "card-drawn-to-the-dark-dimension-red-four-live-sparse1444-real-runechant-two-resource-discount-and-consequences-paid-attack-prefix",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "42deefef2ef6333f087c135acde54cceb8798f059986d0ed0ede498e24ca64ec",
+    "source_note_sha256": "e451b318af39dfbade3529413f248f65704fddcf98482f12586955026a4b5053",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual_young_natural20_UPF",
+    "native_controls": 17,
+    "query_checks": 410,
+    "persistable_assertions": 410,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_PRINTED_COST_REDUCTION_AND_REAL_RUNECHANT_CONSEQUENCES_PAID_ATTACK_PREFIX_ONLY",
+    "approved_qualification_endpoint": "PAID_RUNECHANT_DISCOUNT_BOUNDARY",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "basis": [
+      "Cached Drawn red is Runeblade Attack Action, printedcost2/power3, costs one less per controlled Runechant. Natural young Vynnset20 admits Runeblade card; three Dori20 and support assets are cached legal/unbanned UPF. Primary pitch-cycle group was independently absent from coverage and hold ledger.",
+      "ARCCards313-318 subtracts actual own Runechant count from cost. Real Runechants6/7 exist throughout target declaration and payment; primary8/AP1/R0 plus retained Blue9 prove2-2=0, rather than a seeded free-play flag or pitched resource. Runechants are destroyed by later effects, not paid as costs.",
+      "Actual Sigil5 Instant0 requires fresh four-manual responses, heals owner20to21 and preserves AP1 and both Runechants. It is not an AA or weapon attack and earns neither Runechant nor Vynnset Shadow-action effects. Drawn8 is not Shadow, so no Vynnset life-payment layer is owed.",
+      "Formal attack target declaration selects actual adjacent Hero4 before payment. ARCCards390-395 adds distinct trigger10/source6 and11/source7 and invokes each PrepareCard; both Hero4 declarations occur before priority. No sole-opponent damage-default shortcut is used in this four-seat packet.",
+      "ARCCards403-415 managed Runechant trigger destroys its own physical source and independently resolves1arcane. StackLIFO resolves source7 then6; remaining-source assertions6 after first round are correct. Each trigger has a fresh1/2/3/4 response round; targetHP20to19to18, no rune GY export and no primary movement.",
+      "Endpoint remains fully paid physical primary8 ATTACK/SourceHand, only layer on Stack, PRIO1, AP0/R0, Blue9Hand, Sigil5GY, allRunechants gone, no CombatChain/DQs/payment/awaitframes. When-this-attacks draw is not earned before this attack resolves onto combat chain; no future draw, primary physical damage or timing behavior is certified.",
+      "Workspace adapter diff retains original common exact saved action/assertion normalization and equality, step accounting/pass ownership, initial declared state/card checks, live-seat/manual shortcut guards, raw5 hashes and empty awaitframe checks. Generic emptyStack completion is replaced with one named primary-specific paid prefix, exact HP/resources/AP/UID11/RNG0 and all-zone guards. Params is strict base64-decoded JSON and must target Hero4. No action-list variable collision is present.",
+      "Only b1444 selects this adapter and named endpoint in breadth_batch; binding checks current spec/adapter/base-common hashes. Other endpoint dispatches, native recorder, and replay runner stay on their existing routes. Current Python sources parse."
+    ],
+    "endpoint_binding_sha256": "c79dfc13bfe93a669202cc142e7389e99320e38fb6b642cb83b7516f378784b4",
+    "workspace_adapter_review": {
+      "adapter_sha256": "d264e5fbf4032b2032e07ef14fb0c25a749d9bba76edf28b6645916df69220b6",
+      "base_common_sha256": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "pipeline_sha256": "3ad13a8ed683f119314c3b978a8bc10c2833fa5daa3c14b9672ad675bf5179b2",
+      "scope": "Pre-native semantic/validator review only; no saved fixture or replay exists to certify yet."
+    },
+    "limits": [
+      "when_this_attacks_draw_trigger_and_timing",
+      "primary_attack_resolution_and_physical_damage",
+      "below_threshold_or_no_runechant_cost",
+      "pitch_siblings",
+      "Exactly one red pitch-cycle representative; no support identity/whole-card credit.",
+      "No engine, recorder, native game, replay or full suite executed by reviewer.",
+      "Credit only after this exact prefix is natively saved, all410 assertions persist, strict endpoint qualification passes, and one targeted replay passes.",
+      "Do not continue primary resolution under this approval or relax any mismatch."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1444.py": "9673f6537175d0260d101511c83a78b7bd1839a0cad3276e9d36bbad416a318a",
+      "nov24_rune_discount_prefix_review.py": "d264e5fbf4032b2032e07ef14fb0c25a749d9bba76edf28b6645916df69220b6",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "nov24_paid_banish_prefix_review.py": "1c7dd970e6fb4a9e5c6920231fcabbf9a0ed6dbe9bfce37b9677dbacd5f6956f",
+      "breadth_batch.py": "3ad13a8ed683f119314c3b978a8bc10c2833fa5daa3c14b9672ad675bf5179b2",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1444-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1ba075f691ba0cdb98856966b7cfb9c9be1a23d04a8055aad66000b99ed806c5"
+  },
+  "full_suite_run": false
+}

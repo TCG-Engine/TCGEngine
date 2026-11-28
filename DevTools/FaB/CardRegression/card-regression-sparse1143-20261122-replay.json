@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cracked-bauble-yellow-four-live-sparse1143-actual-pitch-two-pays-one-and-preserves-one",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cracked-bauble-yellow-four-live-sparse1143-actual-pitch-two-pays-one-and-preserves-one",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1143-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1143-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a86dc4d3be56c3aa084001e58ee70d0f8bed476ad8c2742ff4a2f1bee3e04406",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5369b82fb0afaa43027b4a8ed86eeae95ad787c483e63474261b807eb7f9da49",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "016444fa4f0242abd64ae20835faf97fcff038973f7cea5d05c887e9f422e219",
+        "expected_final_gamestate.txt": "d4bbbb00630c62d7a8e79c8fc7a543820386c3cbd0d1b42d2f90d9a089b8c49c",
+        "meta.json": "2c5950d717a23352d43ebce4dc0110f844b88a2daf541f5346b3a7cf0a9e96f6"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

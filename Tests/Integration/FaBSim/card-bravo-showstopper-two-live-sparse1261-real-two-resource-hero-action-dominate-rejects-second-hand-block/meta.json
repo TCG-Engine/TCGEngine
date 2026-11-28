@@ -1,0 +1,7 @@
+{
+    "name": "Bravo Showstopper / actual adult duel paid hero action and Dominate",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:02:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_BRAVO40_TWO_LIVE_NATIVE_DUEL_ONLY. NaturalBravo40/DorintheaIronsong40; activeSeatsOMITTEDusesexistinglegacytwo-seatsetup/SeatOrder12/LiveSeats12/nonUPF/defaultemptyGameMode/noPassives. Bothmanualshortcutwindowsfalse, nofour-liveclaim. ActualBlue3paysHeroAction2leavesR1/AP0/ABI8sourceHero1beforebothresponses; printedGArestoresAP1. ActualRaging5Handcost3power7/noownkeywordsauto-declaresonlyopposingHero2, actualBlue4adds3toprior1pays3leavesR1/AP0. Bothfreshresponses, actualCritical6Hand2defends3; actualWounding7secondHandclickrejectsunderDominate, same7retained/onlyoneCCdefender. Actual7-3=4damageHP2=36, ownedAttack5GY1/Block6GY2/7Hand2/Blue3,4Pitch1/HP1=40/AP0/R1/UID8RNG0/emptyStackDQCC. NoYoungBravo/four-live/costbelow3/equipmentorDR/multipleattacks/endexpiry/Heroother/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bravo_showstopper FaBSim/Custom/WTRAbilities.php FaBSim/Custom/WTRCards.php FaBSim/Custom/GameLogic.php"
+}

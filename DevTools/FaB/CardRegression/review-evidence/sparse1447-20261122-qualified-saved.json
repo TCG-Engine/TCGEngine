@@ -1,0 +1,176 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1447-20261122.json",
+  "source_spec_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+  "input_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-teklovossen-the-mechropotent-two-live-sparse1447-native-bound-current-form-grants-go-again-with-boost-declined-and-real-item-consumer",
+      "card_id": "teklovossen_the_mechropotent",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+        "actions.json": "d8faa3fbcdf19aabe21d962b63d61ff5795e1d252814f34f2b66e3bfba2a9359",
+        "assertions.json": "f8663f101ef7d9ad1a29ad26ffe89710a36290149debcca2976e85511bcb787e",
+        "expected_final_gamestate.txt": "0e557a1c9ab02671872e8a005b98219acc3b755ae2a1d7e1e7d216f16a64f933",
+        "meta.json": "6cf7727f26edcc0306a5045f3338f869fc8bfe38a10e8ae40e9029282d483f78"
+      },
+      "fixture_sha256": "16e9ace2d5eda9df6dcd225195e81af56d0546ccd7d94dc4a61abf332d4a22f9",
+      "actions": 19,
+      "native_assertions": 544,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 15,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1447-20261122.json",
+      "input_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1447-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-teklovossen-the-mechropotent-two-live-sparse1447-native-bound-current-form-grants-go-again-with-boost-declined-and-real-item-consumer",
+        "fixture_slug": "card-teklovossen-the-mechropotent-two-live-sparse1447-native-bound-current-form-grants-go-again-with-boost-declined-and-real-item-consumer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "fc468cb8468b57f81b4920d6547c5e506a5ee37320b7206fa2a4cbad2a8435b1",
+    "source_note_sha256": "a3702dec05b45a872ac5a8062aa0b593de98c027975916fc3cbed03760684b56",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": {
+      "1": {
+        "hero": "teklovossen_the_mechropotent",
+        "health": 40,
+        "manual": true,
+        "original_hero": "teklovossen_esteemed_magnate"
+      },
+      "2": {
+        "hero": "bravo_showstopper",
+        "health": 40,
+        "manual": true
+      }
+    },
+    "native_controls": 19,
+    "query_checks": 544,
+    "persistable_assertions": 544,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "primary_group": "identity:teklovossen_the_mechropotent",
+    "coverage_category": "NATIVE_BOUND_TRANSFORMED_CURRENT_HERO_POSITIVE_MECH_ATTACK_GO_AGAIN_AND_ITEM_TYPE_BOUNDARY",
+    "approved_qualification_endpoint": "COMPLETE",
+    "whole_card_credit": false,
+    "secondary_identity_credit": false,
+    "basis": [
+      "Native-bound current transformed40-life position derives from original adult Teklovossen and Bravo40; cached original deck-pool cards legal under that specialization/class. Current Demi-Hero is not claimed as a starting hero. Primary group independently unrepresented/unheld.",
+      "Component source uses real prepared physical SingularityStack1 and normal DoResolveCard, rather than direct protected self-move/helper or fabricated resolving frame. EVOCards72-78 moves four actualEvos3..6, weapon7 and originalHero8 to Soul; same source1 becomes currentHero with native emptyCounters/effects. Exact originalSoulUIDs/order remain3..8. No UID editing or omitted native Hero counters.",
+      "Selected Evos each have a printed Instant destroy-under-card ability, so empty under-materials plus spentBase9..12GY is an expressible prior position. Their prior play/activation/timing is not constructed or credited. No SteelSoul Evo is selected, so no transformation-trigger layer from EVOSteelTriggers54-56 is owed.",
+      "Parent component32-check/exit0 artifacts verify native currentform, life40, exact Soul and UID16, effective fourEvo count, MechAA GO and Generic/blankedHero negative controls, restoration to exact native state. The former unmanaged helper failure is outside gameplay/save and gives no defect/coverage credit. Pure component checks are separate from one recorded gameplay case.",
+      "Existing initial_snapshot_guard must match raw9a9a3c3f\u2026 before any native input/save. All derived incidental turnEffects/arcCards are retained exactly; no granted GO effect, Boost-history or extraAP is manually seeded. Normal two-seat common validator accepts declared transformed40-life position and exact manual preferences; no custom endpoint needed.",
+      "Cached ZeroRed0cost/power4 has Boost but no intrinsic unconditional GO. Actual Deck16 remains available; explicit MZMODAL Do_not_boost1 leaves it untouched/noBanish. Sole opposingHero2 auto-binds before Prepare; both manual responses yield actual4power and Hero-grantedGO per EVORuntime61, actual4damageHP36, AP0 until genuine resolution/refundAP1/fullclose.",
+      "Actual HyperDriver14 is Mechanologist NAAItem printedcost1/noGO. RealBlue15pitch3 pays1/R2 and spends the earnedAP, fresh bothresponses\u2192actual ownedArena14/AP0. This is a live type-boundary consumer showing HeroGO did not leak to MechNAA; no support Steam/counter bookkeeping claim remains.",
+      "OriginalSoul3..8/BaseGY9..12 and Deck16 stay physically exact. Zero13 appendsGY index4, Blue15Pitch, sourceHero1ready40/Bravo36, exact quiet COMPLETE Stack/DQ/CC/await/UID16RNG0/AP0R2 pinned. No Hero activated attack, Soul payment, discard trigger, defending/Battleworn or turn-end effect is entered.",
+      "Source-justified constructor cleanup added only after exact quiescence: Stack0/allfourDQempty/pendingPaymentnull/resolvingReactionnull and exact three callback locals with no await metadata. Native ZoneAccessors885-887 setter clears only DecisionQueueVariables to recorder-canonical empty. Full GameState equality is asserted; independent old/new raw-byte comparison proves every other serialized field identical. No active frame, Hero counter, material, turn history, usage or gameplay effect is dropped."
+    ],
+    "native_initial_component_evidence": {
+      "helper_sha256": "bc262ca037f41cb82b611c12d4ffea2ca4eee766f15075626970fb92228d77d9",
+      "command_receipt_sha256": "e7f62349493fb7eb7342d7dd7cca92f85ea174346ac74ba244ca0a0875557b30",
+      "output_log_sha256": "06741cab91e6236deaf6c49aaf5619338c177fcb2c09967a794e201c1ebb634b",
+      "derivation_receipt_sha256": "17a83ddd332925c32555e01c15870456577141c2bc79aa35376c472de3a14686",
+      "raw_initial_sha256": "9a9a3c3fbffea8c780b4340895ceb59c001a915d1605590141a4c1e001b9431e",
+      "status": "parent_executed_isolated_component_PASS32_exit0_reviewed_read_only",
+      "scope": "Prepared native resolution/current-position derivation and guarded completed-callback context cleanup only. Not a replay of casting/prerequisites/material history, frontend transformation or its timing."
+    },
+    "pre_native_support_counter_correction": {
+      "record_sha256": "c07c3ac5d1e8c59601490cb807ffccc679180bdb0c8579661e5c3261b8fc969b",
+      "original_spec_sha256": "4a401927ef458a4bded63989852b4acaa5c55599ac76bc607c56fe5059dff3ed",
+      "scope": "Exact steps equality checked after removing one supporting Arena14 whole-Counters equality that omitted native FAB_PLAY_ORDER. All primary actions, GO/AP/payment/HP/UID/material/deck assertions unchanged. Support entry/counter claims explicitly withdrawn before any native recording.",
+      "ordered_authoring": [
+        "author_breadth1447.py",
+        "correct_breadth1447_support_counter.py"
+      ]
+    },
+    "limits": [
+      "Singularity_casting_costs_prerequisites_full_transform_timing_or_prior_material_history",
+      "activated_Demi_Hero_attack_Soul_cost_and_discard_trigger",
+      "Battleworn_or_defending_with_Hero",
+      "four_live_or_starting_with_Demi_Hero",
+      "four_Evo_count_as_a_replayed_action_or_other_consumer",
+      "secondary_identities_or_other_support_abilities",
+      "support_Item_Steam_entry_counter_or_bookkeeping_semantics",
+      "No component, native game, replay, tests or engine/source edits executed by reviewer. No saved pass or coverage is certified here.",
+      "Exact native initial guard, all544 persisted assertions and one fresh targeted replay required for qualification; stop on any mismatch without relaxing primary expectations."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/ProfessorCards.php": "6e5cc57b008552dc444d06831bd9dbec45db47214087de049da99b68deb96988",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "DevTools/FaB/CardRegression/initial_snapshot_guard.php": "5839a952b70c8c20f12c17aa044061cb492f4bf830789dc1c113e6d927fea36f",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Core/DecisionQueueController.php": "65bfcf5b4f595d62d6dfb8bde0b884de42cd1a726618b5431fccf8939eed9a9d"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1447.py": "edba155297579e9bfda6c00608feb08debdc07cd46e8b02d87c9f2345ae2288b",
+      "mechropotent_native_initial1447.php": "bc262ca037f41cb82b611c12d4ffea2ca4eee766f15075626970fb92228d77d9",
+      "correct_breadth1447_support_counter.py": "5bb05f3c352133bccc478c579c22eb0c0d13677292dbf6ace80f6333bf687c94",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth_batch.py": "c7d9d9a33187494b4353057eae63574475675cf494498fdd1ed964c16f4c37b1",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5",
+      "correct_breadth1447_initial_context.py": "c4e783a2e0b677bece1e69d5c4149a78ac71b3fac7646b37dfc7cc76611554cc",
+      "compare_mechropotent_initial1447.php": "d8e911ccfe8f9fcf001bbc6454481dc8bca6f697a5fe27be42e3ae31c0aefd78"
+    },
+    "initial_context_correction": {
+      "record_sha256": "3b3a0ea221d071025a998afb9ad84d69e553c90d52260a893e03d4e0ff489285",
+      "original_spec_sha256": "6c73f869546d44dae960d0b6415236bf0bf9213ece052ae87f6a4b1e49bb9498",
+      "original_review_sha256": "232fc657c8924396b15cfc9a08a15a3665dfe1e22cc8f7c197e4fbfcf2f88972",
+      "original_native_initial_sha256": "6d29c985813d28a0f978d710e7d43a43b67af61149cb659f15f90656eacc7af5",
+      "original_zero_action_failure_receipt_sha256": "9806f7ca98e3c3dcf2d86660e4e360742581256f8834336dc82ff67f06b95a88",
+      "snapshot_comparator_sha256": "d8e911ccfe8f9fcf001bbc6454481dc8bca6f697a5fe27be42e3ae31c0aefd78",
+      "difference_evidence_sha256": "39f89bf49f4df6ac429761bb652633a533a1e05cf03b8f3521d8523177bab2e4",
+      "raw_bytes_only_difference": "Exact JSON callback-local text removed from DecisionQueueVariables; every other serialized byte unchanged.",
+      "guard_scope": "Exact three-key/value whitelist forbids __awaitFrames/__awaitNextID and unknown locals; allqueues/stack/payment/resolution quiescent before nativeSetter.",
+      "ordered_authoring": [
+        "mechropotent_native_initial1447.php",
+        "author_breadth1447.py",
+        "correct_breadth1447_support_counter.py",
+        "correct_breadth1447_initial_context.py"
+      ],
+      "gameplay_steps_and_assertions_unchanged": true,
+      "hash_origin": "Fresh independently rerun constructor serialization, not copied from recording failure output."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1447-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "acc82c71164de800429220aca2d73fc9ce0c5010a8d77fed829cde607de560c1"
+  },
+  "full_suite_run": false
+}

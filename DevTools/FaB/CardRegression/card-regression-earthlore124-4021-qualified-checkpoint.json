@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T02:04:26.322698+00:00",
+  "runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+  "source_spec": "card-regression-repair-earthlore124-grouped-action-draw.json",
+  "source_spec_sha256": "a4dcc36ea71662f84faceee1365520d45c341e465bcf2de965fde3ec67ca1963",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 10,
+  "native_assertions": 1113,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4152,
+    "duels": 3074,
+    "four_live": 1078,
+    "recorded_primary_ids": 1305,
+    "identity_denominator": 5196,
+    "recorded_groups": 1179,
+    "group_denominator": 3324,
+    "four_live_groups": 1071,
+    "phase_qualified_scenarios_at_actual_contexts": 789,
+    "phase_qualified_unique_groups": 784,
+    "creation_replay_passes": 1530,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "earthlore_bounty",
+      "group_id": "identity:earthlore_bounty",
+      "scenario_id": "card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+      "effect_branches": [
+        "earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-earthlore-bounty-four-live-correct-real-action-draw-two-earns-one-responseable-trigger-and-two-owned-seismics",
+      "source_spec": "card-regression-repair-earthlore124-grouped-action-draw.json",
+      "source_spec_sha256": "a4dcc36ea71662f84faceee1365520d45c341e465bcf2de965fde3ec67ca1963",
+      "review_evidence": "review-evidence/earthlore124-4021-qualified-saved.json",
+      "review_evidence_sha256": "2e31f59e5e7af487321a061875541b77c63b15d8f341931220653b6e3223e48f",
+      "recorded_runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+      "qualification_runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-earthlore124-replay.json",
+          "sha256": "fab90d8b8a932aa534445ce20357091752c3a5ef25e3748e8adc2548ff470240",
+          "runtime_sha256": "4021d0cb2e2020c0cb199cddf6f9fb1dbf5679110eae6d248915e2d7c72aa1a3",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

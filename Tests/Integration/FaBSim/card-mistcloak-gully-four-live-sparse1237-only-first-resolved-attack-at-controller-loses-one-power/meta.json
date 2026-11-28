@@ -1,0 +1,7 @@
+{
+    "name": "Mistcloak Gully / first resolved attack reduction and real second attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T22:28:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "EXISTING_GULLY_TWO_RESOLVED_ATTACKS_ONLY. NaturalYoungFai20/Dori20/Dori20/Enigma20manualUPF. LawfulpriorownedMysticLandmark5Arena4(nofakeusedflag), actualRedHeadJab6andWounding7Hand1. EachannouncesHero4beforecost0/AP0andreceivesfourfreshsource/combatresponse rounds. Firstactualattack3\u21922fromGullyanddeals2HP18; itsprintedGArefund1fundssecondactualWounding4(noGA), whichmustnotberepeatedlyreducedanddeals4HP14. Landmark5stillownedArena4; noendphaseentered, noGullyplay/Bluepitch/defense/transcend/upkeepclaim. NoFaiPhoenix/DraconiclinkorEnigmaShieldtrigger. Finalreal6/7ownGY1/noStackDQsCC/APR0/UID7/RNG0. Scopeexcludesfirstattacknegation/nonresolution/redirect/othertarget/multipleGully/resetnextTurn, allsupportandfullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mistcloak_gully FaBSim/Custom/MSTCards.php FaBSim/Custom/GameLogic.php"
+}

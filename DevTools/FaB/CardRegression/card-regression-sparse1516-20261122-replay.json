@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-agile-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d3fc4be09bf0beb2f29b60c3f306c661104cc8bbe7dca8d86feb0ab8b31067a0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2d4da6524728e11042e6f433886355441f4794df4060f45de07d126ebd0aab49",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "15db71e6bda8a004b4cd99e9534c1a07e203bddf4f885d07dfbed5c42a05304b",
+        "expected_final_gamestate.txt": "6882265ac84b2631c0b61d12c5de2e9672819790f0edda12f644692498faa1b9",
+        "meta.json": "bacfa51e8a52e68b5f0ff1f9166c2e25695c504b8ccd72834774d7a725dda7e1"
+      }
+    },
+    {
+      "slug": "card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vigorous-engagement-red-four-live-sparse1516-actual-generic-attack-fails-specific-reaction-target-guard",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1516-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4c67b4dbf0c6f1dd237e46e76b9f4f0e124dba27fd0a9ba38ce952900f36c24a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc9088f8a7648bef4e61aca45b2f319fd2b18bb4e633b695f353a92dfb69ef7c",
+        "actions.json": "33011af21c84c32e1d3403a2fc580d1e46c0bef8b774f34c7533978a762bb108",
+        "assertions.json": "44984143619c786b22204b7805d9d0d00764a5093561402f066da81f35ecc08e",
+        "expected_final_gamestate.txt": "d553490c314319a61b11e507c3e81318dce8f1c6025c342d2bc789f5ac40c2c2",
+        "meta.json": "4d3abda6c1685aab78c77b5fd95b483262db72780c706559d39806582f0c1adb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

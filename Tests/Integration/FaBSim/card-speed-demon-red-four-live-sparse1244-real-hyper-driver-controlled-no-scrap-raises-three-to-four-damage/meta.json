@@ -1,0 +1,7 @@
+{
+    "name": "Speed Demon / controlling real Hyper Driver raises actual damage from three to four",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T23:17:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "CONTINUOUS_DRIVER_POWER_ONLY_NO_SCRAP. FourmanualnaturalYoungDash20/threeDori20, priorrealHyperDriverToken5Arena1withpersistentSTEAM2andrealSpeedDemonRed6Hand. PriorDriverproductionuncredited, noTurnhistory/permissionseed. GYemptysooptionalScraphasnoeligiblecardandisnotpaid; noeffectcostorderrouteearned. ActualAA0declaresHero4/spendsrealAP1to0thenfourfreshresponses. Realpower3+1becausephysicallycontrolDriver5, andactualunblocked4damageHP20to16throughfullcombat, noGA/APrefund. CardnotBoostdoesnotearnDriverSteam/resourceWHEN; noHyperDriverwasscrappedsointerveningifAttackWHENnotearned/noTokencreated. Final6GY,5stillArenaSTEAM2, R0/AP0/noStackDQ/Banish/RNG/UID6. NoScrappositive/costorder/newDriver/Boost/Driver-absent/secondary/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#speed_demon_red FaBSim/Custom/EVOCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

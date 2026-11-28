@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of packet author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse907-20261122.json",
+  "source_spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+  "input_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-battlefield-blitz-red-four-live-sparse907-actual-blue-cost-one-and-five-damage-without-unearned-charge-go-again",
+      "card_id": "battlefield_blitz_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42a1d1737e72ade5b166be8fcf0fa7062d7307e06f3c12bedfb74394ea9c688e",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "7b544660ca10e4507913fb3a6063e220ed8673e67516bf7461c292ec1ea9bc08",
+        "expected_final_gamestate.txt": "64b141697578fb73d66f25b2149e062da108caee836b5f8e04da823c195fe91e",
+        "meta.json": "5a492c545c35809a56ce0787933026acb780905ec26f8edb84063c393d3dedd4"
+      },
+      "fixture_sha256": "ecdab5033213807f48866113d84971fe3475ec9fb56833b572c4a9cdb691aa0e",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "input_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse907-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-battlefield-blitz-red-four-live-sparse907-actual-blue-cost-one-and-five-damage-without-unearned-charge-go-again",
+        "fixture_slug": "card-battlefield-blitz-red-four-live-sparse907-actual-blue-cost-one-and-five-damage-without-unearned-charge-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-low-blow-red-four-live-sparse907-actual-blue-cost-one-and-lyath-halved-base-two-damage-without-boo-power",
+      "card_id": "low_blow_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fffabd4f371c5e26b4da517afb1480cb3300ff1ac90b2baa382f1e2ffd608e9f",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "3b825702e38d8ad88244d5977f84768c9bd153fafe042bb12311250021e648c3",
+        "expected_final_gamestate.txt": "a43daf00bf387ba9ec86dbd068ee98a948d1a8196521aaa33b8ff49d670d333d",
+        "meta.json": "ef7a9c784a134752a341f59d4d76f2467af2a5daf8fc52dda870c860feaaec1f"
+      },
+      "fixture_sha256": "ddbf3d65b638539d28725267a801012a331eeb74e5b353c4949a14fa2312e8f9",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "input_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse907-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-low-blow-red-four-live-sparse907-actual-blue-cost-one-and-lyath-halved-base-two-damage-without-boo-power",
+        "fixture_slug": "card-low-blow-red-four-live-sparse907-actual-blue-cost-one-and-lyath-halved-base-two-damage-without-boo-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-strong-wood-red-four-live-sparse907-actual-generic-blue-cost-three-and-six-damage-without-earth-bond-bonus",
+      "card_id": "strong_wood_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3592fb66f0c86e3c5a237025a95036e933bfd6b14e2d4e8890f8aef0d103e57a",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "5015e3e7c9efa307d639b1c8557586ed11718a515ab780de24553f125d5f744f",
+        "expected_final_gamestate.txt": "2b2bb5985164470d94c92b550a82ba0c71ba32822b85cb38788881d10d90f760",
+        "meta.json": "abaad96c956737ed264be86277fdbb6ae2b20af33ec908937a437389d425762c"
+      },
+      "fixture_sha256": "88e97c199f01dfe57fecad75609ab64361dd31d331f6f3b61ba860aa9f6e1705",
+      "actions": 28,
+      "native_assertions": 135,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse907-20261122.json",
+      "input_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse907-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-strong-wood-red-four-live-sparse907-actual-generic-blue-cost-three-and-six-damage-without-earth-bond-bonus",
+        "fixture_slug": "card-strong-wood-red-four-live-sparse907-actual-generic-blue-cost-three-and-six-damage-without-earth-bond-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of packet author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "3b175f4f3a989d086574332f16d769af840a2e554e594f38d836740fe8db8876",
+    "evidence": [
+      "Cachedprintedrulesindependentlychecked: BattlefieldLightWarrior1/5legalBoltyn20, nocharge/Soul/noAAblocks =>5damage/AP0(notGA); StrongWoodElementalGuardian3/6legalOldhim20, GenericBlue6notEarth =>6damage/AP0.",
+      "LowBlowReviled1/base3legalLyathGoldmane20 whoseprintedbasepowerhalvingroundsup: ceil3/2=2, noBoo+3. Actual2damage, noherobooactivation/Mighttrigger orseededflags. NegativebranchdoesnotvalidatepositiveBoo.",
+      "AllactualHand5targetsadjacentP4beforerealBlue6resourcepayment, costs1/1/3leaveR2/2/0, sourcephysical5GYandPitch6; fullmanualfourlivecombatpinsHerohealth andAP0. No hiddenWHEN-attacks oradditional-effect-cost route; allotherbranches/siblings/supportgroupsunqualified."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse907-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c53837a6370a0bd8b74801a477447a56afaeea5d9e743cec51b5973ea9ad8411"
+  },
+  "full_suite_run": false
+}

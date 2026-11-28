@@ -1,0 +1,7 @@
+{
+    "name": "Last Ditch Effort / nonempty Deck excludes power and action refund",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T09:35:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_FOUR_DORI20. ActualLastDitch5Handcost3withrealCriticalRed8Deck1/sameUIDandorder. OneactualBlue6pitch3pays3\u2192R0/AP0; Decknotemptythroughdeclaration/payment/playedcondition, sointerveningWHENiffalse/noearnedpower4bonusorGA. Actualbase4power/noGA/freshfourresponses/unblocked4damageHP4=16(no8damage). No sourcehittrigger/DoriweaponWHENbecauseGenericAAisnotweapon. Fullcloseprimary5GY1/fund6Pitch1/Deck8same/FDArsenalWounding7same/UID8RNG0/AP0R0. Real0costArsenalconsumerresourceaffordablebutactualnativeclickrejectsAP0/noTarget/StackDQ/pendingPayment/movement/healthchange; pinsnoRefund. Onlynonempty-deckfalsecondition/nativebasecost/power/damage/noRefund; trueemptydeckbonus/positiveWHENtiming/GA/secondary/Hero/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#last_ditch_effort_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/WTRCards.php FaBSim/Custom/ARCCards.php"
+}

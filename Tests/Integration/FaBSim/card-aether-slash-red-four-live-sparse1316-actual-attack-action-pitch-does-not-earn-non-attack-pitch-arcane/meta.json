@@ -1,0 +1,7 @@
+{
+    "name": "Aether Slash / actual attack action pitch does not earn non attack pitch arcane",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T06:16:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNG_briar20_DORI20_DORI20_DROMAI20_NAMED_CONDITION_GUARD_ONLY. Primary5Handactualnormalcost1paidGenericAttackActionRed6pitch1/R0/AP1to0, formaladjacentrealAshwingAlly7withlawfulpriorAshmaterial/allfourfreshresponses. ActualGenericCriticalStrikeRed6pitch1isATTACKACTION, notnon-attackAction; itsprintedtypesandphysicalPitchUID6areknown. ThereforeAetherSlashnonAApitchconditionfalse/noearned1arcaneattacktrigger. Actualprinted4physicaloverkillkills1lifeAlly7/ceasesnoGY4/noHeroHPdamage(noBriarorKatsuHeroHitproducer); allHero20, realHandBlue8andArsenalRed9underopponentretained, realownedDeckBlue10retained. Final5ownGY1/6Pitch1/10Deck1/nootherUIDRNG/APR0/StackDQsCCclean. No positivecondition/arcane/damage/modes/typegrant/Flowproducer/Fusion/Hero/support/otherpitch/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_slash_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/OMNCards.php FaBSim/Custom/PENCards.php FaBSim/Custom/FaiCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/UPRCards.php"
+}

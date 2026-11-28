@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1578-20261122.json",
+  "source_spec_sha256": "19fa446a4afc02588a468fa55c5b95b5f1535211e0cd53984e7c31ab65375f7a",
+  "input_sha256": "19fa446a4afc02588a468fa55c5b95b5f1535211e0cd53984e7c31ab65375f7a",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-copper-cog-blue-four-live-sparse1578-real-own-start-zero-steam-mandatory-destruction",
+      "card_id": "copper_cog_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df678d5277bda2ebf38230ef74f6a596a2026bda95b8121942c7d30cc29f2484",
+        "actions.json": "f9d738ea8f9f2fa15b5328878c348a590eeebe265635d3d2313e6d7b94de2ebb",
+        "assertions.json": "0e1c56a43127a2f50cfc97af743a2cb34c65edcbfc245cfefea2b125462fea40",
+        "expected_final_gamestate.txt": "cebe15cbd14078496874d4a22c5526454ab8e274249ef50f38bb9261b0430e20",
+        "meta.json": "5c8380051b8ceb0e365e4fdab5d369ab5e0b5d4c60e2fa232f869a6b8d5e0fdb"
+      },
+      "fixture_sha256": "d9cea446b42c903c2870a19f76edb66bf6e115aba8935693b6313720ce18114e",
+      "actions": 8,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1578-20261122.json",
+      "input_sha256": "19fa446a4afc02588a468fa55c5b95b5f1535211e0cd53984e7c31ab65375f7a",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1578-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-copper-cog-blue-four-live-sparse1578-real-own-start-zero-steam-mandatory-destruction",
+        "fixture_slug": "card-copper-cog-blue-four-live-sparse1578-real-own-start-zero-steam-mandatory-destruction",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1578,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T15:45:25.348308+00:00",
+    "spec_sha256": "19fa446a4afc02588a468fa55c5b95b5f1535211e0cd53984e7c31ab65375f7a",
+    "source_note_sha256": "bd82907d4a7302be83dc84d2a0560ea1c105714978801b265c624ab957b40ab9",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/EVORuntime.php": "d57f99b22981b970a55facbee812dc398b8dd104bb2fb386e6e3014eb79512b5",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355"
+    },
+    "cases": 1,
+    "findings": [
+      "Independent exact review approved lawful prior CopperCog5 with zero steam; no current producer, future effect or successful old entry/upkeep seeded.",
+      "Actualfour-live P1End toP2Start3 invokes exactCrankItem dispatcher/CopperCog Start/SEAUpkeep. Zero cannotpay removingsteam, so ownphysicalnonToken5 mustgoGY2 withno optionalpayment waived.",
+      "Schema-correct finalUID5GY2/AP2=1/unchangedhealth/resources/UID/RNG andemptyArena/Stack/DQ pin actualforceddestruction beforeAction; no GYcounterassertion orotherenteredobserver."
+    ],
+    "limits": [
+      "Source/spec review only; native/save/replay pending.",
+      "normal_Hand_entry_steam_and_Crank_known207",
+      "ordinary_Cog_attack_known211",
+      "prior_upkeep_payment_choice_or_turn_history",
+      "other_Start_or_item_destruction_observers",
+      "whole_card_or_support_identity_credit"
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1578-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5a0f6ea18d63fb098d4ab46b08135f53fb558ac5da4339ab5f103f940bda4d94"
+  },
+  "full_suite_run": false
+}

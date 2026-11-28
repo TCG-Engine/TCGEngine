@@ -1,0 +1,382 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch13.json",
+  "runtime_sha256": "4b6c0355251da1af5e0ba6dfb29c97a57bb320a42dce0a809d32006e5faa7184",
+  "returncode": 0,
+  "completed_utc": "2026-11-16T16:45:12.002187+00:00",
+  "fixtures": [
+    {
+      "slug": "card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+      "fixture_sha256": "cf1c8532edec2c8f8cc60c2ea23d91faa201164d71ef7cdc82a220ef83215f0e",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / fully-blocked-no-hit-no-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "fixture_sha256": "5a013c66a4b1944bf6d6c2e97fb51172f85f7a8365106c01d5f4344d194bfb87",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-cost-zero-hit-trigger-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+      "fixture_sha256": "d629f7141daf277a853e585aaee82e088b05bb7a95c1dd84e09582039428e2ce",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-sword-weapon-no-granted-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-ally-hit-still-grants-go-again",
+      "fixture_sha256": "3e458191348b653630cac9e17078906992a9b89bdd8c2416581d7bf77a3b5f71",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / ally-hit-still-grants-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-cost-one-boundary-hit-trigger-go-again",
+      "fixture_sha256": "363c103856b88ab6392ebc8402b41be4849034573f3482bf67b720cab19b17f8",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-cost-one-boundary-hit-trigger-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-cost-two-excluded",
+      "fixture_sha256": "7f4c464b61cdea7a947ea079504514bdc69869fc65430dfdff03b54dc18ff699",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-cost-two-excluded"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-cost-zero-hit-trigger-go-again",
+      "fixture_sha256": "3c8c67ff3e0b0c349ca827f7da044b6253034f32f34b4f84a27b60f2a3ffaa4e",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-cost-zero-hit-trigger-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+      "fixture_sha256": "ae16be33748d062f8e0615fb6ba49f4ccbb8d566b2861b4af4d199228356f882",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-dagger-weapon-no-granted-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-insufficient-reaction-resources",
+      "fixture_sha256": "e08dc27f384de118301b751c30d1b34466ae18d72a1d364402d48cb047dd3a91",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-insufficient-reaction-resources"
+    },
+    {
+      "slug": "card-razor-reflex-red-arsenal-sword-weapon-no-granted-go-again",
+      "fixture_sha256": "880339fb94943ba04630e2c7167b75b4d56cfd7d5a94a261152717308fc06118",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / arsenal-sword-weapon-no-granted-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-attack-step-timing-rejected",
+      "fixture_sha256": "92d40b45b62baa666b54fb86d012a56758b7b2118a995b1bd9da71540bea57ca",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / attack-step-timing-rejected"
+    },
+    {
+      "slug": "card-razor-reflex-red-club-weapon-excluded",
+      "fixture_sha256": "6cb63a099ce1a4a95dca8b9214170c57a57b158fb2f79319014fccb3eaf78c0a",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / club-weapon-excluded"
+    },
+    {
+      "slug": "card-razor-reflex-red-damage-step-timing-rejected",
+      "fixture_sha256": "5d935f9c9283ae20972e46e2193309be5827ac2a46d84c9392b3d02512082729",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / damage-step-timing-rejected"
+    },
+    {
+      "slug": "card-razor-reflex-red-defender-cannot-play-attacker-reaction",
+      "fixture_sha256": "df01c15885aa78e6e42470f521c4eb635b8ad1f65ff91dcc2703319041ce4dd9",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / defender-cannot-play-attacker-reaction"
+    },
+    {
+      "slug": "card-razor-reflex-red-hammer-weapon-excluded",
+      "fixture_sha256": "a558b7e54ac74f8e5cb3468e82e18abcf9ea8047a6c37580061226642a5c3a53",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hammer-weapon-excluded"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-one-boundary-hit-trigger-go-again",
+      "fixture_sha256": "ec08cd34cbd2a2e99f99009a68ccb4b353d4f036be0b1b96e1fbc3ac88138d6a",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-cost-one-boundary-hit-trigger-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-cost-two-excluded",
+      "fixture_sha256": "4357ae46e670eff3760e169d5f78965b5d0c789cb6d7594bb66eaf987f80c4d5",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-cost-two-excluded"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-dagger-weapon-no-granted-go-again",
+      "fixture_sha256": "84a9c07ee20c05e76bdf2605c2ebd7d1935267fca756e0a4d64d49c7b7c41342",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-dagger-weapon-no-granted-go-again"
+    },
+    {
+      "slug": "card-razor-reflex-red-hand-insufficient-reaction-resources",
+      "fixture_sha256": "2321c154656a2a464e4bc773dca2239e0a8a2681864ee9efaf113e86ff6c0073",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / hand-insufficient-reaction-resources"
+    },
+    {
+      "slug": "card-razor-reflex-red-no-attack-action-window-rejected",
+      "fixture_sha256": "28823cb2f846c4782dd8b20341d8106248d6752c3104f5d27228bee0fa5c275e",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / no attack action window"
+    },
+    {
+      "slug": "card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+      "fixture_sha256": "94e74b3cdbb1e577a606a1b1b63274b27ce67e916d766a0c2b1ee87aea7a3826",
+      "passed": true,
+      "result": "[PASS] Razor Reflex / two-reactions-two-triggers-one-go-again-ap"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-fully-blocked-no-hit-no-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / fully-blocked-no-hit-no-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-cost-zero-hit-trigger-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-cost-zero-hit-trigger-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-sword-weapon-no-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-sword-weapon-no-granted-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-ally-hit-still-grants-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / ally-hit-still-grants-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-cost-one-boundary-hit-trigger-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-cost-one-boundary-hit-trigger-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-cost-two-excluded",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-cost-two-excluded\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-cost-zero-hit-trigger-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-cost-zero-hit-trigger-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-dagger-weapon-no-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-dagger-weapon-no-granted-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-insufficient-reaction-resources",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-insufficient-reaction-resources\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-arsenal-sword-weapon-no-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / arsenal-sword-weapon-no-granted-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-attack-step-timing-rejected",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / attack-step-timing-rejected\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-club-weapon-excluded",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / club-weapon-excluded\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-damage-step-timing-rejected",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / damage-step-timing-rejected\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-defender-cannot-play-attacker-reaction",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / defender-cannot-play-attacker-reaction\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hammer-weapon-excluded",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hammer-weapon-excluded\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-cost-one-boundary-hit-trigger-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-cost-one-boundary-hit-trigger-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-cost-two-excluded",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-cost-two-excluded\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-dagger-weapon-no-granted-go-again",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-dagger-weapon-no-granted-go-again\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-hand-insufficient-reaction-resources",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / hand-insufficient-reaction-resources\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-no-attack-action-window-rejected",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / no attack action window\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-razor-reflex-red-two-reactions-two-triggers-one-go-again-ap",
+      "returncode": 0,
+      "stdout": "[PASS] Razor Reflex / two-reactions-two-triggers-one-go-again-ap\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 21,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [
+    "card-pummel-blue-ally-hit-does-not-discard-hero-hand",
+    "card-pummel-blue-arsenal-club-weapon-no-discard",
+    "card-pummel-blue-arsenal-cost-two-hit-defender-chooses-0",
+    "card-pummel-blue-arsenal-cost-two-hit-defender-chooses-1",
+    "card-pummel-blue-arsenal-hammer-weapon-no-discard",
+    "card-pummel-blue-arsenal-insufficient-reaction-resources",
+    "card-pummel-blue-attack-step-timing-rejected",
+    "card-pummel-blue-cost-one-boundary-attack-action-excluded",
+    "card-pummel-blue-cost-three-qualifies-hit-discard",
+    "card-pummel-blue-cost-zero-attack-action-excluded",
+    "card-pummel-blue-dagger-weapon-excluded",
+    "card-pummel-blue-damage-step-timing-rejected",
+    "card-pummel-blue-defender-cannot-play-attacker-reaction",
+    "card-pummel-blue-fully-blocked-no-hit-no-discard",
+    "card-pummel-blue-hand-club-weapon-no-discard",
+    "card-pummel-blue-hand-cost-two-hit-defender-chooses-0",
+    "card-pummel-blue-hand-cost-two-hit-defender-chooses-1",
+    "card-pummel-blue-hand-hammer-weapon-no-discard",
+    "card-pummel-blue-hand-insufficient-reaction-resources",
+    "card-pummel-blue-hero-hit-empty-hand-trigger-resolves-without-discard",
+    "card-pummel-blue-no-attack-action-window-rejected",
+    "card-pummel-blue-one-damage-hit-still-discards",
+    "card-pummel-blue-sword-weapon-excluded",
+    "card-pummel-blue-two-reactions-two-hit-triggers-two-discards",
+    "card-pummel-red-ally-hit-does-not-discard-hero-hand",
+    "card-pummel-red-arsenal-club-weapon-no-discard",
+    "card-pummel-red-arsenal-cost-two-hit-defender-chooses-0",
+    "card-pummel-red-arsenal-cost-two-hit-defender-chooses-1",
+    "card-pummel-red-arsenal-hammer-weapon-no-discard",
+    "card-pummel-red-arsenal-insufficient-reaction-resources",
+    "card-pummel-red-attack-step-timing-rejected",
+    "card-pummel-red-cost-one-boundary-attack-action-excluded",
+    "card-pummel-red-cost-three-qualifies-hit-discard",
+    "card-pummel-red-cost-zero-attack-action-excluded",
+    "card-pummel-red-dagger-weapon-excluded",
+    "card-pummel-red-damage-step-timing-rejected",
+    "card-pummel-red-defender-cannot-play-attacker-reaction",
+    "card-pummel-red-fully-blocked-no-hit-no-discard",
+    "card-pummel-red-hand-club-weapon-no-discard",
+    "card-pummel-red-hand-cost-two-hit-defender-chooses-0",
+    "card-pummel-red-hand-cost-two-hit-defender-chooses-1",
+    "card-pummel-red-hand-hammer-weapon-no-discard",
+    "card-pummel-red-hand-insufficient-reaction-resources",
+    "card-pummel-red-hero-hit-empty-hand-trigger-resolves-without-discard",
+    "card-pummel-red-no-attack-action-window-rejected",
+    "card-pummel-red-one-damage-hit-still-discards",
+    "card-pummel-red-sword-weapon-excluded",
+    "card-pummel-red-two-reactions-two-hit-triggers-two-discards",
+    "card-pummel-yellow-ally-hit-does-not-discard-hero-hand",
+    "card-pummel-yellow-arsenal-club-weapon-no-discard",
+    "card-pummel-yellow-arsenal-cost-two-hit-defender-chooses-0",
+    "card-pummel-yellow-arsenal-cost-two-hit-defender-chooses-1",
+    "card-pummel-yellow-arsenal-hammer-weapon-no-discard",
+    "card-pummel-yellow-arsenal-insufficient-reaction-resources",
+    "card-pummel-yellow-attack-step-timing-rejected",
+    "card-pummel-yellow-cost-one-boundary-attack-action-excluded",
+    "card-pummel-yellow-cost-three-qualifies-hit-discard",
+    "card-pummel-yellow-cost-zero-attack-action-excluded",
+    "card-pummel-yellow-dagger-weapon-excluded",
+    "card-pummel-yellow-damage-step-timing-rejected",
+    "card-pummel-yellow-defender-cannot-play-attacker-reaction",
+    "card-pummel-yellow-fully-blocked-no-hit-no-discard",
+    "card-pummel-yellow-hand-club-weapon-no-discard",
+    "card-pummel-yellow-hand-cost-two-hit-defender-chooses-0",
+    "card-pummel-yellow-hand-cost-two-hit-defender-chooses-1",
+    "card-pummel-yellow-hand-hammer-weapon-no-discard",
+    "card-pummel-yellow-hand-insufficient-reaction-resources",
+    "card-pummel-yellow-hero-hit-empty-hand-trigger-resolves-without-discard",
+    "card-pummel-yellow-no-attack-action-window-rejected",
+    "card-pummel-yellow-one-damage-hit-still-discards",
+    "card-pummel-yellow-sword-weapon-excluded",
+    "card-pummel-yellow-two-reactions-two-hit-triggers-two-discards",
+    "card-razor-reflex-blue-ally-hit-still-grants-go-again",
+    "card-razor-reflex-blue-arsenal-cost-one-boundary-hit-trigger-go-again",
+    "card-razor-reflex-blue-arsenal-cost-two-excluded",
+    "card-razor-reflex-blue-arsenal-cost-zero-hit-trigger-go-again",
+    "card-razor-reflex-blue-arsenal-dagger-weapon-no-granted-go-again",
+    "card-razor-reflex-blue-arsenal-insufficient-reaction-resources",
+    "card-razor-reflex-blue-arsenal-sword-weapon-no-granted-go-again",
+    "card-razor-reflex-blue-attack-step-timing-rejected",
+    "card-razor-reflex-blue-club-weapon-excluded",
+    "card-razor-reflex-blue-damage-step-timing-rejected",
+    "card-razor-reflex-blue-defender-cannot-play-attacker-reaction",
+    "card-razor-reflex-blue-fully-blocked-no-hit-no-go-again",
+    "card-razor-reflex-blue-hammer-weapon-excluded",
+    "card-razor-reflex-blue-hand-cost-one-boundary-hit-trigger-go-again",
+    "card-razor-reflex-blue-hand-cost-two-excluded",
+    "card-razor-reflex-blue-hand-cost-zero-hit-trigger-go-again",
+    "card-razor-reflex-blue-hand-dagger-weapon-no-granted-go-again",
+    "card-razor-reflex-blue-hand-insufficient-reaction-resources",
+    "card-razor-reflex-blue-hand-sword-weapon-no-granted-go-again",
+    "card-razor-reflex-blue-no-attack-action-window-rejected",
+    "card-razor-reflex-blue-two-reactions-two-triggers-one-go-again-ap",
+    "card-razor-reflex-yellow-ally-hit-still-grants-go-again",
+    "card-razor-reflex-yellow-arsenal-cost-one-boundary-hit-trigger-go-again",
+    "card-razor-reflex-yellow-arsenal-cost-two-excluded",
+    "card-razor-reflex-yellow-arsenal-cost-zero-hit-trigger-go-again",
+    "card-razor-reflex-yellow-arsenal-dagger-weapon-no-granted-go-again",
+    "card-razor-reflex-yellow-arsenal-insufficient-reaction-resources",
+    "card-razor-reflex-yellow-arsenal-sword-weapon-no-granted-go-again",
+    "card-razor-reflex-yellow-attack-step-timing-rejected",
+    "card-razor-reflex-yellow-club-weapon-excluded",
+    "card-razor-reflex-yellow-damage-step-timing-rejected",
+    "card-razor-reflex-yellow-defender-cannot-play-attacker-reaction",
+    "card-razor-reflex-yellow-fully-blocked-no-hit-no-go-again",
+    "card-razor-reflex-yellow-hammer-weapon-excluded",
+    "card-razor-reflex-yellow-hand-cost-one-boundary-hit-trigger-go-again",
+    "card-razor-reflex-yellow-hand-cost-two-excluded",
+    "card-razor-reflex-yellow-hand-cost-zero-hit-trigger-go-again",
+    "card-razor-reflex-yellow-hand-dagger-weapon-no-granted-go-again",
+    "card-razor-reflex-yellow-hand-insufficient-reaction-resources",
+    "card-razor-reflex-yellow-hand-sword-weapon-no-granted-go-again",
+    "card-razor-reflex-yellow-no-attack-action-window-rejected",
+    "card-razor-reflex-yellow-two-reactions-two-triggers-one-go-again-ap"
+  ],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

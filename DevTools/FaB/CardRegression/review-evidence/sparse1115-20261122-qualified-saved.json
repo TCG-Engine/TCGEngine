@@ -1,0 +1,69 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent rule-derived accepted die and actual Brute consumer review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1115-20261122.json",
+  "source_spec_sha256": "f4ed1bac9dbf9e5e0d2c74c9cf4008aa450ffc08e49f3a7a91da740bf3d311e9",
+  "input_sha256": "f4ed1bac9dbf9e5e0d2c74c9cf4008aa450ffc08e49f3a7a91da740bf3d311e9",
+  "recorded_input_scope": "Exact sole successful corrected input; original unsaved failed announcement-query input and receipt retained outside repository.",
+  "fixtures": [
+    {
+      "slug": "card-rolling-thunder-red-four-live-sparse1115-actual-accepted-6-then-real-brute-attack-7-plus-6-deals-13",
+      "card_id": "rolling_thunder_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b78bd0c21d6f4a8bd64f3c4b851d866b29bdd8f665a12074d127e3a17bee34f",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "60ef9256e0563ceff94b44fb8dbcc0c8b6ce28bea68b1836806e3b03bee16145",
+        "expected_final_gamestate.txt": "0fdd4cbf8fc05b72572983a003c8dac35d355e230efd10f6513c142093188b30",
+        "meta.json": "5b92ac8a0dee1947d6a413c6b5e5717f33bd988f53a3259e1c1a0f62a078545e"
+      },
+      "fixture_sha256": "9cfd4e603b18d36d0ada76e047f4c19bad3de5db091720c7777330bd8b826b0a",
+      "actions": 33,
+      "native_assertions": 320,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1115-20261122.json",
+      "input_sha256": "f4ed1bac9dbf9e5e0d2c74c9cf4008aa450ffc08e49f3a7a91da740bf3d311e9",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1115-local-20261122\\announcement-query-corrected-recording\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-rolling-thunder-red-four-live-sparse1115-actual-accepted-6-then-real-brute-attack-7-plus-6-deals-13",
+        "fixture_slug": "card-rolling-thunder-red-four-live-sparse1115-actual-accepted-6-then-real-brute-attack-7-plus-6-deals-13",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "f4ed1bac9dbf9e5e0d2c74c9cf4008aa450ffc08e49f3a7a91da740bf3d311e9",
+    "reviewer": "breadth_review independent rule-derived accepted die and actual Brute consumer review",
+    "basis": [
+      "Young natural Rhinar20 is legal. Current printed/cached primary cost and generated accepted-roll effect were independently checked for probe approval. Actual vanilla Brute SmashWithBigTreeRed7 is cost2/power7/no text; it has no extra cost, earned attack/hit body or inherent go again. Rhinar random-discard ability is not earned. No gloves/other roll hooks. All four players manually respond to both primary and actual consumer and through all combat windows.",
+      "Accepted EVR_ROLLED_6 is valid1..6. Independent printed arithmetic gives actual consumer power13, unblocked damage13 and opposingHP20 to7. Rolling Thunder actualBlue6/pitch3 funds primary1 (R2), then consumer2 (R0); +6 is consumed by actual Brute attack.",
+      "Printed primary go again returnsAP1 only after completion, then actual consumer spendsAP1 to0 and has no GA. Physical ownedprimary5 then consumer7 endGY1, Blue6Pitch; actual payment, computed power, damage/HP and fates are persisted. Exact probe setup and every probe step/assertion are preserved before added accepted-face/consumer checks; verify actual saved snapshot/input/assertion-prefix equality after recording.",
+      "Exact announcement-oracle correction only: Stackcount1 to0 plus the four physical consumer identity/owner/controller refs Stack0 to p1Hand-0. GameLogic.php:1022-1026 requests actual attack target and returns while unresolved BEFORE source removal at1040/Stack move. Therefore primary7 remains Hand during this chooser; AP/resources unchanged. All native inputs, probe prefix, payment/power/damage/HP and final fates remain unchanged. This corrects an author transport oracle, not a gameplay effect."
+    ],
+    "limits": [
+      "Single accepted-face/one-consumer branch only. No PRNG algorithm/distribution, reroll, other faces, second attack/expiry, alternate consumer, sibling, support-identity/hero or whole-card credit. Positive+6 buff consumption only.",
+      "Native Save plus one clean replay and actual prefix-equivalence verification pending."
+    ],
+    "probe_sha256": "3f4cd8eda99b0458f060692f26858182a5303d13d975d1e94c5e074e64ff0acc",
+    "probe_receipt_sha256": "0d047230a6871fc611282a15897b8520e47363fbf063d35e7a04ac10903d81d5",
+    "pre_correction_spec_sha256": "13e92e80e4acb5407fdc0af670670f2f9fbed7de352cb8c4ab01b91732e0e64b"
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1115-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0a6dd5edb99d018c3c237237a1caaf4326aa366249fce07e06b711cd7fc31d36"
+  },
+  "full_suite_run": false,
+  "first_attempt_input_sha256": "13e92e80e4acb5407fdc0af670670f2f9fbed7de352cb8c4ab01b91732e0e64b"
+}

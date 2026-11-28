@@ -1,0 +1,7 @@
+{
+    "name": "Mark of Pathstone Blue / controlled foreign-owned ally hit heals controller",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-16T00:19:31+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "One new MarkBlue representative, fourliveYoungMalice1HP19/GravyBones2/Betsy3/Betsy4HP20, allherosunused. LegitimatepreexistingreadyphysicalMoray5Arena1OWNER2/CONTROLLER1/base0life3, Mark6Hand/AP1R0/noBindOrHealSeed. NativeMark0Instant/allfourSource responses THEN Arenaentry+onresolutionbindingchoice tocontrolledforeignownedAlly5 perCR8.3.44, notformalpredeclaredtarget/noextraentryWHEN. Nativebindlinks6to5. ActualprintedMorayActiontapAttackcost0/formalHero4target/AP0/realArena5tapped, allfourSource/combatwindows, actualbase0+Mark1 power1/damage1HP4=19. GrantedHit earnsresponseableABIcontrolled1/sourcephysicalAlly5(CardIDMark is existingfaithfuldispatcher), allfourresponses BEFORE ControllerP1heal19to20; originalOwnerP2stays20. FullDamage/Resolution/automaticClose onlyvirtualattackremoved, real5owner2control1tappedDamage0 andMark6boundremainArena1/APall0/R0/alllive/herosunused/queuesStackchainsclear/noGYduplicates. No virtualUID/eventlabel guesses, seededcounter/stat/life/helper/heroactivation, ownershipsubstitution/attackonly/nohitbaseline or genericvirtualdeletionorder claim. Die/unbind/controlchange/interposition/ownAllyInstantability/siblings/fullcard/supportcoverage untested. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/06-effects/"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Fealty / actual next-card type change enables Phoenix Flame damage",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T14:31:46+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "LegalYoungFai20/3Dori20manual. PriorownedFealty5Arena, actualHeadJabRed6Hand(notprintedDraconic)/PhoenixFlame7Hand. ActualInstant0destroys5ascostbefore4source responses, independentABI8resolvesnextcardDraconic. ActualHeadJab6playcost0/AP1->0/target4/fourresponses/full3damage/GAreturns1; FirstHead6remainsCC0atRESOLUTION1/AP1; newPhoenixattackisplayedtherebeforefullpasseswouldclosechain. ChangedDraconic6andactualPhoenix7CC1arebothcountedviaEffectiveCardType. ActualPhoenix7nativeHandplaysecondlinkcost0/target4/fresh4responses sees2Draconicchainlinks(firstconvertedHeadJab+self); printedbase0+1 givesactual1damage/HP16, printedGAreturnsAP1. Thusrealcombatdamage provesFealtytypeeffect, notonlyprivategranttag. FinalfullchaincloseownedGY6,7/Fealty5tokenleavesgame/nootherzones/AP1/R0/UID8/RNG0/emptyStack/DQs. NoFaiabilityorheldreturncallbackused, nostartFlame/setup/Fealtyproducer/endphase/thirdcard/expiry/Hero/support/fullcardcredit. OfficialUPFTRP9.3focusescombatonHero4; nextPhoenixusestheexistingfocused4(noextraMZCHOOSE). First29-inputattemptstoppedbecauseoracleincorrectlyexpectednewtargetpopup; nofixturewascreated. Damage/type/power/cost/finalexpectationsunchanged. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fealty FaBSim/Custom/HNTRuntime.php FaBSim/Custom/FaiCards.php"
+}

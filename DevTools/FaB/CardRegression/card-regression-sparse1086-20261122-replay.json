@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-micro-processor-blue-four-live-sparse1086-prior-opt-resolved-unused-mode-banishes-real-top-card",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-micro-processor-blue-four-live-sparse1086-prior-opt-resolved-unused-mode-banishes-real-top-card",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1086-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1086-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e245fcac177e32fe6eb7801dcaafb447e6191508fbf43f80b2aa5cbd55827211",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0a9b026ca4024fa3624e23ba486b39467998f76de383124f8e949f23e4a3eb24",
+        "actions.json": "eec26bec3124bd02674568b3847b953e42a1dd9312a120199f3c2c53b10637d4",
+        "assertions.json": "1a33c08b6ff8efdc3f63a261126729a9f53b36d1b43069cc2204921fe14f8f50",
+        "expected_final_gamestate.txt": "c5e26231912afa20c7b4fe5edbccb4e1ccc53aa8c46c71353c354012e2c4e705",
+        "meta.json": "e55c884dd1acfed171512930517d2fa91943a3fe5c0e1d42f2322dca3b546cc1"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,172 @@
+{
+  "status": "APPROVED_SELECTED_FORMAL_TARGET_SOURCE_LIMIT_ONLY",
+  "approved": true,
+  "planning_review_approved": true,
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "author": "/root/nov2_sparse_author",
+  "reviewed_utc": "2026-11-06T02:18:11.295662+00:00",
+  "planning_hold": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch554-singe-selected-target-declaration-source-hold\\planning-hold.json",
+    "sha256": "c83e98bb19c63a74206a2492daeecb9bf2243dc5e8c341877a482c276e1cd1f4"
+  },
+  "manifest": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch554-singe-selected-target-declaration-source-hold\\manifest.json",
+    "sha256": "3f8179e87a9e9f962676e00f22ae84686f101a603fa8027eea01748519d1cf27"
+  },
+  "author_QA": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch554-singe-selected-target-declaration-source-hold\\frozen-author-QA.json",
+    "sha256": "29228179ccd1a4302bd37b68afda46f337fb72ed52ee746e3174303d9e866637"
+  },
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "baseline_69_guards": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch551-after140\\manifest.json",
+    "sha256": "6eccd65bad5d11ee6e8410abafe31e9f115dbd20b79b8a87a477b083d1b7a754",
+    "all_actual_matches": true
+  },
+  "source_guard_count": 69,
+  "selected_source_guards": {
+    "DevTools/FaB/upr_abilities.json": "c83daf0e6e0a9894808e3eb5ed632db532256b5cd6621066d2429efcd4bca18f",
+    "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+    "FaBSim/Custom/UPRCards.php": "144c369209e0a53f5f0ad540f2e549f4c4c0f0234b9a2c9bf703c2e22cd4e8af",
+    "FaBSim/Custom/UPRAbilities.php": "81618156fdde241865d9fcc854feeaa5dd4fe439bd56699d9d7ce623a03544ad",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "63113a3d140cfd13409e1ad7ee737f8ecfbbc1f78c4eb8c540658a3bacc73c54"
+  },
+  "selected_bindings_verified": 5,
+  "selected_additional_path_outside_baseline": "FaBSim/Custom/UPRAbilities.php (separately hash-verified; also covered by full runtime fingerprint)",
+  "card_id": "singe_blue",
+  "group_id": "pitch-cycle:singe",
+  "current_rule": {
+    "official": "https://judge.fabtcg.com/cards/detail/1680/",
+    "actually_opened": true,
+    "resource_cost": 1,
+    "types": [
+      "Wizard",
+      "Action"
+    ],
+    "damage": 1,
+    "target_parameters": "One mandatoryHero and zeroorone selectedAllycontrolledbythathero. Theseareformalresolutiontargets, notchoicesintendedtobedeterminedduringresolution.",
+    "CR": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+    "basis": "Current5.1.4/5.1.4a declareallresolutiontargets before5.1.5legalcheck,5.1.6-7 assetcostcalculation/payment and5.1.10play/priority. OptionalAllyquantitydoesnotdelaythemandatoryHeroorthechosenAllyparameter."
+  },
+  "printed_face_viewed": {
+    "path": "FaBSim/WebpImages/singe_blue.webp",
+    "sha256": "eadbf41b332ddb413ce269894e4a19002a75531ea2c93952306012baa0e6a71b",
+    "issuer": "UPR181"
+  },
+  "full_selected_dispatch_verified": [
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "923-991",
+      "finding": "OrdinarylegalownHandSingeNAAhasneitherAttacktargetbranchnorLungingtargetbranch. ItcreatesphysicalStack/pendingPayment then checksBoosthelpers andactualPrepareCard, otherwiseTryCompletePayment. NoSinge-specificearlytargetoverrideinthisselectedordinarycontext."
+    },
+    {
+      "path": "FaBSim/Custom/MSTCards.php",
+      "lines": "167-170",
+      "finding": "GrantedBoostprepareimmediatelyrejectsnonattackaction. SingeisWizardAction/nonAA; no externalgrant/flagseed isassumed."
+    },
+    {
+      "path": "FaBSim/Custom/ARCAbilities.php",
+      "lines": "260-263",
+      "finding": "MissingBoostprepare requiresprinted/functionalBoost; noneexistsforthe selectedordinarySingewithnoexternalgrant. Thisisnotanallgrant-contextcertification."
+    },
+    {
+      "path": "FaBSim/Custom/GameLogic.php",
+      "lines": "1264-1296",
+      "finding": "Preparedispatcherusesactualpreparecount/table; specialdeclaredreactionoverridecallsCardChoices predicate. ThatpredicatecoversNip/Shred, notSinge. Noautomaticresolutionmacro-as-Prepare substitution exists here."
+    },
+    {
+      "path": "FaBSim/Custom/CardChoices.php",
+      "lines": "4-6",
+      "sha256": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "finding": "ActualdeclaredreactiontargetoverrideonlyNipattheHeelsBlue/Shred; noSinge."
+    },
+    {
+      "path": "DevTools/FaB/upr_abilities.json",
+      "finding": "SelectedSingeimplementedResolveCardbodyexists; noPrepareCardinitscanonicalrow. HeroMZChooseandoptionalAllyMZMultiChooseareinsideResolveCardbeforeactualmultipacketdamage."
+    },
+    {
+      "path": "FaBSim/Custom/UPRAbilities.php",
+      "finding": "SeparatelyverifiedselectedfilehasnoSingeorPrepareoverride. Thisisselectedrouteevidence, nottotalimplementationabsence."
+    },
+    {
+      "path": "FaBSim/GeneratedCode/GeneratedMacroCode.php",
+      "entry_lines": [
+        7010,
+        7015
+      ],
+      "target_runner_lines": [
+        98040,
+        98072
+      ],
+      "await_runner": "__RunAwait_11d31a7cade3ad12bf83",
+      "selected_count_tables": [
+        {
+          "line": 255378,
+          "table": "CardResolveCardCountData",
+          "text": "\"singe_blue\" => 1,"
+        },
+        {
+          "line": 256837,
+          "table": "CardResolveCardCountNamesData",
+          "text": "\"singe_blue:0\" => \"singe_blue\","
+        }
+      ],
+      "prepare_count_function_line": 257874,
+      "finding": "ActualemittedregistrationisresolveCardAbilitiesSinge; noselectedPreparecount/closure. ActualResolveentryinitializesawaitframeandstartsrunnertoqueueChoose_hero thenChoose_allies duringresolution. Notanemptycanonicalrow-onlyinference.",
+      "raw_slice_bindings": [
+        {
+          "lines": [
+            7010,
+            7015
+          ],
+          "sha256": "47ed09bdb0ee3dedd08962da50f12b3ccc1999306f527f75cdb56689d50c3a86"
+        },
+        {
+          "lines": [
+            98040,
+            98072
+          ],
+          "sha256": "ef131adc4bb456ac2b3f8de3f5aa8e0014d9bfef7255b8c0f12898146f1ae262"
+        },
+        {
+          "lines": [
+            255378,
+            255378
+          ],
+          "sha256": "570ed2ac67edda4c4fa8c3ed74666733796a30980e2ba006ff8243a093920e5e"
+        }
+      ]
+    }
+  ],
+  "classification": {
+    "primary": "SOURCE_ONLY_UNATTEMPTED_FORMAL_TARGET_DECLARATION_CONSTRAINT",
+    "finding": "Onthisselectedordinaryplaypath, no targetdeclarationstageexistsbeforeassets/responses, whileactualcompiledresolutionrequestsformalHero/Allytargetslater. A healthyrecipeassertinglatechoiceswouldendorseincorrecttiming; bodyandmulti-damageimplementationdoexist.",
+    "supplemental_lifetime": "Singeisoutsidecurrentmanagedplainspellcohort; ordinarynonpersistentfallbackmovesphysicalsourcebeforeResolveRulesandthecompiledbodycontainsgenuineawaits. Thisisadditionalsource-derivedcohortconcern, notnativephysicalzoneevidence/newfamilyconfirmation.",
+    "scope": "CurrentSingeBlueordinaryownHand/noexternalpermissionorBoostcontextonly, withtheintendedHero+oneAlly branch. No setup/Allyproducer/transport/bodyoutcomesaredemonstrated."
+  },
+  "additional_source_lifetime_anchors": {
+    "path": "FaBSim/Custom/GameLogic.php",
+    "lines": "1541-1543,1604-1639,1762-1782",
+    "selected_managed_membership": false,
+    "native_observed": false
+  },
+  "disposition": "Retainnonrunnableplanninghold. Do notrelease alate-targetpassingrecipe, seedstoredtargets/permission/history, substituteanemptyAllyboard orcreateahelper/sourcebypass. EvenoptionalAllydeclineleavesmandatoryHeroformaldeclarationrequirement. A separateexplicitoriginal-correctprobe, iflaterauthorized, needsitsownexactexpectationgate; noneauthoredhere.",
+  "limits": [
+    "No Ally supportbody/provenance/choiceAPI/newproducer/alternatecard/otherpitch/completeUPFtargetmenucertified orsearched.",
+    "No actualtargetchoice/cost/AP/resource/damage/zone/Stack/sourceclear/await/fixture/passcoverage/nativebug/issueallocationobserved.",
+    "No wholecard/allimplementationabsence/globalroot/Core/dedupclaim; canonicalbodyandactualcompiledmultipacketdamageexist.",
+    "No native/PHP/replay/fullsuite/Rsourcewrite/sourcefix/helperextension/remote/git/deniedoperationretry. Current33333+69/selectedadditionalbindingverifiedonly."
+  ],
+  "source_spec_approved": false,
+  "semantic_gameplay_approved": false,
+  "runnable": false,
+  "installable": false,
+  "recipe_count": 0,
+  "native_attempted": false,
+  "fixture_saved": false,
+  "confirmed_engine_bug": false,
+  "issue_allocated": false,
+  "coverage_credit": false,
+  "repository_writes": false
+}

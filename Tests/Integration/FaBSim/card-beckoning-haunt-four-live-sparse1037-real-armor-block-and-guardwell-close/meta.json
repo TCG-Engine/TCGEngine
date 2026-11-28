@@ -1,0 +1,7 @@
+{
+    "name": "Beckoning Haunt / four-live actual armor defense and close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:17:50+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Action - {x}{x}{r}, destroy this: Return target aura with cost X from your graveyard to your hand.\nGuardwell Named ordinary defense/Guardwellclose only. Legal natural20 chane owns actual readyEquipment5/baseDEF2; realGenericLeadCharge6HandDEF2. Legal natural20 rhinar actually attacks ownedromping_club7/printedpower4, realBlue8payscost2/R1/AP0. Fourmanualsource+combat windows, actualEquipment5\u2192CCRoleDEFENSE then realHand6\u2192CCRoleDEFENSE gives exactDEF4/0damage/noHit/defenderHP20. Source5returnsEquipmentowner4/controller4 with actualDEFENSEcounter2, Hand6ownedGY4, physicalweapon7usedretained/Blue8Pitch; allfourmanual/AP0/queuesclean. Guardwell normalcloseadds2defense-reductioncounters; endphase removalnotreached. Noactivatedbody/Sigilamp/aura-return/otherkeywordphase/heroactivation/supportidentity/pitchsiblings/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#beckoning_haunt"
+}

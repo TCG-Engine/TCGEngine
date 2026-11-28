@@ -1,0 +1,7 @@
+{
+    "name": "Runic Reclamation / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T23:09:28+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, destroy target aura they control. If you do, create a Runechant token. Representative only: actual_full_block_keeps_eligible_aura_without_hit_or_runechant. Actual legal Chane20 Runeblade hero, no activated ability, natural20, printed cost and physical pitches, native four-manual-seat combat. Static Shock first ordinary action deals4 physical to enemy20->16, no earlier Lightning card, no additional arcane loss. Other four fully blocked by real Hand cards: actual0damage/noHit, retained eligible marker, no granted destruction/banish/token. Owned physical source and defenders in graveyard, no AP return. No positive Hit/Contract/LightningFlow producer, alternative ability, pitch sibling or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#runic_reclamation_red"
+}

@@ -168,6 +168,12 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+    // SWUSim 1v1 Always Two plays Bo1 only (its game 2 could not carry each seat's second deck): a Bo3 request — e.g. the PvP
+    // setup's hidden match-type value — creates the room Bo1. Every other format's queueType handling is unchanged.
+    if (function_exists('SWUFormatAlwaysTwoMode') && SWUFormatAlwaysTwoMode($format) !== ''
+        && function_exists('SWUFormatAllowsQueueType') && !SWUFormatAllowsQueueType($format, $queueType)) {
+      $queueType = SWUFormatAllowedQueueTypes($format)[0] ?? 'bo1';
+    }
     // High Ground: any 1v1 format that isn't rated. Checked before the deck, so the reason is the format, not the list.
     if ($createHighGround && ($hgRefusal = SWUHighGroundCreateRefusal()) !== null) {   // open to everyone since 2026-11-04 (DevGate.php)
       http_response_code(403);
@@ -510,10 +516,12 @@
       $isRoom   = $joinAdapter !== null && $joinAdapter->wantsWaitingRoom($snapshot);
       $resolved = ($isRoom && !$isLimitedRequest) ? _SWURoomResolveDeck($snapshot, $deckLink, $preconstructedDeck)
                           : ['ok' => true, 'leaders' => [], 'base' => '', 'cards' => []];
+      $resolved2 = ($isRoom && !$isLimitedRequest) ? _SWURoomResolveDeck2($snapshot, $deckLink2) : [];
+      $twoDeckRoom = $isRoom && $joinAdapter !== null && intval($joinAdapter->seatModel($snapshot)['decksPerSeat'] ?? 1) >= 2;
 
       $joinErr = null; $newPlayer = null; $playerID = 0; $limitedJoinRefusal = null;
       $stored = LobbyMutate($targetKey, function ($lobby) use (
-          $isRoom, $resolved, $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $isLimitedRequest,
+          $isRoom, $resolved, $resolved2, $twoDeckRoom, $deckLink2, $deckLink, $preconstructedDeck, $joiningUserId, $rootName, $isLimitedRequest,
           $presentedAuthKey, $shareAnonymizedGameplayData, $joiningUsername, &$joinErr, &$newPlayer, &$playerID, &$limitedJoinRefusal) {
         if ($isRoom && !empty($lobby->gameName))                      { $joinErr = 'started'; return false; }
         // ALREADY IN THIS ROOM? Re-seat them. Checked BEFORE the capacity gate on purpose: you are
@@ -544,6 +552,10 @@
         $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
         $newPlayer->setUsername($joiningUsername);
         if ($isRoom && !$isLimitedRequest) _SWURoomApplyResolvedDeck($newPlayer, $resolved);
+        if ($twoDeckRoom && !$isLimitedRequest) {
+          if (empty($resolved2)) $newPlayer->setReady(false);   // a two-deck seat is not ready on one deck
+          _SWURoomApplyResolvedDeck2($newPlayer, $resolved2, $deckLink2);
+        }
         if ($isLimitedRequest) $newPlayer->touch();   // no deck to resolve, so start the presence clock here
         $lobby->players[] = $newPlayer;
         if (function_exists('SWUIsHighGround') && SWUIsHighGround($lobby)) SWUHighGroundOnJoin($lobby, $newPlayer);   // back of the line
@@ -658,6 +670,12 @@
     $createAdapter = LobbyAdapterFor($rootName);
     $createIsRoom  = $createAdapter !== null && $createAdapter->wantsWaitingRoom($lobby);
     if ($createIsRoom && !$isLimitedRequest) _SWURoomApplyResolvedDeck($newPlayer, _SWURoomResolveDeck($lobby, $deckLink, $preconstructedDeck));
+    if ($createIsRoom && !$isLimitedRequest) {
+      $createResolved2 = _SWURoomResolveDeck2($lobby, $deckLink2);
+      // A two-deck room with no second deck yet: the seat waits for one (Start is blocked until it arrives).
+      if (empty($createResolved2) && $createAdapter !== null && intval($createAdapter->seatModel($lobby)['decksPerSeat'] ?? 1) >= 2) $newPlayer->setReady(false);
+      _SWURoomApplyResolvedDeck2($newPlayer, $createResolved2, $deckLink2);
+    }
     $lobby->players = array($newPlayer);
     if ($createHighGround) SWUHighGroundCreate($lobby, $newPlayer);   // 16 places, the line, Tonight
     if ($isLimitedRequest) { SWULimitedCreate($lobby, $newPlayer, strval($_POST['limitedMode'])); $newPlayer->touch(); }   // the room's mode, settings + seats
@@ -1048,6 +1066,22 @@
   // ⚠ Every failure path writes EMPTIES through setDeckIdentity(), which is one call so leaders, base
   // and cards can never drift: a seat showing last deck's base under this deck's leaders is worse
   // than showing nothing.
+  // A two-deck room's SECOND deck (SWUSim 1v1 Always Two): resolve it outside the lock like the first, or [] when the room takes
+  // one deck or none was sent. Applied by _SWURoomApplyResolvedDeck2 inside the mutation.
+  function _SWURoomResolveDeck2($lobby, $deckLink2) {
+    $adapter = LobbyAdapterFor(strval($lobby->rootName ?? ''));
+    if ($adapter === null || intval($adapter->seatModel($lobby)['decksPerSeat'] ?? 1) < 2 || trim(strval($deckLink2)) === '') return [];
+    return _SWURoomResolveDeck($lobby, $deckLink2, '');
+  }
+  // PURE. A seat in a two-deck room is ready only when BOTH decks are legal.
+  function _SWURoomApplyResolvedDeck2($player, array $resolved2, $deckLink2) {
+    if (!($player instanceof Player) || empty($resolved2)) return;
+    $player->setDeckOk2($resolved2['ok']);
+    $player->setIdentityCards2($resolved2['cards']);
+    if ($resolved2['ok']) $player->setDeckLink2($deckLink2);
+    $player->setReady($player->getDeckOk() && $player->getDeckOk2());
+  }
+
   function _SWURoomApplyResolvedDeck($player, array $resolved) {
     if (!($player instanceof Player)) return false;
     $player->setDeckIdentity($resolved['leaders'], $resolved['base'], $resolved['cards']);

@@ -1,0 +1,7 @@
+{
+    "name": "Kayo / off-chain power bonus does not turn a five-power defender into a Phantasm popper",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T17:49:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four manual young Prism1/Kayo2/Dori3/4 at20. ActualPotion8/ABI10 funds2; actualHeraldProtection9 power7 declaresHero2 and pays2/AP1. RealRagingOnslaughtBlue5 base5 andWounds6/7 base4 defendfromHand onCombatChain. Kayo only grants+1 outsideCombatChain, so realRagingBlue defender must not become a six-power Phantasm popper. Wounds also remain below6. Physicaldefense3+3+3=9 fullyblocks7; actual0damage/allhealth20, noPhantasm orHeraldHit layers. FullClose sendsactualHerald9/Potion8 toGY1 anddefenders5/6/7toGY2, noMight/Discardevent. This is a limited observable CombatChain-zone exclusion for the Phantasm decision, not certification of Hand power APIs, Rouse237, positive Might or wholeHero. No source repairs. Sources: FaBSim/GeneratedCode/cardArrayCache.json#kayo FaBSim/Custom/HVYCards.php FaBSim/Custom/MONCards.php FaBSim/Custom/GameLogic.php FaBSim/ZoneClasses.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

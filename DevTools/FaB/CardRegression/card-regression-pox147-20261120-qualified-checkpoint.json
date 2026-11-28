@@ -1,0 +1,69 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T21:42:30.941207+00:00",
+  "runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+  "source_spec": "card-regression-pox147-repair-20261120.json",
+  "source_spec_sha256": "a463e87064c75b7b5ba8df67d34cafc19d838c77fe920349d1cb21983dde3058",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 13,
+  "native_assertions": 940,
+  "manual_passes": 8,
+  "totals": {
+    "saved_registered_scenarios": 4198,
+    "duels": 3074,
+    "four_live": 1124,
+    "recorded_primary_ids": 1349,
+    "identity_denominator": 5196,
+    "recorded_groups": 1223,
+    "group_denominator": 3324,
+    "four_live_groups": 1115,
+    "phase_qualified_scenarios_at_actual_contexts": 835,
+    "phase_qualified_unique_groups": 828,
+    "creation_replay_passes": 1576,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "bloodrot_pox",
+      "group_id": "identity:bloodrot_pox",
+      "scenario_id": "repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+      "effect_branches": [
+        "Pox5 source-specific prevention after real token destruction; independent second Pox6 paid via real Blue pitch; entire End completion; original strict895 assertions retained."
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/repair-pox147-four-live-captured-source-prevention-and-real-pay-three-complete-end",
+      "source_spec": "card-regression-pox147-repair-20261120.json",
+      "source_spec_sha256": "a463e87064c75b7b5ba8df67d34cafc19d838c77fe920349d1cb21983dde3058",
+      "review_evidence": "review-evidence/pox147-20261120-qualified-saved.json",
+      "review_evidence_sha256": "1efd1c701dd694f38e0ccc7ca2dfe530da4e9982fb5f9b2a45e777a71c0d8d14",
+      "recorded_runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+      "qualification_runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-pox147-repair-20261120-replay.json",
+          "sha256": "01f0dd818d79819e83f95aa227a1a26f17298d46e022b444138dcf430dfaa942",
+          "runtime_sha256": "667b516323849e67ac35da2a173201546f1e282b6c804d1c388551a232142430",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 0,
+  "source_scenarios_not_in_this_qualification": []
+}

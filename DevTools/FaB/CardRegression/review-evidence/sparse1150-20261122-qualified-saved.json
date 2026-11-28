@@ -1,0 +1,64 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent printed Helios and nested native-response spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1150-20261122.json",
+  "source_spec_sha256": "df57f79e3cc165b9e17294b834ab4cf649829eed850fd1148acf958ec6cd5b97",
+  "input_sha256": "df57f79e3cc165b9e17294b834ab4cf649829eed850fd1148acf958ec6cd5b97",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-helios-mitre-four-live-sparse1150-real-foreign-blue-payment-and-chosen-source-prevention",
+      "card_id": "helios_mitre",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d0432b2f37076db67e7c33cfa196dfcaa648da46079f3157bf8a492f4cd6cddc",
+        "actions.json": "355022f30e264a2728a7ae83c4c68b0a0f046b9a8436ad9c0efb8842d41bde56",
+        "assertions.json": "888c1c86f9ae4507d90094c33b8e434f2112c6f3b4e900cd72ffc4ada8b9388a",
+        "expected_final_gamestate.txt": "82cd4a508df55f5a903d309378299ea9c787852df6c404e7c04405fabe9cab3f",
+        "meta.json": "82a94bbbb637854dbebdfeba717f370a85961756c915e856d0b31cff085f275b"
+      },
+      "fixture_sha256": "ca3ae9d90b923334348b535311970d667a5deb3eccf5f106ddf19cd5e32ccb95",
+      "actions": 16,
+      "native_assertions": 471,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 11,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1150-20261122.json",
+      "input_sha256": "df57f79e3cc165b9e17294b834ab4cf649829eed850fd1148acf958ec6cd5b97",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1150-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-helios-mitre-four-live-sparse1150-real-foreign-blue-payment-and-chosen-source-prevention",
+        "fixture_slug": "card-helios-mitre-four-live-sparse1150-real-foreign-blue-payment-and-chosen-source-prevention",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "df57f79e3cc165b9e17294b834ab4cf649829eed850fd1148acf958ec6cd5b97",
+    "reviewer": "Root independent printed Helios and nested native-response spec review",
+    "basis": [
+      "Helios source-of-choice is a resolution effect, not a formal target. ActualsourceUID6 is chosen while managedABI8 remains above realopposingZap; no effect or HPdamage occurs before choice or allupperresponses.",
+      "PrintedInstant2 is actuallypaidbydefender4Blue3 leavingR1/AP0; no fakefreeprevention, wrongpayer, sourceIndex substitute or handcost. Allfourupperandfreshlower rotations occur.",
+      "ActualselectedZap3 minus1 prevention yields2damage/HP18; source5retainedwithfutureenddestroyflag, physicalBlue7Pitch4/sourceZap6GY1 enforceownership and cost, no endphase reached."
+    ],
+    "limits": [
+      "One sourcechoice/prevention branch only; noexpiry/destroy/endphase, other source/type orsupport/wholecard credit.",
+      "Save andonecleanreplay required, noenginechanges."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1150-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "ca578576591a9ba6eb056fccb26ab879a17af80d87834b773559eb33ff2c9f0b"
+  },
+  "full_suite_run": false
+}

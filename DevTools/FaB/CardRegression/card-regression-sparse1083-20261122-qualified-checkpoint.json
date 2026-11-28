@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T05:48:32.152046+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1083-20261122.json",
+  "source_spec_sha256": "e0d681b279aaf9f6db6063f26dc149dfcd895d5ef453e4afb3838a883ba7cc8c",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 34,
+  "native_assertions": 322,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4942,
+    "duels": 3075,
+    "four_live": 1867,
+    "recorded_primary_ids": 2090,
+    "identity_denominator": 5196,
+    "recorded_groups": 1964,
+    "group_denominator": 3324,
+    "four_live_groups": 1856,
+    "phase_qualified_scenarios_at_actual_contexts": 1579,
+    "phase_qualified_unique_groups": 1569,
+    "creation_replay_passes": 2321,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 740,
+  "scenarios": [
+    {
+      "card_id": "electromagnetic_somersault_red",
+      "group_id": "pitch-cycle:electromagnetic_somersault",
+      "scenario_id": "card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+      "effect_branches": [
+        "actual_two_owner_chain_cards_return_after_real_damage_and_link_resolution"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-electromagnetic-somersault-red-four-live-sparse1083-actual-two-owner-chain-cards-return-after-real-damage-and-link-resolution",
+      "source_spec": "card-regression-sparse1083-20261122.json",
+      "source_spec_sha256": "e0d681b279aaf9f6db6063f26dc149dfcd895d5ef453e4afb3838a883ba7cc8c",
+      "review_evidence": "review-evidence/sparse1083-20261122-qualified-saved.json",
+      "review_evidence_sha256": "971a37ab1ad80a9049474df255fa2a9b3f4cc5132d3fe0994068b33b3ea44b03",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1083-20261122-replay.json",
+          "sha256": "67b13d1add79bd197fbc74ac5dedc486f1dc8178aaee57afed1ef9b1e947e8bd",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

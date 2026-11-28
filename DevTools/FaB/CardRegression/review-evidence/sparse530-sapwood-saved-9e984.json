@@ -1,0 +1,280 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B530_SAPWOOD_ELIXIR",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_metadata_review",
+  "reviewer_independent": true,
+  "semantic_author": "/root/b106_semantic_review",
+  "created_utc": "2026-11-05T22:14:35.691898+00:00",
+  "source_spec": "card-regression-batch530.json",
+  "input_sha256": "9dae9d0801aca0a26c8cee61b4f1a56aff2aed6dcf5015fd69e1158ebf257cdc",
+  "manifest_sha256": "6e75d134496b48d2b59a66c312b63db15a0e7a08d24685184857e3bd8d573853",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch530-independent-source-review.json",
+    "sha256": "89ade8d1a89a0ec8e13b6b021775b61bd93891b3e899652bad043ac7d0fa9c2c",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch530-20261105T221205Z-6aecff35d6af7.json",
+    "sha256": "0c7b4755bfccc23c3a0a629178474ab29734394b3228c7d387a7cc72a57d979c"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch530.recording-results.json",
+    "sha256": "1708467c2cb5fa472ace9091cdfbad0c3d437b60569cf755193e7ef7737bdc36"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch530-native-r1-9e984\\receipt.json",
+    "sha256": "8120c432d584f79952105848a17463f64cde0de75abd7a2d77ac8754ed57a21c"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch530_saved_readonly.py",
+    "sha256": "fd10de0c880c321d6cf6f2fde28aac428c84f5f6b12f6f1fbbe0313021150d33"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sapwood_elixir_red",
+      "group_id": "identity:sapwood_elixir_red",
+      "slug": "card-sapwood-elixir-red-four-live-real-paid-next-attack-three-and-seven-hero-damage",
+      "source_spec": "card-regression-batch530.json",
+      "input_sha256": "9dae9d0801aca0a26c8cee61b4f1a56aff2aed6dcf5015fd69e1158ebf257cdc",
+      "reviewer": "/root/nov2_metadata_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_FOUR_LIVE_SAPWOOD_PAID_NEXT_ATTACK_THREE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sapwood-elixir-red-four-live-real-paid-next-attack-three-and-seven-hero-damage",
+      "fixture_sha256": "d87a4b5f71b8dc9a130d7148565739937d9fe66c44364bccfa64decaefc58235",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "e14abd8788d283599615bf13082337416c40fa41c48aacd363e6395c52f5b086",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "923306b551e5f5c71e5ef9978337005bb7b515fa965c0979981a893d5f311ab7",
+        "expected_final_gamestate.txt": "0a2a3f4b9aacb68aa2e16f10619481513d9b5de99432a4f0bd074dbfad912ab3"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e14abd8788d283599615bf13082337416c40fa41c48aacd363e6395c52f5b086",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "923306b551e5f5c71e5ef9978337005bb7b515fa965c0979981a893d5f311ab7",
+        "expected_final_gamestate.txt": "0a2a3f4b9aacb68aa2e16f10619481513d9b5de99432a4f0bd074dbfad912ab3",
+        "meta.json": "2ad35e86afe8e87f43dd59ec2e49ddc646857ef9995afbb55d16d3a5ebaae140"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "e14abd8788d283599615bf13082337416c40fa41c48aacd363e6395c52f5b086",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "923306b551e5f5c71e5ef9978337005bb7b515fa965c0979981a893d5f311ab7",
+        "expected_final_gamestate.txt": "0a2a3f4b9aacb68aa2e16f10619481513d9b5de99432a4f0bd074dbfad912ab3",
+        "meta.json": "2ad35e86afe8e87f43dd59ec2e49ddc646857ef9995afbb55d16d3a5ebaae140"
+      },
+      "actions": 33,
+      "native_assertions": 2687,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 732,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "33": 188
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sapwood_elixir_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "sapwood_elixir_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        2,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_UniqueIDCounter": 7,
+      "final_RandomCounter": 0,
+      "actual_primary_cost": 1,
+      "actual_blue_pitch": 3,
+      "actual_primary_GA_APrefund_spent_on_consumer": true,
+      "actual_fresh_power": 7,
+      "actual_base_power": 4,
+      "actual_primary_bonus": 3,
+      "actual_defense": 0,
+      "actual_damage": 7,
+      "actual_consumer_GA": false,
+      "no_Frailty_or_heal": true,
+      "actual_next_attack_effect_consumed": true,
+      "checkpoint_assertion_mapping_sha256": "363e94761f872248abc911eb3d57c86aa4a249e85ec443e6a0533204f34a29d2",
+      "native_action_mapping_sha256": "35672e3cdfbb45480ddbeaccdafa8b3025d7791d8f846a67fd505aa7622495de",
+      "native_assertion_mapping_sha256": "c87e94cf4fdd6ab3c06e632397ffee7557bdeb7163b42c891d6899c4ccb27180"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2687,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "total_schema_property_assertions": 732,
+  "material_findings": [
+    "Exact raw5/all33nativeactions/2687orderedassertions/29manualpasses/732properties match approved independent ledger. Both complete typed endpoints verify all48manualvalues/fullUID1..7/ownership/zone/economy, actual69guards/runtime9 unchanged.",
+    "Real primaryAction1 paid byBlue6pitch3 givesR2AP0; sourcefour retains5 beforefourth5GY/ownGAAP1. Then actualblankWounding7cost0 consumesearnedAP1 and actualNEXT_ATTACK3; same7Stack thenChain currentbase4+3=7/noGA. Actual7physicalHeroDamage/DEF0/P4HP13 corroboratesbuff, no cached-only witness.",
+    "NoArena/Frailty or tokencreation anywhere in actual input/actionsequence; no optionaldestroy/heal choice oranswer occurs, P1HP20 throughout. Fullclose5+7GY1/6Pitch/R2AP0/counter7/RNG0/allUIDconserved and no Stack/Chain/DQ/payment/await. Nativecompleteprefix/suffix not generalized to positiveFrailty lifecycle."
+  ],
+  "limits": [
+    "One paidnextattack+3/ownGA/actualHandAAconsumer/7damage branch. NoFrailty heal/destroy/decline/positiveFrailtyawait/weapon/secondconsumer/expiry/supportprimary/sibling/fullcard credit.",
+    "All actual saved actions/assertions and both full typed endpoints reviewed; no per-action raw snapshot claim. Root focusedreplays/registration remain separate.",
+    "No PHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedrepair action or legacyreview byreviewer."
+  ],
+  "blockers": [],
+  "native_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

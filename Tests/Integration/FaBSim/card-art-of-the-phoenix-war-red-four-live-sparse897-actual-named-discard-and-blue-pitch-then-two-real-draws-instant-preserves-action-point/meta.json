@@ -1,0 +1,7 @@
+{
+    "name": "Art of the Phoenix: War / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:53:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, discard a Phoenix Flame.\n\nDraconic attack action cards you control get +1{p} this turn.\n\nDraw 2 cards. Representative only: actual_named_discard_and_blue_pitch_then_two_real_draws_instant_preserves_action_point. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#art_of_the_phoenix_war_red"
+}

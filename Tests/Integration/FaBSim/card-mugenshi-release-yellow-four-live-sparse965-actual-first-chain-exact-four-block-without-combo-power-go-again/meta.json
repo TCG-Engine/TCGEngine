@@ -1,0 +1,7 @@
+{
+    "name": "Mugenshi: RELEASE / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T22:14:34+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Katsu Specialization**\n\n**Combo** - If Whelming Gustwave was the last attack this combat chain, this gets +1{p}, **go again**, and \"When this hits, search your deck for any number of cards named Lord of Wind, reveal them, put them into your hand, then shuffle.\" Actualfreshfirstchain/previousempty, printedcost0or1/realBlue6if1/R0or2/AP0. RealNAA2defor2+2defexactlyblocksbase2/4/2 forDishonor/Mugenshi/Whirling, AA3+3block5others. Actual0damage/HP20/nohit/Stack0/sourceblockersownGY/all4manual. WhirlingprintedGAAP1atRESOLUTION, Irafirstattacknotsecond; KatsuheroWHENhitnotearned. ActualDeckmarkerretainedwheredeclared. Positivecombo/hit/multiplayer/draw/searchuntested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#mugenshi_release_yellow"
+}

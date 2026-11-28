@@ -1,0 +1,7 @@
+{
+    "name": "Shadow of Ursur / real printed Banish permission, optional cost unpaid",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:27:22+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualShadowRunebladeChane20/threeDori20/UPFmanual4. SameownedfaceupBanish5hasnoPlayableFromBanishflag, noHand/additionalcostasset/history. PrintedpermissionallowsactualBanishclick, properadjacentHero4announcement beforeAP1to0/cost0. Fouractualresponses retainsame5Stack, thenactualAA2/noGA hits4for2/HP18. Fullcombatclears5ownedGY/AP0/allR0/otherHP20/noextraUID/RNG. PriorBanishisadmittedfixture, notearnedproducer; nooptionalBloodDebtbanish/positiveGA, noBloodDebtendphase/Chaneactivation/secondary/fullcard/pitchsiblingcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#shadow_of_ursur_blue FaBSim/Custom/MONCards.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

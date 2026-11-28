@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T02:12:56.959281+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1024-20261122.json",
+  "source_spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 106,
+  "native_assertions": 735,
+  "manual_passes": 87,
+  "totals": {
+    "saved_registered_scenarios": 4779,
+    "duels": 3075,
+    "four_live": 1704,
+    "recorded_primary_ids": 1927,
+    "identity_denominator": 5196,
+    "recorded_groups": 1801,
+    "group_denominator": 3324,
+    "four_live_groups": 1693,
+    "phase_qualified_scenarios_at_actual_contexts": 1416,
+    "phase_qualified_unique_groups": 1406,
+    "creation_replay_passes": 2158,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 577,
+  "scenarios": [
+    {
+      "card_id": "twist_and_turn_red",
+      "group_id": "pitch-cycle:twist_and_turn",
+      "scenario_id": "card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+      "effect_branches": [
+        "actual_dagger_plus_four_full_block_no_extra_attack"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-twist-and-turn-red-four-live-sparse1024-actual-dagger-plus-four-full-block-no-extra-attack",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "source_spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "review_evidence": "review-evidence/sparse1024-20261122-qualified-saved.json",
+      "review_evidence_sha256": "65604841c0fc6088ed41caa627a83acf3e6a80926b829228c41315c78b5211b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1024-20261122-replay.json",
+          "sha256": "61c6d30bf782c40a2f8d97753250e348aa81bef020e112afab17acfb39e952df",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "mercurial_skies_red",
+      "group_id": "pitch-cycle:mercurial_skies",
+      "scenario_id": "card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+      "effect_branches": [
+        "matching_aa_gains_go_again_and_quickstrike_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-mercurial-skies-red-four-live-sparse1024-matching-aa-gains-go-again-and-quickstrike-full-block",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "source_spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "review_evidence": "review-evidence/sparse1024-20261122-qualified-saved.json",
+      "review_evidence_sha256": "65604841c0fc6088ed41caa627a83acf3e6a80926b829228c41315c78b5211b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1024-20261122-replay.json",
+          "sha256": "61c6d30bf782c40a2f8d97753250e348aa81bef020e112afab17acfb39e952df",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "step_through_realms_red",
+      "group_id": "pitch-cycle:step_through_realms",
+      "scenario_id": "card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+      "effect_branches": [
+        "actual_shadow_plus_four_two_cost_then_one_cost_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-step-through-realms-red-four-live-sparse1024-actual-shadow-plus-four-two-cost-then-one-cost-full-block",
+      "source_spec": "card-regression-sparse1024-20261122.json",
+      "source_spec_sha256": "30ab5d42d2f1a5f9d43f0e6688c6324bfdc8c016600003c4113c586a8df33ad4",
+      "review_evidence": "review-evidence/sparse1024-20261122-qualified-saved.json",
+      "review_evidence_sha256": "65604841c0fc6088ed41caa627a83acf3e6a80926b829228c41315c78b5211b4",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1024-20261122-replay.json",
+          "sha256": "61c6d30bf782c40a2f8d97753250e348aa81bef020e112afab17acfb39e952df",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

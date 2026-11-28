@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-channel-iceloch-glaze-blue-four-live-sparse1234-real-aura-freezes-frostbitten-opponent-arsenal-while-other-opponent-plays-identical-instant",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-channel-iceloch-glaze-blue-four-live-sparse1234-real-aura-freezes-frostbitten-opponent-arsenal-while-other-opponent-plays-identical-instant",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1234-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1234-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "eee07c48744e9e54ffe6d59f4b646a307beaf32f36a73c6010992982ea4080e2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8b16dd0cf02bed635ca9976647938f1eab2f43714d9e54115aaa7026519253ab",
+        "actions.json": "82e26cc985258276b1d215e134ef8be9a1f2300b8362291dea8ebaf4951ecd6b",
+        "assertions.json": "bfcef3df3eaafcf0b169446b4feac0b0b23e8eb05224db3dd281d55dbc25f5c9",
+        "expected_final_gamestate.txt": "5a33ae028ab5e8fe122117ea26e46f3ef0f80af4a4e7c2ba7ac47b460f747a45",
+        "meta.json": "224c93bc5b9c0295417ae2dd70c690bd51f008a1cabafdc2da0d3d78db3bb818"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

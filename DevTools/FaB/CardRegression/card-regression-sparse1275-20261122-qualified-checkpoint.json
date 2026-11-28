@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T01:04:38.600355+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1275-20261122.json",
+  "source_spec_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 35,
+  "native_assertions": 407,
+  "manual_passes": 30,
+  "totals": {
+    "saved_registered_scenarios": 5179,
+    "duels": 3089,
+    "four_live": 2090,
+    "recorded_primary_ids": 2327,
+    "identity_denominator": 5196,
+    "recorded_groups": 2201,
+    "group_denominator": 3324,
+    "four_live_groups": 2079,
+    "phase_qualified_scenarios_at_actual_contexts": 1816,
+    "phase_qualified_unique_groups": 1806,
+    "creation_replay_passes": 2558,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 977,
+  "scenarios": [
+    {
+      "card_id": "dromai_ash_artist",
+      "group_id": "identity:dromai_ash_artist",
+      "scenario_id": "card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+      "effect_branches": [
+        "adult_duel_actual_red_play_earns_real_dragon_go_again_and_action_refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dromai-ash-artist-two-live-sparse1275-real-red-play-earns-dragon-go-again-with-action-refund",
+      "source_spec": "card-regression-sparse1275-20261122.json",
+      "source_spec_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+      "review_evidence": "review-evidence/sparse1275-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cfcb894885567c82e8d267e1693c36b7742b3dbb18acf039b44fc8fd7cce767c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1275-20261122-replay.json",
+          "sha256": "2cc069a4f36e344c4180f67f09332d18a3bfce21795d55066b33ce7eb83d441c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "lexi_livewire",
+      "group_id": "identity:lexi_livewire",
+      "scenario_id": "card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+      "effect_branches": [
+        "adult_duel_actual_face_down_lightning_flip_cost_earns_next_real_attack_go_again_and_action_refund"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-lexi-livewire-two-live-sparse1275-real-lightning-flip-cost-earns-next-attack-go-again-with-action-refund",
+      "source_spec": "card-regression-sparse1275-20261122.json",
+      "source_spec_sha256": "f5321757d756a0af6c4cbe46db4cc4bc4402a85400e6b6de3d00ac5b5799651e",
+      "review_evidence": "review-evidence/sparse1275-20261122-qualified-saved.json",
+      "review_evidence_sha256": "cfcb894885567c82e8d267e1693c36b7742b3dbb18acf039b44fc8fd7cce767c",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1275-20261122-replay.json",
+          "sha256": "2cc069a4f36e344c4180f67f09332d18a3bfce21795d55066b33ce7eb83d441c",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

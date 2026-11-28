@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch570.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T05:13:37.415056+00:00",
+  "fixtures": [
+    {
+      "slug": "card-riggermortis-yellow-four-live-real-paid-tapped-ally-six-damage-and-proxy-cleanup",
+      "fixture_sha256": "67a8597ff32488c7977a7afd1b0fcca9d82d38c9a80dbbdb5e9c8dd65b133733",
+      "passed": true,
+      "result": "[PASS] riggermortis_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-riggermortis-yellow-four-live-real-paid-tapped-ally-six-damage-and-proxy-cleanup",
+      "returncode": 0,
+      "stdout": "[PASS] riggermortis_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

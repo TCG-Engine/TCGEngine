@@ -1,0 +1,63 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent review of breadth_review NorthernWinds authoring",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1121-20261122.json",
+  "source_spec_sha256": "e2dbd1d8dfcbb0688eaff6474a1ca5474235a38577861eaf9ac5c9b6d4a2a12f",
+  "input_sha256": "e2dbd1d8dfcbb0688eaff6474a1ca5474235a38577861eaf9ac5c9b6d4a2a12f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-northern-winds-blue-four-live-sparse1121-actual-opponent-equipment-freeze",
+      "card_id": "northern_winds_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7e903a2dacceb9248d18c1d8e9ed05db9ea69c8cebd60257f7e1f530c4c20f9b",
+        "actions.json": "8d6819d5ed592449beeffbb60553073935dc93c327b0703899e3044c22ec6c35",
+        "assertions.json": "908ab69ce30e0642d2cc02ce193be3fd340176789643fa59dd7b2b8129d14750",
+        "expected_final_gamestate.txt": "c148f24060aafa13221ebdc5ff9938a22781dfa97141cbb70a05d1d7736bdf75",
+        "meta.json": "910130c4eec1519d492c59aeb9cd62becae054b6bb3564b3ecb1c5b902cc5c20"
+      },
+      "fixture_sha256": "bf3f54233383dbe466d2fcb869f4c976d47c2ca0599efc4bae7dceb56d9dbd0e",
+      "actions": 6,
+      "native_assertions": 279,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1121-20261122.json",
+      "input_sha256": "e2dbd1d8dfcbb0688eaff6474a1ca5474235a38577861eaf9ac5c9b6d4a2a12f",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1121-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-northern-winds-blue-four-live-sparse1121-actual-opponent-equipment-freeze",
+        "fixture_slug": "card-northern-winds-blue-four-live-sparse1121-actual-opponent-equipment-freeze",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e2dbd1d8dfcbb0688eaff6474a1ca5474235a38577861eaf9ac5c9b6d4a2a12f",
+    "reviewer": "Root independent review of breadth_review NorthernWinds authoring",
+    "basis": [
+      "Cached printed OldhimSpecialization allows freezing up to oneequipment/item/ally eachhero; thisone actual opposingIronrot target is legal. No formalTargetword, correct resolutionchoice.",
+      "Independently read generated await44f58112c2526da8fd86: loops live seats/kinds, casterMZMAYCHOOSE onlywhenrefsnonempty, resumesFaBUPRFreeze. Onlyp4Equipment0realeligible, sourceawaitheldStack.",
+      "UPRCards76 sets actual chosen equipmentCounterUPR_FROZEN_BY1; samephysicalUID6/ownercontroller4/Status2retained. All4source manualresponses andownedsourceGY/AP0/noGA correctlyexpected."
+    ],
+    "limits": [
+      "Freeze applied-state only; no frozenactivation/blockadmission, expiry, Unity, alternatekind/seatmatrix, support/wholecardclaim. Native/replaypending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1121-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1f6e9fb31eab4542c15aab738579204093ce3359ca141d2e3f994089f35dab26"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Verdance / conditional passive guard through real spell effects",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T10:25:12+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_NATURAL_YOUNGVERDANCE20_THREEDORI20. FourrealfaceupownedBanishcards8..11areGenericNON-Earth, soEarthcount0<4despiteBanishcount4. Noeffect/thresholdhistoryseeded. ActualSigil5instant0consumesnoAP/allfourresponses/gain3HP20to23, sourceGY5; noHeroarcaneWHENearned/noabilityStack/targetchoice/arcaneDamage/allotherHeroesremain20. ActualGenericCriticalRed6thenlegalHerotarget4/printed1costactualBlue7pitch3R2/AP0/base5/noGA/5damageHP4=15provesnormalnativefollowupnotblockedbyunearnedchooser. Source5+6GY1/fund7Pitch1/Banish8..11sameownedUID/order/FaceDown0/allArena0/UID11RNG0/AP0R2/StackDQCCquiet. OnlynonEarthtypefilter/thresholdfalseHealGuard/nativehealingandattack; positive4Earth/grantedVerdanceWHEN/arcaneTarget/timing/laterthresholdchanges/adultthreshold8/EssenceorHeroactivation/support/siblings/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#verdance FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ROSCards.php FaBSim/Custom/WTRCards.php"
+}

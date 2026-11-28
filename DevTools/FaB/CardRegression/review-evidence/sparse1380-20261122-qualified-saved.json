@@ -1,0 +1,121 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1380-20261122.json",
+  "source_spec_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+  "input_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+      "card_id": "channel_thunder_steppe_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "42985a48b060cc7a15629a18599d0f278df10d45e601697d52bee63ce5fb940b",
+        "actions.json": "ecfc3b356d170d3adcd369c59f64176c3b17ffe7af3900115b2de1a20afbaf7c",
+        "assertions.json": "d3c41a925069851b8e349567306b3e7effce6e8493455c26050dabd91c2a5b74",
+        "expected_final_gamestate.txt": "f97d0ea472f9d9144272297fadb018c87faf5901fbbe9220ef380abd470d6994",
+        "meta.json": "433abb2b3a88a593a810eb7cf8ef952fd66c51a5825d1ffe959258eb49e51f93"
+      },
+      "fixture_sha256": "53e463cc89454c484de757c154473530c8381e2f1d4e3bdbd5bc95b24822b821",
+      "actions": 5,
+      "native_assertions": 223,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 4,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1380-20261122.json",
+      "input_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1380-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+        "fixture_slug": "card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+    "source_note_sha256": "b60207fa472ea6fbadeedb4c52ac156d10d7be0d87bdf7ab97b94ae134540c16",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 5,
+    "query_checks": 223,
+    "persistable_assertions": 223,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "CHANNEL_ACTION_TYPE_FILTER_GUARD_WITH_REAL_INSTANT_HEAL_AND_AFFORDABLE_PAYMENT",
+    "per_case": [
+      {
+        "card_id": "channel_thunder_steppe_yellow",
+        "group_id": "identity:channel_thunder_steppe_yellow",
+        "native_controls": 5,
+        "persistable_assertions": 223
+      }
+    ],
+    "basis": [
+      "Cached Lightning Aura Channel Thunder Steppe requires action CARD played for optional pay1/go again. Young Aurora20 Essence of Lightning makes Aura and unplayed Electrify legal; three Young Dori20/manual4UPF and all cached UPF flags valid. Group unrepresented/unheld.",
+      "Existing Aura7 FLOW1 is reachable after prior end-phase maintenance and has no start-turn self-destruction. Present Aura/controller/counter snapshot, R1 affordability control and empty current-turn history do not claim prior entry/maintenance/resource provenance. No end phase or new Action is entered in selected route.",
+      "Actual Generic SigilRed5 is Instant0, not Action or Lightning despite caster Essence. ELECards155 returns for nonAction/nonWeapon; Channel callback159 sits within Action157 gate. No earned WHEN/payment/GA on this Instant. Four manual responses retain physical5 Stack KindINSTANT, AP1/R1/HP20 before resolution; actual printed heal3 yieldsHP23/sourceGY5, sameElectrify6Hand andAura7FLOW1/Status2/effects[] afterward.",
+      "Counts, UID7/RNG0, physical ownership and exact zone totals coherent; AP1 not2/R1 not0 and no DQ/extraStack/sourcechange/token pin selected negative filter. No positive trigger callback or held upkeep route asserted."
+    ],
+    "limits": [
+      "Only Instant-versus-Action filter with real heal and retained Aura/counter/resource/AP fates. Positive Channel Action WHEN/timing/pay1/GA, native Aura entry, end-phase Flow upkeep/Lightning pitching, Hero abilities, provenance, support identity, siblings and whole-card untested.",
+      "Approval pending native execution; no game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ELECards.php": "5319104c32fb648c9ef90ee5e7e3a6a22e29c35a26c2cca31b338aada0e6110f",
+      "FaBSim/Custom/ELEAbilities.php": "d0da7637932733ee6c0e77f4786c4950fbaa4e41eb74c5d1f5d536961fa27ab8",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1380.py": "63ed43d5ed99ebd8e33583e34ccdb84cbe40ca0705cd1e48a3cbc3d179e2c63f",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1380-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "127775adac4fb70323698a41284c21e1c393a3ad2623017b78cb1022d3290e22"
+  },
+  "full_suite_run": false
+}

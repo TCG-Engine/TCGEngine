@@ -1,0 +1,335 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B559_TAP_RESOURCE_GO_AGAIN_AND_PAID_ATTACK",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T03:03:35.903196+00:00",
+  "source_spec": "card-regression-batch559.json",
+  "input_sha256": "2fe7076144d8ffcb359008019143ee3de905309298a602a8a5dc42f951ee388e",
+  "manifest_sha256": "884ea666efe31fc7efe186a6c9eeece683f551c2ee83d43ea7781dc320ed98c3",
+  "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch559-independent-source-review.json",
+    "sha256": "82e90b8808c125776830be9cea3b232e422b00329ecf4e8976f1a0c2caaca96a",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch559-20261106T025905Z-6aed427947a80.json",
+    "sha256": "6eb0d006e2705186dff0279feff4b4be0bc1019c87a3de127c3e3f770f089bba"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch559.recording-results.json",
+    "sha256": "b2199efe4c890cb3ded304bfab08382438bc2b431c781629446c2b664c03b5e5"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch559-native-r1-33333\\receipt.json",
+    "sha256": "7846ef89cfe823a44cf0674864ef4123277a84953023883a1831bc87a44adf5d"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "restless_plowman_red",
+      "group_id": "identity:restless_plowman_red",
+      "slug": "card-restless-plowman-red-four-live-real-tap-gains-resource-go-again-and-paid-seven-damage",
+      "source_spec": "card-regression-batch559.json",
+      "input_sha256": "2fe7076144d8ffcb359008019143ee3de905309298a602a8a5dc42f951ee388e",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_TAP_RESOURCE_GO_AGAIN_PAID_ATTACK_CONSUMER",
+      "runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "recorded_runtime_sha256": "33333d6f2e6ba5f6f00f5e9f4c39504d9710a4f224a3ba170d0aa72152ffe9e2",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-restless-plowman-red-four-live-real-tap-gains-resource-go-again-and-paid-seven-damage",
+      "fixture_sha256": "3e49c5608f539c3a283ee4fb109197921b72ea0cb5dc1542ede750cdc51a63f8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "482c73c1f552e2f8f3cf3ade8feba1fa7c9b4eab40c4d85e55e8da518264807c",
+        "actions.json": "ecece2d0c2088376828593a9b520039ab704b9a53d9c6b8039922d36e3d9abcb",
+        "assertions.json": "63eb82560e5cef43b1c49bf51eb28a4f8829598ca5aff1474418756864d19604",
+        "expected_final_gamestate.txt": "654cb726a60643fb79275ee1b654e5dc9f3d3f32cea48d5f7b312eecc81cd590"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "482c73c1f552e2f8f3cf3ade8feba1fa7c9b4eab40c4d85e55e8da518264807c",
+        "actions.json": "ecece2d0c2088376828593a9b520039ab704b9a53d9c6b8039922d36e3d9abcb",
+        "assertions.json": "63eb82560e5cef43b1c49bf51eb28a4f8829598ca5aff1474418756864d19604",
+        "expected_final_gamestate.txt": "654cb726a60643fb79275ee1b654e5dc9f3d3f32cea48d5f7b312eecc81cd590",
+        "meta.json": "e418ce2c67013538fe98e8c9bcf50fab328e628979a4848fe71ffb3df2f0675f"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "482c73c1f552e2f8f3cf3ade8feba1fa7c9b4eab40c4d85e55e8da518264807c",
+        "actions.json": "ecece2d0c2088376828593a9b520039ab704b9a53d9c6b8039922d36e3d9abcb",
+        "assertions.json": "63eb82560e5cef43b1c49bf51eb28a4f8829598ca5aff1474418756864d19604",
+        "expected_final_gamestate.txt": "654cb726a60643fb79275ee1b654e5dc9f3d3f32cea48d5f7b312eecc81cd590",
+        "meta.json": "e418ce2c67013538fe98e8c9bcf50fab328e628979a4848fe71ffb3df2f0675f"
+      },
+      "actions": 33,
+      "native_assertions": 2856,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 7,
+        "2": 7,
+        "3": 7,
+        "4": 8
+      },
+      "schema_property_assertions": 803,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "restless_plowman_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "malice",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "restless_plowman_red",
+          "zone": "p1Arena",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        13
+      ],
+      "final_resources": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "actual_activation_resource_cost": 0,
+      "actual_activation_AP_cost": 1,
+      "actual_tap_source_UID": 5,
+      "actual_captured_ability_UID": 8,
+      "actual_resource_gain": 1,
+      "actual_ability_GA_refund": 1,
+      "actual_attack_resource_cost": 3,
+      "actual_real_pitch_UID": 7,
+      "actual_physical_damage": 7,
+      "final_Arena1_exact_UIDs": [
+        5
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Pitch1_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "ceased_virtual_UIDs": [
+        8
+      ],
+      "prior_minus_life_counter_preserved": 1,
+      "current_life_derived_from_printed3_minus_counter1": 2,
+      "no_current_Decay_or_death_claim": true,
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "35b4896f2c99043bef4c3ee5af3119abc764aa48ccf04ed2f3558bcfbea68e66",
+      "native_action_mapping_sha256": "2aa730fb798b134a670185c34c79652f4b6da51275b0968147701e273ceecfff",
+      "native_assertion_mapping_sha256": "a6ad339cf24dd6863465fc8564c39ac7add65c31c6c1dedc03fb2a5ad468da3a"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2856,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_schema_property_assertions": 803,
+  "material_findings": [
+    "Actualnative COMPLETE0/stderr0/newfixture1 at unchanged33333. All33envelopes/2856orderedpersistedchecks/803schema properties equal independent correct model;29actualmanual inputs(28priority+1P4finish), all69sourceguards and48rawmanual settings perendpoint verified.",
+    "ActualownedAlly5ready2/Damage0/priorDecaycounter1 is tappedStatus1 and AP1spent before responses. CapturedABI8SourceArenaUID5/controller1 remains through firstthree; fourthactualresponse gainsR1 and refundsAP1 onlythen. ExplicitpositiveEVR_ACTIVATED1uses1 checks and rawfinal row preserve earned commonbookkeeping without declaring other valid rows absent.",
+    "RealRaging6 target selection occurs before assets, then pendingprintedcost3/AP1/R1 is checked. ActualBlue7pitch3 joins the earnedfloating1 and pays3/AP1, leavingR1AP0. ActualRaging current7/noGA versusDEF0 deals7physical/P4HP13; no currenthistory/AP/resource/effect seed substitutes for the primary resourceandGA effects.",
+    "Final sameAlly5Arena rawobject differs from initial onlyStatus2to1; its priorcounter1/Damage0/owner-controller1 remain. SameBlue7wholeobject movesHandtoPitch and exactRaging6ownpublicGY; originalphysical1..7 preserved/temporary8ceased/counter8/RNG0/R1AP0/fullquietStackChainDQawaitpaymentcombatcleanup and quietHeroes verified.",
+    "PriorDecay counter legality remains rules-only setup provenance; currentlife2 is derived from printed3minus1, not a new computedhealth getter claim. No currentEndPhase/Decay/death/VoxAllyattack/Malicepermission/Hero/priorproducer/supportprimary/sibling/fullcard credit. Rootfocusedreplay gates remain separate and unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "url": "https://judge.fabtcg.com/cards/detail/5286/",
+      "finding": "CurrentprimaryActiontap/gain1resource/GA, Decay and3life."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.45",
+        "8.3.5a"
+      ],
+      "finding": "Prior resolved Decay supplies persistentminuslife counter; abilityGA after resource effect."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.2.1",
+        "5.2.2",
+        "5.1.6-9",
+        "5.3"
+      ],
+      "finding": "Tap is a cost, not early resourceeffect; sourcecapture and resolution precede clearing."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "finding": "Actualnormal attack/defender/damage/resolution/close sequence; no unprintedRagingGA."
+    }
+  ],
+  "limits": [
+    "ONE legitimatepriorAlly Action0/TAP/gain1resource/ownGA\u2192actualpaidGeneric7damage branch.",
+    "No primaryplay/entry/currentDecay/endphase/death/Malicepermission/VoxAllyattack/otherZombies/taprepeat/untap/Hero/supportprimary/sibling/fullcard credit.",
+    "EVR_ACTIVATED1 positiveleafchecks included; no assertion that otherlegitimatecurrentactivation/cardplay/hit bookkeeping is empty.",
+    "OTHERpeer/native/Saved/replays required; noR/PHP/native/source/deniedretry/fullsuite/remote/git byauthor.",
+    "Currentlife2 is derived from printed3 and actual publicminuslife1; no unsupported computed-health getter or currentDecay execution claimed.",
+    "Root native/exact Saved/raw48manualprefs/two replays remain separate. No reviewer PHP/native/R/source/fullsuite/remote/denied operation.",
+    "Only actual assertionledger and rawinitial/final state observed; no invented per-input rawsnapshot or privatecallbackinstrumentation.",
+    "RawundoVersions hash-bound but excluded from current physicalUIDinventory; no reviewerPHP/native/replay/R/source/fullsuite/remote/deniedoperation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch559_saved_readonly.py",
+    "sha256": "43a6a64cd573a12edda7402b757c9de626108bcf488e1f100d9231d31a90a71b"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch559_source_readonly.py",
+    "sha256": "ca4ff8f518179610b00c6a64440223a8c225b342f05a80d47fc160b9b31d25a5",
+    "portion": "Own static input/schema/action/assertion model only; no source or author model execution"
+  }
+}

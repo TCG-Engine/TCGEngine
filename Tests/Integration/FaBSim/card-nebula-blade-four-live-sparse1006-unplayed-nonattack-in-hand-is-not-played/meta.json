@@ -1,0 +1,7 @@
+{
+    "name": "Nebula Blade / four-live real payment without nonattack play history",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:41:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}{r}: **Attack**\n\nWhen this hits, create a Runechant token.\n\nIf you've played a non-attack action card this turn, this gets +3{p}. Named first paidattack branch: legalnatural20Chane, actualWeapon5/Blue6pays2\u2192R1/AP0. ActualNAA8existsinHandbutwasnotplayed; Blue6isGenericAApitchednotNAAplay. Thus staticbase1not4; realAA7DEF3 fullblocks/noHit/HP4=20/AP0/noearnedRunechanttrigger. Computedpower1+persistedDamageStateattackPower1/defense3/0damage andactualpaidcost/physicalWEAPON_UID5/ownedfates/unplayedHand8retention pinbranch. PositiveNAA/hit/hero/support/siblings/fullcardunrun. Sources: FaBSim/GeneratedCode/cardArrayCache.json#nebula_blade"
+}

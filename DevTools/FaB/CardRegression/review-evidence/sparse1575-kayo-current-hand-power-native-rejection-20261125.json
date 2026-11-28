@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "status": "CONFIRMED_NAMED_NATIVE_FAILURE_NO_PASSING_FIXTURE",
+  "issue": "FAB-REG-237",
+  "batch": 1575,
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "reproducer_source": "card-regression-sparse1575-held-kayo-reveal-20261125.json",
+  "source_spec_sha256": "269d9262b24a1ddecb776684edc5edb8a2fc65f7f77c157aae4fa47301ec8c16",
+  "rules_basis": {
+    "url": "https://rules.fabtcg.com/en/cr/02-object-properties/",
+    "rule": "2.9.3",
+    "interpretation": "Power means modified power. Kayo-owned Hand cards with base5 and6 currently have6 and7; total13 qualifies for Rouse, which does not require base power."
+  },
+  "expected": "A declaration revealing both real owned Hand cards is accepted; then cost3/AP1 is paid before reveal, with correct source bonuses.",
+  "observed": {
+    "submitted_inputs": 13,
+    "persisted_passing_checks": 183,
+    "first_failure": "Expected p1Resources to equal 1, got 4.",
+    "window_after": "ACTION",
+    "pending_payment_after": null,
+    "all_queues_empty_after": true,
+    "three_hand_refs_after": [
+      "p1Hand-0",
+      "p1Hand-1",
+      "p1Hand-2"
+    ],
+    "last_actual_input": {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p1Hand-0&p1Hand-1",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "not_observed": [
+      "later AP debit assertion",
+      "post-declaration bonus tags",
+      "physical final fates",
+      "future combat or any replay"
+    ]
+  },
+  "source_cause_inference": "FaBMONRevealPower at MONCards488 uses raw CardPower5+6=11; CardChoices560/672 feed it to REVEAL_THIRTEEN validation. This sufficiently explains the rollback, but no native numeric trace or shared-root fault mutation was performed.",
+  "source_sha256": {
+    "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+    "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+    "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+  },
+  "independent_source_and_actual_record_review": {
+    "reviewer": "/root/breadth_review1457",
+    "result": "confirmed_named_false_rejection_not_setup_or_oracle_error",
+    "initial_snapshot_sha256_verified": "6fd86073fc5a6ff33f73ad78dfb74467be724e022ccb5452f4e1585feace3aae",
+    "limits": "No independent game or replay. Shared root unallocated; bounded039 Rouse cost-order repair and1233 offchain assertion limit remain separate."
+  },
+  "local_full_evidence": {
+    "directory": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1575-local-20261122",
+    "probe_receipt_sha256": "fd9c407f2a6e27956f67a108acd4dd854576cebef97dfb46512a3dbf8ea6c0a3",
+    "recording_results_sha256": "b207fd2b3dc5239b0c742f3bdf2dee57e617e8eaf7fbb09026c4d7c65439bd84"
+  },
+  "probe_only": true,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "replay_run": false,
+  "engine_repaired": false,
+  "new_distinct_shared_root_credit": 0
+}

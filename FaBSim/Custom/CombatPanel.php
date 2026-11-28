@@ -14,12 +14,25 @@
 [data-fab-drag-handle]:active{cursor:grabbing}
 [data-fab-drag-handle]:focus-visible{outline:2px solid #f6d68b;outline-offset:-3px}
 .fab-combat-progress{grid-template-columns:repeat(7,minmax(0,82px));box-sizing:border-box}
-#fab-upf-chain-panel header h2{flex:none;white-space:nowrap}
-#fab-upf-chain-panel header .fab-combat-progress{flex:1;min-width:0;padding:0;border:0;background:none}
+#fab-upf-chain-panel{width:min(760px,calc(100vw - 20px))}
+#fab-upf-chain-panel header{gap:8px;padding:6px 10px}
+#fab-upf-chain-panel header .fab-combat-progress{flex:1;min-width:0;justify-content:start;padding:0;border:0;background:none}
 #fab-upf-chain-panel header button{flex:none}
-#fab-upf-chain-panel .fab-upf-panel-body{max-height:calc(65vh - 65px)}
+#fab-upf-chain-panel [data-fab-chain-totals]:empty{display:none}
+#fab-upf-chain-panel header .fab-chain-totals{flex-direction:row;gap:4px;padding:0}
+#fab-upf-chain-panel header .fab-chain-total{min-width:26px;height:26px;font-size:14px}
+#fab-upf-chain-panel header .fab-total-icon{width:26px;height:26px}
+#fab-upf-chain-panel header .fab-chain-total small{display:block;left:26px;top:6px}
+#fab-upf-chain-panel header .fab-chain-total:has(small){margin-right:12px}
+#fab-upf-chain-panel .fab-upf-panel-body{padding:6px 10px 8px;max-height:calc(65vh - 46px)}
+#fab-upf-chain-status.is-empty{margin:4px 0;font-size:12px}
+#fab-upf-chain-status:not(.is-empty){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 @media(max-width:1100px){#fab-upf-chain-panel .fab-step-label{display:none}}
-@media(max-width:700px){#fab-upf-chain-panel header h2{display:none}}
+@media(max-width:480px){
+  #fab-upf-chain-panel header:has(.fab-chain-total:nth-child(3)){flex-wrap:wrap}
+  #fab-upf-chain-panel header:has(.fab-chain-total:nth-child(3)) .fab-combat-progress{order:1;flex-basis:100%}
+  #fab-upf-chain-panel:has(header .fab-chain-total:nth-child(3)) .fab-upf-panel-body{max-height:calc(65vh - 80px)}
+}
 @media(max-width:700px){.fab-combat-progress{padding-left:8px;padding-right:32px;gap:3px}.fab-combat-step{padding:0 2px;gap:2px}.fab-combat-step .fab-step-label{display:none}}
 </style>
 <script>

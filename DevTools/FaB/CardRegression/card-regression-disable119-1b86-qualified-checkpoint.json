@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-17T04:43:09.356209+00:00",
+  "runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+  "source_spec": "card-regression-repair-disable119-crush-response.json",
+  "source_spec_sha256": "b6da3e5539a932769c4672f642147c1f8cb2bb81f7d5bea7f47e96bd26e853f4",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 33,
+  "native_assertions": 2941,
+  "manual_passes": 29,
+  "totals": {
+    "saved_registered_scenarios": 4162,
+    "duels": 3074,
+    "four_live": 1088,
+    "recorded_primary_ids": 1315,
+    "identity_denominator": 5196,
+    "recorded_groups": 1189,
+    "group_denominator": 3324,
+    "four_live_groups": 1081,
+    "phase_qualified_scenarios_at_actual_contexts": 799,
+    "phase_qualified_unique_groups": 794,
+    "creation_replay_passes": 1540,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "disable_red",
+      "group_id": "pitch-cycle:disable",
+      "scenario_id": "card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+      "effect_branches": [
+        "disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-disable-red-four-live-original-current-crush-when-keeps-arsenal-through-fresh-trigger-before-owner-deck-bottom",
+      "source_spec": "card-regression-repair-disable119-crush-response.json",
+      "source_spec_sha256": "b6da3e5539a932769c4672f642147c1f8cb2bb81f7d5bea7f47e96bd26e853f4",
+      "review_evidence": "review-evidence/disable119-1b86-qualified-saved.json",
+      "review_evidence_sha256": "7343353aa93ace03b1e10f9918bf66a055fa42741a26f3615a47f65e41dccfba",
+      "recorded_runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+      "qualification_runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-replay-nov17-disable119-replay.json",
+          "sha256": "0e558fa3e1593f79c3db547ed19d68fa01d05fdd1606d195ca0b4a1ea297dba5",
+          "runtime_sha256": "1b86c87d01c4892c664d94ab2a193064ab3274b5594215cc988dc88ffc18f76a",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

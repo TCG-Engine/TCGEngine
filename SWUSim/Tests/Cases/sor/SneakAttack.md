@@ -122,8 +122,8 @@ WithP2Deck: [SOR_171 SOR_171]
 - P1>PlayHand:0
 - P1>AnswerDecision:myGroundArena-1
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN
@@ -150,8 +150,8 @@ WithP2Deck: [SOR_171 SOR_171]
 ## WHEN
 - P1>PlayHand:0
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 
 ## EXPECT
 PHASE:MAIN

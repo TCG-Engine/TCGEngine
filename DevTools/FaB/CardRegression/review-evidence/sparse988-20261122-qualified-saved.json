@@ -1,0 +1,142 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse988-20261122.json",
+  "source_spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+  "input_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+      "card_id": "turn_timber_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e94d64b8eb439b26114c175fff4407ebb935dd134c59c6c0c9b430df258a151f",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "2c372a0715858b87efcfbfa00d170b9080ad9a11ba95fe32aad6a76e4f478abe",
+        "expected_final_gamestate.txt": "2ab4f5614f25713c0695e3ed00b593344e42d25229c1c4a1eee4d7b75b24194b",
+        "meta.json": "b1c4585772ab4b2cfb5d447518ac2290a1ebaa47469fb656af635e882160faff"
+      },
+      "fixture_sha256": "c60e1730bb56a094e269acd2507126d20471490e391e495c764e52a5393292c3",
+      "actions": 37,
+      "native_assertions": 301,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "input_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+        "fixture_slug": "card-turn-timber-red-four-live-sparse988-unfused-real-blue-payment-six-defense-one-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+      "card_id": "golden_company_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cec64e2884daa136e084c9caa2316b343ffed8e1822678ad2ca7ebbe6545940d",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "39085ad76c4f08863cd315c9edfa68a28473db542659d71f852a12ecb222ed58",
+        "expected_final_gamestate.txt": "b25961a880e89dc2486cc6401b91c014f33769b593356094f9ffb4276aff87ac",
+        "meta.json": "8c4a9eac786a1fd6a9e7070bcd8a0fcb67627b34888febbca86f9a15b868f23a"
+      },
+      "fixture_sha256": "907bfbf1afa9a6f0b060de9873e50ae4acf2de5465bc5efbaf14b477decafddd",
+      "actions": 37,
+      "native_assertions": 301,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "input_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+        "fixture_slug": "card-golden-company-red-four-live-sparse988-normal-resource-payment-without-gold-six-defense-one-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+      "card_id": "sigil_of_parapets_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5b6275d6895c5a5db36436ce73480ceb6fe02e80a8ab105164376d8dc995c5f3",
+        "actions.json": "ebc372d17953d501be58ca3614769b44127b225021b6de8d5af1a3045ce3a44a",
+        "assertions.json": "ef6e7316ed73d0b65eaf898e39732ca40f9542cd02293c477062f4d7db25524d",
+        "expected_final_gamestate.txt": "ea20fe3aefb2d3f3576d311c942adffa396f59a454d7b216065197eb755b9a86",
+        "meta.json": "08aac95e04f9a19a91b6aeaa76137a107961c345a51d282776ced9902d436eab"
+      },
+      "fixture_sha256": "b4f5ed5b780050cbb0274da343bf779872365e1365559820907b0ad8e61baf87",
+      "actions": 37,
+      "native_assertions": 301,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "input_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+        "fixture_slug": "card-sigil-of-parapets-blue-four-live-sparse988-own-cast-before-defending-base-two-no-later-wizard-play",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+      "card_id": "loyalty_beyond_the_grave_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b635e5a862226b69644630e4824cf2e3df59ca566dca81e109016e43e86ac2a8",
+        "actions.json": "83add76d0e874fd8ae016e14517db6ea206c3b9e206dbce873083282bf38c1a3",
+        "assertions.json": "6ecd66c9bef58141c830e215d7e457a74529546824e76260c3e53de456d155d8",
+        "expected_final_gamestate.txt": "1e7267f74c87ea59e73eda0dc96149ddb39048b9df0306c37d7eff1c7480d3f1",
+        "meta.json": "ed93b75eec581bde00344176f62b528251785cf0dfa027d1c16cc8824054be1f"
+      },
+      "fixture_sha256": "6614ef6f9efebcc531265e6e834831ba82c7a765cfe2069e047aa573bf2e3797",
+      "actions": 36,
+      "native_assertions": 297,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 32,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse988-20261122.json",
+      "input_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+        "fixture_slug": "card-loyalty-beyond-the-grave-red-four-live-sparse988-actual-arsenal-reaction-base-three-no-future-start-step",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of breadth_review author",
+    "batch": 988,
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "6943a8399e99fa70bf4fc0c5cf85e5614636d5f22c35f73b46a44a7f9bbc2d35",
+    "findings": [
+      "Verified actual cached costs2/2/1/0, defenses6/6/2/3 and natural defending heroes20/20/15/20. Raging7 paid3 versus no blocks yields1/1/5/4 damage and HP19/19/10/16. Real defenderBlue3 pays2/2/1; Arsenal0 retains HandBlue. All four manual priority paths use proven983/984 transports.",
+      "TurnTimber has noEarth in Hand so cannot fuse; Golden noGold uses normal payment, distinct from unresolved115 alternative protocol. Sigil current EVR observer requires already defending; own play onStack does not grant its own+2 and no laterWizardplay. Loyalty future own-start is not reached. No positive/sibling/full-card credit.",
+      "Stack/CC roles, owned card fate, resource/AP, naturalhealth, actualdamage and clean queues persist as assertions; no author-only legality/defense queries. Native recording and oneclean replay each remain necessary."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse988-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "5e61e1ba1f0cfbb6ca498a706a68d4794a9a7c0c0ab268bd7e46ae820a84f3c2"
+  },
+  "full_suite_run": false
+}

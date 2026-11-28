@@ -1,0 +1,7 @@
+{
+    "name": "Clash of Arms / plain Generic attack excludes conditional defense effect",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T03:12:08+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Class-legal youngbravo4 actually defends withclash_of_arms_yellow6 fromHand against ownedDori1 GenericWoundingBlow5 power4/noOverpower, formallyHero4. PrintedGuardian_attackpredicatefalse so noearnedconditionalWHEN/buff/Clash/layer. ActualbaseDefense4 physicalDamage0 Hero4=20; no cacheddefense-only oracle. Deck4RagingOnslaught8printed7vsDeck1Blue7printed2 givesnonvacuouswould-beClashwinner; actor1noequipmentHP20 excludeswrongClashloserpenalty. Allfourmanualpriorityflows/fullclose5GY1/6GY4, unchangedDecks/Potion9Hand1, AP0thenactualItemclickreject,RNG0/UID9. Basicdefense+negativeconditiononly, notpositiveability/timing/sibling/supportidentityorwholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#clash_of_arms_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#clash_of_arms_yellow FaBSim/Custom/SUPCards.php#FaBSUPAttackType FaBSim/Custom/DYNCards.php#FaBDYNOverpower FaBSim/Custom/GameLogic.php#OnDefended"
+}

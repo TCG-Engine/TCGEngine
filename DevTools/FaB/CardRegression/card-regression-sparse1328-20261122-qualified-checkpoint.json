@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T06:32:16.810184+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1328-20261122.json",
+  "source_spec_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 18,
+  "native_assertions": 237,
+  "manual_passes": 16,
+  "totals": {
+    "saved_registered_scenarios": 5280,
+    "duels": 3102,
+    "four_live": 2178,
+    "recorded_primary_ids": 2428,
+    "identity_denominator": 5196,
+    "recorded_groups": 2302,
+    "group_denominator": 3324,
+    "four_live_groups": 2167,
+    "phase_qualified_scenarios_at_actual_contexts": 1917,
+    "phase_qualified_unique_groups": 1907,
+    "creation_replay_passes": 2659,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1078,
+  "scenarios": [
+    {
+      "card_id": "kayo_armed_and_dangerous",
+      "group_id": "identity:kayo_armed_and_dangerous",
+      "scenario_id": "card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+      "effect_branches": [
+        "adult_duel_off_turn_own_printed_five_power_card_discarded_as_six_then_reckless_swing_deals_two_without_own_action_phase_might"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-kayo-armed-and-dangerous-two-live-sparse1328-off-turn-five-power-discard-becomes-six-and-reckless-swing-deals-two",
+      "source_spec": "card-regression-sparse1328-20261122.json",
+      "source_spec_sha256": "3e6f4b51c9c7a9a214e2335a1e18909eabf3d5e6e95f8b111e0f11376642f735",
+      "review_evidence": "review-evidence/sparse1328-20261122-qualified-saved.json",
+      "review_evidence_sha256": "221cb1087897b2cd9ff990d8fd04f5e44d14320e1aa84e369f3078d7d3e3b406",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1328-20261122-replay.json",
+          "sha256": "a863a0f1a4abb5a13db0114233b21390f216800c817f5fb06207bbe8c1a630ff",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

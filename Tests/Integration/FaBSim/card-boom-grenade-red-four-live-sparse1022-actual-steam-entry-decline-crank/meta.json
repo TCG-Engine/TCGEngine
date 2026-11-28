@@ -1,0 +1,7 @@
+{
+    "name": "Boom Grenade / four-live actual steam entry and Crank",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T02:58:49+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crank**\n\nThis enters the arena with a steam counter. At the start of your turn, destroy this unless you remove a steam counter from it.\n\nWhen a Mechanologist attack action card you control hits a hero, destroy this and deal 4 damage to them. NamedphysicalentryandoneCrankdecisiononly. LegalDash20/noDashabilityused, actualHand5cost0/AP0, all4realmanualsourcepriorityresponses, 5sameUIDownedArena withFAB_PLAY_ORDER1andSTEAM1 beforechoice. NativeMZMODAL1declinesCrank, Steam1andAP0retained. Fourmanualhealth/economy/emptyqueues/ownedfatespersist. Noattack/target/upkeep/activatedability/Overpower/Autobottom/Grenadehit/damage/othercreator/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#boom_grenade_red"
+}

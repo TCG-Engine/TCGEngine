@@ -1,0 +1,232 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1373-20261122.json",
+  "source_spec_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+  "input_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-gravespawning-blue-four-live-sparse1373-actual-non-aura-action-leaves-graveyard-to-deck-no-earned-arcane-trigger",
+      "card_id": "sigil_of_gravespawning_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "73b1e0d14efa46a4bb11a936f1204e5653fb267a600206ff7f550dab0dd7e25e",
+        "actions.json": "2f761f232b976f1bcc0bbc44e202a781f746b4627d25330a911f43f2394105a9",
+        "assertions.json": "6967777e9ebf41136b02c5e36897d8f0a09c37b80a7c41216c818e426a30f5ab",
+        "expected_final_gamestate.txt": "cefb0da7810c3bedf55cb8755267c95aa176d4b17ca29025c0fd7c0d09b975f1",
+        "meta.json": "bc7a736d7bcf31365ab3d9a7f3b169b88529a79cf002a68b1304415be15b7db4"
+      },
+      "fixture_sha256": "bbf81d2986cb0b0d3667592f5943b10d11129a3152b09230ef8d6e2331e3b250",
+      "actions": 12,
+      "native_assertions": 752,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1373-20261122.json",
+      "input_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sigil-of-gravespawning-blue-four-live-sparse1373-actual-non-aura-action-leaves-graveyard-to-deck-no-earned-arcane-trigger",
+        "fixture_slug": "card-sigil-of-gravespawning-blue-four-live-sparse1373-actual-non-aura-action-leaves-graveyard-to-deck-no-earned-arcane-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-bellona-yellow-four-live-sparse1373-actual-action-moves-graveyard-to-deck-not-soul-no-courage",
+      "card_id": "blessing_of_bellona_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bc14cced742494dbe1721494f79315eded268d0ed9c4ddc8164d93defcdc03d2",
+        "actions.json": "ec2059e4ca7192651ff8e7df8826e2a81be74d2809e26dadf6586891e0b3a3d4",
+        "assertions.json": "e65c83b3f5275092126852c49b3000c30adb8abec0f06af7c537a12a1d9c36e5",
+        "expected_final_gamestate.txt": "74c97c8595679ff89d12811a6b3ac32d53553c18b274daa1882a86b6ef8e2666",
+        "meta.json": "692fd30aaa15d0fc426f8d31d245ad0fa0a6a81580d540b3318c8f3bd400d502"
+      },
+      "fixture_sha256": "4ca5f944d477229b8ccb1117fb734b181d078f0105ab1104adfb51a6d7075987",
+      "actions": 11,
+      "native_assertions": 695,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1373-20261122.json",
+      "input_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-bellona-yellow-four-live-sparse1373-actual-action-moves-graveyard-to-deck-not-soul-no-courage",
+        "fixture_slug": "card-blessing-of-bellona-yellow-four-live-sparse1373-actual-action-moves-graveyard-to-deck-not-soul-no-courage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-merciful-retribution-yellow-four-live-sparse1373-actual-light-attack-action-recycled-from-graveyard-is-not-destroyed-no-arcane-or-soul",
+      "card_id": "merciful_retribution_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e1ff494501095ae1bfeb929a224ccf735d38b56f0141dc6994ed6d69a2e97f43",
+        "actions.json": "5fbe6da0e578007b6224f324e30861e51095e82c01624aa91b1f33ca41988633",
+        "assertions.json": "f66c98de44f34c07119067ad416e302cdfb97244bba033e8781cd36fc5cf7c6c",
+        "expected_final_gamestate.txt": "9de6349693b53d954bdf4a3803bfc1d42de7054ab33f428d89a0ea8a7f32f7fb",
+        "meta.json": "8bc61641c814436afc659edcdbc18ae460dffaf91d7cd8de28199ed7e66a63b7"
+      },
+      "fixture_sha256": "720d998e3fdc26fdaec6129630376e5df753773d3eb4854368d6e5ba7ac070f9",
+      "actions": 13,
+      "native_assertions": 816,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1373-20261122.json",
+      "input_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-merciful-retribution-yellow-four-live-sparse1373-actual-light-attack-action-recycled-from-graveyard-is-not-destroyed-no-arcane-or-soul",
+        "fixture_slug": "card-merciful-retribution-yellow-four-live-sparse1373-actual-light-attack-action-recycled-from-graveyard-is-not-destroyed-no-arcane-or-soul",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c437ecbcc37d5065b63fee48862b1969157f2228ef6fd49a0def8d108ad78bfc",
+    "source_note_sha256": "6084caf803660ad42b7c68523cb6afcbfac3429dff55ddf0a8a0e3320be62df7",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 36,
+    "query_checks": 2263,
+    "persistable_assertions": 2263,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "NATIVE_PRIMARY_AURA_PLAY_ENTRY_WITH_FALSE_RECYCLE_EVENT_GUARDS",
+    "per_case": [
+      {
+        "card_id": "sigil_of_gravespawning_blue",
+        "group_id": "identity:sigil_of_gravespawning_blue",
+        "native_controls": 12,
+        "persistable_assertions": 752,
+        "native_primary_play_credit": true,
+        "native_primary_entry_credit": true,
+        "native_primary_action_go_again_credit": true
+      },
+      {
+        "card_id": "blessing_of_bellona_yellow",
+        "group_id": "identity:blessing_of_bellona_yellow",
+        "native_controls": 11,
+        "persistable_assertions": 695,
+        "native_primary_play_credit": true,
+        "native_primary_entry_credit": true,
+        "native_primary_action_go_again_credit": true
+      },
+      {
+        "card_id": "merciful_retribution_yellow",
+        "group_id": "identity:merciful_retribution_yellow",
+        "native_controls": 13,
+        "persistable_assertions": 816,
+        "native_primary_play_credit": true,
+        "native_primary_entry_credit": true,
+        "native_primary_action_go_again_credit": false
+      }
+    ],
+    "basis": [
+      "AllthreeAura7nowstartHand, noinitialArena/history. NativeplaypreludeestablishesreachableAuraandrealcurrentturnplaybeforeRemembrance, resolvingoldbeginningturn/actionsetupambiguity. UnexecutedinitialAura-positionrecipe/reviewarchivedwithdrawn/noFixture/noCoverage. ClasslegalYoungChane20/Boltyn20/Prism20+threeDori20/manual4UPF unchanged.",
+      "SigilAction1GoAgain: actualAuraHand1toStack7/PITCH/AP1; actualBlue8Hand1pitch3pays1/R2/AP0. BellonaAction0GoAgain: actualAuraHand1paid0/AP0/R0. Bothfourmanualresponses1-4thenactualArena7/ready/CounterFAB_PLAY_ORDER1/AP1viaownprintedGA. MercifulPRINTED4InstantAura: realfirstBlue8pitch3leavesPITCH/R3/AP1/secondBlue9Hand1; realsecondBlue9pitch3pays4/R2/AP1, fourresponsesbeforeArena7. GameLogic2044/2062-2066 persistentAuraevenInstant/defaultentry/ActionGA sourceverified; firstactualplaymarker1059preservedbyZoneAccessors. NoentryWHEN/StartTurncrossingfrommidMAINplays.",
+      "InitialHandRemembrance5/Aura7/funders8or8+9, priorAction6GY; afterAuraStack funderHandindices1/2then1 correct. NativepaidKindACTIONorINSTANT/physicalUID7/resources/AP/queues andallfundersPitchOwnerController1 asserted; maxUID8/Sigil,7/Bellona,9/Merciful. OriginalsixRemembrancecontrolobjects eachcaseexactlyretainedsuffix, checkedbeforewrite. OnlytailR/Pitchcount/funderphysicalguards/maxUID/AuraCountermarker updated. No stalecardsPlayed/combatsequencetailoracle; historynowactualplaynotseeded.",
+      "Stableprevioussemanticguardreviewretained: actualRemem5InstantheldStackthroughfourresponses+MZMULTICHOOSE, actualAA6GYtoDecksingleton/RNG0 andselfBanish5aftereffects/AP1. SigilrequiresAuraGYexit(PENCards286-287), actualGenericAA6notAura. BellonarequiresToSoul(PENCards284), actualToDeckfalse. MercifulrequiresDestroyed(MONCards301-308); actualLightHerald6GYrecycleusesMoveChoicesnotDestroy(GeneratedRemem88895-88900). Noearnedarcane/Courage/soul/layer/newUID. FinalAura7/Pitchfunders/Deck6/Banish5/allHP20/R2or0/AP1/quietStackDQs consistent. Counts12/752+11/695+13/816=36/2263."
+    ],
+    "limits": [
+      "Currentactualprimaryplay/entry, printedActionGAorInstantAPpreservation andnamednegativeeventguards approvedpendingnative. No gamepassorcoverageclaimed. ArchivedinitialAura-positionapprovalwithdrawn; oldrecipecannotqualify.",
+      "PositiveAuraGYexit/Souladd/DestructionWHEN/timing/arcane/Courage/startturn/soulplacement/Hero/support/sibling/fullcardbehavioruntested/uncredited. Existingholdsuntouched/noenginechange.",
+      "Only W receipt replacedafterexactwithdrawnhashguard; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28",
+      "DevTools/FaB/CardRegression/card-regression-repair-plain-lifecycle-r4-glisten-remembrance-steadfast.json": "98f26eaf6f3833c986c6b01eec40573bb7f55b811f55fbba4b3bb075675a19b2",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1373_native_setup.py": "66a26c22847d25bd5d5810c56aa3eebe5f5553e24c5eff15905438a5237f35cc",
+      "author_breadth1373.py": "2d7304f50e9906e115d642eb6595c6af4a23c49af9a4bfdfd8bcc998c4817364",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "sparse1373-local-20261122/pre-native-unexecuted-aura-position/proposed.json": "cd12e1c7d285ee1566d61946f1de8823283dbe4310f131058cdf5abd31c8a270",
+      "sparse1373-local-20261122/pre-native-unexecuted-aura-position/source-note.json": "7998dc8dfcc0e350d62ca54a2914b250c510a387e8745df06aa0d5b1680286a4",
+      "sparse1373-local-20261122/pre-native-unexecuted-aura-position/independent-review.json": "3f30dfd2b8bdc83ea23fad635179fedc09ef94f08efa661ce340567db8c5c660"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": false,
+    "positive_equipment_ability_credit": false,
+    "positive_ability_credit": false,
+    "setup_revision_provenance": {
+      "withdrawn_spec_sha256": "cd12e1c7d285ee1566d61946f1de8823283dbe4310f131058cdf5abd31c8a270",
+      "withdrawn_review_sha256": "3f30dfd2b8bdc83ea23fad635179fedc09ef94f08efa661ce340567db8c5c660",
+      "archived_native_attempted": false,
+      "archived_fixture_saved": false,
+      "archived_coverage_credit": false,
+      "definitive_author": "author_breadth1373_native_setup.py"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1373-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "88e9e5b18dd43a53cbc74200932ab9edba2e529003a1d377af634d81b217d7c4"
+  },
+  "full_suite_run": false
+}

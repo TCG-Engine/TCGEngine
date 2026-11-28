@@ -1,0 +1,7 @@
+{
+    "name": "Leap Frog Slime Skin / four-live actual defense and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:37:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When an opponent plays or activates an attack reaction, you may add this to the active chain link as a defending card.\n\n**Blade Break** NamedordinaryEquipmentDEF1/BladeBreaknormalCloseonly. Legalnatural20arakni ownsreadyEquipment5/realGenericLeadCharge6HandDEF2. ActualDori20Sword7power3/realBlue8pay1/R2/AP0, allfourmanualsource/combat. ActualEq5thenHand6RoleDEFENSE/DEF3/0damage/noHit/HP20. AtClose primary5ownedGYbeforeHand6/GY[5,6]/Equipment0; actualweapon7usedretained/Blue8Pitch/queuesempty. Noactivatedbody/Allyentry/ownAAorDaggerhit/attackReaction/Arsenal/Stealth/Mark/Arcane/Boost/Soul/BlueGY/otherbodyevent. Notestingactivationsorpreviouslyheldbranches; hero/support/sibling/fullcarduncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#leap_frog_slime_skin"
+}

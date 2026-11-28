@@ -1,0 +1,103 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root",
+  "reviewer_independent": false,
+  "runtime_sha256": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+  "source_spec": "card-regression-repair-kick-opponent-cause-20261126.json",
+  "input_sha256": "c1cf9117359bcdd6bec718b81d8debe424e40df0649d3476d42f0270d6322f95",
+  "fixtures": [
+    {
+      "slug": "repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+      "card_id": "kick_the_hornets_nest_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7dd0b9d03bb62c1fa3be4b151bf5411ab875216f8fca688ac992dc065628f1c5",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "f64ab5e6c6777d5ddf76b62e99373c88c1e94041b8d1eaae168841d6401a4c10",
+        "expected_final_gamestate.txt": "4eebfc68ad2f2ccaab075f0128895a9992c39931bad386947b58be21ee93869c",
+        "meta.json": "6e9cc36602d0cc96028dde4791d370301d23206e0c273911863f46b29238da53"
+      },
+      "fixture_sha256": "c2efbf0b2be5bb5637aa20e0d7deb882bde8f68479b1d4b6cebead64c46cc249",
+      "actions": 28,
+      "native_assertions": 146,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+      "runtime_sha256": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+      "source_spec": "card-regression-repair-kick-opponent-cause-20261126.json",
+      "input_sha256": "c1cf9117359bcdd6bec718b81d8debe424e40df0649d3476d42f0270d6322f95",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_breadth_groups": 0,
+  "newly_represented_repair_group": 1,
+  "whole_card_complete": false,
+  "full_suite_run": false,
+  "source_proposal": {
+    "status": "APPLIED_PENDING_NATIVE_QUALIFICATION",
+    "path": "FaBSim/Custom/SUPCards.php",
+    "runtime_before": "e45429a9f2fa490df6ad1b32b0626498302ebaef058dbd4e94c24d7aeb3994d2",
+    "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+    "before_sha256": "fb69365da59abea8bc62a134ef594075854556e94b774566fd81598d6c022f72",
+    "candidate_sha256": "c00695d1ec49d5b1352e02e4f22491f0fbfb8e3c9d742abc4db5918bda8721d9",
+    "scope": "Require a positive opposing effect controller for Kick Graveyard observer. Game rule movement controller0/absent or own effect cannot trigger. No positive timing migration."
+  },
+  "targeted_replays": {
+    "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+    "fixtures": [
+      {
+        "slug": "repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+        "passed": true,
+        "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=repair-kick-hornets-nest-four-live-20261126-normal-combat-is-not-opponent-effect",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kick210\\strict1.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "efcb2785cd131cdfd3df44e2d2b829ea4ba78248f3c9e19c6509fadf16830775",
+        "raw5_unchanged": true
+      },
+      {
+        "slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+        "passed": true,
+        "runtime": "79a3134bdb7ea723f2fa9d257db5fb2ff75591065b2d56259fc3a45fdb34b5b0",
+        "command": [
+          "C:\\xampp\\php\\php.exe",
+          "DevTools/RunIntegrationTests.php",
+          "--root=FaBSim",
+          "--test=card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+          "--max-failures=1",
+          "--compact",
+          "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kick210\\strict2.log"
+        ],
+        "returncode": 0,
+        "complete_log_sha256": "81facd3f9b7faf828d397ae8bb6753722adfe109b44f6afdf9b07501c93824f4",
+        "raw5_unchanged": true
+      }
+    ],
+    "full_suite_run": false
+  },
+  "limits": [
+    "Native repair proves negative rule-movement case only.",
+    "Positive opponent-effect earned-layer timing is untested; isolated token I/O proves condition, not native trigger timing.",
+    "No sibling/whole-card credit; strict comparator unchanged; no fullsuite yet.",
+    "Primary-agent saved/source review, not separate-agent approval."
+  ],
+  "scope": "One SUP movement-observer guard requires a nonzero opposing effect controller. Original28-input6damage/full-close/no-token oracle passes unchanged; normal rule movement0 cannot masquerade as opponent1. Actual cause-filter controls retain opponent positive selection and reject zero/absent/own/unrelated card.",
+  "additional_validation": {
+    "actual_observer_cause_checks": 5
+  }
+}

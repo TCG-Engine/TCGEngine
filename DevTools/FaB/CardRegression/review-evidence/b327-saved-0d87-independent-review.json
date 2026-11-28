@@ -1,0 +1,254 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B327_PRINTED_BANISH_PLAY_AND_REAL_NEXT_SMALL_POWER_GO_AGAIN_PENDING_ROOT_QUALIFICATION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "created_utc": "2026-11-03T11:22:13.610045+00:00",
+  "source_spec": "card-regression-batch327.json",
+  "input_sha256": "d8c43c4a0dcb1fdc2a5b3f0b1914c225050226e9dc6a9fa43dd31c1b5c5bfa1c",
+  "manifest_sha256": "153c8b1f5baeb6fa707fd87ad7f6b680923a919cf0407c416fcdb2efbce4e020",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "source_guards_verified": 17,
+  "semantic_approval": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch327-independent-source-review.json",
+    "sha256": "6fd0a6049bf52e3372128c4b53c4a8c6fc099e102bba33b1425fdafd1cca885a"
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch327-20261103T111919Z-6ae9c3376dd08.json",
+    "sha256": "2fe7ec27f5729bc9ecfa3372fef1f3781d79826df5d93af0d7cf8ab954608cca"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch327-native-r1\\receipt.json",
+    "sha256": "19957a11edd5f6c8268514731cc8e0cc2ae4bb0e884f6f19eb411cada14d1bf7"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch327-independent-saved-review\\audit_saved.py",
+    "sha256": "c8044bcedaa8a481f16e5982c1d3783489e60fd8ceb2f61add464916cd4f01fe"
+  },
+  "stable_reader_template": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov3-batch317-independent-saved-review\\audit_saved.py",
+    "sha256": "bfc86eec29f579839f77d56a0c0c7d62bd3229ce3db1047fc544d2f6b312a333"
+  },
+  "review_method": "Reuse independent printed/source model. Exact all33 actual actions and2521 assertions with29 manual actors, fully parsed schema endpoints/cardUID/owner/controller/health/economy/manual profiles, final assertions evaluated. Exact metadata/rawfive/behavior/runtime stable. No renewed unchanged source audit or native/PHP/R work.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "seeping_shadows_red",
+      "slug": "card-seeping-shadows-red-four-live-sparse-real-public-banish-play-paid-next-small-attack-plus-one-and-go-again",
+      "source_spec": "card-regression-batch327.json",
+      "input_sha256": "d8c43c4a0dcb1fdc2a5b3f0b1914c225050226e9dc6a9fa43dd31c1b5c5bfa1c",
+      "reviewer": "/root/nov2_next_author",
+      "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "recorded_runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-seeping-shadows-red-four-live-sparse-real-public-banish-play-paid-next-small-attack-plus-one-and-go-again",
+      "fixture_sha256": "44d044ce00c7e0c203c521e57daaf553c045f27325bbb9207c00e0b796d00ff4",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "4c0acf8295612e4789ab1602f40e814442a05f12454b729973cb2d4d0d8f7553",
+        "actions.json": "364be429797a0a7d7e320b3a1eb6e18bf4ee0485257221437d0f1326bd5e06cb",
+        "assertions.json": "981cf6a465fca3597a5ac9cede97b2ccbfa3b74e6125bbffcf4e332d2e658962",
+        "expected_final_gamestate.txt": "36b3ca6838f7f173ed773d33e073eb420ddedae6fc6e634f47f7803ffb8a3309"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4c0acf8295612e4789ab1602f40e814442a05f12454b729973cb2d4d0d8f7553",
+        "actions.json": "364be429797a0a7d7e320b3a1eb6e18bf4ee0485257221437d0f1326bd5e06cb",
+        "assertions.json": "981cf6a465fca3597a5ac9cede97b2ccbfa3b74e6125bbffcf4e332d2e658962",
+        "expected_final_gamestate.txt": "36b3ca6838f7f173ed773d33e073eb420ddedae6fc6e634f47f7803ffb8a3309",
+        "meta.json": "a73cbcfbc62f6fba78af1c8a52f2760a8b4bd78f9b4d316b44ade66d74e6b1f9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "4c0acf8295612e4789ab1602f40e814442a05f12454b729973cb2d4d0d8f7553",
+        "actions.json": "364be429797a0a7d7e320b3a1eb6e18bf4ee0485257221437d0f1326bd5e06cb",
+        "assertions.json": "981cf6a465fca3597a5ac9cede97b2ccbfa3b74e6125bbffcf4e332d2e658962",
+        "expected_final_gamestate.txt": "36b3ca6838f7f173ed773d33e073eb420ddedae6fc6e634f47f7803ffb8a3309",
+        "meta.json": "a73cbcfbc62f6fba78af1c8a52f2760a8b4bd78f9b4d316b44ade66d74e6b1f9"
+      },
+      "actions": 33,
+      "native_assertions": 2521,
+      "actual_manual_passes": 29,
+      "actual_priority_response_passes": 28,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "5": {
+          "card_id": "seeping_shadows_red",
+          "zone": "p1Banish",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "chane",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "seeping_shadows_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "7": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        15
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        1,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "checkpoint_count": 35,
+      "checkpoint_assertion_mapping_sha256": "86cd503e9a8f9362a7c0c7171193959f2e0e3084207e09f55d006d4833327af1",
+      "native_action_mapping_sha256": "8d443038cfe8d4607de5ddd2e0a2cb651a347543e2b5b3b3689dec906e946c71",
+      "native_assertion_mapping_sha256": "79cc5d185848909ce866dba04b5298b1058723d5a78f4b8cdaaca5241a9498d3"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 33,
+  "total_native_assertions": 2521,
+  "total_manual_passes": 29,
+  "total_priority_response_passes": 28,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "Actual legal quiet young Chane20/threeDorinthea20, all ready/live/manual. Public owned Banish5 starts FaceDown0 and generic Playable/ChainLink/Return flags0, no current history/permission/buff/SoulShackle/Runechant seeds. Initial real Blue6 and Red7 are Hand1; allR0/APonlyP1=1.",
+    "Actual normal play click accepts printed intrinsic Banish permission; same5 Stack ACTION SourceBanish with cost3 pending, Blue6/Red7 Hand and GY0/AP1. Actual Blue6pitch3 pays3/AP1 before four source responses. Original5 stays Stack through firstthree; fourth5 public ownGY and own printedGA/AP1. Actual final source5 iarPlayedFromBanish/monFromBanishtrue corroborate origin.",
+    "Actual target declaration of next AA keeps same7Hand before answer. Real cost0/AP payment consumes returnedAP1 and tags7 POWER1 and GO_AGAIN. Same7 Stack/Chain material grants plus computed printed4+1=5 and GAtrue throughout combat, no Chane activation or seeded support bonus. Final next-small effect absent, actual two-card play history/one attack/hit are consistent.",
+    "Seven actual full four-seat priority rounds (primary, attack source, attack, defending priority, reaction, damage, resolution) plus one P4 defender finish match29 passes, actors7/7/7/8. Real5damage/P4HP15; AP0 throughout DAMAGE and firstthree Damage passes, AP1 only fourth entering Resolution. Full parsed final GY1 unorderedUIDset5,7/Pitch6/R0AP1/alloriginal1-7 conserved/no newobjects; all heroes live/ready, Stack/Chains/queues/payment/reaction/await frames clear."
+  ],
+  "limits": [
+    "Only Red positive printed public Banish play/cost3/next eligible cost0 AA+1ANDGA/primary ownGA/5damage/fullcleanup. No Hand-origin/FaceDown/falsecost>2/secondAA/negativepermission/otherpitch/sibling/Chane activation/EndPhase/BloodDebt/enabler/support primary/fullcard/control credit.",
+    "Intermediate evidence is completed native action/assertion ledger plus unchanged source path; endpoint files are not additional per-input snapshots. Root focused replays/registration remain separate.",
+    "No R/native/PHP/source fix/generation/service/fullsuite/old replay/authorization retry."
+  ]
+}

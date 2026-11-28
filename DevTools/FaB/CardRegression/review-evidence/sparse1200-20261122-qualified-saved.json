@@ -1,0 +1,82 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1200-20261122.json",
+  "source_spec_sha256": "664eba42d1da7cb9f1fc27437d75b4111309306ffedc2dd2b218cbf7f2119972",
+  "input_sha256": "664eba42d1da7cb9f1fc27437d75b4111309306ffedc2dd2b218cbf7f2119972",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-null-shock-yellow-four-live-sparse1200-real-arcane-threshold-negates-opposing-heal-left-half",
+      "card_id": "null_shock_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d41ee778863ff03ee34e2a77a5d398a2f9bb4b2add693b6f699f98718b0b0850",
+        "actions.json": "2594f0e6153f75366f26ff151213a5ec8d106f074ab32f2d4825761d313488d5",
+        "assertions.json": "780e1e5ac159ec12daa874452da0ca40de4caf7bf3e479f1f7dc819ff1dd5539",
+        "expected_final_gamestate.txt": "f137ab300aa5ff2dbb850f8322fd9183c026c7b2bac344b0a3f40dc8dd0bb0a2",
+        "meta.json": "f4f6c7d041b5055756a46ba912ee77011bb453752acf9d89d196a979270799ad"
+      },
+      "fixture_sha256": "1206f061f558351de5852a03ab1258d2402f0c653f084da8bc48f0ccc0089c02",
+      "actions": 19,
+      "native_assertions": 430,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1200-20261122.json",
+      "input_sha256": "664eba42d1da7cb9f1fc27437d75b4111309306ffedc2dd2b218cbf7f2119972",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1200-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-null-shock-yellow-four-live-sparse1200-real-arcane-threshold-negates-opposing-heal-left-half",
+        "fixture_slug": "card-null-shock-yellow-four-live-sparse1200-real-arcane-threshold-negates-opposing-heal-left-half",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "664eba42d1da7cb9f1fc27437d75b4111309306ffedc2dd2b218cbf7f2119972",
+    "case_count": 1,
+    "native_controls": 19,
+    "persistable_assertions": 430,
+    "author_only_checks_omitted": 0,
+    "card_id": "null_shock_yellow",
+    "group_id": "identity:null_shock_yellow",
+    "basis": [
+      "Exact frozen native sequence and all assertions reviewed. Legal young Oscilio18 Wizard/EssenceLightning caster1 and three Dorinthea20 seats; actual Zap5, primary Null6, foreign owner4 Solace7 and Blue8 are correctly initialized with no history/permission/arcane-counter seed. The standalone primary group is unrepresented and both current ledgers checked.",
+      "Actual Zap5Action0 declares Hero4 before cost/AP1\u21920, receives real responders1,2,3,4 and deals actual3arcane/HP4=17, then clears to GY1. ROSCards111 adds actual dealt amount3 to ARCANE_OPP for this opposing Hero; the threshold is earned by gameplay rather than setup/privateflag.",
+      "Empty-ACTION priority1\u21922\u21923\u21924 is legal and source-supported by GameLogic2655-2657; end action occurs only after all four passes. Owner4 actually casts Solace7 before that last pass, resetting the response cycle. One pass4\u21921 exposes the real pending lower Instant with no healing yet.",
+      "Primary6 native play offers actual Meld mode0. Generated Prepare a0d86ea4a21941844844 declares the real lower Instant targetStack0 before FinishPrepared/resource payment; mode0 skips the Shock target. The only eligible other Instant is physical7, with actual Owner4/Controller4 retained. The printed condition applies on resolution, not as a late target choice.",
+      "Normal printed cost1 is paid through PITCH and native liveHand0 Blue8 click, yielding3\u22121=R2/AP0. All four fresh upper responders1,2,3,4 occur with both real sources held. Resolve ecfacc5290b727eeed26 calls ROSCards229 FaBROSNull with captured targetUID7; its actual0cost<earned3 comparison succeeds and direct MoveStackUID routes7 to its owner4 Graveyard.",
+      "The negated lower card never resolves/heals; current managed plain-spell completion then clears physical6 to owner1 GY after the body/frame finishes. With no remaining layer/combat, GameLogic1693-1744 returns ACTION/priorityTurnPlayer1, so no extra lower response cycle is needed or expected. Right-only/Meld-both resume is not entered.",
+      "Final actual GY1[5,6], GY4[7], Pitch1[8], HP1=18/HP4=17, R2caster/AP0/allothernaturalHP/resources/AP0, maxUID8/Stack/DQs/otherzones empty distinguish true negation from healing or wrong Shock damage. Oscilio has no earned passive here. All430 checks normalize to saved assertions; each planned control is one native input and no author-only diagnostic or conflicting repeated checkpoint value is used."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "bbe811b72c5b0047ef62d2fb460d0ad27e057375103885738f1316e1c6ddaacf",
+    "limits": [
+      "Pending Root native recording, exact saved-assertion mapping and targeted replay. No native success claimed by this receipt.",
+      "Only positive left-half negation of a real cost0 foreign Instant after actual3opposing-hero arcane, including normal paid1cost/ownership. No threshold-negative/equality, changed target, differentcost, Shock/right-half/Meld-both, extra damage, Hero ability, support-group or whole-card credit.",
+      "No engine/framework/source changes or known-hold repair/reprobe. SystemReset remains separately deferred for its unestablished paid-X route; held Close/099/094 and other routes remain untouched."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1200-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "1d396ad599378d8334a578be517e4ab227955b593fdc1591f31cd07594cd84d7"
+  },
+  "full_suite_run": false
+}

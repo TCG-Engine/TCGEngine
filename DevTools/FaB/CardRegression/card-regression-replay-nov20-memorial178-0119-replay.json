@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-memorial178-declared-graveyard-topdeck.json",
+  "runtime_sha256": "01198c841e4121fb26efd5297b407788fa33567ef5ac5b9f7029ead7b0b74b80",
+  "returncode": 0,
+  "completed_utc": "2026-11-20T16:56:53.170733+00:00",
+  "fixtures": [
+    {
+      "slug": "repair-memorial178-blue-four-live-declared-graveyard-head-jab-to-deck-top",
+      "fixture_sha256": "a2f28899f96dab98f18a1097a397ef533da12ec07448bfd531450701276c39ff",
+      "passed": true,
+      "result": "[PASS] Memorial Ground Blue / declare earned graveyard target before responses, then topdeck\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=repair-memorial178-blue-four-live-declared-graveyard-head-jab-to-deck-top",
+      "returncode": 0,
+      "stdout": "[PASS] Memorial Ground Blue / declare earned graveyard target before responses, then topdeck\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixture only",
+  "omitted_source_scenarios": [],
+  "qualification": "One new repair witness replay, not full inventory."
+}

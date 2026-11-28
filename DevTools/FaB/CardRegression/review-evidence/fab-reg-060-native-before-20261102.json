@@ -1,0 +1,76 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_NO_COVERAGE",
+  "utc": "2026-11-02T21:06:05.982787+00:00",
+  "issue": "FAB-REG-060",
+  "card_id": "halo_of_illumination",
+  "runtime_sha256": "8920e1e6614e36197a63b081c0f31c875f202bff50933210dfcf8f769c329d38",
+  "input_file": "card-regression-batch259-halo-correct-probe.json",
+  "input_sha256": "8977fa1821e9e5eb52207e3ad67a4592aa3b2ccb2cdfc9981619ea120f63d8b0",
+  "recording_archive": "recording-runs/card-regression-batch259-halo-correct-probe-20261102T205614Z-6ae8f8ee78e2a.json",
+  "recording_archive_sha256": "3136a24868fb9bdad5e859804919b31a18072406540adcfefe7d1097ad5c4025",
+  "slug": "card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+  "attempted_actions": 7,
+  "exact_error": "Expected decision queue for player 1 to be empty.",
+  "observed_decisions": {
+    "1": [
+      {
+        "Type": "MZCHOOSE",
+        "Param": "p1Hand-0",
+        "Block": 1,
+        "Tooltip": "Pay_additional_cost",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      },
+      {
+        "Type": "CUSTOM",
+        "Param": "halo_of_illumination:0:PrepareCard-await|halo_of_illumination:0:PrepareCard#1|4|chosen",
+        "Block": 1,
+        "Tooltip": "",
+        "DontSkipOnPass": 0,
+        "removed": null,
+        "Location": "",
+        "PlayerID": 0,
+        "mzIndex": -1,
+        "_sourceZone": null
+      }
+    ],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "observed_state_fields": {
+    "window": "PITCH",
+    "combatStep": "NONE",
+    "pendingPayment": {
+      "player": 1,
+      "uid": 10,
+      "cost": 1,
+      "fromZone": "Equipment",
+      "kind": "ABILITY",
+      "isAbility": true,
+      "abilityAction": false,
+      "returnWindow": "ACTION",
+      "returnCombatStep": "NONE"
+    },
+    "resolvingReaction": null
+  },
+  "expected": "Pay real1/destroy, allow the four-seat response round, then choose Hand->Soul and conditionally draw during resolution.",
+  "observed": "After7 native inputs, P1 is asked MZCHOOSE Pay_additional_cost via Halo PrepareCard before responses, while payment is pending.",
+  "source_paths": [
+    "DevTools/FaB/build_mon_abilities.py",
+    "DevTools/FaB/mon_abilities.json",
+    "FaBSim/Custom/ARCAbilities.php",
+    "FaBSim/Custom/CodeGeneration.php"
+  ],
+  "classification": "resolution_effect_misclassified_as_additional_cost_extension",
+  "related_existing_family": "Existing cost/effect-phase family039; managed activated-layer lifetime already exists and is not disproven by this preparer placement.",
+  "fix_applied": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changes": false,
+  "full_suite_run": false
+}

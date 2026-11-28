@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Occult / sparse natural start effect representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T17:52:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "At the start of your turn, destroy this then create 3 Runechant tokens. Representative only: natural_start_destroys_real_aura_then_creates_three_owned_runechants. Actual owned existing Arena source and natural turn transition; no source entry/cost, supporting-card or whole-card credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_occult_red"
+}

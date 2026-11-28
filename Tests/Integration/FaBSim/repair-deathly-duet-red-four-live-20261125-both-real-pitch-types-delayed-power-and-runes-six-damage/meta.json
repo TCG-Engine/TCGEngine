@@ -1,0 +1,7 @@
+{
+    "name": "Repair Deathly Duet / real AA plus NAA pitch delays power and Runechants until layer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T20:28:16+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Printedcost2 paidwith actualredAA1+redNAA1. Attackbody4/runes0 whileearnedlayerhasfreshfourlivepriority. Onresolutionpower6andtwoRunechants. NoRunechantarcaneonthealreadydeclaredattack; realphysical6onlyHero4:20to14. SourcephysicallyGYonclose;bothactualpitches/Stack/DQs/health/APtracked. Noexactpitchsiblingorleave-reentryclaim. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deathly_duet_red FaBSim/Custom/DYNCards.php#FaBDYNPitched FaBSim/Custom/DYNCards.php#FaBDYNRecordPitch FaBSim/Custom/GameLogic.php https://legacy.fabtcg.com/en/resources/rules-and-policy-center/comprehensive-rules/change-log-comprehensive-rules/"
+}

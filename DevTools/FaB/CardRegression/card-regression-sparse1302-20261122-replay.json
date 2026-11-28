@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dashing-flashfoot-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dashing-flashfoot-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d387c95682f1987f5cd5d120e7be80a9d83c1edb4aa8e2f2bc259b73c3446ef1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "726189becd0b66531e99c21b0b46f146da27297b1dbd0660887280fe9e2008a2",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "d3e3f0f33992c7dbf6a295f63c4acefcfacb3c98f6c5fef8de6239ca093115f1",
+        "expected_final_gamestate.txt": "f6ad68df6cf47e183305ec01047081e8b6ff886aac8e9180906e9ae00b3cea3a",
+        "meta.json": "feda2038b9390c83a6398c704ea246b56e2f00830705e0866ec556cc1fb055d6"
+      }
+    },
+    {
+      "slug": "card-prophetic-quickstep-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prophetic-quickstep-yellow-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b43bf90cb2b7fa19c1857f5ff636d423fdedc9ec6ad304bcc802d9feac115093",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5703a9b3fba404b3cd082b0d52e3d6875add48d4a55e5547d551a29409f885ff",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "5ef491f7df29b91b86e530c40e3991c19a4da38c992048db115c840e58eca4cc",
+        "expected_final_gamestate.txt": "0af6f03739a60abe9bb3408880b0c7dd26cc90bb0a63cd329d37b855a998253c",
+        "meta.json": "e90f5103b8808a43d5d011d3d7227a01c5f4457babd48b6b654e60836f4b799b"
+      }
+    },
+    {
+      "slug": "card-singeing-flowstride-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-singeing-flowstride-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bb4139f0627fd9f8ab207545bee3c6937db395aa71f0a4fa15b1c4d74e3c3e64",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3546153ec5973c7d8e49385f597bb2971a5bc525f87b7f17b0a5ae49468233d4",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "72ec7b8f88bba8fdbfea174cf21546751218c22657717e8b3d9f9ed7c11d2d8e",
+        "expected_final_gamestate.txt": "89cff951a8cae18809d2a6eff3675910b41b3246f9d688182d097b016d310fb8",
+        "meta.json": "f0289ea23e4953735b794571cafba62726fc9179a8a789282f86b4c018244518"
+      }
+    },
+    {
+      "slug": "card-stunning-swipe-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-stunning-swipe-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0866efa7e134a4a2c0c842e1522fd343a6db6b1603fa8feec4d113800f4f2f49",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1661e8bd27d7cab771f00eee1c2cb99b3d0e2a0b2c48b4248a1ff44523f0e75d",
+        "actions.json": "3ece9eb1058d5f26861429fe816c8baa3394f92d0fa31621dafcb031c7c89cdd",
+        "assertions.json": "3cd1307e1234a9fe1ce44b36c5bee5a0a073dee68f534f037b8376ae57968a76",
+        "expected_final_gamestate.txt": "42e15b4ce12d09b799e74ebf3ef4e1bd0e29f367fbc9ef420dd57afdf006c32d",
+        "meta.json": "506fa3450dcb435663240ffecd2c1e6cc0a0825259eb69fddf9055bdfd15808d"
+      }
+    },
+    {
+      "slug": "card-tempestuous-kiss-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-tempestuous-kiss-red-four-live-sparse1302-no-go-again-ally-damage-earns-no-hero-hit-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1302-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b4360f23b6a5feb47670285a96af5b878a9d8e205dc212b79a7de939d9d139e0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "67346eab25790a4811b13d082d63c47ada8cd5b651e0ca4ccf47fa4f34dbf5c7",
+        "actions.json": "1ef1359f0cb6a63079e6f6cd368d56bb483cc14d047b770aadf86c15dfedfbeb",
+        "assertions.json": "e0f755f123b5ab002a59eb2c4ad45fe772879e1456f5849a0be8907b7fe70410",
+        "expected_final_gamestate.txt": "cd2001344c392ac82a5145a8038ef01dc549d4143e378b7e3fe7b40e40220c9e",
+        "meta.json": "2618ce5e451dc089cf2c22cd2806e237d3e52a8f647d3af52a42ff19cf191790"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

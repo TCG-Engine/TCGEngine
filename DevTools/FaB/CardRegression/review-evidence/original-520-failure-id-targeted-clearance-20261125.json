@@ -1,0 +1,3659 @@
+{
+  "status": "ALL_ORIGINAL_EXACT_FAILURE_IDS_HAVE_TARGETED_PASS_AT_ACTUAL_EPOCHS_NOT_A_FRESH_FULL_SUITE",
+  "baseline": {
+    "tested": 5671,
+    "pass": 5151,
+    "fail": 520,
+    "log_sha256": "2020c435d8b1316fdf5a6caa56288d64b3dcb568247c859660e6983cdfa6c421",
+    "id_binding_sha256": "4059cdf12c67474a9027c84bb25c8639ff3e55a3270e7aebf56f8d0ac1233585"
+  },
+  "fixtures": [
+    {
+      "slug": "card-aether-arc-blue-four-live-sparse-real-damage-to-all-three-opponents-and-three-owned-ponders",
+      "baseline_ordinal": 22,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-aether-dart-blue-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 36,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-dart-red-four-live-hand-caster1-sigil3-spellvoid4",
+      "baseline_ordinal": 44,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-dart-red-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 53,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-dart-yellow-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 70,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-flare-red-four-live-sparse-actual-three-arcane-earns-dynamic-next-spell-plus-three",
+      "baseline_ordinal": 76,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-hail-blue-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 91,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-hail-red-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 112,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-hail-yellow-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 133,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aether-wildfire-red-four-live-sparse-real-offturn-four-damage-increases-next-action-blue-arcane-to-five",
+      "baseline_ordinal": 146,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aetherize-blue-four-live-sparse-real-paid-opposing-instant-negation-before-healing",
+      "baseline_ordinal": 147,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-anaphylactic-shock-blue-four-live-sparse-real-opposing-hero-damage-earned-before-life-loss",
+      "baseline_ordinal": 188,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ancestral-harmony-blue-four-live-sparse-actual-top-combo-banish-permission-and-real-four-damage-attack",
+      "baseline_ordinal": 190,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arc-ramp-red-four-live-real-timesnap-actionpoints-fund-amp-three-and-six-arcane-zap-no-flow-choice",
+      "baseline_ordinal": 223,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arcane-after-announcement-before-resolution",
+      "baseline_ordinal": 239,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 240,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 241,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-fully-prevented-arcane-negative",
+      "baseline_ordinal": 242,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 244,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "baseline_ordinal": 245,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 246,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 247,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 248,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 249,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-physical-damage-only-negative",
+      "baseline_ordinal": 250,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-opponent-arcane-before-play",
+      "baseline_ordinal": 252,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-positive-real-self-arcane-before-play",
+      "baseline_ordinal": 253,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-blue-conditional-heal-prior-turn-arcane-history-expires",
+      "baseline_ordinal": 254,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arcane-after-announcement-before-resolution",
+      "baseline_ordinal": 256,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 257,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 258,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-fully-prevented-arcane-negative",
+      "baseline_ordinal": 259,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 261,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "baseline_ordinal": 262,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 263,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 264,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 265,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 266,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-physical-damage-only-negative",
+      "baseline_ordinal": 267,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-positive-real-opponent-arcane-before-play",
+      "baseline_ordinal": 269,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-prior-turn-arcane-history-expires",
+      "baseline_ordinal": 270,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-red-conditional-heal-real-self-dart-at-zero-ap",
+      "baseline_ordinal": 271,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arcane-after-announcement-before-resolution",
+      "baseline_ordinal": 273,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 274,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 275,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-fully-prevented-arcane-negative",
+      "baseline_ordinal": 276,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 278,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-only-opponent-was-dealt-arcane-negative",
+      "baseline_ordinal": 279,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 280,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 281,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 282,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 283,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-physical-damage-only-negative",
+      "baseline_ordinal": 284,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-opponent-arcane-before-play",
+      "baseline_ordinal": 286,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-positive-real-self-arcane-before-play",
+      "baseline_ordinal": 287,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-polarity-yellow-conditional-heal-prior-turn-arcane-history-expires",
+      "baseline_ordinal": 288,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-seeds-life-red-four-live-sparse-real-declared-meld-life-then-two-runechants-separate-responses",
+      "baseline_ordinal": 290,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arcane-twining-red-four-live-sparse-real-hand-discard-instant-amp-consumed-by-earned-snapback",
+      "baseline_ordinal": 291,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-arrogant-showboating-blue-four-live-sparse-actual-three-opponent-defenders-create-three-owned-might-in-legal-reaction-window",
+      "baseline_ordinal": 304,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-aurora-four-live-sparse-actual-lightning-action-earns-condition-then-paid-instant-creates-owned-embodiment",
+      "baseline_ordinal": 324,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-balance-of-justice-four-live-sparse-real-opponent-draw-two-then-owned-instant-draw",
+      "baseline_ordinal": 402,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ball-breaker-four-live-sparse-real-six-power-discard-earns-weapon-plus-one-paid-six-damage",
+      "baseline_ordinal": 403,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-battered-not-broken-red-four-live-sparse-actual-instant-prevents-two-physical-damage-and-creates-one-might",
+      "baseline_ordinal": 430,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-bear-hug-red-four-live-sparse-actual-six-power-pitch-earns-legal-play-then-paid-bear-hug-attack",
+      "baseline_ordinal": 440,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-beat-the-same-drum-blue-four-live-sparse-real-goblet-history-repeats-agility-and-vigor",
+      "baseline_ordinal": 444,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-billowing-mist-blue-four-live-sparse-actual-mystic-action-next-physical-attack-plus-one",
+      "baseline_ordinal": 470,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blackstone-greaves-four-live-real-shock-earned-defense-and-temper-survival",
+      "baseline_ordinal": 479,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blazing-aether-red-four-live-sparse-real-earlier-one-arcane-earned-x-one-on-same-hero",
+      "baseline_ordinal": 493,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blessing-of-salvation-red-four-live-sparse-actual-paid-light-action-gains-three-life",
+      "baseline_ordinal": 503,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blessing-of-serenity-red-four-live-sparse-actual-instant-prevents-three-of-four-real-physical-damage",
+      "baseline_ordinal": 505,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blinding-beam-red-four-live-sparse-actual-declared-shadow-target-costs-zero-and-reduces-real-attack-by-three",
+      "baseline_ordinal": 511,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-down-opponent-phase-zero-ap",
+      "baseline_ordinal": 513,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-down-own-phase-zero-ap",
+      "baseline_ordinal": 514,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-up-opponent-phase-zero-ap",
+      "baseline_ordinal": 515,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-arsenal-face-up-own-phase-zero-ap",
+      "baseline_ordinal": 516,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-hand-existing-assets-additive",
+      "baseline_ordinal": 518,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-hand-opponent-phase-zero-ap",
+      "baseline_ordinal": 519,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-hand-own-phase",
+      "baseline_ordinal": 520,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-hand-own-phase-zero-ap",
+      "baseline_ordinal": 521,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-opponent-phase-gain-does-not-permit-action",
+      "baseline_ordinal": 523,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-opponent-response-before-scalar-gain",
+      "baseline_ordinal": 524,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-two-copies-sequential-additive",
+      "baseline_ordinal": 525,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blink-blue-two-copies-stacked-resolve-one-at-a-time",
+      "baseline_ordinal": 526,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-blood-dripping-frenzy-blue-four-live-sparse-real-pitch-whole-hand-banish-draw-and-eight-power-consumer",
+      "baseline_ordinal": 533,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-bloodsheath-skeleta-four-live-sparse-actual-instant-destroy-discounts-real-paid-nonattack-by-one-runechant",
+      "baseline_ordinal": 547,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-break-open-the-chests-yellow-four-live-sparse-all-four-real-arsenals-face-up-opposite-yellow-two-gold",
+      "baseline_ordinal": 588,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-bubble-to-the-surface-red-four-live-sparse-real-paid-reveal-first-red-and-use-banish-play-permission",
+      "baseline_ordinal": 669,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-burgeoning-blue-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 688,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-burgeoning-red-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 706,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-burgeoning-yellow-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 724,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-calming-breeze-red-four-live-sparse-real-instant-prevents-one-of-seven-physical-damage",
+      "baseline_ordinal": 747,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-calmveil-of-volthaven-blue-four-live-paid-shield-one-of-three-creates-real-lightning-flow",
+      "baseline_ordinal": 750,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-captains-coat-four-live-sparse-real-prior-draw-earns-equipment-destruction-resource-ability",
+      "baseline_ordinal": 753,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cash-in-yellow-four-live-sparse-actual-four-resource-two-card-pitch-draws-two",
+      "baseline_ordinal": 758,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cash-out-blue-four-live-sparse-real-two-permanent-additional-destroy-cost-creates-two-silver",
+      "baseline_ordinal": 759,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cast-bones-four-live-real-six-power-singleton-deck-reveal-creates-one-owned-might-and-retains-physical-deck-card",
+      "baseline_ordinal": 760,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-catch-of-the-day-blue-four-live-sparse-real-next-arrow-plus-two-damage-without-go-fish-event",
+      "baseline_ordinal": 761,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-comet-storm-shock-red-four-live-declared-left-action-half-real-two-cost-blue-funding-and-five-arcane",
+      "baseline_ordinal": 892,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-arsenal-response",
+      "baseline_ordinal": 894,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-command-and-conquer-red-hit-trigger-sigil-hand-response",
+      "baseline_ordinal": 895,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-commanding-performance-red-four-live-sparse-actual-paid-warrior-plus-three",
+      "baseline_ordinal": 921,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-compass-of-sunken-depths-four-live-actual-private-owner-look-restored-order-real-paid-tome-draws-same-two",
+      "baseline_ordinal": 924,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-consuming-command-blue-four-live-real-granted-insatiable-attack-six-damage-and-action-refund",
+      "baseline_ordinal": 945,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-down-opponent-phase-zero-ap",
+      "baseline_ordinal": 960,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-down-own-phase-zero-ap",
+      "baseline_ordinal": 961,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-up-opponent-phase-zero-ap",
+      "baseline_ordinal": 962,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-arsenal-face-up-own-phase-zero-ap",
+      "baseline_ordinal": 963,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-existing-assets-additive",
+      "baseline_ordinal": 965,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-opponent-phase-zero-ap",
+      "baseline_ordinal": 966,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-own-phase",
+      "baseline_ordinal": 967,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-hand-own-phase-zero-ap",
+      "baseline_ordinal": 968,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-opponent-phase-gain-does-not-permit-action",
+      "baseline_ordinal": 970,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-opponent-response-before-scalar-gain",
+      "baseline_ordinal": 971,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-two-copies-sequential-additive",
+      "baseline_ordinal": 972,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cosmic-flare-red-two-copies-stacked-resolve-one-at-a-time",
+      "baseline_ordinal": 973,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 975,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 976,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 977,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 980,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-other-pitch",
+      "baseline_ordinal": 981,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-one-prior-same-pitch",
+      "baseline_ordinal": 982,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-only-opponent-same-name-negative",
+      "baseline_ordinal": 983,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 984,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 985,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 986,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 987,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 989,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-three-mixed-prior-same-name",
+      "baseline_ordinal": 990,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "baseline_ordinal": 991,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-blue-conditional-heal-unrelated-graveyard-negative",
+      "baseline_ordinal": 992,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 994,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 995,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-empty-graveyard-blue-pays-two",
+      "baseline_ordinal": 996,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 999,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-other-pitch",
+      "baseline_ordinal": 1000,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-one-prior-same-pitch",
+      "baseline_ordinal": 1001,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-only-opponent-same-name-negative",
+      "baseline_ordinal": 1002,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 1003,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 1004,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 1005,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 1006,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 1008,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-three-mixed-prior-same-name",
+      "baseline_ordinal": 1009,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "baseline_ordinal": 1010,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-red-conditional-heal-unrelated-graveyard-negative",
+      "baseline_ordinal": 1011,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 1013,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 1014,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 1015,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 1018,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-other-pitch",
+      "baseline_ordinal": 1019,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-one-prior-same-pitch",
+      "baseline_ordinal": 1020,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-only-opponent-same-name-negative",
+      "baseline_ordinal": 1021,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 1022,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 1023,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 1024,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 1025,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 1027,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-three-mixed-prior-same-name",
+      "baseline_ordinal": 1028,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-two-stacked-copies-resolve-one-then-other",
+      "baseline_ordinal": 1029,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-count-your-blessings-yellow-conditional-heal-unrelated-graveyard-negative",
+      "baseline_ordinal": 1030,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-crowd-goes-wild-yellow-four-live-sparse-real-cheer-earns-three-resource-discount-and-nine-damage",
+      "baseline_ordinal": 1107,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cruel-ambition-red-four-live-sparse-actual-zero-cost-reviled-action-creates-three-owned-might-tokens",
+      "baseline_ordinal": 1115,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1135,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-blue-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1138,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1156,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-red-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1159,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1177,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-cut-deep-yellow-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1180,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dampen-red-four-live-sparse-real-four-arcane-earned-prevention-four-against-five",
+      "baseline_ordinal": 1200,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dense-blue-mist-blue-four-live-sparse-real-paid-nochi-instant-reduces-targeting-attack-power",
+      "baseline_ordinal": 1240,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-destructive-deliberation-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "baseline_ordinal": 1248,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-destructive-deliberation-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "baseline_ordinal": 1251,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dig-up-dinner-blue-four-live-sparse-real-three-graveyard-selection-recycles-one-heals-one-self-banish",
+      "baseline_ordinal": 1261,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dissolve-reality-yellow-four-live-sparse-all-four-arsenals-bottom-decks-and-own-ponder",
+      "baseline_ordinal": 1278,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-divvy-up-blue-casual-four-live-treasure-island-macro-variant-removes-two-creates-two-gold",
+      "baseline_ordinal": 1282,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 1287,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+      "baseline_ordinal": 1291,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-doomsday-blue-four-live-sparse-real-six-public-blood-debt-cards-create-owned-blasmophet",
+      "baseline_ordinal": 1306,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-draw-swords-red-four-live-sparse-actual-three-cost-warrior-action-draws-one",
+      "baseline_ordinal": 1321,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-dromai-four-live-sparse-real-red-play-earns-dragon-go-again-and-action-point-refund",
+      "baseline_ordinal": 1334,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-drop-of-dragon-blood-red-four-live-sparse-zero-draconic-links-resource-and-one-draw",
+      "baseline_ordinal": 1336,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-earth-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "baseline_ordinal": 1416,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-earth-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "baseline_ordinal": 1420,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-eclipse-blue-four-live-six-real-blood-debt-plays-create-owned-ursur",
+      "baseline_ordinal": 1464,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-eirinas-prayer-red-four-live-sparse-actual-blue-top-reveal-prevents-three-of-five-real-arcane-damage",
+      "baseline_ordinal": 1470,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-electrify-red-four-live-sparse-actual-paid-arsenal-lightning-action-draws-one-real-physical-card-and-go-again",
+      "baseline_ordinal": 1471,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-electryn-joltstep-red-four-live-sparse-actual-paid-next-lightning-buff-and-owned-flow",
+      "baseline_ordinal": 1531,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-emboldened-by-the-crowd-yellow-four-live-real-cheer-cost-three-to-zero-and-six-defense",
+      "baseline_ordinal": 1544,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-emeritus-scolding-blue-four-live-sparse-real-iyslander-arsenal-instant-deals-four-on-opponents-turn",
+      "baseline_ordinal": 1547,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-empowering-ruckus-yellow-four-live-real-cheer-conditional-plus-one-and-nine-damage",
+      "baseline_ordinal": 1548,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1566,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-en-garde-red-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1567,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-energy-of-the-audience-yellow-four-live-real-all-other-heroes-heal-earns-suspense-power-four-damage",
+      "baseline_ordinal": 1597,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-envelop-in-darkness-red-four-live-sparse-real-one-cost-shadow-runeblade-action-creates-one-owned-runechant",
+      "baseline_ordinal": 1626,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 1642,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+      "baseline_ordinal": 1646,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 1662,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+      "baseline_ordinal": 1666,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 1682,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+      "baseline_ordinal": 1686,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-exploding-aether-red-four-live-sparse-actual-paid-amp-three-consumed-by-real-six-arcane",
+      "baseline_ordinal": 1738,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1802,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-blue-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1805,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1825,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-red-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1828,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-nonattack-action-preserves-buff",
+      "baseline_ordinal": 1848,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-felling-swing-yellow-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 1851,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 1860,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 1861,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 1862,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-four-earth-in-graveyard-negative",
+      "baseline_ordinal": 1863,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 1866,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-only-opponent-four-earth-negative",
+      "baseline_ordinal": 1867,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 1868,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count3",
+      "baseline_ordinal": 1869,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count4",
+      "baseline_ordinal": 1870,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-face-up-earth-count5",
+      "baseline_ordinal": 1871,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 1872,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 1873,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 1874,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 1876,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "baseline_ordinal": 1877,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-blue-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "baseline_ordinal": 1878,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 1880,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 1881,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 1882,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-four-earth-exact-threshold",
+      "baseline_ordinal": 1883,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-four-earth-in-graveyard-negative",
+      "baseline_ordinal": 1884,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 1887,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-only-opponent-four-earth-negative",
+      "baseline_ordinal": 1888,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 1889,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count3",
+      "baseline_ordinal": 1890,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-face-up-earth-count5",
+      "baseline_ordinal": 1891,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 1892,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 1893,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 1894,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 1896,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "baseline_ordinal": 1897,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-red-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "baseline_ordinal": 1898,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 1900,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 1901,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 1902,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-four-earth-in-graveyard-negative",
+      "baseline_ordinal": 1903,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 1906,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-only-opponent-four-earth-negative",
+      "baseline_ordinal": 1907,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 1908,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count3",
+      "baseline_ordinal": 1909,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count4",
+      "baseline_ordinal": 1910,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-face-up-earth-count5",
+      "baseline_ordinal": 1911,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 1912,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 1913,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 1914,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-red-then-red-two-stage-payment",
+      "baseline_ordinal": 1916,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-three-earth-plus-elemental-non-earth-negative",
+      "baseline_ordinal": 1917,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fertile-ground-yellow-conditional-heal-three-public-earth-plus-fourth-face-down-negative",
+      "baseline_ordinal": 1918,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-first-tenet-of-chi-wind-blue-four-live-sparse-next-real-blue-action-granted-go-again",
+      "baseline_ordinal": 1932,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-flamescale-furnace-four-live-real-red-play-red-pitch-and-resource-funded-five-damage",
+      "baseline_ordinal": 1939,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-flex-speed-red-four-live-sparse-real-come-to-fight-buff-crosses-six-and-grants-go-again",
+      "baseline_ordinal": 1951,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-flex-strength-red-four-live-sparse-real-come-to-fight-crosses-six-and-enables-own-three-power",
+      "baseline_ordinal": 1952,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-flittering-charge-red-four-live-sparse-real-instant-played-this-chain-link-earns-go-again",
+      "baseline_ordinal": 1959,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-flittering-forcefield-red-four-live-sparse-real-same-link-sigil-instant-earns-four-defense-and-three-damage",
+      "baseline_ordinal": 1960,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-flock-of-the-feather-walkers-red-opponent-response-before-quicken-created",
+      "baseline_ordinal": 1976,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-florian-four-live-sparse-four-physical-public-earth-banish-replaces-real-three-aura-token-batch-with-four",
+      "baseline_ordinal": 1988,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-fog-down-yellow-four-live-sparse-opposing-live-seat-static-aura-removes-printed-go-again-from-real-nonattack",
+      "baseline_ordinal": 2001,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-forked-lightning-red-four-live-sparse-actual-two-declared-hero-targets-and-two-arcane-each",
+      "baseline_ordinal": 2011,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-frosting-blue-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2043,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-frosting-red-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2059,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-frosting-yellow-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2076,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-full-tilt-red-boost-cost-before-opponent-response",
+      "baseline_ordinal": 2140,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-funeral-moon-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-runechant",
+      "baseline_ordinal": 2160,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-future-sight-red-four-live-sparse-real-one-resource-instant-creates-three-owned-sigils-of-fate",
+      "baseline_ordinal": 2161,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-glidewell-fins-four-live-real-paid-destroyed-arrow-load-plus-one-and-five-ally-damage",
+      "baseline_ordinal": 2225,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-goblet-of-bloodrun-wine-blue-four-live-sparse-actual-zero-cost-warrior-action-creates-owned-agility-and-vigor",
+      "baseline_ordinal": 2235,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-gold-the-tip-yellow-four-live-sparse-real-faceup-yellow-arrow-earns-gold-next-arrow-plus-three-fully-blocked",
+      "baseline_ordinal": 2241,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-grim-feast-red-four-live-sparse-actual-full-hand-cost-shadow-action-gains-three",
+      "baseline_ordinal": 2275,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-hack-to-reality-yellow-four-live-sparse-real-paid-action-buff-consumed-by-fully-blocked-six-power-attack",
+      "baseline_ordinal": 2285,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-halo-of-illumination-four-live-correct-rule-earned-floating-resource-soul-choice-only-on-resolution-probe",
+      "baseline_ordinal": 2287,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-haven-veil-blue-four-live-entry-when-next-one-arcane-two-target-real-consumer",
+      "baseline_ordinal": 2303,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-arsenal-face-down",
+      "baseline_ordinal": 2358,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-arsenal-face-up",
+      "baseline_ordinal": 2359,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-double-copies-two-paid-action-points",
+      "baseline_ordinal": 2362,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-low-life",
+      "baseline_ordinal": 2363,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-spare-action-point",
+      "baseline_ordinal": 2364,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-hand-starting-life-no-cap",
+      "baseline_ordinal": 2365,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-no-go-again-followup-action-rejected",
+      "baseline_ordinal": 2368,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-opponent-response-before-life-gain",
+      "baseline_ordinal": 2369,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-blue-spare-action-point-can-fund-followup-attack",
+      "baseline_ordinal": 2372,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-arsenal-face-down",
+      "baseline_ordinal": 2373,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-arsenal-face-up",
+      "baseline_ordinal": 2374,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-double-copies-two-paid-action-points",
+      "baseline_ordinal": 2377,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-hand-low-life",
+      "baseline_ordinal": 2378,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-hand-spare-action-point",
+      "baseline_ordinal": 2379,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-hand-starting-life-no-cap",
+      "baseline_ordinal": 2380,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-no-go-again-followup-action-rejected",
+      "baseline_ordinal": 2383,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-opponent-response-before-life-gain",
+      "baseline_ordinal": 2384,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-red-spare-action-point-can-fund-followup-attack",
+      "baseline_ordinal": 2387,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-arsenal-face-down",
+      "baseline_ordinal": 2388,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-arsenal-face-up",
+      "baseline_ordinal": 2389,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-double-copies-two-paid-action-points",
+      "baseline_ordinal": 2392,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-low-life",
+      "baseline_ordinal": 2393,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-spare-action-point",
+      "baseline_ordinal": 2394,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-hand-starting-life-no-cap",
+      "baseline_ordinal": 2395,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-no-go-again-followup-action-rejected",
+      "baseline_ordinal": 2398,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-opponent-response-before-life-gain",
+      "baseline_ordinal": 2399,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-healing-balm-yellow-spare-action-point-can-fund-followup-attack",
+      "baseline_ordinal": 2402,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heart-of-ice-four-live-sparse-actual-ice-action-tax-charges-opposing-printed-zero-instant-with-real-blue-pitch",
+      "baseline_ordinal": 2406,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heart-wrencher-red-boost-cost-before-opponent-response",
+      "baseline_ordinal": 2417,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heartbeat-of-candlehold-blue-four-live-sparse-actual-blue-pitch-paid-specialization-gains-three-life-with-empty-earth-banish",
+      "baseline_ordinal": 2435,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heartened-cross-strap-activation-nonattack-does-not-consume",
+      "baseline_ordinal": 2440,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heroic-grit-yellow-four-live-sparse-actual-zero-cost-revered-action-creates-one-owned-toughness",
+      "baseline_ordinal": 2526,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-heroic-pose-red-four-live-correct-probe-real-crowd-cheer-hero-trigger-before-confidence-and-seven-power-attack",
+      "baseline_ordinal": 2527,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-high-octane-red-four-live-sparse-actual-paid-mechanologist-action-draws-one",
+      "baseline_ordinal": 2532,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-high-voltage-blue-four-live-sparse-actual-lightning-instant-amp-one-increases-real-targeted-zap-three-to-four",
+      "baseline_ordinal": 2537,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-hold-the-line-blue-four-live-sparse-real-attacker-draws-two-earns-defense-reaction-prevention-three",
+      "baseline_ordinal": 2548,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-homage-to-ancestors-blue-four-live-sparse-actual-first-blue-instant-gains-one-without-transcend",
+      "baseline_ordinal": 2550,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-humble-entrance-blue-four-live-sparse-actual-zero-cost-revered-action-creates-three-owned-toughness",
+      "baseline_ordinal": 2562,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ice-bolt-blue-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2595,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ice-bolt-red-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2616,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ice-bolt-yellow-opponent-sigil-response-before-arcane",
+      "baseline_ordinal": 2637,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ice-quake-red-four-live-sparse-real-one-cost-next-attack-plus-three-and-full-block",
+      "baseline_ordinal": 2644,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ion-charged-yellow-four-live-sparse-actual-instant-conditionally-adds-one-to-real-arsenal-lightning-attack-with-go-again",
+      "baseline_ordinal": 2693,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-kindle-red-four-live-sparse-actual-empty-hand-instant-draw",
+      "baseline_ordinal": 2750,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-laden-with-earth-red-four-live-sparse-actual-earth-bond-token-and-next-real-zero-cost-attack-plus-three",
+      "baseline_ordinal": 2767,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-blue-equal-threshold-attack",
+      "baseline_ordinal": 2782,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-blue-instant-excluded-preserves-effect",
+      "baseline_ordinal": 2785,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-blue-nonattack-action-qualifies",
+      "baseline_ordinal": 2786,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-blue-opponent-response-before-ap-gain",
+      "baseline_ordinal": 2788,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-red-instant-excluded-preserves-effect",
+      "baseline_ordinal": 2801,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonattack-action-qualifies",
+      "baseline_ordinal": 2802,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-red-nonturn-real-kano-two-activations-no-action-point-gain",
+      "baseline_ordinal": 2804,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-red-opponent-response-before-ap-gain",
+      "baseline_ordinal": 2805,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-instant-excluded-preserves-effect",
+      "baseline_ordinal": 2818,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-nonattack-action-qualifies",
+      "baseline_ordinal": 2819,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-the-charge-yellow-opponent-response-before-ap-gain",
+      "baseline_ordinal": 2821,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-with-heart-red-four-live-sparse-actual-paid-warrior-buff-owned-vigor-and-real-nine-damage",
+      "baseline_ordinal": 2829,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-with-power-red-four-live-sparse-actual-paid-brute-buff-owned-might-and-real-nine-damage",
+      "baseline_ordinal": 2830,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lead-with-speed-red-four-live-sparse-actual-brute-weapon-plus-three-and-owned-agility",
+      "baseline_ordinal": 2831,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lightning-form-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "baseline_ordinal": 2908,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lightning-form-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "baseline_ordinal": 2909,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-lightning-greaves-four-live-sparse-actual-paid-destroy-instant-grants-real-instant-card-go-again-and-extra-action-point",
+      "baseline_ordinal": 2910,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mage-master-boots-four-live-sparse-real-paid-legs-destroy-and-next-nonattack-go-again",
+      "baseline_ordinal": 2982,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-manifest-muscle-blue-four-live-real-token-creation-earns-plus-one-and-three-damage",
+      "baseline_ordinal": 2989,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-march-of-loyalty-red-four-live-real-fealty-created-this-turn-and-go-again-consumer",
+      "baseline_ordinal": 2991,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mightybone-knuckles-four-live-real-health-lead-three-might-and-go-again-consumer",
+      "baseline_ordinal": 3038,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-monkey-powder-red-four-live-sparse-actual-blue-pitch-full-three-cost-ranger-action-draws-one-owned-physical-card",
+      "baseline_ordinal": 3055,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mordred-tide-red-four-live-sparse-actual-read-three-replaced-by-four-owned-runechants",
+      "baseline_ordinal": 3061,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mutiny-on-the-battalion-barque-blue-four-live-sparse-real-gold-theft-earns-next-attack-two",
+      "baseline_ordinal": 3088,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mutiny-on-the-nimbus-sovereign-blue-four-live-real-gold-theft-earns-overpower-and-one-damage",
+      "baseline_ordinal": 3089,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-mutiny-on-the-swiftwater-blue-four-live-sparse-real-gold-theft-earns-next-attack-go-again",
+      "baseline_ordinal": 3090,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-not-so-fast-yellow-four-live-sparse-real-opponent-gold-draw-replaced-by-scurv-own-deck-card",
+      "baseline_ordinal": 3126,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-oath-of-oak-red-four-live-sparse-real-zero-cost-earth-action-creates-three-owned-embodiments-of-earth",
+      "baseline_ordinal": 3196,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-oath-of-the-arknight-red-four-live-sparse-actual-blue-pitch-paid-runeblade-action-creates-owned-runechant",
+      "baseline_ordinal": 3198,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-oblivion-blue-four-live-sparse-real-exact-six-owned-runechants-instant-creates-nasreth",
+      "baseline_ordinal": 3199,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-obsidian-fire-vein-four-live-real-same-link-draconic-plus-one-go-again-and-consumer",
+      "baseline_ordinal": 3200,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-down",
+      "baseline_ordinal": 3218,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-arsenal-face-up",
+      "baseline_ordinal": 3219,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-blue-pitch-overfunding",
+      "baseline_ordinal": 3220,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-nonturn-instant-zero-ap",
+      "baseline_ordinal": 3223,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-only-opponent-aura-destroyed-negative",
+      "baseline_ordinal": 3224,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-opponent-response-no-early-heal",
+      "baseline_ordinal": 3225,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-destroyed-after-announcement-before-resolution",
+      "baseline_ordinal": 3226,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-aura-present-not-destroyed-negative",
+      "baseline_ordinal": 3227,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-floating-exact",
+      "baseline_ordinal": 3228,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-overfunded",
+      "baseline_ordinal": 3229,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-hand-zero-ap",
+      "baseline_ordinal": 3230,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-non-aura-item-destroyed-negative",
+      "baseline_ordinal": 3231,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-own-shield-real-opponent-physical-destroyed",
+      "baseline_ordinal": 3232,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-prior-turn-aura-destruction-expires",
+      "baseline_ordinal": 3234,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ominous-respite-yellow-conditional-heal-red-pitch-exact",
+      "baseline_ordinal": 3235,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-orb-weaver-spinneret-red-four-live-sparse-real-equip-graphene-and-next-stealth-plus-three",
+      "baseline_ordinal": 3243,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-orihon-of-mystic-tenets-blue-four-live-sparse-real-chi-and-red-pay-four-replaces-two-draw-with-three-physical-cards",
+      "baseline_ordinal": 3245,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-otherworldly-sins-red-four-live-sparse-actual-blue-pitch-paid-shadow-runeblade-action-creates-owned-runechant",
+      "baseline_ordinal": 3251,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-outland-skirmish-red-four-live-sparse-real-next-one-hand-plus-three-fully-blocked-without-hit",
+      "baseline_ordinal": 3256,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-overcharge-red-four-live-sparse-real-instant-played-this-link-gives-three-power-and-four-damage",
+      "baseline_ordinal": 3266,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-painful-premonition-blue-four-live-real-adjacent-arcane-damage-creates-owned-sigil-of-fate",
+      "baseline_ordinal": 3280,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-peace-of-mind-red-four-live-sparse-actual-blue-pitch-paid-instant-creates-one-owned-ponder",
+      "baseline_ordinal": 3294,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-photon-splicing-red-four-live-sparse-real-paid-action-four-arcane-to-declared-hero",
+      "baseline_ordinal": 3317,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-pint-of-strong-and-stout-blue-four-live-sparse-actual-zero-cost-guardian-action-creates-owned-might-and-vigor",
+      "baseline_ordinal": 3323,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-planar-chaos-red-four-live-sparse-real-zero-resource-shadow-action-creates-one-owned-gate",
+      "baseline_ordinal": 3325,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-pledge-fealty-red-four-live-sparse-real-zero-cost-draconic-instant-creates-one-owned-fealty",
+      "baseline_ordinal": 3332,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-point-of-engagement-red-four-live-real-marked-hero-and-dagger-grants-five-damage-mark-clears-live-power-four",
+      "baseline_ordinal": 3342,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-poison-the-well-blue-four-live-sparse-real-instant-then-real-sun-kiss-gain-three-becomes-lose-three",
+      "baseline_ordinal": 3346,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-pouncing-qi-blue-four-live-real-created-banished-tiger-combo-and-go-again-consumer",
+      "baseline_ordinal": 3366,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-power-play-blue-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 3383,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-power-play-red-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 3401,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-power-play-yellow-arsenal-opponent-instant-above-pending-attack",
+      "baseline_ordinal": 3419,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-predatory-assault-red-four-live-sparse-real-single-six-discard-earns-dominate-one-legal-block",
+      "baseline_ordinal": 3431,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-predatory-streak-red-four-live-sparse-recovery-create-own-banished-tigers-then-real-uid-six-play-normalizes-owner-and-zero-damage",
+      "baseline_ordinal": 3433,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-primed-to-fight-red-four-live-real-might-condition-legal-lyath-and-paid-six-damage",
+      "baseline_ordinal": 3438,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-prismatic-leyline-yellow-four-live-sparse-real-zero-cost-action-buffs-next-real-blue-attack-by-three",
+      "baseline_ordinal": 3445,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-prismatic-shield-red-four-live-sparse-real-three-resource-instant-creates-three-owned-spectral-shields",
+      "baseline_ordinal": 3446,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-pulsing-aether-life-red-four-live-sparse-real-left-only-mode-target-paid-four-arcane",
+      "baseline_ordinal": 3472,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-qi-unleashed-blue-four-live-real-created-banished-tiger-combo-and-five-damage",
+      "baseline_ordinal": 3557,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-quartermasters-boots-four-live-sparse-actual-paid-equipment-real-nonattack-go-again",
+      "baseline_ordinal": 3559,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-quick-succession-red-four-live-sparse-first-real-lightning-attack-plus-one-go-again",
+      "baseline_ordinal": 3564,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-quicken-nonattack-instant-does-not-trigger",
+      "baseline_ordinal": 3568,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-quicken-opponent-response-before-destroy-and-grant",
+      "baseline_ordinal": 3569,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-quickfire-blue-four-live-real-hyper-driver-cost-reduction-and-unspent-boost-grant",
+      "baseline_ordinal": 3573,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-rain-razors-yellow-four-live-sparse-real-arrow-plus-two-and-six-damage",
+      "baseline_ordinal": 3641,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rake-over-the-coals-four-live-real-draconic-instant-raises-ronin-power-and-physical-damage",
+      "baseline_ordinal": 3643,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rampant-growth-life-yellow-four-live-sparse-real-meld-life-earns-one-amp-paid-zap-damage",
+      "baseline_ordinal": 3649,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rapid-fire-yellow-four-live-sparse-real-granted-arrow-go-again-earns-action-point-after-four-damage",
+      "baseline_ordinal": 3650,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ray-of-hope-yellow-four-live-sparse-real-paid-lower-life-self-soul-and-shadow-attack-power",
+      "baseline_ordinal": 3657,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-read-the-runes-red-upf-four-live-one-representative-three-owned-runechants",
+      "baseline_ordinal": 3756,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-reaping-blade-four-live-sparse-actual-heal-earns-unique-life-lead-then-blade-prevents-second-heal",
+      "baseline_ordinal": 3759,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-redback-shroud-four-live-real-destroy-reaction-discounts-next-card-and-retains-resource-through-seven-sword-damage",
+      "baseline_ordinal": 3830,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-rejuvenate-red-four-live-sparse-ordinary-unfused-action-heal",
+      "baseline_ordinal": 3842,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-requiem-for-the-damned-red-four-live-sparse-actual-ordinary-hand-action-creates-one-owned-eloquence",
+      "baseline_ordinal": 3851,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-revel-in-runeblood-red-four-live-sparse-real-other-nonattack-and-attack-earns-four-owned-runechants",
+      "baseline_ordinal": 3866,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-revolting-gesture-red-four-live-sparse-actual-blue-pitch-paid-reviled-action-creates-one-owned-might",
+      "baseline_ordinal": 3869,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rip-off-the-top-yellow-four-live-sparse-actual-draw-sole-random-pitch-six-power-condition-and-next-attack-plus-three",
+      "baseline_ordinal": 3886,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-ripple-away-blue-four-live-sparse-real-offturn-discard-reduces-opponent-three-runechant-batch-to-two",
+      "baseline_ordinal": 3889,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rites-of-nightfall-blue-four-live-sparse-real-one-resource-shadow-action-creates-one-owned-gate",
+      "baseline_ordinal": 3906,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-roar-of-the-tiger-yellow-four-live-sparse-recovery-create-own-hand-tiger-then-real-uid-six-play-normalizes-owner-and-plus-one-damage",
+      "baseline_ordinal": 3908,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-robe-of-resourcefulness-four-live-sparse-real-cash-out-cost-leave-trigger-earns-two-mana-paid-wizard",
+      "baseline_ordinal": 3914,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-rumble-grunting-red-four-live-sparse-real-six-discard-earns-next-brute-plus-four-thirteen-damage",
+      "baseline_ordinal": 3985,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sash-of-sandikai-four-live-sparse-real-red-action-earns-condition-then-destroy-instant-gains-one",
+      "baseline_ordinal": 4040,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-savage-beatdown-red-four-live-sparse-real-prior-six-and-own-seven-discard-earns-six-power-fourteen-damage",
+      "baseline_ordinal": 4042,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-savor-bloodshed-red-four-live-real-dagger-plus-four-leaves-six-life-ally-at-one-life",
+      "baseline_ordinal": 4103,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-blue-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "baseline_ordinal": 4122,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-blue-wtr-grant-persists-after-own-heal",
+      "baseline_ordinal": 4123,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-equal-no-retroactive-grant",
+      "baseline_ordinal": 4128,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-equal-opponent-heal-enables-condition",
+      "baseline_ordinal": 4129,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-lower-grant-persists-after-heal",
+      "baseline_ordinal": 4130,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-lower-own-heal-removes-condition",
+      "baseline_ordinal": 4131,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "baseline_ordinal": 4132,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-red-wtr-grant-persists-after-own-heal",
+      "baseline_ordinal": 4133,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-yellow-wtr-equal-play-not-retroactive-after-opponent-heal",
+      "baseline_ordinal": 4137,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-scar-for-a-scar-yellow-wtr-grant-persists-after-own-heal",
+      "baseline_ordinal": 4138,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-second-tenet-of-chi-tide-blue-four-live-real-sigil-homage-transcend-and-seven-damage",
+      "baseline_ordinal": 4166,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-second-tenet-of-chi-wind-blue-four-live-real-sigil-homage-transcend-and-go-again-consumer",
+      "baseline_ordinal": 4167,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-seeds-of-strength-red-four-live-sparse-actual-earth-blue-pitch-paid-action-creates-four-owned-might-tokens",
+      "baseline_ordinal": 4172,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-seismic-eruption-yellow-four-live-sparse-actual-printed-instant-creates-3-owned-seismic-surge-tokens",
+      "baseline_ordinal": 4184,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-seismic-stir-red-four-live-sparse-actual-blue-pitch-paid-action-creates-three-owned-seismic-surges",
+      "baseline_ordinal": 4186,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-nonattack-action-preserves-buff",
+      "baseline_ordinal": 4237,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-blue-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 4238,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-nonattack-action-preserves-buff",
+      "baseline_ordinal": 4258,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-red-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 4259,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-nonattack-action-preserves-buff",
+      "baseline_ordinal": 4279,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sharpen-steel-yellow-opponent-response-before-buff-resolves",
+      "baseline_ordinal": 4280,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-shifting-winds-of-the-mystic-beast-blue-four-live-sparse-real-chi-payment-creates-two-owned-crouching-tigers",
+      "baseline_ordinal": 4298,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-gain",
+      "baseline_ordinal": 4388,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-blue-opponent-turn-instant",
+      "baseline_ordinal": 4389,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-red-four-live-hold-priority-correct-rule-before-probe",
+      "baseline_ordinal": 4390,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-red-gain",
+      "baseline_ordinal": 4391,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-red-opponent-turn-instant",
+      "baseline_ordinal": 4392,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-gain",
+      "baseline_ordinal": 4393,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sigil-of-solace-yellow-opponent-turn-instant",
+      "baseline_ordinal": 4394,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sky-fire-lanterns-red-four-live-sparse-real-reveal-of-red-physical-deck-top-creates-one-owned-runechant",
+      "baseline_ordinal": 4452,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-slice-and-dice-red-four-live-sparse-actual-first-sword-plus-one",
+      "baseline_ordinal": 4462,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-smashback-alehorn-blue-four-live-sparse-actual-zero-cost-brute-action-creates-owned-agility-and-might",
+      "baseline_ordinal": 4541,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-snag-blue-four-live-sparse-actual-instant-prevents-real-less-life-attack-own-three-power-gain",
+      "baseline_ordinal": 4548,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-snapback-red-four-live-sparse-real-earlier-wizard-action-earns-instant-at-zero-ap",
+      "baseline_ordinal": 4550,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-snatch-red-opponent-responds-before-hit-draw",
+      "baseline_ordinal": 4566,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sonata-fantasmia-blue-four-live-real-x-one-pays-two-creates-one-runechant",
+      "baseline_ordinal": 4584,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-spectral-manifestations-red-four-live-sparse-real-paid-action-with-no-other-illusionist-auras-creates-shield-with-three-power-counters",
+      "baseline_ordinal": 4602,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-spellbound-creepers-four-live-sparse-earned-attack-real-bind-cost-and-action-played-as-instant-at-zero-ap",
+      "baseline_ordinal": 4617,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-spill-blood-red-four-live-sparse-actual-owned-axe-plus-two-and-four-physical-damage",
+      "baseline_ordinal": 4626,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-spoils-of-war-red-four-live-sparse-real-paid-next-sword-two-power-go-again-full-block",
+      "baseline_ordinal": 4635,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-spreading-mist-blue-four-live-sparse-actual-next-attack-granted-go-again",
+      "baseline_ordinal": 4637,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 4646,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-defender-response-above-pending-razor",
+      "baseline_ordinal": 4650,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-third-reaction-after-partial-resolution-028-required",
+      "baseline_ordinal": 4653,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-starting-stake-yellow-four-live-sparse-actual-zero-cost-action-with-no-gold-creates-one-owned-gold",
+      "baseline_ordinal": 4687,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-starworld-warning-yellow-four-live-sparse-actual-printed-instant-creates-2-owned-lightning-flow-tokens",
+      "baseline_ordinal": 4688,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-strike-gold-red-token75-actual-opponent-sigil-response-before-token-resolution",
+      "baseline_ordinal": 4721,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-strike-gold-red-token75-real-ripple-then-instant-response-preserves-action-token-attribution",
+      "baseline_ordinal": 4723,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-strike-gold-red-upf-four-live-adjacent-four-all-seat-sigil-responses",
+      "baseline_ordinal": 4724,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-strike-twice-red-four-live-real-prior-arcane-earns-instant-at-zero-action-and-three-more-damage",
+      "baseline_ordinal": 4726,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-sun-kiss-red-four-live-sparse-ordinary-heal-no-moon-wish",
+      "baseline_ordinal": 4737,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-swarming-gloomveil-red-four-live-sparse-real-one-aura-created-earns-go-again-after-runechant-consumed",
+      "baseline_ordinal": 4805,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-swell-tidings-red-four-live-sparse-real-target-and-blue-pays-two-for-five-arcane-no-surge",
+      "baseline_ordinal": 4807,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tear-limb-from-limb-blue-four-live-sparse-real-drawn-six-discard-earns-next-brute-base-power",
+      "baseline_ordinal": 4844,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tearing-shuko-four-live-sparse-actual-destroy-instant-next-created-tiger-plus-two-real-play-and-damage",
+      "baseline_ordinal": 4846,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tectonic-rift-blue-four-live-sparse-real-x-two-declaration-and-payment-create-two-owned-seismic-surges",
+      "baseline_ordinal": 4850,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-thistle-bloom-life-yellow-four-live-sparse-real-three-life-gain-earns-left-half-three-runechants",
+      "baseline_ordinal": 4914,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-three-of-a-kind-red-four-live-sparse-actual-paid-ranger-action-draws-three-ordered-physical-cards",
+      "baseline_ordinal": 4916,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-throttle-red-boost-cost-before-opponent-response",
+      "baseline_ordinal": 4928,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tiger-form-incantation-red-four-live-sparse-actual-blue-pitch-creates-owned-hand-tiger",
+      "baseline_ordinal": 4962,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-time-flies-when-youre-having-fun-red-four-live-sparse-real-arsenal-bonus-kills-six-life-ally-without-hero-hit",
+      "baseline_ordinal": 4968,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tip-the-barkeep-blue-four-live-real-rum-creation-no-eligible-gold",
+      "baseline_ordinal": 4977,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-divinity-yellow-four-live-sparse-ordinary-draw-two-no-soul-history",
+      "baseline_ordinal": 4984,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-firebrand-red-four-live-real-four-draconic-links-paid-instant-draw-two",
+      "baseline_ordinal": 4986,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-fyendal-yellow-four-live-sparse-arsenal-draw-two-then-heal-current-hand",
+      "baseline_ordinal": 4987,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-imperial-flame-red-four-live-zero-red-draw-one-then-banish-both-blue-hand-cards",
+      "baseline_ordinal": 4988,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-pandemonium-yellow-four-live-real-all-deck-banish-and-opponent-owned-play-consumer",
+      "baseline_ordinal": 4990,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-quandaries-blue-four-live-sparse-actual-printed-instant-creates-2-owned-ponder-tokens",
+      "baseline_ordinal": 4991,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-the-arknight-blue-four-live-sparse-actual-blue-pitch-paid-tome-reveals-aa-and-non-aa-and-moves-both-owned-cards-to-hand",
+      "baseline_ordinal": 4992,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-tome-of-torment-red-four-live-sparse-actual-hand-action-draws-one-physical-deck-card",
+      "baseline_ordinal": 4993,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "baseline_ordinal": 5013,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+      "baseline_ordinal": 5017,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "card-twinkle-toes-four-live-sparse-real-instant-card-play-earns-destroy-prevent-two-gate",
+      "baseline_ordinal": 5062,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-unmovable-blue-hand-paid-blue-three",
+      "baseline_ordinal": 5084,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-unmovable-blue-hand-paid-red-one-yellow-two",
+      "baseline_ordinal": 5085,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-uprising-red-four-live-sparse-actual-action-first-draconic-attack-plus-one",
+      "baseline_ordinal": 5108,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-verdant-tide-red-four-live-sparse-actual-earth-pitch-bond-and-own-replacement-create-two-owned-embodiments",
+      "baseline_ordinal": 5130,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-vigor-rush-red-four-live-sparse-real-prior-nonattack-go-again-base-four-excludes-minnow",
+      "baseline_ordinal": 5139,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-visit-the-imperial-forge-red-four-live-sparse-actual-sword-piercing-three-against-real-equipment-defender",
+      "baseline_ordinal": 5158,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-volzar-meteor-storm-four-live-real-instant-graveyard-tap-and-amped-four-arcane",
+      "baseline_ordinal": 5187,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wash-away-blue-four-live-real-other-blue-sigil-heals-above-base-earns-five-defense-and-two-damage",
+      "baseline_ordinal": 5210,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-water-glow-lanterns-red-four-live-sparse-actual-reveal-matching-red-decktop-creates-owned-shield",
+      "baseline_ordinal": 5211,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-whispering-mist-blue-four-live-sparse-actual-mystic-instant-increases-own-real-blue-attack-by-one",
+      "baseline_ordinal": 5226,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wind-chakra-red-four-live-sparse-real-created-tiger-consumes-next-three-power-and-deals-four",
+      "baseline_ordinal": 5239,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-blue-wtr-bonus-persists-after-own-heal",
+      "baseline_ordinal": 5304,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-red-equal-no-retroactive-grant",
+      "baseline_ordinal": 5310,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-red-equal-opponent-heal-enables-condition",
+      "baseline_ordinal": 5311,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-red-lower-grant-persists-after-heal",
+      "baseline_ordinal": 5312,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-red-lower-own-heal-removes-condition",
+      "baseline_ordinal": 5313,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-red-wtr-bonus-persists-after-own-heal",
+      "baseline_ordinal": 5314,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-wounded-bull-yellow-wtr-bonus-persists-after-own-heal",
+      "baseline_ordinal": 5319,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "card-yinti-yanti-red-mon-live-enters-attack",
+      "baseline_ordinal": 5434,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    },
+    {
+      "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+      "baseline_ordinal": 5534,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+      "baseline_ordinal": 5535,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+      "baseline_ordinal": 5536,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "baseline_ordinal": 5537,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+      "baseline_ordinal": 5538,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "baseline_ordinal": 5545,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-reaction-priority028-insufficient-cost-valid-razor-rejected",
+      "baseline_ordinal": 5546,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "compat-reaction-priority028-wrong-target-funded-pummel-rejected",
+      "baseline_ordinal": 5547,
+      "passing_replay_runtimes": [
+        "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5"
+      ]
+    },
+    {
+      "slug": "rule-end-turn-clears-unused-action-points",
+      "baseline_ordinal": 5654,
+      "passing_replay_runtimes": [
+        "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d"
+      ]
+    }
+  ],
+  "unmatched_or_duplicate_baseline_ids": [],
+  "full_suite_run": false,
+  "preserved_runtime_epochs": true,
+  "current_runtime": "3499ac401850e396c7fbc227b71f24cc6133df95405eba73b68821d58a958e0d",
+  "current_runtime_distinct_targeted_passes": 491,
+  "forty_newly_affected_hatchet_tapes": "review-evidence/forty-existing-hatchet-protocol-repairs-20261125.json",
+  "baseline_scenarios_vs_inventory": "Baseline5671, current5683; postbaseline scenarios/witnesses are not counted among original520."
+}

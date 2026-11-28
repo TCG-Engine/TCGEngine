@@ -1,0 +1,91 @@
+{
+  "card_id": "mindstate_of_tiger_blue",
+  "title": "Mindstate of Tiger creates its physical Crouching Tiger in Hand with Owner0",
+  "classification": "CREATED_TOKEN_OWNER_MISSING",
+  "expected": "At actual owner1 turn start, Aura5 is destroyed, then creator1 creates Crouching Tiger UID6 in ownHand. That physical token must be owned by1; expected p1Hand-0.Owner=1.",
+  "observed": "After8actualnative oldturn Action/End passes, physical Aura5 reached ownGY and actual Tiger6 was present in ownHand, but Owner query observed0. No passing fixture was saved; subsequent Controller assertion unrun.",
+  "root_relationship": "Named creation-ownership producer/caller concern, potentially related to prior205 but no demonstrated shared root allocation and no new distinct shared root credit.",
+  "source_route": "GeneratedMacroCode StartTurn mindstate_of_tiger_blue:0 destroys actualAuraUID then AddHand($player, CardID:crouching_tiger) with no explicit owner/source context; current Hand schema stores Owner. No source changed.",
+  "rules_basis": "Official CR1.3.1a: a created card is owned by the player instructed to create or put it into the game; https://rules.fabtcg.com/en/cr/01-game-concepts/ . Hand Controller metadata is not an asserted rules-controller claim (CR1.3.1b).",
+  "limits": [
+    "Only first created-token Owner assertion failed; Controller and later gameplay remain unrun.",
+    "No repair attempted and no passing/recorded coverage credit."
+  ],
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_FIXTURE_SAVED",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse895-held-mindstate-of-tiger-blue-20261122.json",
+  "source_spec_sha256": "32da028f9c4cc88d1b699c1cee1dd7669b8caa43d637546bfc0f8b83f9fac098",
+  "original_native_input_sha256": "832512da1f582bf9143460d802856326761d07aca6e6c5bb30dcf048d2d477b6",
+  "initial_gamestate_sha256": "5c75a03c2aec4a927cb75464192fad3976ab9803fe93b3616068261eda848b63",
+  "native_inputs": [
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "first_failure": "Expected p1Hand-0.Owner to equal '1', got '0'.",
+  "source_changed": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "full_suite_run": false
+}

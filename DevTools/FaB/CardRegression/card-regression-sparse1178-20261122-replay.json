@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-cogwerx-base-arms-four-live-sparse1178-real-boost-steam-cost-buffs-next-attack-not-current-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cogwerx-base-arms-four-live-sparse1178-real-boost-steam-cost-buffs-next-attack-not-current-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1178-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1178-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "62bbf4a1b67d42caffda2374f9ff7b1f896a8e064bd6c3b64c5ac8547a93bfea",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "65faa6ecd90df970aa7a8a90eeb2613493860f8fa0fdfba740d18c972014bad8",
+        "actions.json": "11002ee574f647b7a25352fcd6827150871f9e101127666db99c3fe915a6fc3d",
+        "assertions.json": "64fc2a9519dc24adc08ec34e8f7e38dacf46e274a52e88bbca9065c64cc170d7",
+        "expected_final_gamestate.txt": "2008dda2c2edb8c40cca47c2c641d2a3f5ed11baf90c941348aaf0d98f3973b6",
+        "meta.json": "eaf3ab5d47ec1b8f4c31c4226413ac1974e1909839a0da06099ac3e09ff208dc"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

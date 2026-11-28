@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-talisman-of-cremation-blue-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-talisman-of-cremation-blue-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fab9dec166664116efd4bc419d42f1396e209b44992e02d0715137ff9e373644",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "dc33fbf26c0b26729493421b5bb7220ba33a41271832e24dcb07f7093853925d",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "773a68a176f1f3a50d8fc8157651ee1930c82d8ae50d980ee229ba54e7a090c0",
+        "expected_final_gamestate.txt": "f9c23ca36171b81bedd5ddd45c8d72cf8101c9e20df6345991a278ff3800e306",
+        "meta.json": "511f36e11abffec9d9fc67dc8100d8fe1a5e7d81d8a30cf54770ba4a66ddf43a"
+      }
+    },
+    {
+      "slug": "card-dimenxxional-crossroads-yellow-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dimenxxional-crossroads-yellow-four-live-sparse1314-real-hand-play-does-not-earn-banish-zone-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1314-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "348bbf8f15f7d5bb62cd2322d037c0a51fa54e58680cec2aefa9f80cc090f088",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "154b6ce483afcc3b320f539d997bb0769347ab61c2003fb6eb1c299e69278399",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "48ab6d7a44c3f0bd7d013efa5b7cb61473a9c6c371d2766a9bc760277b44dfde",
+        "expected_final_gamestate.txt": "16afda6b014c9db55a9663e11b89078605f5d4fbb72ac080768e088e9d951a35",
+        "meta.json": "f2cf7a235aa76a13f5716253a41d3fefe3fa5bb4741cba4f7c896dda09273c59"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

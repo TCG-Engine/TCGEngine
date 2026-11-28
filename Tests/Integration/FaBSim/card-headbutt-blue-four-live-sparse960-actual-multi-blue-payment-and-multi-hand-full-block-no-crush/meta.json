@@ -1,0 +1,7 @@
+{
+    "name": "Headbutt / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:57:59+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "This can't be defended by non-head equipment.\n\nIf you have a head equipped and the defending hero doesn't, this gets +1{p}.\n\n**Crush** - When this deals 4 or more damage to a hero, put a -1{d} counter on a head they have equipped, then if it has 0{d}, destroy it. LegalBravo20/actualtwoBlue6and7payprinted6or4/R0or2/AP0, actual3/4/2HandAAdef9/12/6fullyblock8/10/6, damage0/HP20/nohit/Stack0/sourceblockersownGY. NoearnedCrush. HeadbuttnoownHead/realenemyHead10retained/counters[], no+1. Otherfutureeffect/preventionbranches nottested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#headbutt_blue"
+}

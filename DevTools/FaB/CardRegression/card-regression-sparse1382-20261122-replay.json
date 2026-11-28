@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-levia-redeemed-four-live-sparse1382-thirteen-banished-cards-but-only-twelve-blood-debt-no-inventory-transform-or-face-down-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1382-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1382-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f7bd803cc594df19a41928563ab85ab94a8c91e46e4b8a3caa4772990a4a02fb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7ab93bffcedefd8aaf7e8556444bcabd3e2b9572c936dbfd26bc70ee075e5b32",
+        "actions.json": "3aaec34458f34606dfe27a6b3ca08e84ba7329e2ab79941756a716b6dbd40b66",
+        "assertions.json": "6316cb7789c9b28ea08178e6cc24c4e9e2db618c875d5f8e2b6ee92841a66a7e",
+        "expected_final_gamestate.txt": "eebd76f0cad8064e912aaa4ef00ae96eb3b088f91f46612a5ed4608b7903074f",
+        "meta.json": "81ffe48852dbc76aea5f505177a36c62372ab960126d10eaf0b0cc0539a4266e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Arcanic Shockwave / actual unfused damage and fused-only effect guard",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T05:13:37+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_LIVE_MANUAL_UPF_UNFUSED_ONLY. NaturalYoungBriar20legalElementalRuneblade/EssenceEarthLightning; actualArcanic5onlyHand1/noeligibleLightningFusionadditionalreveal, cost0/R0/AP1to0. RealDromai4Ashwing6withlawfulAshmaterialtakesprinted4physicaldamage/ceasesnoGY4; noHeroHPdamage/arcane/Briarproducer. Bluecontrol7Hand4andHero4Status2retained. Allfourfreshsource/combatresponses andsource5ownGY1/funder6Pitchifany/UID7/RNG0/APR0/StackDQsCCclean. NoFusionpositive/arcane/Frostbite/extraPing/damageReplacement/Hero/Bowproducer/secondary/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arcanic_shockwave_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OMNCards.php FaBSim/Custom/ELECards.php FaBSim/Custom/UPRCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ELEAbilities.php"
+}

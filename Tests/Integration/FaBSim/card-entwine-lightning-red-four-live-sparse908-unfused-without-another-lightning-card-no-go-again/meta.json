@@ -1,0 +1,7 @@
+{
+    "name": "Entwine Lightning / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T18:46:35+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Lightning Fusion**\n\nIf this was **fused**, it gets **go again**. Representative only: unfused_without_another_lightning_card_no_go_again. No positive fusion/Evo/Boost condition or supporting/pitch-sibling credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#entwine_lightning_red"
+}

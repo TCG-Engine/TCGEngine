@@ -1,0 +1,7 @@
+{
+    "name": "Pain in the Backside / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:48:55+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits a hero, target dagger you control deals 1 damage to them. If damage is dealt this way, the dagger has hit.\n\n**Go again** Representative only: actual_full_block_no_dagger_damage_but_printed_go_again. Actual printed cost, two real Hand AA defenses totaling6, full four-live manual combat, zero damage/no hit, owned physical source and defenders in graveyards. No positive hit/steal/banish/creation/secondary damage credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pain_in_the_backside_red"
+}

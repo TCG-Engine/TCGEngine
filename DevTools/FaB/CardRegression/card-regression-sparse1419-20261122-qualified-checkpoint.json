@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T16:20:10.958915+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1419-20261122.json",
+  "source_spec_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 5,
+  "native_assertions": 212,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5428,
+    "duels": 3125,
+    "four_live": 2303,
+    "recorded_primary_ids": 2576,
+    "identity_denominator": 5196,
+    "recorded_groups": 2450,
+    "group_denominator": 3324,
+    "four_live_groups": 2292,
+    "phase_qualified_scenarios_at_actual_contexts": 2065,
+    "phase_qualified_unique_groups": 2055,
+    "creation_replay_passes": 2807,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1226,
+  "scenarios": [
+    {
+      "card_id": "viserai_the_forsaken",
+      "group_id": "identity:viserai_the_forsaken",
+      "scenario_id": "card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+      "effect_branches": [
+        "actual_three_runechants_as_one_creation_event_one_separate_hero_layer_banishes_one_real_top_card_then_traverses_at_three"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-viserai-the-forsaken-two-live-sparse1419-real-three-runechants-one-creation-hero-layer-banish-one-and-traverse",
+      "source_spec": "card-regression-sparse1419-20261122.json",
+      "source_spec_sha256": "8232035efef0ac040f9d9e3a995be40a9da1d2d488e7205859a5985f18f83472",
+      "review_evidence": "review-evidence/sparse1419-20261122-qualified-saved.json",
+      "review_evidence_sha256": "9fcec89db827304d39dc43a8e0e7b69512942fcd5c5200b97593e013a8c15b86",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1419-20261122-replay.json",
+          "sha256": "ef96a6546f5cb0eb7dbb766c4de42e238b3e84eb56faddf639e47d51f52bab26",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

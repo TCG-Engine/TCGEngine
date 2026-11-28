@@ -1,0 +1,7 @@
+{
+    "name": "Quiver of Abyssal Depths / paid activation and one-arrow graveyard return",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:22:45+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualPotion8Instantdestroy/ABI9/allfourresponsesR2/AP1. Quiver5realactivation3needsBlue6pitch3: R2+3-3=R2/AP1, sourceEquipment5destroyedbeforePRIORITY/ABI10. Allfourresponses whileArrow7unchangedinGY; sameABI10retainedthroughactualoptionalMZMayChoose(p1GY0). SelectoneeligibleArrow7: exactUID7toDeck1, source5andPotion8GY, Blue6Pitch, ABIclears/noDQ/pending. Deckwasempty so productionstrongshufflehaszeroiterations/Random0; no entropychange or twoArroworderclaim. AP1/R2/allHP20/noeffectsseed. Genuinefourliveallmanualresponses. Oldtwo-arrowselectedrecipeheld; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#quiver_of_abyssal_depths FaBSim/GeneratedCode/GeneratedMacroCode.php#quiver_of_abyssal_depths FaBSim/Custom/OUTCards.php#FaBOUTQuiverShuffle FaBSim/Custom/OUTCards.php#FaBOUTQuiverTargets FaBSim/Custom/CardChoices.php#FaBShuffleDeck FaBSim/Custom/GameLogic.php#FaBResolveManagedVirtualLayer Core/DeterministicRNG.php#EngineShuffle"
+}

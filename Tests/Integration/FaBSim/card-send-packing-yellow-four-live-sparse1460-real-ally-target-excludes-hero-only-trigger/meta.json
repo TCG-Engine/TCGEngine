@@ -1,0 +1,7 @@
+{
+    "name": "Send Packing / actual Ally target does not earn Hero-only trigger",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T02:58:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFkayo_strong_arm1/Dori2/3/Dromai4all20. Realsend_packing_yellow5formallytargetsrealAshwing9Arena4withnativePERMANENTdescriptor/notHero4. CanonicalpriorAshmaterialUPR_ASH1/DYN_ASHash andMight10; actualController4HandPotion11/Razor12andDeck13nonempty. Printedcost3paidactualBlue6/7ifneeded\u00e2\u2020\u2019R0/AP0; printedpower6; Hero-onlyWHENnotearned. Actual6physicalkillsAllyonly, allHeroHP20anduntouchedMight/Hand/Deckfatesretained.  NoGO/refund; actualretainedWounding8zero-costclickrejectsAP0. LimitednegativeHero-eventconditiononly. NoAllycreation/history/support/siblings/fullcardcredit/enginechange. Real owned defender ArsenalBlue16 faceDown1 remains throughout: no banish or return-to-Hand. Sources: FaBSim/GeneratedCode/cardArrayCache.json#send_packing_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php#send_packing_yellow FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

@@ -1,0 +1,86 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1225",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1238-20261122.json",
+  "source_spec_sha256": "dcab78d02f158349e0b96708f0f984db6510391eebeb4490953a635f3bd351fa",
+  "input_sha256": "dcab78d02f158349e0b96708f0f984db6510391eebeb4490953a635f3bd351fa",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-channel-the-skybreaker-yellow-four-live-sparse1238-native-turn-transition-earns-action-phase-trigger-before-two-might-appear",
+      "card_id": "channel_the_skybreaker_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f142d8fdeab59f390be8a74901987570db631f764f7c820f0bac804cb5a16a60",
+        "actions.json": "b42b5da35fca394076be5f44a86c9d458716323d5b609e99c2124ec8e60fa215",
+        "assertions.json": "0848ff9744ce19547d1bad66d7946b1805e2e1011a959ed3aec0b068ddd6f070",
+        "expected_final_gamestate.txt": "cd5b65df782deb2eca79ad4e576a5bc4211ac9bd2fcdda3f4be2e106a960ec28",
+        "meta.json": "0db2911f82f891b247000bb12fbb10958b425a8b568ed30b819c7eb713c75cb4"
+      },
+      "fixture_sha256": "06c30fe7e5ba85659b2ef774a36030e46da29bbd975ae795a0e9b2b660eb3bfc",
+      "actions": 12,
+      "native_assertions": 216,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1238-20261122.json",
+      "input_sha256": "dcab78d02f158349e0b96708f0f984db6510391eebeb4490953a635f3bd351fa",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1238-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-channel-the-skybreaker-yellow-four-live-sparse1238-native-turn-transition-earns-action-phase-trigger-before-two-might-appear",
+        "fixture_slug": "card-channel-the-skybreaker-yellow-four-live-sparse1238-native-turn-transition-earns-action-phase-trigger-before-two-might-appear",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1225",
+    "spec_sha256": "dcab78d02f158349e0b96708f0f984db6510391eebeb4490953a635f3bd351fa",
+    "source_note_sha256": "728748812c68114aa0c9d8fb5888bf6d60c6112b8ddbcf8b0d52b537c1866a3b",
+    "case_count": 1,
+    "native_controls": 12,
+    "query_checks": 216,
+    "persistable_assertions": 216,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "EXISTING_AURA_BEGINNING_ACTION_PHASE_TWO_MIGHT_ONLY",
+    "basis": [
+      "The frozen case has 12 native pass controls and 216 persistable queries with no author-only omissions. Four natural Young heroes satisfy setup; Terra20 admits the existing Earth Aura. FLOW1 is an admitted persistent prior counter, not seeded current-turn trigger history. The primary group is unrepresented with no source-only hold.",
+      "The explicit mid-P1 ACTION/AP0 state advances through four manual ACTION passes and four manual P1 END_PHASE passes. Channel belongs to P2, so its own-end Channel Earth upkeep is not earned during P1 end. Terra has no Earth card in Pitch, so its each-end optional Might trigger is also unearned. Empty decks yield no actual refill draw or draw observer.",
+      "StartOfTurnPhase2977 sets actual new player2 resources0/AP1. Its regular start-of-turn processing occurs before DTDBeginActionPhase252 calls PENActionPhase305, which queues the existing Aura beginning-action ability6 with SourceUniqueID5 and generic rosTrigger=true. No Sigil destruction or other held start branch is present.",
+      "The new turn is actually2/number3. Only Aura5 exists before the new trigger receives four fresh responses in order2/3/4/1. Its generic ROS ability uses the supported managed route; generated ResolveAbility14039 calls HVYToken for two Might only at resolution. The Aura entry body is not exercised.",
+      "Real owned Might7/8 are created after start-of-turn timing, so their own start-of-turn destruction abilities are not earned immediately. Final Aura5 retains FLOW1, both new tokens remain owned Arena2, AP2 remains1 from turn beginning rather than an additional go-again refund, UID8/RNG0 and empty Stack/DQs/CC/GY/Pitch match the endpoint."
+    ],
+    "limits": [
+      "Semantic/source-spec approval only pending native saving and targeted replay; no native success or coverage credit claimed by reviewer.",
+      "Only the existing Aura beginning-action trigger. No Aura entry/main play/go again, Channel upkeep, repeated turn, Might use, prior token production/removal, Hero/support or full-card credit.",
+      "Only this W review receipt was written; no native actions, tests, T/source changes, Git, authentication, network or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1238-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "4376943f6205960cd063d57bd4438b9765a272c760f5d016685c73f8fd37d779"
+  },
+  "full_suite_run": false
+}

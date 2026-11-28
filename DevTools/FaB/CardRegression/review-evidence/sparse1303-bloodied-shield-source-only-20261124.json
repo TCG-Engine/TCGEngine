@@ -1,0 +1,24 @@
+{
+  "classification": "SOURCE_ONLY_MISSING_PRINTED_BLADE_BREAK_METADATA_UNRUN",
+  "card_id": "bloodied_shield",
+  "planning_batch": 1303,
+  "printed_text": "You may equip this.\n\n**Blade Break**",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix_applied": false,
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_hashes": {
+    "FaBSim/GeneratedCode/GeneratedCardDictionaries.php": "1be127d10c8f7fe3fa10b8aa098678fa43b2790910c95666226b18eb79ea7c60",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/PENCards.php": "9d4f443c833ec535bdae15c1973910925c1b7a1223fbfab7fcb89a5b204a7ed8"
+  },
+  "source_findings": [
+    "GeneratedCardDictionaries card_keywordsData bloodied_shield is [], getter returns this array.",
+    "GameLogic FaBKeywords merges PENKeywords and PENPrintedKeywords; PENCards has no Blade Break fallback for Bloodied Shield.",
+    "CleanupResolvedLink will not tag DESTROY_ON_CHAIN_CLOSE; CloseCombatChain predicts return to Equipment. This is an unrun source prediction."
+  ],
+  "minimal_correct_probe": "Four manual Young Dorinthea seats20. Wounding Blow Red5 Hand1 vs real Bloodied Shield6 Equipment4. Native source priorities, real Shield defense2 gives actual2 damage HP18. After full close expect same Shield6 OwnerController4 Graveyard4 and no Equipment4. Correct expectation must not be relaxed.",
+  "local_original_spec_sha256": "2cd8256a735a657015488e1531aab37a5580cf59cd407e801aab00aae5290c3b",
+  "limits": "Source-only, no native defect count or coverage; native equip permission and any repair not attempted."
+}

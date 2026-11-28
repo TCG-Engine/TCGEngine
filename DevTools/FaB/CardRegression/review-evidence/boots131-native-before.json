@@ -1,0 +1,222 @@
+{
+  "id": "FAB-REG-131",
+  "status": "NATIVE_CONFIRMED_GUARDWELL_UNDERCOUNTS_WEAPON_CONDITIONAL_DEFENSE_AT_AUTOMATIC_CLOSE",
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "independent_review_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-independent-native-before-classification.json",
+  "independent_review_sha256": "b65d18c7391601bd0b30d43bfc7f67a0299dc7b84bfacfa373fce00d4a58f3d0",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_spec": "card-regression-batch490.json",
+  "input_sha256": "324b3219d4d542c7288d156028f29b55ee09e5821608093af30bde9357b9344b",
+  "scenario_id": "card-blade-beckoner-boots-four-live-real-weapon-block-two-defense-one-damage-guardwell-two-counters-cleanup",
+  "first_failure": {
+    "error": "Expected p4Equipment-0.Counters to equal '{\"DEFENSE\":2}', got '{\"DEFENSE\":1}'.",
+    "native_action_boundary": 29,
+    "source_step_index": 58,
+    "source_check_index": 50,
+    "ordered_authored_check_ordinal_1based": 2537,
+    "preceding_ordered_checks_passed": 2536,
+    "completed_prior_boundary_checks": 2486,
+    "same_boundary_checks_before_failure": 50,
+    "expected_Counters": {
+      "DEFENSE": 2
+    },
+    "actual_Counters": {
+      "DEFENSE": 1
+    },
+    "raw_source_check": {
+      "type": "card_property_equals",
+      "mzId": "p4Equipment-0",
+      "property": "Counters",
+      "value": "{\"DEFENSE\":2}"
+    },
+    "remaining_checks_after_failure_unexecuted": 147
+  },
+  "actual_native_prefix": {
+    "accepted_inputs": 29,
+    "planned_inputs": 29,
+    "remaining_inputs_unexecuted": 0,
+    "accepted_action_stream_sha256": "eb8c53ed927dfe360ec0a30a756345ac9fd21d57d475f4b1f0b64162a1c95bca",
+    "manual_inputs": 25,
+    "priority_response_inputs": 24,
+    "defender_declaration_finish_inputs": 1,
+    "manual_actor_counts": {
+      "1": 6,
+      "2": 6,
+      "3": 6,
+      "4": 7
+    },
+    "initial_manual_settings_verified": 48,
+    "initial_gamestate_sha256": "3473345151359bb744793ec671b603e8132b4584fc13bfa85d2e21380dc308b6",
+    "passed_prefix": "ActualSword6normalactivation/adjacentHero4target, realBlue7pitch3pays1/R2AP0 and6used; proxy8fromWeapons/base3/noGA. ActualBoots5normalP4Equipmentblock givesdamage-timeDEF2; real1damage/HP19 asserted, no prematurewear beforeClose. FullResolutionfour thenautomaticClose; no freshGuardwellresponseinputs required.",
+    "same_boundary_verified_before_failure": "P1Priority/pass0/windowACTION/combatclosed, all4HP/R/APinclP4HP19/P1R2/AP0, allDQsempty/paymentclear, Stack0, physicalSword6stillWeaponsused/ownCtl1/Damage0, actualBlue7Pitch/ownCtl1, P1Chain0, P4Equipmentcount1 andsameBoots5CardID/UID5/OwnerCtl4/ReadyDamage0 allpassedbeforeCountersqueryfailed1.",
+    "unrun_query_examples": [
+      {
+        "source_step": 58,
+        "check_index": 52,
+        "ordinal": 2539,
+        "assertion": {
+          "step": 29,
+          "source_step": 58,
+          "source_check_index": 52,
+          "type": "zone_count",
+          "zone": "p4Graveyard",
+          "value": 0,
+          "viewerPlayerID": 1
+        }
+      },
+      {
+        "source_step": 58,
+        "check_index": 53,
+        "ordinal": 2540,
+        "assertion": {
+          "step": 29,
+          "source_step": 58,
+          "source_check_index": 53,
+          "type": "zone_count",
+          "zone": "p4CombatChain",
+          "value": 0,
+          "viewerPlayerID": 1
+        }
+      },
+      {
+        "source_step": 58,
+        "check_index": 55,
+        "ordinal": 2542,
+        "assertion": {
+          "step": 29,
+          "source_step": 58,
+          "source_check_index": 55,
+          "type": "scalar_zone_equals",
+          "zone": "UniqueIDCounter",
+          "value": 8,
+          "viewerPlayerID": 1
+        }
+      },
+      {
+        "source_step": 58,
+        "check_index": 56,
+        "ordinal": 2543,
+        "assertion": {
+          "step": 29,
+          "source_step": 58,
+          "source_check_index": 56,
+          "type": "scalar_zone_equals",
+          "zone": "RandomCounter",
+          "value": 0,
+          "viewerPlayerID": 1
+        }
+      },
+      {
+        "source_step": 58,
+        "check_index": 65,
+        "ordinal": 2552,
+        "assertion": {
+          "step": 29,
+          "source_step": 58,
+          "source_check_index": 65,
+          "type": "game_state_field",
+          "rootName": "FaBSim",
+          "path": [
+            "resolvingReaction"
+          ],
+          "comparison": "missing_or_null",
+          "viewerPlayerID": 1
+        }
+      },
+      {
+        "source_step": 59,
+        "check_index": 0,
+        "ordinal": 2557,
+        "assertion": {
+          "step": 29,
+          "source_step": 59,
+          "source_check_index": 0,
+          "type": "scalar_zone_equals",
+          "zone": "SeatOrder",
+          "value": 1234,
+          "viewerPlayerID": 1
+        }
+      }
+    ],
+    "unrun_limit": "P4Graveyard0/P4Chain0/counter8/RNG/finalresolvingReaction-null and entirefullfinalendpointblock comeafterfirstfailure. Their expectedvalues arenotindependentlycapturedpostfailurefacts. All29inputsran but147laterchecks didnot. No completepostfailurephysicalinventory/awaitsnapshot/final48prefs or UIDconservation certification."
+  },
+  "classification": {
+    "category": "NATIVE_GAMEPLAY_CONDITIONAL_DEFENSE_LOST_BEFORE_GUARDWELL_CLOSE_WEAR_CALCULATION",
+    "protocol_or_oracle_error_at_first_failure": false,
+    "native_confirmed": "Correcttwo-counterGuardwellqueryreadsone onsamephysicalBoots5 after itreturned toEquipment. IndependentlypassedrealDEF2/1damage/HP19 andsameunwornBootsdefendingWeaponthroughResolution ruleoutmissingstaticbonusduringdamage orwrongdefendertransport.",
+    "normative": "CurrentCR8.3.34 and7.7.1/3\u20135 resolveClosewearbeforeequipmentpermanentsreturn; sourcecontinuesdefendinguntilleavesChain(7.0.5a). Boots thereforehasDEF2 whenGuardwellresolves andmustget2. Guardwelldoesnotdestroy. OfficialRewindsBladeBeckonerweaponexampleexplicitlycorrectsonecountertotwo. No expectationadaptation.",
+    "bounded_source_cause_derived_not_instrumented": "FaBCloseCombatChain loopsseatorder1234: seat1weaponATTACKproxy8 ismarkedremoved beforeseat4BootsFaBHVYClose executes. GuardwellcallsFaBCurrentDefense\u2192FaBWTRDefenseModifier\u2192FaBHNTDefense, whichqueriesFaBFindUID(state.attackUID8). ActualUIDfinder skipsremovedobjects; conditionalWeapon+1 isthereforenolongeravailableduringlaterseatwearcalculation, leavingprinted1. This is an actualsource-derived ordering explanation, not a separatelyinstrumentedcallback/getterresult or proofallseatarrangementsfail.",
+    "attribution": "BoundedsharedClose/currentattack-informationlifetime concern. Rootallocates131; no broaderCore/globalroot/corpusclassification orsourcefix proposed."
+  },
+  "expected": "CurrentCR8.3.34 and7.7.1/3\u20135 resolveClosewearbeforeequipmentpermanentsreturn; sourcecontinuesdefendinguntilleavesChain(7.0.5a). Boots thereforehasDEF2 whenGuardwellresolves andmustget2. Guardwelldoesnotdestroy. OfficialRewindsBladeBeckonerweaponexampleexplicitlycorrectsonecountertotwo. No expectationadaptation.",
+  "observed": "All29 inputs/25 manual inputs executed.2536 checks passed, including real defense2/damage1/HP19 and same physical Boots5 returned owned/ready to Equipment. Assertion2537 then expected DEFENSE2 wear counters but observed1. Later147 checks, including P4 Chain-empty/full endpoint block, were unrun.",
+  "source_evidence": {
+    "files": {
+      "FaBSim\\Custom\\GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim\\Custom\\HNTRuntime.php": "10907fc83993394946e489e3395fd2c1278a4784ce0a98391495231872b546d5",
+      "FaBSim\\Custom\\HVYCards.php": "aeee5080ba3096b2413fd1fbf33aa8d8f24685d219e13c8b942dda45f0c66c7d",
+      "FaBSim\\Custom\\WTRCards.php": "eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517"
+    },
+    "anchors": [
+      "GameLogic2095 FaBCloseCombatChain seatwise loop and weaponproxyremoved beforelaterseatwear",
+      "GameLogic616 FaBFindUID skipsremoved",
+      "GameLogic351 FaBCurrentDefense \u2192 WTRCards703 FaBWTRDefenseModifier",
+      "HNTRuntime74 conditionalWeaponrequiresliveFindUID",
+      "HVYCards169 GuardwelladdscurrentDefense"
+    ],
+    "engine_or_helper_execution_claimed": false
+  },
+  "native_evidence": {
+    "native_recording_results": {
+      "path": "card-regression-batch490.recording-results.json",
+      "sha256": "2de59ed755973f5bb7cf5cdf3145a77da8c8101ba978bd660236612f29a20b63"
+    },
+    "immutable_native_archive": {
+      "path": "recording-runs/card-regression-batch490-20261105T170636Z-6aecb79c70c14.json",
+      "sha256": "eaed91e19b9696ff819de56c74ae6de8c09b66b2d58468e0e64668128f7b83e1"
+    }
+  },
+  "source_expectation_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch490-independent-source-review.json",
+    "sha256": "6fb8f779f376fbdf90a93ac3ae3f235471406f9fc96a024b51fc9895bd55206f",
+    "strict29inputs2684checks_two_counter_expectation_unchanged": true
+  },
+  "primary_sources": [
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.34"
+      ],
+      "finding": "Guardwell count determined by currentdefense as chaincloses."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "rules": [
+        "7.0.5a",
+        "7.7.1",
+        "7.7.3",
+        "7.7.4",
+        "7.7.5"
+      ],
+      "finding": "CarddefendsuntilleavingChain; noClosepriority; wear resolvesbeforeequippedpermanentsreturn."
+    },
+    {
+      "url": "https://blog.judge.fabtcg.com/blog/2025/03/19/rewinds/",
+      "finding": "OfficialexplicitBladeBeckonerweaponblockcounterexample establishes two\u2212DEFcounters, notone."
+    }
+  ],
+  "limits": [
+    "OnecorrectBootsweaponblock/Closepartialprobe; no passingfixture/coverage. Firstfailureatfinalwearcounterafterall29inputs;147orderedchecks unrun. PhysicalBootsreturn/identityreadpassed butcompletefinalinventoryandfuturegameplaynotcertified.",
+    "No secondblock/AAfalsecondition/otherBeckonerpiece/otherwear/Hero/Swordprimary/siblings/control/nativevariant/globalRoot/Corecredit. AdjacentDrop source/protocolhold staysunattempted, no case/bug/coverage.",
+    "No sourcefix/rerun/companion/PHP/native/replay/R/source/service/gen/fullsuite/remote/deniedretry byreviewer. Originalstrict2-counterexpectationandallphysicaldamageassertionspreserved."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "source_application_attempted": false,
+  "denied_repair_retried": false,
+  "new_core_root": false,
+  "new_distinct_gameplay_root_group": false,
+  "created_utc": "2026-11-05T17:11:45.362511+00:00"
+}

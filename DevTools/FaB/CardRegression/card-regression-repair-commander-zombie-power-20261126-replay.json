@@ -1,0 +1,40 @@
+{
+  "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+  "fixtures": [
+    {
+      "slug": "repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+      "passed": true,
+      "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-restless-commander-four-live-20261126-controlled-zombie-real-four-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\commander228\\strict1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "994eb308c863587f575af06b59ec35076d045f2a7ca10989af54df84cd2db43f",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+      "passed": true,
+      "runtime": "511ee9453270a3ff2d4326d3276ddba8b0fb1448238529de766e940751956c17",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-war-cry-themis-yellow-four-live-20261126-empty-soul-owned-attack-layer-eight-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\commander228\\strict2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "4df6a43d2b3b9168a927b6b180ea3b6cdc1f96b29d47650df26d58d985fc65d2",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-geyser-of-seismic-stirrings-red-four-live-sparse1309-real-three-entry-energy-and-earned-action-refund-funds-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-geyser-of-seismic-stirrings-red-four-live-sparse1309-real-three-entry-energy-and-earned-action-refund-funds-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1309-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1309-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e3ee79081c0d40120648b2c3d3b4ffc1f1d9f64557171d5498720597bd9c18a2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7602342f9ba7c5a16a01ed6c810ef7ae23c46dd3ac9a82cf1fe8cdbb56adc86e",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "69823b95f4e8dedbf91f48cc2cc635611cb0da99868361672eb78c4d7927f994",
+        "expected_final_gamestate.txt": "ab6a4b146515f52e2b1fd36ff4c3098261a1d602705e359a805390b40bdb929a",
+        "meta.json": "5dddf75dfbbe1f0f0e1a65be9265c05753b3185d760ef73fee015fe81bd8899e"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

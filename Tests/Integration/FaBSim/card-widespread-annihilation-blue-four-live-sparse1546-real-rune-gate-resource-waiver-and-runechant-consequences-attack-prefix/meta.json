@@ -1,0 +1,7 @@
+{
+    "name": "Widespread Annihilation / actual Rune Gate permission and resource waiver, Attack prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T13:16:51+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_VYNNSET20_THREEDORI20. Ownreal4Runechants5..8Arena andfaceupprimary9Banish, emptyHand/zeroR. Printedcost4cannotbepaidnormally, exactRuneGatecountthreshold permitsnativeBanishplayandwaivesresourcecost(CR8.3.27). FormaladjacentHero4attacktargetbeforepayment; realAP1to0/R0/primaryphysicalStackfromBanish. RunesarenotRuneGatecostandremainArena; actualAAplaythenearnsexactly4separateRunechantTRIGGERproxies10..13withSource5..8, alltargHero4declaredbeforeresponses. Freshall4roundperRunechantdeals1arcaneanddestroys/ceasesitsToken; total4arcaneHP4=16, GY0. Freshfinalall4roundresolvesactualprimarytoCC1RoleATTACK/FromBanish/basepower6/noGA. ATTACKPREFIXendpointonly: StackDQpaymentquiet, sourceUID9, RNG0/UID13/AP0R0, allrunestokens/proxiesgone. Futureprimaryphysicaldamage/defense/chainclosecallback/BloodDebtandpitchsiblingsUNRUN_UNCREDITED; noeffectfromthesebranchesblessed. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#widespread_annihilation_blue FaBSim/Custom/DTDCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

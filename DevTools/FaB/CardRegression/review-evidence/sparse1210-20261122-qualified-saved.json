@@ -1,0 +1,92 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1210-20261122.json",
+  "source_spec_sha256": "8037eb415aa056f2a12ad2d8d013222396ca38194db3f0c0e553f253a8785912",
+  "input_sha256": "8037eb415aa056f2a12ad2d8d013222396ca38194db3f0c0e553f253a8785912",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-barbed-barrage-red-four-live-sparse1210-real-additional-three-cost-two-declared-heroes-each-take-five",
+      "card_id": "barbed_barrage_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "504bed72bf374bec935e5b4733571b3c719181291f7004a3f27c5a12f69c916b",
+        "actions.json": "1f9eecf4e95310f2d126bc82e356ca74fe95395db9a281beff3df342b45b1796",
+        "assertions.json": "16757e4923179a0d6583aa22ad8c8dbecdd8938bfc03ce69559ca55bf289aa78",
+        "expected_final_gamestate.txt": "356816ad447842d10423e00302fe649f76b45451293a97b6ab3a3c475c11e1ac",
+        "meta.json": "26be4d6ee62ef6c4fb02d42e280deb45201f7afdc6f1f3080e8d98d55bc7530a"
+      },
+      "fixture_sha256": "0380299b5d4f42afbec4c00d48220d97b7913c178d6860e892744b5a01397c36",
+      "actions": 32,
+      "native_assertions": 400,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 26,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1210-20261122.json",
+      "input_sha256": "8037eb415aa056f2a12ad2d8d013222396ca38194db3f0c0e553f253a8785912",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1210-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-barbed-barrage-red-four-live-sparse1210-real-additional-three-cost-two-declared-heroes-each-take-five",
+        "fixture_slug": "card-barbed-barrage-red-four-live-sparse1210-real-additional-three-cost-two-declared-heroes-each-take-five",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "8037eb415aa056f2a12ad2d8d013222396ca38194db3f0c0e553f253a8785912",
+    "case_count": 1,
+    "native_controls": 32,
+    "persistable_assertions": 400,
+    "author_only_checks_omitted": 0,
+    "card_id": "barbed_barrage_red",
+    "group_id": "identity:barbed_barrage_red",
+    "basis": [
+      "Exact corrected frozen packet reviewed: legal young Azalea20/threeDorinthea20, physical Arrow5facedownArsenal1, required ready DeathDealer6 and two real Bluefuel7/8Hand1. Printed power5/basecost1/additional optional resource3 are current-cache exact. Group is unrepresented and both exact/sibling hold/issue checks were clear before this source-only ordering finding.",
+      "First actual formal Hero2 declaration precedes payment. Exact Prepare binding9199/runner ee52928e4e1187139cd5 stores actor/source/choice state and offers Decline&Pay_three before assets. Selecting1 offers only remaining legal adjacent Hero4, and SEACards113-115 captures actual targets[2,4] then adds3 to pending base1 before FinishPrepared. This is additional resource-cost/target declaration, with no early card movement/reveal, X or delayed formal-target dependency.",
+      "First real Blue3 is insufficient for4 and leaves PITCH/R3/AP1. Second real Blue3 pays4 toR2/AP0 before four actual live source responses1/2/3/4. Real source5 remains ownedStack; no proxy/borrowed floating resource is used. Actual attack remains printed5 with GAfalse.",
+      "Current CR7.3.2f requires clockwise defense from attacker;7.5.2c requires clockwise damage. The new legitimate declaration order[2,4] matches both. MultiTargetCombat7-16 therefore exposes real DEFEND_DECLARE2 index0 then4 index1; subsequent attack/defense/reaction/damage/resolution use genuine four-seat passes. The prior unrun declaration[4,2] is not approved.",
+      "MultiTargetCombat26-51 follows actual target array[2,4] for real DoDamage2 then4. Both packets are constant power5 with no defenders, prevention, relevant damage observers, changing power or elimination. Although the source precomputes amounts, it cannot change this selected sequential outcome: actual HP2=15/HP4=15, HP1/3=20, targetDamage eachpower5/defense0/damage5 and total10/no extra layer.",
+      "Final single physical5 ownedGY1, original Bow6ready, actual7/8ownedPitch1, R2/AP0/maxUID8, empty Arsenal/Hand/CombatChains/Stack/decisions and unchanged other assets agree with the printed named branch. All400 checks normalize to persisted assertions; no author-only diagnostic or same-checkpoint literal contradiction was found.",
+      "Compared to preserved f5d079c26285acccdc31b7910242a0b159aac138f308f2e31c62aa4c37ab9901, the13-leaf correction changes first/additional target and corresponding defender2-then4 assertions plus branch/oracle/source references; printed costs, actual damage/HP and physical fates remain intact. No old native attempt occurred and no source sort/repair was made. Source-note stale target prose was separately corrected before this digest was bound."
+    ],
+    "rule_basis": {
+      "references": [
+        "CR7.3.2f",
+        "CR7.5.2c"
+      ],
+      "url": "https://rules.fabtcg.com/en/cr/07-combat/",
+      "verification": "Reuse exact official primary-rule findings supplied by Root during this review; no network action by reviewer."
+    },
+    "limits": [
+      "Only the legitimate firstHero2/additionalHero4 clockwise, undefended constant-power case. No arbitrary declaration-order, global precomputation algorithm, oppositeHero3/Ally target, changing power, prevention, response/observer ordering, elimination or simultaneous-damage correctness claim.",
+      "Preserved original4-then2 route remains source-only held/unrun and uncredited. This branch qualification would not sort targets, fix the engine or release that separate route.",
+      "No decline, other resource pitches, Bow/Hero/support identity, future second attack or full-card credit. Root native save, stored evidence validation and one clean targeted replay remain pending.",
+      "No native/PHP/T/source/framework/engine/Git/network/original-checkout action by reviewer."
+    ],
+    "source_note_sha256": "fe8a68e00d8cc17571817b78048cb780f1cbc1293724cf0c744452e81bb6f9ba",
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/MultiTargetCombat.php": "19604e6f04575fa5eb4e50a95697a8f5780c3adeaa1498de3404c32553230791",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1210-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f1f35de9b0e4f10d805a85e658b70da0422a20ebe21d47c20c2ba01941b5ec55"
+  },
+  "full_suite_run": false
+}

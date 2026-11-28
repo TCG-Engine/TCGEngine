@@ -1,0 +1,7 @@
+{
+    "name": "Ollin Ice Cap / four-live ordinary defense and keyword",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T08:09:53+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this defends together with an Ice card, create a Frostbite token under the attacking hero's control.\n\n**Blade Break** Named ordinary printedDEF1 and BladeBreak branch only. Legalnatural oldhim20 owns real primaryEquipment5 and GenericHand6. Only accompanying GenericCriticalBlue is not Ice; no other Ice defender, so together-with-Ice event is absent. ActualopponentWoundingRed7AAcost0/base4/current4/AP0, HandCriticalBlue6DEF3 +Gear1 exactlyblock4. Allfourmanualsource/combat; real0damage/HP20/noHit, normalCloseBladeBreakdestroys5owner4GYafterHand6, AA7owner1GY. No bodyevent/positivebodyeffect/hero/equipproducer/support/sibling/fullcard credit; noheldrepairs altered. Sources: FaBSim/GeneratedCode/cardArrayCache.json#ollin_ice_cap"
+}

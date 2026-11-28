@@ -1,0 +1,7 @@
+{
+    "name": "Galaxxi Black / four-live paid first attack without banished play",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T01:37:21+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Once per Turn Action** - {r}: **Attack**\n\nIf you've played a card from your banished zone this turn, this gets +2{p}.\n\nWhen this hits a hero, deal 1 arcane damage to them. Named firstattack branch: natural20ChaneShadowRuneblade, actualWeapon5/Blue6 pays1\u2192R2/AP0 andownrealBanishRiftBind8existsbutwasnotplayed. Thus staticbase1not3; actualAA7def3 fullblocks/0damage/noHit/HP4=20 andnoearnedhitArcane event. ActualcomputedattackPower1/defense3 andphysicalcost/sourceWEAPON_UID5/fates retained. No positivebanishedplay/hit/hero/support/sibling/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#galaxxi_black"
+}

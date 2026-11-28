@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch499.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T18:34:58.035110+00:00",
+  "fixtures": [
+    {
+      "slug": "card-burnished-bunkerplate-four-live-real-destroy-dr-adds-owned-arsenal-action-defender-four-damage",
+      "fixture_sha256": "2249faed62e84a3adb735cf67e689e5e876ffe4f2875f2d937421acb99455edf",
+      "passed": true,
+      "result": "[PASS] burnished_bunkerplate / four live distinctive effect"
+    },
+    {
+      "slug": "card-cloak-of-darkness-four-live-real-optional-banish-prevents-two-of-seven-physical-five-damage",
+      "fixture_sha256": "34f58ce8f4473bb1c786dc657ceb6a07623505c8fb78b9ea338f8a2d7b80a932",
+      "passed": true,
+      "result": "[PASS] cloak_of_darkness / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-burnished-bunkerplate-four-live-real-destroy-dr-adds-owned-arsenal-action-defender-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] burnished_bunkerplate / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-cloak-of-darkness-four-live-real-optional-banish-prevents-two-of-seven-physical-five-damage",
+      "returncode": 0,
+      "stdout": "[PASS] cloak_of_darkness / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

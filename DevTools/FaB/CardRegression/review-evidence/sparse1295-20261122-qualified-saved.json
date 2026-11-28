@@ -1,0 +1,157 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1295-20261122.json",
+  "source_spec_sha256": "55173063580fbccf745ca489612d98f8e06ab3b8f1257175b5bdd0dc4e8b2f5e",
+  "input_sha256": "55173063580fbccf745ca489612d98f8e06ab3b8f1257175b5bdd0dc4e8b2f5e",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "card_id": "hatchet_of_body",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "623d173f07847f2b8a6905ed2c8c4e6315414cb85ca036fa82d6f868c5bf4275",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "dd0c3956e36cfe217a09fbc53c22836117b50d6f72bdea2ded81b1b5256153b8",
+        "expected_final_gamestate.txt": "00e32dc7377667afc1556753d8fd2502cc2d6945b22a2041465958f9c0e9d1b3",
+        "meta.json": "6f2c869c4c0795fcf1ecb9f4bc19366693c3cb714b73244db3ff5c9c491bdcdb"
+      },
+      "fixture_sha256": "b38f72874b6b9efd969350be1075945069ba007634a06fac017387387acef007",
+      "actions": 34,
+      "native_assertions": 565,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1295-20261122.json",
+      "input_sha256": "55173063580fbccf745ca489612d98f8e06ab3b8f1257175b5bdd0dc4e8b2f5e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "fixture_slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "card_id": "hatchet_of_mind",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd6b1741f626ed7334f71cb450f5b863fa577c56040e2ae5aeee614ee5fa3d1a",
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "a9c1ee1ec5c150c954745ae25744cd0e0b4c542a0f6d9eeb8d103b0d4b95c79a",
+        "expected_final_gamestate.txt": "94976e39b388b09f5201b9f60ac18669f15c2348397db1e3cba4aa5dec6e7af7",
+        "meta.json": "8dad44b8b8fe1f34679234ad5f2438d85020a8a864bc7f492d6d23bca391f9a7"
+      },
+      "fixture_sha256": "7b144541715d3891fd50df00fcbc56a402894f1cc782b209fa87f5b951f80c11",
+      "actions": 34,
+      "native_assertions": 565,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1295-20261122.json",
+      "input_sha256": "55173063580fbccf745ca489612d98f8e06ab3b8f1257175b5bdd0dc4e8b2f5e",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "fixture_slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "55173063580fbccf745ca489612d98f8e06ab3b8f1257175b5bdd0dc4e8b2f5e",
+    "source_note_sha256": "c31a36619858e948ca9c2609a7e58482b8ea5b171a5f2ef15114d74cba10ca4f",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 68,
+    "query_checks": 1130,
+    "persistable_assertions": 1130,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "FIRST_ATTACK_AND_AFFORDABLE_ONCE_PER_TURN_REJECTION_ONLY",
+    "opposite_hatchet_bonus_positive_credit": false,
+    "turn_reset_credit": false,
+    "per_case": [
+      {
+        "card_id": "hatchet_of_body",
+        "group_id": "identity:hatchet_of_body",
+        "native_controls": 34,
+        "persistable_assertions": 565
+      },
+      {
+        "card_id": "hatchet_of_mind",
+        "group_id": "identity:hatchet_of_mind",
+        "native_controls": 34,
+        "persistable_assertions": 565
+      }
+    ],
+    "basis": [
+      "Two uncovered standalone WarriorAxe1H Hatchets are legal under naturalYoungKassai20 versus threeYoungDorinthea20/exact1234/manualUPF/no passives. ActualPotion5Arena/primaryHatchet6Weapons/realGenericBlue7Hand allocate correctphysicalUIDs. No attack history, extraAP or resources seeded; attacker is Kassai with no activated extraattack ability, not Dori.",
+      "PrintedPotionAction destroy cost spendsAP1to0 and removesreal5 into ownGY before virtualABI8/fourresponses. Actualresolution earns2AP. RealHatchet6 declares adjacentHero4 before payment and actualBlue7pitch3 pays printedweaponcost1, leavingR2/AP1 and usedphysical6Status1; no Sword discount applies to Axe and no draw occurs. VirtualATTACKproxy9Controller1/SourceUID6/SourceZoneWeapons is bound, while actualphysical6OwnerController1 remains; no proxyOwner assumption.",
+      "Hatchet printed When attacks, if oppositeHatchet was last attack this turn has false intervening-if on first actualattack/nooppositehistory. No modifier or responseable bonus layer is earned. Potion is not an attack. Correctprinted2power/noGA, actualunblocked2damage/HP4=18, fullmanualresponses and fullchainclose retain actualspareAP1/R2, physicalusedweapon6, fund7Pitch andPotion5GY.",
+      "Secondactualnativeclick uses same6 during sameactor1Turn2/ACTION1, emptyStack/queues/combat, realAP1 andR2 sufficient fornormal1cost. WTRCanActivate uses CRUWeaponReady gate; absent explicitextraattack permission, usedStatus1 rejects once-per-turn before target/payment/proxyallocation. Repeated fullpostlink assertions require nochange to AP/R/HP/UID9, pendingAttackTarget=null/pendingPayment=null, Stack0/queuesempty and exactphysicalfates.",
+      "Native recorder click is supported: FCRAction dispatches mode10002 FSM via EngineActionRunner, whose ActionMap call does not require game-legality returntrue. No-legal-action context returns without gameplay mutation, so a recorded click followed by persisted unchangedchecks is an observable negative test, not author-only assertion. All1130 query/state/power/go_again assertions persist across68 single native controls,34/565 each."
+    ],
+    "limits": [
+      "Semantic/source review only pending native saves and targeted replays; no native pass, replay or coverage credit claimed.",
+      "Only positivefirstuse/normalpayment/actualdamage and affordableonce-per-turnrejection. No positiveoppositeHatchet+1 or its true-trigger timing, turnreset, additionalattack grants, support identity or whole-card credit.",
+      "Only W receipt written; no native/test/replay execution, T/source/engine/registry edits, authentication/network, Git or original checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/WTRAbilities.php": "8c7b73f87e5151823dc8aab1546d7e0452e6a948e36fdf9b157d4aa5da0e2209",
+      "FaBSim/Custom/CRUCards.php": "5f0ff2122f9e033b8ad9ced75e9ee2210f459c868633f3f1741f419bc437c12d",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1295.py": "c1f4bafdc7dd2cfd7911445b62a97daec89c32a9dbe5e3c27a059536e121a82d",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1295-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "b51abd7351801570e4a59149cfbee2fbc8d963c141ddf01dcf564f40ba6ca8a4"
+  },
+  "full_suite_run": false
+}

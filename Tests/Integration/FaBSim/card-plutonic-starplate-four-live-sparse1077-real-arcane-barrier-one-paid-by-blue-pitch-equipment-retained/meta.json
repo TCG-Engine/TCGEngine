@@ -1,0 +1,7 @@
+{
+    "name": "Plutonic Starplate / four-live paid Arcane Barrier one",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T06:12:44+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "The first time you play a Lightning card during each of your opponent's turns, gain {r}.\n\n**Arcane Barrier 1** NamedpaidArcaneBarrier1only. Naturalaurora20 ownsrealreadyEquipment5/intrinsicAB1 and actualBlue7Hand; naturalVerdance20ownsWizardZap6Hand/cost0/base3. Native6playdeclaresadjacentHero4beforeAPpayment; AP1\u21920thenallfourmanualsourcepriorityresponses. Real4ABmodalchoosepay1, source6heldStack/GY0/HP4unchanged/R0/Blue7stillHand throughreplacementandrealpitchchooser. ActualBlue7pitch3pays1/R2, prevents1fromZap3anddeals2/HP4=18. Source6ownedGY1, Eq5owned4readyretained, Blue7Pitch4, nootherassets/resources/lifegain/counters/preventionseeded. Noactivatedability/otherbodyproducer/defense/Spellvoid/endphase/alternatepayments/hero/support/wholecard/sibling/oldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#plutonic_starplate"
+}

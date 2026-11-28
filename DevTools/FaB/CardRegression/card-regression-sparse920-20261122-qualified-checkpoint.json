@@ -1,0 +1,155 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-22T18:45:39.616081+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse920-20261122.json",
+  "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+  "new_scenarios": 4,
+  "new_groups": 4,
+  "new_primary_ids": 4,
+  "actions": 111,
+  "native_assertions": 508,
+  "manual_passes": 100,
+  "totals": {
+    "saved_registered_scenarios": 4404,
+    "duels": 3075,
+    "four_live": 1329,
+    "recorded_primary_ids": 1552,
+    "identity_denominator": 5196,
+    "recorded_groups": 1426,
+    "group_denominator": 3324,
+    "four_live_groups": 1318,
+    "phase_qualified_scenarios_at_actual_contexts": 1041,
+    "phase_qualified_unique_groups": 1031,
+    "creation_replay_passes": 1783,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 202,
+  "scenarios": [
+    {
+      "card_id": "call_for_backup_red",
+      "group_id": "identity:call_for_backup_red",
+      "scenario_id": "card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+      "effect_branches": [
+        "actual_seven_hand_attack_without_defended_graveyard_choice"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-call-for-backup-red-four-live-sparse920-actual-seven-hand-attack-without-defended-graveyard-choice",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "review_evidence": "review-evidence/sparse920-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb322575fa9f28b64d40e624895cd40c94f6a10bf24d57db3962a0780f9f9fbc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse920-20261122-replay.json",
+          "sha256": "82c8598a5b17648b47e1058988c197f92860c6af65b405f1a52d8b3315a4312a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "depths_of_despair_red",
+      "group_id": "pitch-cycle:depths_of_despair",
+      "scenario_id": "card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+      "effect_branches": [
+        "actual_seven_hand_attack_without_defended_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-depths-of-despair-red-four-live-sparse920-actual-seven-hand-attack-without-defended-banish",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "review_evidence": "review-evidence/sparse920-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb322575fa9f28b64d40e624895cd40c94f6a10bf24d57db3962a0780f9f9fbc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse920-20261122-replay.json",
+          "sha256": "82c8598a5b17648b47e1058988c197f92860c6af65b405f1a52d8b3315a4312a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "infuse_alloy_red",
+      "group_id": "pitch-cycle:infuse_alloy",
+      "scenario_id": "card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+      "effect_branches": [
+        "actual_four_hand_attack_without_defended_galvanize"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-infuse-alloy-red-four-live-sparse920-actual-four-hand-attack-without-defended-galvanize",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "review_evidence": "review-evidence/sparse920-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb322575fa9f28b64d40e624895cd40c94f6a10bf24d57db3962a0780f9f9fbc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse920-20261122-replay.json",
+          "sha256": "82c8598a5b17648b47e1058988c197f92860c6af65b405f1a52d8b3315a4312a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "infuse_titanium_red",
+      "group_id": "pitch-cycle:infuse_titanium",
+      "scenario_id": "card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+      "effect_branches": [
+        "actual_seven_hand_attack_without_defended_galvanize"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-infuse-titanium-red-four-live-sparse920-actual-seven-hand-attack-without-defended-galvanize",
+      "source_spec": "card-regression-sparse920-20261122.json",
+      "source_spec_sha256": "0d58b93d0d9757b5864225c1ff0b205476cb3a2e43a06698052cb3e271445790",
+      "review_evidence": "review-evidence/sparse920-20261122-qualified-saved.json",
+      "review_evidence_sha256": "bb322575fa9f28b64d40e624895cd40c94f6a10bf24d57db3962a0780f9f9fbc",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse920-20261122-replay.json",
+          "sha256": "82c8598a5b17648b47e1058988c197f92860c6af65b405f1a52d8b3315a4312a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

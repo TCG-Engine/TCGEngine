@@ -1,0 +1,143 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent cached-text/spec delta review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1061-20261122.json",
+  "source_spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+  "input_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+      "card_id": "magmatic_carapace",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "53cefb0c8781f054a55ff92e5149fcfa1c41095551270e98b441fdfd623060e0",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "650a6f1be96de784d4e23b35f6ae0cad4f0162575eca8383f94422fed936d652",
+        "expected_final_gamestate.txt": "f965a38cd1549879cd766b0f9b96742b34b101c8775a38aa2b1c38adb520884f",
+        "meta.json": "15653918d7476b0366c85e65d28743d85fe05ccf8770a24d8c9e65c326699a54"
+      },
+      "fixture_sha256": "b064a2cafed0e64335c2b19b92ab7cb0de8858e334f00f0bc0722b1621c05236",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "input_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+        "fixture_slug": "magmatic-carapace-four-live-sparse1061-real-defense-guardwell-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+      "card_id": "prizeworn_gauntlet",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "da2359220746f04fd7f558cbae8cc965b8afc843d3985f5d9c21d903f16c685a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "7d98394bad5c10b5e6d1c0389c843887954d8f878fe1af0e88bc3e9bf18f4843",
+        "expected_final_gamestate.txt": "e1f73dfb75ef6540c7c11cfa25565abc67961155f2f95c69c3e46422e21a5d45",
+        "meta.json": "5da9338840134f47f7a95b39ff2df62eb60a6d6fcae0cfe37634343bc2b73462"
+      },
+      "fixture_sha256": "06bfaaf3f63b0f5e37bfb6d170bd441f6a84825d3942850f4798c0f45212d8d4",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "input_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+        "fixture_slug": "prizeworn-gauntlet-four-live-sparse1061-real-defense-guardwell-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+      "card_id": "prizeworn_plating",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e55594c2572559eb850439350d7e10d265fdbcb54c0da44a86d0158b447c6a8d",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "31010f5847674095bbcc2d60e3e3a9c4acecf561f221477500d5f5c3ed7f00ba",
+        "expected_final_gamestate.txt": "7bfee6d86fc0884daa174129159abc95ad8d28f3723db7c426f87ba221793ca0",
+        "meta.json": "5871ba7ac2b27b20e287a53e30b0a311dce5ba4852aa66df316597f8638bd45d"
+      },
+      "fixture_sha256": "49f5d6f547af53b3ba0a9152c550d5def8101554c7e3e0d2ca96c0939ac24625",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "input_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+        "fixture_slug": "prizeworn-plating-four-live-sparse1061-real-defense-guardwell-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+      "card_id": "smoldering_scales",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "afb3b31abd96d6a3cc171143bb28bbb26cf7fe97418bf9d4423ef2b95ffdb25a",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a77e167c3eef774e969363cf78d4019b3f42c1ff452fb9be90e1c7aa34de5673",
+        "expected_final_gamestate.txt": "f1b28c7309ffc2d08b9a6ca8dbc4b5c9b52190d6e973317363812b280c50a3b7",
+        "meta.json": "cef3cba2e99244ad020d5e87aadb31c95ca4158ba906feafdfa84c5447fd982d"
+      },
+      "fixture_sha256": "e19759e0cf5976922f5f650a8e32c578e015e11d149d1440d79ff7a4d512d2d9",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1061-20261122.json",
+      "input_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+        "fixture_slug": "smoldering-scales-four-live-sparse1061-real-defense-guardwell-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "cf98d875ad6616d86dc05c63ac045108c0a8a57d7a991032b595f0b6d1e8d5e2",
+    "reviewer": "breadth_review independent cached-text/spec delta review",
+    "basis": [
+      "All four current DEF2/Guardwell and natural20 legal owners checked. Magmatic has no owned Aura play; Prizeworn Gauntlet/Plating no Wager win; Smoldering no Frostbite-creation replacement event. No activated body or owned hit/hero effect is earned. Guardian Oldhim, Warrior Dorinthea and Draconic Fai match printed class/talent.",
+      "Exact qualified1037 Beckoning controls and persisted queries after only primaryID/defenderHero/descriptions rebound: actual Eq5 DEF2+real NAA6 DEF2 versus Rhinar Club7 power4, Blue8 pays2/R1/AP0, four manual live seats, full0damage/noHit/HP20. Guardwell close adds current2 defense wear, Equipment5 remains owned with DEFENSE2/current0; NAA6 owned GGY, weapon7 used/Blue8 Pitch. No author-only diagnostics."
+    ],
+    "limits": [
+      "Ordinary defense and first Guardwell close only. No EOT reset, activated body, Aura-play/Wager/Frostbite/ownership/timing/hero/support/sibling/full-card credit or prior-hold closure. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1061-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "148409c0c657efa3f599aa63e2440cbbf98b876c5a566e4ed70cc896b8261a48"
+  },
+  "full_suite_run": false
+}

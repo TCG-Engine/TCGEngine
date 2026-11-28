@@ -1,0 +1,75 @@
+{
+  "status": "NATIVE_CONFIRMED_MISSING_TARGET_DECLARATION_NOT_PASSING_COVERAGE",
+  "issue": "FAB-REG-070",
+  "related_existing_family": "FAB-REG-035",
+  "utc": "2026-11-03T03:59:44.746083+00:00",
+  "runtime_sha256": "0d877de49c131f29c152706e14bba3368630df61c59ef475c87a84f20b6e1a66",
+  "correct_probe_source": "card-regression-batch281.json",
+  "correct_probe_sha256": "3996b87a91485c02998172e8725b027b2f512e54df9fb2251692f3e7a3c4da51",
+  "recording_archive": "recording-runs/card-regression-batch281-20261103T035357Z-6ae95ad5cd87f.json",
+  "recording_archive_sha256": "2c3772ff0c6606f0282d811b81b615341710d56fd402965736856f143a94c329",
+  "accepted_inputs": 7,
+  "first_failure": "Expected p1DecisionQueue-0.Type to equal 'MZCHOOSE', got ''.",
+  "expected": "Choose the legal cost0 attack-action target before any Lightning Press response priority; then retain the original printed+3/power7/actual7damage assertions.",
+  "observed": "LightningPress6 was accepted as a played INSTANT on Stack, with empty Params and no target decision. The combat window remains ATTACK, priority1, with no pending payment or decisions; no response action was executed after this first failed declaration gate.",
+  "actual_Stack": [
+    {
+      "CardID": "lightning_press_red",
+      "Owner": "1",
+      "Controller": "1",
+      "Kind": "INSTANT",
+      "SourceZone": "Hand",
+      "SourceUniqueID": "6",
+      "Params": "-",
+      "UniqueID": "6",
+      "TurnEffects": "-",
+      "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0="
+    }
+  ],
+  "actual_target_combat_chain": [
+    {
+      "CardID": "wounding_blow_red",
+      "Status": "2",
+      "Owner": "1",
+      "Controller": "1",
+      "Damage": "0",
+      "UniqueID": "5",
+      "TurnEffects": "-",
+      "Counters": "eyJGQUJfUExBWV9PUkRFUiI6MX0=",
+      "Role": "ATTACK",
+      "ChainLink": "1",
+      "FromZone": "Hand"
+    }
+  ],
+  "state_core": {
+    "window": "ATTACK",
+    "combatStep": "ATTACK",
+    "chainLink": 1,
+    "pendingPayment": null,
+    "resolvingReaction": null
+  },
+  "actual_all_health": {
+    "1": "20",
+    "2": "20",
+    "3": "20",
+    "4": "20"
+  },
+  "actual_priority": "1",
+  "all_queues": {
+    "1": [],
+    "2": [],
+    "3": [],
+    "4": []
+  },
+  "private_diagnostic_receipt_sha256": "3cbb8b84030c6b810b8c8a39377611454580c51277ec3f4af3b00b5545838d1b",
+  "passing_fixture_saved": false,
+  "coverage_credit": false,
+  "fix_applied": false,
+  "limits": [
+    "Only target-declaration failure is confirmed.",
+    "Subsequent target answer, +3 effect, final seven damage and asynchronous resolution lifetime were never reached and are not validated.",
+    "No sibling, new global infrastructure root, native fault-control or passing coverage credit.",
+    "All gameplay source repairs remain pending human authorization; this action records evidence only.",
+    "The observed engine window label is ATTACK, not PRIORITY; the probe intentionally does not constrain this private window during declaration."
+  ]
+}

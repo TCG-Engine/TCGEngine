@@ -1,0 +1,117 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1312-20261122.json",
+  "source_spec_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+  "input_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+      "card_id": "star_struck_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "922dce0739fecb3228b14eb02f2852685c50d100480f10904829c8a432e22ac6",
+        "actions.json": "e4668dbb4154c8c0630bdda170c3a71a780f02575bd68091d395bc461aa6eb92",
+        "assertions.json": "60f0a32494782c791baedd75b00f798689e1c3a9ee4430431508adbed3f6081b",
+        "expected_final_gamestate.txt": "23e1b41a8fa340ca80e9ec12292264be068a0d5f439377fe452c03986d8c7efb",
+        "meta.json": "ddc80e736bc4c202cddf1f76806912fcb1736758b9e6cacb9cd19a854580a939"
+      },
+      "fixture_sha256": "dfe461c3820ee1087282ee44ef91e3597dc0b89e555cb8ea600f4167e6005144",
+      "actions": 69,
+      "native_assertions": 582,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 58,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1312-20261122.json",
+      "input_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {
+        "9": "p4CombatChain-0"
+      },
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1312-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+        "fixture_slug": "card-star-struck-yellow-four-live-sparse1312-three-damage-below-crush-allows-real-two-power-attack-next-turn",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "d44407b40aa82c4807611eabb8d9ab15e3213a2a21721681c1e59448ef9dc642",
+    "source_note_sha256": "78b9fe48764efb6ca0d7bc44ca05c8fdba5d3562371ca4169866bed9c66c4cc0",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 69,
+    "query_checks": 582,
+    "persistable_assertions": 582,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "SUB_THRESHOLD_CRUSH_WITH_ACTUAL_NEXT_TURN_LOW_POWER_PERMISSION",
+    "per_case": [
+      {
+        "card_id": "star_struck_yellow",
+        "group_id": "identity:star_struck_yellow",
+        "native_controls": 69,
+        "persistable_assertions": 582
+      }
+    ],
+    "basis": [
+      "Fresh unrepresented standalone Star Struck Yellow, no exact source hold. Printed Bravo Specialization is legal under natural Young Bravo20 seat4; other seats are natural Young Dorinthea20. Recorder explicitly supports four-live turnPlayer4/priority4 and AP array0,0,0,1. Adapted initial helper checks match these actual setup fields; four heroes1..4 then source5/funders6,7,8/Helm9/defenders10,11/control12. Actor4 targets adjacent Hero1 and all manual response cycles use4,1,2,3.",
+      "Printed normal cost7 is paid by actual Blue3+Blue3+Red1 funders, with intermediate R0/3/6 and AP1 until payment; afterwards R0/AP0. Printed10 power minus real Ironrot1 and two real Hand defenders3 each gives3 actual Hero damage, below four-damage Crush event. Compiled Hit30922 guards Hero hit and amount>=4 before adding DTD_STAR. No threshold event earned; no Unity event because primary is attacking, not defending. Positive threshold trigger timing is not certified.",
+      "Physical same source5 goes own graveyard4; genuine Blade Break Ironrot9 and Hand defenders10/11 go own graveyard1 in declaration order, preserving next-turn Wounding Blue12 Hand1. After normal close, explicit cyclic ACTION and END_PHASE passes progress real turn cleanup, not a state mutation. GameLogic3044+ queues actual three-card pitch MZREARRANGE; order Blue,Blue,Red consumes duplicate IDs by original UID FIFO via3066+. Return Pitch before refill and actual draw3 places original6/7/8 Hand4; no starting-turn1 whole-table refill applies at Turn2. Live successor seat4 to1 yields Turn3/Actor1/AP1.",
+      "Actual cost0/base2 Wounding12 then declares Hero4 and all four fresh response/combat rounds resolve two real damage/HP4=18. Its power2 is not greater than previous Star damage3, so accepted observable play and damage exclude an unearned next-turn Star restriction. DTDCards90 would reject such an attack if DTD_STAR existed during its affected own turn. No artificial permission flags or internal restriction assertion substitutes for play. Final original12 appends own graveyard1 index3, preserved original funders Hand4 and exact AP/resources/health/UID12/RNG0/empty Stack decisions combat are coherent. All582 assertions across69 controls are persistable."
+    ],
+    "limits": [
+      "Semantic/source review only pending native save/replay; no native pass or coverage credit claimed. Correct strict cost/damage/turn/physical assertions must remain unchanged on failure.",
+      "Only below-threshold Crush with actual next-turn low-power permission witness. Positive Crush restriction/timing, Unity, other pitches, Hero/control/support identities and full-card coverage remain untested.",
+      "Only this W receipt written. No games/tests/replays, T/engine/original checkout edits or access, auth/network, or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1312.py": "f3f67e80df7341e7f9eed03398507b5527cffa25c5c3f72df45467bd5d2f1fca",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "positive_crush_credit": false,
+    "unity_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1312-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f0467453211759aa5ed85a2d5bb3d1ea469a1c9088f956ee89790493224b7195"
+  },
+  "full_suite_run": false
+}

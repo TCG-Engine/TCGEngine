@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-pleiades-four-live-sparse1130-actual-suspense-cost-and-source-held-counter-addition",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-pleiades-four-live-sparse1130-actual-suspense-cost-and-source-held-counter-addition",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1130-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1130-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7829260482ea5ed1fd60f5086d8b0e061c790d161681b1aa286d63e57067347e",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f75a6c525a2e9fafeee8e5c57849b1c350bc728afd3ffa8f94a26090dbbea6a8",
+        "actions.json": "484e67cf20b982e52579570a1af0b4ddc6d83c2e78c22b0977aa51c1a734f22e",
+        "assertions.json": "53935a4e2c174118609dea05d57833c1f6a52f785a3df9a370c7859c7f3443d6",
+        "expected_final_gamestate.txt": "b1a24abf97ca32ed54179ec44405079bfe717d4fd6ec345c46cd8b0d70ddcd71",
+        "meta.json": "529007ef582130c4af8e99f25cf4a126c603cc0d4c5e53d62dc03bec101ffdcb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

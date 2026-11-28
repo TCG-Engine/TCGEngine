@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-anticipating-gaze-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-anticipating-gaze-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "123ca43687bbfa0ac6e51d0a6d94c15da0756963e4d4b28e23aa01defbeb11db",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "6ce6789f3467e741c82f1a456c0dd806131e10290c3474069225f2f7ecdc86a8",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "375dfeca7ff6c8e2e312577bb8f5dbbe9dc1cce7358f84f45c7e9e611355e587",
+        "expected_final_gamestate.txt": "6b576668e84b806fed007d88642e421392bbb0757a3a73f0e0033e3cfb93c103",
+        "meta.json": "26dab2fff0ee9b441423c73a0b0b8bbefc271172ea6e47ef0c211342cbd34a1c"
+      }
+    },
+    {
+      "slug": "card-breeze-rider-boots-four-live-sparse1040-actual-armor-block-and-battleworn-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-breeze-rider-boots-four-live-sparse1040-actual-armor-block-and-battleworn-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9bf075d61bf6f13db6be3eca28c39905c90182483518c1860ebd52709bc66b62",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e9ceeb489ba2d04885dc32a8a733e5e744b68f31cd59210e8d342dd4f7405da6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "d1a266717618cf2a5a493a396f9184325212eea456c123b503d9f833b7155ee9",
+        "expected_final_gamestate.txt": "62872a0597308605007edefdb66c0754512726fc8350023386f7f01bcb96b1fd",
+        "meta.json": "e328549c3c435de8f1b8b0d01d8f872a24a9e2a2da69ebf514b7650b81f44cf4"
+      }
+    },
+    {
+      "slug": "card-twelve-petal-kasaya-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-twelve-petal-kasaya-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "690077e54844fb0ad5d4568655926acd82c9dbe30eee56460c53dcc824d6ecf5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "265fcf6fc3aa25f155b4243ab6e86340450e184b08bb9e9883ea9a713e8be048",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "dddd74a1fe01e753d27717c8006a0f56dbccd79df6ed421f6bc51ef0a74e516e",
+        "expected_final_gamestate.txt": "144fd1ea5b0491c9c1d8c570dc7514a1803341380800db5b1c3d1b2d61d307e6",
+        "meta.json": "119c4acf263c0cba392857ef5baec1b3d0323a5ad2a7b8a52e543d7fc75a7c91"
+      }
+    },
+    {
+      "slug": "card-vestige-of-sol-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vestige-of-sol-four-live-sparse1040-actual-armor-block-and-blade-break-close",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1040-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "576eb49241bd87d4002d081834bfd9aa9390c7bcde002937a2bc2a51bbeade09",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "972e9ec1813da2a7c87fe6ad72d48d431851314fb6ca190ab7e295d9f6bec528",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "1328883cad6f3d3eadd0b54c3ecbbb56b538fe2a3a436af17da30ebf7060690b",
+        "expected_final_gamestate.txt": "56c5a0098d768b32215da7338a23426fe5de6c120194ebcb0ce7b620367551da",
+        "meta.json": "6073a9e419c66b0a20628eb2da3f635c2a4cbedd84827e52a58ad1fd346c2eea"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

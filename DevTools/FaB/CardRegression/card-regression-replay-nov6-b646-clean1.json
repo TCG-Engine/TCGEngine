@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch646.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T21:23:51.750168+00:00",
+  "fixtures": [
+    {
+      "slug": "card-overbearing-presence-four-live-real-six-power-pitch-three-vigor-and-go-again-consumer",
+      "fixture_sha256": "d79cfb9ac817a0cc6a9202378da090964b583c937da6b1d226915491b7f6c59c",
+      "passed": true,
+      "result": "[PASS] overbearing_presence / four live distinctive effect"
+    },
+    {
+      "slug": "card-havoc-wrap-four-live-real-tap-current-card-cost-discount-and-persistent-carrier",
+      "fixture_sha256": "f7df44f6dd8a77f399dbb370473cef9fb1c51c847809636d3405e9b322b743e2",
+      "passed": true,
+      "result": "[PASS] havoc_wrap / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-overbearing-presence-four-live-real-six-power-pitch-three-vigor-and-go-again-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] overbearing_presence / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-havoc-wrap-four-live-real-tap-current-card-cost-discount-and-persistent-carrier",
+      "returncode": 0,
+      "stdout": "[PASS] havoc_wrap / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

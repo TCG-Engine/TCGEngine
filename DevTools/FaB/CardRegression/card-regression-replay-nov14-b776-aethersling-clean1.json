@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch776-aethersling-full-managed.json",
+  "runtime_sha256": "50bd28fa11b34fdf78c3759086009f7ffb036fc04158c3588f5a538babc48ce0",
+  "returncode": 0,
+  "completed_utc": "2026-11-14T01:32:27.535830+00:00",
+  "fixtures": [
+    {
+      "slug": "card-aethersling-red-four-live-declared-target-arcane-tap-earned-action-real-consumer",
+      "fixture_sha256": "e77f59ba2d3d66b642385476c4a2ffed10cfe526b58ae96965c1e548dd88a5e8",
+      "passed": true,
+      "result": "[PASS] Aethersling / full strict declaration, tap and earned-action consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-aethersling-red-four-live-declared-target-arcane-tap-earned-action-real-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Aethersling / full strict declaration, tap and earned-action consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

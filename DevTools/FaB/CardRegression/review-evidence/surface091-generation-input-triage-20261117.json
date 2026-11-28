@@ -1,0 +1,34 @@
+{
+  "status": "SURFACE091_UNAPPLIED_GENERATION_INPUT_TRIAGE",
+  "utc": "2026-11-17T03:08:21.128729+00:00",
+  "source_and_generation_applied": false,
+  "emitter_invoked": false,
+  "service_retried": false,
+  "endpoint": "https://soulmastersdb.net/TCGEngine/CardEditor/API/CardCodeService.php",
+  "latest_configured_snapshot_read_evidence": "review-evidence/pox147-service-http403-block-20261116.json",
+  "latest_read_result": "HTTP403 on configured snapshot service, recorded during147, not a new091 request.",
+  "cached_input": {
+    "canonical_path": "DevTools/FaB/sea_abilities.json",
+    "canonical_sha256": "6e6916ff797cb956d9cce2018dc151644d26644d9b803482f04fd91094258c78",
+    "normalized_bodies": {
+      "ResolveCard": "dff02840fbae34aeb0d08dac556239f5fe5cb39e15b51774de5b654d8a4a69e8",
+      "ResolveAbility": "82032264511c01794c3c4aa29da92774c03968c883496fbb0473eaad3a3735f6"
+    },
+    "matches_historical_remote_verified_hashes": true,
+    "historical_read_receipt": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-surface091-protected-read-root\\receipt.json",
+    "historical_read_receipt_sha256": "75bc92111286ec45df30916e8163cb49d3184a63b856c3f436f2293bbfa8a657",
+    "raw_root_snapshot_cached": false
+  },
+  "source_trace": {
+    "CardEditor/Database/CardAbilityRepository.php": {
+      "sha256": "fd511443a291c6aa08c01812d4020a70b4a00eba3cfc67fafc1d8f82e73c8552",
+      "contract": "OpenCardAbilityRepository selects configured Remote repository; otherwise local MySQL. No canonical JSON/snapshot-file repository selector is exposed in inspected factory."
+    },
+    "zzGameCodeGenerator.php": {
+      "sha256": "f4066fb8104d8c43610635d879f6307e8d2ce61b4179ef6ee51ef053245d16f4",
+      "contract": "Macro emission opens the selected repository for the root, so two cached canonical bodies do not provide the complete configured repository input."
+    }
+  },
+  "limitation": "Unlike147 raw-body identity,091 two normalized bodies are recoverable and match the old remote read. This is not proof of current remote revision or a complete offline generation route. Local MySQL is a supported alternative but its availability/data were not investigated or changed. No emitter/source/remote write was attempted.",
+  "needed": "Restore authorized configured snapshot read access, or establish a valid supported local repository with reviewed inputs before guarded emission. Do not hand-edit generated output or substitute guessed remote rows."
+}

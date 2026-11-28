@@ -1,0 +1,172 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent source/semantic review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse972-20261122.json",
+  "source_spec_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+  "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-flowing-stormstrike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+      "card_id": "flowing_stormstrike_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ddfe29fc3aa7be58bdf136d4928725a597c6e8fcf994ed0cb8ada22b14373069",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "35d37d55ce1917f3bb639e7b515d5605e84de027a5ff8f82915bc3918d8b80c1",
+        "expected_final_gamestate.txt": "9570d78ecaa9320294981a228c59ff7758b143d86c7069ae2ba8069355a0bd88",
+        "meta.json": "91da2269b45f772051b6ae56fa56db8f1a40a47357337941c5b6ebd78415f4a4"
+      },
+      "fixture_sha256": "002cd0909c50ec4d25d1c7ce733e3a4a5b6e9f7e63c3cdae377dc4b9c15232b9",
+      "actions": 29,
+      "native_assertions": 155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse972-20261122.json",
+      "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flowing-stormstrike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "fixture_slug": "card-flowing-stormstrike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-meteoric-rise-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+      "card_id": "meteoric_rise_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "df627fb12265c053434ae85cc949e10ff4e8cf305bebb6f14d1994765668277e",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "740444e9e433020e844eb27a8f194d7fbe4b975dcf095b288a95d1564168c61a",
+        "expected_final_gamestate.txt": "915173062678d08f58d3ddbab9e443b574573a7a00dd82e77a6016905c087d3f",
+        "meta.json": "db0161f22c663031feec5a00c5fc159e00c0f741c6e5d467c973abbcdd6fed21"
+      },
+      "fixture_sha256": "fb0706b6c3b331b8923de3542359f3205e56080d74f57cd680f8e83384424121",
+      "actions": 30,
+      "native_assertions": 177,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse972-20261122.json",
+      "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-meteoric-rise-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "fixture_slug": "card-meteoric-rise-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-voltic-impact-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+      "card_id": "voltic_impact_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0bae803e7cacd9436c1bfcf26eb688386756db699d06e179004fd2e4378e25c7",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "31bbfa82a875fb548559e9cc5d669be76739937485a73221343d79a17a09f3ef",
+        "expected_final_gamestate.txt": "59d51c2d5f7dd21e45b6fa44703e488c3e2e7d68df9939d82e5c285cfc4fa380",
+        "meta.json": "f5bb9cb452e694eb0517972937a0d55253d658ac0f22faf945828ea45e981721"
+      },
+      "fixture_sha256": "d8103d48f88c5360a6b18adf62ea619181d95cc6f9698f65456fcf343a0207c4",
+      "actions": 30,
+      "native_assertions": 177,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse972-20261122.json",
+      "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-voltic-impact-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "fixture_slug": "card-voltic-impact-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-flittering-spike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+      "card_id": "flittering_spike_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d2b9ec2fcfa87c6d3ec0ad97ed06cdeafe1755d87c00ac3aaeefb481d71e2081",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "3a9bcd88a746395908535fb547bda651b0a8fd708dc1275d628d8b857112f48f",
+        "expected_final_gamestate.txt": "07d94202567af56376a248d23836dd7e1208756b63a2aee6b74897f6bd31ac0e",
+        "meta.json": "1308332a41db1d3f8381397c661d1d4c1ae46d005d12d0f80da83b86a2923cad"
+      },
+      "fixture_sha256": "9fe2cbb77cad7a7214b6ae1eeb8ba5997c8eacfed9f52c148e08dab12192c6c4",
+      "actions": 30,
+      "native_assertions": 177,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse972-20261122.json",
+      "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-flittering-spike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "fixture_slug": "card-flittering-spike-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-destructive-fleetfoot-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+      "card_id": "destructive_fleetfoot_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5dc19f6745826292b1d5c6145d8ac65507b763df2209a751bfe6d35393fb646c",
+        "actions.json": "5af67ec73dd5988db1a058227e5dcccf44c896ddc4b34170fb8eb2fb4f3ccefb",
+        "assertions.json": "0701322b8842c4f31d38a3cadabdf7e44e5bd8600a5d3ce462c79b94ceda5673",
+        "expected_final_gamestate.txt": "11d5c4bc3ee1a5b6d984c65e735826f1d295a5f156304a7c4105cd981d18f7ee",
+        "meta.json": "44e7e8dce1c2430b5e7950c7b4c89ba3d153874cd5ddd64321bf3d4b9eb51b5f"
+      },
+      "fixture_sha256": "062c68e85c3d9ad2ecef3de48e6b11f01dc5ecb11adb18ea76d2a93391671832",
+      "actions": 28,
+      "native_assertions": 153,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse972-20261122.json",
+      "input_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-destructive-fleetfoot-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "fixture_slug": "card-destructive-fleetfoot-red-four-live-sparse972-actual-lightning-hand-play-full-block-without-instant-or-go-again-bonus",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "2b3806714535f33458e5b2141d2d06debed74589dc5fe810751f46e07694d623",
+    "reviewer": "breadth_review independent source/semantic review",
+    "basis": [
+      "Cached Aurora20 Elemental Runeblade has printed Essence of Lightning, so both plain Lightning attacks and Lightning Runeblade Fleetfoot are legal; not inferred from a nonexistent raw Lightning hero type. Costs0/1/2/1/0 match, actual Blue6 for positive costs leavesR0/2/1/2/0 and AP0. Initial natural HP20, counts and physical UIDs agree.",
+      "OMNCards214/224/234 gives Stormstrike/Meteoric/Voltic separate1-cost Instant pumps only on current attacking CombatChain object; unavailable in Hand, so no Hand menu is needed. No such pump or Aurora Hero Instant is activated; no other Instant card is played. No generated PrepareCard entries for the five, all have generated Hit producers.",
+      "First three are fully blocked by two actual Hand AA3def each. Flittering4 exact two NAA2+2 makes unearned+2 Instant-card-history bonus visible as damage; those defending NAAs are not played. Fleetfoot3 exact one AA3 defense makes unearned+1 Quickstrike visible; no source go again/Embodiment/hero activation exists. Damage0/HP20/attackHit=false/Stack0, AP0 through resolution/final; four manual live response windows.",
+      "Source5 owner1 graveyard and actual blockers owner4 graveyard match declared CardID/UID/Role and shifted Hand indices. Fleetfoot real eligible enemy Quicken7 retains CardID/UID/Owner4/Controller4/Arena1; declaring defense does not play an attack or consume Quicken. Other Arenas0 exclude unearned Lightning Flow token. No unconditional WHEN attacks/play trigger is omitted."
+    ],
+    "limits": [
+      "Only main payment/full block/negative Instant-card history or Quickstrike/physical retention. No exact unblocked power for overblocked cases, positive Instant pump/history/Lightning Flow/GA/Quickstrike/aura destruction/creation ownership, hero ability, other pitches or whole-card certification. Native execution/replay pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse972-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d0a521ab22a39e3014293fd244c08b7ba33d76fcb41e2ba3df26952dbd16da09"
+  },
+  "full_suite_run": false
+}

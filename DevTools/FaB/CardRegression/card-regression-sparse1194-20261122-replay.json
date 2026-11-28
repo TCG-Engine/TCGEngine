@@ -1,0 +1,171 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-envy-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b581e2265fa481acad445e830ac019b1ff66b356dcb8bb9317368c1ab4ba01cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e4271b557ea7a32c9b622a6c2f30f5fe3a5669b0e9562d86999d3d48c31798b8",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "6380b524292af3571bc7964f0454f244d1e791bf01b279f6db912629956d9361",
+        "expected_final_gamestate.txt": "6e69235cb490ac449781d66303e13b7f4c9d2ebc81b52013e18ecea4ec68a899",
+        "meta.json": "933bdf7656b7aa576eb5e84eb577ebe2ac2a1a093db1af3f384a354d1a1c26b3"
+      }
+    },
+    {
+      "slug": "card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-gluttony-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f1dff80e51b6640cc2f493849b7e17994a38360cc7b1c55263165b005e39234b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "f02835f520582b738553af586d80490bf7991f3627b27a51936671ae03693c71",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "bf08f0ac5512c1ea66cc255fd2bb9a262c4825c8dbf8444dcc1bffb8bc437b8b",
+        "expected_final_gamestate.txt": "7c9c4b87e68e0177057eb18f8cff71f3aede84af033901d48efc8e44d2d34266",
+        "meta.json": "9f21c81a28b7206bf99b555b07ce99cd741d37229b7f97a1fb67c52f0ce544c9"
+      }
+    },
+    {
+      "slug": "card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-greed-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "73f81dd56bd2a02214e94ae558aebab39071c9af95e0bce93acb96f4f53f66bb",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ccd22296ee7027a6ccf5a59deec89a8f264740bb19eb20c8e2493b9b03a4554a",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "d2f1b3526a1ea578a8ca633c4a1a55a6b67d39c88667c5b0dfca226efc852bf2",
+        "expected_final_gamestate.txt": "c570c055b428f13810f29a27ee963261edc01d15c1c29bd1744c3cf0e11fb63f",
+        "meta.json": "f7211ee7a8c0d26689211358be3af17799a5e1cecf1b10a81852caf5bae3f2a3"
+      }
+    },
+    {
+      "slug": "card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-lust-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ed38945d1bedc570adf250236ae36b7e4a990e281f5d765507cbcf07ea550eb7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4f7ebe8da7d64df39da9b3546ba5eaae75e8f2cde6a0e535e23e485294f94386",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "6d6aef118e59da21148a8df47db436f7362fd8a7a8dd0cdb460e072e82ae5712",
+        "expected_final_gamestate.txt": "33757e8f0891af804c09a10d0c379b003922db1d913cc5e90a3fbbf43edb7c4a",
+        "meta.json": "ff3abf6efee1eb1c76aba97258032a7f9a83765d583c4950128ede3f888aac01"
+      }
+    },
+    {
+      "slug": "card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-pride-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "3c636a25d7f1d42f0210a2ff934ba424b350d1cfe5fd1abfe49eb17a715ef2e4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3b08db20b33b62fed0324eb20a9906bbe7c4b7a64f798709d484aa0210feff67",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "fe406a20cfbc319999ca046b3afb7b0aaa28284b50806d16a15eb5e645ee463c",
+        "expected_final_gamestate.txt": "4e0dff3f14dbd3287c03f130ca79fcaaaab849f447eb22e33a21b4f0f09d8937",
+        "meta.json": "4e2bcda82211704273cc3c8d21a3009d02062b07945a3dea049943460300a9e5"
+      }
+    },
+    {
+      "slug": "card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-sloth-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\05.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\05.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f1eac582d2b99b5142796d32ffb79c9fff386657ffc30e2412162ec3a25db32d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bd187ee1e1eeb78c39fb37c3108470373c324f8a1deb2fc5532eaa70d26bb382",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "bb325781f7d6631a086ce747b9b03bc4f4d519c97fc94a5f128f4bdf46627c10",
+        "expected_final_gamestate.txt": "a54a2930b700c741f68b85773a5bd7bb850ad384a66c21f997aef17f238bf670",
+        "meta.json": "a33392fc580e4cab789a511b936532fa0b7ad84a6e1599805fb6ea363a19dd41"
+      }
+    },
+    {
+      "slug": "card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-runechant-of-wrath-yellow-four-live-sparse1194-real-opposing-destruction-separate-owned-runechant-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\06.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1194-local-20261122\\clean-replays\\06.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "25e0927635dfda5c0e7bfd7b8833693c89530da24a106ab2de2c54e6490ca863",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69d329442165f93c4c02a722e4bf4389f8ec3e2f62c30103a9d9230aeb925da9",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "151d615055d7712d28146b85a66232d608db09dbd5d99049bec3961a48dfa429",
+        "expected_final_gamestate.txt": "2cd065a1b16960ec50193091aa0b2dfc507512caf65ae6b48fb18f8f48544049",
+        "meta.json": "514eb7532194dfa901c350afc94954cb2df70c2a372305be5d041c8aa15ab44a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

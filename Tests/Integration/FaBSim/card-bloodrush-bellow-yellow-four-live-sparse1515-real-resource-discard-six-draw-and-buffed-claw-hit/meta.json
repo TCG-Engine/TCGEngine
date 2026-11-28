@@ -1,0 +1,7 @@
+{
+    "name": "Bloodrush Bellow / actual resource cost and six-power discard earn draw, go again and Brute attack bonus",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T09:11:52+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ActualPotion8destroy/ABI11/allfourresponsesfundsR2/AP1. Primary5cost1R1/AP0 andrandomdiscardonlyotherHand6base6paidbeforepriority; no pre-draw, Random0. Allfourresponses resolveactualBlue9/Red10twoDraws, primary5GY/AP1. Claw7formaladjacentHero4/cost2needsdrawnBlue9pitch3:R2/AP0/proxy12. ActualBruteClaw3+primary2=5, goagainfromrealdiscard6; noextraWHEN/defenders. Actual5damageHP15/fullallfourcombatclose/AP1. OriginalPotion8GY/Wrecker6GY/primary5GY/Red10Hand/Blue9Pitch/weapon7used; no duplicate draw/discard/trigger. Singleeligible random cost isnotdistributiontest. Oldsource756concern reassessedagainstcurrentmanagedordinaryspellpath; noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#bloodrush_bellow_yellow FaBSim/Custom/GameLogic.php#FaBTryCompletePayment FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged FaBSim/Custom/WTRCards.php#FaBWTRPayAdditionalCosts FaBSim/Custom/WTRCards.php#FaBWTRResolveCard FaBSim/Custom/CRUCards.php#FaBCRUGoAgain Core/DeterministicRNG.php#EngineRandomInt"
+}

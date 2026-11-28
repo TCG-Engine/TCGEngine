@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch521.json",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "returncode": 0,
+  "completed_utc": "2026-11-05T21:03:27.647854+00:00",
+  "fixtures": [
+    {
+      "slug": "card-heavy-metal-hardcore-red-four-live-real-evo-boost-earns-one-power-four-damage",
+      "fixture_sha256": "8f7abfb2901905e43022c15ced0a59e370301773b03427ee397f1a294606d2d8",
+      "passed": true,
+      "result": "[PASS] heavy_metal_hardcore_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-heavy-metal-hardcore-red-four-live-real-evo-boost-earns-one-power-four-damage",
+      "returncode": 0,
+      "stdout": "[PASS] heavy_metal_hardcore_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

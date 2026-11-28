@@ -1,0 +1,20 @@
+{
+    "completed_at_utc": "2026-11-25T19:28:16+00:00",
+    "input_file": "card-regression-repair-deathly-trigger-20261125.json",
+    "input_sha256": "0f6208b6af94d9eb9e8b2dea5847e0715a75c2175c802089d46f2b5f24c61477",
+    "filter": "",
+    "results": [
+        {
+            "slug": "repair-deathly-duet-red-four-live-20261125-false-pitch-condition-still-earns-layer",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 348
+        },
+        {
+            "slug": "repair-deathly-duet-red-four-live-20261125-both-real-pitch-types-delayed-power-and-runes-six-damage",
+            "status": "recorded_semantically_checked",
+            "actions": 33,
+            "assertions": 164
+        }
+    ]
+}

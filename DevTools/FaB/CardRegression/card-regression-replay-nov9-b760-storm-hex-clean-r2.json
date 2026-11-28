@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch760.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T00:42:32.060761+00:00",
+  "fixtures": [
+    {
+      "slug": "card-storm-of-sandikai-four-live-real-granted-zero-cost-dragon-attack-and-one-damage",
+      "fixture_sha256": "5e3eea18577215141133ca2851bacc6331cba392c12192e5e58d2276a220f526",
+      "passed": true,
+      "result": "[PASS] storm_of_sandikai / four live distinctive effect"
+    },
+    {
+      "slug": "card-hex-gauntlet-four-live-real-banish-cost-and-old-blood-debt-card-face-down",
+      "fixture_sha256": "9be0e9d1770fcedc6d6ba471116e6303e99e0382d106bf9f80f1e3dd59821130",
+      "passed": true,
+      "result": "[PASS] hex_gauntlet / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-storm-of-sandikai-four-live-real-granted-zero-cost-dragon-attack-and-one-damage",
+      "returncode": 0,
+      "stdout": "[PASS] storm_of_sandikai / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-hex-gauntlet-four-live-real-banish-cost-and-old-blood-debt-card-face-down",
+      "returncode": 0,
+      "stdout": "[PASS] hex_gauntlet / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

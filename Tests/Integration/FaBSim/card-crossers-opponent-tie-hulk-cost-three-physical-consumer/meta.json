@@ -1,0 +1,7 @@
+{
+    "name": "Line Crossers / opposing tied hero pays reduced Hulk Up cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-14T22:58:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Fourlive/manual naturalPleiades20/Yoji22/Valda21/Killjoy20, P4ownsLineCrossers7Arms1. Hand1HulkBlue5printedcost4/power6 andordinaryBlue6pitch3; RChi0/AP1only1, noHP/comparison/cost/AP/historyseed. OfficialOTHERhero interpretation: P4KilljoyCrossersat20countsmorethanP1Pleiades20, andP1countsless, whileactual20tiesremain. P1alsoactuallylessthan22/21, soHulklessthanEACHotherhero cost4minus1=3. ActuallydeclaretargetadjacentHero4, actuallypitchONEBlue6for3/pay3/R0/AP0, actualHulk6entersChain. No cached-cost oracle: completedoneBlue3payment andactual6attackareprimaryeffectgroundtruth. P4actuallyselects/formallydeclaresownedCrossers7asONLY1defenseblock; fullnormalresponses yield6minus1=5physical HP4_15. TrueCloseBladeBreak destroysSAMECrossers7GY4, Hulk5GY1/Blue6Pitch1, allRChiAP0/allChainStackqueuesempty/otherHP20,22,21. NoYojiactivation111/PleiadesCrowd092/ValdadrawSeismic/KilljoyGoldBoo, noSelfcomparison/twoCrossers/otherReveredproducer/extraAP/setcredit. AuthornotNative/saved/qualified; otherSource/Rootnative/twonewtargetedreplaysrequired. Sources: https://rules.fabtcg.com/en/cr/08-keywords/ https://rules.fabtcg.com/en/cr/03-zones/ https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/trp/09-special-formats/"
+}

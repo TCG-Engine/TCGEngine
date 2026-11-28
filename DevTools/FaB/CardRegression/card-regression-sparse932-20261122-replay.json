@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-leave-no-witnesses-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-leave-no-witnesses-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7b0a9a6ee61a5b36c7b341fc31e56cc4f99906da1d807955cbfa0ade78ea3d07",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "32ab23d615172572879171e336e1e36b60b656652eaf05797b3cab40ed4eb582",
+        "actions.json": "9f2158a76a224facb898cc12561b10d89380d0d90e15b49131c1d4359e991d29",
+        "assertions.json": "e41801625d0011d041b6f5c32f0697719975ea831e633ee6c0aeb0e98f8d185f",
+        "expected_final_gamestate.txt": "bc8eddfea3e36a9e791da2ecb5330b1bbac3778d02d4ea89a6bd27bb9cf480c7",
+        "meta.json": "51bb101ce965e92fb89052ad8aaa64c8e3ef0db4a81eec20fd09a23933ab5d1f"
+      }
+    },
+    {
+      "slug": "card-already-dead-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-deck-and-defender-banish",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-already-dead-red-four-live-sparse932-actual-two-hand-blocks-prevent-hit-deck-and-defender-banish",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "745d2965fa5a71ebe8e0312d83c0c81a20c805babe714a2426f0911a366cca1a",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "529cdb23ab1a3666516802e9230054cf881ba9095f8f6bf27c98af7f070f3099",
+        "actions.json": "a44e24b9f9b348ce659c847e7dbea1e0cd33c5233e8ac4933f9391118d55ee4b",
+        "assertions.json": "61979e41fd04e8494ff5c255a67150670eeda894f2ecd0c0e3a4f30035c3669b",
+        "expected_final_gamestate.txt": "353b4b490434bc44a9dfa90a260967c0c1f9cbe6180d40bcab7b4f4026ea5358",
+        "meta.json": "6e7fd7bcb3f4d5622a03960e46b780913ba1007847e8514a91678e2f528954b2"
+      }
+    },
+    {
+      "slug": "card-death-touch-red-four-live-sparse932-actual-arsenal-play-and-two-hand-blocks-prevent-hit-token-choice",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-death-touch-red-four-live-sparse932-actual-arsenal-play-and-two-hand-blocks-prevent-hit-token-choice",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse932-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2dd9761c6d072d288752317a49d91a8adeb8fb1e63d513e1e83a2e6da3cc9426",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e06dbe46b985f3a5243eeca66fa38d01c66bf340e32453116ee6a11703fec91d",
+        "actions.json": "93f50488e0f312b4020445b2819360dd950e8b021a9e4ab90b9924171869c098",
+        "assertions.json": "963ed0eed6be262d54df822f6fef9c956c502afcd46aeba27dbdb5f275a2cdfd",
+        "expected_final_gamestate.txt": "1d333b322d8b27bcf43b5369c1fb4ed19a04f897dadf497e334a898538e85b60",
+        "meta.json": "4bf3a6f409c418b4f932c43ff406e919b65579b2ddb21b67cf2cd5eabc77944d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

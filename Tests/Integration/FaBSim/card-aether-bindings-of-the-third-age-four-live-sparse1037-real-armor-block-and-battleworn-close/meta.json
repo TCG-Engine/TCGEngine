@@ -1,0 +1,7 @@
+{
+    "name": "Aether Bindings of the Third Age / four-live actual armor defense and close",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:17:47+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Instant - Destroy this: Until end of turn, whenever an aura permanent you control with Sigil in its name leaves the arena, amp 1.\nBattleworn Named ordinary defense/Battlewornclose only. Legal natural15 kano owns actual readyEquipment5/baseDEF1; realGenericLeadCharge6HandDEF2. Legal natural20 dorinthea actually attacks owneddawnblade7/printedpower3, realBlue8payscost1/R2/AP0. Fourmanualsource+combat windows, actualEquipment5\u2192CCRoleDEFENSE then realHand6\u2192CCRoleDEFENSE gives exactDEF3/0damage/noHit/defenderHP15. Source5returnsEquipmentowner4/controller4 with actualDEFENSEcounter1, Hand6ownedGY4, physicalweapon7usedretained/Blue8Pitch; allfourmanual/AP0/queuesclean. Battleworn1 reducesbase1to0butdoesnotdestroy theEquipment. Noactivatedbody/Sigilamp/aura-return/otherkeywordphase/heroactivation/supportidentity/pitchsiblings/wholecardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#aether_bindings_of_the_third_age"
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Phoenix Bannerman: Chest / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T15:35:09+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Legendary**\n\nSearch your deck for a Phoenix Flame, reveal it, put it into your hand, then shuffle.\n\nCreate a Vigor token.\n\n**Go again** Representative only: finds_real_phoenix_flame_to_hand_and_creates_vigor. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#phoenix_bannerman_chest_red"
+}

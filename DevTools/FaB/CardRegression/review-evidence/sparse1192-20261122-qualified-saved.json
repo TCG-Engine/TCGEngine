@@ -1,0 +1,99 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1192-20261122.json",
+  "source_spec_sha256": "6c463c6ba4267ee59cc310a0ba093ce5820a873e088daed2da5dcaccc1e5f905",
+  "input_sha256": "6c463c6ba4267ee59cc310a0ba093ce5820a873e088daed2da5dcaccc1e5f905",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-the-hand-that-pulls-the-strings-four-live-sparse1192-real-face-up-reaction-grants-first-contract-go-again-and-royal-power",
+      "card_id": "the_hand_that_pulls_the_strings",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c41c46c22c1de33c6140205b5691c586e13a212747fd6ed50894a1f4ee65df5b",
+        "actions.json": "8c2bcdb0a9801f30e190935f4c6c1e7675f9a2b52f2280a5c65e7fd5ea341f74",
+        "assertions.json": "36ed33644324cc1369d2b664d5d490bb69f30519e25e1ab09cb99fd1faefd299",
+        "expected_final_gamestate.txt": "9dd0e5a89cb4b1296a6025119b3947188ffb765500b83ae83e5a215975c15e89",
+        "meta.json": "f87f6ceb35e578f4cd1592e7f1c7148737080a4ecad5aec5b176bfa212a3dfce"
+      },
+      "fixture_sha256": "f7704a71978d894e6fcdeebe5af92e6e6186b6f526e8cdac9294458d61881c74",
+      "actions": 44,
+      "native_assertions": 552,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 36,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1192-20261122.json",
+      "input_sha256": "6c463c6ba4267ee59cc310a0ba093ce5820a873e088daed2da5dcaccc1e5f905",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1192-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-the-hand-that-pulls-the-strings-four-live-sparse1192-real-face-up-reaction-grants-first-contract-go-again-and-royal-power",
+        "fixture_slug": "card-the-hand-that-pulls-the-strings-four-live-sparse1192-real-face-up-reaction-grants-first-contract-go-again-and-royal-power",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "6c463c6ba4267ee59cc310a0ba093ce5820a873e088daed2da5dcaccc1e5f905",
+    "case_count": 1,
+    "native_controls": 44,
+    "persistable_assertions": 552,
+    "author_only_checks_omitted": 0,
+    "card_id": "the_hand_that_pulls_the_strings",
+    "group_id": "identity:the_hand_that_pulls_the_strings",
+    "pre_native_correction_review": {
+      "archived_spec_sha256": "d9b51f5a694836220ba6420097eeb2828d6a1d715a9442f2f8cde3713bafcee9",
+      "exact_value_changes": 9,
+      "changes": "Two upper-layer window checks and six upper pass targets PRIORITY\u2192REACTION; resolved Unmovable Role DEFENSE\u2192DEFENSE_REACTION. Initial attack-source PRIORITY and all gameplay values/actions/actors/card fates unchanged."
+    },
+    "basis": [
+      "Exact corrected frozen spec reviewed, including all source/defense/payment windows and physical identities. Young Arakni Solitary Confinement natural19 and Royal young Emperor15 are correct. The Arakni Mentor is legal under Arakni; all Emperor-owned support cards are actual Red cards. No adult format or starting-life assumption is used.",
+      "Actual first Annihilate ContractAA6 cost1 is paid with real Blue7pitch3/AP0/R2; four manual source responders precede the attack. It is not Stealth, so Arakni Solitary does not independently grant go again. ArakniCards42 tags the first Contract attack through DYNRuntime103-104. Mentor5 remains facedown and native computed power5/GAfalse is asserted before its activation.",
+      "Printed Mentor is a Once-per-Turn Attack Reaction0 with face-up turning as its resolution body. ArakniCards6/11 supplies the precise facedown Arsenal activation route; Generated ResolveAbility18054 resolves physical source5 and calls ArakniFlip. Virtual ability12/controller1/source5 remains held through fresh responders1,2,3,4 while FaceDown1/power5/GAfalse remain. It then flips the same owned Arsenal UID5 faceup.",
+      "ArakniCards41-43 continuously applies the now-active faceup Mentor to the already-tagged first Contract attack. DYNRuntime85 gives+1 against actual Royal defender4, and GameLogic492 gives go again. Frozen computed5\u21926 and false\u2192true plus later actual AP1 return pin both positive effects; no seeded first-Contract or go-again flag is used.",
+      "ARCAbilities128-129 captures REACTION returnWindow for the Mentor activation, and GameLogic1062-1063 captures REACTION for Unmovable. GameLogic1229-1237 restores that actual window after payment, so both fresh upper cycles now correctly remain REACTION. Their actors are1,2,3,4 for Mentor and4,1,2,3 for the defender reaction; both resolution endpoints return turn-player priority1 before fresh lower reaction passes.",
+      "Actual Unmovable8 from Hand costs3 and is paid by three distinct real Red pitches9/10/11, with resources0\u21921\u21922\u21920 and reindexed p4Hand-0 choices. It has printed7defense, without the Arsenal bonus. GameLogic1677-1679 retains resolved DR8 on CombatChain with RoleDEFENSE_REACTION. Real power6 is fully blocked, actual damage0/attackHitfalse/EmperorHP15 prevent Contract/on-hit events; no empty Deck fallback is exercised.",
+      "Full ordinary combat cleanup leaves faceup owned Mentor5Arsenal, Annihilate6GY1/Blue7Pitch1, Unmovable8GY4 and Red pitches9/10/11Pitch4, no Banish/Silver/token/newUID beyond12, no Stack/DQs; natural HP19/15 and R2caster/R0defender remain. Go again actually restores caster AP1 at link resolution. All552 checks normalize to portable saved assertions with zero author-only omissions.",
+      "Normal-payment source rechecked: GameLogic1062-1069 enters PITCH; resource shortfall1196 leaves that window without adding a DecisionQueue choice. CanPitchCard1143-1158 requires no pending decision and the live owner Hand card; ActionMap2815 and execute2839 route the sole native Hand action to PitchCard. The four corrected native clicks and remaining live UID guards match this contract; redundant removed intermediate guards do not remove any named mechanic outcome. The original2-input failed attempt was a fixture transport-oracle error, not a gameplay defect, and is not qualified."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ArakniCards.php": "0e0ccc29ba870212f63cc4dce8b50468c31408372aeb488b9112a7afeb595d7f",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/DYNRuntime.php": "b8cec432428757988b02fa831b6311cc32ef5671b2fcc2dd9eecbf82d0c5e231",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "2dbe80c16c8a7be4a147a4a01a5f5505a9916625ff963655d8b943e8610e8fa4",
+    "limits": [
+      "Pending Root native recording, saved-assertion mapping and one targeted replay; no native success claimed here.",
+      "Only first activation/face-up change and current first-Contract Royal+1/go-again effects with actual paid fully blocked combat. No second activation/once-limit, second Contract, nonRoyal target, Mentor end-phase/Silver upkeep/bottoming/draw, Hero ability, Contract completion, support-group or whole-card credit.",
+      "All existing cost-order/timing/ownership holds remain unrun and unrepaired. The nine pre-native transport-oracle corrections do not change any gameplay outcome or constitute an engine fix."
+    ],
+    "normal_pitch_correction_review": {
+      "predecessor_spec_sha256": "5a7135cb44ba26aa94048c86d19002d3a613ad72229356c14ffa515a79b95a6f",
+      "predecessor_review_sha256": "10dd44f08e71435520cdf4502ff2a25a7299c78408e434aa1cda61f66d827ced",
+      "controls_changed": 4,
+      "native_controls_unchanged": 44,
+      "assertions_before": 574,
+      "assertions_after": 552,
+      "nature": "Normal attack Blue pitch and three Red DR pitches use native Hand0 clicks in PITCH, not answers to nonexistent MZCHOOSE decisions. Prospective state checks now pin PITCH/live CardID+UID and actual resources/AP. Repeated ownership and MentorFaceDown guards at those pitch snapshots were also removed; these remain pinned before/after payment and in final physical fates. No cost, power, grant, damage, health, actor or fate expectation changes."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1192-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2234470f5be64c232d44bdb5be7527fe8d624e605ce2b889af3e680ee4e4a9e9"
+  },
+  "full_suite_run": false
+}

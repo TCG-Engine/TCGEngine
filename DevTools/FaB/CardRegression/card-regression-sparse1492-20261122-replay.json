@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-rewind-blue-four-live-sparse1492-real-instant-not-eligible-nonattack-action-counterspell-target",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-rewind-blue-four-live-sparse1492-real-instant-not-eligible-nonattack-action-counterspell-target",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1492-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1492-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "e762f007a6457fcf19ad2190a0ac1664196f733a3888f1167eccb1c03fb1fe3d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cfa3f28ffce13c7d60792d20d8aa282cb9a4ffd8d510ffb383ca7d7a3e486fb8",
+        "actions.json": "c9e30c252fa7ee7dec5f8a364eea8e728c688845dd8df7f54427b2bc62c71d2d",
+        "assertions.json": "29e869e0046b3d4303ddd9cf8d1918e885aaa536779b5227863cc9b2583c45d4",
+        "expected_final_gamestate.txt": "7d9ed783e30b70097d5846815528ae20e457f3c15a7700dfc78d572e494872b7",
+        "meta.json": "b8dbb3e4d7da8235f804603a3d1189dd8a41505278cd3d9c09444f6fb362f079"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

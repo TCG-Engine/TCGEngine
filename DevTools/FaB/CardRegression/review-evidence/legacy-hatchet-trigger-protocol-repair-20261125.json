@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "Independent exact original/proposed semantic diff review, no native games. Root native save/raw5 checks/clean entry-point replay follow.",
+  "runtime_sha256": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+  "source_spec": "card-regression-repair-legacy-hatchets-20261125.json",
+  "input_sha256": "e86580904c622b3b351dfc287b965d86875f80f76f4b1ed40416181cc633d6fe",
+  "fixtures": [
+    {
+      "slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "card_id": "hatchet_of_body",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "623d173f07847f2b8a6905ed2c8c4e6315414cb85ca036fa82d6f868c5bf4275",
+        "actions.json": "b63b877a3a7604408555dd744a4f72890cef84af350ed524255f096134159572",
+        "assertions.json": "185f6b97d340b8c3854d5b8959c95b81e2dbbcf828ee2f589e7f58220ee293eb",
+        "expected_final_gamestate.txt": "fbf1ab6984f29f630bd0a1de47070d45c43fc9ec2f788e51306026f6665b4997",
+        "meta.json": "cc3f05547ba2a432f31e408a9765923a3b1cc6113b48addeaa86ea6c07e978ca"
+      },
+      "fixture_sha256": "21222f213afcf1cf0fb1a7a8849480894c7328a7113c02adad1f0308ff8f773f",
+      "actions": 38,
+      "native_assertions": 591,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "runtime_sha256": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "source_spec": "card-regression-repair-legacy-hatchets-20261125.json",
+      "input_sha256": "e86580904c622b3b351dfc287b965d86875f80f76f4b1ed40416181cc633d6fe",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    },
+    {
+      "slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "card_id": "hatchet_of_mind",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd6b1741f626ed7334f71cb450f5b863fa577c56040e2ae5aeee614ee5fa3d1a",
+        "actions.json": "b63b877a3a7604408555dd744a4f72890cef84af350ed524255f096134159572",
+        "assertions.json": "6d09917785dda5c32970915326a67b4c77ce710110957b383b722a0a36fed127",
+        "expected_final_gamestate.txt": "4285135f8a35fb2dd94bf987d231688efe6b5d1f06825de783bd7e0f237553a4",
+        "meta.json": "7962c80c33e049b3ad1d5b471c3ec88c971504d3a1a339f056aea69337384ac6"
+      },
+      "fixture_sha256": "c3ccd036e2e6673e3cb8df96f307ce414a4809a02301db5d44b9ba46cea21aec",
+      "actions": 38,
+      "native_assertions": 591,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "runtime_sha256": "2cfa73379c7cb718817903fee81340976f3f970ba870165a19c7d1c1d7d9b533",
+      "source_spec": "card-regression-repair-legacy-hatchets-20261125.json",
+      "input_sha256": "e86580904c622b3b351dfc287b965d86875f80f76f4b1ed40416181cc633d6fe",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual"
+    }
+  ],
+  "repair_only": true,
+  "new_group_credit": false,
+  "full_suite_run": false,
+  "replay_receipt_sha256": "058e66317871fd7ef9d0c1224cbe58a73199588897374a02cfd761c3993a1a5d",
+  "superseded_exact_inputs_and_expectations": [
+    {
+      "slug": "card-hatchet-of-body-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "raw_before": {
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "dd0c3956e36cfe217a09fbc53c22836117b50d6f72bdea2ded81b1b5256153b8",
+        "expected_final_gamestate.txt": "00e32dc7377667afc1556753d8fd2502cc2d6945b22a2041465958f9c0e9d1b3",
+        "initial_gamestate.txt": "623d173f07847f2b8a6905ed2c8c4e6315414cb85ca036fa82d6f868c5bf4275",
+        "meta.json": "6f2c869c4c0795fcf1ecb9f4bc19366693c3cb714b73244db3ff5c9c491bdcdb"
+      },
+      "numeric_changes_only": {
+        "UniqueIDCounter": {
+          "from": 9,
+          "to": 10,
+          "checks": 2
+        }
+      },
+      "all_existing_gameplay_expectations_preserved": true,
+      "inserted_four_pass_actions": true,
+      "spec_control_count": 38
+    },
+    {
+      "slug": "card-hatchet-of-mind-four-live-sparse1295-real-first-attack-then-once-per-turn-rejects-affordable-repeat",
+      "raw_before": {
+        "actions.json": "1be231ce67fbe812aec3b6ae6fe1427c199df664bd0ec77932891a88cbf42d55",
+        "assertions.json": "a9c1ee1ec5c150c954745ae25744cd0e0b4c542a0f6d9eeb8d103b0d4b95c79a",
+        "expected_final_gamestate.txt": "94976e39b388b09f5201b9f60ac18669f15c2348397db1e3cba4aa5dec6e7af7",
+        "initial_gamestate.txt": "fd6b1741f626ed7334f71cb450f5b863fa577c56040e2ae5aeee614ee5fa3d1a",
+        "meta.json": "8dad44b8b8fe1f34679234ad5f2438d85020a8a864bc7f492d6d23bca391f9a7"
+      },
+      "numeric_changes_only": {
+        "UniqueIDCounter": {
+          "from": 9,
+          "to": 10,
+          "checks": 2
+        }
+      },
+      "all_existing_gameplay_expectations_preserved": true,
+      "inserted_four_pass_actions": true,
+      "spec_control_count": 38
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "status": "ORIGINAL_CORRECT_TOME193_NATIVE12_1464_AND_SINGLE_REPLAY_PASS",
+  "reviewer": "root independent actual Source-preservation/Saved/endpoint inspection; separate independent source review retained",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+  "input_sha256": "a51f77611498891aa84804c7c24e4d14d4569aafac6b30f0a8acd2f87bb6ce29",
+  "source_spec": "card-regression-repair-tome193-after6e5.json",
+  "fixtures": [
+    {
+      "slug": "card-tome-of-aeo-blue-four-live-real-next-action-earned-destroy-draw-repair",
+      "card_id": "tome_of_aeo_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fe4d8b712f995e6ea7557c3f012b45ea8d8dcef4bac7b324049c4fcd362fe6e2",
+        "actions.json": "b42b5da35fca394076be5f44a86c9d458716323d5b609e99c2124ec8e60fa215",
+        "assertions.json": "12f9ab95c5a9c70e51a54e9d703729a7620f03f3d5ab3bddf9371f1f051eea81",
+        "expected_final_gamestate.txt": "1255a5e9474f146b0d283acff88fb9415f5138f7534e3b7212f00c5e1db22073",
+        "meta.json": "55fe01e0746a353c2823ac8c7a977797e99dae430dad67b0cfb957b373780241"
+      },
+      "fixture_sha256": "c06b28a8e8fff9eee26b0b7492b161b8d633d979bc9b8a812c351c7402207226",
+      "actions": 12,
+      "native_assertions": 1464,
+      "actual_manual_pass_inputs": 8,
+      "all_native_pass_inputs": 12,
+      "nonpriority_end_phase_transport_inputs": 4,
+      "recorded_runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+      "runtime_sha256": "6e5b1eda9f91660b2c6b3c608a00034f8c56a81974dcbe3e3332d00d29e47b49",
+      "source_spec": "card-regression-repair-tome193-after6e5.json",
+      "input_sha256": "a51f77611498891aa84804c7c24e4d14d4569aafac6b30f0a8acd2f87bb6ce29"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-tome193-after6e5-replay.json",
+    "sha256": "59b0e328dedf68fcbc4f7af462a27722e29ca8757c269b24a12f5146e24a469b",
+    "passed": true
+  },
+  "basis": "All original correct12nativeinputs/1464queries remain exact. Actualsavedactions+queries match Source. Raw48manualbooleans at both endpoints; fourordinaryActionpasses, four nonpriorityEndtransport signals, then fourrealbeginActiontriggerresponses by2/3/4/1. Source5Aura and Deck6 remain before earnedresolution; sameSource5GY and realDeck6Hand2/AP1 after. No oracle relaxation/callback-only proof.",
+  "independent_source_review_sha256": "1a1f1d064d72d1bc878a6d53f859ac7aefa40de3571628f0bace103d44fd7ab5",
+  "components": 80,
+  "limits": [
+    "Named TomeBlue native branch only; Ward/multicopyordering/response-source-removal branches are not native-qualified.",
+    "Shared Harvest43 controls retained inside80component checks; Tome identity/failure controls remain component evidence only.",
+    "Other ROSStart sigils/StrongYield and virtualawait094 remain outside this fix.",
+    "No fullsuite; existing prior qualified fixtures retain their recorded runtime contexts."
+  ]
+}

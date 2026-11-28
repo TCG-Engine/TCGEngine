@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-isenhowl-weathervane-red-four-live-sparse1317-real-go-again-funds-non-fusion-attack-without-ice-fuse-token-trigger",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1317-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1317-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "7f95b8aef7169b50462feda23ffb0748df9f385e7ccd0a5dbab5fecaadf11e63",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fba3d4420b3420890fd8018f0b1150343fc543a0ab52858e9835d0ac31b8750c",
+        "actions.json": "ac86f7cb09704a75eaf795ed4d0a4f1122328f650ff501b111749b96249d552e",
+        "assertions.json": "438c6e75c916f64716957dddf895f6c30ea668d73ac54e5f46f39efd43b9efe5",
+        "expected_final_gamestate.txt": "99e2d617ae0f7e087ddfdd5ad4c29acb0a772aa3377221c10e690a6951c92f23",
+        "meta.json": "16097c6e0341b7eb4fbfa6dfbde25d3050f3490a6cba44aa575615a08403d8ed"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

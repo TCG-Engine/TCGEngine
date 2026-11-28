@@ -1,0 +1,7 @@
+{
+    "name": "Arcane Compliance / declared opposing action target ignores real produced arcane increase",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:06:36+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NaturalVerdance20 ownsCrucible5 andactualBlue7paysitsInstant1from3leavingR2/AP1, allfourresponses. RealZap6formalHero4target/cost0AP0 thenactualCrucibleproducerhasboundarcaneBonus1onthatsourcebeforeprimaryresponse, notfakeflag/no-opproducer. OpposingDori4actualCompliance8Instant0declaresActionCardZap6Stack0beforecost/priority, allfourupperresponsesresolveproperseaTarget6. LowerZapstillStack6hasproducedbonus1andComplianceTurn2cap; fourfreshlowerresponsesactualprinted3damageHP4=17, notuncapped4/HP16. PhysicalZap6GY1/Blue7Pitch1/Crucible5ready/Compliance8GY4/R2/AP0. No reduction/prevention source, nootherarcaneincrease, duration/nextpacket, instants/nonAction/otherTargets/fullcard/support credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#arcane_compliance_blue"
+}

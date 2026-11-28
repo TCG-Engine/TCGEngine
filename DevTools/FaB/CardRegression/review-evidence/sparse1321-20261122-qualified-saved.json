@@ -1,0 +1,198 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1321-20261122.json",
+  "source_spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+  "input_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+      "card_id": "gravy_bones_shipwrecked_looter",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "579bd0704f6370ca8fe6d93763bf6be1905131cc0b1ad9d6f42d5004ad1f4169",
+        "actions.json": "224557ac6db568204b267e48c21c9f98a80cef02f8ddca96566d5a74a6f29c05",
+        "assertions.json": "a6cec92271c6effa016fefb792e1252e9c22634e3d6e16826cb61055bada552f",
+        "expected_final_gamestate.txt": "4a0f07df56e7acccad696c86e1f629088019550cdc7d69909b8c4815a7122871",
+        "meta.json": "a58c5d7a93ba058f899a8d14b0265c68f8a51682b33a5fa38a7d07967a4f3fc1"
+      },
+      "fixture_sha256": "91b7d8bcc3447f6ea57ad3c05acfe973ccf7a3918d468ecff92e311d408ca616",
+      "actions": 5,
+      "native_assertions": 237,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "input_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+        "fixture_slug": "card-gravy-bones-shipwrecked-looter-two-live-sparse1321-actual-gold-cost-tap-then-draw-and-red-discard-with-live-source",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+      "card_id": "tuffnut_bumbling_hulkster",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "86eafa5dd5a92391c7058704ddd81902ea253b539c7195f754c1385eaf357338",
+        "actions.json": "6023459f14d526b8325940b6ebaf643ec41aa7b4872c9961bbec6ba25208dc84",
+        "assertions.json": "9c584300da5bf0daf26b57729cfd0e3c2c0bfb9588a3405c3036f72cd0b7bfa6",
+        "expected_final_gamestate.txt": "efa3be7a96f6ba5a9a261f6caa6425023b0402ba73077f285a76f11574e42f36",
+        "meta.json": "5cd79d74e78649edae469f43e72bc7446fddecd01cb08ad8ba33a3be683676aa"
+      },
+      "fixture_sha256": "1aff333bf9a7be750c57fb99b14bba3fe981e7219053f03af8901c08e7e0924b",
+      "actions": 3,
+      "native_assertions": 159,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "input_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+        "fixture_slug": "card-tuffnut-bumbling-hulkster-two-live-sparse1321-actual-under-six-top-card-pitch-and-three-resources-without-cheer",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+      "card_id": "pleiades_superstar",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22f2091f31d79ac88705253cc0305ee010878d7212b0875d76609cecba61f942",
+        "actions.json": "17d866117046358636ba878a4395f3f4672044dece0f7bda3c32fa7f332244f1",
+        "assertions.json": "faba703144f710edb0fb3e3dcfa7a4f44467e231f88f931a5c2d3707a4c50e63",
+        "expected_final_gamestate.txt": "06a552b298b0c6a9d7db6527fcc656c06fa7062e1604e8c00d71187727455170",
+        "meta.json": "232703656319199ddd59c0f3dd55b7190cebadd2eb46c351cd6c9db3e9726b80"
+      },
+      "fixture_sha256": "98e6605e0c5f0f04783d41d062c9ec8ae76906b7d13545cdf7b2a82d4cedf6c1",
+      "actions": 5,
+      "native_assertions": 236,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1321-20261122.json",
+      "input_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+        "fixture_slug": "card-pleiades-superstar-two-live-sparse1321-actual-two-to-one-suspense-cost-and-other-aura-two-to-three",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "a1b05d9a93363a91ea6d534be472a430705a18d80abacf0dccddcb98740cc534",
+    "source_note_sha256": "a2793e73e4c514fcd5015cbf90309358cde81dedcb2afc6291e66218369ea9b2",
+    "case_count": 3,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 13,
+    "query_checks": 632,
+    "persistable_assertions": 632,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "POSITIVE_NATIVE_ADULT_HERO_EFFECT_WITH_REAL_COST_AND_PHYSICAL_OUTCOME",
+    "per_case": [
+      {
+        "card_id": "gravy_bones_shipwrecked_looter",
+        "group_id": "identity:gravy_bones_shipwrecked_looter",
+        "native_controls": 5,
+        "persistable_assertions": 237
+      },
+      {
+        "card_id": "tuffnut_bumbling_hulkster",
+        "group_id": "identity:tuffnut_bumbling_hulkster",
+        "native_controls": 3,
+        "persistable_assertions": 159
+      },
+      {
+        "card_id": "pleiades_superstar",
+        "group_id": "identity:pleiades_superstar",
+        "native_controls": 5,
+        "persistable_assertions": 236
+      }
+    ],
+    "basis": [
+      "Three unrepresented standalone adult40 Heroes, no exact adult holds. Actual opposite adult Dorinthea Ironsong40 is legal. activeSeats omitted, default empty gameMode/no passives and initial12 seat/live/manual defaults correctly use existing native duel; no Young/four-live credit. Two Hero UIDs1/2 allocate subsequent assets3+, ABI6/4/5 respectively. Initial AP1/R0 and bothHealth40 remain; all abilities are INSTANT0 with no resource/AP asset cost, so selected tap/effect costs do not rely on known099 nonzero-asset ordering.",
+      "Gravy row SEARuntime5 is INSTANT0 and tap/Gold flags30-31. ARCAbilities153-154 invokes actual Prepare, generated await130093 selects real owned Gold3 then destroys it/FinishPrepared; actual payment calls SEA Paid tap. Before selection HeroStatus2/Gold3/Red4Hand/Blue5Deck and ABI6 are correct; after selection Gold ceases/Arena0/Graveyard0/Status1/AP1. Both duel responses precede generated Resolve draw then mandatory Hand MZCHOOSE; exact ParamHand0&Hand1 and same original Blue5 drawn while ABI6/sourceHero1 stays Stack. Actual Red4 discarded to own graveyard, Blue5 retained, virtual source clears. No Blue graveyard/W watery permission or source entry credit.",
+      "Tuffnut SUPRows171 INSTANT0/SUPPaid209 tap. Real Critical Strike Blue3 stays Deck until both responses, generated Resolve18246 calls SUPPitchTop76-79 which reveals/moves original3 to Pitch and adds actual pitch3 resources. Its printedpower3<6 returns false, so no Cheer or Toughness event is owed. Final same owned3 Pitch/R3/AP1/Status1 and allArena0/Health40/ABI4 cleanup are coherent.",
+      "Pleiades generated Prepare11618/await137380 non-target MZCHOOSE removes one Suspense from real owned Aura3 then FinishPrepared/tap: original counter pairs2/2 become1/2 before priority2. Generated Resolve16662/await175322 offers non-target optional MZMULTICHOOSE0|1 from owned Suspense Auras, actual answerAura4 adds2to3 while ABI5 remains Stack through choice; final counters1/3 and source cleanup. Prior Auras with explicit counters are lawful setup, not entry credit; neither reacheszero/leaves or start/cheer, so no owed zero/destroy/tap/Confidence event.",
+      "Default completed payment priority2 is set by GameLogic1260+ absent holdPriority; actual pass2\u21921 still holds ABI/unchanged outcome, then actual pass1 resolves or reaches owned pending choice. GameLogic managed ARC virtual class retains frame/source through ResolveAbility waits. Exact owner/controller/UID/counter encodings, AP/resources/HP and every final zone are coherent. All632 assertions across13 controls persist; authoring reuse only, no legacy replay."
+    ],
+    "limits": [
+      "Only new adult bindings/scenarios semantic review pending native saves/replays; no native pass or coverage credit claimed.",
+      "Only named adult defining effects/costs. No Young/four-live/Hero other ability/BlueGY permission/Cheer/Toughness/Confidence/start/zero/leave/expiry/full-card or support identity credit. Existing holds untouched.",
+      "Only W receipt written; no native tests/games/replays, T/engine/original-checkout edit or access, auth/network or Git."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/SEARuntime.php": "6d998ea92dd3817d3329695a08db8c2fff78228967ee3bc35923f79eccdd3587",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/SUPCards.php": "d0cf162a89b60b29590121e4c97e1e5fe0e2dc790130bf181949ca068092c1fa",
+      "FaBSim/Custom/HVYCards.php": "1387ecf0971fae9aa4bfb7bc99baec47a46e9c8770030884b722915eb87a31f1",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/ZoneClasses.php": "874bb2ae00a80a8ba3dfe1789b4c932fd0b7cf1286504a62828e0055ca1cb355",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1321.py": "c6d18c27ee5d72b1870bf5d1ca33f85231d9ed76acd0b13f21feb6ce48956234",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "young_credit": false,
+    "four_live_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1321-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "711922aa5ef64d31c41daf80aa97472f39673f260a3a61908cafd7019017bca6"
+  },
+  "full_suite_run": false
+}

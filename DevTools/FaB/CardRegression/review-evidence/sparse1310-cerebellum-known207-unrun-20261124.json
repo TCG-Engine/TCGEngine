@@ -1,0 +1,31 @@
+{
+  "card_id": "cerebellum_processor_blue",
+  "planning_batch": 1310,
+  "classification": "SOURCE_ONLY_KNOWN_207_NORMAL_ITEM_ENTRY_DISPATCH_DEPENDENCY_UNRUN",
+  "related_existing_issue": "FAB-REG-207",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "native_attempted": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_changed": false,
+  "review_sha256": "4d08fd36d0e674aa04a974cb2160789b69bcb8d5593e95f574346a7ceb91ffb0",
+  "spec_sha256": "21e510e7551987307ff73c4bf82744eda12de949d022c25a91aa48a59c687c9b",
+  "source_sha256": {
+    "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+    "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+    "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+    "FaBSim/Custom/EVOCards.php": "7e946cadb04817da7a0c0b17d94cf5a6bd03655adba07b714d39654329b54dbe",
+    "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+    "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+    "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+    "FaBSim/Custom/CodeGeneration.php": "951c17c1ecf263339fa860d4842911bca7122535ab9047cf65ab533ef49e4b86",
+    "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+    "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+  },
+  "basis": [
+    "Same-runtime FAB-REG-207 already records normal Copper Cog play missing entry Steam/Crank. Cerebellum has no exact generated/custom dispatch establishing its normal Hand entry initializer. No repeated native probe was run.",
+    "Printed two entry Steam before optional static Crank removal remains the semantic expectation. The generic one-Steam default matters only if that currently unestablished dispatch is reached; no native Cerebellum counter error is claimed.",
+    "Unrun draft also needs its exact Counters encoding rebound to include first-play FAB_PLAY_ORDER1 before any future probe. It is not executable approval."
+  ],
+  "limits": "No draw-activation/upkeep/Hero/support/whole-card credit; no repair, source change, native failure or new distinct defect/root count."
+}

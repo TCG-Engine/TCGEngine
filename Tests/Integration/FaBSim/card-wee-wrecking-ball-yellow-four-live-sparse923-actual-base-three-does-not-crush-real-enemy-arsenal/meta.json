@@ -1,0 +1,7 @@
+{
+    "name": "Wee Wrecking Ball / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:52:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this has {p} greater than its base, it gets +1{p}.\n\n**Crush** - When this deals 4 or more damage to a hero, destroy a card in their arsenal. Representative only: actual_base_three_does_not_crush_real_enemy_arsenal Sources: FaBSim/GeneratedCode/cardArrayCache.json#wee_wrecking_ball_yellow"
+}

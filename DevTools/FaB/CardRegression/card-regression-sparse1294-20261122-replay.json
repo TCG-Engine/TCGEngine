@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-bloodsong-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a0d82c7cada7f9414fb3ed32599e2b7a1092d978e7735736faf1fe8fea6221e7",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5bff0f5785a4cb88adc3dc4798c093981862f5014b182e9b618a36ad5487a9b7",
+        "actions.json": "a09495e43563fba29c459e183eddff8a35ea02c2ffa7ea70b7d11c144277743e",
+        "assertions.json": "a289f3981717b4845685bb685a5456d3cf8c45262386e27b7b1f57925cc7606b",
+        "expected_final_gamestate.txt": "df20fd4487e4cf04d8f960e42cc7dccaec3b0a561ce76db95ed79cbe09516c49",
+        "meta.json": "2d681871407b42ef79f278e00d5389c75284e0f94aad41d87a6ca5dd43e8389b"
+      }
+    },
+    {
+      "slug": "card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vexing-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-ally-hit-no-hero-effect",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f2de4a370dbae71518009082fa71feec42daac195451c991d23f44b361f5d676",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98ff6a512dbc1528c5df62de7ffb91a32e30337cc56643b783f98eaabcd0197f",
+        "actions.json": "13509f240346f662d5d411d817421960ad1a4520677479912648b84b8dd0b375",
+        "assertions.json": "4cc8ed663ad3c68841dae89686faf865235a5b524db7947ee4f1a98db1f21af7",
+        "expected_final_gamestate.txt": "59f2c9ac5248877b3824e3478113208e98b44f97cc6390bd4b95e43b9c29bbc6",
+        "meta.json": "51a0de191cf4c102811996c7be4e46f9a2080eec968b0e1d71b17e66fa34076a"
+      }
+    },
+    {
+      "slug": "card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shadowake-gloomblade-red-four-live-sparse1294-intrinsic-banish-play-fully-blocked-no-gate",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1294-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "48e9786c68aae77e3630b7241d6727e3d3d8b091dcb714f0af39fb8c6e956c89",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71abb564d15e666f114046fa2e9d12b411aad51184d95c2dd1a3d414530686bf",
+        "actions.json": "c1aef4d402cd720ce3c4f90096179bef3f3892fbc157979790b610710b6912c9",
+        "assertions.json": "0e64a3ebc7dd1c597ef1a1d23d5eb57e9ff2e8e380bf564ad0b21b555c6f0f92",
+        "expected_final_gamestate.txt": "08e14aaad1a738c7449c47ad5703a962fca989b80450036c2248117cb868701f",
+        "meta.json": "d5b733c401a50f0b1e82d2f4fec8cf74047d7dc447c88507d68b22bb4821b4bd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

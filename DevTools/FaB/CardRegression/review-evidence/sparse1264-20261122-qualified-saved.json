@@ -1,0 +1,147 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1264-20261122.json",
+  "source_spec_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+  "input_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+      "card_id": "prism_sculptor_of_arc_light",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "69cd27a126ca25a5ae644e91bca5c7bd79795e4d81a12f94e460529ffd8dabcb",
+        "actions.json": "58f14f87a6f0339328d66eadd26fb12578ade0b64e4e3d68404faaed29347fa5",
+        "assertions.json": "562389516197138cff00d8b6645f485fcf460220d13b4a48731c7c5a80760c5a",
+        "expected_final_gamestate.txt": "5a972898c0414395cab1ebe9018058ae7e113f5616463af0dafbbaaab12faca2",
+        "meta.json": "ac93f695f05a8de0ae2cc948f5fe228b9754619a42338175604d0d4b9e990f72"
+      },
+      "fixture_sha256": "75314ce10d5d915137f7edd206d0873c6c092818e3bb85e884ce5525130f7f7e",
+      "actions": 5,
+      "native_assertions": 193,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1264-20261122.json",
+      "input_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+        "fixture_slug": "card-prism-sculptor-of-arc-light-two-live-sparse1264-real-resource-payment-and-soul-banish-cost-precede-owned-shield",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+      "card_id": "oscilio_constella_intelligence",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "71489ba7189552d9f1a026b714e6fe2253562bd83b45ee3fc168727015cda54e",
+        "actions.json": "d864c7b450e1c8e9094f9d7892f6cd8d1d8e83c647eee762398be675e921357b",
+        "assertions.json": "5507933014e257f7c80bd6bddcb2c6907fe49415abcecb9e76a1efe7913863c0",
+        "expected_final_gamestate.txt": "37c2f6f223cffbd9140859bdeb5a93211a593c9abc529b50478256399bc9b123",
+        "meta.json": "eac86cab8fb12cde47ce35ca70c39a131cc725b974181b1a7e94b7e6d2c97fad"
+      },
+      "fixture_sha256": "c3036a02bf7fa636f87e71d89f41b2379f1eb6a3bea3e77ea23afa7590fc6cda",
+      "actions": 4,
+      "native_assertions": 175,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1264-20261122.json",
+      "input_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+        "fixture_slug": "card-oscilio-constella-intelligence-two-live-sparse1264-real-instant-discard-cost-precedes-physical-top-card-draw",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "1cf17f26301ceb629fcc5eeb87ba056faeb54024f0a49360aad0613f4a553912",
+    "source_note_sha256": "02a232467b9616ba4f26a407fbb7f2be499002a2d2e9a86444e1e4b954bd16f3",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 9,
+    "query_checks": 368,
+    "persistable_assertions": 368,
+    "author_only_checks_omitted": 0,
+    "per_case": [
+      {
+        "card_id": "prism_sculptor_of_arc_light",
+        "controls": 5,
+        "assertions": 193
+      },
+      {
+        "card_id": "oscilio_constella_intelligence",
+        "controls": 4,
+        "assertions": 175
+      }
+    ],
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "ACTUAL_ADULT_DUEL_HERO_ADDITIONAL_COSTS_BEFORE_RESPONSE_AND_EFFECTS_AFTER",
+    "basis": [
+      "Two distinct natural adult heroes: Prism Sculptor40 LightIllusionist and Oscilio ConstellaIntelligence36 ElementalWizard, each against adult DorintheaIronsong40. Omitted activeSeats uses unchanged native legacy duel seats12/defaultgameModeempty/noPassives. Initial AP1/R0, actual physical assets and empty history are guarded; no young/four-live credit.",
+      "Local duel helper explicitly rejects activeSeats, loops only seats1,2 and begins real asset UIDs3 after two heroes. Its Soul initial check correctly uses CardID and UniqueID only; no unsupported Owner/Controller query is used on the Soul schema. Other physical zones retain full identity/ownership checks. No native framework change is needed.",
+      "Prism printed once-per-turn Instant costs2 plus Soul banish. Actual sourceHero1 activation creates ability5 and asks for actualSoulHerald3. ARC preparation and DeclarePrismSoulCost record a selected Soul identity without moving it before resource payment. RealBlue4 pitches3/pay2 leavingR1, then actualHerald3Banishfaceup/Soulempty/Blue4Pitch are checked before opponent priority. AP1 remains because ability is Instant.",
+      "Prism virtual ability5 remains Stack, Arenaempty and real paid cost fates unchanged through real opponent2 pass to1. Only actor1 pass resolves generated hero macro, guarded SEAHeroCreate calls normal WTRCreateArena to produce exactly one ownedSpectralShield6. No blocker/replacement/extra producer exists. Final R1/AP1, physicalHerald3Banish/Blue4Pitch/Shield6Arena and originalHP40both/UID6/RNG0 match printed limited effect. Source-note Blue3 shorthand does not override exact Blue4 queries.",
+      "Oscilio actualSigilSolaceBlue3 is an Instant admitted Hand cost, not a played life-gain spell. Generated PrepareCard chooses HandInstant, actually discards3 and finishes payment before any responses, leaving realDeck4 untouched and Handempty. AP1/R0 and HP36 are preserved, ability5 stays Stack through opponent2 pass; no healing or early draw is justified.",
+      "Only actor1 resolution pass runs printed DoDrawCard1 and moves actualtopBlue4 from Deck into Hand, with discardedSigil3 still owner1GY, no new physicalUID, HP36/40/AP1/R0/UID5/RNG0. Both complete cases require empty Stack/two decision queues/combat chains/other specified zones and original ACTIONturn2. Default duel holdPriorityfalse correctly gives initialPriority2 after costs then realpasses2and1. All368 checks are recorded assertion/state checks."
+    ],
+    "limits": [
+      "Semantic/spec review only pending actual native save and one targeted replay per case. No native success, replay or coverage credit claimed.",
+      "Only each named positive ability cost/effect branch in adult duel. No once-repeat enforcement, cancel/tax/alternate choices, Soul producer or foreign Soul provenance, Shield consumer, discarded Sigil effect, Essence deck construction, young/four-live, support or whole-card credit.",
+      "Only W review receipt written. No native/test/replay, T/source/repository edits, authentication/network, Git or original-checkout access."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/CardChoices.php": "c68ae2b8e984bcc64b00289cc2d71bc0c980b2fbbeaeadbca8ae3a9f9579c515",
+      "FaBSim/Custom/SEACards.php": "5400728b0cfe26f7f9e60f7e135e0ee9b28ac85d39420f64aaade0fa9826f00f",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "author_breadth1264.py": "3b35791c28a8029b77589b8d71409d8b3bb9e93f078e9e4a2b8ba46701606edf"
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1264-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d3462ca053b00c119f32ff96098b41dfb2d3c62f92b8e5a5c115906ed36f1786"
+  },
+  "full_suite_run": false
+}

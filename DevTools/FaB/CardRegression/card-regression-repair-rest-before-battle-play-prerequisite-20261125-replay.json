@@ -1,0 +1,40 @@
+{
+  "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+  "fixtures": [
+    {
+      "slug": "repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+      "passed": true,
+      "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-rest-before-battle-yellow-four-live-20261125-no-history-rejected-real-weapon-four-damage-then-legal-aura",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\rest-before-battle223\\clean1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "93c5b1bc631f273b0d366fadc5c119ed693b26455a755ae67185d3822c90aeb4",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+      "passed": true,
+      "runtime": "6a73497dddd4ca3e86b4432b64806fc76f8e770d70e8c0eaf2b0dda7c56e2b73",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-cintari-sellsword-four-live-sparse1153-actual-prior-weapon-attack-enables-paid-ally-attack-and-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\rest-before-battle223\\clean2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "dea5562ba139cad1bc4fa9313edd0e91fa8989a2fb82225fcc0f1ceee02d8983",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

@@ -1,0 +1,125 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1377-20261122.json",
+  "source_spec_sha256": "6562cd1dd1bcd2514b7a849d45f4114b83bd2a63af299d92fc2ffcc819d732ee",
+  "input_sha256": "6562cd1dd1bcd2514b7a849d45f4114b83bd2a63af299d92fc2ffcc819d732ee",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-diadem-of-dreamstate-four-live-sparse1377-real-non-token-item-destroyed-without-ward-no-ponder-despite-affordable-payment",
+      "card_id": "diadem_of_dreamstate",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a5ed8142e43a0aff633fff528863d5470ada351692d7cf4fefe8f1512db0b0cb",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "7b46c05260e896c447e74c2a8febb498923e45b2443e3255d58289b874e832de",
+        "expected_final_gamestate.txt": "7b37885f422c5bd686fcb2b94e7b3186e793e5015e9bc659998bde09d30880a9",
+        "meta.json": "213c4a160128f0a722f8d4e9bb64c628cb349e9fc6ec818b4c40688264dab515"
+      },
+      "fixture_sha256": "e2bc3e672cc2317d8e599ab997a50dd347d6f730556b1ee8c84b280c2ea0b167",
+      "actions": 32,
+      "native_assertions": 362,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1377-20261122.json",
+      "input_sha256": "6562cd1dd1bcd2514b7a849d45f4114b83bd2a63af299d92fc2ffcc819d732ee",
+      "active_seats": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "players": "four_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1377-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-diadem-of-dreamstate-four-live-sparse1377-real-non-token-item-destroyed-without-ward-no-ponder-despite-affordable-payment",
+        "fixture_slug": "card-diadem-of-dreamstate-four-live-sparse1377-real-non-token-item-destroyed-without-ward-no-ponder-despite-affordable-payment",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "6562cd1dd1bcd2514b7a849d45f4114b83bd2a63af299d92fc2ffcc819d732ee",
+    "source_note_sha256": "4c42cbd33dde4d51b3ea277e3c1aff2469d2904b2b64adf627ce095345ba1a4a",
+    "case_count": 1,
+    "active_seats": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "players": "four_live_manual",
+    "native_controls": 32,
+    "query_checks": 362,
+    "persistable_assertions": 362,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "DESTROYED_PERMANENT_WARD_TYPE_FILTER_WITH_NATIVE_HEALING_GO_AGAIN_AND_ATTACK_FOLLOWTHROUGH",
+    "per_case": [
+      {
+        "card_id": "diadem_of_dreamstate",
+        "group_id": "identity:diadem_of_dreamstate",
+        "native_controls": 32,
+        "persistable_assertions": 362
+      }
+    ],
+    "basis": [
+      "Healing Potion cached printed Action Destroy this / Gain two life / Go again and EVRAbilities13 ACTION0 destroy=true/goAgain=true match selected route. ARCAbilities174 explicitly calls FaBMONDestroy; MONCards296-306 snapshots physical Item5, moves it to owned Graveyard, then calls FaBDTDDestroyed. This is actual callback coverage unlike withdrawn, never-executed Timesnap draft.",
+      "DTDRuntime198-201 rejects non-Diadem objects without Ward before marking DIADEM or executing its ability. Healing Potion is non-token Generic Item with no Ward; R1 makes potential payment affordable but does not satisfy type predicate. No owed Diadem layer, payment or Ponder on selected branch.",
+      "GeneratedMacroCode15648 gains two life on resolution; ARCAbilities final goAgain handling refunds AP only after resolution. Actual cost AP0/GY5/virtualABI8 before four manual responses; HP20 to22 and AP1 then actual Wounding6 spends AP and deals four to Hero4 HP16. Physical source/equipment identities, GY order5 then6, R1, UID8/RNG0 and quiet final zones are coherent.",
+      "Natural Young Prism20/three Dorinthea20 and UPF four manual seats are legal cached setup. Primary group absent current coverage and source-only holds. Existing resource1 and prior Item position are explicit controls without provenance credit. No second-card play-order ordinal assertion or held Sting dependency."
+    ],
+    "limits": [
+      "Only destroyed-permanent non-Ward filter and actual Healing Potion destruction/heal/go again/followthrough fates. Positive Diadem self/Ward destruction, earned WHEN timing, pay/Ponder, once usage, Ward2/prevention/Blade Break/multiple Ward, resource or asset provenance, support identities, siblings and whole card untested.",
+      "Approval is planned semantic review pending native execution; no native game/test/replay, engine/repository edit, original checkout access, auth/network, full suite or Git operation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/ARCAbilities.php": "e49ce4685f148ef423ea38aac544266b3298527ea8ca9eef11b12fb974e7c9f0",
+      "FaBSim/Custom/EVRAbilities.php": "135344a07ca10a5a7bd86672209d27eebadb408817908075c2596194ec574334",
+      "FaBSim/Custom/EVRCards.php": "ae4e1ea2da09ac679821be116bc55f898ed8de2e5ceadf16f548e13d0495c275",
+      "FaBSim/Custom/MONCards.php": "2eb22bda6f1dba583df2879046f9f4dec94f47f2e9b28f369758f3af72c9c3ac",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/ZoneAccessors.php": "9967567a9a10df81a6f22df820d4d77258828657e95c4ad145b8b13ce17866a7",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1377.py": "73829c1a92cc37dd99a4c5a15a3c30ddfd7fafc7aaa488a0b9b3d166692e92d1",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "positive_equipment_ability_credit": false,
+    "initial_position_provenance_credit": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1377-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "3048b10bb76c8fe1bae48be4554ec320e161ad157db072fa26c5a1b2f44e5147"
+  },
+  "full_suite_run": false
+}

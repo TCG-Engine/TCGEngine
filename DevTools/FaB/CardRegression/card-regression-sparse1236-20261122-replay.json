@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-vox-necropolis-four-live-sparse1236-existing-zombie-uses-real-granted-one-resource-tap-attack",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1236-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1236-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "31f4d83281c8e7ea0711a323805668bed4e734b1a42492954aafad759fe201e3",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e6b3241cbe8bc2dde562945625482c8eaea3d2c886a2dff39b25bd6e160e7aec",
+        "actions.json": "633f7250e47f75034b699ad38092ac45af050fd88cc9320a561aa10b07dd4fd2",
+        "assertions.json": "66e84ebd3f5ed6996174d70dd633d356db80483cde119172602b3cefb78d5dcc",
+        "expected_final_gamestate.txt": "f8e8f6f372450a1805d31c2f2c09841d4c7f907feb19d8e58f8b928bd3c8077f",
+        "meta.json": "004466a50d7b003f40f823ce148202790800dec4b326404b9c01926741931923"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

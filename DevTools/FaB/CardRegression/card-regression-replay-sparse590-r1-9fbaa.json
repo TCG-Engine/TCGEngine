@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch590-rush.json",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "returncode": 0,
+  "completed_utc": "2026-11-06T07:54:15.672562+00:00",
+  "fixtures": [
+    {
+      "slug": "card-rush-of-power-blue-four-live-real-embodiment-earned-quickstrike-full-block-and-item-consumer",
+      "fixture_sha256": "7e12c62050bc5eda12520f5f2dfb4d17fc1a66a4db5f3f78dc5d8ca2e429db9b",
+      "passed": true,
+      "result": "[PASS] Rush of Power Blue / real earned Quickstrike / full block and Item consumer"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-rush-of-power-blue-four-live-real-embodiment-earned-quickstrike-full-block-and-item-consumer",
+      "returncode": 0,
+      "stdout": "[PASS] Rush of Power Blue / real earned Quickstrike / full block and Item consumer\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

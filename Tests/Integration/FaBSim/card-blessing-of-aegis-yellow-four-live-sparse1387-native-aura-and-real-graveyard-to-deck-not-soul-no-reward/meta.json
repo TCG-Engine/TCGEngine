@@ -1,0 +1,7 @@
+{
+    "name": "Blessing of Aegis / real graveyard recycle is not Soul entry",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T13:32:19+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_BOLTYN20_THREEDORI20. ActualprimaryAura5playedHand0Action0/AP1to0,all4responses\u2192same5ArenaandprintedGoAgainAP1. NoCurrentStartTurninvokedafterentry, noartificialAura/proceduralhistory. NativeRemembrance6Instant0/AP1/all4responses\u2192realoptional0to3Actionchooserretainsphysical6Stack; actualWounding7GY\u2192singletonDeckshuffle(noentropy), then6selfBanishfaceup. DestinationDeckandBanisharenotSoul; noownSoulEntryearned. Aegisnogain1(HP20not21); SurayanocreatePonder(ArenaonlysameAura5,UID7not8). Exactphysicalfates/Soul0/HandGYempty/Deck1/Banish1/AP1/R0/allHP20/noStackDQ/UID7RNG0pinendoutcome. OnlySoulDestinationnegativeguardplusnativeAuraentry/cost/printedGA/realrecycle. PositiveSoulWHEN/timing/rewards/StartTurnmoveSoul/otherpitch/support/priorGYprovenance/fullcarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#blessing_of_aegis_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/IARRuntime.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php"
+}

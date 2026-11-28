@@ -1,0 +1,7 @@
+{
+    "name": "Harbinger of Destruction / four-live missing extra Hand cost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T07:12:06+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "As an additional cost to play this, banish a card from your hand. If a Shadow card was banished this way, this gets \"When this hits, create 2 Gate to i'Arathael tokens.\"\n\n**Blood Debt** NamedmandatoryextraHandbanishcostrejectiononly. LegalnaturalShadowBruteLevia20 actualPrimary5onlyHand, resourcebank8exactlyaffordsprinted8(initiallegitimateexistingbank, productionnotrecorded). Source5cannotbanishitselfasadditionalcostandnootherHandcardexists. Native5clickmustleaveHand5/AP1/R8/Stack0/noTarget/noBanish/noGP/noPitch. ThenactualsupportedRompingClub6reallypays2frombank8\u21926/AP0andattacksadjacent4; allfourmanualsource/combatresponses, actualunblocked4damage/HP4=16. Primary5stillHand/noBanish/GY0, physicalClub6retainedused/Status1/AP0/noGA. Primarydoesnotresolveoropenaresponsewindow; separateactualweaponfollowthroughdemonstratesgenuine4liveplayandbankusability. Noresourceproduction/positiveprimaryplay/extraCardpayment/Shadowbonus/Gates/BloodDebt/endphase/hero/support/siblings/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#harbinger_of_destruction_red"
+}

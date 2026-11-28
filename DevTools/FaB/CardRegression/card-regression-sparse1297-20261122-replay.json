@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-dread-scythe-four-live-sparse1297-real-ally-attack-no-hero-arcane-affordable-repeat-rejected",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-dread-scythe-four-live-sparse1297-real-ally-attack-no-hero-arcane-affordable-repeat-rejected",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1297-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1297-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bd60de66e6c550b3ed187f7687b36f30e6495b99eab1129a92ed616a1a18f673",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ee40b6811ad00f08c115e898e4ca773ea5d988bdd182118b2a9b4b8afefb52f0",
+        "actions.json": "494a5f250a7edd5f218fa9af9ca07b073addabdf6d4b1e37b4d770b751838486",
+        "assertions.json": "0390960905f0dbdace2efcd535f92c567141c0e3ceb3be80de4998f9e6d856f7",
+        "expected_final_gamestate.txt": "118be848a0fa16ce08b355923f7611a42315d5543ced50a9236608b7795d83a9",
+        "meta.json": "2a92425da7fb1dbaf2e1d16e93965353588d636f25e6c9c53b3a62193ed8605d"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

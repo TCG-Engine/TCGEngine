@@ -1,0 +1,279 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B654",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T22:22:05.143329+00:00",
+  "source_spec": "card-regression-batch654.json",
+  "input_sha256": "7f61c86b6efb592e23fe610902383e838b24b499ed02b8056186e6e1b551f557",
+  "manifest_sha256": "4af8dcc762786ba9ad229d6ff1f446872be40e5686d57e9ea5ce26a3f7ba5767",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "recorder_sha256": "ab33a3250462d0453f71d38dd4138cb9fbc3d595d2586742e989a52251c9c4a9",
+  "source_guards_verified": 70,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch654-independent-source-review.json",
+    "sha256": "72e3ac65264a49bd079e85040416d942012d4a9697eed25b62732ce89c14c49e",
+    "unchanged_semantics_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch654-20261106T221902Z-6aee52565dff1.json",
+    "sha256": "61c58b0946684bafa68f3af00fb1e48f9a8b00e8f8deeb8811e053a74555a01d"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch654.recording-results.json",
+    "sha256": "f62aa79d0132946d97367917ddd1916b6b8531f3e662adeab87fdacc0ef3e0ed"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-b654-sawbones-native-recording\\receipt.json",
+    "sha256": "daf9af368b9d629db8a9a33a8b331f3c1a51507baf9dd2356bc91db338baad1e"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "sawbones_dock_hand_yellow",
+      "group_id": "identity:sawbones_dock_hand_yellow",
+      "slug": "card-sawbones-dock-hand-yellow-four-live-real-tap-and-pirate-ally-one-prevention-survival",
+      "source_spec": "card-regression-batch654.json",
+      "input_sha256": "7f61c86b6efb592e23fe610902383e838b24b499ed02b8056186e6e1b551f557",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_INSTANT_TAP_PREVENT_ONE_PIRATE_ALLY_SURVIVES",
+      "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "recorded_runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-sawbones-dock-hand-yellow-four-live-real-tap-and-pirate-ally-one-prevention-survival",
+      "fixture_sha256": "94738e056f20bbbf6f91db4b5d678887d17f25e86fb9f0ba3f280541dde73c1f",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "cce7b6ce5f6f84ec0511553917f8d5df8f5941df5ca6c7e2323c82ff5947564e",
+        "actions.json": "8660b168c1e2d0d1b2b2f844df5226e78b82b69f3bd7542d5b50c1cec09da328",
+        "assertions.json": "94e2f93925c6570135a093437329af3a2d53132a4052f285eea01ef0c6337ece",
+        "expected_final_gamestate.txt": "4cd759d5509685bf30a2e846a3193d1378376641969bb746dea546a4a8a4ca9b"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cce7b6ce5f6f84ec0511553917f8d5df8f5941df5ca6c7e2323c82ff5947564e",
+        "actions.json": "8660b168c1e2d0d1b2b2f844df5226e78b82b69f3bd7542d5b50c1cec09da328",
+        "assertions.json": "94e2f93925c6570135a093437329af3a2d53132a4052f285eea01ef0c6337ece",
+        "expected_final_gamestate.txt": "4cd759d5509685bf30a2e846a3193d1378376641969bb746dea546a4a8a4ca9b",
+        "meta.json": "4d95491878526ce90ffa1e9c3f42108150f31452d2e3986bf22aca6d5aa4146e"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "cce7b6ce5f6f84ec0511553917f8d5df8f5941df5ca6c7e2323c82ff5947564e",
+        "actions.json": "8660b168c1e2d0d1b2b2f844df5226e78b82b69f3bd7542d5b50c1cec09da328",
+        "assertions.json": "94e2f93925c6570135a093437329af3a2d53132a4052f285eea01ef0c6337ece",
+        "expected_final_gamestate.txt": "4cd759d5509685bf30a2e846a3193d1378376641969bb746dea546a4a8a4ca9b",
+        "meta.json": "4d95491878526ce90ffa1e9c3f42108150f31452d2e3986bf22aca6d5aa4146e"
+      },
+      "actions": 35,
+      "native_assertions": 2697,
+      "actual_manual_passes": 32,
+      "actual_priority_response_passes": 31,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 8,
+        "2": 8,
+        "3": 8,
+        "4": 8
+      },
+      "schema_property_assertions": 748,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "sawbones_dock_hand_yellow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3
+        },
+        "4": {
+          "card_id": "gravy_bones",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4
+        },
+        "7": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "sawbones_dock_hand_yellow",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_Arena4_exact_UIDs": [
+        5
+      ],
+      "final_Hand4_exact_UIDs": [
+        7
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 8,
+      "RandomCounter": 0,
+      "final_health": [
+        20,
+        20,
+        20,
+        20
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Chi": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "full_card_certification": false,
+      "native_action_mapping_sha256": "6fbda781e14cc8e14694fbe7c87120c8964dcd380514f1c96dfc98dc9d2289eb",
+      "native_assertion_mapping_sha256": "9b8465e965d9fe9a24f9a7e864a519525ecb7acea9951b5445edad887dec4ac2"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 35,
+  "total_native_assertions": 2697,
+  "total_manual_passes": 32,
+  "total_schema_property_assertions": 748,
+  "material_findings": [
+    "Exactraw5/35actualenvelopes2697orderedqueries32manual8each/48preferencesperendpoint/current70c53guards+ab33 match independently approved72e3source. Fullphysicalendpoints/terminalassertionsparsed; unchangedprinted/source/scaffoldnotreaudited.",
+    "RealAA6cost0/AP1→0formallytargetedactualP4Ally5. ActualP4Instant0tap5paidbeforeABI8SourceArena5/controller4/capturedATTACKsourcefresh4,1,2,3; firstthreeholdabilityandSawDamage0, onlyfourthcreatesnextoneeventprevention. NoInstantAP/resourcecost/refund andunusedBlue7remainsHand4.",
+    "Actualbase2/DEF0packet tocontrolledPirateSaw5consumes1prevention: physicalDamage1/survivesprintedlife2/tappedArena retainedandallHeroHP20. Actualpost-preventionstate.damageDealt1alsoexecuted; correctGL2029sourcefindingreused, nopreliminaryconcernremains. FullClose5ArenaDamage1/6GY1/7Hand4/temporary8ceased/originalUID1..7/counter8/RNG0/RAPChi0/quiet andpreventionfullyconsumed."
+  ],
+  "limits": [
+    "OnepositivePirateAllyself-preventionbranch. NoHero/otherPirate/nonPiratedenial/normalAllyattack/WateryGrave/death/Gravyability/BlueGYpermission/producer/secondprevention/sibling/support/fullcardcredit. PriorAllycast/refillrules-only/unexecuted. FutureEndAllylife-reset/untap UNREACHED/UNRUN; currentfullCloseDamage1/tappedstateonly.",
+    "NoreviewerPHP/native/replay/R/source/fullsuite/deniedrepair. Rootfocusedreplays/registration/qualificationremainseparate. UndoVersionshash-bound/excludedfromphysicalinventory."
+  ],
+  "qualification_credit_before_registration": false,
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch654_saved_readonly.py",
+    "sha256": "e8568f1c22c38d6d8160034b759b0c4517a47c1a590ccf02f43ebd59e992f1b6"
+  }
+}

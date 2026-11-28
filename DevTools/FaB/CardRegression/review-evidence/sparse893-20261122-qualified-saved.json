@@ -1,0 +1,116 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of /root/breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse893-20261122.json",
+  "source_spec_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+  "input_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-strength-of-sequoia-red-four-live-sparse893-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+      "card_id": "strength_of_sequoia_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4bcc413812cc0728b78ee5f070c6d71356ee241e97d065b6e61c523fba983402",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "79d8efd589a7e4fbb5bee2396dbcfce3c1ba5065e6029f0bd3a70b25976b05ff",
+        "expected_final_gamestate.txt": "b5212ca2ffddeab184358d2e7b2bab9c8d6af9232970b18e76b780f4a409b2d4",
+        "meta.json": "10c8b0978116eb223179ce8edda45d817d6b2926c50e26b60985c7a60d54776d"
+      },
+      "fixture_sha256": "186b777ca76e506b480a7dc0f04f5e8731339f742bb368754d3980a1cb392928",
+      "actions": 35,
+      "native_assertions": 185,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 33,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse893-20261122.json",
+      "input_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-strength-of-sequoia-red-four-live-sparse893-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "fixture_slug": "card-strength-of-sequoia-red-four-live-sparse893-natural-action-start-destroys-real-aura-then-actual-next-attack-deals-seven",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-aether-red-four-live-sparse893-natural-start-destroys-real-aura-then-next-arcane-spell-deals-six",
+      "card_id": "blessing_of_aether_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8ec96c3488991919a5e42bf5f957f8090bcfc38370e47deeef52237b325ba412",
+        "actions.json": "4f57c1b8092214a3e32daa186da54c9c6b81735805d822930725ef51e466bfae",
+        "assertions.json": "f469d792d65c3fdd41c5b5c93ab212e168a2df47dde761725bae523ff0653528",
+        "expected_final_gamestate.txt": "7f7dff4c7ee91964386c5bdac6a558367fe36be0496f31ffc1ddc019d2f0c287",
+        "meta.json": "4967a5dc796fc4090c0b54fc19e8c13fecae46209858eb0d3efad78195ebf8eb"
+      },
+      "fixture_sha256": "41f606e2e2752db2fa2f26c7ff0a9e16d07d8f85979ee75acc80de5a061543c3",
+      "actions": 14,
+      "native_assertions": 168,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 12,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse893-20261122.json",
+      "input_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-aether-red-four-live-sparse893-natural-start-destroys-real-aura-then-next-arcane-spell-deals-six",
+        "fixture_slug": "card-blessing-of-aether-red-four-live-sparse893-natural-start-destroys-real-aura-then-next-arcane-spell-deals-six",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-blessing-of-spirits-red-four-live-sparse893-natural-start-destroys-real-aura-then-creates-three-owned-spectral-shields",
+      "card_id": "blessing_of_spirits_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ba133cbe75d8151deaebd11aa635b6c539f657eafed7195869c61977938f4714",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "7633bee179a9dca7f3e2c4157e208537fffc5deae7b1db4953cdbd093a474d5a",
+        "expected_final_gamestate.txt": "3d38fe138f790e7906f21bcef7c54891b6ed19b638162c05bb9c3ceba83b2bb9",
+        "meta.json": "fd7c1270ffeed0a4048445db826d579abdd96ee8efd80d957897ed0918787e72"
+      },
+      "fixture_sha256": "45d1972c8a0f23336c6fb842b4c9a2d2bbc6c9ea6059991d49a1885f6eba5edc",
+      "actions": 8,
+      "native_assertions": 115,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse893-20261122.json",
+      "input_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-blessing-of-spirits-red-four-live-sparse893-natural-start-destroys-real-aura-then-creates-three-owned-spectral-shields",
+        "fixture_slug": "card-blessing-of-spirits-red-four-live-sparse893-natural-start-destroys-real-aura-then-creates-three-owned-spectral-shields",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "Root independent of /root/breadth_review author",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "6d8fd555e1c3b6acb1ce28a3daff2507fb072026798810051b6438e901c9a7ff",
+    "evidence": [
+      "Root independent of packet author checked source code route/printed text, physical inputs and bounds. Strength red+3 nextAA: actual Wounding4->7 withnoGA; Oldhim legalEarthGuardian20, fusion/casting/entry untested.",
+      "Actual DYN StartTurn dispatch destroys Blessing Aether then nextcard arcaneeffect+3; real Zap3->6 to actual P4Health14, source15healthKano. No earliercard consumes modifier, no seededAP/resources/damage.",
+      "Blessing Spirits red mandatoryStartdestroy thencreate3ownedShields; source5GY, distinct token6/7/8 ArenaOwnerController1. Prism20 legalLightIllusionist, Ward/Shieldlaterabilities untested.",
+      "Allthree beginrealpreexistingAura5,Turn4withAP0;8actualmanualturncontrols, auto-start completes beforefirstownerpriority1; firstactualconsumer or tokenoutput. Fourmanualresponders and physicalUID/health assertions, no siblings/supportgroupcredit."
+    ],
+    "native_games_by_reviewer": false
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse893-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "209ad76a524c7229900ba7b410ea2989946820b7e926c6c3d453310816e04fc2"
+  },
+  "full_suite_run": false
+}

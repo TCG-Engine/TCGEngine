@@ -1,0 +1,7 @@
+{
+    "name": "Spinal Crush / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T20:43:14+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Crush** - When this deals 4 or more damage to a hero, action cards, activated abilities, and attacks they control lose and can't gain **go again** during their next action phase. Representative only: actual_multi_blue_payment_and_multi_hand_full_block_no_crush. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spinal_crush_red"
+}

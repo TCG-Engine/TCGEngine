@@ -1,0 +1,7 @@
+{
+    "name": "Omens of Arcana / native-bound Limited setup and Flow spellvoid",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T21:29:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Legal two-manual OMN Limited young Scion19/Zyggy20. Native FaBOMNSetup actually recognizes shared Macro3(Owner0Controller0), derives omnMacro and real owned Flow4/5; full native initial raw SHA256 must match recorder guard before any case action/save. No direct flag provenance assumption. Actual FlashBolt6Instant2 precommits sole opposing Hero2 by TRP5.14 damage default, pays real CometBlue7pitch3=>R1/AP1; both manual responses, then later native damage chooser repeats Hero2 without retargeting or new hidden information; no early native target-binding credit. Macro grants Flow5 Spellvoid1, before3arcane targetHero2maychoose onlyownFlow5. Real choice destroys Flow5/token vanishes(no GY); prevents1 of3 => HP2=18, casterHP19/AP1/R1, otherFlow4unchanged/Macro3shared/Flash6GY1/Blue7Pitch1/UID7RNG0/StackDQframesquiet. No hero activation/end phase/future Flow ability; component setup is separate evidence, not replayed game initialization. No four-seat UPF Macro claim, support or wholecard credit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#omens_of_arcana FaBSim/Custom/OMNCards.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCCards.php DevTools/FaB/CardRegression/initial_snapshot_guard.php https://rules.fabtcg.com/en/cr/01-game-concepts/ https://rules.fabtcg.com/en/trp/appendix/ https://rules.fabtcg.com/en/trp/05-gameplay-logistics/"
+}

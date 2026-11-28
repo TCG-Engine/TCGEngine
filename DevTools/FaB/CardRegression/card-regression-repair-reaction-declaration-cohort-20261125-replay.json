@@ -1,0 +1,281 @@
+{
+  "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+  "status": "PASS",
+  "fixtures": [
+    {
+      "slug": "card-dodge-blue-flat-dr-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "47d73aa6726a51101d7004ee61f43aa1279479a32b842bad66d6849146993d3d",
+        "expected_final_gamestate.txt": "3acd164bdbed248168bcece102e4fb6aff23576e89fb9ee333d42b5a0f5b09fe",
+        "initial_gamestate.txt": "7738f5552482db46541430d586a35264d3d9c60709277d81e9f7ccb927178083",
+        "meta.json": "22001ae3943301415fc835bb332893ed7fc1b026ee4f9abed19d749c168cb4d6"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "b422a9e9df58ea0ac738bad698ea76f8b002b236bd912af4f55eb53792043f0d",
+        "assertions.json": "ae37eef4b3951c74ec51b61eba119be9be6ac3c09b3b38ac28d461a81c1b0249",
+        "expected_final_gamestate.txt": "1fa2c5fc671cde7bf086a8852ad131fbeeb15de8a28e427f08c5f60bd49f36da",
+        "initial_gamestate.txt": "12477d35f4507e0a32c2536e7ba9737c04a249214b9800ef3f12b810d2f741f0",
+        "meta.json": "5f82ee392fcd1b7690fc29335be4247680b36f8b2a592ae0a7232609c6534d2b"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-blue-flat-dr-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "133aa88182cd1edc9ec676d95dbed0b95754835cafa320d04317d92589464b8c",
+        "expected_final_gamestate.txt": "c58148faf4365c03fa3f01328b1a9a1bca799e229162d8c695a920dbfdc91e6d",
+        "initial_gamestate.txt": "12477d35f4507e0a32c2536e7ba9737c04a249214b9800ef3f12b810d2f741f0",
+        "meta.json": "cf35fe3047cedd3f08d40896a89518d5093629ba6ab60c7ef0dd17f9ded818ab"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "b422a9e9df58ea0ac738bad698ea76f8b002b236bd912af4f55eb53792043f0d",
+        "assertions.json": "6f1cc6bd843a9cf41ee904563773ff42faf000f7ac05b82ada0f9d22dd82375a",
+        "expected_final_gamestate.txt": "bb285098bb720dba7acad53742301fa2a04897c97a46f60a91d192b0e9c4c703",
+        "initial_gamestate.txt": "1e96bf9ff97fc5465b76d33bfda0e64fd48f1624c56e5fbe2f4d46f629dd15b9",
+        "meta.json": "9ff69fb4e5e5c21b3fb929921911f36416794b4e6d790a5a568346631bac5467"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-red-flat-dr-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "e3ca6a7cc11ed6bcb30d115a83b7cef0694597aeef821de40f49aad05fb92558",
+        "expected_final_gamestate.txt": "490ca851f4cc3a4f15aab29f5f6ddeb778a543ee952e4bf3e2d8eec845b2020b",
+        "initial_gamestate.txt": "1e96bf9ff97fc5465b76d33bfda0e64fd48f1624c56e5fbe2f4d46f629dd15b9",
+        "meta.json": "3a83b1fec0596848f72322c005b211a3c8283d3f1f0daf1558b0c20c8f7750af"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "b422a9e9df58ea0ac738bad698ea76f8b002b236bd912af4f55eb53792043f0d",
+        "assertions.json": "9c6b96b911a78a05246729e49e8c9bb6aada9ab1f2dd274a810907642aecc462",
+        "expected_final_gamestate.txt": "24c5fd81f7429bf9b0547f2c0306dfa43820872f08b2f69dbad98adda8d27625",
+        "initial_gamestate.txt": "ab8b8055bd4bf60a41002c0ae4beecf65e37fcdc2587b3d2283248c726e55bad",
+        "meta.json": "1f64a3ba910999fe9cea561360bb1b60828d5c48fd0cad1fa39e70d8bc52a81c"
+      }
+    },
+    {
+      "slug": "card-evasive-leap-yellow-flat-dr-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "5e9a4f4a4ce97be486811b319de19b02d6beabc3931edc41f0267a588916c243",
+        "expected_final_gamestate.txt": "9f9f1b8d929d7ad289a704382cec84b45eae3f72bb479e92ede1aeaf0af9a2e9",
+        "initial_gamestate.txt": "ab8b8055bd4bf60a41002c0ae4beecf65e37fcdc2587b3d2283248c726e55bad",
+        "meta.json": "c8e01ceb6aa91a9edf44803c4c2678537460eb85a5d7b91eb38360a5388a7323"
+      }
+    },
+    {
+      "slug": "card-redback-shroud-four-live-real-destroy-reaction-discounts-next-card-and-retains-resource-through-seven-sword-damage",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "5256c96adaae241d4788b89844c7a21e2088f7e62d43a07e61cfa23d3f8b5b73",
+        "assertions.json": "01cf4fc89efadcc8be321f5fdaffde8654b5d4adc540d8ab7c547581c6251fed",
+        "expected_final_gamestate.txt": "6fa5702644d08da9440de62bbbd1aefc487fbfe4f25118f433dc4bc598919012",
+        "initial_gamestate.txt": "bdb49db1089836a1c0102d08e9b98dee1605f2207f426c9e782f4572ffa7e1c4",
+        "meta.json": "be1c4dfbe2cc9732881b7e3c3a776ab0ea17d09a019df024acd41cfff0bd8e0d"
+      }
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-attacker-razor-above-pending-defense-reaction",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "b422a9e9df58ea0ac738bad698ea76f8b002b236bd912af4f55eb53792043f0d",
+        "assertions.json": "73e5140917b5758c97741e6a3e70552b67d772bdc2ddb9ae02a61e3dced8ae44",
+        "expected_final_gamestate.txt": "b74535ff57f72fe9353795061f7b2c2d94272e0f46ebcf22bf1afe1389250d94",
+        "initial_gamestate.txt": "03e8f38d2def89215c87a6e94351e390c945cdc26af2207aef05b1f10c4b31ec",
+        "meta.json": "5fbb7be9bc55aea16dc7020f463c548ab1831069d1cc6ab8e3f8c59e385d883b"
+      }
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "d510e67b9250883d7d0f9121c1867d4654d8bb00d8336acf13b8063c366135d2",
+        "expected_final_gamestate.txt": "da1cac1532a0c629aa4b6f34b0d77b08d0fd1a77445f0785bb859c5403b102d3",
+        "initial_gamestate.txt": "03e8f38d2def89215c87a6e94351e390c945cdc26af2207aef05b1f10c4b31ec",
+        "meta.json": "0c011a9faad42441afab4e176d98292fa08f0afa184dcdde8ce5823185ba4ddc"
+      }
+    },
+    {
+      "slug": "card-springboard-somersault-yellow-ordinary-reaction-hand-third-reaction-after-partial-resolution-028-required",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "a34397850f90ce02416a3da1c4a38adedafcbee69f0ca2c4295ffdc6e51f2445",
+        "expected_final_gamestate.txt": "e208f2c266edf6febfca9315b52980e3301f1dc2ae2ceb3310f4c2f367b0e89d",
+        "initial_gamestate.txt": "f68b17ba7b948f93852044692096bfd8b7e62d82e147a50e84388b6e1f4ac062",
+        "meta.json": "37494806bc82cd6136cf2a5db7630e6d9a55a355ee1bb7ae92ee5a0955aa8d0b"
+      }
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-attacker-razor-above-pending-defense-reaction",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "b422a9e9df58ea0ac738bad698ea76f8b002b236bd912af4f55eb53792043f0d",
+        "assertions.json": "1ff7f145dafaccfb0474bd206d63ffbf5e33e0e4d90b98fe2ba21c7cd9770c73",
+        "expected_final_gamestate.txt": "12c510f230d6baae89404f3dee2e6ee97b3e8f89856bd803b1654d245818e356",
+        "initial_gamestate.txt": "fdce5ead0b120af7b515bbbc7c16248445b5092cf48596eba17af26aedf9151a",
+        "meta.json": "f60b8d3a2b9ea8a4b5d384872006648dfa6bf4e7fe821fac216e8d0416a9d35e"
+      }
+    },
+    {
+      "slug": "card-toughen-up-blue-flat-dr-defender-response-above-pending-razor",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "05430b49adbb65e2da5787abf70ad37b33a35f206d84ec910dd48a3880b3642d",
+        "assertions.json": "b70281f8cc853c01da072609f2c2c04de9882e3ac5dd520919044661617522dd",
+        "expected_final_gamestate.txt": "f8a7f583c1596525f016b98dd2dd7dc3a5e045689f740d29e883ea71401c420b",
+        "initial_gamestate.txt": "fdce5ead0b120af7b515bbbc7c16248445b5092cf48596eba17af26aedf9151a",
+        "meta.json": "af7b5d4063b5b86f38f3155e8a3ea72af84baceb8fedf031b4e59a4d6ab68237"
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-dodge-blue-third-response-after-partial-resolution",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "e8c64e506c7f9948bf49f0f5109bc99b6714f0cd181e0753c4450c3c8ba44d7c",
+        "expected_final_gamestate.txt": "935208fea6a69e4567d025ff8060d4b8d8fc8732a42eed040d79b3c1b9f6beb8",
+        "initial_gamestate.txt": "ca77a6eda22cea0cdf1e5a2aa1fddf07fc51aff02da6ed5c8d689a9cbaee8963",
+        "meta.json": "23e7b2d9389062af1133617c5ca65f967705d4ed013d8b7681455266cb6f681b"
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-blue-third-response-after-partial-resolution",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "1603a520142f3882886c3f7aaf8e90af94a5b9beb9c7ad0b6c472f5238f28964",
+        "expected_final_gamestate.txt": "27dff4f73be1cd5a4e7c88544d3927bf9688fbcc1235f57cb90f0db8ad767b71",
+        "initial_gamestate.txt": "cbeff762b128e2cd07b412e6e57bf82b96d94bf097ee408abcb106909795b758",
+        "meta.json": "b7ad36e9f6296f92c200b3f35a811ccf981efcad490578d8907dca7266874d63"
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-evasive-leap-yellow-third-response-after-partial-resolution",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "3cf87eb44172e3b87c0e5d364459615db99003dc91dde2119feb09dd49e9cd25",
+        "expected_final_gamestate.txt": "6999c4b8ac996f0bde80f13716df49d228d119c3c356f9899c9e97e087ece4c2",
+        "initial_gamestate.txt": "f2f4212d98e91ad225d08398ce89339028d6d635497eb9047a0020543d850bde",
+        "meta.json": "121ac978530744d0497d4e4d8b7f097c133ad68462af41f16ac5e007a92d3d87"
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-third-response-after-partial-resolution",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "d8e85a87109b3f1b3fa38d0f3faec3554f3a50f54994f9917f63175a4707c1e2",
+        "expected_final_gamestate.txt": "d7f01a6c897ec51cb81ff9176d1732716ee74452e89a1d56e13242f8d893699c",
+        "initial_gamestate.txt": "1de8d44ab979b1e94d2668920beaf25e010c4d41b598b05e47a30e3c96f3d72f",
+        "meta.json": "8e221400bd6354254a052a07b1e3bd2ae88eec5bbfd15c4df9659e7310fda1b3"
+      }
+    },
+    {
+      "slug": "compat-flat-defense-reaction-toughen-up-blue-third-response-after-partial-resolution",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "97b616e58c714c5bba3b8e085134ad82e0faf6c3be2fcd22742c50769ef3039e",
+        "assertions.json": "72ffc59002ef38c96947a3b96dbfcfb78e64fdcd8bf0cf7f26ee8ab5f21ae1c2",
+        "expected_final_gamestate.txt": "f324016d4471360e44073823180652cc3ffb29d71c7109a85e20dc97e038bc36",
+        "initial_gamestate.txt": "e742e440552504a159d7b934da444fd1602af7f5890813f5ae4590c5da9a99b0",
+        "meta.json": "a50c905901baecbd619b123f45639c80a7817db93f83cdd41ac63380514a626c"
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-further-ar-lunging-press",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "0fba017bd78cb7e5b84d87cb6f8fe5f90c5021958e3f07e73f852ee1268ea0de",
+        "assertions.json": "cf442f1c3f79875f52e15eca25b7320ba954855a37bcb55c2cb94f07978f991a",
+        "expected_final_gamestate.txt": "447b70173bc472dd9764cef43fcc1550c6a28c14f98499dba34030cbe47c2cf5",
+        "initial_gamestate.txt": "3bca347070e1001911579975e543a51faabc80bab57e16c183a3ef63842846be",
+        "meta.json": "5e8efa77fb9ba15817b6bd8caeaf287748b37d0e843cac2e08bf8b393561df17"
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-insufficient-cost-valid-razor-rejected",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "0cd25ee18230780b94cf2cced3b08d238c5f4dfc2a857f7338e5a29e421486ca",
+        "assertions.json": "e359bf40068ab8d2aaa7df47fc07aaf33cf7a6c1566891c851af34372ebf85bf",
+        "expected_final_gamestate.txt": "323f555ac8d95b29acf9c660840e27a054dc06ee1dbf60a50ab3c20ded246a18",
+        "initial_gamestate.txt": "47d2ac38ef796afce2abdc592d147452a526f3c8a4615e4799edabee20df3058",
+        "meta.json": "3e67c29c7627ade5c64900ce468b17ac44f7c77949e0784781483dca6e6b67dd"
+      }
+    },
+    {
+      "slug": "compat-reaction-priority028-wrong-target-funded-pummel-rejected",
+      "passed": true,
+      "returncode": 0,
+      "runtime_sha256": "39ea7198588aa12a77f1b2f47c9b523e54789383be9e5ee5bc96ff8ac6a9a2e5",
+      "raw5_sha256": {
+        "actions.json": "0cd25ee18230780b94cf2cced3b08d238c5f4dfc2a857f7338e5a29e421486ca",
+        "assertions.json": "b3b84311925ea8a4c15d32571c1837e91091b93f2ce3d3c542c78703006fa937",
+        "expected_final_gamestate.txt": "06b1c0846cf774f812b898f7717d55808012809ed93438ca7a8c4dd64e932b40",
+        "initial_gamestate.txt": "4dd7bad327b3ba49874774e0ac3e8a2548a21ee5356fd4957cf9038e20c4ab55",
+        "meta.json": "4059246b7acc905358c48c38760f1612df45e913ddc2674ab28733a49afc3269"
+      }
+    }
+  ],
+  "held": [],
+  "full_suite_run": false
+}

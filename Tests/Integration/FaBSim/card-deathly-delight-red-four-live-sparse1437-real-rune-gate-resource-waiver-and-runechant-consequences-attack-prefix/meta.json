@@ -1,0 +1,7 @@
+{
+    "name": "Deathly Delight / actual Rune Gate permission and resource waiver, Attack prefix",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T20:09:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_VYNNSET20_THREEDORI20. Ownreal2Runechants5..6Arena andfaceupprimary7Banish, emptyHand/zeroR. Printedcost2cannotbepaidnormally, exactRuneGatecountthreshold permitsnativeBanishplayandwaivesresourcecost(CR8.3.27). FormaladjacentHero4attacktargetbeforepayment; realAP1to0/R0/primaryphysicalStackfromBanish. RunesarenotRuneGatecostandremainArena; actualAAplaythenearnsexactly2separateRunechantTRIGGERproxies8..9withSource5..6, alltargHero4declaredbeforeresponses. Freshall4roundperRunechantdeals1arcaneanddestroys/ceasesitsToken; total2arcaneHP4=18, GY0. Freshfinalall4roundresolvesactualprimarytoCC1RoleATTACK/FromBanish/basepower5/noGA. ATTACKPREFIXendpointonly: StackDQpaymentquiet, sourceUID7, RNG0/UID9/AP0R0, allrunestokens/proxiesgone. Futureprimaryphysicaldamage/defense/chainclosecallback/BloodDebtandpitchsiblingsUNRUN_UNCREDITED; noeffectfromthesebranchesblessed. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#deathly_delight_red FaBSim/Custom/DTDCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php https://rules.fabtcg.com/en/cr/08-keywords/"
+}

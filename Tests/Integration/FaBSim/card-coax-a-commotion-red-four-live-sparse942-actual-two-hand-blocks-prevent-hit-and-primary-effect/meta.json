@@ -1,0 +1,7 @@
+{
+    "name": "Coax a Commotion / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:09:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "When this hits, choose any number;\n\n- Each hero creates a Quicken token.\n- Each hero draws a card.\n- Each hero gains 1{h}. Representative only: actual_two_hand_blocks_prevent_hit_and_primary_effect Sources: FaBSim/GeneratedCode/cardArrayCache.json#coax_a_commotion_red"
+}

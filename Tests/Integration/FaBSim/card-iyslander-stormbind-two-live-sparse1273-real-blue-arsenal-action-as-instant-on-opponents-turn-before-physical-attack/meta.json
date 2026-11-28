@@ -1,0 +1,7 @@
+{
+    "name": "Iyslander Stormbind / real blue Arsenal Action as Instant at zero actions on opponent turn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T01:52:05+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "ADULT_IYSLANDER36_NATIVE_DUEL_BLUE_ARSENAL_PERMISSION_ONLY. Turn1Dori40actualWounding3HandAction0/AP1to0getsrealPriority2withattackheld. IyslanderStormbind36opponentHero2/AP0/R0hasactualfaceDownZapBlue4Arsenal/noHand/noeffects. Actual4ArsenalclickmustadmitprintedWizardAction0asINSTANTatAP0opponentturn/formalHero1target, retainingrealattack3underit. BothactualmanualresponsesfirstresolveoriginalZap4ownedGY2\u2192real1arcaneHP1=39, whileoriginalattack3remainsStack/nophysicaldamageyet/HP2=36. Bothfreshlowerresponsesthenreal4powerattack/nonGA\u2192real4physicalHP2=32. Finalowned3GY1/4GY2, AP/R0/HP39vs32/UID4/RNG0/StackDQsCCclean. NonIceZapmeansnoFrostbitebranchorownershipclaim; noYoung/four-live/Essencedeckbuilding/repeat/ownturn/redyellow/Hand/ineligiblefilters/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#iyslander_stormbind FaBSim/Custom/EVRCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/GameLogic.php"
+}

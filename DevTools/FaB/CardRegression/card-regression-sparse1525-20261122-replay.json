@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-fisticuffs-four-live-sparse1525-real-weapon-fails-attack-action-required-but-actual-weapon",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fisticuffs-four-live-sparse1525-real-weapon-fails-attack-action-required-but-actual-weapon",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1525-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1525-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9a085102de101d87346c8d20cc35dd881280a017620a65e7daeba4d397c491cf",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "7446d5551d2d246424a872a8b0b1db1fdfb6d41f076e31c0022633c8168cfe68",
+        "actions.json": "f2fd5e7c28aff4a33f4b6be0a52f7d4f601ee972f16feba1703e23c5cba17454",
+        "assertions.json": "5f65022434942e43e99c64e86610fb67d558435025c2bf3a206272082ce51d16",
+        "expected_final_gamestate.txt": "94de4dc88778628291f62fd069a174ef4bbaa818f558a7a90457353db8c60926",
+        "meta.json": "8fe9ed64009b88c7fe5fb80415fe6481ee3d147a1339f19b0509ecc837e7e32b"
+      }
+    },
+    {
+      "slug": "card-fleet-foot-sandals-four-live-sparse1525-real-weapon-fails-base-power-at-most-one-required-but-actual-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-fleet-foot-sandals-four-live-sparse1525-real-weapon-fails-base-power-at-most-one-required-but-actual-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1525-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1525-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "db47ecfd3ee9629d695e0804fb8b2b38140eb61724b477469af7205ca6bf94c9",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "57b52283b9dcaad12ce44e67c8e01f77521f53d4a3bacb0558540d389285d72b",
+        "actions.json": "f2fd5e7c28aff4a33f4b6be0a52f7d4f601ee972f16feba1703e23c5cba17454",
+        "assertions.json": "52c7b83e28e6a473d8156f7072021ec0b39e128f5eb7bf9a3a0e820d398ccf5f",
+        "expected_final_gamestate.txt": "90a28ba725828f87255d594374c89339f5129aa9d05d852e9dbe2ca244224381",
+        "meta.json": "c1b3cb7d1c1c2481610a204e2b08973144b19f9a83209e31c71ecbdd71646227"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

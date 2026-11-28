@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-last-ditch-effort-blue-four-live-sparse1341-real-nonempty-deck-no-power-or-go-again-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-last-ditch-effort-blue-four-live-sparse1341-real-nonempty-deck-no-power-or-go-again-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "b9e6ac10de6e8eb7daac1ca1cb54d5ec0e696944f1e8d196ef2e18af44d24b58",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4d9f9148e4d4c62a531254088fc70c52c64765bb6b7245118a2b88a7a9276fe2",
+        "actions.json": "0c005a52a51dc48a24f481bec6cbd5cfe2cb93ecd847ec1063490764f1d7d9ea",
+        "assertions.json": "0f91da44b4506a8c0e54d1a904e0b705b38989aeeee6bab40967894612084074",
+        "expected_final_gamestate.txt": "aec190b34ba1d011b93ff7d51de34e707b4d583bcb08465241cf6744589670bf",
+        "meta.json": "0f677cd967b7099a7805f00829142a6d61232feca8120c346d8a46e95348ccd1"
+      }
+    },
+    {
+      "slug": "card-demolition-crew-red-four-live-sparse1341-no-other-costly-hand-card-rejects-self-or-deck-reveal-and-preserves-real-followup",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-demolition-crew-red-four-live-sparse1341-no-other-costly-hand-card-rejects-self-or-deck-reveal-and-preserves-real-followup",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1341-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "424d1472e09d4e79b16e212b4fd522c4a995de566e5f567b7be05db969dd36cd",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a0e3879fb9364ab497a2214880ccd4f378fe1051ba20ac7ba4a8245fe3f79942",
+        "actions.json": "b18dba19c6e1a9a22f08df0db536f803ccbe3582e85a855466962018fb52da72",
+        "assertions.json": "1d06d4a91bf75e868da6a17c745389223b01b830ddaaa97bbcb0ac0216aab4bb",
+        "expected_final_gamestate.txt": "6e8d555ef4c2f1fb96e5aca0b390b43379d08af554e1c1cfa3c024d0efbd8936",
+        "meta.json": "93cc469222dbaaa1d841fee0d4420a0b767ebf6ede2743dc0dd33fdd6bf9a199"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

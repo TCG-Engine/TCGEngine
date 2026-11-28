@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch772.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-09T03:28:23.769209+00:00",
+  "fixtures": [
+    {
+      "slug": "card-impenetrable-belief-blue-four-live-three-real-opponent-banish-costs-earn-four-defense",
+      "fixture_sha256": "86f2560f90bf4ad117ce2274ba8bf3f5a4e0f1d7654de1723e1853e52d967067",
+      "passed": true,
+      "result": "[PASS] impenetrable_belief_blue / four live distinctive effect"
+    },
+    {
+      "slug": "card-glide-through-starlight-blue-four-live-paid-hand-discard-prevents-one-and-creates-lightning-flow",
+      "fixture_sha256": "93fdec45e57567f880a465e955fd74c253b10d3fb7d76ce1fb0be247caa458e4",
+      "passed": true,
+      "result": "[PASS] glide_through_starlight_blue / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-impenetrable-belief-blue-four-live-three-real-opponent-banish-costs-earn-four-defense",
+      "returncode": 0,
+      "stdout": "[PASS] impenetrable_belief_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-glide-through-starlight-blue-four-live-paid-hand-discard-prevents-one-and-creates-lightning-flow",
+      "returncode": 0,
+      "stdout": "[PASS] glide_through_starlight_blue / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

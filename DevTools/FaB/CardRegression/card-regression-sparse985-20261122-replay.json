@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-voltic-vanguard-four-live-sparse985-reject-no-prior-instant-play",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-voltic-vanguard-four-live-sparse985-reject-no-prior-instant-play",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "518c8592bbc63d7358890aefed86ae239b0bbe7fe1d6abf3e44fa398a02cd0a2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b3a16882d7c576bb047b4b5693c5f4fe5947519c834b5f45d979fafe440336f7",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "4cea24fb6dbac9dee0e370fcc465598fda8c9fa4be7cde3b98f9737477bb6a8a",
+        "expected_final_gamestate.txt": "03911a75b2884237276c9f2201409bd86674e897a36c05a12733faf5fbea55d2",
+        "meta.json": "958a050634798bc7fd94935a34da1377528d60034c936bb352fbbbb2aaca1bcc"
+      }
+    },
+    {
+      "slug": "card-starfield-veil-four-live-sparse985-reject-no-attack-has-fragmented",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-starfield-veil-four-live-sparse985-reject-no-attack-has-fragmented",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse985-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2a7c4a3eb0065619eb75b691e4e29ea615529f01aaff91db63260d1f95d5b6ab",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5e36053b9e923d3cd45e7fdf3d86c16a88fc18620dbd628e3be4eea13b6e6039",
+        "actions.json": "1da07b47d68c485b562420997d531d2c0092071d782f19db3fb87cd1f1159c1a",
+        "assertions.json": "74bd7dcc88c5c6e5b43de3321c7a68b2b63a6970ac3bc3cb6dfb162d94e58d92",
+        "expected_final_gamestate.txt": "f139dffa542d74aa11665e27aec4faf93584458105669b2e61f3853215b9e960",
+        "meta.json": "3f64b546d26c346f1e51e4c09e9cc07635b6f5676625658201fc8efcf988bdbc"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

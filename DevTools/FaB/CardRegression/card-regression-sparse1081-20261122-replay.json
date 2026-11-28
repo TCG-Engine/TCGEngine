@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-viziertronic-model-i-four-live-sparse1081-real-arcane-barrier-two-paid-by-blue-pitch-equipment-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-viziertronic-model-i-four-live-sparse1081-real-arcane-barrier-two-paid-by-blue-pitch-equipment-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1081-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1081-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ca13f630102621c3787e5ca7806bfc0a150d684ed2598db11f4160ef54b6f278",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "94d2da6d8d12aacb335d056244e364682715e3fb5d01bff2b6cb75cb366944ba",
+        "actions.json": "abeb3c8b027bfa26d05afb7a0c385c41d6388c2ae6f8105e03a2cd84dc242119",
+        "assertions.json": "c5f1fdf89ef65a9e264038ae2924081869f1f14c33a5513a459f9f9e17e66f33",
+        "expected_final_gamestate.txt": "1cedeb50dc1864c695c649912da9d179da6893c1a79601a88c79a7b8e6485ee0",
+        "meta.json": "210090e2044e6fa05b2ee8bc5ad8f1c99208ec6ee9007ae7d8bad6d060837180"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

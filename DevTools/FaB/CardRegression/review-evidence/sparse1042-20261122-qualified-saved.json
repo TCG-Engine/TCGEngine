@@ -1,0 +1,144 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent printed/source/spec review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1042-20261122.json",
+  "source_spec_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+  "input_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "barkbone-strapping-four-live-sparse1042-real-defense-battleworn-close",
+      "card_id": "barkbone_strapping",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "c8c8ff06e57eba42ab2924ea8e7a2fa83ba688ada591009d61c0851c6b8df496",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "07b565fb5e24c9b73f452e5d05497289ead0a79a62d7e338d69fb2d2231c638a",
+        "expected_final_gamestate.txt": "67c0404b498342c1eef713b6bc5bd3ab19202ddda61912b1f1e391addad39527",
+        "meta.json": "5ee9d031d02f18902bb845e71ffd58ff5ffe1f177a3b00e148d2711c7e5c8324"
+      },
+      "fixture_sha256": "a3fa9a0355a57429b3592291752ecffc5418b7e6275e2d9a30ae973d65a7d201",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1042-20261122.json",
+      "input_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "barkbone-strapping-four-live-sparse1042-real-defense-battleworn-close",
+        "fixture_slug": "barkbone-strapping-four-live-sparse1042-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "blacktek-whisperers-four-live-sparse1042-real-defense-battleworn-close",
+      "card_id": "blacktek_whisperers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "4e6b0c1525db18b3b1dc7ab3768e0b78040d65831d310e6cb5bb837d150cf2b6",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "f8e90ac6abf2817c94e843b624a617d7567cc74e5ffa059e200a4f6f47ee8ffd",
+        "expected_final_gamestate.txt": "a334fa90f56988e4dd7603e97120d8cc2226db5a937f96ab5e16412d156ec7d3",
+        "meta.json": "db0e2356df203dd831b8d9a1156046d3fc93dff52e5b450c48dbdb7e204d3ea0"
+      },
+      "fixture_sha256": "c22c6b8774cb504e6b0e232e2922eb6afa6b1b8f384e0da0dff9e5c2f408de8c",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1042-20261122.json",
+      "input_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "blacktek-whisperers-four-live-sparse1042-real-defense-battleworn-close",
+        "fixture_slug": "blacktek-whisperers-four-live-sparse1042-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "boltn-boots-four-live-sparse1042-real-defense-battleworn-close",
+      "card_id": "boltn_boots",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b240ed3c734bbebf371b559421d841885832df49f9b8c6635e5cbda740114a2e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "a10bc631eacabfa3f1b1ba7bfdc51e93285912f7d57a93cf20aa4100c348e0aa",
+        "expected_final_gamestate.txt": "7526e7805d9fd9bdc7d60c1a388626535ee653607a0de2c7a632ce9ca9f5500b",
+        "meta.json": "b65de388841dc7783f198b8de665c85a683961c09a4188435e3b3b51a3a2ab33"
+      },
+      "fixture_sha256": "066dda37936de47cf3318c3f697caae1ab3c86616fa6c9b167414b33086edb72",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1042-20261122.json",
+      "input_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "boltn-boots-four-live-sparse1042-real-defense-battleworn-close",
+        "fixture_slug": "boltn-boots-four-live-sparse1042-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "duelist-gauntlets-four-live-sparse1042-real-defense-battleworn-close",
+      "card_id": "duelist_gauntlets",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fd5b2e60034721b1f45453fc08e8b17ebf338572a4b95560f80e13c09105a972",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "523b66a7dd1cf7bd7ea6de14416bf9e71173a901bd77cf975a80fce0b8cd05a7",
+        "expected_final_gamestate.txt": "bbc0df933019de25d933cd93bef7492ebe4c71a5ff2a9938b18c421b9d92cfb6",
+        "meta.json": "a00a352ae1087ac0a4bff3eb04a36f97f78f6b02e0cb88bf3e22c8585fcc3e26"
+      },
+      "fixture_sha256": "39aada9c90a5791ede5e3917a616514b407732939c8bc6a4cf8b8e127917999f",
+      "actions": 30,
+      "native_assertions": 270,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1042-20261122.json",
+      "input_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "duelist-gauntlets-four-live-sparse1042-real-defense-battleworn-close",
+        "fixture_slug": "duelist-gauntlets-four-live-sparse1042-real-defense-battleworn-close",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "c718bc488078d9b8ad21b06ef01f9d292ec642405d74301a435ab45217f60da7",
+    "reviewer": "breadth_review independent printed/source/spec review",
+    "basis": [
+      "All four cachedEquipment have printedDEF1/Battleworn and noWHENdefends effect. NaturalRhinarBrute/Barkbone, ArakniAssassin/Blacktek, LexiRanger/BoltnBoots, DorintheaWarrior/Duelist legal20; GenericNAA LeadCharge6DEF2 legalfor each. No activatedbody/owner4attack/contract/banish/arsenalflip orstartturn event occurs.",
+      "All four nativecontrolsequences mechanically match qualified1037Aether donor exactly: actualDoriDawnblade7cost1paidBlue8/R2/AP0, owner4Equipment5thenHand6declareDEFENSE, totalDEF3/0damage/noHit/HP20/allfourmanual. SourceGLdeferredBattleworn+1 retainsEquipmentatprinted1minus1=0; actualfinalDEFENSE1/UID5owner4retained, Hand6ownedGY4/Blue8Pitch/weapon7usedretained/queuesAPresources persisted. Noauthor-onlyqueries.",
+      "Barkbone indexed hold is exact numeric die oracle unestablished for its activated die/resource body, not a block/keyword issue or repaired engine defect. This independent ordinarydefense never activates/destroysforrolling or uses RNG; oldbodyhold remains unattempted/uncredited. Other activated/graveyardrecursion/reaction bodies likewise untested."
+    ],
+    "limits": [
+      "OrdinaryEquipmentdefense/singleBattlewornclose only. Existingactivatedbodyholds (includingBarkbone numericdieoracle) remain held; no Rng/recursion/target/grantedGA/reactiondebuff/hero/support/sibling/fullcardcredit. No native/PHP/T/source/Git/original/network actions by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1042-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "431a2a76cd7bc96719450fd72149be3f03eb0486936c226f7325b59e7f2171dc"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-spirit-of-war-red-four-live-sparse1541-empty-hand-no-yellow-charge-real-hit-no-courage",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-spirit-of-war-red-four-live-sparse1541-empty-hand-no-yellow-charge-real-hit-no-courage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1541-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1541-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bb50268e1f1cfee5353147dab57549a9762ef0d112eb7bb2e562a264ab6d942b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5857355984aa256ae4e3c682333d2c3139ec25246bab62f51ca75b547cd71175",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "ee0d308723be1ef43dbb200e51dd40cb66285689a33b9e2466e6896f536589a6",
+        "expected_final_gamestate.txt": "1c54257d86e46034e11355640221b5e0592e877a12f7daf78e304326e3e27fd6",
+        "meta.json": "fa9cb9f6858200b16760429f508feb545cc91c98755de08b9868968b37643ec5"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

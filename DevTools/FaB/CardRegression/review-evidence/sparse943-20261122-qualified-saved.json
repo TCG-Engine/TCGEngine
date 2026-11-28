@@ -1,0 +1,114 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "Root independent of breadth_review author",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse943-20261122.json",
+  "source_spec_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+  "input_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-one-two-punch-red-four-live-sparse943-actual-first-chain-three-without-head-jab-granted-damage",
+      "card_id": "one_two_punch_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "2bc3702ee1e7c05fc5badc6416b985eaf4d2dedf33307049531ad02f7024ca53",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "2324b63f9f98e4a242bc24be921b047ebd69f9aa7b21d796fe85a793d3d05ad5",
+        "expected_final_gamestate.txt": "053b1ac5e9cbe540480b0452618ca2cfc2bceb898b10365d37ac70775b74ca16",
+        "meta.json": "0fcb9c8f3bdbe841c7446195599c2d448270867ad7b90991344628625db62ff9"
+      },
+      "fixture_sha256": "5230296a62f96ef7b53a4361c830cd1f70057b36a3c4969cd680bbfb9b40228f",
+      "actions": 27,
+      "native_assertions": 129,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse943-20261122.json",
+      "input_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-one-two-punch-red-four-live-sparse943-actual-first-chain-three-without-head-jab-granted-damage",
+        "fixture_slug": "card-one-two-punch-red-four-live-sparse943-actual-first-chain-three-without-head-jab-granted-damage",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-recoil-red-four-live-sparse943-actual-first-chain-three-keeps-real-enemy-hand-without-combo",
+      "card_id": "recoil_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b7b846e006d83b4face20d200eb80653778f7652a10a7ddf766c92ca6d7de9b5",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "80d32cf0461b0ed048c8dc7271bb9a0d257adab34f786944800e1085f9363794",
+        "expected_final_gamestate.txt": "5849fcd65bc10b4f690eb1f845bf984205e1a69d41da7fb1853eb8bfb0d8d00d",
+        "meta.json": "8b07ca5a1e117c6cb6a9f1f1343a7db88caf51fe61fa50bcac6cd5aba0c3f141"
+      },
+      "fixture_sha256": "2790d88216584f2e50c29a7814b43ddfce6ddf6399aa5d5be85f7f58ee29dc05",
+      "actions": 27,
+      "native_assertions": 139,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse943-20261122.json",
+      "input_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-recoil-red-four-live-sparse943-actual-first-chain-three-keeps-real-enemy-hand-without-combo",
+        "fixture_slug": "card-recoil-red-four-live-sparse943-actual-first-chain-three-keeps-real-enemy-hand-without-combo",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-smashing-ground-blue-four-live-sparse943-actual-base-five-keeps-real-arsenal-below-six-power-grant",
+      "card_id": "smashing_ground_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5cbe1c79dbe5205e274567c9c6e8a0f3dd840c3ee6e05ae85cc660c2076f6431",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a79d6601222add42868e99fa2b30236ef9b9055b725eeb4082b490b6c566fdf9",
+        "expected_final_gamestate.txt": "2a55165b665a613361b288e607169db71c2ca836a2a06291a50e5805d338cda0",
+        "meta.json": "82dc18ae0e35fa5b03ea712916514fd5d4e6533ec9486fd142292d963578cfaa"
+      },
+      "fixture_sha256": "714ae4304bdaab9308136ca1d805dcccef65bce06f50073c653d9d7cfd3a35fc",
+      "actions": 28,
+      "native_assertions": 155,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse943-20261122.json",
+      "input_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-smashing-ground-blue-four-live-sparse943-actual-base-five-keeps-real-arsenal-below-six-power-grant",
+        "fixture_slug": "card-smashing-ground-blue-four-live-sparse943-actual-base-five-keeps-real-arsenal-below-six-power-grant",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "8102a804e5e51dff9041f9bbb02d4a96e5cffd5c3d81b3f7ae9dc71f7325d9fa",
+    "reviewer": "Root independent of breadth_review author",
+    "basis": [
+      "Printed static grants requirepreviousHeadJab orpower6; freshchain andactualbase5grantnoHit ability. No unconditional earnedWHEN suppressed. LegalFaiNinja20/RhinarBrute20 with noactivatedhero/discard event.",
+      "ActualHand5/targetbeforeassets/manual4/fullcombat/source5ownGY, cost0/R0 orrealBlue6cost3/R0/AP0; real3/3/5HP deltas. Recoil actualenemyHand6 retained/Deck0, SmashingrealFaceDownArsenal7 retained.",
+      "Only namednegativegrant/main branch; no positiveCombo/damage/puttop/powergain/arsenal destruction/sibling/support/fullcard credit. Native recording andcleanreplays pending."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse943-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "d5ffa788bac25cec0152fb7cc203cf4514b804d6f7299bafe034aeac2a313203"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Graven Gloves / four-live prior wear and Blade Break",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T05:33:39+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "While this is in your graveyard, at the start of your turn, you may destroy 2 Silver you control. If you do, equip this.\n\nWhen this is equipped from anywhere other than your graveyard, put a -1{d} counter on it.\n\n**Blade Break** Legalnatural20ArakniownsEq5withexplicitDEFENSE1post-equippingstate(fromoutsideGYprintedmandatorycounterresolvedinthefixturehistory, notexecuted/creditedinrecording). Base2minus1=currentDEF1. ActualGenericNAA6DEF2plusEquipment1blocksrealDoriDawnblade7power3/Blue8pay1/R2/AP0/allfourmanual/DEF3/0damage/noHit/HP20. PrimaryCounter1guardedinitialandwhileRoleDEFENSEonCC; BladeBreakatCloseprimary5ownedGYbeforeHand6/Eq0. Notclaimingnativeequiptrigger/counterproducer/Silverreturn/GYactivation/hero/support/fullcardoroldholdcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#graven_gloves"
+}

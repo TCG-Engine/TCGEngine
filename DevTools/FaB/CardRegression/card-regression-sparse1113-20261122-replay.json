@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-surgent-aethertide-four-live-sparse1113-real-paid-one-arcane-earns-go-again-and-amplifies-next-actual-zap-three-to-four",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1113-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1113-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "bdcd834a1bbdaebe7eecef4ed11a3e43c6045882f994d7f93c1457f03b0878d5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "9b9937ea78352bde98f4dfbe849de72f0905f24f8b2ce9d0bf80ce863a9b0484",
+        "actions.json": "39d3cd2943df5c4a139bd0659bdeaabc1d79961ef3e19ada07748203e054023e",
+        "assertions.json": "1210f8fa49a6be5d37dae3e44fed63243788a6fd90e98a6fbf7cb81e7fb844f1",
+        "expected_final_gamestate.txt": "730f3172cffce56d20a1921e899cd1bdc06a893d67958ccf40cf9bd839cc0c89",
+        "meta.json": "7682719675705a0d17b465b8922c871ce2c3041b1f2130205fe7e2c8396bfe66"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,7 @@
+{
+    "name": "Constella Uplift / actual printed effect without prior Starfall",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T00:32:27+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NO_PRIOR_STARFALL_BASE_EFFECT_ONLY. NaturalOscilio18/3Dori20fourmanual; zeroresources/AP1/noHandothers/noDeckGY/initialeffects. ActualphysicalInstant5pays0/noAP, heldStackuntilfourfreshresponses. WhileownresolveSource5stillStackandnoearlierInstantGYsoStarfallfalse, noarcane/declarationchoiceearned. ExistingactualStaff6tappedStatus1isadmittedasset, notfabricatedhistory/permission/bonus. PrintedUntapstaffnotTarget phrase: legitimatechoiceatresolve, source5helduntilactualStaff6Status1to2, thenphysical5GY. Primary5nowactuallyinGYearnsStarfallforSTAFF(notprimarybonus): sameStaff6actuallyactivates,paystapStatus2to1beforefourresponses,virtualABI7resolvesandclears/noAPresourceexpense. Thisnativeactivationwitnessesusableuntap; staffsAmp effectitselfandbonusdamage/supportidentitynotcredited. AllHP18/20/20/20unchanged, AP1retained/R0/RNG0/noStackDQCC/turn2ACTION. NoStarfallpositive/arcanetargetorbonusdamage, otherpitch, hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#constella_uplift_yellow FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/OMNCards.php FaBSim/Custom/GameLogic.php"
+}

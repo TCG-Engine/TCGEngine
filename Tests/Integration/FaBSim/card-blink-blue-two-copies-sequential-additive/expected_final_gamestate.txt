@@ -101,7 +101,7 @@ blink_blue 4 1 1 0
 1
 MAIN
 
-{"mzID":"p1Graveyard-1","mzIDCardID":"blink_blue","cardID":"blink_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
+{"mzID":"Stack-0","mzIDCardID":"blink_blue","cardID":"blink_blue","fromZone":"Hand","fabSourceZone":"Hand","evoEvent":""}
 {"PlayCardCalls":{"1":2},"PlayCard":{"1":{"blink_blue":2}}}
 {"PlayCardCalls":{"1":2},"PlayCard":{"1":{"blink_blue":2}}}
 4

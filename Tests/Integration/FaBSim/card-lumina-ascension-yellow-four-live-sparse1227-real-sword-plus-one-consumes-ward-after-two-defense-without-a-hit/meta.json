@@ -1,0 +1,7 @@
+{
+    "name": "Lumina Ascension / actual sword gains one and consumes Ward without a hit",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T21:00:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "UNCHARGED_LUMINA_WEAPON_PLUS_ONE_ONLY. FourmanualYoungBoltyn20/2Dori20/Prism20. ActualLumina5Hand1cost0/AP0throughfourresponses/resolveownGY+GArefund1. ActualownedCintariSaber6base2legalswordnormalformalHero4target/realBlue7pitch3pays1/R2/AP0/fourfreshsourceandcombatrounds, realproxy10SourceUID6/WEAPON_UID6/noassertedrulesproxyOwner. LuminaMONPower218adds1togive3. DefenderreallydeclaresPummelRed8asnormaldefendingCard(def2,AttackReactionnotAA); noPummelmodes/targeteffectandnoSaberWHENAAdefend/Boltynchargedpower. Excess1requiresmandatoryrealWard1anddestroysactualpriorownedSpectralShield9, preventsall/nohit/HP20; base2againstdef2wouldleaveShielduntouched. ThuspositiveweaponbuffwitnessedbyactualShieldfate, notjusttag/query. NoLuminaWHENhitreveal/Soul/lifegainorChargedextraattackeventearned. FinalLumina5GY1/Blue7Pitch1/Pummel8GY4/Sword6sameownedWeapons1/proxy10retired/noShieldGY/AP0/R2/RNG0/UID10/noStackDQCC/sameTurn2ACTION. Nocharged/repeatSword/hitreveal/turnexpiry/producer/Hero/support/fullcardcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#lumina_ascension_yellow FaBSim/Custom/MONCards.php FaBSim/Custom/MSTCards.php FaBSim/Custom/DTDCards.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

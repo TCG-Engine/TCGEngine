@@ -1,0 +1,126 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T19:47:47.297699+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1438-20261122.json",
+  "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+  "new_scenarios": 3,
+  "new_groups": 3,
+  "new_primary_ids": 3,
+  "actions": 48,
+  "native_assertions": 981,
+  "manual_passes": 33,
+  "totals": {
+    "saved_registered_scenarios": 5449,
+    "duels": 3127,
+    "four_live": 2322,
+    "recorded_primary_ids": 2597,
+    "identity_denominator": 5196,
+    "recorded_groups": 2471,
+    "group_denominator": 3324,
+    "four_live_groups": 2311,
+    "phase_qualified_scenarios_at_actual_contexts": 2086,
+    "phase_qualified_unique_groups": 2076,
+    "creation_replay_passes": 2828,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1247,
+  "scenarios": [
+    {
+      "card_id": "murmuring_gloomblade_red",
+      "group_id": "pitch-cycle:murmuring_gloomblade",
+      "scenario_id": "card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "effect_branches": [
+        "actual_intrinsic_banish_play_permission_ordinary_affordable_banish_card_rejected_then_real_primary_payment_and_stack_from_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-murmuring-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "review_evidence": "review-evidence/sparse1438-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b750cb551edd4cd03420e93952d56067e7cace0c106f718d4fa31b1259322ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1438-20261122-replay.json",
+          "sha256": "8328d1ae9d7e64b2e4d123abb1b112026ff26ea76a1f2953119c15323a6855ea",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "sinspeaker_gloomblade_red",
+      "group_id": "identity:sinspeaker_gloomblade_red",
+      "scenario_id": "card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "effect_branches": [
+        "actual_intrinsic_banish_play_permission_ordinary_affordable_banish_card_rejected_then_real_primary_payment_and_stack_from_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-sinspeaker-gloomblade-red-four-live-sparse1438-intrinsic-permission-vs-ordinary-card-paid-banish-play-prefix",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "review_evidence": "review-evidence/sparse1438-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b750cb551edd4cd03420e93952d56067e7cace0c106f718d4fa31b1259322ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1438-20261122-replay.json",
+          "sha256": "8328d1ae9d7e64b2e4d123abb1b112026ff26ea76a1f2953119c15323a6855ea",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "ghost_protocol_architect_red",
+      "group_id": "identity:ghost_protocol_architect_red",
+      "scenario_id": "card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+      "effect_branches": [
+        "actual_boosted_physical_copy_only_permitted_unboosted_same_name_copy_rejected_then_real_primary_payment_and_stack_from_banish"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-ghost-protocol-architect-red-four-live-sparse1438-actual-boosted-copy-only-paid-banish-play-prefix",
+      "source_spec": "card-regression-sparse1438-20261122.json",
+      "source_spec_sha256": "1a48bbda052b95bd4cb35e17b8f385bcaa411bb1698d256dc95f690d8cafea21",
+      "review_evidence": "review-evidence/sparse1438-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b750cb551edd4cd03420e93952d56067e7cace0c106f718d4fa31b1259322ff9",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1438-20261122-replay.json",
+          "sha256": "8328d1ae9d7e64b2e4d123abb1b112026ff26ea76a1f2953119c15323a6855ea",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

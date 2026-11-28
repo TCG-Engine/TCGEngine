@@ -1,0 +1,284 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B512_POWER_OF_MAKE_BELIEVE_ONE_QUALIFYING_DEFENDER_STATIC_BONUS",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_next_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T19:41:59.941781+00:00",
+  "source_spec": "card-regression-batch512.json",
+  "input_sha256": "329f6bb11539479cdb5e934d8974033bf6c599b3d900fc82fa344b1d327376c0",
+  "manifest_sha256": "fa67182a0810519e7479d769ff7b9b4b6b3e854e1b5752a94ddc2331bd3bfb86",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch512-independent-source-review.json",
+    "sha256": "617300624fb6001ee30a937b82b175256859c5c848201d51f348089c2e8d0dbb",
+    "unchanged_rules_model_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch512-20261105T193905Z-6aecdb59754cf.json",
+    "sha256": "ab5d6b445f89f2a65d3c4662834e713fccdb56baa6d4f7a2db9376d3854cf9f9"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch512-native-r1-9e984\\receipt.json",
+    "sha256": "6598edd8a9693122454bedc0acbb7eb604bc4861821294171da9e6bf5a03a1e6"
+  },
+  "native_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch512.recording-results.json",
+    "sha256": "778f299ba834e12452e2ddba98faa6eb954e3f007800beaa84a69fe294b52090"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch512_saved_readonly.py",
+    "sha256": "be7525fb961ff9980c62d30eab6db0749fcd1bf2ac885a6b0c99f2182809af14"
+  },
+  "read_only_helper": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\saved_fixture_review_tools.py",
+    "sha256": "57cb7672feb98a00216f1e194fd1df0395826af02e0d76f7042af920851c39e8"
+  },
+  "reviewer_independence": "Independentapprovedsource/modelreviewer, neitherauthornorrecorder; reused617300rules/ledger, nolegacycaseorunchangedsourceaudit/replay.",
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "power_of_make_believe_blue",
+      "group_id": "pitch-cycle:power_of_make_believe",
+      "slug": "card-power-of-make-believe-blue-four-live-real-seven-power-defender-earns-six-power-three-damage",
+      "source_spec": "card-regression-batch512.json",
+      "input_sha256": "329f6bb11539479cdb5e934d8974033bf6c599b3d900fc82fa344b1d327376c0",
+      "reviewer": "/root/nov2_next_author",
+      "reviewer_independent": true,
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-power-of-make-believe-blue-four-live-real-seven-power-defender-earns-six-power-three-damage",
+      "fixture_sha256": "847753f49efa88c2cd440f6c6706e128be215769e650473eda45c1b8660eabda",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "b8e3d2a25d12c39dc67c44debab42419d762ad7f8706a0c21ecfdd88e770f12e",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "f7cad531c3382476e72d3957555d7af1f0e29c8ba3f407c9e68b43c0c55685db",
+        "expected_final_gamestate.txt": "749dc973dbde3f28ebe3543b299e4c92d8848c9fa18eb7c62da90857a0ea34a0"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b8e3d2a25d12c39dc67c44debab42419d762ad7f8706a0c21ecfdd88e770f12e",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "f7cad531c3382476e72d3957555d7af1f0e29c8ba3f407c9e68b43c0c55685db",
+        "expected_final_gamestate.txt": "749dc973dbde3f28ebe3543b299e4c92d8848c9fa18eb7c62da90857a0ea34a0",
+        "meta.json": "41d717eba90ef95389bfbacf81af5c4efeb8cb1465052c938e4080a2ad3bc5a9"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "b8e3d2a25d12c39dc67c44debab42419d762ad7f8706a0c21ecfdd88e770f12e",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "f7cad531c3382476e72d3957555d7af1f0e29c8ba3f407c9e68b43c0c55685db",
+        "expected_final_gamestate.txt": "749dc973dbde3f28ebe3543b299e4c92d8848c9fa18eb7c62da90857a0ea34a0",
+        "meta.json": "41d717eba90ef95389bfbacf81af5c4efeb8cb1465052c938e4080a2ad3bc5a9"
+      },
+      "actions": 29,
+      "native_assertions": 2445,
+      "actual_manual_passes": 25,
+      "actual_priority_response_passes": 24,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 6,
+        "2": 6,
+        "3": 6,
+        "4": 7
+      },
+      "schema_property_assertions": 666,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "power_of_make_believe_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dromai",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "5": {
+          "card_id": "power_of_make_believe_blue",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "6": {
+          "card_id": "wounding_blow_blue",
+          "zone": "p1Pitch",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "dorinthea",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "7": {
+          "card_id": "raging_onslaught_red",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        17
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "final_UniqueIDCounter": 7,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "45004cfd8944e9f80b0ef76bec34fcc637038dae7cceb9736ab274d12b316b3c",
+      "native_action_mapping_sha256": "efe3219cd046c271cab3624f235f1708ea4bb8f3ffb0b2008df76f2cf9d45bdb",
+      "native_assertion_mapping_sha256": "9196c9c1c6ae59d4fbe63565f41e0244c00b055db13ed6690e365c71474a6ea9"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 29,
+  "total_native_assertions": 2445,
+  "total_manual_passes": 25,
+  "total_priority_response_passes": 24,
+  "total_schema_property_assertions": 666,
+  "total_defender_declaration_finish_inputs": 1,
+  "total_administrative_END_PHASE_passes": 0,
+  "material_findings": [
+    "ActualtargetHero4/Blue6resource3paysprinted3+AP1/R0AP0, same5Stackthroughfreshfour\u2192same5Chain/currentbase5/noGA.",
+    "ActualP4normalHandRagingRed7declared/UID7/RoleDEFENSE/fromHand/link1, currentprintedPOWER7DEF3 noinitialmodifier/actionsgrantingpower. Actualpassedfreshcomputedprimary5\u21926immediatelyandStack0/noMirageorPhantasm; selectedqualifieriscalibratedbyapprovedcurrentMONpowerroute.",
+    "Actual6\u2212DEF3=3damage/HP17 andpassedcacheddefense3/damage3/hittrue, rawfinalROS_DAMAGE3/CRU_DAMAGED3historycorroborate. NoGArefund/allAP0/fullclose5GY1/6Pitch1/7GY4/fullUID1..7/counter7/RNG0/all48prefs/clearedqueuesframes."
+  ],
+  "limits": [
+    "ONEBlue/onecurrent7powerdefender/static+1/actual3damage; noadditionalqualifiers/thresholdedges/modifiedpower/negative/suppression/controlchange/otherpitches/supportprimary/siblings/fullcardcredit.",
+    "MirageonlywhenTHISdefends remainsunearned; noMirage090repairretry/integration/behaviorqualification/triggercredit. NoPhantasmsubstitution ormissingWHENclaim.",
+    "ThisproofcoversactualnativeSAVEDartifacts; Roottwofocusedcleanreplays/registrationareseparategatesnotexecuted/certifiedhere.",
+    "NoPHP/native/replay/R/source/gen/service/fullsuite/git/remote/deniedretry."
+  ],
+  "native_executed_by_reviewer": false,
+  "replay_executed_by_reviewer": false,
+  "repository_writes": false,
+  "source_changes": false
+}

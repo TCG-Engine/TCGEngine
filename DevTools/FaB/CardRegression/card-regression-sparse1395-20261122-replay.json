@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-earths-embrace-blue-four-live-sparse1395-opponent-end-not-your-end-no-embodiment-or-aura-destroy",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-earths-embrace-blue-four-live-sparse1395-opponent-end-not-your-end-no-embodiment-or-aura-destroy",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "f3e5b459994eec482b39ced107648c885a9e3f69f29c0e403300bb373dbf257b",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "91ee0d6871ed24761bf12c04bb7aa833dbe857f0a55e1864f6032e1df0033ded",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "2e78db97e959e90eef63a92e53f36d00a46e97ce9aeb9e1a824a24dd628d2828",
+        "expected_final_gamestate.txt": "66cca900ee65aa6fe4d1ba6ea90eb135e9337eb15d6d1ccbaa7adb425d7ed3e4",
+        "meta.json": "2fb5f94b3543a6df1097b611ae14c51e295af4f714ab9f485fbb02141ee10508"
+      }
+    },
+    {
+      "slug": "card-oath-of-steel-red-four-live-sparse1395-real-hand-attack-is-not-weapon-attack-no-sword-power-counter",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-oath-of-steel-red-four-live-sparse1395-real-hand-attack-is-not-weapon-attack-no-sword-power-counter",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1395-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6830dc198e8f0ffe532732a90108452b45f75c8ab132c7e534924176687aa115",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "b6adfa52c424d4169c0eab9605334d151ff075a0bc153ef2a280f5b7a8d95015",
+        "actions.json": "0af8a1ea1ec8c5c1cd86d16e2bbdc5cce415580ef97f75c13ce0010d1f71cfc6",
+        "assertions.json": "519602fa835c75a8bbfda6a54cda2e8d9cb4005a9dc076d9df1492439191eff5",
+        "expected_final_gamestate.txt": "2a43ef2b1880cdd96d043dce6cb3b9e74c41cc70712ff43b740b89b4dbacd025",
+        "meta.json": "6026f584e0add2824fe485d5f69ce443b63d9181e7e564bfff3f3f46f0f8c4eb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

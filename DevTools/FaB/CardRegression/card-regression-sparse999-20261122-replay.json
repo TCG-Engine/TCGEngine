@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-echoes-blue-four-live-sparse999-no-hero-played-two-same-name-cards",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6a0510c032d658345a9793e26c67f3e3acaffe8d17e8b38614868c8bd3a11314",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "66036c4062e1bfb25284a12c4b83d3cd73df18bfc46f22c818d972500040846b",
+        "actions.json": "135f7e103758ae5362798979e3707659d4c74433be73bf0179ce6c49e55d45c2",
+        "assertions.json": "e17d54c1cb5862b9de815d9db7a6251c407d53867966884fc3eee103d72e7fa3",
+        "expected_final_gamestate.txt": "15e7700f2a52354c6f611f6d0c562251ae0079e81634ba0efa9267e223f0b430",
+        "meta.json": "3aa64cc1cbdff2fdb32a6284771acb26ab985de0ed054cb8d7d558f141c75842"
+      }
+    },
+    {
+      "slug": "card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-amulet-of-oblation-blue-four-live-sparse999-real-current-attack-and-old-graveyard-not-this-turn-entry",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse999-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "75a1c2c166d7db89f8594dd510af6309fac7774b9ca040f57fed298d47169bd5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a6995140ffa10c031e63bd819b1a57346794371b0cee9b389454d1247cf958f1",
+        "actions.json": "28239c88b64affb3a6e6e9939aaa74baf5f12dbab24237908125f76fd12a86eb",
+        "assertions.json": "c1b8a7c4c00bb3ec3018f3e72eedccc1b9cdfe6497a4f1b406e863276eddcd1d",
+        "expected_final_gamestate.txt": "291aa18730c21015a57488cefd078b804cf8424e84e8e9d9f78741e02f551e12",
+        "meta.json": "ba21415a0cbd56fb10be769c0f3ad6f64b7248a62d2ddea5f1362ef1bbfff012"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

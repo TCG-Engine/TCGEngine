@@ -1,0 +1,69 @@
+{
+  "status": "FOCUSED_REPAIR_BATCH_QUALIFIED_REGISTERED",
+  "utc": "2026-11-20T21:17:41.086787+00:00",
+  "runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+  "source_spec": "card-regression-read192-repair-20261120.json",
+  "source_spec_sha256": "37d8bb5a8ca3a18d582ba20f5d92805a302094e9897bde358656c739df4bedb9",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 15,
+  "native_assertions": 1604,
+  "manual_passes": 12,
+  "totals": {
+    "saved_registered_scenarios": 4197,
+    "duels": 3074,
+    "four_live": 1123,
+    "recorded_primary_ids": 1348,
+    "identity_denominator": 5196,
+    "recorded_groups": 1222,
+    "group_denominator": 3324,
+    "four_live_groups": 1114,
+    "phase_qualified_scenarios_at_actual_contexts": 834,
+    "phase_qualified_unique_groups": 827,
+    "creation_replay_passes": 1575,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1,
+  "scenarios": [
+    {
+      "card_id": "read_the_ripples_blue",
+      "group_id": "pitch-cycle:read_the_ripples",
+      "scenario_id": "card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "effect_branches": [
+        "actualAuraPlay-automaticEnd-NoPriority-positiveOptBottomA-drawBHand5-BArsenal-beforeRefill0"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-read-the-ripples-blue-four-live-repair-automatic-end-opt-draw-before-arsenal",
+      "source_spec": "card-regression-read192-repair-20261120.json",
+      "source_spec_sha256": "37d8bb5a8ca3a18d582ba20f5d92805a302094e9897bde358656c739df4bedb9",
+      "review_evidence": "review-evidence/read192-20261120-qualified-saved.json",
+      "review_evidence_sha256": "24d138942e01f516af0d595750a4b4d096a5676c7d09c1f04bf8dd7db15d1f5f",
+      "recorded_runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+      "qualification_runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-read192-repair-20261120-replay.json",
+          "sha256": "d1015cbbc1489847fdabd87c4c72ad368d50185246f81661ed65aa8e519a9304",
+          "runtime_sha256": "22cfbfa4fc7a633f8dfd14d67527a2dfd1eee68386c4f9e387f5e81b04c793a2",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "existing_group_witnesses": 0,
+  "source_scenarios_not_in_this_qualification": []
+}

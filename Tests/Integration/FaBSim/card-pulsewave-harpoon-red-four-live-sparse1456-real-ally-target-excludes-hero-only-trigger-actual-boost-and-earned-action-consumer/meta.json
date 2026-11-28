@@ -1,0 +1,7 @@
+{
+    "name": "Pulsewave Harpoon / actual Ally target does not earn Hero-only trigger with real Boost",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T01:38:43+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FourmanualyoungUPFteklovossen1/Dori2/3/Dromai4all20. Realpulsewave_harpoon_red5formalnativePERMANENTdescriptorUID9Arena4boundtorealAllyAshwingnotHero4; canonicalAshwing9UPR_ASH1/DYN_ASHash/HP1andMight10, realopponentHandPotion11def0+Razor12andDeckRed13. OwnrealBlue6/7pitchonlyifneeded,payprinted1/R2/AP0, actualbasepower4. OwnDeck14/15andProtocolrealEvo16underBaseHeadmakepotentialHeroeventassetsnonvacuous. GeneratedFaBFaiHeroHitfalseforALLYmeansprintedattacksHeroWHENnotearned, noWager/reveal/payment/peek/Draw/forceddefense/Intimidate orHostileHeroCrush. Allfourmanualwindows\u2192actual4physicalkillsAlly9only; allHeroHP20/Might10/Hand11,12/Deck13remain; fullclose5GY. ActualBoost0banishesMech14beforepayment/oneCHAIN_BOOST/grantsGA; actualAP1refundspentbyrealPotionItem8cost0allfourresponses\u2192AP0. NoHero-triggerpositivecredit. NoAshcreation/history/support/pitchsiblings/fullcardcredit/enginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#pulsewave_harpoon_red FaBSim/GeneratedCode/GeneratedMacroCode.php#pulsewave_harpoon_red FaBSim/Custom/GameLogic.php FaBSim/Custom/FaiCards.php#FaBFaiHeroHit FaBSim/Custom/UPRCards.php#FaBUPRTransform FaBSim/Custom/UPRCards.php#FaBUPRDeal"
+}

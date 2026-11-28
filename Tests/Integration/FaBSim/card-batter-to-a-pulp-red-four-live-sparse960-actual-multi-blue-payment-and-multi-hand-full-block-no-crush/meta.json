@@ -1,0 +1,7 @@
+{
+    "name": "Batter to a Pulp / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T21:57:57+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "If this would deal 4 or more damage, that damage can't be prevented.\n\n**Crush** - When this deals 4 or more damage to a hero, destroy an equipment they control with no defense value. LegalBravo20/actualtwoBlue6and7payprinted6or4/R0or2/AP0, actual3/4/2HandAAdef9/12/6fullyblock8/10/6, damage0/HP20/nohit/Stack0/sourceblockersownGY. NoearnedCrush. HeadbuttnoownHead/realenemyHead10retained/counters[], no+1. Otherfutureeffect/preventionbranches nottested. Sources: FaBSim/GeneratedCode/cardArrayCache.json#batter_to_a_pulp_red"
+}

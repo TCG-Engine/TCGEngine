@@ -1,0 +1,7 @@
+{
+    "name": "Booze! / another hero start does not destroy owner Aura",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T15:51:00+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_KAYO_STRONG_ARM20_THREEDORI20. PriorownedAura5Arena1/realGenericWoundingRed6Hand1/Blue8Deck1andactualWoundingRed7Hand4. InitialTurn3ID2/AP3=1\u2192all4ActionpassesEnd3\u2192all4EndpassesnativeStart4Action4ID3/AP4=1. PrintedYOURcontroller1startnotearnedatOTHERhero4start; exact5ArenaUIDownedreadyCounters[]/6Hand/8Deck/noUID9/quietStackDQ. SUPStart(p)iteratescontrollerpAuraandnotallotherConfidence/Booze. BoozepriorAuraentry/earlierBooandVigorprovenanceuncredited. NoactualleaveeventduringOTHERheroStart, sonoearnedBoozeleaveWHENorKayoVigorobserver. WrongdestructionwouldchangeAura5andcouldproduceVigor/UID9, bothobservable; secondaryHeroKayoidentityuncredited. Actualnextseat4spendsnativeAPonWounding7AA0toHero1/all4manualcombat/base4/noGA/real4damageHP1=16/fullclose7GY4/same5Arena6Hand8Deck/UID8RNG0/AP0R0. Onlywrong-ownerStartfilter/nativephaseandcombat, notentry/create/positiveownWHEN/destroy/restriction/Boo/Vigor/timing/provenance/support/fullcard/pitches. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#booze_blue FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/SUPCards.php FaBSim/Custom/WTRCards.php"
+}

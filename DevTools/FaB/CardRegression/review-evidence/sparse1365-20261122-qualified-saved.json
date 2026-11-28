@@ -1,0 +1,159 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review1252",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1365-20261122.json",
+  "source_spec_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+  "input_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+      "card_id": "viserai_rune_blood",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "33c4013fb3bb88bae91e04758daaf7f7007439c75adc19a95e7740f935d71469",
+        "actions.json": "b2848e71087553e93376bbb654cd173ec3d60081458d615d2791c7fec0b6ae9c",
+        "assertions.json": "8349d5b18f4d995a127a391bf30d08c7e7f6e840513f1904aae3954cb5dd8fdf",
+        "expected_final_gamestate.txt": "01969c352d263adb0736b3ccf64ad07584d16723305755d367bd2be8473db483",
+        "meta.json": "d9add471f598045fe21c11616a3313ce31c917c44f0f18c2b06e5bfa61c98970"
+      },
+      "fixture_sha256": "64776db642a49fa5ad5c27925134616d07f188c643161391ad920d6ab8a44c29",
+      "actions": 4,
+      "native_assertions": 219,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1365-20261122.json",
+      "input_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+        "fixture_slug": "card-viserai-rune-blood-two-live-sparse1365-first-runeblade-nonattack-not-another-three-not-four-runes",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+      "card_id": "vynnset_iron_maiden",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1d9b4a20206ea8dcd31c151a49d224c943820933a8816b75b90f396d35ab27c5",
+        "actions.json": "b2848e71087553e93376bbb654cd173ec3d60081458d615d2791c7fec0b6ae9c",
+        "assertions.json": "3cd9831c169494900e1bf01cabf4456bb2caf452deceeaea2d5200cd690bfcd5",
+        "expected_final_gamestate.txt": "c563f2edd9afa826f550ff643be294750567151569ed254cfea4d852ae260816",
+        "meta.json": "a7aa36c146df1f319fba8bb0c5f7c86c809466c13948358ac46d7029bd8763a6"
+      },
+      "fixture_sha256": "7150f4845b6cd8cbd635cb172c1bd783c70d349294efbeae48895edc39874173",
+      "actions": 4,
+      "native_assertions": 271,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 2,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1365-20261122.json",
+      "input_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+        "fixture_slug": "card-vynnset-iron-maiden-two-live-sparse1365-non-shadow-nonattack-no-life-payment-existing-rune-plus-three",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review1252",
+    "spec_sha256": "c21f810ccfb604e06300584490a051c99f7ce8f6183fb060eb3ce134264f436f",
+    "source_note_sha256": "fa217454b1905606c12319e79bb8275364631ffd0bfc4f67bf2c8e43222b3edf",
+    "case_count": 2,
+    "active_seats": [
+      1,
+      2
+    ],
+    "players": "two_live_manual",
+    "native_controls": 8,
+    "query_checks": 490,
+    "persistable_assertions": 490,
+    "author_only_checks_omitted": 0,
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "coverage_category": "HERO_CONDITIONAL_GUARD_WITH_NATIVE_OBSERVABLE_SPELL_EFFECT",
+    "per_case": [
+      {
+        "card_id": "viserai_rune_blood",
+        "group_id": "identity:viserai_rune_blood",
+        "native_controls": 4,
+        "persistable_assertions": 219
+      },
+      {
+        "card_id": "vynnset_iron_maiden",
+        "group_id": "identity:vynnset_iron_maiden",
+        "native_controls": 4,
+        "persistable_assertions": 271
+      }
+    ],
+    "basis": [
+      "Two unrepresented/unheld adultHero groups, printednatural40RunebladeViseraiRuneBlood orShadowRunebladeVynnsetIronMaiden versusadultDoriIronsong40. ReadRunesRed is legal0costRunebladeNAA withoutShadow; GenericPotionLuck0 isActionItem, its equippedInstantability doesnotpermit HandplaywithoutAP. activeSeatsomitted/emptygameMode selectslegacytwoLive/manual1/2, noUPF adult fixture.",
+      "Viserai: firstReadRunes3playedfromHand/noearlierNAAorhistory/Arena. ARCCards397-399 removescurrentNAA frompreviouslist and explicitadultviserai_rune_blood alias requires remainingpreviousNAA; emptylist means noearnedHeroRunechantWHEN. ActualReadspell creates exactlythree ownedreadyRunechants5,6,7 afterbothresponses; no4thRune/UID7. OriginalRead3GY/Potion4Hand/allHP40/AP0/R0/quietStackDQs, actualPotion0consumer rejectsAP0 unchanged.",
+      "Vynnset: actualReadRunes3nonShadow NAA doesnotinheritHeroShadow. DTDRuntime47-51 tests actualcardShadow plus explicitadultvynnset_iron_maiden alias, so noearnedlife1choice/HeroWHEN/preventiongrant. AdmittedinitialfaceupGenericBanish5+oldRunechant6 arephysicalposition only/noStartTurnprovenance. NAAdoesnotattack, so oldRune6doesnottrigger; exactlythree new7,8,9 joinexisting6,total4/UID9. OldBanish5andRune6sameownedUID/status, source3GY/Potion4Hand/allHP40/R0. No replacement217sourcepresent.",
+      "DuelUIDallocationheroes1/2/assets3-6 and token5-7 or7-9, initial/finalzonecounts/owners/HP/nonShadowtype/quietqueues correct; no p3/p4ref orstale20health. PaidPRIORITY2 thenrealpass2-to1 thenpass1 resolvesACTION1; onlyafterbothresponses tokenscreated. ConsumerHand0Potion4rejectsAP0 atownACTION1 withoutmovement/newtoken. Counts4/219+4/271=8nativecontrols/490persistableassertions."
+    ],
+    "limits": [
+      "Only adultidentity firstNAAself-exclusion andnonShadowcard guards withactualobservableRead3tokencreation/retainedfates/no-actionconsumer approvedpendingnative; no passorcoverageclaimed.",
+      "PositiveHeroWHEN/timing/priorNAA/ShadowNAA/lifepayment/unpreventableRunechant/damage/startturn/Banishplay/support/youngidentity/sibling/fullcard behavior untested/uncredited. InitialoldRune/Banish admission givesnoStartTurncredit; existingholdsuntouched.",
+      "Only W reviewreceipt written; no nativegame/test/replay, engine/repositoryedit, originalcheckoutaccess, auth/network, fullsuite orGitoperation."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/ARCCards.php": "f6b6a21d214e71fdcfd6a084f0671ce610f08a40c51a1266041877a5a12c0d52",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/WTRCards.php": "77d4452b30e45254a7199bc965396ded53e325717ecdd84a09b971f723f99f6a",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/DTDRuntime.php": "4393481861f97f02c611e9c2cc3c65ff53a7ea5c39db05d97d5b1dc93d0de4f0",
+      "Core/EngineActionRunner.php": "add14b53dc571d2a6e64407bfa4038a98d6554d6410de7a9233810d99c46ea2a",
+      "Schemas/FaBSim/GameSchema.txt": "7783800bd47bc85885cc915066aadca58cdf99f0c1180602ac312d9af5ebf643",
+      "Core/ShortcutPreferences.php": "25f300ea0b6fbc409f5b92e8bc3587a74b2ab0eaf31ccef38e18c455598eaba6",
+      "DevTools/FaB/CardRegression/record_card_regressions.php": "e53055b29e9ea641949b77019c4455607f41ca233325d716a9500637e19efd28"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1365.py": "e3d068e116ad28593be23d93d978dbbacd5e1388a4ebc99226e079c8fb23a4ff",
+      "duel_breadth1261_helpers.py": "786de4cb45fa4cb12016e55b204ba1aa5f823bb576c7778732623fae7ed05dbd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a"
+    },
+    "secondary_identity_credit": false,
+    "whole_card_credit": false,
+    "positive_condition_credit": false,
+    "positive_trigger_timing_credit": false,
+    "positive_hero_trigger_credit": false,
+    "adult_credit": true
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1365-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "f27435c4ce39d8639df3002357096e8158316c73333104627f224ad9f7925fc7"
+  },
+  "full_suite_run": false
+}

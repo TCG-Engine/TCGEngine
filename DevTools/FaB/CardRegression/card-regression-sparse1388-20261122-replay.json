@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-hearty-block-red-four-live-sparse1388-wrong-might-not-vigor-no-healing",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-hearty-block-red-four-live-sparse1388-wrong-might-not-vigor-no-healing",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "4e1893ff2b4fad15d6c77d9dad08a30d030120469b40c5e7213e3b21c897a3d5",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "0378d6d6075fb1897645adf7ef825b016a7c9d01614ca1734067190e3219060e",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "e68dbbecadad73540c403d5cb66f557292698c5b9e9aa3ea180aac34617ded13",
+        "expected_final_gamestate.txt": "9a2c8ea53df436a628c8041b7a8a6a2029d133df76d69644c8d25c97e90043a1",
+        "meta.json": "76e03f81b15cf2a6f01d28dbf8b452967010cfc8894f2acc9cbc1ea9102b7c3f"
+      }
+    },
+    {
+      "slug": "card-run-into-trouble-red-four-live-sparse1388-wrong-might-not-agility-no-retaliation",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-run-into-trouble-red-four-live-sparse1388-wrong-might-not-agility-no-retaliation",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2557f2e9166aa8278dc1b3a4469a2d649df0f1f5a9350ab3e2e3bef9647d77d0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "015a0926a15802348f9024d4b7662c30b9b577e028bf7fc0692e9f22ae5a3c43",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "7b58939ed2181959a25a7a93b8522089b3d9233d3db149f5b84fd1a25c2bcbd7",
+        "expected_final_gamestate.txt": "5094bdf0935c4f12fdb6bbcb08fec9bb483f9067c646fa06a5bc15e06e20ef23",
+        "meta.json": "abba11c4ab23bd2c0fa1692bf0aafdd812e5081d2d8fdd04658b4df1aea76567"
+      }
+    },
+    {
+      "slug": "card-wall-of-meat-and-muscle-red-four-live-sparse1388-wrong-vigor-not-might-no-graveyard-return",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-wall-of-meat-and-muscle-red-four-live-sparse1388-wrong-vigor-not-might-no-graveyard-return",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "ad6c3211dad0821c17abcfb4b85ff7dae070f3b533aeeae352c229370b21bd56",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "080963a6d2223b4c6da4e60886b913200fbd5de690fef8dfa51d4bdcc803b86b",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "b52e46bf68f7ecae3383edd0c9aafd38c83d0a15fdcec344bcf17fb723b9758c",
+        "expected_final_gamestate.txt": "f3878a8cbfce7cd68d58eeed5eb24dacf49da11110c6604b005a0dc17be5e252",
+        "meta.json": "0680611aa371edc29e7724d3dc3933181128de37057e676aac31aba1237e2957"
+      }
+    },
+    {
+      "slug": "card-turning-point-blue-four-live-sparse1388-equal-life-no-cheer-or-defense-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turning-point-blue-four-live-sparse1388-equal-life-no-cheer-or-defense-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "de8538d078acfdb297e0e834b59b8254b8e8180f73fa80898451dff714e3e3ed",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a7fa1ac6154bafd1a3747c7ea49d26f358cb98cd62942687e2b9db6306798f1d",
+        "actions.json": "391d0c3198a3462eb041e6d636e4470fb6e77a744dbc147221d49725d7cc518a",
+        "assertions.json": "a172dc8818d3862f13cb8ac10c41843a691c22a51db204f1e89861b919ee074b",
+        "expected_final_gamestate.txt": "0c5866e35c6173b570a3a7eafdf29d63fe47c1f4306a3243d50f0732f028dc1e",
+        "meta.json": "3d21f1ed34eb4370a8a6ae7ad129301019c6e2c72fa5b2adb6cbc1fbcbb2dd8d"
+      }
+    },
+    {
+      "slug": "card-down-but-not-out-red-four-live-sparse1388-equal-life-despite-fewer-equipment-and-tokens-no-bonus",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-down-but-not-out-red-four-live-sparse1388-equal-life-despite-fewer-equipment-and-tokens-no-bonus",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1388-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "42f2555ecaa9c59a04954a8c83250eb065e75e11c6f55d301019469db52f87ac",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "47ebcb4465baee7706c98048e2255a77fe5dfe2cd75c6432cf44f009b5fcfbd6",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "769a161b8bb0067c92f16f3938f23f0d27e895342c66c7a812ba85429e095fa6",
+        "expected_final_gamestate.txt": "2ff0753e6923cbef099061cbdbad2e9a77db98f1d3bd9245a580d3206690d2bc",
+        "meta.json": "2a4ef5437b88c5fa6f1588e6e61a301e7968618d360baba6720e741d89a14a04"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

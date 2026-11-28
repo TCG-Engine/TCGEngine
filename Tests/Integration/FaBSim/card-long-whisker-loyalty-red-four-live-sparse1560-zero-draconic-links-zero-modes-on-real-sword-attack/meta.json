@@ -1,0 +1,7 @@
+{
+    "name": "Long Whisker Loyalty / zero Draconic links select zero modes on a real Sword attack",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T15:04:01+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Four genuine manual20Fang/Dori/Dori/Dori, legalDraconicWarriorAR. PriorSaber5Weapons/Potion6Arena/primary7Hand; noDaggers/Draconicattacklinks/marks/Fealty. ActualPotionABI8all4responses fundsR2. ActualSaberAction cost1/AP1to0/R1 proxy9formallytargetsHero4. SwordnonDraconic/nonDagger power2, noCarddefenders so SaberWHENunearned. ActualproperREACTION1 playsprimary7AR0/all4responses. ZeroDraconiclinks requireszerochosenmodes(CR1.7.5d), hence no mode-deriveddaggertargets: nochoice/bonus/extra-use/mark. Physicalprimary7GY1, actualSword2damageHero4=18(noFangmarkedHittrigger), fullCloseSword5retained/proxy9retired/Potion6GY1/AP0R1/UID9RNG0. KnownAAadmissiongap/nonzerochoices/timing/positivepayload/support/siblings/wholecarduncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#long_whisker_loyalty_red FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/HNTCards.php FaBSim/Custom/HNTRuntime.php FaBSim/Custom/FaiCards.php FaBSim/Custom/WTRCards.php FaBSim/Custom/WTRAbilities.php FaBSim/Custom/CRUCards.php FaBSim/Custom/GameLogic.php https://rules.fabtcg.com/en/cr/01-game-concepts/"
+}

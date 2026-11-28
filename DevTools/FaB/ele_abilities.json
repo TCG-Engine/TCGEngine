@@ -795,8 +795,9 @@
       },
       {
         "macroName": "ResolveCard",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n $hero = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $hero = await $player.MZChoose($targets, \"Choose_hero\");\n \n}\n $target = FaBARCTargetSeat($player, $hero, false);\nFaBELEFrost($target);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "/* Entry trigger parameters and payload are owned by the native Emerging layer. */\n",
+        "isImplemented": true,
+        "previousCodeHash": "a746627f256b62fba6441aa3ab7011c2b5eb69e6c0a3566374f60f40af83e57d"
       }
     ]
   },
@@ -810,8 +811,9 @@
       },
       {
         "macroName": "ResolveCard",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n $hero = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $hero = await $player.MZChoose($targets, \"Choose_hero\");\n \n}\n $target = FaBARCTargetSeat($player, $hero, false);\nFaBELEFrost($target);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "/* Entry trigger parameters and payload are owned by the native Emerging layer. */\n",
+        "isImplemented": true,
+        "previousCodeHash": "a746627f256b62fba6441aa3ab7011c2b5eb69e6c0a3566374f60f40af83e57d"
       }
     ]
   },
@@ -825,8 +827,9 @@
       },
       {
         "macroName": "ResolveCard",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n $hero = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $hero = await $player.MZChoose($targets, \"Choose_hero\");\n \n}\n $target = FaBARCTargetSeat($player, $hero, false);\nFaBELEFrost($target);\n \n}\n",
-        "isImplemented": true
+        "abilityCode": "/* Entry trigger parameters and payload are owned by the native Emerging layer. */\n",
+        "isImplemented": true,
+        "previousCodeHash": "a746627f256b62fba6441aa3ab7011c2b5eb69e6c0a3566374f60f40af83e57d"
       }
     ]
   },
@@ -2162,7 +2165,7 @@
       },
       {
         "macroName": "CardPlayed",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n FaBELEAdd($player, 'SNAP', 1);\n \n}\n",
+        "abilityCode": "/* Attack trigger is queued by FaBELEAttack. */\n",
         "isImplemented": true
       }
     ]
@@ -2177,7 +2180,7 @@
       },
       {
         "macroName": "CardPlayed",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n FaBELEAdd($player, 'SNAP', 1);\n \n}\n",
+        "abilityCode": "/* Attack trigger is queued by FaBELEAttack. */\n",
         "isImplemented": true
       }
     ]
@@ -2192,7 +2195,7 @@
       },
       {
         "macroName": "CardPlayed",
-        "abilityCode": "if (FaBELEFused(intval(FaBIdentityFromMZ($mzID)['object']->UniqueID), '')) {\n FaBELEAdd($player, 'SNAP', 1);\n \n}\n",
+        "abilityCode": "/* Attack trigger is queued by FaBELEAttack. */\n",
         "isImplemented": true
       }
     ]
@@ -2432,7 +2435,7 @@
       },
       {
         "macroName": "ResolveAbility",
-        "abilityCode": "$target = intval(FaBGetState()['defender']);\n$maximum = min(2, FaBHandCount($target));\n if ($maximum > 0) {\n $handRefs = implode('&', FaBChoiceRefs($target, 'Hand'));\n $discarded = await $target.MZMultiChoose($handRefs, $maximum, $maximum, \"Discard_cards\");\n FaBMoveChoices($target, $discarded, 'Hand', 'Graveyard');\n \n}\n",
+        "abilityCode": "$target = FaBELECapturedTearVictim($player);\n$maximum = $target > 0 ? min(2, FaBHandCount($target)) : 0;\n if ($maximum > 0) {\n $handRefs = implode('&', FaBChoiceRefs($target, 'Hand'));\n $discarded = await $target.MZMultiChoose($handRefs, $maximum, $maximum, \"Discard_cards\");\n FaBMoveChoices($target, $discarded, 'Hand', 'Graveyard');\n \n}\n",
         "isImplemented": true
       }
     ]

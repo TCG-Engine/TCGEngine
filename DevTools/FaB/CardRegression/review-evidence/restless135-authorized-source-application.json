@@ -1,0 +1,19 @@
+{
+  "status": "APPLIED_SOURCE_ONLY_NATIVE_QUALIFICATION_PENDING",
+  "target": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\Custom\\IARRuntime.php",
+  "backup": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-restless135-source-application\\before-IARRuntime.php",
+  "before_sha256": "d207744512e201922507c2d6f2ba2cc7b132ced4935b928ce2faed72c4c28c0a",
+  "after_sha256": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+  "runtime_before": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "expected_runtime_after": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "source_review_sha256": "11d4978d6956c9da462ee87453c5df65771d0a327702d2ef1920eadc87e01b62",
+  "component_review_sha256": "fdb4567895ec93a9698903635c87ead5eb081ecfa2b5539b3cae87cc058738f9",
+  "baseline_component_receipt_sha256": "1311ea3ba76e84a7921fb8afe939fa4f9eec54ad9a1c5a4db29b52bab68ba95f",
+  "other_source_paths_changed": [],
+  "generated_changes": false,
+  "remote_writes": false,
+  "full_suite_run": false,
+  "started_utc": "2026-11-05T23:55:26.426814+00:00",
+  "runtime_after": "a4f6dce9193c6e6f859f92e28121b1bdc0b78195500eba765f61f72524be40ba",
+  "completed_utc": "2026-11-05T23:55:26.544567+00:00"
+}

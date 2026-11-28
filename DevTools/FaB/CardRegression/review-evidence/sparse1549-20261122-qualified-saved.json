@@ -1,0 +1,82 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "/root/breadth_review1457",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1549-20261122.json",
+  "source_spec_sha256": "121fec1727b551efb31b267e9fb5eac936a37d15f110a8d204b199d7ecff03be",
+  "input_sha256": "121fec1727b551efb31b267e9fb5eac936a37d15f110a8d204b199d7ecff03be",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+      "card_id": "enigma_ledger_of_ancestry",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "496239394b3e83f732698e4e36a143720b5e2a54af1b41bf58dcf810b39bbc5c",
+        "actions.json": "2d5afd0da8b7c29d72052d147e99d3b95bda2ea1e26163e1ed4fdf455ab3f053",
+        "assertions.json": "211d138ffd3f60007e05c6ecc6529d69a8eae72e9544a3007829bf351be497a0",
+        "expected_final_gamestate.txt": "da4dece9670c6f588ad7adf8512f99b619660b81862ed4fd78a672b439ff9196",
+        "meta.json": "f8a744ea7e7bf866445a9c46085e383ad78c11533dd9d1dd84082940e0ce9854"
+      },
+      "fixture_sha256": "cd365bbf7b0814765bfa69d6b08cd10c1b8f9d70a2e4a89e550d462cd7d6305a",
+      "actions": 14,
+      "native_assertions": 261,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 13,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1549-20261122.json",
+      "input_sha256": "121fec1727b551efb31b267e9fb5eac936a37d15f110a8d204b199d7ecff03be",
+      "active_seats": [
+        1,
+        2
+      ],
+      "players": "two_live_manual",
+      "computed_attack_refs_by_step": {},
+      "non_unit_pass_control_counts": {},
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1549-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+        "fixture_slug": "card-enigma-ledger-of-ancestry-two-live-sparse1549-first-real-shield-attack-cost-one-reduced-to-zero",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "schema_version": 1,
+    "batch": 1549,
+    "reviewer": "/root/breadth_review1457",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewed_utc": "2026-11-25T12:28:40.593309+00:00",
+    "spec_sha256": "121fec1727b551efb31b267e9fb5eac936a37d15f110a8d204b199d7ecff03be",
+    "source_note_sha256": "dceb3adffb3f4697975354b392ac18b4e2eeb20e79659689d93323158cb633c6",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "source_sha256": {
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/MSTRuntime.php": "b96f21727c089c90c21bf3aadaf913301b1ef7c922f2a17ac055258682ed45ce",
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3"
+    },
+    "cases": 1,
+    "findings": [
+      "Adult40/40 legalCCmanual, realShield3/Ward1/noPOWER andCosmo4. ActualHandempty/R0spendsAP1to0 while normalShieldcost1 hasfirstHero1discount. Physicalsource3 retained, proxy5 preserved throughbothresponses, no virtualOwner assumption.",
+      "Source3actualuse ordinaryWEAPON_ATTACK_TURN2/WEAPON_ATTACKS1Status1, Cosmo4ready, actualpower1/noGA/physicaldamage1HP39/fullClose/UID5/allGYempty. No earnedChi/destruction/defendingDoriownweaponhit omitted. Fourteencontrols actualtwo-seatinputs."
+    ],
+    "limits": [
+      "Firstdiscountonly: no second-useconsumption/reset, HeroChi, Cosmo151counterGA, support/sibling/wholecardcredit. Original219secondattackfailure heldunfixed/notretried. Source/spec reviewonly; nativeresults pending; reviewer no games/tests/writes."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1549-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "c3356f9393e383668f772e8c94929fd77ee01e28a34f4b012b520bbca694d122"
+  },
+  "full_suite_run": false
+}

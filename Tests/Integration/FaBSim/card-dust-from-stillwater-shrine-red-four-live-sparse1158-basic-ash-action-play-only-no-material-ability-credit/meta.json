@@ -1,0 +1,7 @@
+{
+    "name": "Dust from Stillwater Shrine / basic Ash Action play only; Material ability untested",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T12:06:48+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "BASICASHPLAYONLY: printedDraconicIllusionistActionAsh withcost0 isplayedbyyoungDromai20fromactualHand5. AP1to0/R0beforefourmanualresponses; samephysicalcard5resolvesownedArena1/Status2, noGY/Banish/Pitch/newUID/token/RNG/health/GA. No redcard ispitched, soDromai redpitchWHENisnotearned; noDragonattackoccurs. Ash isnotunderahost, soMaterialclauseisnotactive. ThisdoesNOTverifyMaterial/Phantasm/Miragai exception, transformation/undermaterial/export, hostinteraction, producer/lifetime/fullcardorHero behavior. Explicitbasicplaybranchonly. Sources: FaBSim/GeneratedCode/cardArrayCache.json#dust_from_stillwater_shrine_red"
+}

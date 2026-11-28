@@ -1,0 +1,7 @@
+{
+    "name": "Poisoned Blade / sparse four-live representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-22T19:11:30+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Whenever a dagger you own hits a hero this combat chain, they lose 1{h}.\n\n**Go again** Representative only: actual_three_and_go_again_without_any_dagger_hit. Other pitch siblings, alternate targets and unexercised branches receive no credit. All four live/manual; only native entry-point actions. Sources: FaBSim/GeneratedCode/cardArrayCache.json#poisoned_blade_red"
+}

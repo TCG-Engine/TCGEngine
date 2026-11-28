@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-24T11:58:49.239828+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1380-20261122.json",
+  "source_spec_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 5,
+  "native_assertions": 223,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5371,
+    "duels": 3113,
+    "four_live": 2258,
+    "recorded_primary_ids": 2519,
+    "identity_denominator": 5196,
+    "recorded_groups": 2393,
+    "group_denominator": 3324,
+    "four_live_groups": 2247,
+    "phase_qualified_scenarios_at_actual_contexts": 2008,
+    "phase_qualified_unique_groups": 1998,
+    "creation_replay_passes": 2750,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1169,
+  "scenarios": [
+    {
+      "card_id": "channel_thunder_steppe_yellow",
+      "group_id": "identity:channel_thunder_steppe_yellow",
+      "scenario_id": "card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+      "effect_branches": [
+        "actual_non_action_instant_play_no_channel_payment_or_go_again_despite_affordable_one_resource"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-channel-thunder-steppe-yellow-four-live-sparse1380-real-instant-not-action-no-payment-or-unearned-action-point",
+      "source_spec": "card-regression-sparse1380-20261122.json",
+      "source_spec_sha256": "93830a777ff91b56227b98803a7edf46b3d20f1bb597cf893aa3806ef94db177",
+      "review_evidence": "review-evidence/sparse1380-20261122-qualified-saved.json",
+      "review_evidence_sha256": "5548b3f6e4d493763d3f26fae0f5f3ef1d61e35163ab5f0a53ae5620cebe0727",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1380-20261122-replay.json",
+          "sha256": "127775adac4fb70323698a41284c21e1c393a3ad2623017b78cb1022d3290e22",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

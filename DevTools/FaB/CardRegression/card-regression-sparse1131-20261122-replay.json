@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-ghostly-touch-four-live-sparse1131-real-paid-haunt-cost-then-same-equipment-morphs-to-owned-ally-and-earns-go-again",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-ghostly-touch-four-live-sparse1131-real-paid-haunt-cost-then-same-equipment-morphs-to-owned-ally-and-earns-go-again",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1131-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1131-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "cc200ded56d6ef0f40a317b1567215558aa0409fc8e49fda3b21e6ed7f4a4cb4",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "417679fa7d65b0e815e55af73a8871b3b43ff36781629b24a7ec0691074ce1cc",
+        "actions.json": "377801e6eb888fbe3811a39f26aecdf7a55c558ac2bd9541ece307405fc17ac9",
+        "assertions.json": "823f5691accf991f7c2d6058533f6dd38a56fe7614d800d0b27dbaf5e1e46380",
+        "expected_final_gamestate.txt": "ed9030e995b43bc7048431f69abb50bac244f37a73872ea81de886af3eb35c42",
+        "meta.json": "b208d4249a4e5509140b6ef7a056ea28b9306d0b2bea48ce38bf66aac2344f29"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

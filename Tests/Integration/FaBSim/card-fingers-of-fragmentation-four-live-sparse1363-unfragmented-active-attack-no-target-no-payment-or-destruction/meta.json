@@ -1,0 +1,7 @@
+{
+    "name": "Fingers of Fragmentation / unfragmented attack is not a legal target",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-24T11:40:41+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "FOUR_REAL_MANUAL_UPF_PRISM20_THREEDORI20. NativeGenericCritical5cost1paidactualCriticalBlue6pitch3/R2/AP0/5damage. FingersFragmentation8equippedArms; actualactiveAA5hasneverfragmented, noFragmenthistoryseeded. AtownREACTIONpriority1clickEquipmentwithfullyaffordable2resourcesbutnolegalFRAGMENTEDattack. Rejectbefore2payment/Destroycost/abilitylayer/chooser: Equipment8sameownedready/Counters/Effects/R2/AP0/UID8/priority1/attack5power5. All4manualresponses/native5damageHP4=15/final5GY1/6Pitch1/Arsenal7retained; actual0ArsenalconsumerrejectAP0. Onlyunfragmented-targetguard; positivefragmentedtarget/paidactivation/+2/timing/wholecard/supportuncredited. Sources: FaBSim/GeneratedCode/cardArrayCache.json#fingers_of_fragmentation FaBSim/GeneratedCode/GeneratedMacroCode.php FaBSim/Custom/GameLogic.php FaBSim/Custom/ARCAbilities.php FaBSim/Custom/ArakniCards.php FaBSim/Custom/HNTCards.php FaBSim/Custom/OMNCards.php FaBSim/Custom/WTRCards.php"
+}

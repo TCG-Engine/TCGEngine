@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-prized-galea-four-live-sparse1094-ordinary-two-defense-full-block-then-temper-counter-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-prized-galea-four-live-sparse1094-ordinary-two-defense-full-block-then-temper-counter-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1094-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1094-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "9db7458599aa520a18744b610d3e4b28c94fc26d29218c66ad5960dd2a837d89",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "926f1612abbc7c1b45f0eb9db239a955771158ab27b65ad723c633e8aa3e9766",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "c757db26d6bc3cb2753d6c851ff616f7a6aa82d4be929b965e187f589853709d",
+        "expected_final_gamestate.txt": "516e94eb7bdb4b8724268bfb71673ce1ae8345321414cb42ce1c454e0176d8a0",
+        "meta.json": "a5dda41fdfc65373aa6ed1ecc37d8bab24d7f22de9fe1edc8a525e321b1e3a6f"
+      }
+    },
+    {
+      "slug": "card-reverent-rerebrace-four-live-sparse1094-ordinary-two-defense-full-block-then-temper-counter-retained",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-reverent-rerebrace-four-live-sparse1094-ordinary-two-defense-full-block-then-temper-counter-retained",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1094-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1094-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "5c8fd6b114fcaca8fd246efed31fa5e0c1512c6dbf32a51d50920e76d88db4ad",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "3ce69ec512b6f369a742ba4d0927eae79b690fd362947d1418f5118d2e9be57e",
+        "actions.json": "511bf2f3686ee96e12e3d9cdbe580febcac902b797e5ec827a96d5ccd74ac457",
+        "assertions.json": "9b798b324616ef7dcc1052594f3b021dd0ff8b8b79c56c2be742617cefec75a5",
+        "expected_final_gamestate.txt": "baebb581693fa55f599405eb6d2bd5ac6ae57c8a847f7dd732afed6a6b56f639",
+        "meta.json": "351853ee82c7d6109c468391f9e8ce747c0cd3d40ba0d55d6ea7846d75f24b31"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-repair-chorus190-current-aura-conditional-hit-draw.json",
+  "runtime_sha256": "30a92d304f697a031349b00fc9740e1d1fe9ed83f6b2bf0d15273a481f90bbbc",
+  "returncode": 0,
+  "completed_utc": "2026-11-17T01:45:00.193131+00:00",
+  "fixtures": [
+    {
+      "slug": "card-head-banging-chorus-yellow-four-live-first-guardian-empty-hand-earned-hit-draw",
+      "fixture_sha256": "fcb07bc99d01192ff5a62eb50903d5037a1e8e7c989124294d4a3eb360d82446",
+      "passed": true,
+      "result": "[PASS] Head Banging Chorus / first Guardian hit draws after responses"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-head-banging-chorus-yellow-four-live-first-guardian-empty-hand-earned-hit-draw",
+      "returncode": 0,
+      "stdout": "[PASS] Head Banging Chorus / first Guardian hit draws after responses\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

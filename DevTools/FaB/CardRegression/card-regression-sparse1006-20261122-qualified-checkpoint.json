@@ -1,0 +1,97 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-23T00:42:01.560901+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1006-20261122.json",
+  "source_spec_sha256": "012c25a496be93b278d9b78df61f0eab943f20824253aee4c0a9220850555954",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 57,
+  "native_assertions": 420,
+  "manual_passes": 50,
+  "totals": {
+    "saved_registered_scenarios": 4725,
+    "duels": 3075,
+    "four_live": 1650,
+    "recorded_primary_ids": 1873,
+    "identity_denominator": 5196,
+    "recorded_groups": 1747,
+    "group_denominator": 3324,
+    "four_live_groups": 1639,
+    "phase_qualified_scenarios_at_actual_contexts": 1362,
+    "phase_qualified_unique_groups": 1352,
+    "creation_replay_passes": 2104,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 523,
+  "scenarios": [
+    {
+      "card_id": "nebula_blade",
+      "group_id": "identity:nebula_blade",
+      "scenario_id": "card-nebula-blade-four-live-sparse1006-unplayed-nonattack-in-hand-is-not-played",
+      "effect_branches": [
+        "actual_blue_paid_weapon_no_nonattack_play_bonus_full_block"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-nebula-blade-four-live-sparse1006-unplayed-nonattack-in-hand-is-not-played",
+      "source_spec": "card-regression-sparse1006-20261122.json",
+      "source_spec_sha256": "012c25a496be93b278d9b78df61f0eab943f20824253aee4c0a9220850555954",
+      "review_evidence": "review-evidence/sparse1006-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aa7d3495527a00de7c3086561e49eedb389b067db30a8ce36df9de83cf0aa6b6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1006-20261122-replay.json",
+          "sha256": "fde1be4f9568106a5aa026b483a9a85e3bf01996198861f154dc496ebc9c4881",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "silverwind_shuriken_blue",
+      "group_id": "identity:silverwind_shuriken_blue",
+      "scenario_id": "card-silverwind-shuriken-blue-four-live-sparse1006-real-generic-attack-is-not-combo",
+      "effect_branches": [
+        "actual_reaction_window_generic_attack_not_combo_target"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-silverwind-shuriken-blue-four-live-sparse1006-real-generic-attack-is-not-combo",
+      "source_spec": "card-regression-sparse1006-20261122.json",
+      "source_spec_sha256": "012c25a496be93b278d9b78df61f0eab943f20824253aee4c0a9220850555954",
+      "review_evidence": "review-evidence/sparse1006-20261122-qualified-saved.json",
+      "review_evidence_sha256": "aa7d3495527a00de7c3086561e49eedb389b067db30a8ce36df9de83cf0aa6b6",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1006-20261122-replay.json",
+          "sha256": "fde1be4f9568106a5aa026b483a9a85e3bf01996198861f154dc496ebc9c4881",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

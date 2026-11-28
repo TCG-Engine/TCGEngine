@@ -1,0 +1,125 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-turn-to-mindfire-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "a0d010ae0c089489660b290eafef8563e8e1e530e910cba131a9b529c7bf504d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "fb6356d025b03b619f9dc07a0fe0a474b50584662654c5923e958281b737d5b6",
+        "actions.json": "88a4c8243c4a0927d8ca460e2da6a3aa7a30b35a867ff4cb71ca24fc2803a7cd",
+        "assertions.json": "b0711389b852f4693dd94f89c8fb5c7025bd3444ef1fd2411d96c2ebb845f578",
+        "expected_final_gamestate.txt": "5baa1fee3e59b54750c1a2a6fcb2bd4891a1b422907d7b29b4c09b9140bbea75",
+        "meta.json": "42f33ceaf01aa5705ec4a8bf5f2f315a32f6eee8215d6a83f7827e2ff470fca3"
+      }
+    },
+    {
+      "slug": "card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-enion-surge-red-two-live-sparse1415-actual-damage-hero-tap-earns-physical-token",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "1015da2cd522ffbf47c52cacf0fa35242891d754b46d1d65afc42680e800164f",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "00e012d6c22af11398b184e3aed6de0ac6bbd326f078e445115ed3b14012466b",
+        "actions.json": "139121d478e93360bd199dd3937ff2997e758e18f50e508345227f47bcaba186",
+        "assertions.json": "f573a2d68756a9f5b2d5d6b6d8114a1b2183fcfc57119d75711dbd9e7c81ba9b",
+        "expected_final_gamestate.txt": "91a1f773c37b9782b84ced77dd87b8bede0173ef1839d3c4e7b158b7e98ad33c",
+        "meta.json": "51bec8bda7c9b6d274a0e931764a09ee22adf836b224345c70d7c24575f72ee9"
+      }
+    },
+    {
+      "slug": "card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-comet-collision-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "fc456fc841da4a5b4654f67ce431c17f2fe2eb8c775c4d506b2d866471617eb0",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "cc5b8570fa919724dfd5cd969714848108dfdaa38d702d80801465a70a43ae7a",
+        "actions.json": "0955e5ab8643dcccb62684e61e53d1c3424c299db377ed690506c8cdbb85f6dd",
+        "assertions.json": "43a120d8225aad3a860a93ee3217849fc0282f55c087d3ace0e3c46f9849458b",
+        "expected_final_gamestate.txt": "2dc6d2aa80f36e515dd72b352183683adcd6f8c1c8cfd79206ee5b9efe9f7230",
+        "meta.json": "4c63c472246e3a1fb0d49f2c3f683f2855acddfc819c96aa5a36aea2a1e19349"
+      }
+    },
+    {
+      "slug": "card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-meteoric-impact-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\03.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\03.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d2d56442f6a5cd4a86cc961947190b3dd5b58cd4a4ea1fa7e7d72a245d297de1",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "22e52a1a815ac3fc0ea95e5e54ec2a1bcc9a11a3f5979906724553d6784feb7a",
+        "actions.json": "c114f92ef324ab4effef2a293482be508f9ee6573250b6908f0aa7d3de3d9070",
+        "assertions.json": "c2b21e97e9d88f11301d48cc8e3ab74a921d08b655e6bef1dab3b14ef60ff9ff",
+        "expected_final_gamestate.txt": "1d34bcb60e97650ec7bf1963a9ec2321a3fcb8441241dbed4e87286072183386",
+        "meta.json": "fe6a071826b911ce4908f044f04b90d6399c93a1ff623c4641c720d1f6cfcbae"
+      }
+    },
+    {
+      "slug": "card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-lightning-overload-red-two-live-sparse1415-actual-instant-earns-starfall-printed-reward",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\04.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1415-local-20261122\\clean-replays\\04.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2870ea58d7eac525d164a5ba0d5b721c956a0c7b37dc2811c4e96999767e68de",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "21701975a5b8984723813c412fba8850b802a64faa58d29b1344923198481fb5",
+        "actions.json": "c114f92ef324ab4effef2a293482be508f9ee6573250b6908f0aa7d3de3d9070",
+        "assertions.json": "5c27634ab501f2b4b066671c85f0ce9851f77c5638bdb707057baab9a61b35db",
+        "expected_final_gamestate.txt": "fe7e3b9eb74364233e42ae6b6817cb00ed03f8a62c1f982d023f269667a5be26",
+        "meta.json": "1550912f6818b6da1cc144218532d4ffff937945fc61f27b97a19ecf8eecc63a"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

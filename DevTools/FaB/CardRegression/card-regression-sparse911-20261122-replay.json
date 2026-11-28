@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-beast-within-yellow-four-live-sparse911-actual-six-damage-and-combat-chain-origin-graveyard-exclusion",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-beast-within-yellow-four-live-sparse911-actual-six-damage-and-combat-chain-origin-graveyard-exclusion",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "547d8f736033da7631f9c8f9432b9a92c69778b95699dfa7456adad212e11867",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "714bf1139d9e537e580c79d9bd1d7fce6b7c1b819df0c4d84738ba4258c2314b",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "52f287f68d01f336250bb7497b55bfca34290a3a3f1a63e8f37c29a3f138e4cb",
+        "expected_final_gamestate.txt": "cea23e160c5dd99bd5acd1abad69c5beb1553a053f069b492648e4aca0dbe84f",
+        "meta.json": "5b9e16c2b1d03878e21ac6f801a805f00f29cb9e4702bc31e34daf9a4710e5ba"
+      }
+    },
+    {
+      "slug": "card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-nasty-surprise-blue-four-live-sparse911-normal-owned-attack-not-opponent-effect-graveyard-tokens",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "2ee1dadbf2e9315981cdd061c17bc396d3ef3134bc59ca208ba374025ac8c6ae",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d3be67beb5d647d0f629fe958dc9c8a97c96e8862665bca8e1c30b757879f420",
+        "actions.json": "71f0d0f07cf85244a3ec27fdb1f824cd62aa3126d639c98c13ca23327907bd8b",
+        "assertions.json": "900487148d0c3fcea3c2ede1fd1bfe55220a29d34af6ac6873a604acf1eb1593",
+        "expected_final_gamestate.txt": "64573fec9dd4d6438ca73c6d94b00e9492243f78763ed2f4b835ee3c162965cb",
+        "meta.json": "aa700a2386ae92fd2ba090e3105fdd9fb398a7fc92e87d90ea8bee03cd68e944"
+      }
+    },
+    {
+      "slug": "card-second-tenet-of-chi-moon-blue-four-live-sparse911-actual-five-without-transcend-chain-resolution-draw",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-second-tenet-of-chi-moon-blue-four-live-sparse911-actual-five-without-transcend-chain-resolution-draw",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\02.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse911-local-20261122\\clean-replays\\02.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "03f84dc8e2fe532dd3c2afc745864f1bcb5ea44b3543d33090936b168ea0fb69",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "8d63de19c800f607c517a57d44ef0d3ff3e0b29368e3ff2115618ef04877e91f",
+        "actions.json": "25920dc16af50701b0be20453cc3345d5c14a09166881d7481930bfb87552093",
+        "assertions.json": "a3d648eef570583eccc35e4c55a546f1aaab877db545a457050396a7cda67e4e",
+        "expected_final_gamestate.txt": "fcb869589a4706e86796c0aeadba47fdcf09dc5d6c950fc3ea96bdda3542ba59",
+        "meta.json": "ba3a7c933eece44e86ca254ecbbcbbe425f0f4c20aaaec02641577c035a69a68"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

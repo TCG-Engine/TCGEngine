@@ -1,0 +1,39 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch383-v2.json",
+  "runtime_sha256": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "returncode": 0,
+  "completed_utc": "2026-11-04T19:47:36.008574+00:00",
+  "fixtures": [
+    {
+      "slug": "card-promise-of-plenty-yellow-four-live-sparse-real-arsenal-go-again-fullblock-earns-paid-action-followthrough",
+      "fixture_sha256": "b15e8de5c6f99eeab66f28e2fdd1d7942191c6ca26fde6e962d27456f0e8b300",
+      "passed": true,
+      "result": "[PASS] promise_of_plenty_yellow / four live distinctive effect"
+    },
+    {
+      "slug": "card-nourishing-emptiness-red-four-live-sparse-real-empty-graveyard-dominate-rejects-second-hand-defender",
+      "fixture_sha256": "20e86dc5b91a7d01a9a75a43457b1432c6d231c01f44b835e7afd91cc2e8b2bf",
+      "passed": true,
+      "result": "[PASS] nourishing_emptiness_red / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-promise-of-plenty-yellow-four-live-sparse-real-arsenal-go-again-fullblock-earns-paid-action-followthrough",
+      "returncode": 0,
+      "stdout": "[PASS] promise_of_plenty_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-nourishing-emptiness-red-four-live-sparse-real-empty-graveyard-dominate-rejects-second-hand-defender",
+      "returncode": 0,
+      "stdout": "[PASS] nourishing_emptiness_red / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 2,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

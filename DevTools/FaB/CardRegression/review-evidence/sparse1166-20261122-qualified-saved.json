@@ -1,0 +1,154 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review original trigger semantics plus exact mandatory-prevention-choice transport correction",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1166-20261122.json",
+  "source_spec_sha256": "e764de612ef8216192c9e8445b9c6e69621861af77f8ce1082c9fbe7fdb894bb",
+  "input_sha256": "ca3c706d647cb11bd66e318442ca3b73b529184747cabcd588480bdab8ba29bf",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-silken-shawl-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+      "card_id": "silken_shawl",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "d1bad6b9c9410f9d2de24c9095fb06ee31adfd8a709ab7b79b7958e0c287d940",
+        "actions.json": "690b6b07ef196ef12d0c7ef4a9b970239a94f49363bd0374b7ab7420eb51b5e3",
+        "assertions.json": "bdff1e48290d45f938b301007ed9943b57dfd11654311ca1362cc6d4e4bfb616",
+        "expected_final_gamestate.txt": "31dbfd9acb4ed9099886161034474849f9078cc2899e3cbc714628fb1eff265e",
+        "meta.json": "e0d0fa00c900e0da7029afff8f93e98fe3a20cecc4397c8e0f045c0821987aff"
+      },
+      "fixture_sha256": "22feee516ef9f67f6f2cea7873be1ec0ea0f3bb3c9aa2a4e334e8bd57757775c",
+      "actions": 11,
+      "native_assertions": 335,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1166-20261122.json",
+      "input_sha256": "e764de612ef8216192c9e8445b9c6e69621861af77f8ce1082c9fbe7fdb894bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1166-local-20261122\\save-authoring-corrected\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-silken-shawl-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "fixture_slug": "card-silken-shawl-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-silken-symphony-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+      "card_id": "silken_symphony",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "bf9352eba08e456672ca9c08b8391eb07be4d9391ec14f23e442d8abd7ac2d20",
+        "actions.json": "690b6b07ef196ef12d0c7ef4a9b970239a94f49363bd0374b7ab7420eb51b5e3",
+        "assertions.json": "6e06521f173bc7004b77e047b1d738baa95e77b3437323010d23c1f7415952cd",
+        "expected_final_gamestate.txt": "fa6f94bf4abbf93e9b6acd15210814a772d6719dfd2bc1ea5f8391e43dd9243e",
+        "meta.json": "e258a8c666c368758f5385c2841203e47905b4e517421dab1cb1a50612df0481"
+      },
+      "fixture_sha256": "399aa848533ab9179add588a3aeed957abe7a7394254fbe9614234675d905fbe",
+      "actions": 11,
+      "native_assertions": 335,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1166-20261122.json",
+      "input_sha256": "e764de612ef8216192c9e8445b9c6e69621861af77f8ce1082c9fbe7fdb894bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1166-local-20261122\\save-authoring-corrected\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-silken-symphony-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "fixture_slug": "card-silken-symphony-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-silken-slippers-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+      "card_id": "silken_slippers",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e19d92fbfaf8776491620b046f426df70048cdd1b0da05cbd42542fe98e8f9f0",
+        "actions.json": "690b6b07ef196ef12d0c7ef4a9b970239a94f49363bd0374b7ab7420eb51b5e3",
+        "assertions.json": "29923652c21875fa115c483b0198a8cb6a003a23725899101bfb8dee41990330",
+        "expected_final_gamestate.txt": "26f62710b840277d799b79bb3ae64abac9d40a37a7165b3fa0efa48d0977cdee",
+        "meta.json": "1c91545881278bfa2482f8a18f670e961fa6eb11dc314d9ac18a1dfe75cbe46c"
+      },
+      "fixture_sha256": "bda4dc011d2e2a829d41f18769a1b8db85e7cfd7eb6cecf1241b14c60692b58f",
+      "actions": 11,
+      "native_assertions": 335,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1166-20261122.json",
+      "input_sha256": "e764de612ef8216192c9e8445b9c6e69621861af77f8ce1082c9fbe7fdb894bb",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1166-local-20261122\\save-authoring-corrected\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-silken-slippers-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "fixture_slug": "card-silken-slippers-four-live-sparse1166-real-ward-destruction-then-four-response-token-trigger",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "e764de612ef8216192c9e8445b9c6e69621861af77f8ce1082c9fbe7fdb894bb",
+    "reviewer": "breadth_review original trigger semantics plus exact mandatory-prevention-choice transport correction",
+    "basis": [
+      "Three distinct uncovered Illusionist equipment identities with printed Ward1 and When destroyed create Vigor/Might/Agility respectively. Natural young Prism20 legally owns sole Equipment5; no other Ward/prevention/hero entry dependency exists. Actual Verdance20 Zap6 formally declares victim4 and spends AP before all four manual source responses.",
+      "Correct current route: generated Zap Red ResolveCard8893-8897 calls await89c1a36539b323399572. Its cases9/8/5 enumerate FullDTD prevention and require MZCHOOSE when WardRefs is nonempty, before DoDamage. Advertised sole p4Equipment-0 is the real owned Ward source5; HP20/source6Stack/Arena0 remain before the answer. Case4 calls DTDPreventionPay221, which destroys the actual Ward source via MONDestroy. MONCards296-306 moves5 to ownedGY4 and calls PENDestroyed297-300, earning ABI7 controller4/SourceUniqueID5. The previous assumption that DYN automatic Ward was the first selected route is corrected; no card outcome rule changed.",
+      "After real Zap damage2/HP4=18, Zap6 is ownedGY1 and Equipment5 ownedGY4; no token yet. Raw virtual ABI7 owner0/controller4/kindABILITY/source5 and exactly one Stack layer are correct. Active player1 receives priority; four fresh manual responders1,2,3,4 precede token creation.",
+      "Current GL1843-1850/1866-1897 manages ROS_ABILITY lifetime; the source layer stays owned through the resolver. ROS dispatch uses controller4 and underlying sourceUID5, then each explicit generated ResolveAbility body creates one token for player4. Final exactly owned token8/Arena4, no extraUID/repeat/damage, empty Stack/CC/queues and unchanged HP18 are correctly guarded."
+    ],
+    "case_checks": [
+      {
+        "card": "silken_shawl",
+        "controls": 11,
+        "normalized_assertions": 335,
+        "author_only_omissions": 0
+      },
+      {
+        "card": "silken_symphony",
+        "controls": 11,
+        "normalized_assertions": 335,
+        "author_only_omissions": 0
+      },
+      {
+        "card": "silken_slippers",
+        "controls": 11,
+        "normalized_assertions": 335,
+        "author_only_omissions": 0
+      }
+    ],
+    "limits": [
+      "Single Ward1 against Zap3 and one destroyed-source token trigger each. No multiple prevention/order, unpreventable damage, suppression, token abilities/start/end phase, equipment producer, hero/support/full-card credit.",
+      "Reviewer performed no native/PHP/T/source/engine/fixture/Git/network/original actions."
+    ],
+    "transport_correction": {
+      "classification": "fixture_control_endpoint_expected_priority_before_mandatory_prevention_choice",
+      "original_spec_sha256": "ca3c706d647cb11bd66e318442ca3b73b529184747cabcd588480bdab8ba29bf",
+      "delta": "Each case replaces control step11 pass_until PRIORITY1 with pass_until actual victim4 MZCHOOSE, adds source-held/HP20/realEq5 checks and answers advertised p4Equipment-0. Old steps0-10 and complete old tail12+ remain exact; only planned_actions and matching oracle prose otherwise change.",
+      "unchanged_outcomes": [
+        "HP18",
+        "Eq5 ownedGY4",
+        "Zap6 ownedGY1",
+        "ABI7 controller4 SourceUID5",
+        "four trigger response actors",
+        "correct owned token8",
+        "full cleanup/economy"
+      ],
+      "native_scope": "Three original unsaved attempts/receipts retained; no engine/fixture correction or child native execution. Root may retry corrected eleven-input cases."
+    }
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1166-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "daa2ae6524115f725f8d087e8865cfbf7a00ff65bbaad7ddbb8757c65dbf0201"
+  },
+  "full_suite_run": false
+}

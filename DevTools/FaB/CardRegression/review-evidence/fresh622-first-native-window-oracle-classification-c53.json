@@ -1,0 +1,236 @@
+{
+  "status": "ORACLE_ONLY_REACTION_WINDOW_LABEL_ERROR_NO_NATIVE_SHARPEN_VERDICT",
+  "reviewer": "/root/b105_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T17:15:35.827629+00:00",
+  "card_id": "fresh_from_the_forge_red",
+  "group_id": "identity:fresh_from_the_forge_red",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "input_sha256": "d6ac236a291a6cfc85e25a2c39463564815133437fd26b7d3106b7858005b893",
+  "source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-independent-diagnostic-source-review.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\original-source-review.json",
+    "sha256": "4ac13171aa0e024d766e8f2d085dfe07e028769b3c1ff3e9f43a400638d84b99"
+  },
+  "root_native_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-sharpen-probe-native-c53\\receipt.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\receipt.json",
+    "sha256": "9fbe48aa66b3925eaa92aac3f082ddc2286b910e5b6d8523bfefa8a5a414dc36"
+  },
+  "native_recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-fresh-sharpen-probe.recording-results.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\specific-results.json",
+    "sha256": "5ac07c9baf9cc7a304be4d0f2e35a48488ad6e038388f7d249b88e0336567343"
+  },
+  "immutable_native_archive": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-fresh-sharpen-probe-20261106T170825Z-6aee09892f964.json",
+    "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\immutable-native-archive.json",
+    "sha256": "62ecd7ac0caabb6dc16e27e7d9f9626a5370cf0b27a69289498bbc6d3a98b72d"
+  },
+  "evidence_preservation": {
+    "receipt.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-sharpen-probe-native-c53\\receipt.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\receipt.json",
+      "sha256": "9fbe48aa66b3925eaa92aac3f082ddc2286b910e5b6d8523bfefa8a5a414dc36"
+    },
+    "specific-results.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch622-fresh-sharpen-probe.recording-results.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\specific-results.json",
+      "sha256": "5ac07c9baf9cc7a304be4d0f2e35a48488ad6e038388f7d249b88e0336567343"
+    },
+    "immutable-native-archive.json": {
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch622-fresh-sharpen-probe-20261106T170825Z-6aee09892f964.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\immutable-native-archive.json",
+      "sha256": "62ecd7ac0caabb6dc16e27e7d9f9626a5370cf0b27a69289498bbc6d3a98b72d"
+    },
+    "original-input.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-original-correct-sharpen-damage-diagnostic\\batch622-fresh-one-original-correct-sharpen-damage-diagnostic.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\original-input.json",
+      "sha256": "d6ac236a291a6cfc85e25a2c39463564815133437fd26b7d3106b7858005b893"
+    },
+    "original-manifest.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-original-correct-sharpen-damage-diagnostic\\manifest.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\original-manifest.json",
+      "sha256": "1e671f1ebf604ea6bc5a679d64240ff989caafe2666966056cee31be3c7ca289"
+    },
+    "original-source-review.json": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-independent-diagnostic-source-review.json",
+      "preserved_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\original-source-review.json",
+      "sha256": "4ac13171aa0e024d766e8f2d085dfe07e028769b3c1ff3e9f43a400638d84b99"
+    },
+    "initial_gamestate.txt": {
+      "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch622-fresh-first-window-failure-evidence\\initial_gamestate.txt",
+      "sha256": "bcead9d186e98fcb65b09f888a8c6728b16e6c712597efc2b618946f736885e1"
+    }
+  },
+  "first_failure": {
+    "native_assertion_ordinal_1based": 1240,
+    "successful_prior_assertions": 1239,
+    "source_pointer": "/0/steps/34/checks/29/value",
+    "submitted_inputs": 17,
+    "expected_window": "PRIORITY",
+    "actual_window": "REACTION",
+    "unrun_assertions_after_failure": 769,
+    "error": "state window expected \"PRIORITY\" got \"REACTION\""
+  },
+  "actual_native_prefix": {
+    "first17_envelopes_match_source_exactly": true,
+    "first1239_successful_assertions_match_source_exactly": true,
+    "submitted_manual_controls": 13,
+    "manual_actor_counts": {
+      "1": 3,
+      "2": 3,
+      "3": 3,
+      "4": 4
+    },
+    "last_input": {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "last_input_was_legal_Fresh_AR_Hand_click": true,
+    "observed_Hand1_empty": true,
+    "observed_card_play_event": [
+      "quicksilver_dagger",
+      "fresh_from_the_forge_red"
+    ],
+    "Fresh_play_event_and_EVREffect_exist": true,
+    "observed_window": "REACTION",
+    "observed_pendingPayment": null,
+    "observed_DecisionQueues": {
+      "1": [],
+      "2": [],
+      "3": [],
+      "4": []
+    },
+    "priority1_passes0_passed_before_failure": true,
+    "active_attackUID": 16,
+    "actual_attack_target": {
+      "type": "PERMANENT",
+      "player": 4,
+      "uid": 8,
+      "zone": "Arena"
+    },
+    "damage_step_not_reached": true,
+    "positive_Sharpen_Damage_query1759_unrun": true,
+    "physical_Dagger_power_query1760_unrun": true,
+    "native_afterclick_Stack_GY_properties_not_queried_before_failure": true
+  },
+  "classification": {
+    "oracle_protocol_error": true,
+    "AR_admitted_not_a_noop": true,
+    "native_basis": "Hand1 became empty and cardsPlayedThisTurn/EVR_PLAYED/HNT_DRACONIC/mstReactions reflect Fresh after the exactclick.",
+    "source_basis": "PlayCard moves Fresh physicalUID5 to Stack and preserves returnWindowREACTION. Payment intentionally restores REACTION; it does not execute ResolveRules. ActiveStack still requires four passes.",
+    "source5_waiting_on_Stack_is_source_derived_not_direct_native_zone_assertion": true,
+    "no_inline_ResolveCard_source_path_established": true,
+    "correct_response_window_label": "REACTION",
+    "response_round_and_source_lifetime_requirements_unchanged": true,
+    "native_Sharpen_failure_confirmed": false,
+    "native_damage1_or2_claim": false,
+    "Sirens_same_symptom_is_different_selected_cause": "B106 independently found default weapon-only AR admission rejects Sirens on GenericAA; Fresh weaponproxy passes and recordsplay. No shared defect allocation is inferred."
+  },
+  "source_evidence": {
+    "relevant_source_hashes": {
+      "FaBSim/Custom/GameLogic.php": "1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43",
+      "FaBSim/Custom/WTRCards.php": "5ead5cc6303b5e6760715b1a038e38d01014d8d42f16aa32bb24aa9df17e9515",
+      "FaBSim/Custom/CardChoices.php": "6d1122598624a9ac61d99bfc41574d01e80de211e714eadaafb7b6b817a4f975",
+      "DevTools/FaB/iar_abilities.json": "6b5db45b3a1cfd542bb2730f47347198055b7630486f6f32d51b11a781aa0fae",
+      "FaBSim/Custom/IARRuntime.php": "8aae2efda118e15daa34381505cba3c5060059819960884caeaeede0f578a7d9",
+      "FaBSim/Custom/BoltynCards.php": "c69ec227eed13f4f21c6a8a5d0b7537f807f3c06b293a6d57fbcc66c2d02570d"
+    },
+    "anchors": [
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": "962-969",
+        "finding": "Moves physical played source to Stack, sets Kind/SourceUID and captures current returnWindow/returnCombatStep."
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": "1130-1164",
+        "finding": "Pendingpayment clears; ATTACK opensPRIORITY but AR restores returnWindowREACTION at1137-38; records OnCardPlayed and resets priority/passcount, withoutResolveRules."
+      },
+      {
+        "path": "FaBSim/Custom/GameLogic.php",
+        "lines": "2144-2149",
+        "finding": "After living-seat fourpass sequence, nonempty Stack top resolves before emptyStack window progression."
+      },
+      {
+        "path": "FaBSim/Custom/WTRCards.php",
+        "lines": "464-487",
+        "finding": "Fresh has no earlier special restriction and currentQuicksilverproxy is aWeapon, so fallback allows thisAR."
+      }
+    ]
+  },
+  "precise_successor_recommendation": {
+    "changes": [
+      {
+        "pointer": "/0/steps/34/checks/29/value",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/35/until/window",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/36/checks/29/value",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/37/until/window",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/38/checks/29/value",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/39/until/window",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      },
+      {
+        "pointer": "/0/steps/40/checks/29/value",
+        "before": "PRIORITY",
+        "after": "REACTION"
+      }
+    ],
+    "total_leaves": 7,
+    "preserve_all25_actions": true,
+    "preserve_all2009_checks": true,
+    "preserve_Stack5_UID_owner_controller_and_freshfour": true,
+    "preserve_first_actual_UrsurDamage2_then_physical_computed2": true,
+    "preserve_diagnostic_only_probe_only_qualification_false": true,
+    "last_source_pass_step41_already_correct_REACTION1": true,
+    "no_OTHER_change_recommended": true
+  },
+  "bounded_compatibility_replay_recommendation": {
+    "source_spec": "card-regression-batch469-v2.json",
+    "slug": "card-singing-steelblade-yellow-four-live-real-reprise-banish-and-same-link-attack-reaction-play",
+    "fixture_path": "C:\\xampp\\htdocs\\TCGEngine\\Tests\\Integration\\FaBSim\\card-singing-steelblade-yellow-four-live-real-reprise-banish-and-same-link-attack-reaction-play",
+    "why": "Existing qualified positiveWeapon AR with held source and real resolvingchoice. Its original steps40-46 already useREACTION while AR is pending, then47 stops at realMZMAYCHOOSE. One Root-controlled targeted replay can corroborate current transport, with no fullsuite or newtest needed.",
+    "existing_fixture_sha256": "918e8d855f633ce94c5c00e8c5433e4d5fd026e81e7f97bc69ec8ec34eec018e",
+    "no_replay_executed_or_current_credit_claimed": true
+  },
+  "limits": [
+    "No actual Sharpen/counter/computedpower/damage, mark/FORGE duration, Resolution/Close/End result was reached. Static Sword-only helper concern remains source-only, not a native bug from this failure.",
+    "No physical postclick Stack/GY assertion passed; acceptedplay and nativeHand/event facts are distinguished from the source-derived pendingStack explanation.",
+    "Original source4ac and d6ac input/receipt/results/archive remain immutable; a new exactsevenleaf successor must be independently reviewed before Root reruns only the no-save diagnostic.",
+    "No fixture/coverage/issue/globalCore allocation or gameplay source fix."
+  ],
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "confirmed_bug": false,
+  "new_gameplay_bug_claim": false,
+  "issue_allocated": false,
+  "native_executed_by_reviewer": false,
+  "source_fix": false,
+  "repository_writes": false
+}

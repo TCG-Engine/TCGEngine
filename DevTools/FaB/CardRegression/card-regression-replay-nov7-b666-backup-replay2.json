@@ -1,0 +1,27 @@
+{
+  "command": "existing single-fixture runner per listed scenario",
+  "source_spec": "card-regression-batch666-backup.json",
+  "runtime_sha256": "c53e09c5e8f01a7a1ce75d59f0e244c2326a1add86064d50cf0cd39f02dd5065",
+  "returncode": 0,
+  "completed_utc": "2026-11-07T00:09:13.962813+00:00",
+  "fixtures": [
+    {
+      "slug": "card-backup-protocol-yel-yellow-four-live-real-paid-destroy-and-yellow-mech-recovery",
+      "fixture_sha256": "b266d86ef7c2c600133bf77de8d33dacbcbc8386962162c917e02483053dd4da",
+      "passed": true,
+      "result": "[PASS] backup_protocol_yel_yellow / four live distinctive effect"
+    }
+  ],
+  "runs": [
+    {
+      "command": "DevTools/RunIntegrationTests.php --root=FaBSim --test=card-backup-protocol-yel-yellow-four-live-real-paid-destroy-and-yellow-mech-recovery",
+      "returncode": 0,
+      "stdout": "[PASS] backup_protocol_yel_yellow / four live distinctive effect\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "stderr": ""
+    }
+  ],
+  "canonical_raw5_preserved": 1,
+  "preservation_scope": "selected fixtures only",
+  "omitted_source_scenarios": [],
+  "qualification": "Targeted clean replays only; this is not a full inventory report."
+}

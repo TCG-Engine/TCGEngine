@@ -1,0 +1,52 @@
+{
+  "status": "PASS_ISOLATED_EXTRACTED_CHECKS_NOT_NATIVE",
+  "native_credit": false,
+  "runtime_before": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "runtime_after": "16008fc2ea54254561814b31f0c66123ef5e0c474aa0db1f6ddfd47ef63cca7e",
+  "repository_runtime_unchanged": true,
+  "candidate_manifest_sha256": "4b56c68d07621c0dc9095d4bd2b8e22c1f18be553ad4cf7750cec6867a30ace3",
+  "component_plan_sha256": "2a5fcd5832d73c9992cf4cd383bbe4f660af84cf33dce648ac36f0af869bb71d",
+  "checks": [
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\candidates\\FaBSim\\Custom\\WTRCards.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-prepare-pitch-save-proposed\\candidates\\FaBSim\\Custom\\WTRCards.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "-l",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-component-preparation\\contracts.php"
+      ],
+      "returncode": 0,
+      "stdout": "No syntax errors detected in C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-component-preparation\\contracts.php\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-component-preparation\\contracts.php",
+        "before"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_OLD_SAVE_ORPHAN_CHARACTERIZATION_NOT_RULE_APPROVAL\",\"phase\":\"before\",\"contracts\":2,\"assertions\":7,\"contract_names\":[\"actual before writer leaves orphaned pitch references after save-only compaction\",\"actual legacy AB2 remapper remains active and new Prepare cohort is disjoint\"],\"actual_function_hashes\":{\"EngineRemapZoneForSave\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\WTRCards.php\",\"source_sha256\":\"10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386\",\"function_sha256\":\"879403714fc79f454c34eef6461e1753a2f1a7a30d6b4bdd5a3800c992ab41b7\",\"evaluated_sha256\":\"879403714fc79f454c34eef6461e1753a2f1a7a30d6b4bdd5a3800c992ab41b7\"},\"FaBWTRPlainBarrierPitchChoicesForSave\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\WTRCards.php\",\"source_sha256\":\"10233d7570ef96550c5fcc652262c0ff057f06a855d63e94468d6b87df039386\",\"function_sha256\":\"7df89aa5c175f268a2585ec921b9dedc194ea81e6e2e23040e8580aa260aba58\",\"evaluated_sha256\":\"7df89aa5c175f268a2585ec921b9dedc194ea81e6e2e23040e8580aa260aba58\"},\"FaBFindUID\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"3f1233b0dd53c7f19604d523c09e403b4a9971fefd94f92829832432e3105ad2\",\"evaluated_sha256\":\"3f1233b0dd53c7f19604d523c09e403b4a9971fefd94f92829832432e3105ad2\"},\"FaBIdentityZones\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"765d33c45af76ad3dd2ec00d29cdeb7d1884b61d8bd84ce15090072a97cc4bcf\",\"evaluated_sha256\":\"765d33c45af76ad3dd2ec00d29cdeb7d1884b61d8bd84ce15090072a97cc4bcf\"},\"FaBReactionQueuedAwaitFrame\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a\",\"evaluated_sha256\":\"029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a\"},\"FaBDTDCostPitchChoices\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\DTDCards.php\",\"source_sha256\":\"059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd\",\"function_sha256\":\"045c3404f2843980847211a44586f4b9099501d994e09ca0d1cc29b29360cca2\",\"evaluated_sha256\":\"045c3404f2843980847211a44586f4b9099501d994e09ca0d1cc29b29360cca2\"}},\"native_credit\":false,\"limits\":\"Actual changed helper, writer, UID lookup, cost helper and legacy AB2 remapper execute. Controlled zone/state/frame/metadata/survivor serialization boundaries; no engine game/bootstrap, callback execution, PHP native recording/replay, live-splice or generic chooser certification.\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov4-frenzy087-component-preparation\\contracts.php",
+        "after"
+      ],
+      "returncode": 0,
+      "stdout": "{\"status\":\"PASS_ISOLATED_ACTUAL_PREPARE_PITCH_SAVE_COMPONENTS_NOT_NATIVE\",\"phase\":\"after\",\"contracts\":13,\"assertions\":87,\"contract_names\":[\"actual after writer remaps only copied choice to same offered UID6 and UID7\",\"save-copy repeat is idempotent and compacted live input is identity\",\"absolute seat4 references remain seat4 independent of ambient seat3\",\"survivor positions include ineligible cards and original subset is never broadened\",\"removed offered candidates cannot alias survivors after serialization\",\"actual canonical cohort profiles preserve reserve0 versus reserve1 eligibility\",\"wrong source UID identity owner controller kind or zone declines rewrite\",\"wrong frame UID source cost refs callback PC or return field declines rewrite\",\"foreign relative malformed duplicate and absent references are not rewritten\",\"wrong decision type tooltip block queue order and other payloads are retained\",\"unpaid cost and live pending-payment ownership are required\",\"non DecisionQueue writer zone and invalid seat return identity\",\"actual legacy AB2 remapper remains active and new Prepare cohort is disjoint\"],\"actual_function_hashes\":{\"EngineRemapZoneForSave\":{\"path\":\"C:\\\\Users\\\\maxim\\\\Documents\\\\Codex\\\\2026-10-19\\\\task\\\\nov4-frenzy087-prepare-pitch-save-proposed\\\\candidates\\\\FaBSim\\\\Custom\\\\WTRCards.php\",\"source_sha256\":\"eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517\",\"function_sha256\":\"46fdc21a272243f61e909083ebad88d148dcb80f8f0a9282b96555be296ef76b\",\"evaluated_sha256\":\"46fdc21a272243f61e909083ebad88d148dcb80f8f0a9282b96555be296ef76b\"},\"FaBWTRPlainBarrierPitchChoicesForSave\":{\"path\":\"C:\\\\Users\\\\maxim\\\\Documents\\\\Codex\\\\2026-10-19\\\\task\\\\nov4-frenzy087-prepare-pitch-save-proposed\\\\candidates\\\\FaBSim\\\\Custom\\\\WTRCards.php\",\"source_sha256\":\"eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517\",\"function_sha256\":\"7df89aa5c175f268a2585ec921b9dedc194ea81e6e2e23040e8580aa260aba58\",\"evaluated_sha256\":\"7df89aa5c175f268a2585ec921b9dedc194ea81e6e2e23040e8580aa260aba58\"},\"FaBDTDPreparePitchChoicesForSave\":{\"path\":\"C:\\\\Users\\\\maxim\\\\Documents\\\\Codex\\\\2026-10-19\\\\task\\\\nov4-frenzy087-prepare-pitch-save-proposed\\\\candidates\\\\FaBSim\\\\Custom\\\\WTRCards.php\",\"source_sha256\":\"eab18b7298617eabc10f5b5cf4d706b1c6cb242d7470049d6807806b4ba7b517\",\"function_sha256\":\"c3af163a8b80b8218db7ea05e90201dc1c4e7b196fd18f5c35de0d7f1ed86476\",\"evaluated_sha256\":\"c3af163a8b80b8218db7ea05e90201dc1c4e7b196fd18f5c35de0d7f1ed86476\"},\"FaBFindUID\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"3f1233b0dd53c7f19604d523c09e403b4a9971fefd94f92829832432e3105ad2\",\"evaluated_sha256\":\"3f1233b0dd53c7f19604d523c09e403b4a9971fefd94f92829832432e3105ad2\"},\"FaBIdentityZones\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"765d33c45af76ad3dd2ec00d29cdeb7d1884b61d8bd84ce15090072a97cc4bcf\",\"evaluated_sha256\":\"765d33c45af76ad3dd2ec00d29cdeb7d1884b61d8bd84ce15090072a97cc4bcf\"},\"FaBReactionQueuedAwaitFrame\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\GameLogic.php\",\"source_sha256\":\"1cdad1555c8d2e3bd3fa98d69bf52791b84d21bf2269363ddea7249f4ee35a43\",\"function_sha256\":\"029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a\",\"evaluated_sha256\":\"029b9095648f6096421812070abc3fd4c755c7bbc0134aa77224dba857ccb77a\"},\"FaBDTDCostPitchChoices\":{\"path\":\"C:\\\\xampp\\\\htdocs\\\\TCGEngine\\\\FaBSim\\\\Custom\\\\DTDCards.php\",\"source_sha256\":\"059938626cc5e4e1675d231f9bb0f689a22ef70c7be5748224b2f13eedb7bddd\",\"function_sha256\":\"045c3404f2843980847211a44586f4b9099501d994e09ca0d1cc29b29360cca2\",\"evaluated_sha256\":\"045c3404f2843980847211a44586f4b9099501d994e09ca0d1cc29b29360cca2\"}},\"native_credit\":false,\"limits\":\"Actual changed helper, writer, UID lookup, cost helper and legacy AB2 remapper execute. Controlled zone/state/frame/metadata/survivor serialization boundaries; no engine game/bootstrap, callback execution, PHP native recording/replay, live-splice or generic chooser certification.\"}\n",
+      "stderr": ""
+    }
+  ],
+  "utc": "2026-11-04T19:45:02.904493+00:00"
+}

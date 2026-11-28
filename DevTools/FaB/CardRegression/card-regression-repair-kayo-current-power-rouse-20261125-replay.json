@@ -1,0 +1,57 @@
+{
+  "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+  "fixtures": [
+    {
+      "slug": "repair-kayo-four-live-20261125-current-hand-thirteen-reveal-paid-rouse-seven-damage",
+      "passed": true,
+      "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=repair-kayo-four-live-20261125-current-hand-thirteen-reveal-paid-rouse-seven-damage",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean1.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "645445984c6531e3b9aab49ab81d148347a14c00d92b6a754d22585c1c6a458f",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+      "passed": true,
+      "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=fab-reg-039-rouse-the-ancients-four-live-declared-reveal-uids-assets-before-thirteen-power-cost",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean2.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "ae56931c7555dc61a05b5e5ec03566810693edf832a94ce65a04f71c08879bcd",
+      "raw5_unchanged": true
+    },
+    {
+      "slug": "card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+      "passed": true,
+      "runtime": "d98b3c5505aaa9b5d018a8b76a9ca018faf23ce759b50b6fd7b1a9bd92c98337",
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-kayo-four-live-sparse1586-off-chain-power-bonus-does-not-pop-phantasm-while-defending",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\repairs-after1586-20261125\\kayo-rouse237\\clean3.log"
+      ],
+      "returncode": 0,
+      "complete_log_sha256": "379450160b1083705b84db64688106b6909694e508262012f288ce8e2ebdbf53",
+      "raw5_unchanged": true
+    }
+  ],
+  "full_suite_run": false
+}

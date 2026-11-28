@@ -1,0 +1,65 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "breadth_review independent explicit-decline basic-attack review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1134-20261122.json",
+  "source_spec_sha256": "38b39a312e13ac71e9a131359610168af81e13d9a5fadec85a8edc35b6eb1bb5",
+  "input_sha256": "38b39a312e13ac71e9a131359610168af81e13d9a5fadec85a8edc35b6eb1bb5",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-cross-the-line-red-four-live-sparse1134-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+      "card_id": "cross_the_line_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "a4829b411a2d3ab5da83a99ae27e115ff866f1522e921f5b51a0c00e2da4a07f",
+        "actions.json": "5c916ab802234d09387548f1ef8e818f5391e1621124fa1efa6a1ccc0d81eb1e",
+        "assertions.json": "e0790946122da98315c83739ac57bfae402b85c9560ea1f0e6ad965b9bd99278",
+        "expected_final_gamestate.txt": "2888e8a569b7420eb8109b53348407db1eca10c7ec009c0ac0ce3c52e6087c9f",
+        "meta.json": "9470c6b7672fb30830540a3cb3c5dbff337e4313bf4d37afc3180399b83bc657"
+      },
+      "fixture_sha256": "6697f35d8bcf24d39aa1b6d1abb5963355f6196a55be730a863e709a49345be7",
+      "actions": 29,
+      "native_assertions": 256,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 25,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1134-20261122.json",
+      "input_sha256": "38b39a312e13ac71e9a131359610168af81e13d9a5fadec85a8edc35b6eb1bb5",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1134-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-cross-the-line-red-four-live-sparse1134-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "fixture_slug": "card-cross-the-line-red-four-live-sparse1134-basic-attack-only-explicitly-declines-optional-charge-no-positive-charge-ability-credit",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "38b39a312e13ac71e9a131359610168af81e13d9a5fadec85a8edc35b6eb1bb5",
+    "reviewer": "breadth_review independent explicit-decline basic-attack review",
+    "basis": [
+      "Cached Cross the Line Red is Light Warrior Action Attack cost1/power5; its sole printed text is optional additional Charge. Natural young Boltyn20 is legal and fresh history/Soul0 excludes charge-dependent Hero bonuses; no defender card or mandatory attack/hit effect is earned.",
+      "Generated Prepare awaits ab4ccfe28a3bb2527c7f (Cross) and b6a466ea776d9f236cd9 (Express) hydrate locals, offer MZMAYCHOOSE, then call FaBMONCharge(chosen) followed by FinishPreparedCard. Explicit PASS is not a Hand identity: MONCards16-20 performs no Soul movement, CHARGED bookkeeping or charged-card callback. Selecting the optional cost before assets is not actual payment, so this branch does not enter held099 early effect-cost payment.",
+      "Real Blue6 plus separate Wounding7 makes the optional election nonvacuous; MONAffordableHand523-527 can offer the marker for Cross while Blue still covers cost1. Both cards are preserved by explicit PASS. Early attack-target declaration leaves source5 in Hand; prepared source5 is physically Stack-held until four manual priority responses.",
+      "Actual native cost1 leaves R2/AP0; computed power5/noGA and unblocked damage5/victimHP15 are persisted. All four manual seats participate in source and combat windows. Final source5 owned GY, Soul0/Arena0, AP0 and surviving physical Hand/Pitch markers pin declined-cost basic play and ordinary fate. No author-only diagnostic kinds used."
+    ],
+    "limits": [
+      "BASIC_ATTACK_ONLY_DECLINED_OPTIONAL_COST only: no positive Charge payment, Charge ability, additional-cost ordering correctness, charged-card/Hero bonus, sibling or full-card credit. Held099 positive-cost branch is preserved unrun and unrepaired.",
+      "Native execution and one clean targeted replay pending. No T/source/framework/native changes by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1134-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "006be326e32ee5aea2b358794a53988e75a7b9b8cea8866ea8f4cec76f60de5c"
+  },
+  "full_suite_run": false
+}

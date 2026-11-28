@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T15:32:17.524858+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1576-20261122.json",
+  "source_spec_sha256": "12aac21158e7c9d9da6c577712f676b67fcc85072326b7c722f11e2ba0830d64",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 22,
+  "native_assertions": 433,
+  "manual_passes": 17,
+  "totals": {
+    "saved_registered_scenarios": 5666,
+    "duels": 3141,
+    "four_live": 2525,
+    "recorded_primary_ids": 2814,
+    "identity_denominator": 5196,
+    "recorded_groups": 2688,
+    "group_denominator": 3324,
+    "four_live_groups": 2514,
+    "phase_qualified_scenarios_at_actual_contexts": 2303,
+    "phase_qualified_unique_groups": 2293,
+    "creation_replay_passes": 3045,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1464,
+  "scenarios": [
+    {
+      "card_id": "dorinthea_ironsong",
+      "group_id": "identity:dorinthea_ironsong",
+      "scenario_id": "card-dorinthea-ironsong-two-live-sparse1576-blocked-first-sword-no-extra-use-despite-go-again",
+      "effect_branches": [
+        "first_real_sword_zero_damage_no_Hit_additional_use_second_click_rejected_despite_AP_and_resources"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-dorinthea-ironsong-two-live-sparse1576-blocked-first-sword-no-extra-use-despite-go-again",
+      "source_spec": "card-regression-sparse1576-20261122.json",
+      "source_spec_sha256": "12aac21158e7c9d9da6c577712f676b67fcc85072326b7c722f11e2ba0830d64",
+      "review_evidence": "review-evidence/sparse1576-20261122-qualified-saved.json",
+      "review_evidence_sha256": "812c5ada83be37fbca7a9dc0c124800c97df0d7488f4ad4ee2eaea061dc7381b",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1576-20261122-replay.json",
+          "sha256": "0d649685dddd8b934ff9eaeedec901ea36dcd3d9c29754abbf0fd1c2b178ac12",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "two_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

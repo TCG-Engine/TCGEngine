@@ -1,0 +1,108 @@
+{
+  "status": "HISTORICAL_REGISTRATION_CHECKPOINT_SEMANTICALLY_SUPERSEDED",
+  "utc": "2026-11-25T05:38:02.137841+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1495-20261122.json",
+  "source_spec_sha256": "ff2cddcad197d0318a25313a4fce0d3f16ee10ca496f4cc03715659e09ca45e7",
+  "new_scenarios": 2,
+  "new_groups": 2,
+  "new_primary_ids": 2,
+  "actions": 47,
+  "native_assertions": 798,
+  "manual_passes": 37,
+  "totals": {
+    "saved_registered_scenarios": 5533,
+    "duels": 3136,
+    "four_live": 2397,
+    "recorded_primary_ids": 2681,
+    "identity_denominator": 5196,
+    "recorded_groups": 2555,
+    "group_denominator": 3324,
+    "four_live_groups": 2386,
+    "phase_qualified_scenarios_at_actual_contexts": 2170,
+    "phase_qualified_unique_groups": 2160,
+    "creation_replay_passes": 2912,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1331,
+  "scenarios": [
+    {
+      "card_id": "emerging_avalanche_red",
+      "group_id": "pitch-cycle:emerging_avalanche",
+      "scenario_id": "card-emerging-avalanche-red-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-ice-pitch-is-not-fusion",
+      "effect_branches": [
+        "arsenal_source_positive_printed_go_again_and_declined_Ice_Fusion_despite_actual_Ice_pitch_does_not_earn_Frostbite_entry_trigger"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-emerging-avalanche-red-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-ice-pitch-is-not-fusion",
+      "source_spec": "card-regression-sparse1495-20261122.json",
+      "source_spec_sha256": "ff2cddcad197d0318a25313a4fce0d3f16ee10ca496f4cc03715659e09ca45e7",
+      "review_evidence": "review-evidence/sparse1495-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b8bcbf8c0d59d2992a14db289944c577f034586b1710a3b053e84892428f62e3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1495-20261122-replay.json",
+          "sha256": "8227f2c640763ee8be8f833455b7c1d6e8f458ab3ed85fa9a3351960566e774f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    },
+    {
+      "card_id": "force_of_nature_blue",
+      "group_id": "identity:force_of_nature_blue",
+      "scenario_id": "card-force-of-nature-blue-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-no-fused-power-bonus-fully-blocked",
+      "effect_branches": [
+        "arsenal_source_positive_printed_go_again_and_declined_Earth_Fusion_does_not_grant_next_attack_power_bonus"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-force-of-nature-blue-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-no-fused-power-bonus-fully-blocked",
+      "source_spec": "card-regression-sparse1495-20261122.json",
+      "source_spec_sha256": "ff2cddcad197d0318a25313a4fce0d3f16ee10ca496f4cc03715659e09ca45e7",
+      "review_evidence": "review-evidence/sparse1495-20261122-qualified-saved.json",
+      "review_evidence_sha256": "b8bcbf8c0d59d2992a14db289944c577f034586b1710a3b053e84892428f62e3",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1495-20261122-replay.json",
+          "sha256": "8227f2c640763ee8be8f833455b7c1d6e8f458ab3ed85fa9a3351960566e774f",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": [],
+  "historical_registration_checkpoint": true,
+  "historical_status_at_recording": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "semantic_reconciliation": {
+    "evidence": "review-evidence/conditional-trigger-qualification-withdrawals-20261125.json",
+    "historical_before_after_counts_unchanged": true,
+    "withdrawn_scenario_ids": [
+      "card-emerging-avalanche-red-four-live-sparse1495-arsenal-source-declined-fusion-real-go-again-ice-pitch-is-not-fusion"
+    ],
+    "current_global_counts": "coverage-additions-after218.json",
+    "new_replay_run": false
+  }
+}

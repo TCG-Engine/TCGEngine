@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-blessing-of-deliverance-red-four-live-sparse898-natural-beginning-action-phase-reveals-three-real-cards-and-gains-two-life",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-deliverance-red-four-live-sparse898-natural-beginning-action-phase-reveals-three-real-cards-and-gains-two-life",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse898-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse898-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "0d8afc77903dc9c3d1a6ae200110a0f0a546b2f2776ecd7bfe3367fedb8cbcd2",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "04a2545bde403e5e905fa62b25dc469723b994ce916e1e5336690a7da2388a60",
+        "actions.json": "428361a0de200568d722608d01d74a10ee09bda5c08f41bd3b024c61c2943037",
+        "assertions.json": "3664dd3351581b004a3564a60fbd96b3516c6432c8172b94b7f645b7eff4ff12",
+        "expected_final_gamestate.txt": "dc16450de816efc5773892476543c646f21d2e535df78cf372371f424392f2ba",
+        "meta.json": "5b82f0f91d8f84bafc45700b5710624a17192187690d4ddf1dae133b79f8ce16"
+      }
+    },
+    {
+      "slug": "card-blessing-of-vynserakai-red-four-live-sparse898-natural-start-then-real-generic-attack-gains-draconic-and-deals-seven",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-blessing-of-vynserakai-red-four-live-sparse898-natural-start-then-real-generic-attack-gains-draconic-and-deals-seven",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse898-local-20261122\\clean-replays\\01.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse898-local-20261122\\clean-replays\\01.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "057357136a2be0703c119cc90467d0e18f53f093ab6ade8745ae017d73765512",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "ae97038fcedafddb9356b4312218d0d5910fde9b67c303e313293cfe48d60813",
+        "actions.json": "d31e3f79c80d6f646b4c964adf5005df2d1e2ac37c6089310daa679ee0cde91d",
+        "assertions.json": "6b8dd246707bda36ccb2d45af72afce44acf6f2a6b41f5820ce91ef5ad8c2beb",
+        "expected_final_gamestate.txt": "c55ba68ad788aea61d9015b1f02863e4be1b5c1007e2cb40e2f5a0931bb5a31f",
+        "meta.json": "074c92ac0907672f98a85c70a77aa9dd07d37eb56c9debd9d12a7e5b8bfd2116"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

@@ -1,0 +1,317 @@
+{
+  "status": "CONFIRMED_NATIVE_FAILURE_NO_PASSING_FIXTURE",
+  "issue_id": "FAB-REG-228",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "card_id": "restless_commander_red",
+  "scenario_id": "card-restless-commander-red-four-live-sparse1441-own-zombie-passive-plus-one-real-ally-attack-damage",
+  "source": "card-regression-sparse1441-held-commander-passive-20261124.json",
+  "diagnostic_source_sha256": "bce8334493f420c8c3387b2f2b75433e44a57fa5682a287f9566049ed3522070",
+  "original_approved_source_sha256": "0af3022471d5d7702a31f25e0b899b81ad44b73b99037d653e3de297a1c6385e",
+  "original_native_input_sha256": "0af3022471d5d7702a31f25e0b899b81ad44b73b99037d653e3de297a1c6385e",
+  "native_receipt_sha256": "810f0aae842fa91d8c90a060d7ba02411954462e9a8ff67e7c5f4d7e3ff49bff",
+  "initial_gamestate_sha256": "704e59fcafed240d9b6b4aba2a65108c3617bb9d3fc162d4911447f1ce19f578",
+  "native_inputs": 20,
+  "attempted_actions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Arena-1!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "p4Hero-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "p1Hand-0!FSM",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 2,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 3,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "error": "Expected p4Health to equal 16, got 17.",
+  "expected": {
+    "primary_text": "Zombies you control get +1 power.",
+    "supported_zombie_base_power": 3,
+    "total_unblocked_damage": 4,
+    "p4Health": 16
+  },
+  "observed": {
+    "p4Health_from_native_assertion": 17,
+    "current_window": "DAMAGE",
+    "current_step": "DAMAGE",
+    "attackUID": 9,
+    "attack_target": {
+      "type": "HERO",
+      "player": 4,
+      "uid": 4,
+      "zone": "Hero"
+    },
+    "attackPower": 3,
+    "defenseValue": 0,
+    "damageDealt": 3,
+    "pendingPayment": null,
+    "decisions_empty": true
+  },
+  "setup_and_cost_witness": "Prior native assertions passed for real ready Commander5/Corpse6, realVox7 granting Action1/tap, realBlue8pitch3 paying1/R2/AP0, Corpse6tapped, proxy9Source6, fresh manual response round across four young seats; no buffs/counters/history or blocking cards seeded.",
+  "independent_failure_review": {
+    "result": "confirmed_selected_primary_passive_failure_no_fixture_no_credit",
+    "reviewer": "independent breadth_review1252",
+    "native_receipt_sha256": "810f0aae842fa91d8c90a060d7ba02411954462e9a8ff67e7c5f4d7e3ff49bff",
+    "native_selected_input_sha256": "0af3022471d5d7702a31f25e0b899b81ad44b73b99037d653e3de297a1c6385e",
+    "immutable_original_approved_spec_sha256": "0af3022471d5d7702a31f25e0b899b81ad44b73b99037d653e3de297a1c6385e",
+    "original_independent_review_sha256": "f89f608e559060ad944e87fe76d640a9820f8be1b575cb769e53ca65f12b110c",
+    "source_note_sha256": "968083d4b0b48a8a0bec7ab13cf8debbf39e4ab6cb6a7317f757298efd6fae03",
+    "initial_gamestate_sha256": "704e59fcafed240d9b6b4aba2a65108c3617bb9d3fc162d4911447f1ce19f578",
+    "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+    "case_slug": "card-restless-commander-red-four-live-sparse1441-own-zombie-passive-plus-one-real-ally-attack-damage",
+    "primary_card_id": "restless_commander_red",
+    "native_returncode": 1,
+    "native_status": "blocked_or_incorrect",
+    "actual_native_inputs": 20,
+    "last_input": {
+      "playerID": 4,
+      "mode": 10001,
+      "buttonInput": "",
+      "cardID": "!CustomInput!Pass",
+      "chkInput": [],
+      "inputText": ""
+    },
+    "first_failure": {
+      "error": "Expected p4Health to equal 16, got 17.",
+      "checkpoint": "observable_four_real_damage_earns_primary_passive_buff_not_just_a_cached_power_oracle",
+      "first_assertion": "p4Health == 16",
+      "actual_health": 17
+    },
+    "direct_observed_facts": {
+      "window": "DAMAGE",
+      "combatStep": "DAMAGE",
+      "attackUID": 9,
+      "attackTarget": {
+        "type": "HERO",
+        "player": 4,
+        "uid": 4,
+        "zone": "Hero"
+      },
+      "attackPower": 3,
+      "defenseValue": 0,
+      "damageDealt": 3,
+      "attackHit": true,
+      "declaredBlockUIDs": [],
+      "pendingPayment": null,
+      "all_decision_queues_empty": true,
+      "setup_completed": true
+    },
+    "prior_checks_passed_by_sequential_fail_fast_execution": [
+      "Owned ready Commander5 and Corpse6 plus real Vox7 were present before attack; no ability-loss or seeded buff was declared.",
+      "Vox-backed native Corpse activation declared Hero4, pitched original Blue8 for printed cost1, retained R2, spent AP and tapped real Corpse6.",
+      "Proxy9 source UID6/Arena lineage and all four manual response/attack/defense/reaction windows reached the first DAMAGE check. These are prior-check inferences, not a full final-state snapshot."
+    ],
+    "normative_basis": [
+      "Cached Commander text grants Zombies you control +1 power; cached Corpse is a same-controller Zombie with base power3. No timing layer or optional cost is needed for this continuous contribution.",
+      "Actual unblocked damage3 and HP17 violate the selected expected power4/damage4/HP16. Corrected Vox funding and source lineage eliminate the earlier draft activation-oracle concern."
+    ],
+    "source_inference": {
+      "classification": "missing continuous Zombie power contribution on selected native Arena attack path",
+      "established_paths": [
+        "FaBSim/Custom/MONAbilities.php:55,67-76 builds the real Vox Zombie attack with printed MON_ARENA_POWER3 and source UID6.",
+        "FaBSim/Custom/GameLogic.php:2148-2172 computes Arena base power and invokes set power modifiers including FaBIARPower.",
+        "FaBSim/Custom/IARCards.php:274-278 has bound-mark/Feasting Shadowbeast additions but no Commander continuous bonus."
+      ],
+      "limits": "This supports an omitted contribution on this selected path, not a proven unique root or a count of affected card families."
+    },
+    "fixture_and_credit": {
+      "fixture_directory_exists": false,
+      "registered_review_slug_present": false,
+      "clean_replays_directory_exists": false,
+      "fixture_saved": false,
+      "qualified": false,
+      "replayed": false,
+      "coverage_credit": false
+    },
+    "unrun": [
+      "The live power4 and go-again assertions after the first HP failure.",
+      "Further DAMAGE passes, resolution/chain close, proxy retirement, final owned fates and AP refund.",
+      "No second go-again defect is inferred from observed cached attackGoAgain false."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061",
+      "FaBSim/Custom/IARCards.php": "0abc78c4d25203b2a0ae489bc183e5687e3375a2a7a29dc9401bbbd7df670783",
+      "FaBSim/Custom/IARRuntime.php": "a867233dd027ea6466d776cb9c3bfdbbeedc5e4e535f67f09b1c6e7d9cb3924e",
+      "FaBSim/Custom/UPRCards.php": "62798bd281afc17805c396e92deab22497b9c80d881f99e943833cb82d449321",
+      "FaBSim/Custom/MONAbilities.php": "7e5a6ba9e0523c03c7ece084793564d87ecd9d6fbba55b9252cb83f3d952b4fa",
+      "Core/RegressionTestFramework.php": "670028e69e1a59c22aef5e6512edd2cd0dee5fdcaed4cf8c31374b8eb2b7ca6a"
+    },
+    "workspace_source_sha256": {
+      "author_breadth1441.py": "38535727b516f060e16adf5a52f736d0da79b7a7c8b3789d4023e73f73f8db2a",
+      "correct_breadth1441_vox_cost.py": "bae105b3f253ce1161530edd7f08b5165707053a1ae58380a785a33060f564bd",
+      "breadth1068_helpers.py": "997f949ec26c7e494ad26a818f9f2078f6f4f2a0c49ca7f61aa8c71f3b091b0a",
+      "breadth_batch.py": "1d0bc84b4fcbf1a859a9d0adad91bde44746f1ce8542cf91ea0449cf55152cb2",
+      "nov16_saved_repair_review_common.py": "9f6dee765a3433840bd6886579faf6b8ab24ec290120b5999581053e2276ba0c",
+      "saved_fixture_review_tools.py": "83b8841d614dd53e5222ddf25f45e44950053c1e393a7313098f4b6f1bd8aae5"
+    },
+    "limits": [
+      "One selected Restless Commander passive behavior failure confirmed; no additional card identity, whole-card, family, or distinct-root credit.",
+      "No live reproduction, game, test, replay, engine/source edit or repair performed by reviewer.",
+      "Original correct-expectation selected input remains immutable and is the native-input binding."
+    ]
+  },
+  "independent_failure_review_sha256": "cf2b50811fe7c6ff570f1b1b34b26a2eb7a68759fd3729d4b90ae8bbfd110822",
+  "strict_correct_expectation_retained": true,
+  "go_again_or_end_phase_result": "UNRUN after first HP mismatch. Cached attackGoAgain is not used as another bug claim.",
+  "fixture_saved": false,
+  "qualified": false,
+  "coverage_credit": false,
+  "engine_changed": false,
+  "native_attempts": 1,
+  "replay_runs": 0,
+  "full_suite_run": false,
+  "workspace_native_receipts": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1441-local-20261122\\save",
+  "original_unquarantined_source_preserved": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1441-local-20261122\\quarantine-original\\card-regression-sparse1441-20261122.json",
+  "quarantine_note": "Original correct-expectation steps are unchanged. Diagnostic-only and qualification=false guards prevent accidental admission. Original native input/review retained unchanged; no fixture moved or removed."
+}

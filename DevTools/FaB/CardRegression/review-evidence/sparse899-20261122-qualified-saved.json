@@ -1,0 +1,68 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse899-20261122.json",
+  "source_spec_sha256": "379347aa8d1ef3ec78cfb2e5f9536b04c40950fafd04b375e64abf53f35e2bbe",
+  "input_sha256": "379347aa8d1ef3ec78cfb2e5f9536b04c40950fafd04b375e64abf53f35e2bbe",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-goldkiss-rum-four-live-sparse899-actual-instant-taps-real-hero-and-destroys-token-then-real-next-attack-gets-go-again",
+      "card_id": "goldkiss_rum",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "699e4c02c8bed4b445e65701c2cba51b68168dc45bd137cbf577a1c216dfd4ba",
+        "actions.json": "6fe9468c40cb1e401d54d890b029e90e347c3ad222e50a9d9a1df61d0b0514d8",
+        "assertions.json": "307a915bb798ade79c61799a192748419102aade62965094e0e1bbabd5c9e5b8",
+        "expected_final_gamestate.txt": "e7bd51d395163a84b46e9c32bc8e818214ca80b3accdc53ef9cfe6f3d1e0d03d",
+        "meta.json": "156a119d03b1094419277a4f398c0c33d76662b068a0b1a3c303927ff29af94f"
+      },
+      "fixture_sha256": "29461720ccc9ba37d694001001f4eb50f640d239ccc32674dc70dd453664037a",
+      "actions": 32,
+      "native_assertions": 145,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse899-20261122.json",
+      "input_sha256": "379347aa8d1ef3ec78cfb2e5f9536b04c40950fafd04b375e64abf53f35e2bbe",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse899-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-goldkiss-rum-four-live-sparse899-actual-instant-taps-real-hero-and-destroys-token-then-real-next-attack-gets-go-again",
+        "fixture_slug": "card-goldkiss-rum-four-live-sparse899-actual-instant-taps-real-hero-and-destroys-token-then-real-next-attack-gets-go-again",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "reviewer": "independent breadth_review",
+    "result": "approved_named_branches_only_pending_native_execution",
+    "spec_sha256": "379347aa8d1ef3ec78cfb2e5f9536b04c40950fafd04b375e64abf53f35e2bbe",
+    "reviewed": [
+      {
+        "card": "goldkiss_rum",
+        "branch": "actual_instant_taps_real_hero_and_destroys_token_then_real_next_attack_gets_go_again",
+        "basis": "Printed Instant tap-your-hero/destroy-self costs are genuinely paid with ready natural20HP Pirate Puffin: SEA ability row destroy=true and FaBSEAPaid taps hero before responses; original token5 ceases, no GY. ARC ability layer retains SourceUniqueID5/Controller1 without fabricated proxy ownership. Four fresh manual responses grant next-action GA; actual Wounding6/base4/cost0 attack deals4 and earns AP1 only at resolution."
+      }
+    ],
+    "limits": [
+      "Static source/spec review only; native execution and clean replay pending.",
+      "Token creation, non-Pirate untap lock enforcement, future untap/activation, second consumer and support-group credit untested.",
+      "On a Knife Edge excluded before execution: no verified local resolve producer found; source-only unrun concern, no confirmed native issue.",
+      "No native PHP/games, T edits, network or Git mutation by reviewer."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse899-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "0f183693eb6aacc8317df2be5335c95d4255c8e8bc372e0436d65439d82fb524"
+  },
+  "full_suite_run": false
+}

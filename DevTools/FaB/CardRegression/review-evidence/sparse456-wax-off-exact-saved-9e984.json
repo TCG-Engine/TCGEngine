@@ -1,0 +1,320 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_WAX_OFF_REAL_WAX_ON_EARNS_OWNED_ZEN_AND_STATIC_PREVENTION",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/nov2_sparse_author",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-05T11:49:32.515842+00:00",
+  "source_spec": "card-regression-batch456.json",
+  "input_sha256": "0c631b9e6b77941f7967dca41e83053fb3c35cc17b2cb3012bffc87da9e612d1",
+  "manifest_sha256": "743d7a1e72dddf6e5b122e44130989d8ccdd18732031ad6620cdad6882deefa5",
+  "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+  "source_guards_verified": 69,
+  "prior_independent_source_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch456-independent-source-review.json",
+    "sha256": "ab403730dd4301ed7c3ae770a5268c18343803f42ec4dc4986269d21c9b98cee",
+    "reused_not_expanded": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch456-20261105T114221Z-6aec6b9d17ea6.json",
+    "sha256": "c89165dc4c640e17a5f4c4099ce12f9690b2ffc7599aa3b074f4951e50003744"
+  },
+  "recording_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch456.recording-results.json",
+    "sha256": "371bd7744f527c6efb0e0e490bfcbba6c5c8e7571c91dd9e1bcd60ec8a993ce7"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov5-batch456-native-r1-9e984\\receipt.json",
+    "sha256": "66d601be8870221aca08a7e464666422bd868cc34b1b7882efae44e4e9c1db91"
+  },
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov5_batch456_wax_saved_readonly.py",
+    "sha256": "c4ee04002e670aa4cb692bd8b8896cd50c9efdc87e4f331a90c1e27bda7983eb"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "wax_off_blue",
+      "slug": "card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "source_spec": "card-regression-batch456.json",
+      "input_sha256": "0c631b9e6b77941f7967dca41e83053fb3c35cc17b2cb3012bffc87da9e612d1",
+      "reviewer": "/root/nov2_sparse_author",
+      "runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "recorded_runtime_sha256": "9e98448ddb3c93161027b785f822f4f52641fce1be28af9094fa0d74c9954b04",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_NEW_FOUR_LIVE_REPRESENTATIVE",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-wax-off-blue-four-live-real-wax-on-earns-owned-zen-state-prevents-one-and-retains-balance",
+      "fixture_sha256": "4935e56f66158ccd59ee066da3087c9baaeb2e64510a214cb6e20e20db4c9dd8",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "972ece6b2c48514df27dde50cdaf40a01859c6441981477af6b699b530f02194",
+        "actions.json": "b7bbf83ca5d8edc30b4a41e95918f522b3988aede31b19f4c16e3c68aea67741",
+        "assertions.json": "1e863f40b6d4b23a9c53dc895933f6e03d269e5dd36cb02ffc6d78db24bb2c2f",
+        "expected_final_gamestate.txt": "50bd0648f4d10a08f09f5f2e96713deeec497819e170db3178bfe7757865e739"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "972ece6b2c48514df27dde50cdaf40a01859c6441981477af6b699b530f02194",
+        "actions.json": "b7bbf83ca5d8edc30b4a41e95918f522b3988aede31b19f4c16e3c68aea67741",
+        "assertions.json": "1e863f40b6d4b23a9c53dc895933f6e03d269e5dd36cb02ffc6d78db24bb2c2f",
+        "expected_final_gamestate.txt": "50bd0648f4d10a08f09f5f2e96713deeec497819e170db3178bfe7757865e739",
+        "meta.json": "1502fb7c1dccf29fb5bc3e5323236eb4d7aeef7b08faa567fa1214888929feaf"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "972ece6b2c48514df27dde50cdaf40a01859c6441981477af6b699b530f02194",
+        "actions.json": "b7bbf83ca5d8edc30b4a41e95918f522b3988aede31b19f4c16e3c68aea67741",
+        "assertions.json": "1e863f40b6d4b23a9c53dc895933f6e03d269e5dd36cb02ffc6d78db24bb2c2f",
+        "expected_final_gamestate.txt": "50bd0648f4d10a08f09f5f2e96713deeec497819e170db3178bfe7757865e739",
+        "meta.json": "1502fb7c1dccf29fb5bc3e5323236eb4d7aeef7b08faa567fa1214888929feaf"
+      },
+      "actions": 48,
+      "native_assertions": 4282,
+      "actual_manual_passes": 43,
+      "actual_priority_response_passes": 42,
+      "actual_defender_declaration_finish_inputs": 1,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4,
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 11,
+        "2": 11,
+        "3": 11,
+        "4": 10
+      },
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_evaluated_against_parsed_initial_snapshot": true,
+      "endpoint_assertion_counts": {
+        "0": 127,
+        "48": 210
+      },
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "nimblism_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "ira_crimson_haze",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "wax_off_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wax_on_blue",
+          "zone": "p4Hand",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "dorinthea",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "7": {
+          "card_id": "nimblism_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "8": {
+          "card_id": "wounding_blow_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "ira_crimson_haze",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "9": {
+          "card_id": "zen_state",
+          "zone": "p4Arena",
+          "owner": 4,
+          "controller": 4
+        },
+        "6": {
+          "card_id": "wax_on_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        },
+        "5": {
+          "card_id": "wax_off_blue",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        19
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_Hero_Status": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "final_GY1_UIDs": [
+        7,
+        8
+      ],
+      "final_GY4_UIDs": [
+        6,
+        5
+      ],
+      "final_Arena4_UIDs": [
+        9
+      ],
+      "new_Zen9_raw_Counters": {
+        "BALANCE": 1
+      },
+      "new_Zen9_raw_Damage": 0,
+      "new_Zen9_raw_Status": 2,
+      "new_Zen9_raw_TurnEffects": [],
+      "new_Zen9_owner": 4,
+      "new_Zen9_controller": 4,
+      "actual_total_defense": 5,
+      "actual_damage": 1,
+      "checkpoint_assertion_mapping_sha256": "26eca244d7b4f6926eb96420897182e05bc0a4ff1990804d111553bf4ebd5eaa",
+      "native_action_mapping_sha256": "1e2889f33269874848b9aa0294c0e8280e17c4bf9716f5e03b6850e58255fa15",
+      "native_assertion_mapping_sha256": "4562c2e307fb996fb77be2814ddcc199f638f6b0ee49bb97b0fc626b65fa3b31"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 48,
+  "total_native_assertions": 4282,
+  "total_manual_passes": 43,
+  "total_priority_response_passes": 42,
+  "total_defender_declaration_finish_inputs": 1,
+  "material_findings": [
+    "All48actualinputs/4282orderednativechecks/43manualactors/raw48manualprefsperendpoint exact. RealNimblism7cost0/APspend/freshfour\u2192ownGAAP1; actualadjacentP4Wounding8cost0/nativeAPspend/earnedWTR_POWER3/base4+3=7/noGA. NoPitch/resources/historyseed.",
+    "ActualP4WaxOn6fromHand1andWaxOff5fromHand0atcorrectReactionpriority, eachprinted0/noAP/R0/separatefresh4,1,2,3; eachphysicalsourceheldStackthroughfirstthreeandjoinssamechainonlyfourth. ActualP4cardsPlayedWaxOnthenWaxOffearnsIF. NoearlyZen/Arena0/Counter8untilprimaryresolution, thenexactoneZen9Owner4Controller4/ReadyDamage0/BALANCE1/Counter9.",
+    "NativeDAMAGEcheckpointsDEF5(3WaxOn+2WaxOff)/physical1damage/HP19withsameZen9/BALANCE1retained. CurrentCR8.6.5staticprevent1\u2014notoldimageWHENnorWard\u2014requiresnoextraentry/damagechoiceortriggerresponses; no balancecost/destroyonprevention. Rawfinalphysicaltokenconfirmscounters/defaults/ownership.",
+    "FullDamage/Resolution/noGA/AP0/GY1{7,8}/GY4{6,5}/Arena4{9}/alloriginalUID1..8plusonlynew9/RNG0/allHandDeckArsenalEquipmentWeaponsPitchBanishSoulTempStackChainsDQs/payment/manager/awaitframesclear. NofutureP4ownActionstartcrossed."
+  ],
+  "precision": "Persistednativecompletedchecksplusfullyparsedinitial/finalrawstate; noextra per-inputrawsnapshots or independentfreshdefensegetterrecording. FinalGYUIDsetsinspectedrawratherthaninferredonlyfromCardExists. Currenttokenpreventionrulepreflightreused, notoldimageWORDINGoutputfit.",
+  "limits": [
+    "OnepositiveactualWaxOnplay\u2192WaxOffIFcreation\u2192oneZenpreventionpacket. Nofalsecondition/multipleZen/events/suppression/otherpitches/hero/supportprimary/fullcard/siblingcredit.",
+    "P4ownnextActionstartbalance-removal/destruction/futureexpiryisunexecutedanduncredited; retainedBALANCE1doesnotclaimfuturetimingcorrectness. NoextraWardorresponseableWHENbranch.",
+    "ReviewerexecutednoPHP/native/replay; Roottwofocusedreplays/registrationremainseparate.",
+    "NoR/source/gen/service/remote/fullsuite/denied089090094096retry/integration."
+  ]
+}

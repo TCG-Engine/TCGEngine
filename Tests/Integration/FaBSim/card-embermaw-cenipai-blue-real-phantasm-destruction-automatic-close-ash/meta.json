@@ -1,0 +1,7 @@
+{
+    "name": "Embermaw Cenipai Blue / real Phantasm destruction and automatic Close Ash",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-15T18:13:18+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "Genuine four-live manual Young seats. Native Embermaw Blue cost2 paid by GenericBlue3, no Red pitch or premade Ash. Actual power6 attack is defended by physical nonIllusionist WreckerRompRed8. Phantasm receives all four responses, attack and defender stay live with Ash0 through the first three. Fourth resolves real attack destruction, forcing automatic Close without extra Ash responses under CR7.7; actual Ash1 belongs toP1, same source and defender go to their owner graveyards, allHP20/resources1/AP0/fullcleanup. All 17 controls and 2123 queries remain identical to independently reviewed original-correct no-save success. Quiet named Blue branch only: no claim about internal Ash trigger representation/order, suppression, simultaneous triggers, general Close or untested siblings. Sources: https://rules.fabtcg.com/en/cr/07-combat/ https://rules.fabtcg.com/en/cr/08-keywords/"
+}

@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-righteous-cleansing-yellow-four-live-sparse1303-real-seven-cost-three-damage-does-not-earn-four-damage-crush",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-righteous-cleansing-yellow-four-live-sparse1303-real-seven-cost-three-damage-does-not-earn-four-damage-crush",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1303-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1303-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "d04a7a0af7c0ab1cc7d0c393d94b920e06e7c47572e54f8edf3f00e06dd3066d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5be6d8f6d905e06ebeeae48c58108808498c4c9b573629664a3c773b54c39cfd",
+        "actions.json": "4635900666d5a4627c844f8004a8ec3742fc93aa1d86e3be83ec9643ef11c442",
+        "assertions.json": "51f8de7a0451f04cbd3a2bc1df9e95d5a8b7b04bb085f13b49336832b9aaf721",
+        "expected_final_gamestate.txt": "c70732aa1d5d5d377a9ad8c6e7fb35585421ebe219591b75daa211e2755e6671",
+        "meta.json": "20e19c1bd7ce166a49c77a98b90c87682d7a3de4e283d5c9718eaa671fb08deb"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

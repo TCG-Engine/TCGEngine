@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "returncode": 0,
+  "full_suite_run": false,
+  "runs_per_fixture": 1,
+  "fixtures": [
+    {
+      "slug": "card-shimmering-specter-red-four-live-sparse1585-mirage-excludes-actual-illusionist-seven-power-damage-boundary",
+      "passed": true,
+      "returncode": 0,
+      "command": [
+        "C:\\xampp\\php\\php.exe",
+        "DevTools/RunIntegrationTests.php",
+        "--root=FaBSim",
+        "--test=card-shimmering-specter-red-four-live-sparse1585-mirage-excludes-actual-illusionist-seven-power-damage-boundary",
+        "--max-failures=1",
+        "--compact",
+        "--log=C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1585-local-20261122\\clean-replays\\00.complete.log"
+      ],
+      "summary": "[LOG] Full runner output: C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1585-local-20261122\\clean-replays\\00.complete.log\n[SUMMARY] Total: 1 | Pass: 1 | Fail: 0 | Discovered: 1 | Not run: 0 | Skipped: 0\n",
+      "complete_log_sha256": "6dc94956c231b2b76556649b515b5574037cf99e2cdbddda77991b45acc7da5d",
+      "raw5_sha256": {
+        "initial_gamestate.txt": "98340039327bb37ce4eef32f48b825ba3aee337fdc650cccc7ce8ae9be3b090f",
+        "actions.json": "6fc31b359b52bbf3bc8d7e20cbb79487320f40765488b508f88ceaa01e875f46",
+        "assertions.json": "324428a60ab6370a80563025ccccb8fccc0d535f66ee1c9b522a639e42b41c4c",
+        "expected_final_gamestate.txt": "9b6a0006ccb2a03571167c467acc956c0577c6b1bc63dd3c8f5e90faeea65e51",
+        "meta.json": "4f18846d448ada2d1703ec73889a618564b502bb8d110ab8b803a4a5361bfacd"
+      }
+    }
+  ],
+  "raw5_unchanged": true
+}

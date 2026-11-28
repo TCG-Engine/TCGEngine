@@ -31,8 +31,8 @@ WithP2Deck: [SOR_046 SOR_046 SOR_095 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -60,8 +60,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -88,8 +88,8 @@ WithP2Deck: [SEC_080 SEC_080 JTL_069 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -116,8 +116,8 @@ WithP2Deck: [SEC_080 SEC_080 LAW_124 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -142,8 +142,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -192,8 +192,8 @@ WithP2Deck: [SEC_080 SEC_080 JTL_069 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -223,13 +223,13 @@ WithP2Deck: [SEC_080 SEC_080 SEC_080 SEC_080 SEC_080 SOR_128]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>Pass
 - P2>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -254,8 +254,8 @@ WithP2Deck: [SEC_080 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -280,8 +280,8 @@ WithP2Deck: [SEC_080 SEC_080 JTL_069 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -308,8 +308,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -335,8 +335,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_046 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -386,8 +386,8 @@ WithP2Deck: [SEC_080 SEC_080 LAW_124 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -411,8 +411,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 
 ## EXPECT
@@ -438,8 +438,8 @@ WithP2Deck: [SEC_080 SEC_080 SOR_128 SEC_080]
 
 ## WHEN
 - P1>Pass
-- P1>ResourcePass
 - P2>ResourcePass
+- P1>ResourcePass
 - P1>Drain
 - P1>SimulateRequestBoundary
 - P1>Drain

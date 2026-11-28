@@ -1,0 +1,61 @@
+{
+  "status": "UNATTEMPTED_FIXED_COAT_POSITIVE_KNOWN107_OWNER_DEPENDENCY_PLANNING_ONLY",
+  "created_utc": "2026-11-14T19:27:34.146917+00:00",
+  "card_id": "coat_of_frost",
+  "group_id": "identity:coat_of_frost",
+  "reservation": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch788-firm-reservation.json",
+    "sha256": "839b05da9465eb72438807f40d580ad33d5b430600dbc8a67aeee796fcdc5444"
+  },
+  "support_family_preflight": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch788-selected-support-family-metadata-preflight.json",
+    "sha256": "adc3a8e02e02a7b539234b2a80a338f0d98842673ca586d10a95c26655d92e67"
+  },
+  "runtime_sha256": "6695d68163d313f4f61cb20ad9122c7038e621a60c847909598150fe8da09d11",
+  "guard_reference": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov14-batch788-memorial-strict-early-real-graveyard-target-diagnostic-author\\manifest.json",
+    "sha256": "33a8a45d7a13760fdfc73ead54740366a94e86416e7bed0f94b6d128fed7c6e4"
+  },
+  "guard_count": 82,
+  "canonical_selected": {
+    "cardId": "coat_of_frost",
+    "abilities": [
+      {
+        "macroName": "ResolveAbility",
+        "abilityCode": "$hero = 'PASS';\n $targets = FaBARCHeroTargets($player, false);\n\nif ($targets !== \"\") {\n $hero = await $player.MZChoose($targets, \"Choose_hero\");\n \n}\n $target = FaBARCTargetSeat($player, $hero, false);\nFaBELEFrost($target);\n",
+        "isImplemented": true
+      }
+    ]
+  },
+  "source_anchors": {
+    "ELEcanonicalResolveAbility": "Declares hero inside resolving await then calls FaBELEFrost(target).",
+    "GeneratedMacroCode14293and158416..158451": "Actual selected wrapper/helper likewise calls target-only FaBELEFrost after resolving selector; no selected corrected owner override located.",
+    "ELECards21": "FaBELEFrost(p,n=1) passes recipient p to FaBWTRCreateArena without owner.",
+    "WTRCards791": "Token route forwards nullable owner into FaBHVYToken; raw AddArena Owner=(owner??recipient), Controller=recipient.",
+    "HVYCards20..27": "Effect controller provenance is not optional seventh tokenOwner; missing owner remains recipient fallback."
+  },
+  "normative_rule": "CR1.3.1a: Coat instructs actor1 to create under adjacentHero2 control, so correct token Owner1/Controller2. Destination storage does not alter owner. No Owner2 oracle or property rewrite.",
+  "official_rules": [
+    "https://rules.fabtcg.com/en/cr/01-game-concepts/",
+    "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/"
+  ],
+  "known_issue": {
+    "id": "FAB-REG-107",
+    "status": "native_confirmed_unfixed_Frosthaven_token_owner_recipient_instead_of_instructed_creator",
+    "row_sha256": "094261413286ecc6c030c209e2613e78b76097149508d3851fce3190c68474df",
+    "related_source_only": "FAB-REG-116 Arctic exact known-owner dependency"
+  },
+  "decision": "Do not execute or author an executable fixed Coat positive or earlier-seam substitute. Keep original primary/support/AP-consumer plan frozen, no replacement target/producer/support. Body and token factory exist; this is a known selected route limitation, not implementation absence or native Coat failure.",
+  "additional_unattempted_limit": "The current formal hero chooser is inside ResolveAbility; no early-target recipe is invented. No separate timing bug or new issue allocation inferred.",
+  "recipes": 0,
+  "controls": 0,
+  "queries": 0,
+  "native_attempted": false,
+  "confirmed_gameplay_bug_for_Coat": false,
+  "fixture_saved": false,
+  "coverage_credit": false,
+  "source_fix": false,
+  "repair_proposal": false,
+  "B787_denied_operation_untouched": true,
+  "independent_planning_only_review_required": true
+}

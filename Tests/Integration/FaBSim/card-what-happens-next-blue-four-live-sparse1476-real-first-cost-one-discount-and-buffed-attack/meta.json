@@ -1,0 +1,7 @@
+{
+    "name": "What Happens Next / actual first cost-one discount and real six-damage consumer",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-25T04:56:17+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "RealBravo20GuardianInstantAura5 atR0/AP1, fourmanualresponses\u2192Arena5SUSPENSE2/AP1. No cost-one history seeded. Actualcost1ComeFightYellow6 castatR0 immediatelypaidAP0/noPitch/Wounding7stillHand, solelyprimarydiscount. Fourresponses source6GY/AP1/+2nextattack. RealWounding7formalHero4target/AP0/fourallseatwindows; actualbase4+2=6/Hero4HP14, noGA. Fullcloseprimary5ArenaSUSPENSE2/support6+attack7GY/R0/AP0/noPitch/newUID/proxy/DQ/await. Laterdiscountlimit/nextturn/Suspenseexpiry/multipleauras/siblingsuncredited. Noenginechange. Sources: FaBSim/GeneratedCode/cardArrayCache.json#what_happens_next_blue FaBSim/Custom/SUPCards.php#FaBSUPCost FaBSim/Custom/SUPCards.php#FaBSUPAfterMove FaBSim/Custom/GameLogic.php#FaBPlainSpellResolutionIsManaged FaBSim/GeneratedCode/GeneratedMacroCode.php#come_to_fight_yellow"
+}

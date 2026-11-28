@@ -1,0 +1,156 @@
+{
+  "approved": true,
+  "semantically_approved": true,
+  "reviewer_independent": true,
+  "reviewer": "independent breadth_review",
+  "reviewer_scope": "One independent source-spec semantic review. Root verifies stored actions/assertions/raw5/manual seats/physical outcomes. No second independent saved-file review claimed.",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1195-20261122.json",
+  "source_spec_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+  "input_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+  "recorded_input_scope": "Exact original native input retained, possibly including unsaved failed cases. Every retained case matches all fields; only existing native RegressionSanitizeSlug normalization is allowed and explicitly recorded per fixture.",
+  "fixtures": [
+    {
+      "slug": "card-sigil-of-astral-flow-blue-four-live-sparse1195-real-vaporize-departure-separate-owned-leave-token",
+      "card_id": "sigil_of_astral_flow_blue",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "e41098fb0528e79e8751b0e84f1a5675886bd7efb49c082a0752fa38985c67b8",
+        "actions.json": "67bda00429ae507e6e5fdbc4c1cf83f2c7ab83d17689f0644b358087e2dc2e3d",
+        "assertions.json": "8b66ee6498d61db98cfe0ab3f7223d2ef3915e5870d2caf336624af93810d63f",
+        "expected_final_gamestate.txt": "1deb3e6e4b8dac1b1401a5b402c4caee84905bc321e0934f3f3ffd2fe68ffb06",
+        "meta.json": "d1cfdc551629dcd17233ea62cb741cb71b8cb6289ab81e39a9d1f55bed8cfbc3"
+      },
+      "fixture_sha256": "27590ece87c2c9f03f64b918d89326f6465881da50e41b39cb34b4ca0754d85b",
+      "actions": 11,
+      "native_assertions": 373,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1195-20261122.json",
+      "input_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-sigil-of-astral-flow-blue-four-live-sparse1195-real-vaporize-departure-separate-owned-leave-token",
+        "fixture_slug": "card-sigil-of-astral-flow-blue-four-live-sparse1195-real-vaporize-departure-separate-owned-leave-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-circular-flowtide-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+      "card_id": "circular_flowtide_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "96eab5c8f89f5ea83aa52e450d425a81928f9d02277b8ad47618cf789ed2e290",
+        "actions.json": "e25a81b45dc1bf1b420de2d981952be88e8dc63c6b912bb0939266a3a08c344b",
+        "assertions.json": "dd0836964bb40991751de94ca714bc8fa4f46bab342f97115b3d5f88ecc2bf46",
+        "expected_final_gamestate.txt": "3937a09a54fe1cdf013eb9f103dc4b9227b1e5ea9e53dab14cac2cf5ebad07ea",
+        "meta.json": "48681656093a8ee6daff7821420f039de5f24bb07e9386afd769c96e9dbfd273"
+      },
+      "fixture_sha256": "c4c1c444fa88206773a623909ab5b7b169b93261585a6dcf170309a25f761ee1",
+      "actions": 12,
+      "native_assertions": 388,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1195-20261122.json",
+      "input_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-circular-flowtide-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "fixture_slug": "card-circular-flowtide-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    },
+    {
+      "slug": "card-nebulus-cycle-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+      "card_id": "nebulus_cycle_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "532fdea5a2f331a0823e4b6b9cb67881fdf7384f8b8ba358705f86b18baeadbe",
+        "actions.json": "e25a81b45dc1bf1b420de2d981952be88e8dc63c6b912bb0939266a3a08c344b",
+        "assertions.json": "ebcc2a8add43938a50e98d0f2f018957fa43eeaed4dffcfb108aa2d6fcf7031e",
+        "expected_final_gamestate.txt": "9f53b2f1f3d24460f548a50089087f750dcb019ab1d430211ebbc27d91f38536",
+        "meta.json": "cf6093023c1f033aea89a2208be487e99cd706e907a0b1368a389b9d186b8b52"
+      },
+      "fixture_sha256": "2a6b162e3435b253eb3d11e010e58e1f5a94936311aa643ad777239689d53655",
+      "actions": 12,
+      "native_assertions": 388,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 8,
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "source_spec": "card-regression-sparse1195-20261122.json",
+      "input_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+      "recorded_input_local_path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\save\\selected.json",
+      "native_slug_normalization": {
+        "recorded_input_slug": "card-nebulus-cycle-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "fixture_slug": "card-nebulus-cycle-yellow-four-live-sparse1195-real-ward-departure-separate-owned-leave-token",
+        "basis": "Existing Core/RegressionTestFramework.php RegressionSanitizeSlug; only slug differs, all scenario fields/actions/assertions exact."
+      }
+    }
+  ],
+  "basis": {
+    "result": "approved_named_branches_only_pending_native_execution",
+    "reviewer": "independent breadth_review",
+    "spec_sha256": "75650f3e055019fed9712a9d5a0303ad62c8fe22be750847deb665d426db5742",
+    "case_count": 3,
+    "native_controls": 35,
+    "persistable_assertions": 1149,
+    "author_only_checks_omitted": 0,
+    "cases": [
+      {
+        "card_id": "sigil_of_astral_flow_blue",
+        "group_id": "identity:sigil_of_astral_flow_blue",
+        "native_controls": 11,
+        "persistable_assertions": 373
+      },
+      {
+        "card_id": "circular_flowtide_yellow",
+        "group_id": "identity:circular_flowtide_yellow",
+        "native_controls": 12,
+        "persistable_assertions": 388
+      },
+      {
+        "card_id": "nebulus_cycle_yellow",
+        "group_id": "identity:nebulus_cycle_yellow",
+        "native_controls": 12,
+        "persistable_assertions": 388
+      }
+    ],
+    "basis": [
+      "Exact primary groups are distinct/unrepresented, and current ledgers checked. Sigil Astral Flow is Lightning cost0 under legal young Aurora20; Circular Flowtide and Nebulus Cycle are Lightning Illusionist cost1 under legal young Zyggy20. Briar20 caster1 legally casts either Meld half; all four manual seats/natural20 HP and physical UID5primary/6carrier are correct.",
+      "Sigil uses already-reviewed1188 actual Vaporize left0: positive untargeted p4Arena-0 destruction after four source responses, source6 held until choice completes, no phase transition. Circular/Nebulus use actual Shock right1 instead. Generated Prepare3446 declares its formal Hero4 target149468/149473 before FinishPrepared149464 and priority; no late resolution target or missing cost is assumed.",
+      "The Shock Resolve2a98 right branch reads stored rosShock and deals1. Its real DTD prevention path110688-110708 recognizes Ward and requires MZCHOOSE p4Arena-0, with source6 and Aura5 still present/HP20. Choosing Ward2 destroys5 and prevents the whole actual1 packet. All HP20 is correct; full Ward2 capacity is intentionally not demonstrated. Right-only rosMeld1 does not resume the other half.",
+      "OMNCards22-25 captures departing source5 identity/controller4 before it is lost and queues separate omnLeaveToken ability7. Source6 has completed in ownedGY1, primary5 is in ownedGY4 and no reward exists through fresh response seats1,2,3,4. Generic GameLogic1953 really calls FaBROSResolveTrigger; ROSCards35 dispatches omnLeaveToken to the dedicated OMNCards44-50 resolver. No Generated ResolveAbility callback is needed for this actual explicit path.",
+      "The resolver validates captured KindABILITY/controller4/sourceUID5 and maps exact identities to owned LightningFlow8 or Ponder8. This direct synchronous body uses the captured layer object and does not depend on lookup of a removed virtual layer or any deferred chooser. Final actual owned token8/primary5GY4/carrier6GY1/maxUID8/Stack0/DQs empty/AP1/R0/allHP20 are correct. Circular/Nebulus native flows and all typed checks are identical after only primary/token-ID substitution, ignoring checkpoint labels.",
+      "Existing184 is fixed with partial prior scope, not an unfixed dependency: current shared capture/queue and dedicated dispatch were verified directly for these three exact identities. This receipt does not claim their earlier qualification; each still requires its own fresh native/replay. No incidental Hero/entry/phase event is earned in the admitted prior-Aura setup. All1149 checks normalize to portable saved assertions with zero omissions."
+    ],
+    "source_sha256": {
+      "FaBSim/GeneratedCode/cardArrayCache.json": "30baa146eef4535a3142554d86cb891f04542aba5e3a666e3e2d54f038c0c8d3",
+      "FaBSim/GeneratedCode/GeneratedMacroCode.php": "fe6a7982611df8f4de98ce2671b317b671b580146aa4b8c28e8f4b86d8461056",
+      "FaBSim/Custom/OMNCards.php": "f679d81ac69c6d5d23fa3b0d4cd5ee3e44a0a180f7d0a896f31d2e9817090284",
+      "FaBSim/Custom/ROSCards.php": "c79f80e918be279dde3c7fe5323ea3031228c131e3e2d0b2b254619e0944b59a",
+      "FaBSim/Custom/DTDCards.php": "3b31d7627858a24d9e6444285de1671c448e5a79d3a71f4d7dfcb2824a5273d4",
+      "FaBSim/Custom/MSTCards.php": "cd98a9b734b984bfc19af7d0e4a3eebd5496f298d08c7c79d7f6d43c363513c7",
+      "FaBSim/Custom/GameLogic.php": "c60fa151561f959e4e3e341b814de0e2b47c9e9f153bbc8793a04c43b5075061"
+    },
+    "source_note_sha256": "d121782c553a1150c7016858059b7df9cc8419d76f0d8a33a4bd6ea682ab1d4a",
+    "limits": [
+      "Pending Root native recording, stored-assertion mapping and targeted replay for each new case; no execution success claimed here.",
+      "Only actual named departure rewards and Ward prevention of the actual1 packet. No Sigil start-phase, Aura/Holo entry, full Ward2 capacity, LightningFlow/Ponder use, Hero ability, broader owned-frame/suppression contract, support-group or whole-card credit.",
+      "No engine/framework/source changes or known-hold repair/reprobe. Existing held phase/target/cost/ownership routes remain scoped and unrun."
+    ]
+  },
+  "limits": [
+    "One named representative branch only; no pitch siblings, whole-card, alternate choice or exhaustive multiplayer credit.",
+    "No new native fault control or historical/full suite replay."
+  ],
+  "replay": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\sparse1195-local-20261122\\clean-replays\\receipt.json",
+    "sha256": "2a13c107e5bb1ea0cfee95097647c770e421090c5e9a58c4a5ce8c076fa2d45d"
+  },
+  "full_suite_run": false
+}

@@ -1,0 +1,68 @@
+{
+  "status": "NEW_GROUP_REPRESENTATIVES_QUALIFIED_REGISTERED",
+  "utc": "2026-11-25T15:22:03.784234+00:00",
+  "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+  "source_spec": "card-regression-sparse1574-20261122.json",
+  "source_spec_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+  "new_scenarios": 1,
+  "new_groups": 1,
+  "new_primary_ids": 1,
+  "actions": 7,
+  "native_assertions": 265,
+  "manual_passes": 4,
+  "totals": {
+    "saved_registered_scenarios": 5665,
+    "duels": 3140,
+    "four_live": 2525,
+    "recorded_primary_ids": 2813,
+    "identity_denominator": 5196,
+    "recorded_groups": 2687,
+    "group_denominator": 3324,
+    "four_live_groups": 2514,
+    "phase_qualified_scenarios_at_actual_contexts": 2302,
+    "phase_qualified_unique_groups": 2292,
+    "creation_replay_passes": 3044,
+    "phase_native_helper_controls": 33,
+    "global_native_helper_controls": 117
+  },
+  "exact_current_runtime_scenarios_in_small_index": 1463,
+  "scenarios": [
+    {
+      "card_id": "halo_of_lumina_light",
+      "group_id": "identity:halo_of_lumina_light",
+      "scenario_id": "card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+      "effect_branches": [
+        "limited_actual_Spellvoid_admission_deliberate_decline_primary_retained_and_full_unprevented_damage"
+      ],
+      "recording_test_path": "Tests/Integration/FaBSim/card-halo-of-lumina-light-four-live-sparse1574-real-zap-spellvoid-choice-declined",
+      "source_spec": "card-regression-sparse1574-20261122.json",
+      "source_spec_sha256": "8ccb6e8cdfb8cb12fa453b37cd5e29c515a4d6c31bbd57307a38d0db04b74662",
+      "review_evidence": "review-evidence/sparse1574-20261122-qualified-saved.json",
+      "review_evidence_sha256": "31deab23eaed7486be7b9006d570dec76a57b22b385908a84ae9803d4bb3fcc2",
+      "recorded_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "qualification_runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+      "matches_current_runtime": true,
+      "clean_replays": [
+        {
+          "path": "card-regression-sparse1574-20261122-replay.json",
+          "sha256": "086ba7529b4ddd204af8d7f12e3fa1d2d9127b1f9caaea2dc456f0df0d5cae4a",
+          "runtime_sha256": "54409edb1ba1e0691c3beeb648e8ce984a09074b3339b7e303e53c61154e1494",
+          "passed": true
+        }
+      ],
+      "replay_policy": "one_targeted_replay",
+      "players": "four_live_manual",
+      "coverage_status": "verified_named_partial_branch_at_stated_runtime",
+      "full_card_complete": false,
+      "isolated_native_fault_status": "NOT_RUN_NOT_CLAIMED_POSITIVE_FIRST_PASS"
+    }
+  ],
+  "new_confirmed_gameplay_bugs": 0,
+  "new_helper_controls": 0,
+  "full_suite_runs": 0,
+  "limitations": "Onlynamedpartialpositivebranches/actualruntime; nosibling/support/fullcardcredit, nohypotheticalfaultcredit, oldevidencecontextsretained. Source-onlyholdsremainunattempted/uncredited.",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "source_scenarios_not_in_this_qualification": []
+}

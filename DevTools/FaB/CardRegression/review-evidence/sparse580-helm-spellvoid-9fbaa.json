@@ -1,0 +1,296 @@
+{
+  "status": "APPROVED_ACTUAL_SAVED_B580_STATIC_SPELLVOID_PREVENTION_PARTIAL_BRANCH",
+  "approved": true,
+  "source_approved": true,
+  "semantically_approved": true,
+  "reviewer": "/root/b106_semantic_review",
+  "reviewer_independent": true,
+  "created_utc": "2026-11-06T06:41:17.489992+00:00",
+  "source_spec": "card-regression-batch580.json",
+  "input_sha256": "b9ca7f7dbd65ca5882af190d1ee9bb56f1816f03c5e918169ee3eee12b4d6c9a",
+  "manifest_sha256": "3ed2088b08502587ff1c5463e206e77c7b01a1de5931e2d26e6bd257d5cbf057",
+  "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+  "source_guards_verified": 71,
+  "prior_independent_semantic_review": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch580-independent-source-review.json",
+    "sha256": "e545606aec272f7c07809cd15046cfc7b613c3ab8bdbad419db31583418c5547",
+    "unchanged_normative_source_reused": true
+  },
+  "recording_receipt": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\recording-runs\\card-regression-batch580-20261106T063908Z-6aed760c031f4.json",
+    "sha256": "b9016ad3eab50e933051ff7b98a7ac683c1b412d5143651280207122fdbce235"
+  },
+  "specific_results": {
+    "path": "C:\\xampp\\htdocs\\TCGEngine\\DevTools\\FaB\\CardRegression\\card-regression-batch580.recording-results.json",
+    "sha256": "325c3d4a5d0b2206e4738bb6e9bdba8dfdb9e44850d253503612cb92017239eb"
+  },
+  "root_wrapper_receipt": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\nov6-batch580-native-r1-9fbaa\\receipt.json",
+    "sha256": "430e51debd64eb5fc1c1c648fd667aa7f1a1ef9a0db19cfa2effc8f1f7c9ce17"
+  },
+  "fixtures": [
+    {
+      "index": 0,
+      "card_id": "helm_of_might_and_magic",
+      "group_id": "identity:helm_of_might_and_magic",
+      "slug": "card-helm-of-might-and-magic-four-live-real-spellvoid-destruction-prevents-one-of-three-arcane",
+      "source_spec": "card-regression-batch580.json",
+      "input_sha256": "b9ca7f7dbd65ca5882af190d1ee9bb56f1816f03c5e918169ee3eee12b4d6c9a",
+      "reviewer": "/root/b106_semantic_review",
+      "approved": true,
+      "semantically_approved": true,
+      "verdict": "APPROVED_ACTUAL_SAVED_STATIC_SPELLVOID_DESTROY_PREVENT_ONE",
+      "runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "recorded_runtime_sha256": "9fbaaee63ccedad1dc7cad440f09376d21106a761ce61bad719156bdd7d20709",
+      "fixture_path": "Tests\\Integration\\FaBSim\\card-helm-of-might-and-magic-four-live-real-spellvoid-destruction-prevents-one-of-three-arcane",
+      "fixture_sha256": "cc5df15506ab5f4ba3aaa15e93b1c6b61817f41388f5713f31bf4d944021de5d",
+      "raw4_sha256": {
+        "initial_gamestate.txt": "453778b0f05e290aad284c180e01c643823409bad6257814bcdaf4300dbca8b8",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "21f6a4a9b2460d022506132678c7c0d8a93875d1a154025646ebc7478b035572",
+        "expected_final_gamestate.txt": "992cc9783eabec8472e9ff17e98031266dc7ec72d00d6814a3c41e369d431b09"
+      },
+      "raw5_sha256": {
+        "initial_gamestate.txt": "453778b0f05e290aad284c180e01c643823409bad6257814bcdaf4300dbca8b8",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "21f6a4a9b2460d022506132678c7c0d8a93875d1a154025646ebc7478b035572",
+        "expected_final_gamestate.txt": "992cc9783eabec8472e9ff17e98031266dc7ec72d00d6814a3c41e369d431b09",
+        "meta.json": "eb0771daf475e4dcfcd43dce05a4c161902e84034cfa6e2ad8fe34606e7f2831"
+      },
+      "file_sha256": {
+        "initial_gamestate.txt": "453778b0f05e290aad284c180e01c643823409bad6257814bcdaf4300dbca8b8",
+        "actions.json": "63fcdec970afb6bec58eb589afcdcd7b550391da47a593b4cb3ee062b81befd8",
+        "assertions.json": "21f6a4a9b2460d022506132678c7c0d8a93875d1a154025646ebc7478b035572",
+        "expected_final_gamestate.txt": "992cc9783eabec8472e9ff17e98031266dc7ec72d00d6814a3c41e369d431b09",
+        "meta.json": "eb0771daf475e4dcfcd43dce05a4c161902e84034cfa6e2ad8fe34606e7f2831"
+      },
+      "actions": 7,
+      "native_assertions": 692,
+      "actual_manual_passes": 4,
+      "actual_priority_response_passes": 4,
+      "actual_defender_declaration_finish_inputs": 0,
+      "actual_administrative_END_PHASE_passes": 0,
+      "actual_pass_actors": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "actual_manual_actor_counts": {
+        "1": 1,
+        "2": 1,
+        "3": 1,
+        "4": 1
+      },
+      "schema_property_assertions": 172,
+      "initial_manual_preference_values_verified": 48,
+      "final_manual_preference_values_verified": 48,
+      "all_actions_and_assertions_exact": true,
+      "no_recorder_only_assertions": true,
+      "all_endpoint_physical_uid_card_zones_ownership_verified": true,
+      "all_terminal_assertions_evaluated_against_parsed_final_snapshot": true,
+      "initial_assertions_also_evaluated_against_parsed_initial_snapshot": true,
+      "initial_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Hand",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "viserai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "helm_of_might_and_magic",
+          "zone": "p4Equipment",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_physical_uid_locations": {
+        "1": {
+          "card_id": "verdance",
+          "zone": "p1Hero",
+          "owner": 1,
+          "controller": 1,
+          "status": 2
+        },
+        "6": {
+          "card_id": "zap_red",
+          "zone": "p1Graveyard",
+          "owner": 1,
+          "controller": 1
+        },
+        "2": {
+          "card_id": "dorinthea",
+          "zone": "p2Hero",
+          "owner": 2,
+          "controller": 2,
+          "status": 2
+        },
+        "3": {
+          "card_id": "dorinthea",
+          "zone": "p3Hero",
+          "owner": 3,
+          "controller": 3,
+          "status": 2
+        },
+        "4": {
+          "card_id": "viserai",
+          "zone": "p4Hero",
+          "owner": 4,
+          "controller": 4,
+          "status": 2
+        },
+        "5": {
+          "card_id": "helm_of_might_and_magic",
+          "zone": "p4Graveyard",
+          "owner": 4,
+          "controller": 4
+        }
+      },
+      "final_health": [
+        20,
+        20,
+        20,
+        18
+      ],
+      "final_resources": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_AP": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "final_GY1_exact_UIDs": [
+        6
+      ],
+      "final_GY4_exact_UIDs": [
+        5
+      ],
+      "final_physical_uidset": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actual_original_arcane_packet": 3,
+      "actual_prevented": 1,
+      "actual_arcane_damage": 2,
+      "actual_static_choice_boundary": 6,
+      "actual_destroy_damage_cleanup_boundary": 7,
+      "no_extra_ability_allocation": true,
+      "no_activated_history": true,
+      "BladeBreak_earned": false,
+      "full_card_certification": false,
+      "final_UniqueIDCounter": 6,
+      "RandomCounter": 0,
+      "checkpoint_assertion_mapping_sha256": "e980d3789000758e5f65eecb1cc48f8cbee3b334f856c67e0668aaa0ac8727c1",
+      "native_action_mapping_sha256": "8b735d1fc5863a6cbada9e39b64c43d4dec078fc35b6ae3225023504b2cbcf80",
+      "native_assertion_mapping_sha256": "4a07d5dcfb165275ba7f107cba9f21896ae57aa31b61c3900babdb5afb300118"
+    }
+  ],
+  "blocked_attempts": [],
+  "total_actions": 7,
+  "total_native_assertions": 692,
+  "total_manual_passes": 4,
+  "total_priority_response_passes": 4,
+  "total_defender_declaration_finish_inputs": 0,
+  "total_schema_property_assertions": 172,
+  "material_findings": [
+    "Actual native COMPLETE0/stderr0/one newfixture at unchanged9fbaa. All7 native envelopes/692 ordered persisted assertions equal the independently source-approved model, including four actual manual source responders1/2/3/4. All71actual guards and48 raw manual preference settings perendpoint verified.",
+    "RealZap6 announces/casts0 and chooses adjacentP4 before spending originalActionAP1-to0. Same caster-controlled physical6 remains Stack through all source responses and P4 resolving MZMAYCHOOSE. Same ownedHelm5 remains readyEquipment/HP20 until the actual optional choice. No private priority opportunity during unresolved choice or extra response round is inferred.",
+    "Real P4 choice destroys exactly ownedHelm5 to publicGY4; static Spellvoid prevents1 of original3arcane. ActualHP18 and finalarcaneDealt1to4=2 corroborate two damage. Source6 reaches publicGY1 only once this work completes. No Spellvoid resource/APpayment, activationABI/EVR_ACTIVATED or refund is invented; originalZapActionAPcost is preserved.",
+    "Full raw initial/final physicalUID1..6/ownership/zones, unchanged four wholequietHeroobjects, counter6/RNG0/allRAPChi0 and allDQ/Stack/Chain/ownedawait/payment/combat cleanup verified. Opaque undoVersions are file-hash-bound but excluded from current inventory. Only positiveSpellvoid1/3arcane/destruction branch qualifies; BladeBreak is unearned and wholecard is not certified. Root targetedreplays remain separate/unclaimed."
+  ],
+  "primary_sources": [
+    {
+      "kind": "issuer_face",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\helm_of_might_and_magic.webp",
+      "sha256": "1f04cd9b73cbab8b73c153e647ba51faf8c98d685d93dbe265aef7647844e81b",
+      "printing": "PEN093",
+      "actually_viewed": true
+    },
+    {
+      "kind": "issuer_hero_face",
+      "path": "C:\\xampp\\htdocs\\TCGEngine\\FaBSim\\WebpImages\\viserai.webp",
+      "sha256": "7788afead6e8a29e84b07b47472883ef599a9d9e5b919a0bbb5f519b2ae92ff7",
+      "printing": "ARC076",
+      "actually_viewed": true
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/08-keywords/",
+      "rules": [
+        "8.3.15",
+        "8.3.15a",
+        "8.3.3"
+      ],
+      "finding": "Optional static Spellvoid destruction prevents1; BladeBreak requires defending and chain close, absent here."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/cr/05-layers-cards-abilities/",
+      "rules": [
+        "5.1.4a",
+        "5.3.4",
+        "5.3.6",
+        "5.3.7"
+      ],
+      "finding": "Target before costs; resolve effect choices before source clearing."
+    },
+    {
+      "url": "https://rules.fabtcg.com/en/trp/09-special-formats/",
+      "rules": [
+        "9.3"
+      ],
+      "finding": "Chosen adjacentHero4 legal; no unrestricted complete-menu claim."
+    }
+  ],
+  "limits": [
+    "Only positiveSpellvoid1/actualHelmdestruction/prevent1of3arcane/HP18/sourcecompletion. BladeBreak/defense/wear/HeroRunechant/support-primary/sibling/fullcard branches unearned or untested.",
+    "No decline/multipleSpellvoid/unpreventable/otherpacket/foreignownership/otherrecipient/resourceprevention/activation/extraresponse credit.",
+    "Persisted ordered ledger plus raw initial/final endpoints only; no invented per-input snapshots/private callback instrumentation. No reviewer PHP/native/replay/R/source/fullsuite/remote/denied operation."
+  ],
+  "blockers": [],
+  "actual_comparison_script": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch580_saved_readonly.py",
+    "sha256": "87799585318c3436ef5399006a75034dd8741984cbd14adff7df47a6b5a0feab"
+  },
+  "retained_independent_static_checker": {
+    "path": "C:\\Users\\maxim\\Documents\\Codex\\2026-10-19\\task\\review_nov6_batch580_source_readonly.py",
+    "sha256": "3958ddbc2bdf4739b77bf826ddea8ed08acf07540bac43177b5b18ff2c837b3d",
+    "portion": "Own declarative schema/action/checkpoint assertions only; no repeated source audit or author-builder execution"
+  }
+}

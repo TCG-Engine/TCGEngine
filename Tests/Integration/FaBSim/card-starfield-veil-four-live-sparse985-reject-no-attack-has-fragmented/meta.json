@@ -1,0 +1,7 @@
+{
+    "name": "Starfield Veil / four-live activation restriction representative",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T00:13:23+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Instant** - Destroy this: The next aura you play this turn enters the arena with a holo counter. Activate this only if an attack has fragmented this turn.\n\n**Guardwell** Named equipment activation-prerequisite failure only: natural legalAurora20 EssenceLightning or Zyggy20 LightningIllusionist, realownedreadyEquipment5/Status2 and plainGenericWoundingBlow6Hand. Ability is supported by explicit set activation row/handler; false priorInstant/Fragment condition must reject before destroying5/creatingeffect, noresource cost ormissingassetmask. Actual firstEquipmentclick leavesEquipment5ready/Hand1/Stack0/AP1/R0/emptyqueues; then legalGeneric6plays0cost/deals4 toHero4 throughfourmanualseats/AP0/GY6 whileequipment5retained. No positiveprevention/holo/Fragment/heroactivation/armorbranch/sibling/fullcard/supportcredit. Sources: FaBSim/GeneratedCode/cardArrayCache.json#starfield_veil"
+}

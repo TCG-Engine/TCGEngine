@@ -1,0 +1,7 @@
+{
+    "name": "Gold-Baited Hook / four-live actual defense and Battleworn",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T04:50:10+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "**Action** - {t}: Your next Pirate attack this turn gets \"When this hits a hero, **steal** a Gold token they control, otherwise create a Gold token.\" At the beginning of your end phase, if you haven't created or stolen a Gold this turn, destroy this. **Go again**\n\n**Battleworn** NamedordinaryEquipmentdefense/Battlewornonly. Legalnatural20gravy_bones ownsreadyphysicalEquipment5/printedDEF1 andrealGenericLeadCharge6HandDEF2. RealDori20usesownedDawnblade7/Blue8actualcost1/R2/AP0. Fourmanualsource/combat, actualEquipment5thenHand6defend/RoleDEFENSE/DEF3/0damage/noHit/HP20. AtClose primary5retainedownedEquipmentwithDEFENSE1(base1now0doesnotdestroy), Hand6ownedGY4, Blue8Pitch/physicalDawnblade7usedretained. Noactivation/pitchorbanishmovement/contract/positivehit/Arsenalflip/heroability/othertrigger/nextturn/otherbranches/support/siblings/fullcardcredit. Existingactivatedbodyorotherholdsnotrepairedorrequalified. Sources: FaBSim/GeneratedCode/cardArrayCache.json#gold_baited_hook"
+}

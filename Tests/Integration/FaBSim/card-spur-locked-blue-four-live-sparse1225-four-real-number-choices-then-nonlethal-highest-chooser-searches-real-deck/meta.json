@@ -1,0 +1,7 @@
+{
+    "name": "Spur Locked / all four number choices, nonlethal life loss and real search",
+    "rootName": "FaBSim",
+    "createdAt": "2026-11-23T20:50:24+01:00",
+    "createdBy": "FaBSim card regression authoring",
+    "notes": "NONLETHAL_UNIQUE_HIGHEST_WINNER1_ONLY. FourmanualnaturalYoungChaosArakniWeb20/3Dori20; realChaosAction5Hand1/DeckBlue6,Wounding7cost0both<=6. Actualcost0/AP1to0/sourceowned1Stackthroughfourfreshresponses. PerheroresolutioneffectNUMBERCHOOSE1234answers6,2,3,4(notordinaryCardmodalmodes). hntRevealedNumbersmissing/nullandallHP20/Deckunchangeduntilallfourchoices, thenrevealedexactvalues; uniquehighest1loses6toHP14andrealUID6/7movetoTempforsearch. ActualeligibleWounding7selected/revealnormalmacro/movetoHand, remainingBlue6returnedDeck/shuffleonecard/RNG0, source5GY1/AP1fromGA. Noearlydraworloss, sourceheldthroughforeignpromptsandwinner1search. ARCCards289thirdsourceargusedonlyonzeroHP; nonlethalroutecannotenterknownforeigncallbackeliminationattributionconcern; nolethal/killcredit. NoTie/otherwinner/invalidnumbers/expensivefilter/clientsecrecy/public-reveallog/UI/Hero/support/fullcardcredit. Noattack/endphaseearned. Sources: FaBSim/GeneratedCode/cardArrayCache.json#spur_locked_blue FaBSim/Custom/HNTCards.php FaBSim/Custom/ARCCards.php FaBSim/Custom/CardChoices.php FaBSim/Custom/GameLogic.php FaBSim/GeneratedCode/GeneratedMacroCode.php"
+}

@@ -1,0 +1,107 @@
+{
+  "status": "WEAPON117127130_ORIGINAL129_11975_THREE_CLEAN_REPLAYS_PASS_WRAPPER_INVENTORY_RECONCILED",
+  "reviewer": "Root independent of b820 source proposal and original scenario authors",
+  "reviewer_independent": true,
+  "approved": true,
+  "semantically_approved": true,
+  "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+  "input_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06",
+  "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+  "fixtures": [
+    {
+      "slug": "card-blade-rush-yellow-four-live-real-first-sword-go-again-refund-second-distinct-sword-three-damage",
+      "card_id": "blade_rush_yellow",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "75dcd433dcdb09e556fc2ae606b0a61e3449a0b8d9b4095c1f42a756f49f3f24",
+        "actions.json": "19e022235e560ce5f2eab53ebfec97701ab626d9eeb03e97fcdb1ca8d2865a77",
+        "assertions.json": "811e18ee9f7b90b1e4f20c11c87ae9ff3fd397cbd008fe8cb707655ef7c55dac",
+        "expected_final_gamestate.txt": "da2dbc33a54113da45ffd3416bd6f3b276bc2a7fc1c0b23241a850d4efd3dbe5",
+        "meta.json": "d4c9801c9761233bbf9f7b555204934be9b00d3be42036584a0d56aae65ea484"
+      },
+      "fixture_sha256": "792daab7f19727c633331a8cc55bb7ad8e7816003a05d13cf8daaf1cb85c5889",
+      "actions": 60,
+      "native_assertions": 5366,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 54,
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "input_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06"
+    },
+    {
+      "slug": "card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe",
+      "card_id": "engage_steel_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "1006753343b62b04884a3fc6589ca5aab2c2eb6f98fd1106d08034df6cabbc23",
+        "actions.json": "4efe7ff4569fc273e7e3c8377d948ae13267bee3b2ec3cd70306ee5aadcb0126",
+        "assertions.json": "553b71fa6bc5d4e9ac7352948d1ebb3adc499e2d2abbc68155422bda8334907c",
+        "expected_final_gamestate.txt": "cb1dfd5cf94319e6c855f51a409a56f96926311cdfb0be090547c5472c1e53eb",
+        "meta.json": "d57177afa0e92f2636f06773e81df7449207fea5d718ce5b3bb57cd324779348"
+      },
+      "fixture_sha256": "fb1b7afbf43cd24f83e41e5deb99c7d065ecf161c769f711e9704b209a7c46ba",
+      "actions": 34,
+      "native_assertions": 3149,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "input_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06"
+    },
+    {
+      "slug": "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe",
+      "card_id": "overbear_red",
+      "semantically_approved": true,
+      "raw5_sha256": {
+        "initial_gamestate.txt": "5c20991d17b54cd50f7e968adc8e2d416dc16513883c5e161fd47044876e4154",
+        "actions.json": "dd790a33bd5a3648af3b6d7becaa3a22f1d19a78a1dd1aaba0d430cf08cfddce",
+        "assertions.json": "6a9709de9024af03f0e05774024f0271f6051aa5af0f8af0316e8d5719b6f5a6",
+        "expected_final_gamestate.txt": "222565ec6b1956b8c03e2f440e919470b76ebc42823a6fc9e1bb588bd2451cc0",
+        "meta.json": "dd8808ff1b6aa117f8984c65ee73d28a93e4abed7eace63fea4cddbadaacd207"
+      },
+      "fixture_sha256": "8889392aa7823a10982cdcd291e3a5366aeff51185589e1d12ccbc9eb34f2862",
+      "actions": 35,
+      "native_assertions": 3460,
+      "author_only_checks_not_persisted": [],
+      "actual_manual_pass_inputs": 29,
+      "recorded_runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "runtime_sha256": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+      "source_spec": "card-regression-repair-warrior117127130-exact-grants.json",
+      "input_sha256": "e371df71d52ac74d8ebbf62c7ec9e7b9e4be0d6bdf7026889415f1f37e7efc06"
+    }
+  ],
+  "replay": {
+    "path": "card-regression-replay-nov16-warrior117127130-replay.json",
+    "sha256": "4108896d54ed23a28a9db3b49dd955f38d2c72a85a7b3b3d5ee39ac0fa09da2a",
+    "passed": true
+  },
+  "source_review_sha256": "e86e9270725c15a23b797d675df469394c4876bbc734e970fcce757229190a54",
+  "components": 28,
+  "component_receipt_sha256": "c99b731e700f1717e70185454187194f778833f488fbbdc95ec7fc8e14c1a1cc",
+  "wrapper_inventory_reconciliation": {
+    "status": "ALL_FOUR_EXPECTED_NEW_FIXTURE_FOLDERS_RECONCILED",
+    "wrapper_exit_code": 1,
+    "wrapper_reason": "Root overlapped isolated Fresh recording with three-case packet. Native CLI completed all three cases; outer Python guard then detected Fresh extra folder while expecting only its own three. Preserve original RUNNING receipt and traceback; do not imply wrapper success.",
+    "native_immutable_results": "recording-runs/card-regression-repair-warrior117127130-exact-grants-20261116T222110Z-6afb81d6e399b.json",
+    "native_immutable_sha256": "ffaa323939ffac032268cda21984d97d1399a56f6676e9f5eb6f45b6af04ca58",
+    "registered_before": 4134,
+    "actual_saved": 4138,
+    "exact_expected_new_folders": [
+      "card-blade-rush-yellow-four-live-real-first-sword-go-again-refund-second-distinct-sword-three-damage",
+      "card-engage-steel-red-four-live-real-sword-grant-and-warrior-card-defender-earn-seven-power-four-damage-correct-probe",
+      "card-fresh-from-the-forge-red-four-live-original-correct-sharpen-ally-damage-diagnostic",
+      "card-overbear-red-four-live-real-weapon-dominate-first-hand-defender-allowed-second-rejected-one-damage-correct-probe"
+    ],
+    "unexpected_extra_folders": [],
+    "runtime_after_verified_by_reconciliation": "46649e101654229d2ee2be85d48a469f88164ddfd954c7c3ec131246cd11c5a8",
+    "response": "Saved fixtures independently checked and sequential clean targeted replays passed; no game re-recorded or assertions weakened. Future recording wrappers sequential."
+  },
+  "basis": "117 firstrealSworddeals2andearnsGArefund whichpayssecond distinctSword; secondSwordgets1anddeals3,total5HP15/R1/AP0.127 realnextDawnblade3+3becomes7whenactualWarriorDrivingBladeBlueDEF3defends, deals4HP16/R2/AP0.130 realTitanFist4withDominateallowsfirstHandDEF3, leavesotherwiselegal secondHandUID9unchanged, deals1HP19/R0/AP0. All129originalinputs11975queries unchanged, exact Saved andallseatfourliveflow/ownedcards/fullcleanup independently matched; onecleanreplayeach.",
+  "limits": [
+    "Exact YellowBladeRush/RedEngage/RedOverbear tested; no sibling credit. BladeRush externally-asInstant during already-startedSword stillunqualified, notfixedretroactively.",
+    "Component ordinal/stackedgrant/blank/WarriorDR/equipment controls add assurance, notNativebranchcoverage. LegacyDrivingBlade common path componentpassed.",
+    "Wrapper inventory failure is an orchestration issue, not gameplay failure; original evidence retained and exact four-folder reconciliation recorded above. No fullsuite/historicalcorpusreplay/otherheldgoal."
+  ]
+}
